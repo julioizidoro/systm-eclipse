@@ -758,7 +758,7 @@ public class CadHeFinalMB implements Serializable {
 			if (dias > 3) {
 				Mensagem.lancarMensagemInfo("", "Cambio alterado para o dia atual");
 			}
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			orcamento.setValorCambio(cambio.getValor());
 			atualizarValoresProduto();
 		} else {
@@ -1073,6 +1073,18 @@ public class CadHeFinalMB implements Serializable {
 			ProgramasBean programasBean = new ProgramasBean();
 			Produtos produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getHighereducation()); 
 			Lead lead = leadDao.consultar("select l from Lead l where l.idlead="+venda.getIdlead());
+			float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+			float totalMoedaReal = orcamento.getTotalMoedaNacional();
+			venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+			Cambio cambioBrasil = null;
+			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+				PaisFacade paisFacade = new PaisFacade();
+				Pais pais = paisFacade.consultar(5);
+				CambioFacade cambioFacade = new CambioFacade();
+				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+			}
+			venda.setValor(totalMoedaReal);
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, venda.getSituacao(), venda.getCliente(), venda.getValor(),
 					produto, venda.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, he.getDatainicio(), he.getDatatermino(),
 					vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
@@ -1081,8 +1093,12 @@ public class CadHeFinalMB implements Serializable {
 			CadHeBean cadHeBean = new CadHeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 			he.setFichafinal(true);
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "F");
-			orcamento = cadHeBean.salvarOrcamento(cambio, orcamento.getTotalMoedaNacional(), orcamento.getTotalMoedaEstrangeira(),
-					cambio.getValor(), venda, "");
+			float valorCambioBrasil = 0.0f;
+			if (cambioBrasil != null) {
+				valorCambioBrasil = cambioBrasil.getValor();
+			}
+			orcamento = cadHeBean.salvarOrcamento(cambio, venda.getValorpais(), totalMoedaEstrangeira,
+					cambio.getValor(), venda, "", totalMoedaReal, valorCambioBrasil);
 			formaPagamento = cadHeBean.salvarFormaPagamento(cancelamento); 
 			if (novaFicha) {
 				ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),

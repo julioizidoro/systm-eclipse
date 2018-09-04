@@ -37,6 +37,7 @@ public class FichaTraineeMB implements Serializable{
 	private boolean habilitarSeguroObrigatorio = true;
 	private float totalPagamento = 0.0f;
 	private boolean habilitarObservacao = false;
+	private String moedaNacional;
 	
 
 	
@@ -52,6 +53,7 @@ public class FichaTraineeMB implements Serializable{
 		}
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
+		moedaNacional = vendas.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje);
 		if (vendas.getFormapagamento() != null) {
@@ -231,6 +233,18 @@ public class FichaTraineeMB implements Serializable{
 
 	public void setHabilitarObservacao(boolean habilitarObservacao) {
 		this.habilitarObservacao = habilitarObservacao;
+	}
+
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 }

@@ -158,7 +158,7 @@ public class InserirDataInicioMB implements Serializable{
 
 	public String gerarOrcamento() throws Exception {
 		Ocurso ocurso = new Ocurso();
-		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getCambio().getMoedas());
+		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getCambio().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		ocurso.setCliente(lead.getCliente());
 		ocurso.setCambio(cambio);
 		ocurso.setCargahoraria(pacote.getCargahoraria());

@@ -34,6 +34,7 @@ import br.com.travelmate.facade.DepartamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoFacade;
@@ -56,6 +57,7 @@ import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Orcamento;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtos;
@@ -689,14 +691,30 @@ public class CadTraducaoMB implements Serializable {
 			Cambio cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio), 8);
 			ProgramasBean programasBean = new ProgramasBean(); 
 			venda.setVendasMatriz(vendaMatriz);
+			float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+			float totalMoedaReal = orcamento.getTotalMoedaNacional();
+			venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+			Cambio cambioBrasil = null;
+			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+				PaisFacade paisFacade = new PaisFacade();
+				Pais pais = paisFacade.consultar(5);
+				cambioFacade = new CambioFacade();
+				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+			}
+			venda.setValor(totalMoedaReal);
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 					formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
 					lead, null, null, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 			traducao.setVendas(venda);
 			TraducaoJuramentadaFacade juramentadaFacade = new TraducaoJuramentadaFacade();
 			traducao = juramentadaFacade.salvar(traducao);
-			orcamento = programasBean.salvarOrcamento(orcamento, cambio, traducao.getValortotal(), 0.0f, 0.0f, venda,
-					"N");
+			float valorCambioBrasil = 0.0f;
+			if (cambioBrasil != null) {
+				valorCambioBrasil = cambioBrasil.getValor();
+			}
+			orcamento = programasBean.salvarOrcamento(orcamento, cambio, venda.getValorpais(), totalMoedaEstrangeira, 0.0f, venda,
+					"N", totalMoedaReal, valorCambioBrasil);
 			formaPagamento = programasBean.salvarFormaPagamento(formaPagamento, venda);
 			salvarCliente();
 			if (cancelamento != null) {

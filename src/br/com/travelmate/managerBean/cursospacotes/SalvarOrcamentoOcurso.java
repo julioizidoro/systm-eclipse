@@ -336,7 +336,7 @@ public class SalvarOrcamentoOcurso {
 
 	public Cambio consultarCambio() {
 		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), 
-				cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas());
+				cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		return cambio;
 	}
 

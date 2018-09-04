@@ -1,8 +1,6 @@
 package br.com.travelmate.managerBean.acomodacao;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +32,7 @@ import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoFacade;
@@ -597,7 +596,7 @@ public class CadAcomodacaoMB implements Serializable {
 	public void selecionarCambio() {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorCambio = cambio.getValor();
 			vendas.setCambio(cambio);
 			acomodacao.setCambio(cambio);
@@ -1308,7 +1307,7 @@ public class CadAcomodacaoMB implements Serializable {
 	}
 
 	public void carregarValorCambio() {
-		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		valorCambio = cambio.getValor();
 		atualizarValoresProduto();
 	}
@@ -2749,13 +2748,27 @@ public class CadAcomodacaoMB implements Serializable {
 	public String salvar() {
 		String msg = validarDados();
 		if (msg == null || msg.length() == 0) {
+			vendas.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+			Cambio cambioBrasil = null;
+			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+				PaisFacade paisFacade = new PaisFacade();
+				Pais pais = paisFacade.consultar(5);
+				CambioFacade cambioFacade = new CambioFacade();
+				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+			}
+			vendas.setValor(totalMoedaReal);
 			salvarVenda();
 			acomodacao.setVendas(vendas);
 			AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
 			acomodacao = acomodacaoFacade.salvar(acomodacao);
 			ProgramasBean programasBean = new ProgramasBean();
 			formaPagamento = programasBean.salvarFormaPagamento(formaPagamento, vendas);
-			orcamento = programasBean.salvarOrcamento(orcamento, cambio, totalMoedaReal, totalMoedaEstrangeira, valorCambio, vendas, null);
+			float valorCambioBrasil = 0.0f;
+			if (cambioBrasil != null) {
+				valorCambioBrasil = cambioBrasil.getValor();
+			}
+			orcamento = programasBean.salvarOrcamento(orcamento, cambio, vendas.getValorpais(), totalMoedaEstrangeira, valorCambio, vendas, null, totalMoedaReal, valorCambioBrasil);
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
 			if (novoLancamento) {
 				ContasReceberBean contasReceberBean = new ContasReceberBean(acomodacao.getVendas(),

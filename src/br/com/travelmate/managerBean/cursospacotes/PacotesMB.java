@@ -23,8 +23,6 @@ import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
 import br.com.travelmate.dao.OcursoSeguroViagemDao;
-import br.com.travelmate.facade.CursosPacotesFacade;
-import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -32,7 +30,6 @@ import br.com.travelmate.managerBean.OrcamentoCurso.EditarOrcamentoOcursoBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutosOrcamentoBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.ResultadoOrcamentoBean;
 import br.com.travelmate.model.Cambio;
-import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Ocrusoprodutos;
 import br.com.travelmate.model.Ocurso;
@@ -369,7 +366,7 @@ public class PacotesMB implements Serializable{
 	}
 	
 	public String formatarTotalMoedaNacional(Ocurso ocurso) {
-		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), ocurso.getCambio().getMoedas());
+		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), ocurso.getCambio().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		return "R$ " + Formatacao.formatarFloatString(ocurso.getTotalmoedaestrangeira() * cambio.getValor());
 	}
 
@@ -405,7 +402,7 @@ public class PacotesMB implements Serializable{
 	
 	public String gerarOrcamento() throws Exception {
 		Ocurso ocurso = new Ocurso();
-		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getCambio().getMoedas());
+		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getCambio().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		ocurso.setCliente(lead.getCliente());
 		ocurso.setCambio(cambio);
 		ocurso.setCargahoraria(pacote.getCargahoraria());

@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.cursospacotes;
   
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Pacotesinicial;
@@ -22,7 +23,9 @@ import org.primefaces.context.RequestContext;
 @Named
 @ViewScoped
 public class InformacoesCursosPacoteMB implements Serializable {
- 
+	
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private static final long serialVersionUID = 1L;  
@@ -103,7 +106,8 @@ public class InformacoesCursosPacoteMB implements Serializable {
 					+" "+Formatacao.formatarFloatString(cursospacote.getValorcambio());  
 		}else{
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), 
-					cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas());
+					cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas(),
+					usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			return cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas().getSigla()
 					+" "+Formatacao.formatarFloatString(cambio.getValor())
 					+" referente o dia "+Formatacao.ConvercaoDataPadrao(new Date())+".";  

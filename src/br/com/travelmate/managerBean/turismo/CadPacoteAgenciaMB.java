@@ -38,6 +38,7 @@ import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PacoteSeguroFacade;
 import br.com.travelmate.facade.PacoteTrechoFacade;
 import br.com.travelmate.facade.PacotesFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoFacade;
@@ -66,6 +67,7 @@ import br.com.travelmate.model.Pacoteservico;
 import br.com.travelmate.model.Pacotetransfer;
 import br.com.travelmate.model.Pacotetrecho;
 import br.com.travelmate.model.Pacotetrem;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtos;
@@ -751,7 +753,22 @@ public class CadPacoteAgenciaMB implements Serializable {
 		ProgramasBean programasBean = new ProgramasBean();
 		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 		Orcamento orcamento = orcamentoFacade.consultar(vendass.getIdvendas());
-		programasBean.salvarOrcamento(orcamento, cambio, vendass.getValor(), 0.0f, 0.0f, vendass, "Não");
+		float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+		float totalMoedaReal = orcamento.getTotalMoedaNacional();
+		vendass.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+		Cambio cambioBrasil = null;
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+			PaisFacade paisFacade = new PaisFacade();
+			Pais pais = paisFacade.consultar(5);
+			CambioFacade cambioFacade = new CambioFacade();
+			cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+			totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+		}
+		float valorCambioBrasil = 0.0f;
+		if (cambioBrasil != null) {
+			valorCambioBrasil = cambioBrasil.getValor();
+		}
+		programasBean.salvarOrcamento(orcamento, cambio, vendass.getValorpais(), totalMoedaEstrangeira, 0.0f, vendass, "Não", totalMoedaReal, valorCambioBrasil);
 		adicionarValorSeguroTotal();
 		calcularParcelamentoPagamento();
 		return null;

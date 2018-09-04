@@ -33,6 +33,7 @@ import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.PassagemFacade;
@@ -797,7 +798,23 @@ public class CadPassagemMB implements Serializable {
 				OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 				Orcamento orcamento = orcamentoFacade.consultar(vendas.getIdvendas());
 				ProgramasBean programasBean = new ProgramasBean();
-				programasBean.salvarOrcamento(orcamento, cambio, vendas.getValor(), 0.0f, valorCambio, vendas, "Não");
+				float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+				float totalMoedaReal = orcamento.getTotalMoedaNacional();
+				vendas.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+				Cambio cambioBrasil = null;
+				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+					PaisFacade paisFacade = new PaisFacade();
+					Pais pais = paisFacade.consultar(5);
+					CambioFacade cambioFacade = new CambioFacade();
+					cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+				}
+				vendas.setValor(totalMoedaReal);
+				float valorCambioBrasil = 0.0f;
+				if (cambioBrasil != null) {
+					valorCambioBrasil = cambioBrasil.getValor();
+				}
+				programasBean.salvarOrcamento(orcamento, cambio, vendas.getValorpais(), totalMoedaEstrangeira, valorCambio, vendas, "Não", totalMoedaReal, valorCambioBrasil);
 				calcularComissao();
 				if (novaFicha) { 
 					ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,

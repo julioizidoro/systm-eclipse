@@ -239,7 +239,7 @@
 				da família, o valor referente à Inscrição, correspondente a 30% do
 				valor do programa não será reembolsado. <br /> 5.4 Após confirmação
 				da família hospedeira e aceitação por parte da/do participante o
-				valor integral do programa R$
+				valor integral do programa #{fichaDemiPairMB.moedaNacional}
 				<h:outputText value="#{fichaDemiPairMB.vendas.valor}">
 					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 				</h:outputText>
@@ -453,7 +453,7 @@
 						</td>
 						<td style="float: right; width: 40%;">
 								 <h:panelGroup style="margin-left:20%;">
-									R$:  
+									#{fichaDemiPairMB.moedaNacional}:  
 									 <h:outputText
 										value="#{fichaDemiPairMB.vendas.formapagamento.valorOrcamento}">
 										<f:convertNumber pattern="##,###,###,###.##"
@@ -471,12 +471,12 @@
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</h:outputText> 
-				| Valor Juros: R$ <h:outputText
+				| Valor Juros: #{fichaDemiPairMB.moedaNacional} <h:outputText
 								value="#{fichaDemiPairMB.vendas.formapagamento.valorJuros}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</h:outputText> 
-				| Valor Final: R$ <h:outputText
+				| Valor Final: #{fichaDemiPairMB.moedaNacional} <h:outputText
 								value="#{fichaDemiPairMB.vendas.formapagamento.valorTotal}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
@@ -491,7 +491,7 @@
 					<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
 					<hr style="width: 99%; float: left;" />
 					<h:panelGrid style="width:100%;" columns="4">
-						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+						<h:panelGroup>Saldo Parcelar: #{fichaDemiPairMB.moedaNacional}  <h:outputText
 								value="#{parcelamento.valorParcelamento}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
@@ -509,7 +509,7 @@
 								N° Parcelas: #{parcelamento.numeroParcelas}
 							</h:panelGroup>
 						<h:panelGroup>
-								Valor Parcela: R$ <h:outputText
+								Valor Parcela: #{fichaDemiPairMB.moedaNacional} <h:outputText
 								value="#{parcelamento.valorParcela}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />

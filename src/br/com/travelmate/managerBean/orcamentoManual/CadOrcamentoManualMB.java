@@ -62,7 +62,6 @@ import br.com.travelmate.model.Occliente;
 import br.com.travelmate.model.Orcamentocurso;
 import br.com.travelmate.model.Orcamentocursoformapagamento;
 import br.com.travelmate.model.Orcamentomanualseguro;
-import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtoorcamentocurso;
@@ -1574,7 +1573,7 @@ public class CadOrcamentoManualMB implements Serializable {
 	}
 
 	public void carregarValorCambio() {
-		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		cambio.setData(new Date());
 		orcamentocurso.setCambio(cambio);
 		valorCambio = cambio.getValor();
@@ -1606,7 +1605,7 @@ public class CadOrcamentoManualMB implements Serializable {
 			cidade = new Cidade();
 			orcamentoCursoFormaPagamento.setAVista(0.0f);
 			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(),
-					modeloOrcamento.getCambio().getMoedas());
+					modeloOrcamento.getCambio().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorCambio = cambio.getValor();
 			moeda = modeloOrcamento.getCambio().getMoedas();
 			this.fornecedorCidade = modeloOrcamento.getFornecedorcidade();
@@ -1840,7 +1839,7 @@ public class CadOrcamentoManualMB implements Serializable {
 	public void selecionarCambio() {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorCambio = cambio.getValor();
 			if (valorCambio > 0) {
 				if (listaProdutoOrcamentoBean != null && listaProdutoOrcamentoBean.size() > 0) {

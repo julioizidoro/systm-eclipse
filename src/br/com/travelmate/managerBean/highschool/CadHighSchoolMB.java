@@ -777,7 +777,7 @@ public class CadHighSchoolMB implements Serializable {
 			if (dias > 3) {
 				Mensagem.lancarMensagemInfo("", "Cambio alterado para o dia atual");
 			}
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			orcamento.setValorCambio(cambio.getValor());
 			atualizarValoresProduto();
 		} else {
@@ -1164,6 +1164,18 @@ public class CadHighSchoolMB implements Serializable {
 				}
 				ProgramasBean programasBean = new ProgramasBean();
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getHighSchool());
+				float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+				float totalMoedaReal = orcamento.getTotalMoedaNacional();
+				venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+				Cambio cambioBrasil = null;
+				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+					PaisFacade paisFacade = new PaisFacade();
+					Pais pais = paisFacade.consultar(5);
+					CambioFacade cambioFacade = new CambioFacade();
+					cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+				}
+				venda.setValor(totalMoedaReal);
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
 						lead, highschool.getValoreshighschool().getDatainicio(), null, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
@@ -1180,8 +1192,12 @@ public class CadHighSchoolMB implements Serializable {
 					}
 				}
 				highschool = cadHighSchoolBean.salvarHighSchool(highschool);
-				orcamento = cadHighSchoolBean.salvarOrcamento(cambio, orcamento.getTotalMoedaNacional(),
-						orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), venda, cambioAlterado);
+				float valorCambioBrasil = 0.0f;
+				if (cambioBrasil != null) {
+					valorCambioBrasil = cambioBrasil.getValor();
+				}
+				orcamento = cadHighSchoolBean.salvarOrcamento(cambio, venda.getValorpais(),
+						totalMoedaEstrangeira, orcamento.getValorCambio(), venda, cambioAlterado, totalMoedaReal, valorCambioBrasil);
 				formaPagamento = cadHighSchoolBean.salvarFormaPagamento(cancelamento);
 				cliente = cadHighSchoolBean.salvarCliente(cliente);
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")  || venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {

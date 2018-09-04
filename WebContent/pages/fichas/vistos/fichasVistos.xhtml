@@ -113,7 +113,7 @@
 									minFractionDigits="2" />
 					</p:outputLabel>
 				</p:column>
-				<p:column headerText="R$"
+				<p:column headerText="#{fichaVistoMB.moedaNacional}"
 					style="width:20px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
 					styleClass="alinharCenter">
 					<p:outputLabel value="#{produtos.valorMoedaNacional}" style="color: black;font-size:12px;">
@@ -134,7 +134,7 @@
 							</h:outputText>
 						</h:panelGroup>
 						<h:panelGroup style="text-align:right;float: right;">
-							R$: <h:outputText
+							#{fichaVistoMB.moedaNacional}: <h:outputText
 								value="#{fichaVistoMB.vendas.orcamento.totalMoedaNacional}">
 								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 							</h:outputText>
@@ -146,11 +146,11 @@
 				<h:panelGroup>Moeda: #{fichaVistoMB.vendas.cambio.moedas.sigla} | Câmbio do dia: 
 					 <h:outputText value="#{fichaVistoMB.vendas.valorcambio}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText> | Valor Juros: R$ 
+					</h:outputText> | Valor Juros: #{fichaVistoMB.moedaNacional} 
 					<h:outputText
 						value="#{fichaVistoMB.vendas.formapagamento.valorJuros}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText> | Valor Final: R$ 
+					</h:outputText> | Valor Final: #{fichaVistoMB.moedaNacional} 
 					<h:outputText
 							value="#{fichaVistoMB.vendas.formapagamento.valorTotal}">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
@@ -166,7 +166,7 @@
 			<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
 			<hr/>
 			<h:panelGrid style="width:100%;" columns="4">
-					<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+					<h:panelGroup>Saldo Parcelar: #{fichaVistoMB.moedaNacional}  <h:outputText
 							value="#{parcelamento.valorParcelamento}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
@@ -184,7 +184,7 @@
 						N° Parcelas: #{parcelamento.numeroParcelas}
 					</h:panelGroup>
 					<h:panelGroup>
-						Valor Parcela: R$ <h:outputText value="#{parcelamento.valorParcela}">
+						Valor Parcela: #{fichaVistoMB.moedaNacional} <h:outputText value="#{parcelamento.valorParcela}">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
 						</h:outputText>

@@ -57,9 +57,10 @@ public class CadDemiPairBean {
 		return this.demipair;
 	}
 	 
-	public Orcamento salvarOrcamento(Cambio cambio, float totalMoedaReal, float totalMoedaEstrangeira, float valorCambio, String cambioAlterado){
+	public Orcamento salvarOrcamento(Cambio cambio, float totalMoedaReal, float totalMoedaEstrangeira, float valorCambio, String cambioAlterado
+			, Float valorMoedaNacional, float valorCambioBraisl){
 		orcamento = programasBean.salvarOrcamento(orcamento, cambio, totalMoedaReal,
-				totalMoedaEstrangeira, valorCambio, venda, cambioAlterado);
+				totalMoedaEstrangeira, valorCambio, venda, cambioAlterado, valorMoedaNacional,valorCambioBraisl);
 		venda.setOrcamento(orcamento);
 		return orcamento;
 	}

@@ -15,13 +15,9 @@ import br.com.travelmate.bean.comissao.CalcularComissaoBean;
 import br.com.travelmate.bean.comissao.ComissaoAuPairBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.comissao.ComissaoDemiPairBean;
-import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
 import br.com.travelmate.bean.comissao.ComissaoHighSchoolBean;
-import br.com.travelmate.bean.comissao.ComissaoPacotesBean;
 import br.com.travelmate.bean.comissao.ComissaoProgramasTeensBean;
-import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
-import br.com.travelmate.bean.comissao.ComissaoVistoBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -56,7 +52,6 @@ import br.com.travelmate.model.Valorestrainee;
 import br.com.travelmate.model.Valoreswork;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
-import br.com.travelmate.model.Vistos;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 
@@ -621,19 +616,19 @@ public class CalculadoraMargemMB implements Serializable {
 	
 	public void buscarValorPrograma() {
 		if(aupair && valoresAupair!=null && valoresAupair.getIdvaloresAupair()!=null) {  
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresAupair.getMoedas());
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresAupair.getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorComissionavel = valoresAupair.getValorgross()*cambio.getValor();
 		}else if(cursosTeens && valoresProgramasTeens!=null && valoresProgramasTeens.getIdvaloresprogramasteens()!=null) {
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresProgramasTeens.getMoedas());
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresProgramasTeens.getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorComissionavel = valoresProgramasTeens.getValorgross()*cambio.getValor();
 		}else if(highschool && valoresHighSchool!=null && valoresHighSchool.getIdvaloresHighSchool()!=null) {
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresHighSchool.getMoedas());
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresHighSchool.getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorComissionavel = valoresHighSchool.getValorgross()*cambio.getValor();
 		}else if(trainee && valorestrainee!=null && valorestrainee.getIdvalorestrainee()!=null) {
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valorestrainee.getMoedas());
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valorestrainee.getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorComissionavel = valorestrainee.getValorgross()*cambio.getValor();
 		}else if(work && valoresWork!=null && valoresWork.getIdvaloresWork()!=null) {
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresWork.getMoedas());
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), valoresWork.getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorComissionavel = valoresWork.getValorgross()*cambio.getValor();
 		}
 	}

@@ -64,9 +64,10 @@ public class CadTraineeBean {
 	}
 
 	public Orcamento salvarOrcamento(Cambio cambio, float totalMoedaReal, float totalMoedaEstrangeira,
-			float valorCambio, String cambioAlterado) {
+			float valorCambio, String cambioAlterado
+			, Float valorMoedaNacional, float valorCambioBraisl) {
 		orcamento = programasBean.salvarOrcamento(orcamento, cambio, totalMoedaReal, totalMoedaEstrangeira, valorCambio,
-				venda, cambioAlterado);
+				venda, cambioAlterado, valorMoedaNacional, valorCambioBraisl);
 		venda.setOrcamento(orcamento);
 		return orcamento;
 	}

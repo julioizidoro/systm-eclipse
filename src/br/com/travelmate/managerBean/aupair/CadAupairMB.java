@@ -44,6 +44,7 @@ import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
@@ -835,7 +836,7 @@ public class CadAupairMB implements Serializable {
 			if (dias > 3) {
 				Mensagem.lancarMensagemInfo("", "Cambio alterado para o dia atual");
 			}
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			orcamento.setValorCambio(cambio.getValor());
 			atualizarValoresProduto();
 		} else {
@@ -1202,6 +1203,18 @@ public class CadAupairMB implements Serializable {
 				if (venda.getValorcambio() != null) {
 					orcamento.setValorCambio(venda.getValorcambio());
 				}
+				float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+				float totalMoedaReal = orcamento.getTotalMoedaNacional();
+				venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+				Cambio cambioBrasil = null;
+				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+					PaisFacade paisFacade = new PaisFacade();
+					Pais pais = paisFacade.consultar(5);
+					CambioFacade cambioFacade = new CambioFacade();
+					cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+				}
+				venda.setValor(totalMoedaReal);
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
 						lead, null, null, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
@@ -1218,8 +1231,12 @@ public class CadAupairMB implements Serializable {
 					cadAuPairBean.SalvarAlteracaoFinanceiro(listaParcelamantoPagamentoAntiga, listaParcelamentoPagamentoOriginal);
 				}
 				aupair = cadAuPairBean.salvarAupair(aupair);
-				this.orcamento = cadAuPairBean.salvarOrcamento(orcamento, cambio, orcamento.getTotalMoedaNacional(),
-						orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), venda, cambioAlterado);
+				float valorCambioBrasil = 0.0f;
+				if (cambioBrasil != null) {
+					valorCambioBrasil = cambioBrasil.getValor();
+				}
+				this.orcamento = cadAuPairBean.salvarOrcamento(orcamento, cambio, venda.getValorpais(),
+						totalMoedaEstrangeira, orcamento.getValorCambio(), venda, cambioAlterado, totalMoedaReal, valorCambioBrasil);
 				this.formaPagamento = cadAuPairBean.salvarFormaPagamento(cancelamento);
 				String inicioAupir = "SEM DATA";
 				if (aupair.getDataInicioPretendida01() != null) {

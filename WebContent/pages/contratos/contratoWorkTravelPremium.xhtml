@@ -684,7 +684,7 @@
 										<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" /> 
 									</h:outputText>
 								</h:panelGroup> <h:panelGroup style="margin-left:20%;">
-									R$: 
+									#{fichaVoluntariadoMB.moedaNacional}: 
 										<h:outputText value="#{fichaWorkTravelMB.vendas.formapagamento.valorOrcamento}">
 											<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" /> 
 										</h:outputText>
@@ -699,11 +699,11 @@
 				 <h:outputText value="#{fichaWorkTravelMB.vendas.valorcambio}">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" /> 
 						</h:outputText>
-				 | Valor Juros: R$ 
+				 | Valor Juros: #{fichaVoluntariadoMB.moedaNacional} 
 				 <h:outputText value="#{fichaWorkTravelMB.vendas.formapagamento.valorJuros}">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />  
 						</h:outputText>
-				 | Valor Final: R$ 
+				 | Valor Final: #{fichaVoluntariadoMB.moedaNacional} 
 				 <h:outputText value="#{fichaWorkTravelMB.vendas.formapagamento.valorTotal}">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />  
 						</h:outputText>
@@ -719,7 +719,7 @@
 				<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
 				<hr style="width: 99%; float: left;" />
 				<h:panelGrid style="width:100%;" columns="4">
-					<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+					<h:panelGroup>Saldo Parcelar: #{fichaVoluntariadoMB.moedaNacional}  <h:outputText
 							value="#{parcelamento.valorParcelamento}">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</h:outputText>
@@ -736,7 +736,7 @@
 								N° Parcelas: #{parcelamento.numeroParcelas}
 							</h:panelGroup>
 					<h:panelGroup>
-								Valor Parcela: R$ <h:outputText
+								Valor Parcela: #{fichaVoluntariadoMB.moedaNacional} <h:outputText
 							value="#{parcelamento.valorParcela}">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</h:outputText>

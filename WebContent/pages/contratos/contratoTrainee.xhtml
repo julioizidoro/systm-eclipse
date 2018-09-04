@@ -333,7 +333,7 @@
 						</td>
 						<td style="float: right; width: 40%;">
 								 <h:panelGroup style="margin-left:20%;">
-									R$:  
+									#{fichaTraineeMB.moedaNacional}:  
 									 <h:outputText
 										value="#{fichaTraineeMB.vendas.formapagamento.valorOrcamento}">
 										<f:convertNumber pattern="##,###,###,###.##"
@@ -351,12 +351,12 @@
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</h:outputText> 
-				| Valor Juros: R$ <h:outputText
+				| Valor Juros: #{fichaTraineeMB.moedaNacional} <h:outputText
 								value="#{fichaTraineeMB.vendas.formapagamento.valorJuros}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</h:outputText> 
-				| Valor Final: R$ <h:outputText
+				| Valor Final: #{fichaTraineeMB.moedaNacional} <h:outputText
 								value="#{fichaTraineeMB.vendas.formapagamento.valorTotal}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
@@ -371,7 +371,7 @@
 					<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
 					<hr style="width: 99%; float: left;" />
 					<h:panelGrid style="width:100%;" columns="4">
-						<h:panelGroup>Saldo Parcelar: R$  <h:outputText
+						<h:panelGroup>Saldo Parcelar: #{fichaTraineeMB.moedaNacional}  <h:outputText
 								value="#{parcelamento.valorParcelamento}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
@@ -389,7 +389,7 @@
 								N° Parcelas: #{parcelamento.numeroParcelas}
 							</h:panelGroup>
 						<h:panelGroup>
-								Valor Parcela: R$ <h:outputText
+								Valor Parcela: #{fichaTraineeMB.moedaNacional} <h:outputText
 								value="#{parcelamento.valorParcela}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />

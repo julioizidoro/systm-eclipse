@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.model.Cambio;
-import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.util.Formatacao;
 
@@ -27,6 +26,8 @@ public class InformacoesVitrineMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Ocurso ocurso;    
@@ -87,7 +88,7 @@ public class InformacoesVitrineMB implements Serializable{
 					+" "+Formatacao.formatarFloatString(ocurso.getValorcambio());  
 		}else{
 			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), 
-					ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas());
+					ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			return ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas().getSigla()
 					+" "+Formatacao.formatarFloatString(cambio.getValor())
 					+" referente o dia "+Formatacao.ConvercaoDataPadrao(new Date())+".";  

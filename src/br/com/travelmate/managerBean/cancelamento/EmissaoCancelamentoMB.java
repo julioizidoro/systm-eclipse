@@ -35,6 +35,7 @@ import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CreditoFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
+import br.com.travelmate.facade.PassagemFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 
@@ -51,8 +52,10 @@ import br.com.travelmate.model.Credito;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Passagemaerea;
 import br.com.travelmate.model.Pincambio;
 import br.com.travelmate.model.Seguroviagem;
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -501,13 +504,36 @@ public class EmissaoCancelamentoMB implements Serializable {
 					cancelamento = cancelamentoFacade.salvar(cancelamento);
 					if (novoCancelamento) {
 						salvarCredito();
+						Vendas vendaspontuacoes = vendas;
 						DashBoardBean dashBoardBean = new DashBoardBean();
-						dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
-						dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
-						if (cancelamento.getMultacliente()<=0) {
-							dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
-							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-							productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
+						if (vendas.getProdutos().getIdprodutos() == 6) {
+							PassagemFacade passagemFacade = new PassagemFacade();
+							Passagemaerea passagemaerea = passagemFacade.consultar(vendas.getIdvendas());
+							UsuarioFacade usuarioFacade = new UsuarioFacade();
+							vendaspontuacoes.setUsuario(usuarioFacade.consultar(passagemaerea.getIdusuario()));
+							dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+							dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							if (cancelamento.getMultacliente()<=0) {
+								dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
+								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+								productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
+							}
+						}else if(vendas.getProdutos().getIdprodutos() == 7) {
+							dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+							dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							if (cancelamento.getMultacliente()<=0) {
+								dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
+								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+								productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
+							}
+						}else {
+							dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+							dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							if (cancelamento.getMultacliente()<=0) {
+								dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
+								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
+								productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
+							}
 						}
 					}
 					cancelarContasReceber();

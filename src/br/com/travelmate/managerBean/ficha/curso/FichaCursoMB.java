@@ -45,6 +45,7 @@ public class FichaCursoMB implements Serializable{
 	private boolean habilitarObservacao = false;
 	private boolean habilitarAcomodacao = true;
 	private boolean habilitarAcomodacaoCurso = false;
+	private String moedaNacional;
 	
 
 	
@@ -101,6 +102,7 @@ public class FichaCursoMB implements Serializable{
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje);
 		aulasSemana = curso.getAulassemana().intValue();
+		moedaNacional = vendas.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		if (vendas.getFormapagamento() != null) {
 			totalPagamento = vendas.getFormapagamento().getValorOrcamento() / vendas.getValorcambio();
 		}
@@ -331,6 +333,18 @@ public class FichaCursoMB implements Serializable{
 
 	public void setHabilitarAcomodacaoCurso(boolean habilitarAcomodacaoCurso) {
 		this.habilitarAcomodacaoCurso = habilitarAcomodacaoCurso;
+	}
+
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 

@@ -32,6 +32,7 @@ public class FichaVistoMB implements Serializable{
 	private float valorTotalMoeda = 0.0f;
 	private boolean habilitarSegundoCurso = false;
 	private float totalPagamento = 0.0f;
+	private String moedaNacional;
 	
 
 	
@@ -45,6 +46,7 @@ public class FichaVistoMB implements Serializable{
 		}
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
+		moedaNacional = vendas.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje);
 		if (vendas.getFormapagamento() != null) {
@@ -150,5 +152,17 @@ public class FichaVistoMB implements Serializable{
 
 	public void setTotalPagamento(float totalPagamento) {
 		this.totalPagamento = totalPagamento;
+	}
+
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 }

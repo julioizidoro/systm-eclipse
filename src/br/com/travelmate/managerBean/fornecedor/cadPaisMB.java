@@ -117,6 +117,8 @@ public class cadPaisMB implements Serializable {
 		if (moedas != null) {
 			pais.setMoedas(moedas);
 			PaisFacade paisFacade = new PaisFacade();
+			CambioFacade cambioFacade = new CambioFacade();
+			pais.setMoedasVolutariado(cambioFacade.consultarMoeda(8));
 			pais = paisFacade.salvar(pais);
 			FacesMessage mensagem = new FacesMessage("Salvo com Sucesso! ", "Pais cadastrado.");
 			FacesContext.getCurrentInstance().addMessage(null, mensagem);

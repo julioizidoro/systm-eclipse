@@ -40,6 +40,7 @@ public class FichaVoluntariadoMB implements Serializable{
 	private float totalPagamento = 0.0f;
 	private boolean habilitarObservacao = false;
 	private Seguroviagem seguroviagem;
+	private String moedaNacional;
 	
 
 	
@@ -67,6 +68,7 @@ public class FichaVoluntariadoMB implements Serializable{
 		}
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
+		moedaNacional = vendas.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje);
 		if (vendas.getFormapagamento() != null) {
@@ -256,6 +258,18 @@ public class FichaVoluntariadoMB implements Serializable{
 
 	public void setSeguroviagem(Seguroviagem seguroviagem) {
 		this.seguroviagem = seguroviagem;
+	}
+
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 

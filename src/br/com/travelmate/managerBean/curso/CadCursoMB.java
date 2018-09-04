@@ -55,6 +55,7 @@ import br.com.travelmate.facade.GrupoObrigatorioFacade;
 
 import br.com.travelmate.facade.OrcamentoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoFacade;
@@ -1143,7 +1144,7 @@ public class CadCursoMB implements Serializable {
 	}
 
 	public void carregarValorCambio() {
-		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		valorCambio = cambio.getValor();
 		atualizarValoresProduto();
 	}
@@ -1593,6 +1594,16 @@ public class CadCursoMB implements Serializable {
 				if (orcamento.getValorCambio() == null) {
 					orcamento.setValorCambio(valorCambio);
 				}
+				venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+				Cambio cambioBrasil = null;
+				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+					PaisFacade paisFacade = new PaisFacade();
+					Pais pais = paisFacade.consultar(5);
+					CambioFacade cambioFacade = new CambioFacade();
+					cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+				}
+				venda.setValor(totalMoedaReal);
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente, totalPagar, produto,
 						fornecedorCidade, cambio, orcamento.getValorCambio(), lead, curso.getDataInicio(), curso.getDataTermino(), vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 				CadCursoBean cadCursoBean = new CadCursoBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
@@ -1606,8 +1617,12 @@ public class CadCursoMB implements Serializable {
 				curso.setCidade(cidade.getNome());
 				curso.setEscola(fornecedorCidade.getFornecedor().getNome());
 				curso = cadCursoBean.salvarCurso(curso, vendaAlterada, CheckBoxSegundoCurso);
-				this.orcamento = cadCursoBean.salvarOrcamento(cambio, totalMoedaReal, totalMoedaEstrangeira, valorCambio,
-						cambioAlterado);
+				float valorCambioBrasil = 0.0f;
+				if (cambioBrasil != null) {
+					valorCambioBrasil = cambioBrasil.getValor();
+				}
+				this.orcamento = cadCursoBean.salvarOrcamento(cambio, venda.getValorpais(), totalMoedaEstrangeira, valorCambio,
+						cambioAlterado, totalMoedaReal, valorCambioBrasil);
 				formaPagamento = cadCursoBean.salvarFormaPagamento(cancelamento);  
 				salvarSeguroViagem();
 				curso.setVendas(venda);
@@ -3758,7 +3773,7 @@ public class CadCursoMB implements Serializable {
 	public void selecionarCambio() {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorCambio = cambio.getValor();
 			venda.setValorcambio(valorCambio);
 			if (venda.getIdvendas() != null) {

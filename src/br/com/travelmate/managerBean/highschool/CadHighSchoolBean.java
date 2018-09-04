@@ -48,9 +48,10 @@ public class CadHighSchoolBean {
 		return highschool;
 	}
 	
-	public Orcamento salvarOrcamento(Cambio cambio, Float totalMoedaNacional, Float totalMoedaEstrangeira, Float valorCambio, Vendas venda, String cambioAlterado){
+	public Orcamento salvarOrcamento(Cambio cambio, Float totalMoedaNacional, Float totalMoedaEstrangeira, Float valorCambio, Vendas venda, String cambioAlterado
+			, Float valorMoedaNacional, float valorCambioBraisl){
 		orcamento = programasBean.salvarOrcamento(orcamento, cambio, orcamento.getTotalMoedaNacional(),
-				orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), venda, cambioAlterado);
+				orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), venda, cambioAlterado, valorMoedaNacional, valorCambioBraisl);
 		venda.setOrcamento(orcamento);
 		return orcamento;
 	}

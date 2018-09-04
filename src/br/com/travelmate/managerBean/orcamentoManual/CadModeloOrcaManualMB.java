@@ -827,7 +827,7 @@ public class CadModeloOrcaManualMB implements Serializable {
 	}
 
 	public void carregarValorCambio() {
-		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		valorCambio = cambio.getValor();
 		modeloOrcamentoCurso.setValorCambio(valorCambio);
 		atualizarValoresProduto();

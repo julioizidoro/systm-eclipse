@@ -38,6 +38,7 @@ import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
@@ -788,7 +789,7 @@ public class CadDemiPairMB implements Serializable {
 			if (dias > 3) {
 				Mensagem.lancarMensagemInfo("", "Cambio alterado para o dia atual");
 			}
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			orcamento.setValorCambio(cambio.getValor());
 			atualizarValoresProduto();
 		} else {
@@ -1095,6 +1096,18 @@ public class CadDemiPairMB implements Serializable {
 				ProgramasBean programasBean = new ProgramasBean();
 				Date datatermino = Formatacao.calcularDataFinal(demipair.getDatainicio(), demipair.getNumerosemanas());
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getDemipair());
+				float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+				float totalMoedaReal = orcamento.getTotalMoedaNacional();
+				venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+				Cambio cambioBrasil = null;
+				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+					PaisFacade paisFacade = new PaisFacade();
+					Pais pais = paisFacade.consultar(5);
+					CambioFacade cambioFacade = new CambioFacade();
+					cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+				}
+				venda.setValor(totalMoedaReal);
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
 						lead, demipair.getDatainicio(), datatermino, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
@@ -1107,8 +1120,12 @@ public class CadDemiPairMB implements Serializable {
 				demipair.setControle("Processo");
 				demipair.setVendas(venda);
 				this.demipair = cadDemiPairBean.salvarDemipair(demipair);
-				this.orcamento = cadDemiPairBean.salvarOrcamento(cambio, orcamento.getTotalMoedaNacional(),
-						orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), cambioAlterado);
+				float valorCambioBrasil = 0.0f;
+				if (cambioBrasil != null) {
+					valorCambioBrasil = cambioBrasil.getValor();
+				}
+				this.orcamento = cadDemiPairBean.salvarOrcamento(cambio, venda.getValorpais(),
+						totalMoedaEstrangeira, orcamento.getValorCambio(), cambioAlterado, totalMoedaReal, valorCambioBrasil);
 				this.formaPagamento = cadDemiPairBean.salvarFormaPagamento(cancelamento);
 				Date data = Formatacao.calcularPrevisaoPagamentoFornecedor(new Date(),
 						venda.getProdutos().getIdprodutos(), aplicacaoMB.getParametrosprodutos().getWork());

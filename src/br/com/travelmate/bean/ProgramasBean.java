@@ -93,7 +93,9 @@ public class ProgramasBean {
 			venda.setVendasMatriz("S");
 		}
 		venda.setProdutos(produto); 
-		venda.setValor(valorTotal);
+		if (venda.getValor() == null || venda.getValor() == 0) {
+			venda.setValor(valorTotal);
+		}
 		venda.setFornecedor(fornecedorCidade.getFornecedor());
 		venda.setFornecedorcidade(fornecedorCidade);
 		venda.setCambio(cambio);
@@ -153,7 +155,8 @@ public class ProgramasBean {
 		return true;
 	}
 	
-	public Orcamento salvarOrcamento(Orcamento orcamento, Cambio cambio, Float totalMoedaNacional, Float totalMoedaEstrangeira, Float valorCambio, Vendas venda, String cambioAlterado) {
+	public Orcamento salvarOrcamento(Orcamento orcamento, Cambio cambio, Float totalMoedaNacional, Float totalMoedaEstrangeira, Float valorCambio, Vendas venda, String cambioAlterado, Float valorBrasil,
+			float valorCambioBrasil) {
 		boolean novoOrcamento = false;
 		if (orcamento == null) {
 			orcamento = new Orcamento();
@@ -166,20 +169,22 @@ public class ProgramasBean {
 		orcamento.setVendas(venda);
 		orcamento.setCambioAlterado(cambioAlterado);
 		orcamento.setCambio(cambio);
+		orcamento.setValorbrasil(valorBrasil);
 		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 		List<Orcamentoprodutosorcamento> listaOProdutoOrcamento = new ArrayList<Orcamentoprodutosorcamento>();
 		listaOProdutoOrcamento = orcamento.getOrcamentoprodutosorcamentoList();
 		orcamento.setOrcamentoprodutosorcamentoList(null);
 		orcamento = orcamentoFacade.salvar(orcamento);
-		salvarOrcamentoProdutoOrcamento(orcamento, listaOProdutoOrcamento);
+		salvarOrcamentoProdutoOrcamento(orcamento, listaOProdutoOrcamento, valorCambioBrasil);
 		return orcamento;
 	}
 	
-	public void salvarOrcamentoProdutoOrcamento(Orcamento orcamento, List<Orcamentoprodutosorcamento> listaOProdutoOrcamento) {
+	public void salvarOrcamentoProdutoOrcamento(Orcamento orcamento, List<Orcamentoprodutosorcamento> listaOProdutoOrcamento, float valorCambioBrasil) {
 		if (listaOProdutoOrcamento != null) {
 			OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 			for (int i = 0; listaOProdutoOrcamento.size() > i; i++) {
 				listaOProdutoOrcamento.get(i).setOrcamento(orcamento);
+				listaOProdutoOrcamento.get(i).setValorbrasil(listaOProdutoOrcamento.get(i).getValorMoedaEstrangeira() * valorCambioBrasil);
 				orcamentoFacade.salvar(listaOProdutoOrcamento.get(i));
 			}
 			

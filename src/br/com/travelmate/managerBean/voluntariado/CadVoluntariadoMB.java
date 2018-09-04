@@ -753,7 +753,7 @@ public class CadVoluntariadoMB implements Serializable {
 	}
 
 	public void carregarValorCambio() {
-		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), cambio.getMoedas());
+		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), cambio.getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		orcamento.setValorCambio(cambio.getValor());
 		atualizarValoresProduto();
 	}
@@ -1155,6 +1155,18 @@ public class CadVoluntariadoMB implements Serializable {
 				}
 				ProgramasBean programasBean = new ProgramasBean();
 				this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getVoluntariado());
+				float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+				float totalMoedaReal = orcamento.getTotalMoedaNacional();
+				venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+				Cambio cambioBrasil = null;
+				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+					PaisFacade paisFacade = new PaisFacade();
+					Pais pais = paisFacade.consultar(5);
+					CambioFacade cambioFacade = new CambioFacade();
+					cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+				}
+				venda.setValor(totalMoedaReal);
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
 						lead, voluntariado.getDataInicio(), voluntariado.getDataTermino(), vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
@@ -1186,8 +1198,12 @@ public class CadVoluntariadoMB implements Serializable {
 				}
 				voluntariado = cadVoluntariadoBean.salvarVoluntariado(voluntariado, vendaAlterada);
 				cadVoluntariadoBean.salvarSeguroViagem(seguroViagem, aplicacaoMB, vendasDao);
-				orcamento = cadVoluntariadoBean.salvarOrcamento(cambio, orcamento.getTotalMoedaNacional(),
-						orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), cambioAlterado);
+				float valorCambioBrasil = 0.0f;
+				if (cambioBrasil != null) {
+					valorCambioBrasil = cambioBrasil.getValor();
+				}
+				orcamento = cadVoluntariadoBean.salvarOrcamento(cambio, venda.getValorpais(),
+						totalMoedaEstrangeira, orcamento.getValorCambio(), cambioAlterado, totalMoedaReal, valorCambioBrasil);
 				formaPagamento = cadVoluntariadoBean.salvarFormaPagamento(cancelamento);
 				cliente = cadVoluntariadoBean.salvarCliente(cliente,
 						Formatacao.ConvercaoDataPadrao(voluntariado.getDataInicioVoluntariado()),

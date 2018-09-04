@@ -61,6 +61,7 @@ public class FichaPacotesMB implements Serializable{
 	private boolean treem = false;
 	private boolean circuito = false;
 	private boolean habilitarObservacao = false;
+	private String moedaNacional;
 
 	
 	@PostConstruct
@@ -74,6 +75,7 @@ public class FichaPacotesMB implements Serializable{
 		}
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
+		moedaNacional = vendas.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje);
 		itensTrecho = gerarDescricaoTrecho(pacotes);
@@ -373,6 +375,18 @@ public class FichaPacotesMB implements Serializable{
 
 	public void setHabilitarObservacao(boolean habilitarObservacao) {
 		this.habilitarObservacao = habilitarObservacao;
+	}
+
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 

@@ -37,6 +37,7 @@ import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.SeguroPlanosFacade;
@@ -55,6 +56,7 @@ import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Orcamento;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtos;
@@ -914,12 +916,24 @@ public class FichaSeguroViagemMB implements Serializable {
 			ProgramasBean programasBean = new ProgramasBean();
 			Produtos produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getSeguroPrivado());
 			vendas.setValor(totalPagar);
+			vendas.setValorpais(totalPagar * cambio.getValor());
+			Cambio cambioBrasil = null;
+			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+				PaisFacade paisFacade = new PaisFacade();
+				Pais pais = paisFacade.consultar(5);
+				CambioFacade cambioFacade = new CambioFacade();
+				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+			}
 			vendas = programasBean.salvarVendas(vendas, usuarioLogadoMB, nsituacao, cliente, vendas.getValor(), produto,
 					valoresseguro.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, seguro.getDataInicio(), seguro.getDataTermino(), 
 					vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 			salvarSeguro();
+			float valorCambioBrasil = 0.0f;
+			if (cambioBrasil != null) {
+				valorCambioBrasil = cambioBrasil.getValor();
+			}
 			orcamento = programasBean.salvarOrcamento(orcamento, cambio, totalPagar, 0.0f, valorCambio, vendas,
-					cambioAlterado);
+					cambioAlterado, totalPagar, valorCambioBrasil);
 			formaPagamento = programasBean.salvarFormaPagamento(formaPagamento, vendas);
 			salvarCliente();
 			if (cancelamento != null) {

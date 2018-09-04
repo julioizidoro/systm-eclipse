@@ -921,7 +921,8 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	public void calcularValorCambioAtual() {
 		float valorInicial = cursospacote.getValortotalpacote();
 		if (cursospacote.getValorcambio()==0) {
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas());
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas(),
+					usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambio!=null) {
 				float valor = cursospacote.getValormoedaestrangeira() * cambio.getValor();
 				valorInicial = valor;

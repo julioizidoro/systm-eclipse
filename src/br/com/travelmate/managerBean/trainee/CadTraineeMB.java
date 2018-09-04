@@ -38,6 +38,7 @@ import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
@@ -889,7 +890,7 @@ public class CadTraineeMB implements Serializable {
 			if (dias > 3) {
 				Mensagem.lancarMensagemInfo("", "Cambio alterado para o dia atual");
 			}
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			orcamento.setValorCambio(cambio.getValor());
 			atualizarValoresProduto();
 		} else {
@@ -1278,6 +1279,18 @@ public class CadTraineeMB implements Serializable {
 			}
 			ProgramasBean programasBean = new ProgramasBean();
 			this.produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getTrainee());
+			float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
+			float totalMoedaReal = orcamento.getTotalMoedaNacional();
+			venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+			Cambio cambioBrasil = null;
+			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
+				PaisFacade paisFacade = new PaisFacade();
+				Pais pais = paisFacade.consultar(5);
+				CambioFacade cambioFacade = new CambioFacade();
+				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
+			}
+			venda.setValor(totalMoedaReal);
 			venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 					formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
 					lead, null, null, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
@@ -1295,8 +1308,12 @@ public class CadTraineeMB implements Serializable {
 			}
 			trainee.setValorestrainee(valorestrainee);
 			trainee = cadTraineeBean.salvarTrainee(trainee, vendaAlterada);
-			orcamento = cadTraineeBean.salvarOrcamento(cambio, orcamento.getTotalMoedaNacional(),
-					orcamento.getTotalMoedaEstrangeira(), orcamento.getValorCambio(), cambioAlterado);
+			float valorCambioBrasil = 0.0f;
+			if (cambioBrasil != null) {
+				valorCambioBrasil = cambioBrasil.getValor();
+			}
+			orcamento = cadTraineeBean.salvarOrcamento(cambio, venda.getValorpais(),
+					totalMoedaEstrangeira, orcamento.getValorCambio(), cambioAlterado, totalMoedaReal, valorCambioBrasil);
 			formaPagamento = cadTraineeBean.salvarFormaPagamento(cancelamento);
 			Date data = Formatacao.calcularPrevisaoPagamentoFornecedor(new Date(), venda.getProdutos().getIdprodutos(),
 					aplicacaoMB.getParametrosprodutos().getWork());
@@ -1700,7 +1717,7 @@ public class CadTraineeMB implements Serializable {
 	public void adicionarProdutosTrainee() {
 		cambio = new Cambio();
 		cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(),
-				produtosTrainee.getValorestrainee().getMoedas());
+				produtosTrainee.getValorestrainee().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		moeda = produtosTrainee.getValorestrainee().getMoedas();
 		orcamento.setValorCambio(cambio.getValor());
 		for (int i = orcamento.getOrcamentoprodutosorcamentoList().size() - 1; i >= 0; i--) {

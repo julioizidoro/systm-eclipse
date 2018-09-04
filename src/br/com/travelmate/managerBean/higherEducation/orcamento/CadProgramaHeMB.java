@@ -16,6 +16,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Cidadepaisproduto;
@@ -34,6 +35,8 @@ public class CadProgramaHeMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Pais pais;
@@ -148,7 +151,7 @@ public class CadProgramaHeMB implements Serializable {
 	public void selecionarCambio() {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda);
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			valorCambio = cambio.getValor();
 			sigla = moeda.getSigla();
 		}

@@ -47,6 +47,7 @@ public class FichaHEMB implements Serializable{
 	private boolean habilitarInformacoes = false;
 	private Questionariohe questionariohe;
 	private List<Heparceiros> listaHeParceiros; 
+	private String moedaNacional;
 	
 
 	
@@ -64,6 +65,7 @@ public class FichaHEMB implements Serializable{
 		}
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
+		moedaNacional = vendas.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje);
 		if (vendas.getFormapagamento() != null) {
@@ -299,6 +301,18 @@ public class FichaHEMB implements Serializable{
 
 	public void setListaHeParceiros(List<Heparceiros> listaHeParceiros) {
 		this.listaHeParceiros = listaHeParceiros;
+	}
+
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 }
