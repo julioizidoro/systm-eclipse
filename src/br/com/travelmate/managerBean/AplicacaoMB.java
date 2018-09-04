@@ -216,7 +216,7 @@ public class AplicacaoMB implements Serializable {
 		String data = null;
 		data = Formatacao.ConvercaoDataSql(datacambiohoje);
 		CambioFacade cambioFacade = new CambioFacade();
-		listaCambio = cambioFacade.listarCambioPais(data, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+		listaCambio = cambioFacade.listar(data);
 		int contador = 0;
 		if ((listaCambio != null) && (listaCambio.size() == 0)) {
 			listaCambio = null;
@@ -256,23 +256,23 @@ public class AplicacaoMB implements Serializable {
 			if(liberar){
 				datacambio = (Formatacao.ConvercaoDataPadrao(listaCambio.get(0).getData()));
 				for (int i = 0; i < listaCambio.size(); i++) {
-					if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("IATA")) {
+					if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("IATA") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						iata = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("USD")) {
+					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("USD") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						uds = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("EUR")) {
+					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("EUR") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						eur = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("GBP")) {
+					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("GBP") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						gbp = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("cad")) {
+					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("cad") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						cad = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("aud")) {
+					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("aud") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						aud = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("nzd")) {
+					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("nzd") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						nzd = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("chf")) {
+					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("chf") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						chf = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("zar")) {
+					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("zar") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
 						zar = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
 					}
 				} 
