@@ -58,6 +58,7 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Notificacao;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Parametrosprodutos;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Unidadenegocio;
@@ -1105,12 +1106,12 @@ public class Formatacao {
 
 	}
 
-	public static Cambio carregarCambioDia(List<Cambio> listaCambio, Moedas moeda) {
+	public static Cambio carregarCambioDia(List<Cambio> listaCambio, Moedas moeda, Pais pais) {
 		if (listaCambio != null) {
 			int idmoeda = moeda.getIdmoedas();
 			for (int i = 0; i < listaCambio.size(); i++) {
 				int idmoedacambio = listaCambio.get(i).getMoedas().getIdmoedas();
-				if (idmoeda == idmoedacambio) {
+				if (idmoeda == idmoedacambio && listaCambio.get(i).getPais().getIdpais() == pais.getIdpais()) {
 					return listaCambio.get(i);
 				}
 			}
