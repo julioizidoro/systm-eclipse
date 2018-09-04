@@ -8,21 +8,34 @@
 	<ui:define name="corpo">
 		<h:form id="consCambio">
 			<div id="centro">
-				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"  />
-				<p:outputLabel value="Data" for="data"  
-					style="font-size: 13px ;margin-left:27.5%;" />   
-				<br></br>
-				<p:calendar id="data" value="#{cambioMB.data}" size="12"
-					style="margin-left:27.5% !important" locale="pt" pattern="dd/MM/yyyy"
-					mask="true" maxlength="15">
-					<f:convertDateTime pattern="dd/MM/yyyy" 
-						timeZone="America/Sao_Paulo" />
-					<p:ajax event="blur" /> 
-				</p:calendar>
-				<p:commandButton value="Pesquisar" style="margin-left:2%;font-size:12px;"
-					icon=" ui-icon-search " update="consCambio:tabelaCambio"
-					action="#{cambioMB.pesquisarData()}">  
-				</p:commandButton><br/> 
+				<h:panelGrid style="width:33%;margin-left:27.5%;" columns="3">
+					<p:outputLabel value="Data" for="data" style="font-size: 13px;" />
+					<p:outputLabel value="Pais" for="data" style="font-size: 13px;" />
+					<p:outputLabel />
+					<p:calendar id="data" value="#{cambioMB.data}" size="12"
+						locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:selectOneMenu id="pais" value="#{cambioMB.pais}"
+						style="width:200px;" converter="PaisConverterS" filter="true"
+						filterMatchMode="startsWith" panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{cambioMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+						<f:attribute name="listaPais"
+							value="#{cambioMB.listaPais}" />
+						<p:ajax event="change" />
+					</p:selectOneMenu>
+					<p:commandButton value="Pesquisar"
+						style="margin-left:2%;font-size:12px;" icon=" ui-icon-search "
+						update="consCambio:tabelaCambio" action="#{cambioMB.pesquisarData()}">
+					</p:commandButton>
+				</h:panelGrid>
+				
+				<br/> 
 				<legend id="iUsu2">  
 					<b  style="font-size:18px;">Consulta de Câmbio</b>  
 				</legend>   		

@@ -142,9 +142,9 @@ public class CambioMB  implements Serializable{
 	}
 	
 	public void pesquisarData(){ 
-		if(data!=null){
+		if(data!=null && pais != null){
 			CambioFacade cambioFacade = new CambioFacade();
-			listaCambio = cambioFacade.listar(Formatacao.ConvercaoDataSql(data));
+			listaCambio = cambioFacade.listarCambioPais(Formatacao.ConvercaoDataSql(data), pais);
 			if(listaCambio==null){
 				 listaCambio = new ArrayList<Cambio>();
 			}

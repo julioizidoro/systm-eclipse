@@ -9,18 +9,6 @@
 		<h:form id="consCambio">
 			<div id="centro">
 				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
-				<p:dialog visible="#{cambioMB.habilitarAvisos}" header="ATENÇÃO" id="panelAviso">
-					<div align="center" style="background:#DDDDE1;">
-			            <p:outputLabel value="Câmbio do dia zerado." style="font-weight:bold;font-size: 14px;"/>  
-			            <br/>
-			            <p:outputLabel value="Deseja Incluir Valores?" style="font-weight:bold;font-size: 18px;"/> 
-			            <br/><br/>   
-			            <p:commandButton id="btnconfirmar" value="Confirmar" icon="ui-icon-check" update="panelAviso" action="#{cambioMB.gerarcambiodia('Sim')}"/>
-			            <p:commandButton id="btncancelar"  style="margin-left: 1%" icon="ui-icon-close" value="Cancelar" action="#{cambioMB.gerarcambiodia('Não')}"/>
-			            <br/>
-			            <br/>
-		            </div>
-				</p:dialog>
 				<h:panelGrid style="width:33%;margin-left:27.5%;" columns="3">
 					<p:outputLabel value="Data" for="data" style="font-size: 13px;" />
 					<p:outputLabel value="Pais" for="data" style="font-size: 13px;" />

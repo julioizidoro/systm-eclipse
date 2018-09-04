@@ -1409,8 +1409,8 @@ public class CadCursosTeensMB implements Serializable {
 			if (valoresprogramasteens.getValorgross() > 0) {
 				CambioFacade cambioFacade = new CambioFacade();
 				Cambio cambioValor = new Cambio();
-				cambioValor = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-						valoresprogramasteens.getMoedas().getIdmoedas());
+				cambioValor = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+						valoresprogramasteens.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				orcamentoprodutosorcamento
 						.setValorMoedaNacional(valoresprogramasteens.getValorgross() * cambioValor.getValor());
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(valoresprogramasteens.getValorgross());

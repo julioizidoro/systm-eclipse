@@ -1585,8 +1585,8 @@ public class CadTraineeMB implements Serializable {
 			if (valorestrainee.getValorgross() > 0) {
 				CambioFacade cambioFacade = new CambioFacade();
 				Cambio cambioValorTrainee = new Cambio();
-				cambioValorTrainee = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-						valorestrainee.getMoedas().getIdmoedas());
+				cambioValorTrainee = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+						valorestrainee.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				moeda = valorestrainee.getMoedas();
 				orcamento.setValorCambio(cambioValorTrainee.getValor());
 				cambio = cambioValorTrainee;

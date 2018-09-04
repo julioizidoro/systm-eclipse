@@ -1426,8 +1426,8 @@ public class CadWorkTravelMB implements Serializable {
 			if (valoreswork.getValorgross() > 0) {
 				CambioFacade cambioFacade = new CambioFacade();
 				Cambio cambioValor = new Cambio();
-				cambioValor = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-						valoreswork.getMoedas().getIdmoedas());
+				cambioValor = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+						valoreswork.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				orcamentoprodutosorcamento.setValorMoedaNacional(valoreswork.getValorgross() * cambioValor.getValor());
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(valoreswork.getValorgross());
 				moeda = valoreswork.getMoedas();
