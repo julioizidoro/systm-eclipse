@@ -139,6 +139,7 @@ public class CadWorkTravelMB implements Serializable {
 	private float valorMoedaReal = 0f;
 	private float valorMoedaEstrangeira = 0f;
 	private boolean habilitarAvisoCambio = false;
+	private String moedaNacional;
 
 	@PostConstruct()
 	public void init() {
@@ -175,6 +176,7 @@ public class CadWorkTravelMB implements Serializable {
 		gerarListaTipoParcelamento();
 		digitosFoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(), work.getFoneContatoEmergencia());
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public float getValorSaldoParcelar() {
@@ -521,6 +523,14 @@ public class CadWorkTravelMB implements Serializable {
 
 	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
 		this.habilitarAvisoCambio = habilitarAvisoCambio;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void iniciarNovo() {

@@ -122,6 +122,7 @@ public class CadHeFinalMB implements Serializable {
 	private List<Fornecedorcidade> listaFornecedorCidade;
 	private Cliente cliente;
 	private boolean camposPathway;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -144,6 +145,7 @@ public class CadHeFinalMB implements Serializable {
 			iniciarNovo();
 		}
 		carregarCamposAcomodacao();
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public He getHe() {
@@ -425,6 +427,14 @@ public class CadHeFinalMB implements Serializable {
 
 	public void setCamposPathway(boolean camposPathway) {
 		this.camposPathway = camposPathway;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void excluirFormaPagamento(String ilinha) {

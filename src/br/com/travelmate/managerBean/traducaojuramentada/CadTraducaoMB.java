@@ -112,6 +112,7 @@ public class CadTraducaoMB implements Serializable {
 	private Traducaojuramentada traducao;
 	private String vendaMatriz;
 	private float valorVendaAlterar;
+	private String moedaNacional;
 
 	@PostConstruct()
 	public void init() {
@@ -127,6 +128,7 @@ public class CadTraducaoMB implements Serializable {
 		session.removeAttribute("vendaMatriz");
 		ProdutoFacade produtoFacade = new ProdutoFacade();
 		produto = produtoFacade.consultar(aplicacaoMB.getParametrosprodutos().getTraducaojuramentada());
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		if (traducao == null) {
 			iniciarNovo();
 			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
@@ -361,6 +363,14 @@ public class CadTraducaoMB implements Serializable {
 
 	public void setVendaMatriz(String vendaMatriz) {
 		this.vendaMatriz = vendaMatriz;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void listarCidade() {

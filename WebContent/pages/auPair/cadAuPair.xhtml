@@ -379,7 +379,7 @@
 							<p:outputLabel id="campomoedaestrangeira"
 								value="#{cadAupairMB.tituloMoedaEstrangeira()}" for="valor" />
 							<p:outputLabel />
-							<p:outputLabel value="Valor R$" for="valoreal" />
+							<p:outputLabel value="Valor #{cadAuPairMB.moedaNacional}" for="valoreal" />
 
 							<p:selectOneMenu id="produto"
 								value="#{cadAupairMB.produtosorcamento}" style="width:210px;"
@@ -441,7 +441,7 @@
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Valor R$"
+							<p:column headerText="Valor #{cadAuPairMB.moedaNacional}"
 								style="text-align:right;width:130px;">
 								<h:outputText value="#{produtos.valorMoedaNacional}">
 									<f:convertNumber pattern="##,###,###,###.##"

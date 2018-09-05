@@ -160,6 +160,7 @@ public class CadAupairMB implements Serializable {
 	private boolean edicaoFicha;
 	private boolean desabilitarParcelamento = false;
 	private boolean habilitarAvisoCambio = false;
+	private String moedaNacional;
 
 	@PostConstruct()
 	public void init() {
@@ -193,6 +194,7 @@ public class CadAupairMB implements Serializable {
 		digitosTelefoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				aupair.getFoneContatoEmergencia());
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public float getValorMoedaReal() {
@@ -595,6 +597,14 @@ public class CadAupairMB implements Serializable {
 
 	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
 		this.habilitarAvisoCambio = habilitarAvisoCambio;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void iniciarNovo() {

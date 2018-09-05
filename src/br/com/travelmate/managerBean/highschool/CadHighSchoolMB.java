@@ -139,6 +139,7 @@ public class CadHighSchoolMB implements Serializable {
 	private Lead lead;
 	private String voltarControleVendas = "";
 	private boolean habilitarAvisoCambio = false;
+	private String moedaNacional;
 
 	@PostConstruct()
 	public void init() {
@@ -171,6 +172,7 @@ public class CadHighSchoolMB implements Serializable {
 		digitosFoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				highschool.getFoneContatoEmergencia());
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -500,6 +502,14 @@ public class CadHighSchoolMB implements Serializable {
 
 	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
 		this.habilitarAvisoCambio = habilitarAvisoCambio;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void iniciarNovo() {

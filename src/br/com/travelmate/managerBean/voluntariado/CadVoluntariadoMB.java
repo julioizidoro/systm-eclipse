@@ -161,6 +161,7 @@ public class CadVoluntariadoMB implements Serializable {
 	private boolean desabilitarCamposCurso = true;
 	private float valorSeguroAntigo = 0.0f;
 	private boolean habilitarAvisoCambio = false;
+	private String moedaNacional;
 
 	@PostConstruct()
 	public void init() {
@@ -194,6 +195,7 @@ public class CadVoluntariadoMB implements Serializable {
 		digitosFoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				voluntariado.getFoneContatoEmergencia());
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public float getValorMoedaReal() {
@@ -636,6 +638,14 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
 		this.habilitarAvisoCambio = habilitarAvisoCambio;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void carregarComboMoedas() {

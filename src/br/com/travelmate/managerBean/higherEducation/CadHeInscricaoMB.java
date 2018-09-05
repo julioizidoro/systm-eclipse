@@ -145,6 +145,7 @@ public class CadHeInscricaoMB implements Serializable {
 	private List<Fornecedorcidade> listaFornecedorCidade2;
 	private List<Pais> listaPais3;
 	private List<Fornecedorcidade> listaFornecedorCidade3;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -166,7 +167,7 @@ public class CadHeInscricaoMB implements Serializable {
 			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
 			iniciarNovo();
 		}
-		
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		carregarCamposAcomodacao();
 	}
 
@@ -604,6 +605,14 @@ public class CadHeInscricaoMB implements Serializable {
 
 	public void setListaFornecedorCidade3(List<Fornecedorcidade> listaFornecedorCidade3) {
 		this.listaFornecedorCidade3 = listaFornecedorCidade3;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void excluirFormaPagamento(String ilinha) {

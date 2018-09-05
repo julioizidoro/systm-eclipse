@@ -155,6 +155,7 @@ public class CadTraineeMB implements Serializable {
 	private boolean numero38;
 	private boolean numero52;
 	private boolean habilitarAvisoCambio = false;
+	private String moedaNacional;
 
 	@PostConstruct()
 	public void init() {
@@ -201,6 +202,7 @@ public class CadTraineeMB implements Serializable {
 		digitosFoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				trainee.getFoneContatoEmergencia());
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public float getValorParcela() {
@@ -667,6 +669,14 @@ public class CadTraineeMB implements Serializable {
 
 	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
 		this.habilitarAvisoCambio = habilitarAvisoCambio;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void iniciarNovoTrainee() {

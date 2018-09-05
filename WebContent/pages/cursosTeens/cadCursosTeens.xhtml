@@ -543,7 +543,7 @@
 								value="#{cadCursosTeensMB.tituloMoedaEstrangeira()}"
 								for="valorrr" />
 							<p:outputLabel />
-							<p:outputLabel value="Valor R$" for="valoreal" />
+							<p:outputLabel value="Valor #{cadCursosTeensMB.moedaNacional}" for="valoreal" />
 
 							<p:selectOneMenu id="produto"
 								value="#{cadCursosTeensMB.produtosorcamento}"
@@ -604,7 +604,7 @@
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Valor R$"
+							<p:column headerText="Valor #{cadCursosTeensMB.moedaNacional}"
 								style="text-align:right;width:130px;">
 								<h:outputText value="#{produtos.valorMoedaNacional}">
 									<f:convertNumber pattern="##,###,###,###.##"
