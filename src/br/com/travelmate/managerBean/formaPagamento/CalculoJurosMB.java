@@ -216,7 +216,7 @@ public class CalculoJurosMB implements Serializable {
 			if (numParcelas4 > 0) {
 				valoJuros = total;
 				CoeficienteJurosFacade coneficienteJurosFacade = new CoeficienteJurosFacade();
-				Coeficientejuros cf = coneficienteJurosFacade.consultar(numParcelas4, "Juros Cliente");
+				Coeficientejuros cf = coneficienteJurosFacade.consultar(numParcelas4, "Juros Banco");
 				Float valor = (float) (total * cf.getCoeficiente());
 				valorParcela4 = valor;
 				valoJuros = (valor*numParcelas4)-valoJuros;

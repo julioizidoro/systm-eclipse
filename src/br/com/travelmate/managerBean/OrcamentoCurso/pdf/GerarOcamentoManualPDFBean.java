@@ -118,7 +118,7 @@ public class GerarOcamentoManualPDFBean {
 			o.setCargahoraria(String.valueOf(orcamentoCurso.getAulasSemana()) + " " + orcamentoCurso.getTipoDuracao());
 			o.setTurno(orcamentoCurso.getTurno());
 			o.setTotalCursome(orcamentoCurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(p.getValorMoedaEstrangeira()));
-			o.setTotalcursors("R$ " + Formatacao.formatarFloatString(p.getValorMoedaNacional()));
+			o.setTotalcursors(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(p.getValorMoedaNacional()));
 			o.setDataOrcamento(Formatacao.ConvercaoDataPadrao(orcamentoCurso.getData()));
 			o.setCambio(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 					+ Formatacao.formatarFloatStringOutras(orcamentoCurso.getValorCambio()));
@@ -132,26 +132,26 @@ public class GerarOcamentoManualPDFBean {
 			}
 			if (orcamentoCurso.getOrcamentocursoformapagamentoList() != null && orcamentoCurso.getOrcamentocursoformapagamentoList().size() > 0) {
 				Orcamentocursoformapagamento f = orcamentoCurso.getOrcamentocursoformapagamentoList().get(0);
-				o.setValorVista("R$ " + Formatacao.formatarFloatString(f.getAVista()));
+				o.setValorVista(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(f.getAVista()));
 				if(f.getValorParcela02()!=null){
-					o.setValorentradaboelto("R$ "
+					o.setValorentradaboelto(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(f.getValorEntrada2()));
 					o.setSaldoboleto("Saldo em " + f.getNumeroParcelas02() + " parcelas fixas");
-					o.setValorsaldoboleto("R$ " + Formatacao.formatarFloatString(f.getValorParcela02()));
+					o.setValorsaldoboleto(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(f.getValorParcela02()));
 				}
 				if(f.getValorEntrada3()!=null){
-					o.setValorentradacartao("R$ "
+					o.setValorentradacartao(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 								+ Formatacao.formatarFloatString(f.getValorEntrada3()));
 					o.setSaldocartao(
 								"Saldo em " + f.getNumeroParcelas03() + " parcelas fixas");
-					o.setValorsaldocartao("R$ "
+					o.setValorsaldocartao(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 								+ Formatacao.formatarFloatString(f.getValorParcela03()));
 				}
 				if(f.getFinaciamento()!=null && f.getFinaciamento()>0){
 					o.setValorentradafinanciamento("R$ 0,00");
 					o.setDescricaofinanciamento(
 								"Saldo em " + f.getNumeroParcelasFinanciamento() + " parcelas fixas");
-					o.setValorfinanciamento("R$ "
+					o.setValorfinanciamento(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 								+ Formatacao.formatarFloatString(f.getFinaciamento()));
 				}
 			}
@@ -178,7 +178,7 @@ public class GerarOcamentoManualPDFBean {
 					o.setDescricaolista(listaR.get(i).getProdutosOrcamento().getDescricao());
 					o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(listaR.get(i).getValorMoedaEstrangeira()));
-					o.setValorrs("R$ " + Formatacao
+					o.setValorrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 							.formatarFloatString(listaR.get(i).getValorMoedaNacional()));
 					o.setIdgrupo(5);
 					this.lista.add(o);
@@ -233,7 +233,7 @@ public class GerarOcamentoManualPDFBean {
 			o.setSubDescricaoLista(String.valueOf(orcamentoCurso.getOrcamentomanualseguro().getNumerodias()) + " dias");
 			o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " " + Formatacao
 					.formatarFloatString(orcamentoCurso.getOrcamentomanualseguro().getValor() / orcamentoCurso.getValorCambio()));
-			o.setValorrs("R$ " + Formatacao.formatarFloatString(orcamentoCurso.getOrcamentomanualseguro().getValor()));
+			o.setValorrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(orcamentoCurso.getOrcamentomanualseguro().getValor()));
 			o.setIdgrupo(5);
 			lista.add(o);
 		} 
@@ -251,7 +251,7 @@ public class GerarOcamentoManualPDFBean {
 				o.setSubDescricaoLista("");
 				o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(lista.get(i).getValorMoedaEstrangeira()));
-				o.setValorrs("R$ " + Formatacao
+				o.setValorrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(lista.get(i).getValorMoedaNacional()));
 				o.setIdgrupo(1);
 				this.lista.add(o);
@@ -259,7 +259,7 @@ public class GerarOcamentoManualPDFBean {
 				totalTxRs = totalTxRs + (lista.get(i).getValorMoedaNacional());
 			}
 			o.setTotalmelista(orcamentoCurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalTxMe));
-			o.setTotalrslista("R$ " + Formatacao.formatarFloatString(totalTxRs));
+			o.setTotalrslista(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalTxRs));
 		} 
 	}
 
@@ -279,7 +279,7 @@ public class GerarOcamentoManualPDFBean {
 				o.setSubDescricaoLista(String.valueOf(orcamentoCurso.getDuracaoAcomodacao()) + "semanas");
 				o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(lista.get(i).getValorMoedaEstrangeira()));
-				o.setValorrs("R$ " + Formatacao
+				o.setValorrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(lista.get(i).getValorMoedaNacional()));
 				o.setIdgrupo(2);
 				o.setTituloLista("ACOMODAÇÃO - " + orcamentoCurso.getFornecedor().getNome());
@@ -288,7 +288,7 @@ public class GerarOcamentoManualPDFBean {
 				totalAcRs = totalAcRs + lista.get(i).getValorMoedaNacional();
 			}
 			o.setTotalmelista(orcamentoCurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAcMe));
-			o.setTotalrslista("R$ " + Formatacao.formatarFloatString(totalAcRs));
+			o.setTotalrslista(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAcRs));
 		} 
 	}
 
@@ -303,7 +303,7 @@ public class GerarOcamentoManualPDFBean {
 				o.setSubDescricaoLista("");
 				o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(lista.get(i).getValorMoedaEstrangeira()));
-				o.setValorrs("R$ " + Formatacao
+				o.setValorrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(lista.get(i).getValorMoedaNacional()));
 				o.setIdgrupo(3);
 				o.setTituloLista("DESCONTO");
@@ -312,7 +312,7 @@ public class GerarOcamentoManualPDFBean {
 				totalDeRs = totalDeRs + lista.get(i).getValorMoedaNacional();
 			}
 			o.setTotalmelista(orcamentoCurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalDeMe));
-			o.setTotalrslista("R$ " + Formatacao.formatarFloatString(totalDeRs));
+			o.setTotalrslista(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalDeRs));
 		}
 	}
 	
@@ -330,7 +330,7 @@ public class GerarOcamentoManualPDFBean {
 					o.setDescricaolista(listaR.get(i).getProdutosOrcamento().getDescricao());
 					o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(listaR.get(i).getValorMoedaEstrangeira()));
-					o.setValorrs("R$ " + Formatacao
+					o.setValorrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 							.formatarFloatString(listaR.get(i).getValorMoedaNacional()));
 					o.setIdgrupo(4);
 					this.lista.add(o);
@@ -347,7 +347,7 @@ public class GerarOcamentoManualPDFBean {
 			o.setSubDescricaoLista(String.valueOf(orcamentoCurso.getOrcamentomanualseguro().getNumerodias()) + " dias");
 			o.setValorme(orcamentoCurso.getCambio().getMoedas().getSigla() + " " + Formatacao
 					.formatarFloatString(orcamentoCurso.getOrcamentomanualseguro().getValor() / orcamentoCurso.getValorCambio()));
-			o.setValorrs("R$ " + Formatacao.formatarFloatString(orcamentoCurso.getOrcamentomanualseguro().getValor()));
+			o.setValorrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(orcamentoCurso.getOrcamentomanualseguro().getValor()));
 			o.setIdgrupo(4);
 			lista.add(o);
 			totalAdMe = totalAdMe + (orcamentoCurso.getOrcamentomanualseguro().getValor() / orcamentoCurso.getValorCambio());
@@ -365,23 +365,23 @@ public class GerarOcamentoManualPDFBean {
 				if (lista.get(i).getIdgrupo() == 1) {
 					lista.get(i).setTotaltxme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalTxMe));
-					lista.get(i).setTotaltxrs("R$ " + Formatacao.formatarFloatString(totalTxRs));
+					lista.get(i).setTotaltxrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalTxRs));
 				} else if (lista.get(i).getIdgrupo() == 2) {
 					lista.get(i).setTotalacme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalAcMe));
-					lista.get(i).setTotalacrs("R$ " + Formatacao.formatarFloatString(totalAcRs));
+					lista.get(i).setTotalacrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAcRs));
 				} else if (lista.get(i).getIdgrupo() == 3) {
 					lista.get(i).setTotalDeme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalDeMe));
-					lista.get(i).setTotalDers("R$ " + Formatacao.formatarFloatString(totalDeRs));
+					lista.get(i).setTotalDers(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalDeRs));
 				} else if (lista.get(i).getIdgrupo() == 4) {
 					lista.get(i).setTotaladicionalme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalAdMe));
-					lista.get(i).setTotaladicionalrs("R$ " + Formatacao.formatarFloatString(totalAdRs));
+					lista.get(i).setTotaladicionalrs(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAdRs));
 				}
 				lista.get(i).setSubPacoteme(orcamentoCurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(totalAcMe + totalAdMe + totalTxMe + totalCursoMe - totalDeMe));
-				lista.get(i).setSubPacoters("R$ "
+				lista.get(i).setSubPacoters(orcamentoCurso.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(totalAcRs + totalAdRs + totalTxRs + totalCursoRs - totalDeRs));
 				
 			}
