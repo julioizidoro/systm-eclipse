@@ -464,7 +464,7 @@
 							<p:outputLabel value="Cobrança" for="cobranca" />
 							<p:outputLabel value="Valor:" for="valorunitario"
 								style="font-weight:bold;font-size: 11px;" />
-							<p:outputLabel value="Valor em R$:" for="valorunitarioRS"
+							<p:outputLabel value="Valor em #{cadOrcamentoManualMB.moedaNacional}:" for="valorunitarioRS"
 								style="font-weight:bold;font-size: 11px;margin-left: 15%;">
 
 							</p:outputLabel>
@@ -539,7 +539,7 @@
 							<p:outputLabel id="titulosemanasseguro" value="No. dias" />
 							<p:outputLabel value="Data Final" for="datatermino" />
 							<p:outputLabel value="Valor Total do Seguro" for="valormoeda" />
-							<p:outputLabel value="Valor Total em R$:" for="valorseguro"
+							<p:outputLabel value="Valor Total em #{cadOrcamentoManualMB.moedaNacional}:" for="valorseguro"
 								style="font-weight:bold;font-size: 11px;" />
 							<p:outputLabel />
 
@@ -663,7 +663,7 @@
 							<h:outputLabel id="campomoedaestrangeira"
 								value="#{cadOrcamentoManualMB.tituloMoedaEstrangeira()}"
 								for="valor" />
-							<h:outputLabel value="Valor R$" for="valoreal" />
+							<h:outputLabel value="Valor #{cadOrcamentoManualMB.moedaNacional}" for="valoreal" />
 							<h:outputLabel />
 							<p:selectOneMenu id="produto"
 								value="#{cadOrcamentoManualMB.produtosorcamento}"
@@ -723,7 +723,7 @@
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Valor R$" style="text-align:right">
+							<p:column headerText="Valor #{cadOrcamentoManualMB.moedaNacional}" style="text-align:right">
 								<h:outputText value="#{produtoscurso.valorMoedaReal}">
 									<f:convertNumber pattern="##,###,###,###.##"
 										minFractionDigits="2" />
@@ -789,7 +789,7 @@
 								legend="Opção 01 - Pagamento á Vista" toggleable="true"
 								style="font-size: 11px;width: 95%;margin-left: 2.5%">
 								<h:panelGrid style="margin-left:8%">
-									<h:outputLabel value="Valor R$" />
+									<h:outputLabel value="Valor #{cadOrcamentoManualMB.moedaNacional}" />
 									<h:inputText id="idvalorRS01"
 										value="#{cadOrcamentoManualMB.orcamentocurso.valor}"
 										style="text-align: right">
@@ -814,7 +814,7 @@
 									<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 										columnClasses="dezoito,dezoito,dezoito,dezoito">
 										<p:outputLabel value="% Entrada" />
-										<p:outputLabel value="Valor da Entrada R$" />
+										<p:outputLabel value="Valor da Entrada #{cadOrcamentoManualMB.moedaNacional}" />
 										<p:outputLabel value="Nº Parcelas" />
 										<p:outputLabel value="Valor da Parcela" />
 
@@ -864,7 +864,7 @@
 									<h:panelGrid style="margin-left:8%;width:80%;" columns="4"
 										columnClasses="dezoito,dezoito,dezoito,dezoito">
 										<p:outputLabel value="% Saldo" />
-										<p:outputLabel value="Saldo R$" />
+										<p:outputLabel value="Saldo #{cadOrcamentoManualMB.moedaNacional}" />
 										<p:outputLabel value="" />
 										<p:outputLabel value="" />
 										<h:inputText id="idpersentualsaldo2"
@@ -905,7 +905,7 @@
 								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 									columnClasses="dezoito,dezoito,dezoito,dezoito">
 									<p:outputLabel value="% Entrada" />
-									<p:outputLabel value="Valor da Entrada R$" />
+									<p:outputLabel value="Valor da Entrada #{cadOrcamentoManualMB.moedaNacional}" />
 									<p:outputLabel value="Nº Parcelas" />
 									<p:outputLabel value="Valor da Parcela" />
 
@@ -962,7 +962,7 @@
 								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 									columnClasses="dezoito,dezoito,dezoito,dezoito">
 									<p:outputLabel value="% Saldo" />
-									<p:outputLabel value="Saldo R$" />
+									<p:outputLabel value="Saldo #{cadOrcamentoManualMB.moedaNacional}" />
 									<p:outputLabel value="" />
 									<p:outputLabel value="" />
 
@@ -1001,7 +1001,7 @@
 								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 									columnClasses="dezoito,dezoito,dezoito,dezoito">
 									<p:outputLabel value="% Entrada" />
-									<p:outputLabel value="Valor da Entrada R$" />
+									<p:outputLabel value="Valor da Entrada #{cadOrcamentoManualMB.moedaNacional}" />
 									<p:outputLabel value="Nº Parcelas" />
 									<p:outputLabel value="Valor da Parcela" />
 
@@ -1063,7 +1063,7 @@
 								<h:panelGrid style="margin-left: 8%;width:80%;" columns="4"
 									columnClasses="dezoito,dezoito,dezoito,dezoito">
 									<p:outputLabel value="% Saldo" />
-									<p:outputLabel value="Saldo R$" />
+									<p:outputLabel value="Saldo #{cadOrcamentoManualMB.moedaNacional}" />
 									<p:outputLabel value="" />
 									<p:outputLabel value="" />
 									<p:inputText id="porcentagemSaldo4"

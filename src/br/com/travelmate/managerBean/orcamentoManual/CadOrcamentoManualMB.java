@@ -138,6 +138,7 @@ public class CadOrcamentoManualMB implements Serializable {
 	private String funcao;
 	private boolean segurocancelamento=false;
 	private List<NumeroParcelasBean> listaNumeroParcelas;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -181,6 +182,7 @@ public class CadOrcamentoManualMB implements Serializable {
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(), cliente.getFoneCelular());
 		digitosFoneResidencial = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(), cliente.getFoneResidencial());
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public Orcamentocurso getOrcamentocurso() {
@@ -549,6 +551,14 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	public void setListaNumeroParcelas(List<NumeroParcelasBean> listaNumeroParcelas) {
 		this.listaNumeroParcelas = listaNumeroParcelas;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void gerarListaPublicidade() {
@@ -1767,8 +1777,8 @@ public class CadOrcamentoManualMB implements Serializable {
 		if ((seguroViagem.getDatainicio() != null) && (seguroViagem.getNumerodias() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			if (seguroViagem.getValoresseguro()!=null){
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+					seguroViagem.getValoresseguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				seguroViagem.setDatatermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDatainicio(),
 						seguroViagem.getNumerodias()));
