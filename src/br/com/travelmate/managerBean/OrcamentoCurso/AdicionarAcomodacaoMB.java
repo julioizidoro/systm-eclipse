@@ -59,6 +59,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private String nomeFornecedor3 = "";
 	private String nomeAcomodacaoFornecedor = "";
 	private String advertencia = "";
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -84,6 +85,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 			session.removeAttribute("nomeFornecedor3");
 		}
 		nomeAcomodacaoFornecedor = resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getNome();
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public ResultadoOrcamentoBean getResultadoOrcamentoBean() {
@@ -252,6 +254,14 @@ public class AdicionarAcomodacaoMB implements Serializable {
 
 	public void setAdvertencia(String advertencia) {
 		this.advertencia = advertencia;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void gerarListaAcomodacao() {

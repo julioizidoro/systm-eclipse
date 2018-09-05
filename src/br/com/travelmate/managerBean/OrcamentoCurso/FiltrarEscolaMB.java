@@ -98,6 +98,7 @@ public class FiltrarEscolaMB implements Serializable {
 	private String funcao;
 	private boolean habilitarUpload = true;
 	private List<Fornecedor> listaFornecedorAtualizando;
+	private String moedaNacional;
 	
 	@Inject
 	private OcursoFeriadoDao ocursoFeriadoDao;
@@ -145,6 +146,7 @@ public class FiltrarEscolaMB implements Serializable {
 		}else{
 			habilitarUpload = false;
 		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public void iniciarNovoOrcamento() {
@@ -257,6 +259,14 @@ public class FiltrarEscolaMB implements Serializable {
 
 	public void setHabilitarUpload(boolean habilitarUpload) {
 		this.habilitarUpload = habilitarUpload;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void gerarListaIdioma() {
@@ -503,7 +513,7 @@ public class FiltrarEscolaMB implements Serializable {
 				produtoFornecedor.setSvalorMoedaEstrangeira(fpb.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(produtoFornecedor.getValorMoedaEstrangeira()));
 				produtoFornecedor.setSvalorMoedaNacional(
-						"R$ " + Formatacao.formatarFloatString(produtoFornecedor.getValorMoedaNacional()));
+					moedaNacional + " " + Formatacao.formatarFloatString(produtoFornecedor.getValorMoedaNacional()));
 				produtoFornecedor.setLinhaFornecedor(0);
 				produtoFornecedor.setFornecedorCidadeIdioma(fornecedorCidadeIdioma);
 				fpb.getListaProdutoFornecedor().add(produtoFornecedor);
@@ -537,7 +547,7 @@ public class FiltrarEscolaMB implements Serializable {
 			idMoeda = fornecedorPais.getMoedas().getIdmoedas();
 		}
 		while (cambio == null) {
-			cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(data), idMoeda);
+			cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(data), idMoeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			try {
 				data = Formatacao.SomarDiasDatas(data, -1);
 			} catch (Exception ex) {

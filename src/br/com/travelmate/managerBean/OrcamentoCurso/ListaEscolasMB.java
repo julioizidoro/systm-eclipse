@@ -11,6 +11,7 @@ import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.facade.PromocaoBrindeCursoCidadeFacade;
 import br.com.travelmate.facade.PromocaoTaxaCidadeFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Filtroorcamentoproduto;
 import br.com.travelmate.model.Fornecedor;
@@ -38,6 +39,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -55,10 +57,13 @@ public class ListaEscolasMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private Parametrosprodutos parametrosprodutos;
 	private String possuiPromocao;
 	private FiltrarEscolaBean FiltrarEscolaBean; 
 	private List<ProdutosOrcamentoBean> listaSuplemento;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -70,7 +75,7 @@ public class ListaEscolasMB implements Serializable {
 				FiltrarEscolaBean.getListaFornecedorProdutosBean().remove(i);
 			}
 		}
-		
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public FiltrarEscolaBean getFiltrarEscolaBean() {
@@ -97,6 +102,14 @@ public class ListaEscolasMB implements Serializable {
 		this.possuiPromocao = possuiPromocao;
 	}
 	
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
+	}
+
 	public List<Coprodutos> verificarCursoPossuiValor(Coprodutos listaCoProdutos,
 			FornecedorProdutosBean fornecedorProdutosBean) {
 		boolean encontrou = false;

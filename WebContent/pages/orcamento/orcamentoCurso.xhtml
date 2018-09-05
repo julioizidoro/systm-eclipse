@@ -120,7 +120,7 @@
 													value="#{orcamentoCursoMB.retornarValorString(curso.valorOrigianl, orcamentoCursoMB.resultadoOrcamentoBean.cambio.moedas.sigla)}"
 													style="font-weight:bold;font-size:14px;text-align: right;" />
 												<h:outputText id="valorOriginalReal1"
-													value="#{orcamentoCursoMB.retornarValorString(curso.valorOriginalRS, R$)}"
+													value="#{orcamentoCursoMB.retornarValorString(curso.valorOriginalRS, orcamentoCursoMB.moedaNacional)}"
 													style="font-weight:bold;font-size:14px;text-align: right;">
 												</h:outputText>
 											</h:panelGrid>
@@ -142,7 +142,7 @@
 													value="#{orcamentoCursoMB.retornarValorString(curso.valorPromocional, orcamentoCursoMB.resultadoOrcamentoBean.cambio.moedas.sigla)}"
 													style="font-weight:bold;font-size:14px;text-align:right;" />
 												<h:outputText id="valorPromocionalReal"
-													value="#{orcamentoCursoMB.retornarValorString(curso.valorPromocionalRS, R$)}"
+													value="#{orcamentoCursoMB.retornarValorString(curso.valorPromocionalRS, orcamentoCursoMB.moedaNacional)}"
 													style="font-weight:bold;font-size:14px;text-align:right;">
 												</h:outputText>
 											</h:panelGrid>
@@ -241,7 +241,7 @@
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
 									</p:outputLabel>
-									<h:outputText value="R$" style="margin-left:4%;font-size:14px;" />
+									<h:outputText value="#{orcamentoCursoMB.moedaNacional}" style="margin-left:4%;font-size:14px;" />
 									<p:outputLabel id="valorOriginalrsTaxa"
 										value="#{obrigatorio.valorOriginalRS}"
 										style="font-size:14px;text-align: right;margin-left:0.5%">
@@ -270,7 +270,7 @@
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
 									</p:outputLabel>
-									<h:outputText value="R$" style="margin-left:4%;font-size:14px;" />
+									<h:outputText value="#{orcamentoCursoMB.moedaNacional}" style="margin-left:4%;font-size:14px;" />
 									<p:outputLabel id="valorPromocionalrsTaxas"
 										value="#{obrigatorio.valorPromocionalRS}"
 										style="font-size:14px;text-align: right;margin-left:0.5%">
@@ -327,7 +327,7 @@
 									value="#{orcamentoCursoMB.retornarValorString(opcional.valorOrigianl, orcamentoCursoMB.resultadoOrcamentoBean.cambio.moedas.sigla)}"
 									style="font-weight:bold;font-size:14px;text-align: right;" />
 								<h:outputText id="valorRealOpcional"
-									value="#{orcamentoCursoMB.retornarValorString(opcional.valorOriginalRS, R$)}"
+									value="#{orcamentoCursoMB.retornarValorString(opcional.valorOriginalRS, orcamentoCursoMB.moedaNacional)}"
 									style="font-weight:bold;font-size:14px;text-align: right;">
 								</h:outputText>
 								<p:overlayPanel id="painelDescricaoPromocional"
@@ -344,7 +344,7 @@
 									</h:outputText>
 									<br></br>
 									<br></br>
-									<h:outputText value="R$ " style="font-size:9px;"
+									<h:outputText value="#{orcamentoCursoMB.moedaNacional}" style="font-size:9px;"
 										class="espacocobranca29" />
 									<h:outputText value="#{opcional.valorOriginalRS}"
 										style="font-size:9px;">
@@ -466,7 +466,7 @@
 							readonly="true">
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</p:inputText>
-						<p:outputLabel value="Valor em R$:" for="valorunitarioRS"
+						<p:outputLabel value="Valor em #{orcamentoCursoMB.moedaNacional}:" for="valorunitarioRS"
 							style="font-weight:bold;font-size: 12px;margin-left:4%">
 							  
 						</p:outputLabel>
@@ -527,7 +527,7 @@
 						>
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</p:inputText>
-					<p:outputLabel value="Valor Total em R$:" for="valorseguro"
+					<p:outputLabel value="Valor Total em #{orcamentoCursoMB.moedaNacional}:" for="valorseguro"
 						style="font-weight:bold;font-size: 12px;margin-left:8%" />
 					<p:inputText id="valorseguro"
 						value="#{orcamentoCursoMB.seguroviagem.valorSeguro}"
@@ -677,7 +677,7 @@
 													<f:convertNumber pattern="##,###,###,###.##"
 														minFractionDigits="2" />
 												</p:outputLabel>
-												<h:outputText value="R$" style="margin-left:4%" />
+												<h:outputText value="#{orcamentoCursoMB.moedaNacional}" style="margin-left:4%" />
 												<p:outputLabel id="valorOriginalrs"
 													value="#{acomodacao.valorOriginalRS}"
 													style="font-size:12px;text-align: right;margin-left:0.5%">
@@ -709,7 +709,7 @@
 													<f:convertNumber pattern="##,###,###,###.##"
 														minFractionDigits="2" />
 												</p:outputLabel>
-												<h:outputText value="R$"
+												<h:outputText value="#{orcamentoCursoMB.moedaNacional}"
 													style="margin-left:4%;font-size:13px;" />
 												<p:outputLabel id="valorPromocionalrsAcomodacao"
 													value="#{acomodacao.valorPromocionalRS}"
@@ -848,7 +848,7 @@
 													style="font-size:12px;text-align: right;margin-left:0.5%">
 													<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 												</p:outputLabel>
-												<h:outputText value="R$" style="margin-left:2%;" />
+												<h:outputText value="#{orcamentoCursoMB.moedaNacional}" style="margin-left:2%;" />
 												<p:outputLabel id="valorAcOriginalrs"
 													value="#{acOpcional.valorRSacOpcional}"
 													style="font-size:12px;text-align: right;margin-left:0.5%">
@@ -917,7 +917,7 @@
 									</p:outputLabel>
 								</h:panelGroup>
 								<h:panelGroup>
-									<h:outputText value="R$ " style="font-size:13px;"/>
+									<h:outputText value="#{orcamentoCursoMB.moedaNacional}" style="font-size:13px;"/>
 									<p:outputLabel id="valortransferRS"
 										value="#{orcamentoCursoMB.calcularValorRealTransfer(transfer)}"
 										style="font-size:13px;text-align: right;margin-left:0.5%">
@@ -980,7 +980,7 @@
 									value="#{orcamentoCursoMB.retornarValorString(outrosProdutos.valorOrigianl, orcamentoCursoMB.resultadoOrcamentoBean.cambio.moedas.sigla)}"
 									style="font-weight:bold;font-size:14px;text-align: right;" />
 								<h:outputText id="valorRealOutrosProdutos"
-									value="#{orcamentoCursoMB.retornarValorString(outrosProdutos.valorOriginalRS, R$)}"
+									value="#{orcamentoCursoMB.retornarValorString(outrosProdutos.valorOriginalRS, orcamentoCursoMB.moedaNacional)}"
 									style="font-weight:bold;font-size:14px;text-align: right;">
 								</h:outputText>
 								<p:overlayPanel id="painelDescricaoOutrosProdutos"
@@ -997,7 +997,7 @@
 									</h:outputText>
 									<br></br>
 									<br></br>
-									<h:outputText value="R$ " style="font-size:9px;"
+									<h:outputText value="#{orcamentoCursoMB.moedaNacional}" style="font-size:9px;"
 										class="espacocobranca29" />
 									<h:outputText value="#{outrosProdutos.valorOriginalRS}"
 										style="font-size:9px;">
@@ -1066,13 +1066,13 @@
 								style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
 
 							<br></br>
-							<h:outputText value="Valor R$"
+							<h:outputText value="Valor #{orcamentoCursoMB.moedaNacional}"
 								style="font-weight:bold;font-size: 12px;margin-left:60%" />
 							<p:inputText id="valordesconto"
 								value="#{desconto.valormoedanacional}"
 								readonly="#{desconto.taxaTmSelecionado}"
 								style="font-size:11px;text-align: right;margin-left:1%;width: 10%"
-								placeholder="Valor R$">
+								placeholder="Valor #{orcamentoCursoMB.moedaNacional}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 								<p:ajax event="blur"
@@ -1130,7 +1130,7 @@
 										minFractionDigits="2" />
 								</h:outputText>
 								<br></br>
-								<h:outputText value="R$ "
+								<h:outputText value="#{orcamentoCursoMB.moedaNacional}"
 									style="font-weight:bold;font-size: 13px;" />
 								<h:outputText value="#{orcamentoCursoMB.valorTotalRS}"
 									style="font-weight:bold;font-size: 13px;">
@@ -1158,10 +1158,10 @@
 										minFractionDigits="2" />
 								</h:outputText>
 								<br></br>
-								<h:outputText value="R$ "
+								<h:outputText value="#{orcamentoCursoMB.moedaNacional} "
 									style="font-weight:bold;font-size: 13px;" />
 								<h:outputText value="#{orcamentoCursoMB.valorTotalAdicionaisRS}"
-									style="font-weight:bold;font-size: 13px;">
+									style="font-weight:bold;font-size: 13px;" class="espacocobranca29">
 									<f:convertNumber pattern="##,###,###,###.##"
 										minFractionDigits="2" />
 								</h:outputText>

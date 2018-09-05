@@ -43,6 +43,7 @@ public class AdicionarTransferMB implements Serializable {
 	private String mensagem;
 	private boolean transferIndependente;
 	private List<ProdutosOrcamentoBean> listaTransferIndependente;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() { 
@@ -55,6 +56,7 @@ public class AdicionarTransferMB implements Serializable {
 				resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
 			gerarListaTransferIndependente();
 		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public ResultadoOrcamentoBean getResultadoOrcamentoBean() {
@@ -119,6 +121,14 @@ public class AdicionarTransferMB implements Serializable {
 
 	public void setListaTransferIndependente(List<ProdutosOrcamentoBean> listaTransferIndependente) {
 		this.listaTransferIndependente = listaTransferIndependente;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void gerarListaTransfer() {

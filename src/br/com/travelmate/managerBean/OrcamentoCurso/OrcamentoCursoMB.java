@@ -132,6 +132,7 @@ public class OrcamentoCursoMB implements Serializable {
 	private String nomeFornecedor3 = "";
 	private String nomeAcomodacaoFornecedor = "";
 	private String advertencia = "";
+	private String moedaNacional;
 	
 	@Inject
 	private OCursoDao OCursoDao;
@@ -208,6 +209,7 @@ public class OrcamentoCursoMB implements Serializable {
 		if (listaOpcionais == null || listaOpcionais.size() <= 0) {
 			desabilitarbtnOpcional = true;
 		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public String getCampoPromocaoImg() {
@@ -505,6 +507,14 @@ public class OrcamentoCursoMB implements Serializable {
 
 	public void setHabilitarPin(boolean habilitarPin) {
 		this.habilitarPin = habilitarPin;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public String habilitarSeguro() {

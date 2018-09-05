@@ -41,6 +41,7 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 	private List<ProdutosOrcamentoBean> listaAcOpcional;
 	private List<ProdutosOrcamentoBean> listaAcOpcionalIndependente;
 	private String nomeAcomodacaoFornecedor;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -49,10 +50,13 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 		resultadoOrcamentoBean = (ResultadoOrcamentoBean) session.getAttribute("resultadoOrcamentoBean");
 		session.removeAttribute("resultadoOrcamentoBean");
 		gerarListaAcOpcional();
-			if(resultadoOrcamentoBean.getListaAcomodacoes()!=null && resultadoOrcamentoBean.getListaAcomodacoes().size()>0 &&
-					resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma().isAcomodacaoindependente()) {
-				gerarListaAcOpcionalIndependente();
-			}
+		if (resultadoOrcamentoBean.getListaAcomodacoes() != null
+				&& resultadoOrcamentoBean.getListaAcomodacoes().size() > 0
+				&& resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos()
+						.getFornecedorcidadeidioma().isAcomodacaoindependente()) {
+			gerarListaAcOpcionalIndependente();
+		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public ResultadoOrcamentoBean getResultadoOrcamentoBean() {
@@ -101,6 +105,14 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 
 	public void setNomeAcomodacaoFornecedor(String nomeAcomodacaoFornecedor) {
 		this.nomeAcomodacaoFornecedor = nomeAcomodacaoFornecedor;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void gerarListaAcOpcional() {

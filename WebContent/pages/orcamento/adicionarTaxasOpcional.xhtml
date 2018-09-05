@@ -47,7 +47,7 @@
 									value="#{adicionarTaxasOpcionalMB.retornarValorString(opcional.valorOrigianl, adicionarTaxasOpcionalMB.resultadoOrcamentoBean.cambio.moedas.sigla)}"
 									style="font-weight:bold;font-size:14px;text-align: right;" />
 								<h:outputText id="valorRealOpcional"
-									value="#{adicionarTaxasOpcionalMB.retornarValorString(opcional.valorOriginalRS, R$)}"
+									value="#{adicionarTaxasOpcionalMB.retornarValorString(opcional.valorOriginalRS, adicionarTaxasOpcionalMB.moedaNacional)}"
 									style="font-weight:bold;font-size:14px;text-align: right;">
 								</h:outputText>
 								<p:overlayPanel id="painelDescricaoPromocional"
@@ -64,7 +64,7 @@
 									</h:outputText>
 									<br></br>
 									<br></br>
-									<h:outputText value="R$ " style="font-size:9px;"
+									<h:outputText value="#{adicionarTaxasOpcionalMB.moedaNacional}" style="font-size:9px;"
 										class="espacocobranca29" />
 									<h:outputText value="#{opcional.valorOriginalRS}"
 										style="font-size:9px;">

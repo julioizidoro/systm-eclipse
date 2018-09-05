@@ -6,11 +6,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.util.Formatacao;
 
 @Named
@@ -21,8 +23,11 @@ public class AdicionarTaxasOpcionalMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
 	private List<ProdutosOrcamentoBean> listaOpcionais;
+	private String moedaNacional;
 	
 	
 	
@@ -34,6 +39,7 @@ public class AdicionarTaxasOpcionalMB implements Serializable{
 		listaOpcionais = (List<ProdutosOrcamentoBean>) session.getAttribute("listaOpcionais");
 		session.removeAttribute("listaOpcionais");
 		session.removeAttribute("resultadoOrcamentoBean");
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 	
 	
@@ -61,6 +67,18 @@ public class AdicionarTaxasOpcionalMB implements Serializable{
 
 	public void setListaOpcionais(List<ProdutosOrcamentoBean> listaOpcionais) {
 		this.listaOpcionais = listaOpcionais;
+	}
+
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 

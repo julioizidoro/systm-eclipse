@@ -102,6 +102,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	private List<NumeroParcelasBean> listaNumeroParcelas;
 	private NumeroParcelasBean numeroParcelaSelecionado;
 	private UploadedFile file;
+	private String moedaNacional;
 	
 	@Inject
 	private OCursoDao OCursoDao;
@@ -130,6 +131,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		}
 		popularFormaPagamento();
 		calcularParcelamento();
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public List<NumeroParcelasBean> getListaNumeroParcelas() {
@@ -242,6 +244,14 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 
 	public void setListaOcursoDesconto(List<Ocursodesconto> listaOcursoDesconto) {
 		this.listaOcursoDesconto = listaOcursoDesconto;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void mostrarMensagem(Exception ex, String erro, String titulo) {
