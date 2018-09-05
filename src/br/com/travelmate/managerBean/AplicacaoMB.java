@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,11 +14,13 @@ import javax.inject.Named;
 
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ParametrosProdutosFacade;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
 
 import br.com.travelmate.model.Cambio;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Parametrosprodutos;
 import br.com.travelmate.model.Pontuacaovendas;
 import br.com.travelmate.model.Regravenda;
@@ -53,6 +56,7 @@ public class AplicacaoMB implements Serializable {
 	private List<Cambio> listaCambio;
 	private String datacambio;
 	private boolean leituraCobranca;
+	private List<Pais> listaPais;
 
 	@PostConstruct
 	public void init() {
@@ -185,6 +189,16 @@ public class AplicacaoMB implements Serializable {
 	public void setLeituraCobranca(boolean leituraCobranca) {
 		this.leituraCobranca = leituraCobranca;
 	}
+	
+	
+
+	public List<Pais> getListaPais() {
+		return listaPais;
+	}
+
+	public void setListaPais(List<Pais> listaPais) {
+		this.listaPais = listaPais;
+	}
 
 	public String validarMascaraTelefone(boolean digitosTelefone) {
 		if (digitosTelefone) {
@@ -213,15 +227,21 @@ public class AplicacaoMB implements Serializable {
 	}
 
 	public void carregarCambioDia(Date datacambiohoje) {
-		String data = null;
-		data = Formatacao.ConvercaoDataSql(datacambiohoje);
+		String sql = "Select c from cambio c where ";
+		for (int i=0;i<listaPais.size();i++) {
+			sql = sql + " (c.data='" + Formatacao.ConvercaoDataSql(listaPais.get(i).getDatacambio()) + "'  and c.pais.idpais= " + listaPais.get(i).getIdpais() + ")";
+			if (listaPais.size()>(i+1)) {
+				sql = sql + " or ";
+			}
+			sql = sql + " order by c.pais";
+		}
 		CambioFacade cambioFacade = new CambioFacade();
-		listaCambio = cambioFacade.listar(data);
-		int contador = 0;
+		listaCambio = cambioFacade.listarCambio(sql);
+	/*	int contador = 0;
 		if ((listaCambio != null) && (listaCambio.size() == 0)) {
 			listaCambio = null;
 		}
-		if (listaCambio == null) {
+	*/	/*if (listaCambio == null) {
 			while (listaCambio == null) {
 				try {
 					data = Formatacao.SubtarirDatas(new Date(), contador, "yyyy/MM/dd");
@@ -234,7 +254,7 @@ public class AplicacaoMB implements Serializable {
 				}
 				contador++;
 			}
-		}
+		}*/
 
 		if (listaCambio == null) {
 			datacambio = "Erro";
@@ -372,6 +392,14 @@ public class AplicacaoMB implements Serializable {
 		pontuacaovendas.setUsuariopontos(usuariopontos);
 		usuariopontos.getPontuacaovendasList().add(pontuacaovendas);
 		return regra.getPonto();
+	}
+	
+	public void listarPais(){
+		PaisFacade paisFacade = new PaisFacade();
+		listaPais = paisFacade.listarModelo("Select p from pais p where p.possuifranquia=1");
+		if (listaPais==null) {
+			listaPais = new ArrayList<Pais>();
+		}
 	}
 
 }

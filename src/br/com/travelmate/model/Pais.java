@@ -6,6 +6,7 @@
 package br.com.travelmate.model;
  
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -20,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
@@ -67,6 +70,9 @@ public class Pais implements Serializable {
     private int modelo;
     @Column(name = "possuifranquia")
     private boolean possuifranquia;
+    @Column(name = "datacambio")
+	@Temporal(TemporalType.DATE)
+	private Date datacambio;
     
     public Pais() {
     }
@@ -165,6 +171,14 @@ public class Pais implements Serializable {
 
 	public void setPossuifranquia(boolean possuifranquia) {
 		this.possuifranquia = possuifranquia;
+	}
+
+	public Date getDatacambio() {
+		return datacambio;
+	}
+
+	public void setDatacambio(Date datacambio) {
+		this.datacambio = datacambio;
 	}
 
 	@Override

@@ -111,6 +111,18 @@ public class CambioFacade {
         }
     }
     
+    public List<Cambio> listarCambio(String sql) {
+    	cambioDao = new CambioDao();
+        try {
+            return cambioDao.listarCambio(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(CambioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    
+    
     public List<Cambio> listarCambioPais(String data, Pais pais) {
         cambioDao = new CambioDao();
         try {

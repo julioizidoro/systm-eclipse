@@ -114,6 +114,15 @@ public class CambioDao {
         return lista;
     }
     
+    public List<Cambio> listarCambio(String sql) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+        Query q = manager.createQuery(sql);
+        List<Cambio> lista = q.getResultList();
+        manager.close();
+        return lista;
+    }
+    
     
     public List<Cambio> listarCambioPais(String data, Pais pais) throws SQLException{
     	EntityManager manager;
