@@ -9,7 +9,7 @@
 		<h:form id="consCambio">
 			<div id="centro">
 				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
-				<h:panelGrid style="width:33%;margin-left:27.5%;" columns="3">
+				<h:panelGrid style="width:40%;margin-left:27.5%;" columns="3">
 					<p:outputLabel value="Data" for="data" style="font-size: 13px;" />
 					<p:outputLabel value="Pais" for="data" style="font-size: 13px;" />
 					<p:outputLabel />
@@ -47,7 +47,7 @@
 					<p:dataTable id="tabelaCambio" var="cambio" 
 						value="#{cambioMB.listaCambio}"  editable="true" 
 						editMode="cell" rowIndexVar="rowIx" scrollable="true" 
-						scrollHeight="300" style="width:46%;"> 
+						scrollHeight="350" style="width:46%;"> 
 						<p:column headerText="Data" style="text-align:left;width:100px;"> 
 							<h:outputText value="#{cambio.data}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
