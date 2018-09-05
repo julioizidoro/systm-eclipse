@@ -244,7 +244,7 @@
 									itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
 								<f:attribute name="listaPais"
 									value="#{cadOrcamentoManualMB.listaPais}" />
-								<p:ajax event="change" update="moeda, idvalorcambio, tabelaprodutoscurso"
+								<p:ajax event="change" update="moeda, idvalorcambio, tabelaprodutoscurso, campomoedaestrangeira"
 									listener="#{cadOrcamentoManualMB.selecionarCambio()}" />
 								<p:ajax event="change" update="cidade"
 									listener="#{cadOrcamentoManualMB.listarCidades()}" />
