@@ -227,14 +227,15 @@ public class AplicacaoMB implements Serializable {
 	}
 
 	public void carregarCambioDia(Date datacambiohoje) {
-		String sql = "Select c from cambio c where ";
+		String sql = "Select c from Cambio c where ";
+		listarPais();
 		for (int i=0;i<listaPais.size();i++) {
 			sql = sql + " (c.data='" + Formatacao.ConvercaoDataSql(listaPais.get(i).getDatacambio()) + "'  and c.pais.idpais= " + listaPais.get(i).getIdpais() + ")";
 			if (listaPais.size()>(i+1)) {
 				sql = sql + " or ";
 			}
-			sql = sql + " order by c.pais";
 		}
+		sql = sql + " order by c.pais";
 		CambioFacade cambioFacade = new CambioFacade();
 		listaCambio = cambioFacade.listarCambio(sql);
 	/*	int contador = 0;
@@ -273,34 +274,15 @@ public class AplicacaoMB implements Serializable {
 					liberar=false;
 				}
 			}
-			if(liberar){
-				datacambio = (Formatacao.ConvercaoDataPadrao(listaCambio.get(0).getData()));
-//				for (int i = 0; i < listaCambio.size(); i++) {
-//					if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("IATA") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						iata = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("USD") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						uds = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("EUR") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						eur = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("GBP") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						gbp = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("cad") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						cad = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("aud") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						aud = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("nzd") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						nzd = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("chf") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						chf = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					} else if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("zar") && (listaCambio.get(i).getPais().getIdpais() == usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais())) {
-//						zar = (Formatacao.formatarValorCambio(listaCambio.get(i).getValor()));
-//					}
-//				} 
-			}else{
+			if(!liberar){
 				Mensagem.lancarMensagemErro("Atenção!", "Moedas com valores zerados!");
 			}
 		}
 
+	}
+	
+	public String retornarDataCambio() {
+		return Formatacao.ConvercaoDataPadrao(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio());
 	}
 	
 	public String retornarCambio(String moeda) {
@@ -396,7 +378,7 @@ public class AplicacaoMB implements Serializable {
 	
 	public void listarPais(){
 		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("Select p from pais p where p.possuifranquia=1");
+		listaPais = paisFacade.listarModelo("Select p from Pais p where p.possuifranquia=1");
 		if (listaPais==null) {
 			listaPais = new ArrayList<Pais>();
 		}

@@ -166,6 +166,9 @@ public class CambioMB  implements Serializable{
 				cambio.setPais(pais);
 				cambio = cambioFacade.salvar(cambio);
 			}
+			PaisFacade paisFacade = new PaisFacade();
+			pais.setDatacambio(data);
+			pais = paisFacade.salvar(pais);
 			FacesContext fc = FacesContext.getCurrentInstance();
 		    HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		    session.setAttribute("data", data);
