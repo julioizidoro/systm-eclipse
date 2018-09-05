@@ -214,7 +214,7 @@ public class GerarComparativoTarifarioBean {
 						&& poTaxa.getListaProdutosOrcamento().size() > 0) {
 					poTaxa.setTotalmelista(listaocurso.get(i).getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalTxMe));
-					poTaxa.setTotalrslista("R$ "
+					poTaxa.setTotalrslista(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalTxRs));
 					o.getListaProdutos().add(poTaxa);
 				}
@@ -223,7 +223,7 @@ public class GerarComparativoTarifarioBean {
 						&& poAcomodacao.getListaProdutosOrcamento().size() > 0) {
 					poAcomodacao.setTotalmelista(listaocurso.get(i).getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalAcMe));
-					poAcomodacao.setTotalrslista("R$ "
+					poAcomodacao.setTotalrslista(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalAcRs));
 					o.getListaProdutos().add(poAcomodacao);
 				}
@@ -232,7 +232,7 @@ public class GerarComparativoTarifarioBean {
 						&& poAdicional.getListaProdutosOrcamento().size() > 0) {
 					poAdicional.setTotalmelista(listaocurso.get(i).getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalAdMe));
-					poAdicional.setTotalrslista("R$ "
+					poAdicional.setTotalrslista(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalAdRs));
 					o.getListaProdutos().add(poAdicional);
 				}
@@ -241,7 +241,7 @@ public class GerarComparativoTarifarioBean {
 						&& poDesconto.getListaProdutosOrcamento().size() > 0) {
 					poDesconto.setTotalmelista(listaocurso.get(i).getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalDeMe));
-					poDesconto.setTotalrslista("R$ "
+					poDesconto.setTotalrslista(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalDeRs));
 					o.getListaProdutos().add(poDesconto);
 				}
@@ -449,7 +449,7 @@ public class GerarComparativoTarifarioBean {
 		o.setTurno1(ocurso.getTurno());
 		o.setTotalCursome1(
 				ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalCursoMe));
-		o.setTotalcursors1("R$ " + Formatacao.formatarFloatString(totalCursoRs));
+		o.setTotalcursors1(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalCursoRs));
 		o.setDataOrcamento1(Formatacao.ConvercaoDataPadrao(ocurso.getDataorcamento()));
 		o.setCambio1(ocurso.getCambio().getMoedas().getSigla() + " "
 				+ Formatacao.formatarFloatString(ocurso.getValorcambio()));
@@ -471,7 +471,7 @@ public class GerarComparativoTarifarioBean {
 				listaPo.setDescricaolista(listaTaxas.get(i).getDescricao());
 				listaPo.setValorme(ocurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(listaTaxas.get(i).getValororiginal()));
-				listaPo.setValorrs("R$ " + Formatacao
+				listaPo.setValorrs(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(listaTaxas.get(i).getValororiginal() * ocurso.getValorcambio()));
 				po.getListaProdutosOrcamento().add(listaPo);
 
@@ -481,7 +481,7 @@ public class GerarComparativoTarifarioBean {
 			if (po != null) {
 				po.setTotalmelista(
 						ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalTxMe));
-				po.setTotalrslista("R$ " + Formatacao.formatarFloatString(totalTxRs));
+				po.setTotalrslista(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalTxRs));
 			}
 			return po;
 		}
@@ -509,7 +509,7 @@ public class GerarComparativoTarifarioBean {
 						+ " - " + String.valueOf(numeroSemana) + " semanas");
 				listaPo.setValorme(ocurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(listaAcomodacao.get(i).getValororiginal()));
-				listaPo.setValorrs("R$ " + Formatacao
+				listaPo.setValorrs(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(listaAcomodacao.get(i).getValororiginal() * ocurso.getValorcambio()));
 				po.setIdgrupo(2);
 				po.setTituloLista("ACOMODAÇÃO");
@@ -521,7 +521,7 @@ public class GerarComparativoTarifarioBean {
 			if (po != null) {
 				po.setTotalmelista(
 						ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAcMe));
-				po.setTotalrslista("R$ " + Formatacao.formatarFloatString(totalAcRs));
+				po.setTotalrslista(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAcRs));
 			}
 			return po;
 		} else if (produtoCurso.getValorcoprodutos().getCoprodutos().isAcomodacao()) {
@@ -567,7 +567,7 @@ public class GerarComparativoTarifarioBean {
 				listaPo.setSubDescricaoLista("");
 				listaPo.setValorme(ocurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(listaDesconto.get(i).getValororiginal()));
-				listaPo.setValorrs("R$ " + Formatacao
+				listaPo.setValorrs(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(listaDesconto.get(i).getValororiginal() * ocurso.getValorcambio()));
 				po.setIdgrupo(3);
 				po.setTituloLista("DESCONTO");
@@ -579,7 +579,7 @@ public class GerarComparativoTarifarioBean {
 			if (po != null) {
 				po.setTotalmelista(
 						ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalDeMe));
-				po.setTotalrslista("R$ " + Formatacao.formatarFloatString(totalDeRs));
+				po.setTotalrslista(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalDeRs));
 			}
 			return po;
 		}
@@ -599,7 +599,7 @@ public class GerarComparativoTarifarioBean {
 				listaPo.setSubDescricaoLista(listaAdicionais.get(i).getDescricao());
 				listaPo.setValorme(ocurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(listaAdicionais.get(i).getValororiginal()));
-				listaPo.setValorrs("R$ " + Formatacao
+				listaPo.setValorrs(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(listaAdicionais.get(i).getValororiginal() * ocurso.getValorcambio()));
 				po.setIdgrupo(4);
 				po.setTituloLista("ITENS ADICIONAIS");
@@ -618,7 +618,7 @@ public class GerarComparativoTarifarioBean {
 					listaPo.setValorme(ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(
 							ocurso.getOcursoseguroList().get(0).getValor() / ocurso.getValorcambio()));
 					listaPo.setValorrs(
-							"R$ " + Formatacao.formatarFloatString(ocurso.getOcursoseguroList().get(0).getValor()));
+							listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(ocurso.getOcursoseguroList().get(0).getValor()));
 					po.setIdgrupo(4);
 					po.setTituloLista("ITENS ADICIONAIS");
 					po.getListaProdutosOrcamento().add(listaPo);
@@ -630,7 +630,7 @@ public class GerarComparativoTarifarioBean {
 			if (po != null) {
 				po.setTotalmelista(
 						ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAdMe));
-				po.setTotalrslista("R$ " + Formatacao.formatarFloatString(totalAdRs));
+				po.setTotalrslista(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAdRs));
 			}
 			return po;
 		}
@@ -643,27 +643,27 @@ public class GerarComparativoTarifarioBean {
 				if (o.getListaProdutos().get(j).getIdgrupo() == 1) {
 					o.setTotaltxme(ocurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalTxMe));
-					o.setTotaltxrs("R$ " + Formatacao.formatarFloatString(totalTxRs));
+					o.setTotaltxrs(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalTxRs));
 				} else if (o.getListaProdutos().get(j).getIdgrupo() == 2) {
 					o.setTotalacme(ocurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalAcMe));
-					o.setTotalacrs("R$ " + Formatacao.formatarFloatString(totalAcRs));
+					o.setTotalacrs(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAcRs));
 				} else if (o.getListaProdutos().get(j).getIdgrupo() == 3) {
 					o.setTotalDeme(ocurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalDeMe));
-					o.setTotalDers("R$ " + Formatacao.formatarFloatString(totalDeRs));
+					o.setTotalDers(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalDeRs));
 				} else if (o.getListaProdutos().get(j).getIdgrupo() == 6) {
 					o.setTotaladicionalme(ocurso.getCambio().getMoedas().getSigla() + " "
 							+ Formatacao.formatarFloatString(totalAdMe));
-					o.setTotaladicionalrs("R$ " + Formatacao.formatarFloatString(totalAdRs));
+					o.setTotaladicionalrs(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao.formatarFloatString(totalAdRs));
 				}
 				o.setSubPacoteme(ocurso.getCambio().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(totalAcMe + totalTxMe + totalCursoMe + totalAdMe - totalDeMe));
-				o.setSubPacoters("R$ "
+				o.setSubPacoters(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " "
 						+ Formatacao.formatarFloatString(totalAcRs + totalTxRs + totalCursoRs + totalAdRs - totalDeRs));
 				o.setTotalPacoteme(ocurso.getCambio().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(totalAcMe + totalCeMe + totalTxMe + totalCursoMe + totalAdMe - totalDeMe));
-				o.setTotalPacoters("R$ " + Formatacao
+				o.setTotalPacoters(listaocurso.get(0).getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla() + " " + Formatacao
 						.formatarFloatString(totalAcRs + totalCeRs + totalTxRs + totalCursoRs + totalAdRs - totalDeRs));
 			}
 		}

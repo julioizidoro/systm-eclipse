@@ -591,7 +591,7 @@ public class CadModeloOrcaManualMB implements Serializable {
 			if (formaPagamento.getNumeroParcelasFinanciamento() > 0) {
 				CoeficienteJurosFacade coneficienteJurosFacade = new CoeficienteJurosFacade();
 				Coeficientejuros cf = coneficienteJurosFacade
-						.consultar(formaPagamento.getNumeroParcelasFinanciamento(), "Juros Cliente");
+						.consultar(formaPagamento.getNumeroParcelasFinanciamento(), "Juros Banco");
 				Double valor = formaPagamento.getAVista().doubleValue() * cf.getCoeficiente();
 				formaPagamento.setFinaciamento(valor.floatValue());
 			}
