@@ -276,7 +276,7 @@ public class CadCursoMB implements Serializable {
 				editarEscola = "false";
 				iniciarNovoCurso();
 				dadosPais = new Dadospais();
-				dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+				dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 				if (cliente != null && cliente.getIdcliente() != null) {
 					verificarMenorIdade();
 				}
@@ -3185,8 +3185,8 @@ public class CadCursoMB implements Serializable {
 		curso.setDataInicio(ocurso.getDatainicio());
 		curso.setDataTermino(ocurso.getDatatermino());
 		CambioFacade cambioFacade = new CambioFacade();
-		cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-				ocurso.getCambio().getMoedas().getIdmoedas());
+		cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+				ocurso.getCambio().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		orcamento.setValorCambio(cambio.getValor());
 		venda.setValorcambio(cambio.getValor());
 		orcamento.setOrcamentoprodutosorcamentoList(new ArrayList<Orcamentoprodutosorcamento>());

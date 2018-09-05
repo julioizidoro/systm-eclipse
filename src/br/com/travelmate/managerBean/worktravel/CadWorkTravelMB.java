@@ -157,7 +157,7 @@ public class CadWorkTravelMB implements Serializable {
 		gerarListaProdutos();
 		if (work == null) {
 			iniciarNovo();
-			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 			novaFicha = true;
 		} else {
 			iniciarAlteracao();

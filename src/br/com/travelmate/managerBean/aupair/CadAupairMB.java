@@ -181,7 +181,7 @@ public class CadAupairMB implements Serializable {
 		gerarListaProdutos();
 		if (aupair == null) {
 			iniciarNovo();
-			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 		} else {
 			iniciarAlteracao();
 			controlealteracoes.setVendas(venda);

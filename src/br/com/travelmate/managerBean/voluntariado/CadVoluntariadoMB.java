@@ -182,7 +182,7 @@ public class CadVoluntariadoMB implements Serializable {
 		carregarComboMoedas();
 		if (voluntariado == null) {
 			iniciarNovoVoluntariado();
-			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 		} else {
 			orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 			iniciarAlteracaoVoluntariado();

@@ -641,7 +641,6 @@ public class CadPacoteAgenciaMB implements Serializable {
 	}
 
 	public String iniciarPacote() {
-		Date dataCambio = cambio.getData();
 		if (pacotes.getVendas() == null) {
 			FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
 			Fornecedorcidade fornecedorcidade = fornecedorCidadeFacade
@@ -1668,7 +1667,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 	}
 
 	public void calcularDataTermino() {
-		Date dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+		Date dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 		if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getNumeroSemanas() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),

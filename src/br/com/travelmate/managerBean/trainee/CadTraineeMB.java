@@ -180,7 +180,7 @@ public class CadTraineeMB implements Serializable {
 		gerarListaProdutos();
 		if (trainee == null) {
 			iniciarNovoTrainee();
-			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 
 			todosnumeros = true;
 			numero20 = true;

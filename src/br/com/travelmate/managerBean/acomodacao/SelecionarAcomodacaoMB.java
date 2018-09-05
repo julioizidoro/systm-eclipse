@@ -63,6 +63,7 @@ public class SelecionarAcomodacaoMB implements Serializable{
 	private String advertencia = "";
 	private Cidade cidade;
 	private Acomodacao acomodacaoInd;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -84,6 +85,7 @@ public class SelecionarAcomodacaoMB implements Serializable{
 		session.removeAttribute("nomeFornecedor2");
 		nomeFornecedor3 = (String) session.getAttribute("nomeFornecedor3");
 		session.removeAttribute("nomeFornecedor3");
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public List<ProdutosOrcamentoBean> getListaAcomodacoes() {
@@ -260,6 +262,14 @@ public class SelecionarAcomodacaoMB implements Serializable{
 
 	public void setAcomodacaoInd(Acomodacao acomodacaoInd) {
 		this.acomodacaoInd = acomodacaoInd;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public List<Integer> retornarNSemanas(Valorcoprodutos valorcoprodutos){

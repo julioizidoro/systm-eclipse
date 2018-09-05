@@ -44,24 +44,23 @@
 				<p:commandButton id="btnliberar" value="Liberar Câmbio" icon="ui-icon-check" action="#{cambioMB.aplicacaoMB.carregarCambioDia(cambioMB.data)}" update="@all" style="font-size:12px;margin-left:63%;"/>
 				<br/><br/>   
 				<div align="center">
-					<p:dataTable id="tabelaCambio" var="cambio" 
-						value="#{cambioMB.listaCambio}"  editable="true" 
-						editMode="cell" rowIndexVar="rowIx" scrollable="true" 
-						scrollHeight="350" style="width:46%;"> 
-						<p:column headerText="Data" style="text-align:left;width:100px;"> 
+					<p:dataTable id="tabelaCambio" var="cambio"
+						value="#{cambioMB.listaCambio}" editable="true" editMode="cell"
+						rowIndexVar="rowIx" scrollable="true" scrollHeight="350"
+						style="width:46%;">
+						<p:column headerText="Data" style="text-align:left;width:100px;">
 							<h:outputText value="#{cambio.data}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 							</h:outputText>
 						</p:column>
 						<p:column headerText="Moeda" style="text-align:left;width:100px;">
-							<h:outputText value="#{cambio.moedas.sigla}" /> 
+							<h:outputText value="#{cambio.moedas.sigla}" />
 						</p:column>
 						<p:column headerText="Valor" style="text-align: right;width:80px;">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{cambio.valor}" 
-										style="text-align:right">
+									<h:outputText value="#{cambio.valor}" style="text-align:right">
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
 									</h:outputText>
@@ -71,32 +70,16 @@
 										style="text-align:right; width:80%">
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
-										<p:ajax event="blur" update="tabelaCambio" listener="#{cambioMB.editarCambio(cambio)}"/> 
+										<p:ajax event="blur" update="tabelaCambio"
+											listener="#{cambioMB.editarCambio(cambio)}" />
 									</p:inputText>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
 						<p:column headerText="Pais" style="text-align: left;width:150px;">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{cambio.pais.nome}" 
-										style="text-align:right">
-									</h:outputText>
-								</f:facet>
-								<f:facet name="input">
-									<p:selectOneMenu id="pais" value="#{cambio.pais}"
-										style="width:200px;" converter="PaisConverterS" filter="true"
-										filterMatchMode="startsWith" panelStyle="width:200px">
-										<f:selectItem itemLabel="País" itemValue="0"
-											noSelectionOption="true" />
-										<f:selectItems id="idpais" value="#{cambioMB.listaPaisTabela}"
-											var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
-										<f:attribute name="listaPais"
-											value="#{cambioMB.listaPaisTabela}" />
-										<p:ajax event="change" update="tabelaCambio" listener="#{cambioMB.editarCambio(cambio)}"/> 
-									</p:selectOneMenu>
-								</f:facet>
-							</p:cellEditor>
+							<h:outputText value="#{cambio.pais.nome}"
+								style="text-align:right">
+							</h:outputText>
 						</p:column>
 					</p:dataTable>
 				</div> 

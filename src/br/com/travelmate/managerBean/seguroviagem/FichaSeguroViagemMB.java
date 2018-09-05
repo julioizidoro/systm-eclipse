@@ -154,7 +154,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			formaPagamento.setParcelamentopagamentoList(new ArrayList<Parcelamentopagamento>());
 			cambio = new Cambio();
 			cliente = new Cliente();
-			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 			orcamento = new Orcamento();
 			vendas.setVendasMatriz(vendaMatriz);
 			CambioFacade cambioFacade = new CambioFacade();
@@ -626,8 +626,8 @@ public class FichaSeguroViagemMB implements Serializable {
 		seguro.setValoresseguro(valoresseguro);
 		if ((seguro.getDataInicio() != null) && (seguro.getNumeroSemanas() != null && seguro.getNumeroSemanas() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-					valoresseguro.getMoedas().getIdmoedas());
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+					valoresseguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				seguro.setDataTermino(
 						Formatacao.calcularDataFinalPorDias(seguro.getDataInicio(), seguro.getNumeroSemanas()));
