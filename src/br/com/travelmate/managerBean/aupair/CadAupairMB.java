@@ -1821,8 +1821,8 @@ public class CadAupairMB implements Serializable {
 			if (valoresAupair.getValorgross() > 0) {
 				CambioFacade cambioFacade = new CambioFacade();
 				Cambio cambioValor = new Cambio();
-				cambioValor = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-						valoresAupair.getMoedas().getIdmoedas());
+				cambioValor = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+						valoresAupair.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				orcamentoprodutosorcamento
 						.setValorMoedaNacional(valoresAupair.getValorgross() * cambioValor.getValor());
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(valoresAupair.getValorgross());
