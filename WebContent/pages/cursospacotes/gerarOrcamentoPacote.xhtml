@@ -95,7 +95,7 @@
 				legend="Opção 01 - Pagamento á Vista" toggleable="true"
 				style="font-size: 11px;width: 95%;margin-left: 2.5%">    
 				<h:panelGrid style="margin-left:8%" >
-					<p:outputLabel value="Valor R$" />
+					<p:outputLabel value="Valor #{gerarOrcamentoPacoteMB.moedaNacional}" />
 					<p:inputText id="avista"
 						value="#{gerarOrcamentoPacoteMB.cursospacote.valoravista}" style="text-align: right">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
@@ -111,7 +111,7 @@
 				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
 					columnClasses="dezoito,dezoito,dezoito,dezoito">
 					<p:outputLabel value="% Entrada" />
-					<p:outputLabel value="Valor da Entrada R$" />  
+					<p:outputLabel value="Valor da Entrada #{gerarOrcamentoPacoteMB.moedaNacional}" />  
 					<p:outputLabel value="Nº Parcelas"/>
 					<p:outputLabel value="Valor da Parcela" />
 					
@@ -159,7 +159,7 @@
 				<h:panelGrid style="margin-left:8%;width:80%;" columns="4" 
 					columnClasses="dezoito,dezoito,dezoito,dezoito">
 					<p:outputLabel value="% Saldo" />
-					<p:outputLabel value="Saldo R$"/>
+					<p:outputLabel value="Saldo #{gerarOrcamentoPacoteMB.moedaNacional}"/>
 					<p:outputLabel value=""/>
 					<p:outputLabel value=""/>   
 					
@@ -187,7 +187,7 @@
 				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
 					columnClasses="dezoito,dezoito,dezoito,dezoito">
 					<p:outputLabel value="% Entrada"/>
-					<p:outputLabel value="Valor da Entrada R$" />
+					<p:outputLabel value="Valor da Entrada #{gerarOrcamentoPacoteMB.moedaNacional}" />
 					<p:outputLabel value="Nº Parcelas"/>
 					<p:outputLabel value="Valor da Parcela" />
 					
@@ -236,7 +236,7 @@
 				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
 					columnClasses="dezoito,dezoito,dezoito,dezoito">
 					<p:outputLabel value="% Saldo" />
-					<p:outputLabel value="Saldo R$" />
+					<p:outputLabel value="Saldo #{gerarOrcamentoPacoteMB.moedaNacional}" />
 					<p:outputLabel value=""/>
 					<p:outputLabel value=""/>   
 					
@@ -261,7 +261,7 @@
 				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
 					columnClasses="dezoito,dezoito,dezoito,dezoito">
 					<p:outputLabel value="% Entrada" />
-					<p:outputLabel value="Valor da Entrada R$" />
+					<p:outputLabel value="Valor da Entrada #{gerarOrcamentoPacoteMB.moedaNacional}" />
 					<p:outputLabel value="Nº Parcelas" />
 					<p:outputLabel value="Valor da Parcela" />
 					
@@ -315,7 +315,7 @@
 				<h:panelGrid style="margin-left: 8%;width:80%;" columns="4" 
 					columnClasses="dezoito,dezoito,dezoito,dezoito"> 
 					<p:outputLabel value="% Saldo" />
-					<p:outputLabel value="Saldo R$"/>
+					<p:outputLabel value="Saldo #{gerarOrcamentoPacoteMB.moedaNacional}"/>
 					<p:outputLabel value=""/>
 					<p:outputLabel value=""/>
 					

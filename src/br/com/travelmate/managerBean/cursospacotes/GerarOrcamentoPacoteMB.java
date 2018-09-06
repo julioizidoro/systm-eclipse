@@ -86,7 +86,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	private Date datanascimento;
 	private boolean dataInicioExcedida;
 	private String dataBrasil;
-	
+	private String moedaNacional;
 	@Inject
 	private OCursoDao oCursoDao;
 	@Inject
@@ -117,6 +117,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		}else if(produto==aplicacaoMB.getParametrosprodutos().getVoluntariado()) {
 			voluntariado=true;
 		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		calcularValorCambioAtual();
 		consultarFormaPagamento(); 
 	}
@@ -251,6 +252,14 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 
 	public String cancelar() { 
 		return "paginainicial";
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void gerarListaCliente() {
