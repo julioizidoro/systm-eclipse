@@ -43,7 +43,7 @@
 								itemLabel="#{cpais.pais.nome}" itemValue="#{cpais.pais}" />
 							<f:attribute name="listaPais"
 								value="#{cadModeloOrcaManualMB.listaPais}" />
-							<p:ajax update="cidade" />
+							<p:ajax update="cidade, idvalorcambio, tabelaprodutoscurso, campomoedaestrangeira, valortotal,idpagamentoavista, moeda" listener="#{cadModeloOrcaManualMB.selecionarCambio()}"/>
 						</p:selectOneMenu>
 
 						<p:selectOneMenu id="cidade"
@@ -240,7 +240,7 @@
 							<p:outputLabel id="campomoedaestrangeira"
 								value="#{cadModeloOrcaManualMB.tituloMoedaEstrangeira()}"/>
 							<p:outputLabel/>
-							<p:outputLabel value="Valor R$" for="valoreal"/>
+							<p:outputLabel value="Valor #{cadModeloOrcaManualMB.moedaNacional}" for="valoreal"/>
 
 							<p:selectOneMenu id="produto"
 								value="#{cadModeloOrcaManualMB.produtosorcamento}"
@@ -300,7 +300,7 @@
 										minFractionDigits="2" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Valor R$"
+							<p:column headerText="Valor #{cadModeloOrcaManualMB.moedaNacional}"
 								style="text-align:right;width:130px;">
 								<h:outputText value="#{produtoscurso.valorMoedaNacional}">
 									<f:convertNumber pattern="##,###,###,###.##"
@@ -367,7 +367,7 @@
 						<p:fieldset id="idpagamentoavista"
 							legend="Opção 01 - Pagamento á Vista" toggleable="true"
 							style="font-size: 11px;width: 95%;margin-left: 2.5%">
-							<p:outputLabel value="Valor R$:" style="margin-left: 2%" />
+							<p:outputLabel value="Valor #{cadModeloOrcaManualMB.moedaNacional}:" style="margin-left: 2%" />
 							<p:inputText id="idvalorRS01"
 								value="#{cadModeloOrcaManualMB.modeloOrcamentoCurso.valor}"
 								style="margin-left:1%;text-align: right" >
@@ -403,7 +403,7 @@
 										update="idparcelamentoantesviagem" />
 								</p:inputText>
 
-								<p:outputLabel value="Valor da Entrada R$:"
+								<p:outputLabel value="Valor da Entrada #{cadModeloOrcaManualMB.moedaNacional}:"
 									style="margin-left:54%" />
 								<p:inputText id="idvalorentrada2"
 									value="#{cadModeloOrcaManualMB.formaPagamento.valorEntrada2}"
@@ -462,7 +462,7 @@
 									update="idvalorsaldo2, idvalorparcela2" />
 							</p:inputText>
 
-							<p:outputLabel value="Saldo R$:" style="margin-left:16%" />
+							<p:outputLabel value="Saldo #{cadModeloOrcaManualMB.moedaNacional}:" style="margin-left:16%" />
 							<p:inputText id="idvalorsaldo2"
 								value="#{cadModeloOrcaManualMB.formaPagamento.valorSaldo2}"
 								style="margin-left:0.7%;text-align: right"
@@ -511,7 +511,7 @@
 										update="idvalorentrada3, idvalorsaldo3, idpercentualentrada3" />
 								</p:inputText>
 
-								<p:outputLabel value="Valor da Entrada R$:"
+								<p:outputLabel value="Valor da Entrada #{cadModeloOrcaManualMB.moedaNacional}:"
 									style="margin-left:52.3%" />
 								<p:inputText id="idvalorentrada3"
 									value="#{cadModeloOrcaManualMB.formaPagamento.valorEntrada3}"
@@ -555,7 +555,7 @@
 									minFractionDigits="2" />
 							</p:inputText>
 
-							<p:outputLabel value="Saldo R$:" style="margin-left:15%" />
+							<p:outputLabel value="Saldo #{cadModeloOrcaManualMB.moedaNacional}:" style="margin-left:15%" />
 							<p:inputText id="idvalorsaldo3"
 								value="#{cadModeloOrcaManualMB.formaPagamento.valorSaldo3}"
 								style="margin-left:0.3%;text-align: right"

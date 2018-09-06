@@ -84,6 +84,7 @@ public class CadModeloOrcaManualMB implements Serializable {
 	private Date dataCambio;
 	private List<Modeloprodutoorcamentocurso> listaProdutos;
 	private Modeloprodutoorcamentocurso modeloProdutos;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -104,6 +105,7 @@ public class CadModeloOrcaManualMB implements Serializable {
 		} else {
 			iniciarAlteracaoOrcamento();
 		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public Modeloorcamentocurso getModeloOrcamentoCurso() {
@@ -314,6 +316,14 @@ public class CadModeloOrcaManualMB implements Serializable {
 
 	public void setModeloProdutos(Modeloprodutoorcamentocurso modeloProdutos) {
 		this.modeloProdutos = modeloProdutos;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void gerarListaCursos() {
@@ -831,5 +841,16 @@ public class CadModeloOrcaManualMB implements Serializable {
 		valorCambio = cambio.getValor();
 		modeloOrcamentoCurso.setValorCambio(valorCambio);
 		atualizarValoresProduto();
+	}
+	
+	
+	public void selecionarCambio() {
+		if (pais != null && pais.getIdpais() != null) {
+			moeda = pais.getMoedas();
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda,
+					usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+			valorCambio = cambio.getValor();
+			modeloOrcamentoCurso.setValorCambio(valorCambio);
+		}
 	}
 }
