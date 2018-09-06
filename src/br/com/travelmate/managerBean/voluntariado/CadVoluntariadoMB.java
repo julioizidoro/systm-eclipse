@@ -1810,7 +1810,9 @@ public class CadVoluntariadoMB implements Serializable {
 				int idMoedaVenda = venda.getCambio().getMoedas().getIdmoedas();
 				for (int i = 0; i < aplicacaoMB.getListaCambio().size(); i++) {
 					int idUltimaMoeda = aplicacaoMB.getListaCambio().get(i).getMoedas().getIdmoedas();
-					if (idMoedaVenda == idUltimaMoeda) {
+					int idPaisUsuario = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais();
+					int idPaisCambio = aplicacaoMB.getListaCambio().get(i).getPais().getIdpais();
+					if ((idMoedaVenda == idUltimaMoeda) && (idPaisCambio == idPaisUsuario)) {
 						cambio = aplicacaoMB.getListaCambio().get(i);
 						i = 1000000;
 					}

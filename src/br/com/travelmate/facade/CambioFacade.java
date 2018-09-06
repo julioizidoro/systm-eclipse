@@ -71,6 +71,16 @@ public class CambioFacade {
         }
     }
     
+    public Cambio consultarSiglaPais(String data,String sigla, Pais pais) {
+        cambioDao = new CambioDao();
+        try {
+            return cambioDao.consultarSigla(data, sigla);
+        } catch (SQLException ex) {
+            Logger.getLogger(CambioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     public Cambio consultarCambioMoeda(String data, int idMoeda) {
         cambioDao = new CambioDao();
         try {

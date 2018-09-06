@@ -211,7 +211,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			seguroAlterado = seguro;
 		}
 		CambioFacade cambioFacade = new CambioFacade();
-		cambio = cambioFacade.consultarSigla(Formatacao.ConvercaoDataSql(dataCambio), "USD");
+		cambio = cambioFacade.consultarSiglaPais(Formatacao.ConvercaoDataSql(dataCambio), "USD", usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		digitosFoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				seguro.getFoneContatoEmergencia());

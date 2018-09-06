@@ -64,6 +64,18 @@ public class CambioDao {
         return cambio;
     }
     
+    public Cambio consultarSiglaPais(String data,String sigla, Pais pais) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getConnection();
+        Query q = manager.createQuery("select c from Cambio c where c.moedas.sigla='" + sigla + "' and c.data='" + data + "' and c.pais.idpais=" + pais.getIdpais());
+        Cambio cambio = null;
+        if (q.getResultList().size()>0){
+            cambio =  (Cambio) q.getResultList().get(0);
+        }
+        manager.close();
+        return cambio;
+    }
+    
     public List<Moedas> listaMoedas() throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
