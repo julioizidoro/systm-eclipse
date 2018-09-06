@@ -232,7 +232,7 @@ public class PacotesAtivosMB implements Serializable {
 	}  
 	
 	public void listarCursosPacotes(){ 
-		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=FALSE ORDER BY c.idproduto, c.pais";
+		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=FALSE and c.paisunidade="+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais()+ " ORDER BY c.idproduto, c.pais";
 		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
 		List<Pacotesinicial> lista = pacoteInicialFacade.listar(sql);  
 		listaTrabalhoPacotes = new ArrayList<Pacotesinicial>();

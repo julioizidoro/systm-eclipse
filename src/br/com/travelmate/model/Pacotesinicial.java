@@ -97,6 +97,8 @@ public class Pacotesinicial implements Serializable {
     private float valormoedaestrangeira;
     @Column(name = "moeda")
     private int moeda;
+    @Column(name = "paisunidade")
+    private int paisunidade;
     
 
     public Pacotesinicial() { 
@@ -374,6 +376,14 @@ public class Pacotesinicial implements Serializable {
 
 	public void setMoeda(int moeda) {
 		this.moeda = moeda;
+	}
+
+	public int getPaisunidade() {
+		return paisunidade;
+	}
+
+	public void setPaisunidade(int paisunidade) {
+		this.paisunidade = paisunidade;
 	}
 
 	
