@@ -13,12 +13,13 @@
 				<legend id="iUsu2">
 					<b>Consulta de Pacotes</b>
 				</legend> 
-				<h:panelGrid columns="5" style="width:93%;margin-left:2.5%;" columnClasses="colunaquatrorze, colunaquatrorze, colunaquatrorze, colunaquatrorze, dezoito">
+				<h:panelGrid columns="6" style="width:93%;margin-left:2.5%;" columnClasses="colunaquatrorze, colunaquatrorze, colunaquatrorze, colunaquatrorze, dezoito">
 					<p:outputLabel value="Produto" />
 					<p:outputLabel value="País" />
 					<p:outputLabel value="Cidade" />     
 					<p:outputLabel value="Idioma" />   
-					<p:outputLabel value="Parceiro" />       
+					<p:outputLabel value="Parceiro" /> 
+					<p:outputLabel value="Pais Unidade" />        
 
 					<p:selectOneMenu id="produto" value="#{cursosPacotesMB.produtos}"
 						style="width:150px;" converter="ProdutoConverter" filter="true"
@@ -72,8 +73,6 @@
 						<p:ajax update="parceiro,:cursospacotes:tabelapacotes, :cursospacotes:growl"
 							listener="#{cursosPacotesMB.listarFornecedorCidadeIdioma()}" />
 					</p:selectOneMenu> 
-					<h:panelGroup>
-						<h:panelGrid columns="2" style="width:100%;" columnClasses="espaco75, colunaquatrorze">
 							<p:selectOneMenu id="parceiro"  
 								value="#{cursosPacotesMB.fornecedorCidadeIdioma}"
 								style="width:85%;" converter="FornecedorCidadeIdiomaConverter"
@@ -86,9 +85,21 @@
 									itemValue="#{fornecedor}" />
 								<f:attribute name="listaFornecedorCidadeIdioma"
 									value="#{cursosPacotesMB.listaFornecedorIdioma}" />
+							</p:selectOneMenu> 
+					<h:panelGroup>
+						<h:panelGrid columns="2" style="width:100%;" columnClasses="espaco75, colunaquatrorze">   
+							<p:selectOneMenu id="paisS" value="#{cursosPacotesMB.paisS}"
+								style="width:200px;" converter="PaisConverterS" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpaisS" value="#{cursosPacotesMB.listaPaisS}"
+									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" /> 
+								<f:attribute name="listaPais"
+									value="#{cursosPacotesMB.listaPaisS}" />
 								<p:ajax event="change" listener="#{cursosPacotesMB.listarCursosPacotes()}"
 									update=":cursospacotes:tabelapacotes, :cursospacotes:growl"/>
-							</p:selectOneMenu> 
+							</p:selectOneMenu>
 							<p:commandLink action="#{cursosPacotesMB.adicionarFornecedorIdioma()}" title="Adicionar Parceiro" >
 								<img src="../../resources/img/adicionar.png" width="30"/>
 							</p:commandLink>

@@ -12,6 +12,20 @@
 			<p:tabView>
 				<p:tab title="Dados Pacote"> 
 					<h:panelGrid columns="1" style="margin-left:14%;width:78.8%;">
+						<h:panelGrid columns="1" style="width:100%;" columnClasses="espaco75, colunaquatrorze">  
+							<p:outputLabel value="Pais Unidade"/> 
+							<p:selectOneMenu id="paisS" value="#{cadCursosPacotesMB.pais}"
+								style="width:200px;" converter="PaisConverterS" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpaisS" value="#{cadCursosPacotesMB.listaPais}"
+									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" /> 
+								<f:attribute name="listaPais"
+									value="#{cadCursosPacotesMB.listaPais}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+						</h:panelGrid>
 						<h:panelGroup>
 							<p:selectBooleanCheckbox value="#{cadCursosPacotesMB.cursospacote.mostrarescola}"/>
 							<p:outputLabel value="Mostrar Escola" style="margin-left:2%;"/>

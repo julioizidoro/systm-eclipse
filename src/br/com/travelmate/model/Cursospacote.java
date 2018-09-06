@@ -148,6 +148,9 @@ public class Cursospacote implements Serializable {
     private float descontotmreal1;
     @Column(name = "descontotmreal2")
     private float descontotmreal2;
+    @JoinColumn(name = "pais_idpais", referencedColumnName = "idpais")
+    @ManyToOne(optional = false)
+    private Pais pais;
     
     
     
@@ -585,6 +588,14 @@ public class Cursospacote implements Serializable {
 
 	public void setDescontotmreal2(int descontotmreal2) {
 		this.descontotmreal2 = descontotmreal2;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 	@Override

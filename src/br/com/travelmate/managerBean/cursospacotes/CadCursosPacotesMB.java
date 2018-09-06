@@ -3,6 +3,7 @@ package br.com.travelmate.managerBean.cursospacotes;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.CursosPacotesFormaPagamentoFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.facade.VoluntariadoPacoteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -11,6 +12,7 @@ import br.com.travelmate.model.Coeficientejuros;
 import br.com.travelmate.model.Cursopacoteformapagamento;
 import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
+import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.model.Voluntariadopacote;
@@ -19,7 +21,9 @@ import br.com.travelmate.util.Mensagem;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -47,6 +51,8 @@ public class CadCursosPacotesMB implements Serializable {
 	private Voluntariadopacote voluntariadopacote;
 	private boolean informacoesVoluntariado;
 	private boolean informacoesCurso;
+	private Pais pais;
+	private List<Pais> listaPais;
 
 	@PostConstruct
 	public void init() {
@@ -57,14 +63,17 @@ public class CadCursosPacotesMB implements Serializable {
 			sql = (String) session.getAttribute("sql"); 
 			cursospacote = (Cursospacote) session.getAttribute("cursospacote");
 			produtos = (Produtos) session.getAttribute("produtos");
+			pais = (Pais) session.getAttribute("pais");
 			session.removeAttribute("produtos");
 			session.removeAttribute("cursospacote");
 			session.removeAttribute("sql");
 			session.removeAttribute("fornecedorcidadeidioma"); 
+			session.removeAttribute("pais");
 			int idproduto = 0;
 			if(produtos!=null) {
 				idproduto = produtos.getIdprodutos();
 			} 
+			gerarListaPais();
 			if (cursospacote == null) {
 				cursospacote = new Cursospacote();
 				cursospacote.setFornecedorcidadeidioma(fornecedorCidadeIdioma);  
@@ -168,6 +177,22 @@ public class CadCursosPacotesMB implements Serializable {
 		this.informacoesCurso = informacoesCurso;
 	}
 
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
+	public List<Pais> getListaPais() {
+		return listaPais;
+	}
+
+	public void setListaPais(List<Pais> listaPais) {
+		this.listaPais = listaPais;
+	}
+
 	public String cancelar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -201,6 +226,9 @@ public class CadCursosPacotesMB implements Serializable {
 				Mensagem.lancarMensagemErro("Atenção!", "Informe o número de semanas de acomodação.");
 				return false;
 			}
+		} else if(pais != null && pais.getIdpais() != null) {
+			Mensagem.lancarMensagemInfo("Atenção!", "Informe o pais da unidade");
+			return false;
 		}
 		return true;
 	}
@@ -209,6 +237,7 @@ public class CadCursosPacotesMB implements Serializable {
 		if (validarDados()) {
 			CursosPacotesFacade cursosPacotesFacade = new CursosPacotesFacade();
 			cursospacote.setProdutos(produtos); 
+			cursospacote.setPais(pais);
 			int idcurso = produtos.getIdprodutos();
 			if(idcurso != aplicacaoMB.getParametrosprodutos().getCursos()) {
 				ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
@@ -535,6 +564,15 @@ public class CadCursosPacotesMB implements Serializable {
 			}
 		} else {
 			Mensagem.lancarMensagemErro("Atenção!", "Selecione um projeto.");
+		}
+	}
+	
+	
+	public void gerarListaPais() {
+		PaisFacade paisFacade = new PaisFacade();
+		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.possuifranquia=true");
+		if (listaPais == null) {
+			listaPais = new ArrayList<Pais>();
 		}
 	}
 
