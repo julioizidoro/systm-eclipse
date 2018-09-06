@@ -209,7 +209,11 @@ public class Acesso implements Serializable {
 	@Column(name = "relatorioleadsdetalhado")
 	private boolean relatorioleadsdetalhado;  
 	@Column(name = "relatoriocartaocredito")
-	private boolean relatoriocartaocredito;  
+	private boolean relatoriocartaocredito; 
+	@Column(name = "editardocsvideos")
+	private boolean editardocsvideos;  
+	@Column(name = "excluirdocsvideos")
+	private boolean excluirdocsvideos;   
 	
 	
 	
@@ -950,6 +954,22 @@ public class Acesso implements Serializable {
 
 	public void setRelatoriocartaocredito(boolean relatoriocartaocredito) {
 		this.relatoriocartaocredito = relatoriocartaocredito;
+	}
+
+	public boolean isEditardocsvideos() {
+		return editardocsvideos;
+	}
+
+	public void setEditardocsvideos(boolean editardocsvideos) {
+		this.editardocsvideos = editardocsvideos;
+	}
+
+	public boolean isExcluirdocsvideos() {
+		return excluirdocsvideos;
+	}
+
+	public void setExcluirdocsvideos(boolean excluirdocsvideos) {
+		this.excluirdocsvideos = excluirdocsvideos;
 	}
 
 	@Override

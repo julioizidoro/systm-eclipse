@@ -69,10 +69,10 @@
 								</p:commandLink>
 								<p:commandLink 
 									
-									title="Editar" rendered="#{videos5MB.verificarArquivoLista(video5)}" action="#{videos5MB.alterarDescricaoVideo(video5)}">
+									title="Editar" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.editardocsvideos}" action="#{videos5MB.alterarDescricaoVideo(video5)}">
 									<img src="../../resources/img/editaricon.png"  width="30" height="30"/>
 								</p:commandLink>
-								<p:commandLink  title="Excluir video" rendered="#{videos5MB.verificarArquivoLista(video5)}" action="#{videos5MB.excluirArquivo(video5)}" update=":adicionarVideo:idPanelVideo, :adicionarVideo:growl"> 
+								<p:commandLink  title="Excluir video" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.excluirdocsvideos}" action="#{videos5MB.excluirArquivo(video5)}" update=":adicionarVideo:idPanelVideo, :adicionarVideo:growl"> 
 										<img src="../../resources/img/excluir.png"  width="30" height="30"/>
 									 </p:commandLink>	
 								<p:commandLink  title="Vincular video a um fornecedor" rendered="#{videos5MB.acessoVinculoFornecedor(video5)}" action="#{videos5MB.vincularArquivoFornecedor(video5)}" > 

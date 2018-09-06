@@ -30,7 +30,7 @@
             	<h:panelGrid width="100%;" id="panelPasta4">
 	              <ui:repeat var="pasta4" value="#{pastas4Videos3MB.listaVideoPasta4}" varStatus="statuss">
 			        		<div class="col-sm-6 col-md-3">
-								<p:commandLink style="float:right;" rendered="#{pastas4Videos3MB.verificarAcesso()}" action="#{pastas4Videos3MB.editarVideoPasta4(pasta4)}"> 
+								<p:commandLink style="float:right;" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.editardocsvideos}" action="#{pastas4Videos3MB.editarVideoPasta4(pasta4)}"> 
 									<i class="fa fa-pencil"></i>
 									<p:ajax event="dialogReturn" listener="#{pastas4Videos3MB.retornoDialogNovaPasta}" update=":consPastas4Videos3:panelPasta4, :consPastas4Videos3:growl"/>
 								</p:commandLink>
@@ -58,7 +58,7 @@
 												<img src="../../resources/img/#{pastas4Videos3MB.departamento.imagem}" alt="" width="60" height="60" style="background:white;border-radius:50px;"/>
 											</i>
 										</div>
-										<p:commandLink update=":consPastas4Videos3:panelPasta4, :consPastas4Videos3:growl" rendered="#{pastas4Videos3MB.verificarAcesso()}" ajax="false" action="#{pastas4Videos3MB.excluirPasta(pasta4)}"> 
+										<p:commandLink update=":consPastas4Videos3:panelPasta4, :consPastas4Videos3:growl" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.excluirdocsvideos}" ajax="false" action="#{pastas4Videos3MB.excluirPasta(pasta4)}"> 
 											<div class="refresh-button">
 												<i class="fa fa-trash-o"></i>
 											</div>
@@ -112,10 +112,10 @@
 								</p:commandLink>
 								<p:commandLink 
 									
-									title="Editar" rendered="#{pastas4Videos3MB.verificarArquivoLista(video3)}" action="#{pastas4Videos3MB.alterarDescricaoVideo(video3)}">
+									title="Editar" rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.editardocsvideos}" action="#{pastas4Videos3MB.alterarDescricaoVideo(video3)}">
 									<img src="../../resources/img/editaricon.png"  width="30" height="30"/>
 								</p:commandLink>
-								<p:commandLink rendered="#{pastas4Videos3MB.verificarArquivoLista(video3)}"  title="Excluir video" action="#{pastas4Videos3MB.excluirArquivo(video3)}" update=":consPastas4Videos3:idPanelVideo, :consPastas4Videos3:growl"> 
+								<p:commandLink rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.excluirdocsvideos}"  title="Excluir video" action="#{pastas4Videos3MB.excluirArquivo(video3)}" update=":consPastas4Videos3:idPanelVideo, :consPastas4Videos3:growl"> 
 										<img src="../../resources/img/excluir.png"  width="30" height="30"/>
 									 </p:commandLink>
 								<p:commandLink  title="Vincular video a um fornecedor" rendered="#{pastas4Videos3MB.acessoVinculoFornecedor(video3)}" action="#{pastas4Videos3MB.vincularArquivoFornecedor(video3)}" > 

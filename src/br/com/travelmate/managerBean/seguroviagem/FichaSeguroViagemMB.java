@@ -922,7 +922,7 @@ public class FichaSeguroViagemMB implements Serializable {
 				PaisFacade paisFacade = new PaisFacade();
 				Pais pais = paisFacade.consultar(5);
 				CambioFacade cambioFacade = new CambioFacade();
-				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(new Date()), cambio.getMoedas().getIdmoedas(), pais);
+				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 			}
 			vendas = programasBean.salvarVendas(vendas, usuarioLogadoMB, nsituacao, cliente, vendas.getValor(), produto,
 					valoresseguro.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, seguro.getDataInicio(), seguro.getDataTermino(), 
