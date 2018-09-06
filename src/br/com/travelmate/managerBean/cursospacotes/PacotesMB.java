@@ -71,6 +71,7 @@ public class PacotesMB implements Serializable{
 	
 	@Inject 
 	private OCursoDao oCursoDao;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -87,6 +88,7 @@ public class PacotesMB implements Serializable{
 		} else {
 			habilitarVoltaBtn = true;
 		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	} 
 	
 	public AplicacaoMB getAplicacaoMB() {
@@ -223,6 +225,14 @@ public class PacotesMB implements Serializable{
 
 	public void setHabilitarVoltaBtn(boolean habilitarVoltaBtn) {
 		this.habilitarVoltaBtn = habilitarVoltaBtn;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void consultarListarCursosPacotes(Pais pais){ 
@@ -367,7 +377,7 @@ public class PacotesMB implements Serializable{
 	
 	public String formatarTotalMoedaNacional(Ocurso ocurso) {
 		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), ocurso.getCambio().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
-		return "R$ " + Formatacao.formatarFloatString(ocurso.getTotalmoedaestrangeira() * cambio.getValor());
+		return moedaNacional + " " + Formatacao.formatarFloatString(ocurso.getTotalmoedaestrangeira() * cambio.getValor());
 	}
 
 	public String formatarTotalMoedaEstrangeira(Ocurso ocurso) {
