@@ -4,10 +4,12 @@ import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cursospacote; 
 import br.com.travelmate.model.Pacotesinicial;
 import br.com.travelmate.model.Pais;
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
@@ -33,6 +35,8 @@ import org.primefaces.context.RequestContext;
 public class PacotesAtivosMB implements Serializable {
  
 	private static final long serialVersionUID = 1L;  
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Pacotesinicial> listaCursosPacotes; 
 	private List<Pacotesinicial> listaTrabalhoPacotes; 
 	private List<Pacotesinicial> listaTeensPacotes;  
@@ -48,6 +52,7 @@ public class PacotesAtivosMB implements Serializable {
 	private boolean habilitarPais = true;
 	private boolean habilitarPacotes = false;
 	private List<Pais> listaPais;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -55,6 +60,7 @@ public class PacotesAtivosMB implements Serializable {
 		listarPacotesEspecial();
 		listarCursosPacotes();
 		getAplicacaoMB(); 
+		moedaNacional =usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	} 
 	
 	public AplicacaoMB getAplicacaoMB() {
@@ -167,6 +173,14 @@ public class PacotesAtivosMB implements Serializable {
 
 	public void setListaPais(List<Pais> listaPais) {
 		this.listaPais = listaPais;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void consultarListarCursosPacotes(Pais pais){ 
