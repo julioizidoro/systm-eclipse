@@ -46,7 +46,7 @@
 		</p:dataTable>
 		<br></br>  
 		<div align="center" id="panelRemessa">
-			<p:commandButton id="bntarquivoremessa" ajax="false" style="font-size:12px;" 
+			<p:commandButton id="bntarquivoremessa" ajax="false" style="font-size:12px;" onclick="this.form.target='_blank'"
 				icon="ui-icon-check" value="#{boletoMB.nomeBotao}" action="#{boletoMB.enviarBoleto()}" update="bntarquivoremessa, panelRemessa">
 				 
 			</p:commandButton> 

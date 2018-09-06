@@ -193,7 +193,6 @@ public class BoletoMB implements Serializable {
 					e.printStackTrace();
 				}
 				//file = new DefaultStreamedContent(stream, "texto/txt", nomearquivo, "UTF-8");
-				nomeBotao = "Download";  
 				String caminho = nomearquivo = servletContext.getRealPath("/resources/aws.properties");
 				UploadAWSS3 s3 = new UploadAWSS3("remessa", caminho);
 				s3.uploadFile(file);
@@ -213,15 +212,13 @@ public class BoletoMB implements Serializable {
 				remessacontas.setRemessaarquivo(remessaarquivo);
 				remessaContasFacade.salvar(remessacontas);
 			}
-			
-		}else{
 			try {
-				String url = "remessa.systm.com.br/" + this.file.getName();
+				String url = "//remessa.systm.com.br/" + this.file.getName();
 				FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
 			
 		
