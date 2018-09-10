@@ -45,6 +45,8 @@ public class Ftpdados implements Serializable {
     private String hostlink;
     @Column(name = "protocolo")
     private String protocolo;
+    @Column(name = "www")
+    private String www;
 
     public Ftpdados() {
     }
@@ -117,6 +119,14 @@ public class Ftpdados implements Serializable {
 
 	public void setProtocolo(String protocolo) {
 		this.protocolo = protocolo;
+	}
+
+	public String getWww() {
+		return www;
+	}
+
+	public void setWww(String www) {
+		this.www = www;
 	}
 
 	@Override

@@ -98,7 +98,7 @@ public class Videos5MB implements Serializable{
 				}
 
 				if (ftpDados != null) {
-					urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":82/videos";
+					urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":"+ ftpDados.getWww() +"/videos";
 				}
 				// Verificar se existe pastas ou arquivos na tela
 				semConteudo();

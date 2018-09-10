@@ -116,7 +116,7 @@ public class ArquivoMB implements Serializable {
 					e.printStackTrace();
 				}
 				if (ftpdados != null) {
-					urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":82/systm/arquivos";
+					urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":"+ ftpdados.getWww() +"/systm/arquivos";
 				}
 				if (vendas.getArquivoskitviagem()==null){
 					Arquivoskitviagem kitViagem = new Arquivoskitviagem();

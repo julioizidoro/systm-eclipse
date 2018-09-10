@@ -108,7 +108,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 					}
 
 					if (ftpDados != null) {
-						urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":82/cloud/departamentos";
+						urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":" + ftpDados.getWww() + "/cloud/departamentos";
 					}
 					// Verificar se existe pastas ou arquivos na tela
 					semConteudo();

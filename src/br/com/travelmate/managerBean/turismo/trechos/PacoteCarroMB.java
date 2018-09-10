@@ -1,6 +1,8 @@
 package br.com.travelmate.managerBean.turismo.trechos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +14,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.PacotesCarroFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -23,6 +26,7 @@ import br.com.travelmate.model.Pacotecarro;
 import br.com.travelmate.model.Pacotetrecho;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
+import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
@@ -57,6 +61,7 @@ public class PacoteCarroMB implements Serializable{
     private Pais pais;
     private float valorCambio=0;
     private String pacoteImportado;
+    private List<Cambio> listaCambio;
 
     @PostConstruct
     public void init() {
@@ -192,7 +197,19 @@ public class PacoteCarroMB implements Serializable{
         this.pais = pais;
     }
     
-    public void listarFornecedorCidade(String id){
+    public List<Cambio> getListaCambio() {
+		return listaCambio;
+	}
+
+
+
+	public void setListaCambio(List<Cambio> listaCambio) {
+		this.listaCambio = listaCambio;
+	}
+
+
+
+	public void listarFornecedorCidade(String id){
         int idProduto = Integer.parseInt(id);
         if (usuarioLogadoMB!=null){
             idProduto = aplicacaoMB.getParametrosprodutos().getPacotes();
@@ -276,4 +293,13 @@ public class PacoteCarroMB implements Serializable{
 		}
     	return msg;
     }
+    
+    public void consultarCambio() {
+    	CambioFacade cambioFacade = new CambioFacade();
+		listaCambio = cambioFacade.listarCambioPais(Formatacao.ConvercaoDataSql(new Date()), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+		if (listaCambio == null) {
+			listaCambio = new ArrayList<>();
+		}
+		
+	}
 }

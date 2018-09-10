@@ -121,7 +121,7 @@ public class Arquivo5MB implements Serializable {
 			}
 
 			if (ftpDados != null) {
-				urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() + ":82/cloud/departamentos/";
+				urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() + ":"+ ftpDados.getWww() +"/cloud/departamentos/";
 			}
 			// Verificar se contém arquivos na tela
 			semConteudo();

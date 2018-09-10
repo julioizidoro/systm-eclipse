@@ -114,7 +114,7 @@ public class Pasta3Arquivo2MB implements Serializable {
 				e.printStackTrace();
 			}
 			if (ftpDados != null) {
-				urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":82/cloud/departamentos";
+				urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":" + ftpDados.getWww() + "/cloud/departamentos";
 			}
 			
 			// Verifica se contém Pastas e Arquivos na tela

@@ -101,7 +101,7 @@ public class ControleArquivosMB implements Serializable{
 			e.printStackTrace();
 		}
 		if (ftpdados != null) {
-			urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":82/systm/arquivos/";
+			urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":"+ ftpdados.getWww() +"/systm/arquivos/";
 		}
 		
 	}
