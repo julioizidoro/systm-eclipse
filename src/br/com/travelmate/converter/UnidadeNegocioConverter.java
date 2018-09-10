@@ -8,7 +8,6 @@ package br.com.travelmate.converter;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.model.Unidadenegocio;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

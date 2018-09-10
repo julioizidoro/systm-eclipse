@@ -1,9 +1,7 @@
 package br.com.travelmate.managerBean.conciliacaoBancaria;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -153,7 +151,6 @@ public class conciliacaoMB implements Serializable{
 	public void carregarArquivo(FileUploadEvent e){
 		listaConciliacaoBancaria = null;
 		arquivo = e.getFile();
-		File arq = new File(arquivo.getFileName());
 		FileInputStream file = null; 
 		try {
 			file = (FileInputStream) arquivo.getInputstream();

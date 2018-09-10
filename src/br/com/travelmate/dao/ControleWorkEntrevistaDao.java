@@ -12,10 +12,6 @@ import br.com.travelmate.model.Controleworkentrevista;
 
 public class ControleWorkEntrevistaDao {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L; 
 	 
 	public Controleworkentrevista salvar(Controleworkentrevista controleworkentrevista) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();

@@ -22,7 +22,6 @@ import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
-import br.com.travelmate.util.Mensagem;
 
 
 @Named

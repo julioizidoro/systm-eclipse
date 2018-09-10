@@ -2,7 +2,6 @@ package br.com.travelmate.dao;
 
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.He;
-import br.com.travelmate.model.Worktravel;
 
 import java.sql.SQLException;
 import java.util.List;

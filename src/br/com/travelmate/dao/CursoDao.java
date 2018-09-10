@@ -23,7 +23,6 @@ import br.com.travelmate.util.Formatacao;
  */
 public class CursoDao {
     
-    private EntityManager manager;
     
     public Curso salvar(Curso curso) throws SQLException{
     	EntityManager manager;

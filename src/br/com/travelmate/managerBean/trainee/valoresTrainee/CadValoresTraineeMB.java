@@ -25,7 +25,6 @@ import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtosorcamento;
-import br.com.travelmate.model.Valoresaupair;
 import br.com.travelmate.model.Valorestrainee;
 import br.com.travelmate.util.GerarListas;
 

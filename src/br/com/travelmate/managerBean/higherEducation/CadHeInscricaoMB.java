@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.higherEducation;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -1360,7 +1358,7 @@ public class CadHeInscricaoMB implements Serializable {
 			he.setVendas(venda);
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "I"); 
 			salvarHeParceiros();
-			ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
+			new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
 					orcamento.getOrcamentoprodutosorcamentoList(),
 					formaPagamento.getParcelamentopagamentoList(),  new Vendascomissao(),
 					 0.0f, true);
@@ -1440,7 +1438,7 @@ public class CadHeInscricaoMB implements Serializable {
 						String titulo = "Ficha de Higher Education Alterada";
 						String operacao = "I";
 						String imagemNotificacao = "alterado";
-							ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+							new ContasReceberBean(venda,
 									formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, he.getDatainicio());
 							String vm = "Venda pela Matriz";
 							if (venda.getVendasMatriz().equalsIgnoreCase("N")) {

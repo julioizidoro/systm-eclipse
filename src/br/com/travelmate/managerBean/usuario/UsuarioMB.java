@@ -1,12 +1,9 @@
 package br.com.travelmate.managerBean.usuario;
 
-import java.io.BufferedWriter;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -15,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.jfree.util.Log;
 
 import br.com.travelmate.bean.TokenBean;
 import br.com.travelmate.bean.UnidadeBean;

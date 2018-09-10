@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.ValoresHighSchoolFacade;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Valoreshighschool;
-import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
 import net.sf.jasperreports.engine.JRException;
 

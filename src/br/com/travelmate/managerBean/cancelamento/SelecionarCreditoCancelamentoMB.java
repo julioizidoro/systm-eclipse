@@ -14,7 +14,6 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.model.Cancelamento;
-import br.com.travelmate.model.Vendas;
 
 
 

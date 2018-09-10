@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.VendasDao;

@@ -15,7 +15,6 @@ import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Idioma;
 import br.com.travelmate.model.Pais;
-import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 @Named

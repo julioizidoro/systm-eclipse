@@ -16,7 +16,6 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.ValorSeguroFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Valoresaupair;
 import br.com.travelmate.model.Valoresseguro;
 
 @Named

@@ -24,6 +24,10 @@ import br.com.travelmate.util.Formatacao;
 @ViewScoped
 public class ConsutlaFornecedorArquivoMB implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Fornecedorarquivo> listaArquivo;

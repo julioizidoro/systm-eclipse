@@ -31,7 +31,6 @@ public class ConectionFactory {
     private static EntityManager manager;
     private static EntityManager entityManager;
     private static EntityManagerFactory emf1;
-    private EntityManagerProducer e;
     
 
     public static EntityManager getConnection() {

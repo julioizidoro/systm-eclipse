@@ -7,7 +7,6 @@ package br.com.travelmate.dao;
 
 import java.sql.SQLException;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;

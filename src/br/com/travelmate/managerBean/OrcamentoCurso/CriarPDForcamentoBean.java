@@ -34,7 +34,6 @@ public class CriarPDForcamentoBean {
 	private Ocurso ocurso;
 	private String corpo;
 	private ResultadoOrcamentoBean resultadoOrcamentoBean;
-	private String texto;
 	private float totalObrigatorio;
 	
 	@Inject
@@ -44,7 +43,6 @@ public class CriarPDForcamentoBean {
 		super();
 		this.listaProdutos = listaProdutos;
 		this.ocurso = ocurso;
-		this.texto = texto;
 		this.resultadoOrcamentoBean = resultadoOrcamentoBean;
 		criarCorpoEmail();
 		try {
@@ -61,7 +59,6 @@ public class CriarPDForcamentoBean {
 
 	public static void converter(InputStream input) throws DocumentException, IOException {
 		FacesContext facesContext = FacesContext.getCurrentInstance();  
-        ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
 		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
         response.setContentType("application/pdf");
         String nomeArquivo = "Travelmate Orcamento de Cursos";
@@ -76,7 +73,6 @@ public class CriarPDForcamentoBean {
 	    ServletOutputStream servletOutputStream = response.getOutputStream();  
 		servletOutputStream.flush();  
         servletOutputStream.close();  
-		facesContext.getApplication().getStateManager().saveView(facesContext);
         facesContext.renderResponse();
         facesContext.responseComplete();
        

@@ -1,8 +1,6 @@
 package br.com.travelmate.managerBean.cloud.midia;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;

@@ -195,7 +195,6 @@ public class Formatacao {
 	}
 
 	public static Date calcularDataFinal(Date dataInicial, int numeroSemanas) {
-		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = new GregorianCalendar();
 		c.setTime(dataInicial);
 		numeroSemanas = numeroSemanas * 7;
@@ -207,7 +206,6 @@ public class Formatacao {
 	}
 	
 	public static Date calcularDataFinalAcomodacao(Date dataInicial, int numeroSemanas) {
-		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = new GregorianCalendar();
 		c.setTime(dataInicial);
 		numeroSemanas = numeroSemanas * 7;
@@ -219,7 +217,6 @@ public class Formatacao {
 	}
 
 	public static Date calcularDataFinalPorDias(Date dataInicial, int numerodias) {
-		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = new GregorianCalendar();
 		c.setTime(dataInicial);
 		numerodias = numerodias - 1;
@@ -438,7 +435,6 @@ public class Formatacao {
 		} // -------- Rotina para CNPJ
 		else if (s_aux.length() == 14) {
 			int soma = 0;
-			int aux = 0;
 			int dig = 0;
 			String cnpj_calc = s_aux.substring(0, 12);
 			char[] chr_cnpj = s_aux.toCharArray();
@@ -757,7 +753,6 @@ public class Formatacao {
 		String chf = "0,000";
 		String euro = "0,000";
 		if (listaCambio != null) {
-			Date dataCambio = listaCambio.get(0).getData();
 			for (int i = 0; i < listaCambio.size(); i++) {
 				if (listaCambio.get(i).getMoedas().getSigla().equalsIgnoreCase("IATA")) {
 					iata = Formatacao.formatarValorCambio(listaCambio.get(i).getValor());
@@ -1069,8 +1064,6 @@ public class Formatacao {
 		email.setMsg(texto);
 		email.setSmtpPort(587);
 		email.setAuthentication(de, senha);
-		email.setSSL(true);
-		email.setTLS(true);
 		email.send();
 	}
 
@@ -1267,15 +1260,13 @@ public class Formatacao {
 	}
 
 	public static int getPrimeiroDiaMes(int ano, int mes, int dia) {
-		GregorianCalendar calendar = new GregorianCalendar();
 		Calendar c = new GregorianCalendar(ano, mes, dia);
-		return c.getMinimum(calendar.DAY_OF_MONTH);
+		return c.getMinimum(Calendar.DAY_OF_MONTH);
 	}
 
 	public static int getUltimoDiaMes(int ano, int mes, int dia) {
-		GregorianCalendar calendar = new GregorianCalendar();
 		Calendar c = new GregorianCalendar(ano, mes, dia);
-		return c.getMaximum(calendar.DAY_OF_MONTH);
+		return c.getMaximum(Calendar.DAY_OF_MONTH);
 	}
 
 	public static Date getPrimeiroDiaSemana(Date data) {

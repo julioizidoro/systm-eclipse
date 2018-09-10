@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.aupair;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -1253,7 +1251,6 @@ public class CadAupairMB implements Serializable {
 					inicioAupir = Formatacao.ConvercaoDataPadrao(aupair.getDataInicioPretendida01());
 				}
 				cliente = cadAuPairBean.salvarCliente(cliente, inicioAupir);
-				float valorPrevisto = 0.0f;
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
 						) {
 					Vendascomissao vendasComissao = venda.getVendascomissao();
@@ -1261,10 +1258,6 @@ public class CadAupairMB implements Serializable {
 						vendasComissao = new Vendascomissao();
 						vendasComissao.setVendas(venda);
 						vendasComissao.setPaga("Não");
-					}
-					float valorJuros = 0.0f;
-					if (venda.getFormapagamento() != null) {
-						valorJuros = venda.getFormapagamento().getValorJuros();
 					}
 					
 				}
@@ -1758,7 +1751,6 @@ public class CadAupairMB implements Serializable {
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);

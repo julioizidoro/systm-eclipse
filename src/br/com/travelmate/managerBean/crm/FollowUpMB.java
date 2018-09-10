@@ -113,7 +113,6 @@ public class FollowUpMB implements Serializable {
 	private boolean campoVoluntariado = false;
 	private Pais paisConsulta;
 	private List<Pais> listaPaisConsulta;
-	private String volta = "";
 
 	@PostConstruct()
 	public void init() {

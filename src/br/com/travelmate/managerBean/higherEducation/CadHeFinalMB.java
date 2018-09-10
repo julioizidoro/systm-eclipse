@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.higherEducation;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -845,7 +843,6 @@ public class CadHeFinalMB implements Serializable {
 	public void excluirProdutoOrcamento(String linha) {
 		int ilinha = Integer.parseInt(linha);
 		if (ilinha >= 0) {
-			int tx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 			if (orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getIdorcamentoProdutosOrcamento() != null) {
 				if (vendaAlterada != null) {
 					OrcamentoFacade orcamentoFacade = new OrcamentoFacade();

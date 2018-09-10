@@ -2,7 +2,6 @@ package br.com.travelmate.managerBean.financeiro.crmcobranca;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;

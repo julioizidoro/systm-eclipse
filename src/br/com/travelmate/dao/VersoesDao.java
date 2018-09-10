@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Valoreshe;
 import br.com.travelmate.model.Versoes;
 
 public class VersoesDao {

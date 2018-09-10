@@ -250,7 +250,6 @@ public class EnviarEmail {
 	public void enviarEmail() {
 		email = new HtmlEmail();
 		email.setHostName("email-ssl.com.br");
-		email.setSSL(true);
 		email.setSslSmtpPort("465");
 		// email.setSmtpPort(465);
 		email.setAuthenticator(new DefaultAuthenticator("ti@travelmate.com.br", "20SimpleS78"));

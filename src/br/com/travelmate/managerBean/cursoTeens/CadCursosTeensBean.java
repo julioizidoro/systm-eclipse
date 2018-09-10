@@ -13,7 +13,6 @@ import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.util.Formatacao;
 
 public class CadCursosTeensBean {
 	
@@ -21,14 +20,12 @@ public class CadCursosTeensBean {
 	private Vendas venda;
 	private Formapagamento formaPagamento;
 	private Orcamento orcamento;
-	private UsuarioLogadoMB usuarioLogadoMB;
 	
 	public CadCursosTeensBean(Vendas venda, Formapagamento formaPagamento, Orcamento orcamento, UsuarioLogadoMB usuarioLogadoMB) {
 		this.programasBean =  new ProgramasBean();
 		this.venda = venda;
 		this.formaPagamento= formaPagamento;
 		this.orcamento = orcamento;
-		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 	
 	public void SalvarAlteracaoFinanceiro(List<Parcelamentopagamento> listaParcelamentoPagamentoAntigo,List<Parcelamentopagamento> listaParcelamentoPagamentoOriginal){

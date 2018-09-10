@@ -2,7 +2,6 @@ package br.com.travelmate.managerBean.productRunners;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +20,6 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Corridaprodutomes;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Usuario;
-import br.com.travelmate.util.Formatacao;
 
 
 @Named

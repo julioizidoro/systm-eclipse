@@ -3,7 +3,6 @@ package br.com.travelmate.managerBean.aupair;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -24,17 +23,14 @@ import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Controleseguro;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
-import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
 import br.com.travelmate.model.Highschool;
@@ -59,8 +55,6 @@ public class FinalizarMB implements Serializable {
 	
 	@Inject
 	private VendasDao vendasDao;
-	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	
@@ -322,10 +316,6 @@ public class FinalizarMB implements Serializable {
 					salvarControleSeguro(seguroViagem);
 				}
 			}
-			DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-			List<Departamento> departamento = departamentoFacade
-					.listar("select d From Departamento d where d.usuario.idusuario="
-							+ seguroViagem.getVendas().getProdutos().getIdgerente());
 			String titulo = "";
 			String operacao = "";
 			String imagemNotificacao = "";
@@ -443,7 +433,6 @@ public class FinalizarMB implements Serializable {
 	
 	public Vendas finalizarHighSchool(Highschool highschool) {
 		
-		float valorVendaatual = highschool.getVendas().getValor();
 
 		float valorPrevisto = 0.0f;
 		Vendascomissao vendasComissao = highschool.getVendas().getVendascomissao();
@@ -510,7 +499,6 @@ public class FinalizarMB implements Serializable {
 	public Vendas finalizarTeens(Programasteens programasteens) {
 		
 		float valorPrevisto = 0.0f;
-		float valorVendaatual = programasteens.getVendas().getValor();
 		valorPrevisto = 0.0f;
 		Vendascomissao vendasComissao = programasteens.getVendas().getVendascomissao();
 		if (vendasComissao == null) {
@@ -626,10 +614,6 @@ public class FinalizarMB implements Serializable {
 					salvarControleSeguro(seguroViagem);
 				}
 			}
-			DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-			List<Departamento> departamento = departamentoFacade
-					.listar("select d From Departamento d where d.usuario.idusuario="
-							+ seguroViagem.getVendas().getProdutos().getIdgerente());
 			String titulo = "";
 			String operacao = "";
 			String imagemNotificacao = "";

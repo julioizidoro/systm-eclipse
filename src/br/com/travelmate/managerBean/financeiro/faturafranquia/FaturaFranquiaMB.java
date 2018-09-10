@@ -173,7 +173,6 @@ public class FaturaFranquiaMB implements Serializable {
 			if (vendascomissao.getDatainicioprograma() != null) {
 				String dataInicio = Formatacao.ConvercaoDataPadrao(vendascomissao.getDatainicioprograma());
 				String sAno = dataInicio.substring(6, 10);
-				String sDia = dataInicio.substring(1, 3);
 				String sMes = dataInicio.substring(4, 5);
 				int mes = Integer.parseInt(sMes);
 				int ano = Integer.parseInt(sAno);
@@ -202,7 +201,6 @@ public class FaturaFranquiaMB implements Serializable {
 		} else {
 			String dataInicio = Formatacao.ConvercaoDataPadrao(vendascomissao.getVendas().getDataVenda());
 			String sAno = dataInicio.substring(6, 10);
-			String sDia = dataInicio.substring(1, 3);
 			String sMes = dataInicio.substring(4, 5);
 			int mes = Integer.parseInt(sMes);
 			int ano = Integer.parseInt(sAno);
@@ -217,7 +215,7 @@ public class FaturaFranquiaMB implements Serializable {
 		}
 	}
 
-	private String calcularTotalProdutos() {
+	public String calcularTotalProdutos() {
 		FaturaFranquiasFacade faturaFranquiasFacade = new FaturaFranquiasFacade();
 		List<Faturafranquias> lista = null;
 		try {

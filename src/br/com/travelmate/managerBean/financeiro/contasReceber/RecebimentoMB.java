@@ -49,7 +49,6 @@ public class RecebimentoMB implements Serializable{
 	private Date dataPagamento;
 	private String novodocuemnto;
 	private float desagioparcela;
-	private boolean validarData;
 	private String novoCartao;
 	
 	
@@ -213,7 +212,7 @@ public class RecebimentoMB implements Serializable{
 				conta = contasReceberFacade.salvar(conta);
 				CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 				crmCobrancaBean.baixar(listaContas.get(i), usuarioLogadoMB.getUsuario());
-				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Recebimento pelo usuário", conta, usuarioLogadoMB.getUsuario());
+				new EventoContasReceberBean("Recebimento pelo usuário", conta, usuarioLogadoMB.getUsuario());
 				if (!novoCartao.equalsIgnoreCase("sim")){
 					lancarConciliacao(conta);
 				}
@@ -254,7 +253,7 @@ public class RecebimentoMB implements Serializable{
 		contaspagar.setBanco(banco);
 		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
 		contasPagarFacade.salvar(contaspagar);
-		EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Recebimento pelo usáruio", conta, usuarioLogadoMB.getUsuario());
+		new EventoContasReceberBean("Recebimento pelo usáruio", conta, usuarioLogadoMB.getUsuario());
 	}
 	
 	public void lancarConciliacaoUnica(){
@@ -279,7 +278,7 @@ public class RecebimentoMB implements Serializable{
 		contaspagar.setBanco(banco);
 		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
 		contasPagarFacade.salvar(contaspagar);
-		EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Recebimento pelo usáruio", conta, usuarioLogadoMB.getUsuario());
+		new EventoContasReceberBean("Recebimento pelo usáruio", conta, usuarioLogadoMB.getUsuario());
 	}
 	
 	public String enderecoCliente(Cliente cliente){
@@ -317,21 +316,6 @@ public class RecebimentoMB implements Serializable{
 		listaContas.add(Integer.parseInt(linha), conta);
 	}
 	
-	public void validarDataRecebimentoCartao(){
-		validarData=true;
-		for (int i = 0; i < listaContas.size(); i++) {
-			if (listaContas.get(i).getDatapagamento()==null){
-				validarData = false;
-			}
-		}
-	}
-	
-	public void validarDataRecebimento(){
-		validarData=true;
-		if (dataPagamento==null){
-				validarData = false;
-		}
-	}
 	
 	
 	public void setarDataRecebimentoCartao(){

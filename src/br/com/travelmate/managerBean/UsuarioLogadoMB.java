@@ -340,7 +340,7 @@ public class UsuarioLogadoMB implements Serializable {
 	
 
 	public String deslogar() {
-		Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		Map<?, ?> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 		sessionMap.clear();
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		session.invalidate();

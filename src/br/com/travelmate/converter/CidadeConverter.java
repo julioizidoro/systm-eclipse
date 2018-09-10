@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */ 
 package br.com.travelmate.converter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.faces.component.UIComponent;

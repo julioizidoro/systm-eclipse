@@ -28,7 +28,6 @@ public class ComissaoHEInscricaoBean {
     private List<Orcamentoprodutosorcamento> listaProdutosGeral;
     private List<Parcelamentopagamento> listaParcelamento;
     private Float valorComissionavel;
-    private Float valorComissaoMatriz;
     private Float valorComissaoFranquia;
     private Double percentualComissao;
     private float valorJuros;
@@ -106,7 +105,6 @@ public class ComissaoHEInscricaoBean {
     
     public void calcularValorComissional() {
     	valorComissaoFranquia = 0.0f;
-    	valorComissaoMatriz=0.0f;
     	valorComissionavel = venda.getValor();
     	percentualComissao = 0.0;
     	if (venda.getUnidadenegocio().getTipo().equalsIgnoreCase("Premium")){

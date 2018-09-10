@@ -28,7 +28,6 @@ import br.com.travelmate.model.Idioma;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtosorcamento;
-import br.com.travelmate.model.Seguroviagem;
 
 @Named
 @ViewScoped

@@ -42,7 +42,6 @@ import br.com.travelmate.model.Pasta2;
 import br.com.travelmate.model.Pasta3;
 import br.com.travelmate.model.Pasta4;
 import br.com.travelmate.model.Pasta5;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
@@ -595,7 +594,7 @@ public class Pasta5Arquivo4MB implements Serializable {
 		List<GerarAvisosDocsBean> listaAviso = (List<GerarAvisosDocsBean>) event.getObject();
 		if (listaAviso.size() > 0) {
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
-			AvisoArquivoBean avisoArquivoBean = new AvisoArquivoBean(listaAviso);
+			new AvisoArquivoBean(listaAviso);
 		}
 		gerarListaArquivo4();
 		semConteudo();

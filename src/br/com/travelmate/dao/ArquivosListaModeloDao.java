@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.travelmate.model.Arquivoslistamodelo;
-import br.com.travelmate.model.Vendas;
 
 public class ArquivosListaModeloDao implements Serializable{
 	

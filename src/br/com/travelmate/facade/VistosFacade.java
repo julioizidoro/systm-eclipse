@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.travelmate.dao.VistosDao;
-import br.com.travelmate.model.Valoresvistos;
 import br.com.travelmate.model.Vistos;
 
 public class VistosFacade {

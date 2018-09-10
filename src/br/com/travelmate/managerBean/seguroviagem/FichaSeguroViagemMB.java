@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.seguroviagem;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -941,7 +939,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			}
 			calcularComissao();
 			if (novaFicha) {
-				ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,
+				new ContasReceberBean(vendas,
 						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, seguro.getDataInicio());
 			} else {
 				if (nsituacao.equalsIgnoreCase("FINALIZADA")) {
@@ -1293,13 +1291,13 @@ public class FichaSeguroViagemMB implements Serializable {
 			}
 			if (vendasComissao != null) {
 				if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
-					ComissaoSeguroBean cs = new ComissaoSeguroBean(aplicacaoMB, vendas,
+					new ComissaoSeguroBean(aplicacaoMB, vendas,
 							formaPagamento.getParcelamentopagamentoList(), vendasComissao, seguro.getDescontoloja(),
 							seguro.getDescontomatriz(), valorJuros, true, formaPagamento, this.seguro);
 				}
 			} else {
 				vendasComissao = new Vendascomissao();
-				ComissaoSeguroBean cs = new ComissaoSeguroBean(aplicacaoMB, vendas,
+				new ComissaoSeguroBean(aplicacaoMB, vendas,
 						formaPagamento.getParcelamentopagamentoList(), null, seguro.getDescontoloja(),
 						seguro.getDescontomatriz(), valorJuros, true, formaPagamento, this.seguro);
 			}

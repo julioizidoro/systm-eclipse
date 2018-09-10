@@ -46,7 +46,6 @@ public class cadPaisMB implements Serializable {
 	private Moedas moedas;
 	private UploadedFile file;
 	private String nomeArquivoFTP;
-	private FileUploadEvent ex;
 	private String caminho;
 
 	@PostConstruct
@@ -147,7 +146,6 @@ public class cadPaisMB implements Serializable {
 	public void fileUploadListener(FileUploadEvent e) {
 		this.file = e.getFile();
 		salvarArquivoFTP();
-		String nome = e.getFile().getFileName();
 	}
 
 	public boolean salvarArquivoFTP() {

@@ -21,7 +21,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
@@ -119,8 +118,6 @@ public class OrcamentoCursoMB implements Serializable {
 	private boolean habilitarPin = false;
 	private List<ProdutosOrcamentoBean> listaAcomodacoes;
 	private List<ProdutosOrcamentoBean> listaAcomodacoesIndependente;
-	private ProdutosOrcamentoBean acomodacao;
-	private ProdutosOrcamentoBean acomodacaoIndependente;
 	private int fornecedor1;
 	private int fornecedor2;
 	private int fornecedor3;
@@ -130,12 +127,8 @@ public class OrcamentoCursoMB implements Serializable {
 	private String nomeFornecedor1 = "";
 	private String nomeFornecedor2 = "";
 	private String nomeFornecedor3 = "";
-	private String nomeAcomodacaoFornecedor = "";
-	private String advertencia = "";
 	private String moedaNacional;
 	
-	@Inject
-	private OCursoDao OCursoDao;
 	@Inject 
 	private OCursoFormaPagamentoDao oCursoFormaPagamentoDao;
 	@Inject 
@@ -1704,12 +1697,6 @@ public class OrcamentoCursoMB implements Serializable {
 		int nSemana = (int) produtosOrcamentoBean.getNumeroSemanas();
 		Date dataTermino = calcularDataTerminoCurso(dataInical, nSemana);
 		int numeroDias = 0;  
-		boolean calcular = true;
-//		if (po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)  ||
-//				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
-//			calcular = false;
-//		}
-//		if (calcular){
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
@@ -3096,7 +3083,6 @@ public class OrcamentoCursoMB implements Serializable {
 		ProdutosOrcamentoBean po = (ProdutosOrcamentoBean) event.getObject(); 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		listaOpcionais = (List<ProdutosOrcamentoBean>) session.getAttribute("listaOpcionais");
 		session.removeAttribute("listaOpcionais");
 		if (listaOpcionais.size() > 0) {
 			desabilitarbtnOpcional = false;
@@ -3343,11 +3329,6 @@ public class OrcamentoCursoMB implements Serializable {
 	
 	public void seguroCancelamento() {
 		if(seguroviagem.isSegurocancelamento() && seguroviagem.getValoresseguro().isSegurocancelamento()) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(resultadoOrcamentoBean.getOcurso().getCambio().getData()),
-					seguroviagem.getValoresseguro().getMoedas().getIdmoedas()); 
-			float valorsegurocancelamento = seguroviagem.getValoresseguro().getValorsegurocancelamento()
-					* cambioSeguro.getValor();
 			seguroviagem.setValorSeguro(seguroviagem.getValorSeguro());
 		} 
 	}

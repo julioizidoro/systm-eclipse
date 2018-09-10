@@ -71,7 +71,6 @@ public class SalvarPDForcamentoFinalizado {
 	    ServletOutputStream servletOutputStream = response.getOutputStream();  
 		servletOutputStream.flush();  
         servletOutputStream.close();  
-		facesContext.getApplication().getStateManager().saveView(facesContext);
         facesContext.renderResponse();
         facesContext.responseComplete();
        

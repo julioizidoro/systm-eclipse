@@ -31,7 +31,6 @@ public class ComissaoSeguroBean {
     private float descontomatriz;
     private float valorJuros;
     private boolean seguroAvulso;
-    private Formapagamento formapagamento;
     private Seguroviagem seguroviagem;
     
     public ComissaoSeguroBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Parcelamentopagamento> listaParcelamento,  Vendascomissao vendascomissao, float descontoloja, float descontomatriz, float valorJuros, boolean seguroAvulso,Formapagamento formapagamento,Seguroviagem seguroviagem) {
@@ -44,7 +43,6 @@ public class ComissaoSeguroBean {
         this.descontomatriz = descontomatriz;
         this.valorJuros = valorJuros; 
         this.seguroviagem = seguroviagem;
-        this.formapagamento = formapagamento; 
         boolean gerar=true;
         if (vendascomissao != null && vendascomissao.getFaturaFranquias()!=null){
         	if (vendasComissao.getFaturaFranquias().isFatura()){

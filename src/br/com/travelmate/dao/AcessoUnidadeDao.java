@@ -12,10 +12,6 @@ import br.com.travelmate.model.Acessounidade;
 
 public class AcessoUnidadeDao {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L; 
 	 
 	public Acessounidade salvar(Acessounidade acessounidade) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();

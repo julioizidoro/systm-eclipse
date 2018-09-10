@@ -20,7 +20,6 @@ import br.com.travelmate.model.Controleaupair;
  */
 public class AupairDao {
     
-    private EntityManager manager;
     
     public Aupair salvar(Aupair aupair) throws SQLException{
     	EntityManager manager;

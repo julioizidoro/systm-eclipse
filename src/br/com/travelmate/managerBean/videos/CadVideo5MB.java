@@ -29,7 +29,6 @@ import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.Video5Facade;
 import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
 import br.com.travelmate.model.Ftpdados;
-import br.com.travelmate.model.Video3;
 import br.com.travelmate.model.Video5;
 import br.com.travelmate.model.Videopasta1;
 import br.com.travelmate.model.Videopasta2;

@@ -12,8 +12,6 @@ import br.com.travelmate.util.Formatacao;
 import java.io.IOException;
 import java.util.Date;
 
-import org.jrimum.domkee.financeiro.banco.Banco;
-
 /**
  *
  * @author Wolverine

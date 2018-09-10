@@ -12,10 +12,6 @@ import br.com.travelmate.model.Controleworksponsor;
 
 public class ControleWorkSponsorDao {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L; 
 	 
 	public Controleworksponsor salvar(Controleworksponsor controleworksponsor) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();

@@ -2,7 +2,6 @@ package br.com.travelmate.managerBean.cartaocredito.lancamento;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;

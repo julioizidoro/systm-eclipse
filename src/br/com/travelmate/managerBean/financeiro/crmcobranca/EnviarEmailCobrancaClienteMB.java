@@ -18,7 +18,6 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.email.EnviarEmail;
 import br.com.travelmate.model.Vendamotivopendencia;
-import br.com.travelmate.model.Vendapendencia;
 import br.com.travelmate.model.Vendapendenciahistorico;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;

@@ -21,7 +21,6 @@ import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Fornecedorfinanceiro;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Produtos;
-import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 @Named

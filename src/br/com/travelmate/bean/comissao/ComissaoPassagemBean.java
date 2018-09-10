@@ -21,7 +21,6 @@ public class ComissaoPassagemBean {
     private Date dataInicioPrograma;
     private float valorJuros;
     private Passagemaerea passagem;
-    private List<Passagempassageiro> listaPassageiro;
     
     public ComissaoPassagemBean(AplicacaoMB aplicacaoMB, Vendas venda,List<Parcelamentopagamento> listaParcelamento, Date dataInicioPrograma, Vendascomissao vendascomissao, float valorJuros, Passagemaerea passagem,List<Passagempassageiro> listaPassageiro){
     		this.vendasComissao = vendascomissao;
@@ -31,7 +30,6 @@ public class ComissaoPassagemBean {
         this.dataInicioPrograma = dataInicioPrograma;
         this.valorJuros = valorJuros;
         this.passagem = passagem;
-        this.listaPassageiro=listaPassageiro;
         boolean gerar=true;
         if (this.vendasComissao==null) {
         		this.vendasComissao = new Vendascomissao();

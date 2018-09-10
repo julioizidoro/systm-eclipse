@@ -1,7 +1,6 @@
 package br.com.travelmate.dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;

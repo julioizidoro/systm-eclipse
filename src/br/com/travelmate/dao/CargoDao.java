@@ -12,10 +12,6 @@ import br.com.travelmate.model.Cargo;
 
 public class CargoDao {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L; 
 	 
 	public Cargo salvar(Cargo cargo) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();

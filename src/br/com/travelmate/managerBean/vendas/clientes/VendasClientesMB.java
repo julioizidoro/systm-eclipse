@@ -19,7 +19,6 @@ import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.GerarListas;
 
 @Named
 @ViewScoped

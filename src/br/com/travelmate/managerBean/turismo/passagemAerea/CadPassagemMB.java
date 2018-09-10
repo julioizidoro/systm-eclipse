@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.turismo.passagemAerea;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -63,7 +61,6 @@ import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
-import br.com.travelmate.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -817,13 +814,9 @@ public class CadPassagemMB implements Serializable {
 				programasBean.salvarOrcamento(orcamento, cambio, vendas.getValorpais(), totalMoedaEstrangeira, valorCambio, vendas, "Não", totalMoedaReal, valorCambioBrasil);
 				calcularComissao();
 				if (novaFicha) { 
-					ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,
+					new ContasReceberBean(vendas,
 							formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, passagem.getDataviagem());
-				} else {
-					if (nsituacao.equalsIgnoreCase("FINALIZADA")) {
-						float valorVendaatual = vendas.getValor();
-					}
-				}
+				} 
 				String vm = "Venda pela Matriz";
 				if (vendas.getVendasMatriz().equalsIgnoreCase("N")) {
 					vm = "Venda pela Loja";
@@ -1045,7 +1038,7 @@ public class CadPassagemMB implements Serializable {
 			if (vendas.getFormapagamento() != null) {
 				valorJuros = vendas.getFormapagamento().getValorJuros();
 			}
-			ComissaoPassagemBean cc = new ComissaoPassagemBean(aplicacaoMB, vendas,
+			new ComissaoPassagemBean(aplicacaoMB, vendas,
 					formaPagamento.getParcelamentopagamentoList(), passagem.getDataviagem(), vendasComissao, valorJuros,
 					passagem, listaPassageiros);
 		}

@@ -7,7 +7,6 @@ package br.com.travelmate.converter;
 
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

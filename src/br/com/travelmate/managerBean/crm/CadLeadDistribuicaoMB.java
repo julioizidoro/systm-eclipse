@@ -7,22 +7,18 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.LeadDao;
-import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
-import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
@@ -48,8 +44,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private LeadPosVendaDao leadPosVendaDao;
-	@Inject
 	private LeadDao leadDao;
 	@Inject
 	private LeadResponsavelDao leadResponsavelDao;
@@ -69,21 +63,15 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	private boolean desabilitarUnidade=true;
     private boolean pesquisanome=true;
     private boolean pesquisatelefone=false;
-    private String telaRetorno;
     private boolean desabilitarConfirmar = false;
     private String email;
 
 	@PostConstruct()
 	public void init() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		telaRetorno = (String) session.getAttribute("telaRetorno");
-		session.removeAttribute("telaRetorno");
 		unidadenegocio = new Unidadenegocio();
 		cliente = new Cliente();
 		lead = new Lead();
 		gerarListaUnidadeNegocio();
-		boolean responsavelUnidade = retornarResponsavelUnidade();
 		if(usuarioLogadoMB.getUsuario().isPertencematriz()){
 			desabilitarUnidade=false;
 		}else{
@@ -91,7 +79,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			desabilitarUnidade = true;
 		}
 		gerarListaPublicidade();
-		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 		PublicidadeFacade publicidadeFacade = new PublicidadeFacade();
 		try {
 			publicidade = publicidadeFacade.consultar(9);

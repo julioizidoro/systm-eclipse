@@ -9,7 +9,6 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cursospacote; 
 import br.com.travelmate.model.Pacotesinicial;
 import br.com.travelmate.model.Pais;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 

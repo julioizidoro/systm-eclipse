@@ -12,10 +12,6 @@ import br.com.travelmate.model.Controleworkempregaor;
 
 public class ControleWorkEmpregadorDao {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L; 
 	 
 	public Controleworkempregaor salvar(Controleworkempregaor Controleworkempregador) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();

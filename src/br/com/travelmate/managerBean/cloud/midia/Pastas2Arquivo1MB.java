@@ -46,7 +46,6 @@ import br.com.travelmate.model.Pasta2;
 import br.com.travelmate.model.Pasta3;
 import br.com.travelmate.model.Pasta4;
 import br.com.travelmate.model.Pasta5;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.util.Formatacao;
@@ -682,7 +681,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 		List<GerarAvisosDocsBean> lisaAvisos =  (List<GerarAvisosDocsBean>) event.getObject();
 		if (lisaAvisos.size() > 0) {
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
-			AvisoArquivoBean  avisoArquivoBean = new AvisoArquivoBean(lisaAvisos);
+			new AvisoArquivoBean(lisaAvisos);
 		}
 		gerarCloudFiles();
 		semConteudo();

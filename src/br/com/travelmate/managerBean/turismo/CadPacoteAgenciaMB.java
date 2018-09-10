@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.turismo;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -241,10 +239,6 @@ public class CadPacoteAgenciaMB implements Serializable {
 					carregarImagemServico(listaTrecho.get(i));
 				}
 			}
-		}
-		if (cambio==null){
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambio =cambioFacade.consultar(1);
 		}
 	}
 
@@ -1278,15 +1272,10 @@ public class CadPacoteAgenciaMB implements Serializable {
 								vendass = vendasDao.salvar(vendass);
 								salvarSeguro();
 								salvarFormaPagamento();
-								try {
-									float valorPrevisto = calcularComissao();
-								} catch (SQLException e) {
-									e.printStackTrace();
-								}
 								if (novaFicha) {
-									ContasReceberBean contasReceberBean = new ContasReceberBean(vendass,
+									new ContasReceberBean(vendass,
 											formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, pacotes.getDatainicio());
-									GerarPacotesFornecedorBean gerarPacotesFornecedorBean = new GerarPacotesFornecedorBean(listaTrecho);
+									new GerarPacotesFornecedorBean(listaTrecho);
 								} 
 								FacesContext fc = FacesContext.getCurrentInstance();
 								HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
