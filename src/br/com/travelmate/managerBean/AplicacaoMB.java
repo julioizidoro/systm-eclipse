@@ -235,7 +235,7 @@ public class AplicacaoMB implements Serializable {
 				sql = sql + " or ";
 			}
 		}
-		sql = sql + " order by c.pais";
+		sql = sql + " order by c.pais.idpais";
 		CambioFacade cambioFacade = new CambioFacade();
 		listaCambio = cambioFacade.listarCambio(sql);
 	/*	int contador = 0;
