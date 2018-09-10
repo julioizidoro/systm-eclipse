@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.swing.JOptionPane;
 
@@ -23,9 +22,7 @@ import br.com.travelmate.facade.Arquivo3Facade;
 import br.com.travelmate.facade.Arquivo4Facade;
 import br.com.travelmate.facade.Arquivo5Facade;
 import br.com.travelmate.facade.FornecedorCidadeDocsFacade;
-import br.com.travelmate.facade.FornecedorDocsFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cloud.midia.Pastas2Arquivo1MB;
 import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Arquivo2;
@@ -33,7 +30,6 @@ import br.com.travelmate.model.Arquivo3;
 import br.com.travelmate.model.Arquivo4;
 import br.com.travelmate.model.Arquivo5;
 import br.com.travelmate.model.Fornecedorcidadedocs;
-import br.com.travelmate.model.Fornecedordocs;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -49,8 +45,6 @@ public class ControleDocsVideosMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
 	private ArquivoDocsBean arquivoDocsBean;
 	private List<ArquivoDocsBean> listaArquivo;
 	private List<ListaArquivoDocsBean> listaArquivoDocs;

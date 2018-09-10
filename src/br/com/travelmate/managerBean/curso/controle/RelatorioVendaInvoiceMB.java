@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,16 +21,7 @@ import javax.servlet.ServletContext;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.PaisFacade;
-import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Fornecedor;
-import br.com.travelmate.model.Fornecedorcidade;
-import br.com.travelmate.model.Pais;
-import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -122,7 +112,7 @@ public class RelatorioVendaInvoiceMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "/reports/controlecurso/vendainvoice.jasper";
-		Map<String, Object> parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("sql", gerarSql());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);

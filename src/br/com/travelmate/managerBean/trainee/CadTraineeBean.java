@@ -7,27 +7,21 @@ import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
-import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
-import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TraineeFacade;
-import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cliente;
-import br.com.travelmate.model.Controleseguro;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Parcelamentopagamento;
-import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
-import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 
 public class CadTraineeBean {
@@ -89,7 +83,7 @@ public class CadTraineeBean {
 
 	public void salvarNovaFichha(AplicacaoMB aplicacaoMB) {
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+			new ContasReceberBean(venda,
 					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, null);
 		}
 		float valorPrevisto = 0.0f;

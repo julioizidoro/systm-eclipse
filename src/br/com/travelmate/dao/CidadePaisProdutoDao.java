@@ -9,7 +9,6 @@ import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Cidadepaisproduto;
-import br.com.travelmate.model.Paisproduto;
 
 public class CidadePaisProdutoDao {
 

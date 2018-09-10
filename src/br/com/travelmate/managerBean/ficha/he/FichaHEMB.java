@@ -10,10 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.facade.DadosPaisFacade;
 import br.com.travelmate.facade.HeParceirosFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
-import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Dadospais;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Heparceiros;

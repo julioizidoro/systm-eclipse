@@ -661,7 +661,7 @@ public class ControleSeguroMB implements Serializable {
 		} else {
 			caminhoRelatorio = ("/reports/seguro/FichaSeguroPagina01.jasper");
 		}
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		try {
 			if(seguro.getIdvendacurso()>0){
 				CursoFacade cursoFacade = new CursoFacade();

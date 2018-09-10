@@ -37,12 +37,9 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
-import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Formapagamento;
-import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
-import br.com.travelmate.model.Traducaojuramentada;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas; 
@@ -512,7 +509,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			try {
 				parameters.put("idvendas", seguro.getVendas().getIdvendas());
 				File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -548,7 +545,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		} else {
 			caminhoRelatorio = ("/reports/seguro/FichaSeguroPagina01.jasper");
 		}
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		try {
 			if(seguro.getIdvendacurso()>0){
 				CursoFacade cursoFacade = new CursoFacade();

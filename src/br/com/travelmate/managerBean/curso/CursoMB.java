@@ -43,7 +43,6 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
@@ -114,7 +113,6 @@ public class CursoMB implements Serializable {
 	private List<Curso> listaVendasCursoCancelada;
 	private List<Curso> listaVendasCursoProcesso;
 	private List<Curso> listaVendasCursoFinanceiro;
-	private boolean segurocancelamento = false;
 	private String chamadaTela = "";
 
 	@PostConstruct()
@@ -666,7 +664,7 @@ public class CursoMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/curso/termoCiencia.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idcliente", curso.getVendas().getCliente().getIdcliente());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
@@ -710,7 +708,7 @@ public class CursoMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", curso.getVendas().getIdvendas());
 			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 			parameters.put("valorExtenso", valorExtenso);
@@ -832,7 +830,6 @@ public class CursoMB implements Serializable {
 			seguro = seguroViagemController.consultar(curso.getVendas().getIdvendas());
 			sqlseguro = " join seguroviagem on seguroviagem.vendas_idvendas = vendas.idvendas ";
 		} else {
-			segurocancelamento = seguro.isSegurocancelamento();
 			sqlseguro = " join seguroviagem on seguroviagem.idvendacurso = vendas.idvendas";
 		}
 		String sql = "Select distinct vendas.dataVenda, vendas.valor as valorVenda, cursos.nomeCurso, cursos.escola,"
@@ -1007,7 +1004,7 @@ public class CursoMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/curso/reportbooking.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvendas", curso.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);

@@ -24,7 +24,6 @@ import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Controlehighschool;
-import br.com.travelmate.model.Controleprogramasteen;
 import br.com.travelmate.model.Invoice; 
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;

@@ -14,14 +14,12 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.jfree.data.time.Year;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.RecinternacionalFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Recinternacional;
 import br.com.travelmate.model.Usuario;

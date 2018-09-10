@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.Arquivo1Facade;
 import br.com.travelmate.facade.Arquivo3Facade;
 import br.com.travelmate.facade.Arquivo4Facade;
 import br.com.travelmate.facade.Arquivo5Facade;
@@ -43,7 +42,6 @@ import br.com.travelmate.model.Arquivo5;
 import br.com.travelmate.model.Pasta3;
 import br.com.travelmate.model.Pasta4;
 import br.com.travelmate.model.Pasta5;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.util.Formatacao;
@@ -575,7 +573,7 @@ public class Pasta4Arquivo3MB implements Serializable {
 		List<GerarAvisosDocsBean> listaAviso = (List<GerarAvisosDocsBean>) event.getObject();
 		if (listaAviso.size() > 0) {
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
-			AvisoArquivoBean avisoArquivoBean = new AvisoArquivoBean(listaAviso);
+			new AvisoArquivoBean(listaAviso);
 		}
 		gerarListaCloudSubSubPastaArquivo();
 		semConteudo();

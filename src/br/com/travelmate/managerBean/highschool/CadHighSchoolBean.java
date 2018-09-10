@@ -3,11 +3,8 @@ package br.com.travelmate.managerBean.highschool;
 import java.util.List;
 
 import br.com.travelmate.bean.ProgramasBean;
-import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
-import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cliente;
@@ -15,9 +12,7 @@ import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Parcelamentopagamento;
-import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.util.Formatacao;
 
 public class CadHighSchoolBean {
 	
@@ -25,14 +20,12 @@ public class CadHighSchoolBean {
 	private Vendas venda;
 	private Formapagamento formaPagamento;
 	private Orcamento orcamento;
-	private UsuarioLogadoMB usuarioLogadoMB;
 	
 	public CadHighSchoolBean(Vendas venda, Formapagamento formaPagamento, Orcamento orcamento, UsuarioLogadoMB usuarioLogadoMB) {
 		this.programasBean =  new ProgramasBean();
 		this.venda = venda;
 		this.formaPagamento= formaPagamento;
 		this.orcamento = orcamento;
-		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 	
 	public void SalvarAlteracaoFinanceiro(List<Parcelamentopagamento> listaParcelamentoPagamentoAntigo,List<Parcelamentopagamento> listaParcelamentoPagamentoOriginal){

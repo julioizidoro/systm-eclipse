@@ -85,7 +85,7 @@ public class RelatorioMateRunnersMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "/reports/comercial/reportrunners.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("mes", mes);
 		parameters.put("ano", ano);
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

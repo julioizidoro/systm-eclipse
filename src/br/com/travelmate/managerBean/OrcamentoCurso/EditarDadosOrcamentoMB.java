@@ -2,10 +2,7 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import br.com.travelmate.bean.NumeroParcelasBean;
 import br.com.travelmate.dao.OCursoDao;
-import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
-import br.com.travelmate.dao.OCursoProdutoDao;
-import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.OcClienteFacade;
 import br.com.travelmate.facade.PublicidadeFacade;

@@ -6,7 +6,6 @@
 package br.com.travelmate.managerBean.turismo.trechos;
 
 
-import br.com.travelmate.facade.PacotesHotelFacade;
 import br.com.travelmate.facade.PacotesServicoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Pacoteservico;

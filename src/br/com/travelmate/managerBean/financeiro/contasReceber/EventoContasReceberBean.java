@@ -2,10 +2,8 @@ package br.com.travelmate.managerBean.financeiro.contasReceber;
 
 import java.util.Date;
 
-import javax.inject.Inject;
 
 import br.com.travelmate.facade.EventoContasReceberFacade;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Eventocontasreceber;
 import br.com.travelmate.model.Usuario;

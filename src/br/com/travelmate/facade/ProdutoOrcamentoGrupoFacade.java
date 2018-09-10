@@ -6,9 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.travelmate.dao.ProdutosOrcamentoGrupoDao;
-import br.com.travelmate.dao.ProdutosOrcamentoIndiceDao;
 import br.com.travelmate.model.Produtosorcamentogrupo;
-import br.com.travelmate.model.Produtosorcamentoindice;
 
 public class ProdutoOrcamentoGrupoFacade {
 	

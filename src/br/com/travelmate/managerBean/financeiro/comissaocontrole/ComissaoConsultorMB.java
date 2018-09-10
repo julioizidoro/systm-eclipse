@@ -94,7 +94,7 @@ public class ComissaoConsultorMB implements Serializable{
 					+ usuarioLogadoMB.getUsuario().getIdusuario() + " order by vendas.dataVenda ";
 		 ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 	        String caminhoRelatorio = "/reports/financeiro/comissaoGerente.jasper";  
-	        Map parameters = new HashMap();
+	        Map<String, Object> parameters = new HashMap<String, Object>();
 	        parameters.put("sql", sql);
 	        parameters.put("gerente", usuarioLogadoMB.getUsuario().getNome());
 	        File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -133,7 +133,7 @@ public class ComissaoConsultorMB implements Serializable{
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "/reports/financeiro/comissaoConsultor.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("sql", sql);
 		parameters.put("consultor", usuarioLogadoMB.getUsuario().getNome());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

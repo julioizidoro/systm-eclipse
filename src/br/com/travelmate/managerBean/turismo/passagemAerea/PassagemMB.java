@@ -53,8 +53,6 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext;
-
 /**
  *
  * @author Wolverine
@@ -256,7 +254,7 @@ public class PassagemMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", passagemaerea.getVendas().getIdvendas());
 			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 			parameters.put("valorExtenso", valorExtenso);

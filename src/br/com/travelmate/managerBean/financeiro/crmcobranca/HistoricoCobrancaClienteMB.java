@@ -34,7 +34,6 @@ import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.HighSchoolFacade; 
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PacotesFacade;
-import br.com.travelmate.facade.PassagemFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -45,7 +44,6 @@ import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.model.Aupair;
-import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Crmcobranca;
 import br.com.travelmate.model.Crmcobrancahistorico;
 import br.com.travelmate.model.Curso;
@@ -54,7 +52,6 @@ import br.com.travelmate.model.He;
 import br.com.travelmate.model.Highschool; 
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Pacotes;
-import br.com.travelmate.model.Passagemaerea;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Seguroviagem;
@@ -521,7 +518,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 	}  
 	
 	public String gerarRelatorioFicha() throws IOException {
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "";

@@ -1,7 +1,6 @@
 package br.com.travelmate.managerBean.controleSolicitacoes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.AvisosFacade;
-import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.TiSolicitacoesFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;

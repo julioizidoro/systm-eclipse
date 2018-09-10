@@ -474,7 +474,7 @@ public class ConsultaInvoiceMB implements Serializable {
 		} else {
 			ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 					.getContext();
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 			BufferedImage logo = ImageIO.read(f);
 			parameters.put("logo", logo);

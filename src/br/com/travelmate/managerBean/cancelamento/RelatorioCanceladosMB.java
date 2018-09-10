@@ -7,13 +7,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.travelmate.facade.CancelamentoFacade;
-import br.com.travelmate.facade.TerceirosFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendascomissao;
@@ -27,8 +24,6 @@ public class RelatorioCanceladosMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Unidadenegocio> listaUnidade;
 	private Unidadenegocio unidade;
 	private Date dataInicial;

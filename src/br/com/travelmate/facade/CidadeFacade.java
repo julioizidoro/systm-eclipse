@@ -1,9 +1,7 @@
 package br.com.travelmate.facade;
 
 import br.com.travelmate.dao.CidadeDao;
-import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.model.Cidade;
-import br.com.travelmate.model.Pais;
 
 import java.sql.SQLException;
 import java.util.List;

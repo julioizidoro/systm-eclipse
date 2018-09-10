@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.AupairFacade;
@@ -28,14 +27,12 @@ import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
-import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.TraineeFacade;
 import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.aupair.FinalizarMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
@@ -46,7 +43,6 @@ import br.com.travelmate.model.He;
 import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
-import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Seguroviagem; 
 import br.com.travelmate.model.Trainee; 
 import br.com.travelmate.model.Vendas;
@@ -160,8 +156,7 @@ public class FuncoesFichasBean {
 	}
 	
 	public String gerarRelatorioContrato() throws SQLException, IOException {
-		this.vendas = vendas;
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "";
@@ -324,7 +319,7 @@ public class FuncoesFichasBean {
 		return "fichaCurso";
 	}
 	public String gerarRelatorioFicha() throws IOException {
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "";
@@ -542,7 +537,6 @@ public class FuncoesFichasBean {
 	}
 
 	public String gerarRelatorioRecibo() throws SQLException, IOException {
-		this.vendas = vendas;
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		float valorRecibo = 0.0f;
@@ -568,7 +562,7 @@ public class FuncoesFichasBean {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", vendas.getIdvendas());
 			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 			parameters.put("valorExtenso", valorExtenso);
@@ -594,11 +588,10 @@ public class FuncoesFichasBean {
 	}
 	
 	public String gerarRelatorioTermoVisto(UsuarioLogadoMB usuarioLogadoMB) throws SQLException, IOException {
-		this.vendas = vendas;
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/curso/termoCiencia.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idcliente", vendas.getCliente().getIdcliente());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
@@ -617,7 +610,6 @@ public class FuncoesFichasBean {
 	
 	
 	public String boletos() {
-		this.vendas = vendas;
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 		String sql = "SELECT r FROM Contasreceber r WHERE r.vendas.idvendas=" + vendas.getIdvendas()
 				+ " AND r.tipodocumento='Boleto' AND r.situacao<>'cc' AND r.valorpago=0"

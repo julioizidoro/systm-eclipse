@@ -6,14 +6,11 @@
 package br.com.travelmate.managerBean.coprodutos;
 
 import br.com.travelmate.facade.ValorCoProdutosFacade;
-import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Mensagem;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -22,7 +19,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 /**
  *

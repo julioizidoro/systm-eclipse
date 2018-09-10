@@ -8,9 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import br.com.travelmate.dao.LogVendaDao;
-import br.com.travelmate.dao.OrcamentoDao;
 import br.com.travelmate.model.Logvenda;
-import br.com.travelmate.model.Orcamento;
 
 public class LogVendaFacade {
 	

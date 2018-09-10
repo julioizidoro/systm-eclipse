@@ -6,9 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.travelmate.dao.ControleSeguroDao;
-import br.com.travelmate.dao.SeguroViagemDao;
 import br.com.travelmate.model.Controleseguro;
-import br.com.travelmate.model.Seguroviagem;
 
 public class ControleSeguroFacade {
 

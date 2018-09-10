@@ -14,7 +14,6 @@ import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Faturafranquias;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;

@@ -3,7 +3,6 @@ package br.com.travelmate.facade;
  
 import br.com.travelmate.dao.PromocaoAcomodacaoCidadeDao;
 import br.com.travelmate.model.Promocaoacomodacaocidade;
-import br.com.travelmate.model.Promocaocursocidade;
 
 import java.sql.SQLException;
 import java.util.List;

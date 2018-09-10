@@ -88,7 +88,7 @@ public class AutorizacaoDebitoMB implements Serializable {
 				autorizacaoDebitoBean.setDataviagem(Formatacao.ConvercaoDataPadrao(dataViagem));
 			}
 			String caminhoRelatorio = "/reports/relatorios/AutorizacaoCartao.jasper";
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			String nomeArquivo = "AutorizacaoCartao.pdf";
 			parameters.put("cidade", usuarioLogadoMB.getUsuario().getUnidadenegocio().getCidade());
 			parameters.put("unidade", usuarioLogadoMB.getUsuario().getUnidadenegocio().getNomeFantasia());

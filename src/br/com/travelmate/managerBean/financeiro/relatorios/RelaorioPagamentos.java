@@ -184,7 +184,7 @@ public class RelaorioPagamentos implements Serializable{
     public String gerarRelatorio() throws SQLException, IOException {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String caminhoRelatorio = "/reports/financeiro/Pagamentos.jasper";  
-        Map<String, Object> parameters = new HashMap();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("sql", gerarSql());
         if(unidadenegocio!=null){
         	parameters.put("unidade", unidadenegocio.getNomeFantasia());

@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.demipair;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,10 +43,6 @@ import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -1145,7 +1139,7 @@ public class CadDemiPairMB implements Serializable {
 							valorVendaAlterar);
 				}
 				if (novaFicha) {
-					ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+					new ContasReceberBean(venda,
 							venda.getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 							demipair.getDatainicio());
 				}
@@ -1332,7 +1326,6 @@ public class CadDemiPairMB implements Serializable {
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);

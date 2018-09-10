@@ -51,7 +51,7 @@ public class SeguroViagemDao {
     public List<Seguroviagem> listar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
-        List lista = null;
+        List<Seguroviagem> lista = null;
         Query q = manager.createQuery(sql);
         lista = q.getResultList();
         manager.close();

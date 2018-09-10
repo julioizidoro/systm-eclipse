@@ -112,7 +112,7 @@ public class RelatorioComissaoTerceirosMB implements Serializable{
     public String gerarRelatorio() throws SQLException, IOException {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String caminhoRelatorio = "/reports/financeiro/comissaoTerceiros.jasper";  
-        Map parameters = new HashMap();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("sql", gerarSql());
         if (terceiros==null){
         	parameters.put("terceiros", "TODOS");

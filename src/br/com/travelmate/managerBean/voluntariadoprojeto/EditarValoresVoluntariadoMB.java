@@ -12,10 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.facade.VoluntariadoProjetoValorFacade;
-import br.com.travelmate.model.Fornecedorcidadeidioma;
-import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.model.Voluntariadoprojeto;
 import br.com.travelmate.model.Voluntariadoprojetovalor;
 import br.com.travelmate.util.Formatacao;

@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.highschool;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,12 +21,10 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
-import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
-import br.com.travelmate.bean.comissao.ComissaoHighSchoolBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
@@ -47,10 +43,6 @@ import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.facade.ValoresHighSchoolFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -73,7 +65,6 @@ import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Produtosorcamento;
 import br.com.travelmate.model.Valoreshighschool;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
@@ -1347,7 +1338,6 @@ public class CadHighSchoolMB implements Serializable {
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);

@@ -3,7 +3,6 @@ package br.com.travelmate.managerBean.higherEducation;
 
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ProgramasBean;
-import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.HeFacade;
@@ -40,7 +39,7 @@ public class CadHeBean {
 		HeFacade heFacade = new HeFacade();
 		he = heFacade.salvar(he);
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+			new ContasReceberBean(venda,
 					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, he.getDatainicio());
 		}
 		if (tipo.equalsIgnoreCase("I")){
@@ -56,7 +55,6 @@ public class CadHeBean {
 	}
 	
 	public void salvarComissaoInscricao(AplicacaoMB aplicacaoMB){
-		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
 				venda.getFornecedorcidade().getFornecedor().getIdfornecedor(),
@@ -74,7 +72,7 @@ public class CadHeBean {
 					valorJuros = venda.getFormapagamento().getValorJuros();
 				}
 				ComissaoHEInscricaoBean cc = new  ComissaoHEInscricaoBean(aplicacaoMB, venda, orcamento.getOrcamentoprodutosorcamentoList(), formaPagamento.getParcelamentopagamentoList(), vendasComissao, valorJuros, true);
-				valorPrevisto = cc.getVendasComissao().getValorfornecedor();
+				cc.getVendasComissao().getValorfornecedor();
 			}
 		}
 	}

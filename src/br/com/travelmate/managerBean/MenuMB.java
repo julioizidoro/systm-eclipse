@@ -27,7 +27,6 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VersaoUsuarioFacade;
 import br.com.travelmate.managerBean.financeiro.boleto.DadosBoletoBean;
-import br.com.travelmate.managerBean.fornecedor.FornecedorMB; 
 import br.com.travelmate.model.Versaousuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
@@ -862,7 +861,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/curso/modelocontratoCursoPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -886,7 +885,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/aupair/modelocontratoAupairPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -910,7 +909,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/aupair/modelocontratoCaregiverPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -934,7 +933,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/cursosTeens/modelocontratoTeensPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -959,7 +958,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/highSchool/modelocontratoHighSchoolPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -984,7 +983,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/worktravel/modelocontratoWorkIndependentPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -1009,7 +1008,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/worktravel/modelocontratoWorkPremiumPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -1034,7 +1033,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/voluntariado/modelocontratoVoluntariadoPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -1059,7 +1058,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/trainee/modelocontratoEstagioAustralia01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -1083,7 +1082,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/trainee/modelocontratoTraineePagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -1107,7 +1106,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/demipair/modelocontratoDemipairPagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -1131,7 +1130,7 @@ public class MenuMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/higherEducation/modeloContratoHePagina01.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -1296,8 +1295,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String imprimirFatura() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 225);
 		RequestContext.getCurrentInstance().openDialog("imprimirRelatorioFatura", options, null);
@@ -1328,8 +1325,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioDocsFornecedor() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 300);
 		RequestContext.getCurrentInstance().openDialog("relatorioDocumentosFornecedor", options, null);
@@ -1349,8 +1344,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String mediaMatch() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 300);
 		RequestContext.getCurrentInstance().openDialog("relatorioMediaMatch", options, null);
@@ -1368,8 +1361,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioGeralHS() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 300);
 		RequestContext.getCurrentInstance().openDialog("relatorioGeralHS", options, null);
@@ -1377,8 +1368,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioVistoHS() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 300);
 		RequestContext.getCurrentInstance().openDialog("relatorioVistoHS", options, null);
@@ -1386,8 +1375,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String relatorioPassagensHS() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 300);
 		RequestContext.getCurrentInstance().openDialog("relatorioPassagensHS", options, null);
@@ -1524,8 +1511,6 @@ public class MenuMB implements Serializable {
 	
 	
 	public String relatorioHSAnual() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 300);
 		RequestContext.getCurrentInstance().openDialog("relatorioHighSchoolAnual", options, null);
@@ -1533,8 +1518,6 @@ public class MenuMB implements Serializable {
 	}
 	
 	public String relatorioHSMes() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 300);
 		RequestContext.getCurrentInstance().openDialog("relatorioHighSchoolMensal", options, null);

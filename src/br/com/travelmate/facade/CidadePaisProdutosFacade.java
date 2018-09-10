@@ -6,9 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.travelmate.dao.CidadePaisProdutoDao;
-import br.com.travelmate.dao.PaisProdutoDao;
 import br.com.travelmate.model.Cidadepaisproduto;
-import br.com.travelmate.model.Paisproduto;
+
 
 public class CidadePaisProdutosFacade {
 	
@@ -19,7 +18,6 @@ public class CidadePaisProdutosFacade {
 		try {
 			return cidadePaisProdutoDao.salvar(cidade);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -30,7 +28,6 @@ public class CidadePaisProdutosFacade {
 		try {
 			return cidadePaisProdutoDao.listar(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -41,7 +38,6 @@ public class CidadePaisProdutosFacade {
 		try {
 			cidadePaisProdutoDao.excluir(idcidade);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

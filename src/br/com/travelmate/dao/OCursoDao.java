@@ -35,7 +35,7 @@ public class OCursoDao implements Serializable {
     }
     
     public List<Ocurso> listar(String sql){
-        List lista = null;
+        List<Ocurso> lista = null;
         Query q = manager.createQuery(sql);
         lista = q.getResultList();
         return lista;

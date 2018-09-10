@@ -18,7 +18,6 @@ import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ValoresProgramasTeensFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Filtroorcamentoproduto;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -26,7 +25,6 @@ import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Produtosorcamento;
-import br.com.travelmate.model.Valoresaupair;
 import br.com.travelmate.model.Valoresprogramasteens;
 import br.com.travelmate.util.GerarListas;
 

@@ -2,13 +2,9 @@ package br.com.travelmate.facade;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import br.com.travelmate.dao.VendaProdutoDao;
-import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.model.Vendaproduto;
-import br.com.travelmate.model.Vendas;
 
 public class VendaProdutoFacade {
 	

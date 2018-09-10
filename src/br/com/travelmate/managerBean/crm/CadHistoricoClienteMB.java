@@ -20,7 +20,6 @@ import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
-import br.com.travelmate.model.Leadsituacao;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
@@ -127,7 +126,7 @@ public class CadHistoricoClienteMB implements Serializable {
 			lead.setHoraproximocontato(leadHistorico.getHoraporximocontato());
 			lead.setDataultimocontato(leadHistorico.getDatahistorico());
 			if (lead.getSituacao() < 2) {
-				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 2, leadSituacaoDao);
+				new LeadSituacaoBean(lead, lead.getSituacao(), 2, leadSituacaoDao);
 				lead.setSituacao(2);
 			}
 			lead = leadDao.salvar(lead);

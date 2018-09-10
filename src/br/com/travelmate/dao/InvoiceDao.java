@@ -20,7 +20,6 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Invoice;
 
 /**

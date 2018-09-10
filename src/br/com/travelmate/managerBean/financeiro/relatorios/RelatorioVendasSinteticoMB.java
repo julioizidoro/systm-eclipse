@@ -282,7 +282,7 @@ public class RelatorioVendasSinteticoMB implements Serializable{
 	
 	public String iniciarRelatorio(){
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = null;
 		try {

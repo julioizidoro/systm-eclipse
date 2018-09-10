@@ -136,7 +136,7 @@ public class RelatorioApplicationMB implements Serializable {
 		}else{
 			caminhoRelatorio = ("/reports/curso/reportaplicationec.jasper");
 		}
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvendas", controlecurso.getCurso().getVendas().getIdvendas());
 		if(acomodacao){
 			parameters.put("acomodacao", 1);

@@ -10,10 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.com.travelmate.bean.TmRaceBean;
-import br.com.travelmate.facade.CorridaProdutoAnoFacade;
 import br.com.travelmate.facade.CorridaProdutoMesFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.model.Corridaprodutoano;
 import br.com.travelmate.model.Corridaprodutomes;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;

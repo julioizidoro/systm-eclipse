@@ -34,12 +34,10 @@ import net.sf.jasperreports.engine.JasperRunManager;
  */
 public class GerarRelatorio {
     
-    public void gerarRelatorioDSPDF(String caminhoRelatorio, Map parameters, JRDataSource jrds, String nomeArquivo) throws JRException, IOException{
+    public void gerarRelatorioDSPDF(String caminhoRelatorio, Map<String, Object> parameters, JRDataSource jrds, String nomeArquivo) throws JRException, IOException{
     	FacesContext facesContext = FacesContext.getCurrentInstance();  
-        ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
         InputStream reportStream = facesContext.getExternalContext()  
                 .getResourceAsStream(caminhoRelatorio);  
-        JasperPrint arquivoPrint=null;
         HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
         response.reset();
         response.setContentType("application/pdf");
@@ -58,10 +56,9 @@ public class GerarRelatorio {
         facesContext.responseComplete(); 
     }
     
-    public void gerarRelatorioDSFile(String caminhoRelatorio, Map parameters, JRDataSource jrds, String nomeArquivo) throws JRException, IOException, SQLException{
+    public void gerarRelatorioDSFile(String caminhoRelatorio, Map<String, Object> parameters, JRDataSource jrds, String nomeArquivo) throws JRException, IOException, SQLException{
     	FacesContext facesContext = FacesContext.getCurrentInstance();  
         ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
-        String nomeFtp = nomeArquivo;
         nomeArquivo = servletContext.getRealPath("/orcamento/"+nomeArquivo);
         InputStream reportStream = facesContext.getExternalContext()  
                 .getResourceAsStream(caminhoRelatorio);  

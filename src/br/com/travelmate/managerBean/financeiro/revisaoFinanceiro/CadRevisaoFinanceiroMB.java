@@ -32,10 +32,6 @@ import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.SeguroViagemFacade;
-import br.com.travelmate.facade.TerceirosFacade;
-import br.com.travelmate.facade.TraineeFacade;
-import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
-import br.com.travelmate.facade.UsuarioFacade;
 
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
@@ -62,10 +58,6 @@ import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Seguroviagem;
-import br.com.travelmate.model.Terceiros;
-import br.com.travelmate.model.Trainee;
-import br.com.travelmate.model.Usuario;
-import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Vendapendencia;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
@@ -713,7 +705,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 					contasReceberFacade.salvar(venda.getContasreceberList().get(i));
 					CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
 					crmCobrancaBean.baixar(venda.getContasreceberList().get(i), usuarioLogadoMB.getUsuario());
-					EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Recebimento pelo usuário", venda.getContasreceberList().get(i), usuarioLogadoMB.getUsuario());
+					new EventoContasReceberBean("Recebimento pelo usuário", venda.getContasreceberList().get(i), usuarioLogadoMB.getUsuario());
 				}
 			}
 			Mensagem.lancarMensagemInfo("Recebimento feito com sucesso", "");
@@ -816,9 +808,6 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	
 	public List<Avisousuario> salvarAvisoUsuario(Avisos aviso) {
 		List<Avisousuario> lista = new ArrayList<Avisousuario>();
-		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		String sql = "";
-		List<Usuario> listaUsuario = null;
 		if (venda.getUnidadenegocio().getIdunidadeNegocio() == 2) {
 			for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
 				AvisosFacade avisosFacade = new AvisosFacade();

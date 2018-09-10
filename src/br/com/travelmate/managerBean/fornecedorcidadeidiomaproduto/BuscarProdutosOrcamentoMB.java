@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
  
-import br.com.travelmate.facade.ProdutoOrcamentoFacade; 
 import br.com.travelmate.model.Produtosorcamento;
 
 @Named

@@ -740,7 +740,7 @@ public class ControleVendasMB implements Serializable {
 	}
 
 	public String gerarRelatorioFicha() throws IOException {
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "";
@@ -1039,7 +1039,7 @@ public class ControleVendasMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/curso/termoCiencia.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idcliente", vendas.getCliente().getIdcliente());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
@@ -1083,7 +1083,7 @@ public class ControleVendasMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", vendas.getIdvendas());
 			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 			parameters.put("valorExtenso", valorExtenso);
@@ -1197,7 +1197,7 @@ public class ControleVendasMB implements Serializable {
 
 	public String gerarRelatorioContrato(Vendas vendas) throws SQLException, IOException {
 		this.vendas = vendas;
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "";

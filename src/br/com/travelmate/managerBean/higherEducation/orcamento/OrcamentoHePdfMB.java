@@ -10,10 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.model.Heorcamento;
 import br.com.travelmate.model.Heorcamentopais;
-import br.com.travelmate.model.Paisproduto;
 
 @Named
 @ViewScoped

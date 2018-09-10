@@ -5,9 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.travelmate.dao.DadosPaisDao;
-import br.com.travelmate.dao.FormaPagamentoDao;
 import br.com.travelmate.model.Dadospais;
-import br.com.travelmate.model.Formapagamento;
 
 public class DadosPaisFacade {
 	

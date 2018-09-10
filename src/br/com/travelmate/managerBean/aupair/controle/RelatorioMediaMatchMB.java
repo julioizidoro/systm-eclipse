@@ -7,16 +7,7 @@ package br.com.travelmate.managerBean.aupair.controle;
 
 import br.com.travelmate.bean.UtilBean;
 import br.com.travelmate.facade.AupairFacade;
-import br.com.travelmate.facade.BancoFacade;
-import br.com.travelmate.facade.ContasPagarFacade;
-import br.com.travelmate.facade.PlanoContaFacade;
-import br.com.travelmate.facade.UnidadeNegocioFacade;
-import br.com.travelmate.model.Aupair;
-import br.com.travelmate.model.Banco;
-import br.com.travelmate.model.Contaspagar;
 import br.com.travelmate.model.Controleaupair;
-import br.com.travelmate.model.Planoconta;
-import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
 

@@ -14,11 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
-import br.com.travelmate.facade.AcomodacaoFacade;
 import br.com.travelmate.facade.LancamentoCartaoCreditoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.model.Acomodacao;
 import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Lancamentocartaocredito;
 import br.com.travelmate.model.Produtos;

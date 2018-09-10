@@ -99,7 +99,7 @@ public class ReciboAvulsoMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/recibo/reciboAvulso.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("nome", nome);
 		String valorExtenso = Formatacao.valorPorExtenso(valor);
 		parameters.put("valorExtenso", valorExtenso);

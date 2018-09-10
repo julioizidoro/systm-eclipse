@@ -10,14 +10,12 @@ import javax.inject.Inject;
 
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcessoUnidadeFacade;
-import br.com.travelmate.facade.CorridaProdutoMesFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.VendaProdutoFacade;
 
 import br.com.travelmate.model.Acessounidade;
-import br.com.travelmate.model.Corridaprodutomes;
 import br.com.travelmate.model.Metafaturamentoanual;
 import br.com.travelmate.model.Metasfaturamentomensal;
 import br.com.travelmate.model.Parametrosprodutos;

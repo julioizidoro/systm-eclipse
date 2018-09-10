@@ -209,7 +209,7 @@ public class ValoresWorkMB implements Serializable {
 	
 	
 	 public void listarFornecedorCidade(){
-	        int idProduto=idProduto = aplicacaoMB.getParametrosprodutos().getWork();
+	        int idProduto = aplicacaoMB.getParametrosprodutos().getWork();
 	        if ((idProduto>0) && (cidade!=null)){
 	            listaFornecedorCidade = GerarListas.listarFornecedorCidade(idProduto, cidade.getIdcidade());
 	        }

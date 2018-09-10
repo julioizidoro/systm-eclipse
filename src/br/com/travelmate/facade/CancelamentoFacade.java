@@ -8,9 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import br.com.travelmate.dao.CancelamentoDao;
-import br.com.travelmate.dao.CrmCobrancaDao;
 import br.com.travelmate.model.Cancelamento;
-import br.com.travelmate.model.Crmcobranca;
 
 public class CancelamentoFacade {
 	

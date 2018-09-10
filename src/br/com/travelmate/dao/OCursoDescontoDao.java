@@ -1,16 +1,13 @@
 package br.com.travelmate.dao;
 
-import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Ocursodesconto;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 

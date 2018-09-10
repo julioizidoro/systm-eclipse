@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.voluntariado;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,7 +38,6 @@ import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
-import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
@@ -49,10 +46,6 @@ import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -68,7 +61,6 @@ import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Orcamento;
 import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Pais;
-import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtoremessa;
 import br.com.travelmate.model.Produtos;
@@ -1463,13 +1455,10 @@ public class CadVoluntariadoMB implements Serializable {
 	}
 
 	public void calcularDataTermino() {
-		boolean idade70 = false;
-		boolean idade40 = false;
 		if (cliente != null) {
 			int idadeCliente = Formatacao.calcularIdade(cliente.getDataNascimento());
 			if (seguroViagem.getValoresseguro().isAdiconal70()) {
 				if (idadeCliente >= 70) {
-					idade70 = true;
 					dataTermino70anos();
 					Mensagem.lancarMensagemInfo("Atenção",
 							"aplica-se aumento de 50 % no valor do seguro para clientes acima de 70 anos!");
@@ -1478,7 +1467,6 @@ public class CadVoluntariadoMB implements Serializable {
 				}
 			} else {
 				if (idadeCliente >= 40) {
-					idade40 = true;
 					Mensagem.lancarMensagemErro("Atenção", "Cliente acima da idade permitida!");
 				} else {
 					dataTermino();
@@ -1800,7 +1788,6 @@ public class CadVoluntariadoMB implements Serializable {
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
@@ -1903,7 +1890,6 @@ public class CadVoluntariadoMB implements Serializable {
 				orcamentoFacade.excluirOrcamentoProdutoOrcamento(listaSeguro.get(i).getIdorcamentoProdutosOrcamento());
 			}
 		}
-		float valorEstrangeira = 0.0f;
 		float valorReal = 0.0f;
 		Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 		if (seguroViagem != null) {
@@ -1920,7 +1906,6 @@ public class CadVoluntariadoMB implements Serializable {
 				} else {
 					orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
 					valorReal = 0;
-					valorEstrangeira = 0;
 				}
 				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 				calcularValorTotalOrcamento();

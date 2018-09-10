@@ -36,7 +36,6 @@ import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Aupair;
@@ -44,10 +43,8 @@ import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controleaupair;
 import br.com.travelmate.model.Credito;
-import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
-import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -467,7 +464,7 @@ public class AuPairMB implements Serializable {
 				.getContext();
 		String caminhoRelatorio;
 		caminhoRelatorio = "/reports/aupair/FichaAupairPagina01.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvendas", aupair.getVendas().getIdvendas());
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//aupair//"));
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -498,7 +495,7 @@ public class AuPairMB implements Serializable {
 		} else {
 			caminhoRelatorio = "/reports/aupair/contratoCaregiverPagina01.jasper";
 		}
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvendas", aupair.getVendas().getIdvendas());
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//aupair//"));
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -619,7 +616,7 @@ public class AuPairMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", aupair.getVendas().getIdvendas());
 			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 			parameters.put("valorExtenso", valorExtenso);
@@ -649,7 +646,7 @@ public class AuPairMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/curso/termoCiencia.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idcliente", aupair.getVendas().getCliente().getIdcliente());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);

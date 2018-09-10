@@ -30,22 +30,17 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.ListaHeBean;
 import br.com.travelmate.bean.RelatorioErroBean;
-import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Curso;
-import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.He; 
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -661,35 +656,15 @@ public class HigherEducationMB implements Serializable {
 		}
 		if (listaQuestionario != null && listaQuestionario.size() > 0) {
 			for (int i = 0; i < listaQuestionario.size(); i++) {
-				boolean ok=true;
-				if (listaficha2 != null && listaficha2.size() > 0) {
-					for (int j = 0; j < listaficha2.size(); j++) {
-						int id= listaficha2.get(j).getVendas().getIdvendas();
-					//	if(id==listaQuestionario.get(i).getVendas().getIdvendas()){
-					//		ok=false;
-					//	}
-					}
-				}
-				if (listaficha1 != null && listaficha1.size() > 0) {
-					for (int j = 0; j < listaficha1.size(); j++) {
-						int id= listaficha1.get(j).getVendas().getIdvendas();
-						//if(id==listaQuestionario.get(i).getVendas().getIdvendas()){
-						///	ok=false;
-						//}
-					}   
-				}
-				if(ok){
-					heBean = new ListaHeBean();
-					heBean.setConsultor(listaQuestionario.get(i).getUsuario().getNome());
-					heBean.setFornecedor("");
-					heBean.setUnidade(listaQuestionario.get(i).getUsuario().getUnidadenegocio().getNomerelatorio());
-					heBean.setNomecliente(listaQuestionario.get(i).getCliente().getNome());
-					heBean.setQuestionariohe(listaQuestionario.get(i));
-					heBean.setStatus(listaQuestionario.get(i).getSituacao());
-					heBean.setData(listaQuestionario.get(i).getDataenvio());
-				//	heBean.setIdVenda(listaQuestionario.get(i).getVendas().getIdvendas());
-					listaHe.add(heBean);
-				}
+				heBean = new ListaHeBean();
+				heBean.setConsultor(listaQuestionario.get(i).getUsuario().getNome());
+				heBean.setFornecedor("");
+				heBean.setUnidade(listaQuestionario.get(i).getUsuario().getUnidadenegocio().getNomerelatorio());
+				heBean.setNomecliente(listaQuestionario.get(i).getCliente().getNome());
+				heBean.setQuestionariohe(listaQuestionario.get(i));
+				heBean.setStatus(listaQuestionario.get(i).getSituacao());
+				heBean.setData(listaQuestionario.get(i).getDataenvio());
+				listaHe.add(heBean);
 			}
 		}
 		pesquisar = "Sim";
@@ -776,7 +751,7 @@ public class HigherEducationMB implements Serializable {
 		}else{
 			caminhoRelatorio = "/reports/higherEducation/FichaInscricaoHe1.jasper";
 		} 
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
 		parameters.put("idvendas", listaHeBean.getHe().getVendas().getIdvendas()); 
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -802,7 +777,7 @@ public class HigherEducationMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "/reports/higherEducation/contratoHePagina01.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
 		parameters.put("idvendas", listaHeBean.getHe().getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

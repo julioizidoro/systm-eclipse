@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,7 +23,6 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.PagamentoInvoiceFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Pagamentoinvoice;
@@ -32,7 +30,6 @@ import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.Mensagem;
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Named
@@ -117,7 +114,7 @@ public class RelatorioInvoiceMB implements Serializable{
         	context.addMessage(null, new FacesMessage("Relatório não possui páginas", ""));
 		} else {
 			ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		    BufferedImage logo = null;
 			try {
@@ -175,7 +172,7 @@ public class RelatorioInvoiceMB implements Serializable{
         	context.addMessage(null, new FacesMessage("Relatório não possui páginas", ""));
 		} else {
 			ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		    BufferedImage logo = null;
 			try {

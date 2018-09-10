@@ -41,10 +41,6 @@ import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.TraducaoJuramentadaFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
@@ -63,7 +59,6 @@ import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Traducaojuramentada;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
@@ -731,9 +726,9 @@ public class CadTraducaoMB implements Serializable {
 				programasBean.salvarCancelamentoVenda(venda, cancelamento);
 			}
 			if (novaFicha) {
-				ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+				new ContasReceberBean(venda,
 						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, null);
-				ComissaoTraducaoBean comissaoTraducao = new ComissaoTraducaoBean(aplicacaoMB, venda, formaPagamento.getParcelamentopagamentoList(), venda.getVendascomissao(), traducao);
+				new ComissaoTraducaoBean(aplicacaoMB, venda, formaPagamento.getParcelamentopagamentoList(), venda.getVendascomissao(), traducao);
 			}
 			if (editarFicha) {
 				if (listaParcelamantoPagamentoAntiga != null && formaPagamento.getParcelamentopagamentoList() != null) {

@@ -29,7 +29,6 @@ import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.MtpFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.managerBean.arquivo.CadArquivoMB;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
@@ -284,7 +283,6 @@ public class CadMtpMB implements Serializable {
 
 	public void salvar() {
 		MtpFacade mtpFacade = new MtpFacade();
-		Avisos avisos = new Avisos();
 		if (validarDados()) {
 			mtp.setHost("https://www.gotomeet.me/TravelMate");
 			mtp.setDepartamento(departamento);

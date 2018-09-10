@@ -39,7 +39,6 @@ import br.com.travelmate.facade.PassagemFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 
-import br.com.travelmate.managerBean.ProductRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
@@ -55,7 +54,6 @@ import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Passagemaerea;
 import br.com.travelmate.model.Pincambio;
 import br.com.travelmate.model.Seguroviagem;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -582,7 +580,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 				conta.setMotivocancelamento("Efetuado pelo módulo de cancelamento");
 				conta.setDatacancelamento(new Date());
 				conta = contasReceberFacade.salvar(conta);
-				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Alteração data de Vencimento", conta, usuarioLogadoMB.getUsuario());
+				new EventoContasReceberBean("Alteração data de Vencimento", conta, usuarioLogadoMB.getUsuario());
 				if (conta.getIdcontasreceber() != null) {
 					if (conta.getCrmcobrancaconta() != null) {
 						CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();

@@ -25,7 +25,6 @@ import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VideoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Pastavideo;
 import br.com.travelmate.model.Usuario;

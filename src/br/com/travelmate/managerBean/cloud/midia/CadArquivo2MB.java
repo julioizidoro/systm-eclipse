@@ -25,11 +25,9 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import br.com.travelmate.facade.Arquivo1Facade;
 import br.com.travelmate.facade.Arquivo2Facade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.model.Pasta1;
-import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Arquivo2;
 import br.com.travelmate.model.Pasta2;
 import br.com.travelmate.model.Departamento;

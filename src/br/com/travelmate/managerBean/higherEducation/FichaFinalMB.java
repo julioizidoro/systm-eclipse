@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,17 +26,14 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.ListaHeBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HeFacade;
-import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.He;
-import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
@@ -477,7 +472,7 @@ public class FichaFinalMB implements Serializable{
 				.getContext();
 		String caminhoRelatorio;
 		caminhoRelatorio = "/reports/higherEducation/FichaFinalHe1.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
 		parameters.put("idvendas", he.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -503,7 +498,7 @@ public class FichaFinalMB implements Serializable{
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "/reports/higherEducation/contratoHePagina01.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
 		parameters.put("idvendas", he.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

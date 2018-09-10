@@ -16,7 +16,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.imageio.ImageIO;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
@@ -24,7 +23,6 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.PaisFacade;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.util.GerarRelatorio;
@@ -119,7 +117,7 @@ public class ComissaoParceirosMB implements Serializable{
     public String gerarRelatorio() throws SQLException, IOException {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String caminhoRelatorio = "/reports/relatorios/comissaoParceiros.jasper";  
-        Map<String, Object> parameters = new HashMap();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("sql", gerarSql());
         if(pais!=null){
         	parameters.put("pais", "Pais: "+ pais.getNome());

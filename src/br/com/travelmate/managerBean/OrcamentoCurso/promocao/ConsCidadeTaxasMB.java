@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.model.Promocaoacomodacao;
 import br.com.travelmate.model.Promocaotaxacurso;
 
 @Named

@@ -7,7 +7,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Complementoacomodacao;
 import br.com.travelmate.model.Complementocurso;
 
 public class ComplementoCursoDao {

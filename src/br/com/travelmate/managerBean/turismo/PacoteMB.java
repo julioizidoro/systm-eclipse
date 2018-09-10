@@ -6,7 +6,6 @@
 package br.com.travelmate.managerBean.turismo;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.ListaHeBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -18,10 +17,8 @@ import br.com.travelmate.facade.PacoteTremFacade;
 import br.com.travelmate.facade.PacotesCarroFacade;
 import br.com.travelmate.facade.PacotesHotelFacade;
 import br.com.travelmate.facade.PacotesPassagemFacade;
-import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 
-import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Contasreceber; 
@@ -35,10 +32,8 @@ import br.com.travelmate.model.Pacotes;
 import br.com.travelmate.model.Pacotetransfer;
 import br.com.travelmate.model.Pacotetrem;
 import br.com.travelmate.model.Parcelamentopagamento;
-import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Vistos;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -352,7 +347,7 @@ public class PacoteMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			try {
 				parameters.put("idvendas", pacotes.getVendas().getIdvendas());
 				File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -468,7 +463,7 @@ public class PacoteMB implements Serializable {
 				}
 			}
 		}
-		Map<String, Object> parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("sql", gerarSql(pacotes));
 		parameters.put("sql2", gerarSql2(pacotes));
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//turismo//"));
@@ -589,7 +584,7 @@ public class PacoteMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = "/reports/turismo/contratoTurismoPagina01.jasper";
-		Map<String, Object> parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvendas", pacotes.getVendas().getIdvendas());
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//turismo//"));
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

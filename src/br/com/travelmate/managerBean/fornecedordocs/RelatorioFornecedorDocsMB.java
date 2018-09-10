@@ -23,14 +23,8 @@ import javax.servlet.ServletContext;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.FornecedorFacade;
-import br.com.travelmate.facade.FornecedorProdutoFacade;
-import br.com.travelmate.facade.TerceirosFacade;
-import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorproduto;
-import br.com.travelmate.model.Terceiros;
-import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
 import net.sf.jasperreports.engine.JRException;
 
@@ -131,7 +125,7 @@ public class RelatorioFornecedorDocsMB implements Serializable{
     public String gerarRelatorio() throws SQLException, IOException {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String caminhoRelatorio = "/reports/fornecedordocs/relatorioDocumentosFornecedor.jasper";  
-        Map parameters = new HashMap();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("sql", gerarSql());
         File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
         BufferedImage logo = ImageIO.read(f);  

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.Pasta4Facade;
 import br.com.travelmate.facade.Pasta5Facade;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Pasta1;

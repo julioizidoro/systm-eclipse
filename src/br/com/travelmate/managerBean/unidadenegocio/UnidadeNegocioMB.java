@@ -18,11 +18,9 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.TelefoneBean;
 import br.com.travelmate.bean.TokenBean;
 import br.com.travelmate.bean.UnidadeBean;
-import br.com.travelmate.bean.UsuarioBean;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Mensagem;
 
 @Named

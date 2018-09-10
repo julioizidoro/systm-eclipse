@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.travelmate.dao.ComplementoAcomodacaoDao;
 import br.com.travelmate.dao.ComplementoCursoDao; 
 import br.com.travelmate.model.Complementocurso;
 

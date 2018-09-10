@@ -38,9 +38,7 @@ import org.primefaces.model.UploadedFile;
 import br.com.travelmate.bean.BolinhasBean;
 import br.com.travelmate.bean.LerRetornoItauBean;
 import br.com.travelmate.bean.RelatorioErroBean;
-import br.com.travelmate.facade.CobrancaFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.HistoricoCobrancaFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.boleto.DadosBoletoBean;
@@ -48,11 +46,7 @@ import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
 import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
 import br.com.travelmate.model.Cliente;
-import br.com.travelmate.model.Cobranca;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Crmcobranca;
-import br.com.travelmate.model.Crmcobrancahistorico;
-import br.com.travelmate.model.Historicocobranca;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -618,7 +612,7 @@ public class ContasReceberMB implements Serializable {
 		}
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 		conta = contasReceberFacade.salvar(conta);
-		EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Alteração data de Vencimento", conta, usuarioLogadoMB.getUsuario());
+		new EventoContasReceberBean("Alteração data de Vencimento", conta, usuarioLogadoMB.getUsuario());
 		listaContas.remove(linha);
 		listaContas.add(linha, conta);
 		if (conta.getIdcontasreceber() != null) {

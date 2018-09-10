@@ -19,14 +19,12 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.facade.FornecedorCidadeDocsFacade;
-import br.com.travelmate.facade.FornecedorDocsFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Fornecedorcidadedocs;
 import br.com.travelmate.model.Fornecedordocs;
 import br.com.travelmate.model.Ftpdados;
-import br.com.travelmate.model.Video1;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 

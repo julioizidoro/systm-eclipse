@@ -1,25 +1,13 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext;
-
-import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
-import br.com.travelmate.facade.ValorCoProdutosFacade;
-import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Filtroorcamentoproduto;
-import br.com.travelmate.model.Ocurso;
-import br.com.travelmate.model.Produtosorcamento;
 
 @Named
 @ViewScoped

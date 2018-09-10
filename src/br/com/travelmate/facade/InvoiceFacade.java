@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-import br.com.travelmate.dao.ArquivosDao;
 import br.com.travelmate.dao.InvoiceDao;
 import br.com.travelmate.model.Invoice;
 

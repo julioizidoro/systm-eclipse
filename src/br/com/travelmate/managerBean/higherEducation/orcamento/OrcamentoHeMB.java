@@ -13,7 +13,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.dao.LeadDao;
-import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.facade.HeorcamentoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 

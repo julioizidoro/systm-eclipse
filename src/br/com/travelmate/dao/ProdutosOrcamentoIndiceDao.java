@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Produtosorcamentogrupo;
 import br.com.travelmate.model.Produtosorcamentoindice;
 
 public class ProdutosOrcamentoIndiceDao {

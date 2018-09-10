@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.travelmate.dao.VideoPasta4Dao;
 import br.com.travelmate.dao.VideoPasta5Dao;
-import br.com.travelmate.model.Videopasta4;
 import br.com.travelmate.model.Videopasta5;
 
 public class VideoPasta5Facade {

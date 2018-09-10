@@ -14,7 +14,6 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Pincambio;
 
 @Named

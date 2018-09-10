@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.NotificacaoFacade;
 import br.com.travelmate.facade.PaisFacade;
@@ -24,8 +23,6 @@ import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Avisos;
-import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Notificacao;

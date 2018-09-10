@@ -109,7 +109,7 @@ public class RelatorioComissaoConsultorMB implements Serializable{
     public String gerarRelatorio() throws SQLException, IOException {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String caminhoRelatorio = "/reports/financeiro/comissaoConsultor.jasper";  
-        Map parameters = new HashMap();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("sql", gerarSql());
         parameters.put("consultor", usuario.getNome());
         File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

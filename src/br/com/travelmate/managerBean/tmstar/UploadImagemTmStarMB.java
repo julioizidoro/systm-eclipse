@@ -21,7 +21,6 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.TmStarFacade;
-import br.com.travelmate.managerBean.cloud.midia.CadArquivo1MB;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Tmstar;
 import br.com.travelmate.util.Ftp;

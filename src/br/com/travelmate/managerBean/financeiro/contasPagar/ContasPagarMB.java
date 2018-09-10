@@ -1,6 +1,5 @@
 package br.com.travelmate.managerBean.financeiro.contasPagar;
 
-import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasPagarFacade;
 import br.com.travelmate.facade.PlanoContaFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -202,7 +201,7 @@ public class ContasPagarMB implements Serializable{
         ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
         contasPagarFacade.excluir(conta.getIdcontaspagar());
         listaContasPagar.remove(conta);
-        EventoContasPagarBean enContasPagarBean = new EventoContasPagarBean("Exclusão", conta);
+        new EventoContasPagarBean("Exclusão", conta);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Excluido com Sucesso", ""));
         return "";

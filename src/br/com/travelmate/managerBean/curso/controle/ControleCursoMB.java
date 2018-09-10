@@ -86,7 +86,6 @@ public class ControleCursoMB implements Serializable {
 	private List<Controlecurso> listaVendasCursoFinanceiro;
 	private String pesquisar = "Nao";
 	private String nomePrograma;
-	private String chamadaTela = "";
 
 	@PostConstruct
 	public void init() {
@@ -98,7 +97,6 @@ public class ControleCursoMB implements Serializable {
 		listaVendasCursoFinanceiro = (List<Controlecurso>) session.getAttribute("listaVendasCursoFinanceiro");
 		listaVendasCursoCancelada = (List<Controlecurso>) session.getAttribute("listaVendasCursoCancelada");
 		nomePrograma = (String) session.getAttribute("nomePrograma");
-		chamadaTela = (String) session.getAttribute("chamadaTela");
 		session.removeAttribute("listaVendasCursoFinalizada");
 		session.removeAttribute("listaVendasCursoAndamento");
 		session.removeAttribute("listaVendasCursoProcesso");
@@ -594,7 +592,6 @@ public class ControleCursoMB implements Serializable {
 		docs = (String) event.getObject();
 		FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        Vendas vendas = (Vendas) session.getAttribute("vendas");
         int linha = (int) session.getAttribute("linhacontrole");
         session.removeAttribute("vendas");
         session.removeAttribute("linhacontrole");
@@ -710,7 +707,7 @@ public class ControleCursoMB implements Serializable {
 				caminhoRelatorio = "/reports/curso/FichaCurso2Pagina01.jasper";
 			}
 		}
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//curso//"));
 		parameters.put("idvendas", curso.getVendas().getIdvendas());
 		parameters.put("sqlpagina2", gerarSqlSeguroViagems(curso));

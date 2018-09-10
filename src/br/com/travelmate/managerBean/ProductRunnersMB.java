@@ -1,7 +1,6 @@
 package br.com.travelmate.managerBean;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,14 +17,11 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.UsuarioProdutoRunnersBean;
-import br.com.travelmate.facade.CorridaProdutoAnoFacade;
 import br.com.travelmate.facade.CorridaProdutoMesFacade;
 import br.com.travelmate.facade.ProdutoFacade;
-import br.com.travelmate.model.Corridaprodutoano;
 import br.com.travelmate.model.Corridaprodutomes;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Usuario;
-import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 
 @Named

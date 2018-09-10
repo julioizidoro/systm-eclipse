@@ -13,7 +13,6 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.Arquivo4Facade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Arquivo3;
 import br.com.travelmate.model.Arquivo4;
 import br.com.travelmate.util.Mensagem;
 

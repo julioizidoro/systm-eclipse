@@ -10,7 +10,6 @@ import java.util.List;
 
 import br.com.travelmate.facade.FaturaFranquiasFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.model.Cursospacote;
 import br.com.travelmate.model.Faturafranquias;
 import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Parcelamentopagamento;

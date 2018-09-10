@@ -558,7 +558,7 @@ public class TraducaoMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			try {
 				parameters.put("idvendas", traducaojuramentada.getVendas().getIdvendas());
 				File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

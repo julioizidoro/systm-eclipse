@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.travelmate.dao.Arquivo1Dao;
 import br.com.travelmate.dao.VideoDao;
-import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Video;
 
 public class VideoFacade {

@@ -18,7 +18,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaAtualizar;
 import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaCancelar;
@@ -26,10 +25,8 @@ import br.com.travelmate.managerBean.financeiro.boleto.ArquivoRemessaEnviar;
 import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Ftp;
 
 
 /**
@@ -40,10 +37,8 @@ public class GerarArquivoRemessaItau {
     
     private List<Contasreceber> listaContas;
     private FileWriter remessa;
-    private UsuarioLogadoMB usuarioLogadoMB;
     private int numeroSequencial=0;
     private String nomeArquivo;
-    private String nomeFTP;
     private Unidadenegocio unidadeMatriz;
     private List<RetornoBean> listaEnvidas;
     private Banco bancoFranquia;
@@ -51,13 +46,10 @@ public class GerarArquivoRemessaItau {
 
     public GerarArquivoRemessaItau(List<Contasreceber> lista, UsuarioLogadoMB usuarioLogadoMB, String nomeArquivo, String nomeFTP, Unidadenegocio unidade, Banco bancoFranquia) {
         this.listaContas = lista;
-        this.usuarioLogadoMB = usuarioLogadoMB;
         this.nomeArquivo = nomeArquivo;
-        this.nomeFTP = nomeFTP;
         this.unidadeMatriz = unidade;
         listaEnvidas = new ArrayList<RetornoBean>();
         this.bancoFranquia = bancoFranquia;
-        nomeFTP = nomeFTP;
         iniciarRemessa();
     }
     
@@ -137,17 +129,8 @@ public class GerarArquivoRemessaItau {
     }
     
     private void cancelarBoleto(Contasreceber conta) throws IOException, Exception {
-    		Unidadenegocio unidadePassar = null;
-    		Banco bancoPassar = null;
         numeroSequencial++;
         ArquivoRemessaCancelar arquivoRemessaCancelar = new ArquivoRemessaCancelar();
-        if (conta.getVendas().getUnidadenegocio().getIdunidadeNegocio()>2){
-        		unidadePassar = unidadeMatriz;
-        		bancoPassar = bancoFranquia;
-        }else {
-    			bancoPassar = conta.getVendas().getUnidadenegocio().getBanco();
-    			unidadePassar =conta.getVendas().getUnidadenegocio();	
-        }
         remessa.write(arquivoRemessaCancelar.gerarHeader(conta, numeroSequencial));
         numeroSequencial++;
         remessa.write(arquivoRemessaCancelar.gerarDetalhe(conta, numeroSequencial));

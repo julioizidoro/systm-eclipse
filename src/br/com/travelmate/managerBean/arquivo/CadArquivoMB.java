@@ -60,7 +60,6 @@ import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Controlevoluntariado;
-import br.com.travelmate.model.Controlework;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
@@ -670,7 +669,7 @@ public class CadArquivoMB implements Serializable {
 		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizar(aupair, vendasDao);
-		ContasReceberBean contasReceberBean = new ContasReceberBean(aupair.getVendas(),
+		new ContasReceberBean(aupair.getVendas(),
 				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 				aupair.getDataInicioPretendida01());
 	}
@@ -681,7 +680,7 @@ public class CadArquivoMB implements Serializable {
 		Trainee trainee = traineeFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarTrainee(trainee);
-		ContasReceberBean contasReceberBean = new ContasReceberBean(trainee.getVendas(),
+		new ContasReceberBean(trainee.getVendas(),
 				trainee.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true, null);
 	}
 	
@@ -692,7 +691,7 @@ public class CadArquivoMB implements Serializable {
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarWork(worktravel);
 		if (Formatacao.validarDataVenda(worktravel.getVendas().getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(worktravel.getVendas(),
+			new ContasReceberBean(worktravel.getVendas(),
 					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 					worktravel.getDataInicioPretendida01());
 		}
@@ -704,7 +703,7 @@ public class CadArquivoMB implements Serializable {
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarVoluntariado(voluntariado, vendasDao); 
 		if (Formatacao.validarDataVenda(voluntariado.getVendas().getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(voluntariado.getVendas(),
+			new ContasReceberBean(voluntariado.getVendas(),
 					voluntariado.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 					voluntariado.getDataInicio());
 		}
@@ -717,7 +716,7 @@ public class CadArquivoMB implements Serializable {
 		vendas = finalizarMB.finalizarDemipair(demipair);
 
 		if (Formatacao.validarDataVenda(demipair.getVendas().getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(demipair.getVendas(),
+			new ContasReceberBean(demipair.getVendas(),
 					demipair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true, demipair.getDatainicio());
 		}
 	}
@@ -728,7 +727,7 @@ public class CadArquivoMB implements Serializable {
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarHighSchool(highschool);
 		if (Formatacao.validarDataVenda(highschool.getVendas().getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(highschool.getVendas(),
+			new ContasReceberBean(highschool.getVendas(),
 					highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 					highschool.getValoreshighschool().getDatainicio());
 		}
@@ -739,7 +738,7 @@ public class CadArquivoMB implements Serializable {
 		Programasteens programasteens = programasTeensFacede.find(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarTeens(programasteens);
-		ContasReceberBean contasReceberBean = new ContasReceberBean(programasteens.getVendas(),
+		new ContasReceberBean(programasteens.getVendas(),
 				programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 				programasteens.getDataInicioCurso());
 	}
@@ -749,7 +748,7 @@ public class CadArquivoMB implements Serializable {
 		Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
 		vendas = finalizarMB.finalizarCurso(curso, vendasDao);
-		ContasReceberBean contasReceberBean = new ContasReceberBean(curso.getVendas(),
+		new ContasReceberBean(curso.getVendas(),
 				curso.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 				curso.getDataInicio());
 	}

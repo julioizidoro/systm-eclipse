@@ -4,7 +4,6 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cursospacote;
-import br.com.travelmate.model.Pacotesinicial;
 import br.com.travelmate.util.Formatacao; 
 
 import java.io.Serializable;

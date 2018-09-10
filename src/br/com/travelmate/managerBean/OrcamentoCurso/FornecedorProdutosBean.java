@@ -6,7 +6,6 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import br.com.travelmate.model.Cambio;
-import br.com.travelmate.model.Copromocao;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Ocurso;
 import br.com.travelmate.model.Ocursoferiado;

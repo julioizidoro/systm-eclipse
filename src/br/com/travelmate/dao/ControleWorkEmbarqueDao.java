@@ -8,15 +8,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory; 
-import br.com.travelmate.model.Acessounidade;
 import br.com.travelmate.model.Controleworkembarque; 
 
 public class ControleWorkEmbarqueDao {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L; 
 	 
 	public Controleworkembarque salvar(Controleworkembarque controleworkembarque) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();

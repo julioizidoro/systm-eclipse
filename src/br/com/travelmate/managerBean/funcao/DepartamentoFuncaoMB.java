@@ -14,11 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FuncaoFacade;
-import br.com.travelmate.facade.Pasta1Facade;
-import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Funcao;
-import br.com.travelmate.model.Usuario;
 
 @Named
 @ViewScoped

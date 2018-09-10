@@ -6,7 +6,6 @@ package br.com.travelmate.facade;
 
 
 import br.com.travelmate.dao.ProdutoOrcamentoDao;
-import br.com.travelmate.model.Filtroorcamentoproduto;
 import br.com.travelmate.model.Produtosorcamento;
 import java.sql.SQLException;
 import java.util.List;

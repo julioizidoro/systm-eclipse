@@ -1,7 +1,6 @@
 package br.com.travelmate.dao;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Promocaocursocidade; 
 
 import java.sql.SQLException;

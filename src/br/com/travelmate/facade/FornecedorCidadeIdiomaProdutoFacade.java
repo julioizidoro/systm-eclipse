@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.FornecedorCidadeIdiomaProdutoDao;
-import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Fornecedorcidadeidiomaproduto;
 
 public class FornecedorCidadeIdiomaProdutoFacade {

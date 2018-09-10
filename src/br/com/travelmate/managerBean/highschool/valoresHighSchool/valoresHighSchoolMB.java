@@ -207,7 +207,7 @@ public class valoresHighSchoolMB implements Serializable {
 	
 	
 	 public void listarFornecedorCidade(){
-	        int idProduto=idProduto = aplicacaoMB.getParametrosprodutos().getHighSchool();
+	        int idProduto = aplicacaoMB.getParametrosprodutos().getHighSchool();
 	        if ((idProduto>0) && (cidade!=null)){
 	            listaFornecedorCidade = GerarListas.listarFornecedorCidade(idProduto, cidade.getIdcidade());
 	        }

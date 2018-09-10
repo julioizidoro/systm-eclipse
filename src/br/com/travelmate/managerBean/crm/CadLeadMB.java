@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.LeadDao;
-import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
@@ -32,7 +31,6 @@ import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
-import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Leadresponsavel;
 import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Pais;
@@ -59,8 +57,6 @@ public class CadLeadMB implements Serializable {
 	private LeadDao leadDao;
 	@Inject
 	private LeadResponsavelDao leadResponsavelDao;
-	@Inject 
-	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -82,22 +78,16 @@ public class CadLeadMB implements Serializable {
    // private List<Paisproduto> listaPais;
     private boolean pesquisanome=true;
     private boolean pesquisatelefone=false;
-    private String telaRetorno;
     private boolean desabilitarConfirmar = false;
     private List<Pais> listaPais;
     private String email;
 
 	@PostConstruct()
 	public void init() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		telaRetorno = (String) session.getAttribute("telaRetorno");
-		session.removeAttribute("telaRetorno");
 		unidadenegocio = new Unidadenegocio();
 		cliente = new Cliente();
 		lead = new Lead();
 		gerarListaUnidadeNegocio();
-		boolean responsavelUnidade = retornarResponsavelUnidade();
 		if(usuarioLogadoMB.getUsuario().isPertencematriz()){
 			desabilitarUnidade=false;
 		}else{

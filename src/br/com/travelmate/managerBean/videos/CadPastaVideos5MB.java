@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.VideoPasta4Facade;
 import br.com.travelmate.facade.VideoPasta5Facade;
 import br.com.travelmate.model.Videopasta1;
 import br.com.travelmate.model.Videopasta2;

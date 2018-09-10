@@ -54,7 +54,6 @@ import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoManualPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
-import br.com.travelmate.managerBean.turismo.PacoteAgenciaMB;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
@@ -398,7 +397,7 @@ public class HistoricoClienteMB implements Serializable {
 	}
 
 	public void mudarSituacao(int situacao) {
-		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), situacao, leadSituacaoDao);
+		new LeadSituacaoBean(lead, lead.getSituacao(), situacao, leadSituacaoDao);
 		lead.setSituacao(situacao);
 		lead = leadDao.salvar(lead);
 	}
@@ -455,7 +454,7 @@ public class HistoricoClienteMB implements Serializable {
 	public String cancelarLead() {
 			if(lead.getMotivocancelamento1()!=null
 				&& lead.getMotivocancelamento1().getIdmotivocancelamento()!=1){
-				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 7, leadSituacaoDao);
+				new LeadSituacaoBean(lead, lead.getSituacao(), 7, leadSituacaoDao);
 				lead.setSituacao(7);
 				lead = leadDao.salvar(lead);
 				FacesContext fc = FacesContext.getCurrentInstance();
@@ -942,7 +941,7 @@ public class HistoricoClienteMB implements Serializable {
 			if(vendas!=null){
 				vendas.setIdlead(lead.getIdlead());
 				vendasDao.salvar(vendas);
-				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
+				new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
 				lead.setSituacao(6);
 				lead = leadDao.salvar(lead);
 			}else{

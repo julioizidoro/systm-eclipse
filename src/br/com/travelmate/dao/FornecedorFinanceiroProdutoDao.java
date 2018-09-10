@@ -6,7 +6,6 @@
 package br.com.travelmate.dao;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.model.Fatura;
 import br.com.travelmate.model.Fornecedorfinanceiroproduto;
 
 import java.sql.SQLException;

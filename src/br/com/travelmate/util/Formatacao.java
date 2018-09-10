@@ -735,7 +735,7 @@ public class Formatacao {
 		String scambio = null;
 		String data = Formatacao.ConvercaoDataSql(new Date());
 		CambioFacade cambioFacade = new CambioFacade();
-		List<Cambio> listaCambio = listaCambio = cambioFacade.listar(data);
+		List<Cambio> listaCambio = cambioFacade.listar(data);
 		int contador = 0;
 		if (listaCambio == null) {
 			while (listaCambio == null) {

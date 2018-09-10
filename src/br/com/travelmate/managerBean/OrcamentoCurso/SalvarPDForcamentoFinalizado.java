@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,10 +17,6 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.DocumentException;
 
-import br.com.travelmate.dao.OCursoDao;
-import br.com.travelmate.dao.OCursoDescontoDao;
-import br.com.travelmate.dao.OCursoFormaPagamentoDao;
-import br.com.travelmate.dao.OCursoProdutoDao;
 import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.model.Ocrusoprodutos;
 import br.com.travelmate.model.Ocurso;
@@ -62,7 +57,6 @@ public class SalvarPDForcamentoFinalizado {
 
 	public static void converter(InputStream input) throws DocumentException, IOException {
 		FacesContext facesContext = FacesContext.getCurrentInstance();  
-        ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
 		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
         response.setContentType("application/pdf");
         String nomeArquivo = "TravelMate";

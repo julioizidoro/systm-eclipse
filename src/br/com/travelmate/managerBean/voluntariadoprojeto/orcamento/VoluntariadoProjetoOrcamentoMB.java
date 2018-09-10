@@ -1,8 +1,6 @@
 package br.com.travelmate.managerBean.voluntariadoprojeto.orcamento;
  
 import br.com.travelmate.facade.CambioFacade;
-import br.com.travelmate.facade.CidadeFacade;
-import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorPaisFacade; 
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;

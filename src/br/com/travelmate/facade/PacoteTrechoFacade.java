@@ -6,7 +6,6 @@
 package br.com.travelmate.facade;
 
 import br.com.travelmate.dao.PacoteTrechoDao;
-import br.com.travelmate.dao.PacotesDao;
 import br.com.travelmate.model.Pacotetrecho;
 import java.sql.SQLException;
 import java.util.List;

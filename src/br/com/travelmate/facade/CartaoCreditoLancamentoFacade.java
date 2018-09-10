@@ -5,7 +5,6 @@
  */
 package br.com.travelmate.facade;
   
-import br.com.travelmate.dao.CargoDao;
 import br.com.travelmate.dao.CartaoCreditoLancamentoDao; 
 import br.com.travelmate.model.Cartaocreditolancamento;
 

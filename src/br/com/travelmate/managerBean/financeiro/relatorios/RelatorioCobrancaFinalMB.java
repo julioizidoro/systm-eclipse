@@ -12,8 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.RelatorioCobrancaBean;
-import br.com.travelmate.model.Cliente;
-import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 
 @Named

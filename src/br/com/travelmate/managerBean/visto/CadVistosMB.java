@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.visto;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,10 +42,6 @@ import br.com.travelmate.facade.VendasComissaoFacade;
 
 import br.com.travelmate.facade.VistosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.DashBoardMB;
-import br.com.travelmate.managerBean.MateRunnersMB;
-import br.com.travelmate.managerBean.ProductRunnersMB;
-import br.com.travelmate.managerBean.TmRaceMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cliente;
@@ -680,7 +674,7 @@ public class CadVistosMB implements Serializable {
 			vistos = vistosFacade.salvar(vistos);
 			formaPagamento = programasBean.salvarFormaPagamento(formaPagamento, vendas);
 			if (novaFicha && vendas.getVendasMatriz().equalsIgnoreCase("S")) {
-				ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,
+				new ContasReceberBean(vendas,
 						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, false, vistos.getDataembarque());
 			}
 			String vm = "Venda pela Loja";

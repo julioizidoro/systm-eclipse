@@ -35,7 +35,6 @@ import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.fornecedordocs.ArquivoBean;
 import br.com.travelmate.model.Pasta1;
-import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Arquivo2;
 import br.com.travelmate.model.Pasta2;
 import br.com.travelmate.model.Arquivo3;
@@ -44,7 +43,6 @@ import br.com.travelmate.model.Arquivo5;
 import br.com.travelmate.model.Pasta3;
 import br.com.travelmate.model.Pasta4;
 import br.com.travelmate.model.Pasta5;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.util.Formatacao;
@@ -637,7 +635,7 @@ public class Pasta3Arquivo2MB implements Serializable {
 		List<GerarAvisosDocsBean> listaAviso =  (List<GerarAvisosDocsBean>) event.getObject();
 		if (listaAviso.size() > 0) {
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
-			AvisoArquivoBean avisoArquivoBean = new AvisoArquivoBean(listaAviso);
+			new AvisoArquivoBean(listaAviso);
 		}
 		gerarListaCloudSubPastaArquivo();
 		semConteudo();

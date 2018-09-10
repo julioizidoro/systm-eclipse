@@ -10,9 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.Video2Facade;
 import br.com.travelmate.facade.Video3Facade;
-import br.com.travelmate.model.Video2;
 import br.com.travelmate.model.Video3;
 
 

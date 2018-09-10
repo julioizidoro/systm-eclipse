@@ -5,7 +5,6 @@
 package br.com.travelmate.dao;
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Pacotes;
-import br.com.travelmate.model.Pacotetrecho;
 
 import java.sql.SQLException;
 import java.util.List;

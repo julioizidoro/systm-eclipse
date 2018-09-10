@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
-import org.jboss.util.collection.ListQueue;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.RelatorioErroBean;
@@ -28,9 +27,6 @@ import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.OrcamentoCurso.ListaEscolasMB;
-import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFFactory;
-import br.com.travelmate.managerBean.OrcamentoCurso.pdf.GerarOcamentoPDFBean;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Produtos;

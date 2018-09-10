@@ -25,7 +25,6 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ValoresHighSchoolFacade;
 import br.com.travelmate.facade.ValoresProgramasTeensFacade;
-import br.com.travelmate.managerBean.aupair.controle.MediaMatchBean;
 import br.com.travelmate.managerBean.aupair.controle.RelatorioMediaMatchMB;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Valoreshighschool;

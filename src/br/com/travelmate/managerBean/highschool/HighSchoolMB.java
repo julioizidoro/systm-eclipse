@@ -13,19 +13,15 @@ import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlehighschool;
 import br.com.travelmate.model.Credito;
-import br.com.travelmate.model.Curso;
-import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Highschool;
-import br.com.travelmate.model.Pacotes;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Parcelamentopagamento; 
 import br.com.travelmate.model.Unidadenegocio;
@@ -681,7 +677,7 @@ public class HighSchoolMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", highschool.getVendas().getIdvendas());
 			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 			parameters.put("valorExtenso", valorExtenso);
@@ -711,7 +707,7 @@ public class HighSchoolMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/curso/termoCiencia.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idcliente", highschool.getVendas().getCliente().getIdcliente());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
@@ -733,7 +729,7 @@ public class HighSchoolMB implements Serializable {
 				.getContext();
 		String caminhoRelatorio;
 		caminhoRelatorio = "/reports/highSchool/FichaHighSchoolPagina01.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvendas", highschool.getVendas().getIdvendas());
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//highSchool//"));
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -760,7 +756,7 @@ public class HighSchoolMB implements Serializable {
 				.getContext();
 		String caminhoRelatorio;
 		caminhoRelatorio = "/reports/highSchool/contratoHighSchoolPagina01.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvendas", highschool.getVendas().getIdvendas());
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//highSchool//"));
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

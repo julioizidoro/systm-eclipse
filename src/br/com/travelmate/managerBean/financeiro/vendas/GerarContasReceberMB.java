@@ -6,9 +6,7 @@
 package br.com.travelmate.managerBean.financeiro.vendas;
 
 import br.com.travelmate.bean.ContasReceberBean;
-import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Vendas;
@@ -86,7 +84,7 @@ public class GerarContasReceberMB implements Serializable{
 		parcela.setValorParcela(conta.getValorparcela());
 		parcela.setValorParcelamento(0.0f);
 		listaParcelamento.add(parcela);
-		ContasReceberBean contasReceberBean = new ContasReceberBean(vendas,listaParcelamento, usuarioLogadoMB, conta.getNumerodocumento(), false, null);
+		new ContasReceberBean(vendas,listaParcelamento, usuarioLogadoMB, conta.getNumerodocumento(), false, null);
         RequestContext.getCurrentInstance().closeDialog(conta);
         return "";
     }

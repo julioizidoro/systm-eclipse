@@ -8,8 +8,8 @@
       
       <Resource name="jdbc/systmDB" auth="Container"
 		factory="org.apache.naming.factory.BeanFactory" type="com.mchange.v2.c3p0.ComboPooledDataSource"
-		driverClass="com.mysql.jdbc.Driver" jdbcUrl="jdbc:mysql://tmmysql.cxjytqucztmb.us-east-1.rds.amazonaws.com:3306/systm"
-		user="master" password="Travel2018#" minPoolSize="25" maxPoolSize="25" />
+		driverClass="com.mysql.jdbc.Driver" jdbcUrl="jdbc:mysql://localhost:8081/systm"
+		user="root" password="" minPoolSize="25" maxPoolSize="25" />
 		
 	<!-- 	<Resource name="jdbc/systmDB" auth="Container"
 		factory="org.apache.naming.factory.BeanFactory" type="com.mchange.v2.c3p0.ComboPooledDataSource"

@@ -2,17 +2,13 @@ package br.com.travelmate.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.model.Comissaocontrole;
-import br.com.travelmate.model.Contasreceber;
 
 public class ComissaoControleDao {
 

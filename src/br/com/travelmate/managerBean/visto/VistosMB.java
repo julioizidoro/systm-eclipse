@@ -32,19 +32,12 @@ import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 
 import br.com.travelmate.facade.VistosFacade;
-import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
-import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Curso;
-import br.com.travelmate.model.Seguroviagem;
-import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vistos;
-import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.Mensagem;
@@ -438,7 +431,7 @@ public class VistosMB implements Serializable {
 				.getContext();
 		String caminhoRelatorio;
 		caminhoRelatorio = "/reports/visto/FichaOrcamentoVistoPagina01.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvisto", vistos.getIdvistos());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
@@ -609,7 +602,7 @@ public class VistosMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/visto/declaracaoinsencao.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idcliente", vistos.getVendas().getCliente().getIdcliente());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
@@ -631,7 +624,7 @@ public class VistosMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/visto/contratovisto.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idvendas", vistos.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);

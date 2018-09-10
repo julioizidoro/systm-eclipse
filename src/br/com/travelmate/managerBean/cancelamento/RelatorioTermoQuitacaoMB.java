@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +20,6 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.managerBean.aupair.AuPairMB;
-import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
@@ -103,7 +100,7 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
     public String gerarRelatorioTermoQuitacao() throws SQLException, IOException {
     	ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
    	 	String caminhoRelatorio = ("/reports/cancelamento/termoQuitacao.jasper");
-        Map parameters = new HashMap();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
         BufferedImage logo = ImageIO.read(f);  
         parameters.put("logo", logo);

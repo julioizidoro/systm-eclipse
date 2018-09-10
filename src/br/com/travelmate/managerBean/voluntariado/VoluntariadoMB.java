@@ -37,7 +37,6 @@ import br.com.travelmate.facade.SeguroViagemFacade;
 
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.LerArquivoTxt;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoMB;
@@ -46,15 +45,11 @@ import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Credito;
-import br.com.travelmate.model.Curso;
-import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
-import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Vistos;
 import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
@@ -574,7 +569,7 @@ public class VoluntariadoMB implements Serializable {
 				.getContext();
 		String caminhoRelatorio;
 		caminhoRelatorio = "/reports/voluntariado/FichaVoluntariadoPagina01.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//voluntariado//"));
 		parameters.put("idvendas", voluntariado.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -678,7 +673,7 @@ public class VoluntariadoMB implements Serializable {
 				.getContext();
 		String caminhoRelatorio;
 		caminhoRelatorio = "/reports/voluntariado/contratoVoluntariadoPagina01.jasper";
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//voluntariado//"));
 		parameters.put("idvendas", voluntariado.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
@@ -726,7 +721,7 @@ public class VoluntariadoMB implements Serializable {
 			}
 		}
 		if (valorRecibo > 0.0f) {
-			Map parameters = new HashMap();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", voluntariado.getVendas().getIdvendas());
 			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 			parameters.put("valorExtenso", valorExtenso);
@@ -756,7 +751,7 @@ public class VoluntariadoMB implements Serializable {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String caminhoRelatorio = ("/reports/curso/termoCiencia.jasper");
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("idcliente", voluntariado.getVendas().getCliente().getIdcliente());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);

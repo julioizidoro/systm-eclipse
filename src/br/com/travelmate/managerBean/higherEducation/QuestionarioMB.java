@@ -13,15 +13,10 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.AvisosFacade;
-import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.NotificacaoFacade;
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Avisos;
-import br.com.travelmate.model.Avisousuario;
-import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Notificacao;
 import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.model.Unidadenegocio;

@@ -11,8 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.ComplementoAcomodacaoDiaSemanaFacade;
-import br.com.travelmate.facade.ComplementoAcomodacaoFacade;
-import br.com.travelmate.model.Complementoacomodacao;
 import br.com.travelmate.model.Complementoacomodacaodiasemana;
 import br.com.travelmate.model.Coprodutos;
 

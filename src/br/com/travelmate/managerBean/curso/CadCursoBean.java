@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
@@ -14,7 +13,6 @@ import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DadosPaisFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
-import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -40,7 +38,6 @@ public class CadCursoBean {
 	private Vendas venda;
 	private Formapagamento formaPagamento;
 	private Orcamento orcamento;
-	private UsuarioLogadoMB usuarioLogadoMB;
 	private Curso curso;
 
 	public CadCursoBean(Vendas venda, Formapagamento formaPagamento, Orcamento orcamento,
@@ -49,7 +46,6 @@ public class CadCursoBean {
 		this.venda = venda;
 		this.formaPagamento = formaPagamento;
 		this.orcamento = orcamento;
-		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
 	public void SalvarAlteracaoFinanceiro(List<Parcelamentopagamento> listaParcelamentoPagamentoAntiga,

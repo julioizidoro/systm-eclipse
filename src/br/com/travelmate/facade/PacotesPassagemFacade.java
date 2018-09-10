@@ -4,9 +4,7 @@
  */
 package br.com.travelmate.facade;
 
-import br.com.travelmate.dao.AupairDao;
 import br.com.travelmate.dao.PacotesPassagemDao;
-import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Pacotepassagem;
 import java.sql.SQLException;
 import java.util.List;

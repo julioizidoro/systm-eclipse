@@ -2,10 +2,7 @@ package br.com.travelmate.facade;
 
 
 import br.com.travelmate.dao.CoProdutosDao;
-import br.com.travelmate.dao.CoPromocaoDao;
-import br.com.travelmate.dao.ValorCoProdutoDao;
 import br.com.travelmate.model.Coprodutos;
-import br.com.travelmate.model.Copromocao;
 
 import java.sql.SQLException;
 import java.util.List;

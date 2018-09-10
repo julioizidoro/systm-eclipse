@@ -10,7 +10,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.bean.CategoriaTmRaceBean;
-import br.com.travelmate.bean.ProductRunnersBean;
 
 @Named
 @ViewScoped

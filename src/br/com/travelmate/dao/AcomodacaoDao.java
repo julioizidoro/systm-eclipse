@@ -9,7 +9,6 @@ import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Acomodacao;
-import br.com.travelmate.model.Curso;
 
 public class AcomodacaoDao {
 	

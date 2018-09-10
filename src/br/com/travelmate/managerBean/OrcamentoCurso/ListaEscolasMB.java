@@ -5,7 +5,6 @@
  */
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
-import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.facade.PromocaoBrindeCursoCidadeFacade;
@@ -13,10 +12,7 @@ import br.com.travelmate.facade.PromocaoTaxaCidadeFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Coprodutos;
-import br.com.travelmate.model.Filtroorcamentoproduto;
-import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorferias;
-import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Parametrosprodutos;
 import br.com.travelmate.model.Promocaobrindecurso;
 import br.com.travelmate.model.Promocaobrindecursocidade;
@@ -36,7 +32,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -223,12 +218,6 @@ public class ListaEscolasMB implements Serializable {
 		float valorSuplemento = 0.0f; 
 		Date dataTermino = calcularDataTerminoCurso(dataInical, FiltrarEscolaBean.getOcurso().getNumerosemanas());
 		int numeroDias = 0;
-		boolean calcular = true;
-//		if ((po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)) ||
-//				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
-//			calcular = false;
-//		}   
-//		if (calcular) {
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))
@@ -311,14 +300,6 @@ public class ListaEscolasMB implements Serializable {
 			int ano = Formatacao.getAnoData(new Date());
 			if(ano<=produtoFornecedorBean.getCoprodutos().getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getAnotarifario()){ 
 				int index = produtoFornecedorBean.getLinhaFornecedor();
-//				if (produtoFornecedorBean.getCoprodutos().isPacote() == false) {
-//					gerarPromocaoTaxas(produtoFornecedorBean.getListaCursoPrincipal(),
-//							produtoFornecedorBean.getListaObrigaroerios());
-//					int nsemanas = FiltrarEscolaBean.getOcurso().getNumerosemanas();
-//					gerarPromocaoBrindes(produtoFornecedorBean.getListaCursoPrincipal(),
-//							produtoFornecedorBean.getListaObrigaroerios(), nsemanas, produtoFornecedorBean.get);
-//				}
-				Integer linhaFornecedorBean = produtoFornecedorBean.getLinhaFornecedorProdutoBean();
 				verificarCursoPossuiValor(produtoFornecedorBean.getCoprodutos(), FiltrarEscolaBean.getListaFornecedorProdutosBean().get(index));
 				List<ProdutosOrcamentoBean> listaValoresObriatorio = new ArrayList<ProdutosOrcamentoBean>();
 				listaValoresObriatorio = produtoFornecedorBean.getListaObriSalvo();

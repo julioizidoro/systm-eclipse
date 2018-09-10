@@ -1,18 +1,13 @@
 package br.com.travelmate.converter;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import br.com.travelmate.bean.BolinhasBean;
-import br.com.travelmate.model.Banco;
-import br.com.travelmate.model.Cambio;
 
 
 @FacesConverter(value="BolinhaConverter")
