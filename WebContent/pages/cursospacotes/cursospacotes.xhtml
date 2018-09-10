@@ -36,7 +36,7 @@
 							update="pais, cidade, parceiro" />
 					</p:selectOneMenu> 
 					<p:selectOneMenu id="pais" value="#{cursosPacotesMB.pais}"
-						style="width:85%;" converter="PaisConverter" filter="true"
+						style="width:150px;" converter="PaisConverter" filter="true"
 						filterMatchMode="startsWith" panelStyle="width:180px">
 						<f:selectItem itemLabel="País" itemValue="0"
 							noSelectionOption="true" />
@@ -85,11 +85,12 @@
 									itemValue="#{fornecedor}" />
 								<f:attribute name="listaFornecedorCidadeIdioma"
 									value="#{cursosPacotesMB.listaFornecedorIdioma}" />
+								<p:ajax event="change"/>
 							</p:selectOneMenu> 
 					<h:panelGroup>
 						<h:panelGrid columns="2" style="width:100%;" columnClasses="espaco75, colunaquatrorze">   
 							<p:selectOneMenu id="paisS" value="#{cursosPacotesMB.paisS}"
-								style="width:200px;" converter="PaisConverterS" filter="true"
+								style="width:150px;" converter="PaisConverterS" filter="true"
 								filterMatchMode="startsWith" panelStyle="width:180px">
 								<f:selectItem itemLabel="País" itemValue="0"
 									noSelectionOption="true" />
@@ -101,7 +102,7 @@
 									update=":cursospacotes:tabelapacotes, :cursospacotes:growl"/>
 							</p:selectOneMenu>
 							<p:commandLink action="#{cursosPacotesMB.adicionarFornecedorIdioma()}" title="Adicionar Parceiro" >
-								<img src="../../resources/img/adicionar.png" width="30"/>
+								<img src="../../resources/img/adicionar.png" width="30px"/>
 							</p:commandLink>
 						</h:panelGrid>
 					</h:panelGroup> 

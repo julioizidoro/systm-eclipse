@@ -67,8 +67,10 @@ public class CursosPacotesMB implements Serializable {
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			sql = (String) session.getAttribute("sql");
 			fornecedorCidadeIdioma = (Fornecedorcidadeidioma) session.getAttribute("fornecedorcidadeidioma");
+			paisS = (Pais) session.getAttribute("pais");
 			session.removeAttribute("fornecedorcidadeidioma"); 
 			session.removeAttribute("sql");
+			session.removeAttribute("pais");
 			if(fornecedorCidadeIdioma!=null && fornecedorCidadeIdioma.getIdfornecedorcidadeidioma()!=null){
 				produtos = fornecedorCidadeIdioma.getFornecedorcidade().getProdutos();
 				gerarListaPais();

@@ -53,6 +53,7 @@ public class CadCursosPacotesMB implements Serializable {
 	private boolean informacoesCurso;
 	private Pais pais;
 	private List<Pais> listaPais;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -102,6 +103,7 @@ public class CadCursosPacotesMB implements Serializable {
 			}else if(idproduto == aplicacaoMB.getParametrosprodutos().getCursos()) {
 				informacoesCurso = true;
 			}
+			moedaNacional = pais.getMoedas().getSigla();
 		}   
 	}  
 
@@ -193,6 +195,14 @@ public class CadCursosPacotesMB implements Serializable {
 		this.listaPais = listaPais;
 	}
 
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
+	}
+
 	public String cancelar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -265,7 +275,8 @@ public class CadCursosPacotesMB implements Serializable {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("sql", sql); 
-			session.setAttribute("fornecedorcidadeidioma", cursospacote.getFornecedorcidadeidioma());
+			session.setAttribute("fornecedorcidadeidioma", fornecedorCidadeIdioma);
+			session.setAttribute("pais", pais);
 			return "cursospacotes";
 		}
 		return "";

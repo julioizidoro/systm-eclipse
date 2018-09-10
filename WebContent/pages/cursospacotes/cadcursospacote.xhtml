@@ -8,29 +8,32 @@
 	<ui:define name="corpo">
 		<h:form id="cadastroproduto" style="text-align:left;font-size: 10px;">
 			<p:growl id="growl" showDetail="true" sticky="false"
-				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />                
+				life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 			<p:tabView>
-				<p:tab title="Dados Pacote"> 
+				<p:tab title="Dados Pacote">
 					<h:panelGrid columns="1" style="margin-left:14%;width:78.8%;">
-						<h:panelGrid columns="1" style="width:100%;" columnClasses="espaco75, colunaquatrorze">  
-							<p:outputLabel value="Pais Unidade"/> 
+						<h:panelGrid columns="1" style="width:100%;"
+							columnClasses="espaco75, colunaquatrorze">
+							<p:outputLabel value="Pais Unidade" />
 							<p:selectOneMenu id="paisS" value="#{cadCursosPacotesMB.pais}"
 								style="width:200px;" converter="PaisConverterS" filter="true"
 								filterMatchMode="startsWith" panelStyle="width:180px">
 								<f:selectItem itemLabel="País" itemValue="0"
 									noSelectionOption="true" />
-								<f:selectItems id="idpaisS" value="#{cadCursosPacotesMB.listaPais}"
-									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" /> 
+								<f:selectItems id="idpaisS"
+									value="#{cadCursosPacotesMB.listaPais}" var="cpais"
+									itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
 								<f:attribute name="listaPais"
 									value="#{cadCursosPacotesMB.listaPais}" />
 								<p:ajax event="change" />
 							</p:selectOneMenu>
 						</h:panelGrid>
 						<h:panelGroup>
-							<p:selectBooleanCheckbox value="#{cadCursosPacotesMB.cursospacote.mostrarescola}"/>
-							<p:outputLabel value="Mostrar Escola" style="margin-left:2%;"/>
+							<p:selectBooleanCheckbox
+								value="#{cadCursosPacotesMB.cursospacote.mostrarescola}" />
+							<p:outputLabel value="Mostrar Escola" style="margin-left:2%;" />
 						</h:panelGroup>
-						<p:outputLabel value="Produto" />  
+						<p:outputLabel value="Produto" />
 						<h:panelGroup rendered="#{cadCursosPacotesMB.informacoesCurso}">
 							<p:inputText id="coproduto"
 								value="#{cadCursosPacotesMB.cursospacote.valorcoprodutos_curso.coprodutos.nome}"
@@ -44,7 +47,8 @@
 									update="valorcurso, :cadastroproduto:growl" />
 							</p:commandLink>
 						</h:panelGroup>
-						<h:panelGroup rendered="#{cadCursosPacotesMB.informacoesVoluntariado}" >
+						<h:panelGroup
+							rendered="#{cadCursosPacotesMB.informacoesVoluntariado}">
 							<p:inputText id="voluntariadoprojetovalor"
 								value="#{cadCursosPacotesMB.voluntariadopacote.voluntariadoprojetovalor.voluntariadoprojeto.descricao}"
 								readonly="true" style="width:85%;" />
@@ -59,7 +63,8 @@
 						</h:panelGroup>
 					</h:panelGrid>
 					<br />
-					<h:panelGrid columns="4" style="margin-left:14%;width:70%;" rendered="#{cadCursosPacotesMB.informacoesVoluntariado}"
+					<h:panelGrid columns="4" style="margin-left:14%;width:70%;"
+						rendered="#{cadCursosPacotesMB.informacoesVoluntariado}"
 						columnClasses="espacocobranca21botao, espacocobranca21botao,colunaVintenove,colunaVintenove">
 						<p:outputLabel value="Ano Tarifario" />
 						<p:outputLabel value="Nº Semanas" />
@@ -68,7 +73,7 @@
 						<p:inputText id="anotarifariovoluntarido"
 							value="#{cadCursosPacotesMB.cursospacote.anotarifario}"
 							style="width:75%;text-align:right;">
-							<p:ajax event="blur"  />
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="numerosemanavoluntariado"
 							value="#{cadCursosPacotesMB.cursospacote.numerosemanacurso}"
@@ -90,7 +95,8 @@
 								minFractionDigits="2" />
 						</p:inputText>
 					</h:panelGrid>
-					<h:panelGrid columns="4" style="margin-left:14%;width:70%;" rendered="#{cadCursosPacotesMB.informacoesCurso}"
+					<h:panelGrid columns="4" style="margin-left:14%;width:70%;"
+						rendered="#{cadCursosPacotesMB.informacoesCurso}"
 						columnClasses="espacocobranca21botao,espacocobranca21botao,colunaVintenove,colunaVintenove">
 						<p:outputLabel value="Ano Tarifario" />
 						<p:outputLabel value="Nº Semanas" />
@@ -99,7 +105,7 @@
 						<p:inputText id="anotarifario"
 							value="#{cadCursosPacotesMB.cursospacote.anotarifario}"
 							style="width:75%;text-align:right;">
-							<p:ajax event="blur"  />
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="numerosemana"
 							value="#{cadCursosPacotesMB.cursospacote.numerosemanacurso}"
@@ -172,7 +178,8 @@
 					<br />
 					<p:outputLabel value="Dados da Acomodação"
 						style="font-size:14px;margin-left:14%;color:#4C816D;" />
-					<h:panelGrid columns="1" style="margin-left:14%;width:78.7%;" rendered="#{cadCursosPacotesMB.informacoesCurso}">
+					<h:panelGrid columns="1" style="margin-left:14%;width:78.7%;"
+						rendered="#{cadCursosPacotesMB.informacoesCurso}">
 						<p:outputLabel value="Acomodação" />
 						<h:panelGroup>
 							<p:inputText id="coprodutoacomodacao"
@@ -214,218 +221,224 @@
 								minFractionDigits="2" />
 						</p:inputText>
 					</h:panelGrid>
-					<br />   
+					<br />
 					<h:panelGrid columns="1" style="margin-left:14%;width:80%;">
 						<p:outputLabel value="Descrição Acomodação" />
 						<p:inputText id="descricaoacomodacao"
 							value="#{cadCursosPacotesMB.cursospacote.descritivoacomodacao}"
-							style="width:84%;" maxlength="200"/>
+							style="width:84%;" maxlength="200" />
 					</h:panelGrid>
-					<br/>
-					<h:panelGrid columns="6" style="margin-left:14%;width:70%;"
-						> 
+					<br />
+					<h:panelGrid columns="6" style="margin-left:14%;width:70%;">
 						<p:outputLabel value="Desconto TM" />
-						<p:outputLabel value="Desconto TM R$" />
+						<p:outputLabel
+							value="Desconto TM #{cadCursosPacotesMB.moedaNacional}" />
 						<p:outputLabel value="Ano Desconto" />
 						<p:outputLabel value="Desconto TM" />
-						<p:outputLabel value="Desconto TM R$" />
-						<p:outputLabel value="Ano Desconto" /> 
-					
+						<p:outputLabel
+							value="Desconto TM #{cadCursosPacotesMB.moedaNacional}" />
+						<p:outputLabel value="Ano Desconto" />
+
 						<p:inputText id="descontotm1"
 							value="#{cadCursosPacotesMB.cursospacote.descontotm1}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="descontotmreal1"
 							value="#{cadCursosPacotesMB.cursospacote.descontotmreal1}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="ano1"
 							value="#{cadCursosPacotesMB.cursospacote.ano1}"
-							style="width:65%;text-align:right;"/>  
+							style="width:65%;text-align:right;" />
 						<p:inputText id="descontotm2"
 							value="#{cadCursosPacotesMB.cursospacote.descontotm2}"
 							style="width:78.7%;text-align:right;">
-							<f:convertNumber pattern="##,###,###,###.##"   
+							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
+							<p:ajax event="blur" />
 						</p:inputText>
-						<p:inputText id="descontotmreal2"  
+						<p:inputText id="descontotmreal2"
 							value="#{cadCursosPacotesMB.cursospacote.descontotmreal2}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="ano2"
 							value="#{cadCursosPacotesMB.cursospacote.ano2}"
-							style="width:78.7%;text-align:right;"/> 
-					</h:panelGrid>   
-					<br/>
+							style="width:78.7%;text-align:right;" />
+					</h:panelGrid>
+					<br />
 					<h:panelGrid columns="4" style="margin-left:14%;width:54%;"
 						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,colunaVintePontoSeis, colunaVintePontoSeis">
-						<p:outputLabel value="Promoção escola" /> 
+						<p:outputLabel value="Promoção escola" />
 						<p:outputLabel value="Câmbio" />
 						<p:outputLabel value="Total" />
-						<p:outputLabel value="Total R$" />
+						<p:outputLabel value="Total #{cadCursosPacotesMB.moedaNacional}" />
 						<p:inputText id="promocaoescola"
 							value="#{cadCursosPacotesMB.cursospacote.promocaoescola}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
-						</p:inputText> 
+							<p:ajax event="blur" />
+						</p:inputText>
 						<p:inputText id="cambio"
 							value="#{cadCursosPacotesMB.cursospacote.valorcambio}"
 							style="width:89%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="totalpacote"
 							value="#{cadCursosPacotesMB.cursospacote.valormoedaestrangeira}"
 							style="width:84%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="totalpacoteRS"
 							value="#{cadCursosPacotesMB.cursospacote.valortotalpacote}"
 							style="width:84%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
+							<p:ajax event="blur" />
 						</p:inputText>
-					</h:panelGrid>  
+					</h:panelGrid>
 					<br />
 					<h:panelGrid columns="3" style="margin-left:14%;width:78%;"
 						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,tamanhonotificacao2">
 						<p:outputLabel value="Comissão Premium" />
 						<p:outputLabel value="Comissão Express" />
 						<p:outputLabel value="Descrição Comissão
-						" /> 
+						" />
 						<p:inputText id="comissaopremium"
 							value="#{cadCursosPacotesMB.cursospacote.comissaopremium}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
 								minFractionDigits="2" />
-								<p:ajax event="blur"/>
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="comissaoexpress"
 							value="#{cadCursosPacotesMB.cursospacote.comissaoexpress}"
 							style="width:78.7%;text-align:right;">
 							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />  
-								<p:ajax event="blur"/>
+								minFractionDigits="2" />
+							<p:ajax event="blur" />
 						</p:inputText>
 						<p:inputText id="comissao"
 							value="#{cadCursosPacotesMB.cursospacote.comissao}"
-							style="width:74.5%;" maxlength="100"/>
+							style="width:74.5%;" maxlength="100" />
 					</h:panelGrid>
-					<br /> 
-					<h:panelGrid columns="3" style="margin-left:14%;width:95%;" columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,tamanhonotificacao2">
+					<br />
+					<h:panelGrid columns="3" style="margin-left:14%;width:95%;"
+						columnClasses="colunaVintePontoSeis,colunaVintePontoSeis,tamanhonotificacao2">
 						<p:outputLabel value="Duração" />
 						<p:outputLabel value="Provincia" />
 						<p:outputLabel value="" />
-						
+
 						<p:inputText id="duracao"
 							value="#{cadCursosPacotesMB.cursospacote.duracao}"
-							style="width:88%;" maxlength="40"/>
+							style="width:88%;" maxlength="40" />
 						<p:inputText id="provincia"
 							value="#{cadCursosPacotesMB.cursospacote.provincia}"
-							style="width:88%;" maxlength="40"/>
+							style="width:88%;" maxlength="40" />
 						<h:panelGroup>
 							<p:selectBooleanCheckbox
 								value="#{cadCursosPacotesMB.cursospacote.especial}" />
 							<h:outputText value="Pacote Especial" style="margin-left:2%;" />
 						</h:panelGroup>
 					</h:panelGrid>
-					<br />    
-					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;" columnClasses="tamanhonotificacao2,tamanhonotificacao2">
-						<p:outputLabel value="Taxa de Acomodação" />  
+					<br />
+					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;"
+						columnClasses="tamanhonotificacao2,tamanhonotificacao2">
+						<p:outputLabel value="Taxa de Acomodação" />
 						<p:outputLabel value="Taxa de Matricula" />
-						
+
 						<p:inputText id="txacomodacao"
 							value="#{cadCursosPacotesMB.cursospacote.taxaacomodacao}"
-							style="width:88%;" maxlength="40"/>
+							style="width:88%;" maxlength="40" />
 						<p:inputText id="txmatricula"
 							value="#{cadCursosPacotesMB.cursospacote.taxamatricula}"
-							style="width:88%;" maxlength="40"/>
+							style="width:88%;" maxlength="40" />
 					</h:panelGrid>
 					<br />
-					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;" columnClasses="tamanhonotificacao2,tamanhonotificacao2">
-						<p:outputLabel value="Material Didático" />  
+					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;"
+						columnClasses="tamanhonotificacao2,tamanhonotificacao2">
+						<p:outputLabel value="Material Didático" />
 						<p:outputLabel value="Translado" />
-						
+
 						<p:inputText id="material"
 							value="#{cadCursosPacotesMB.cursospacote.taxamaterial}"
-							style="width:88%;" maxlength="40"/>
+							style="width:88%;" maxlength="40" />
 						<p:inputText id="translado"
 							value="#{cadCursosPacotesMB.cursospacote.transfer}"
-							style="width:88%;" maxlength="40"/>
+							style="width:88%;" maxlength="40" />
 					</h:panelGrid>
-					<br />   
-					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;" columnClasses="tamanhonotificacao2,tamanhonotificacao2">
+					<br />
+					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;"
+						columnClasses="tamanhonotificacao2,tamanhonotificacao2">
 						<p:outputLabel value="Passagem Aerea" />
 						<p:outputLabel value="Modalidade Work &amp; Travel" />
-						
+
 						<p:inputText id="passagem"
 							value="#{cadCursosPacotesMB.cursospacote.passagemaerea}"
-							style="width:88%;" maxlength="40"/>
+							style="width:88%;" maxlength="40" />
 						<p:inputText id="modalidade"
 							value="#{cadCursosPacotesMB.cursospacote.modalidade}"
-							style="width:88%;" maxlength="40"/>
-					</h:panelGrid> 
-					<br />   
-					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;" columnClasses="tamanhonotificacao2,tamanhonotificacao2">
+							style="width:88%;" maxlength="40" />
+					</h:panelGrid>
+					<br />
+					<h:panelGrid columns="2" style="margin-left:14%;width:71.55%;"
+						columnClasses="tamanhonotificacao2,tamanhonotificacao2">
 						<p:outputLabel value="Outras" />
 						<p:outputLabel value="Idade Minima" />
-						
+
 						<p:inputText id="outras"
 							value="#{cadCursosPacotesMB.cursospacote.outras}"
-							style="width:88%;" maxlength="40"/>
+							style="width:88%;" maxlength="40" />
 						<p:inputText id="idade"
 							value="#{cadCursosPacotesMB.cursospacote.idademinina}"
-							style="width:88%;" maxlength="40"/>
-					</h:panelGrid> 
-					<br />   
+							style="width:88%;" maxlength="40" />
+					</h:panelGrid>
+					<br />
 					<p:outputLabel value="Descrição forma de pagamento"
 						style="font-size:14px;margin-left:14%;color:#4C816D;" />
 					<h:panelGrid columns="1" style="margin-left:14%;width:80%;">
-						<p:outputLabel value="Boleto:" />  
-						<p:inputText id="boleto"  
+						<p:outputLabel value="Boleto:" />
+						<p:inputText id="boleto"
 							value="#{cadCursosPacotesMB.cursospacote.pagamentoboleto}"
-							style="width:84%;" maxlength="200"/>  
+							style="width:84%;" maxlength="200" />
 					</h:panelGrid>
-					<br /> 
+					<br />
 					<h:panelGrid columns="1" style="margin-left:14%;width:80%;">
-						<p:outputLabel value="Cartão de Crédito:" />  
-						<p:inputText id="cartao"  
+						<p:outputLabel value="Cartão de Crédito:" />
+						<p:inputText id="cartao"
 							value="#{cadCursosPacotesMB.cursospacote.pagamentocartao}"
-							style="width:84%;" maxlength="200"/>
+							style="width:84%;" maxlength="200" />
 					</h:panelGrid>
-					<br /> 
+					<br />
 					<h:panelGrid columns="1" style="margin-left:14%;width:80%;">
-						<p:outputLabel value="Financiamento:" />  
-						<p:inputText id="financiamento"  
+						<p:outputLabel value="Financiamento:" />
+						<p:inputText id="financiamento"
 							value="#{cadCursosPacotesMB.cursospacote.pagamentofinanciamento}"
-							style="width:84%;" maxlength="200"/>
+							style="width:84%;" maxlength="200" />
 					</h:panelGrid>
 				</p:tab>
 				<p:tab title="Forma de Pagamento">
 					<p:fieldset id="idparcelamentoantesviagem"
 						legend="Opção 02 - Parcelamento antes da viagem" toggleable="true"
 						style="font-size: 10px;width: 95%;margin-left: 2.5%">
-						<h:panelGrid columns="6">
-							<p:outputLabel value="% Entrada:" style="margin-left:30%" />
+						<h:panelGrid columns="6" style="width:72%;margin-left:2%;">
+							<p:outputLabel value="% Entrada:" />
 							<p:inputText id="idpercentual2"
 								value="#{cadCursosPacotesMB.formapagamento.entradaboleto}"
-								style="margin-left:3%;text-align: right;">
+								style="text-align: right;">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 								<p:ajax event="blur"
@@ -433,11 +446,11 @@
 									update="idparcelamentoantesviagem" />
 							</p:inputText>
 
-							<p:outputLabel value="Valor da Entrada R$:"
-								style="margin-left:55%" />
+							<p:outputLabel
+								value="Valor da Entrada #{cadCursosPacotesMB.moedaNacional}:" />
 							<p:inputText id="idvalorentrada2"
 								value="#{cadCursosPacotesMB.formapagamento.valorentradaboleto}"
-								style="margin-left:8%;text-align: right">
+								style="text-align: right">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 								<p:ajax event="blur"
@@ -445,10 +458,10 @@
 									update="idparcelamentoantesviagem" />
 							</p:inputText>
 
-							<p:outputLabel value="Nº Parcelas:" style="margin-left:75%" />
-							<p:selectOneMenu class="espacocobranca29" id="nparcela2"
+							<p:outputLabel value="Nº Parcelas:" />
+							<p:selectOneMenu id="nparcela2"
 								value="#{cadCursosPacotesMB.formapagamento.numeroparcelasboleto}"
-								style="width:80px;margin-left:8%">
+								style="width:80px;">
 								<f:selectItem itemLabel="2" itemValue="2" />
 								<f:selectItem itemLabel="3" itemValue="3" />
 								<f:selectItem itemLabel="4" itemValue="4" />
@@ -460,40 +473,49 @@
 								<f:selectItem itemLabel="10" itemValue="10" />
 								<f:selectItem itemLabel="11" itemValue="11" />
 								<f:selectItem itemLabel="12" itemValue="12" />
-								<p:ajax
-									listener="#{cadCursosPacotesMB.calcularParcelamento2()}"
+								<p:ajax listener="#{cadCursosPacotesMB.calcularParcelamento2()}"
 									update="idparcelamentoantesviagem" />
 							</p:selectOneMenu>
-						</h:panelGrid>
-						<br></br>
-						<br></br>
-						<p:outputLabel value="% Saldo:" style="margin-left:3%" />
-						<p:inputText id="idpersentualsaldo2"
-							value="#{cadCursosPacotesMB.formapagamento.saldoboleto}"
-							style="margin-left:0.4%;text-align: right">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-							<p:ajax event="blur"
-								listener="#{cadCursosPacotesMB.calcularParcelamento2()}"
-								update="idvalorsaldo2, idvalorparcela2" />
-						</p:inputText>
-   
-						<p:outputLabel value="Saldo R$:" style="margin-left:16%" />
-						<p:inputText id="idvalorsaldo2"
-							value="#{cadCursosPacotesMB.formapagamento.valorsaldoboleto}"
-							style="margin-left:1.7%;text-align: right">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</p:inputText>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="% Saldo:" />
+							<p:inputText id="idpersentualsaldo2"
+								value="#{cadCursosPacotesMB.formapagamento.saldoboleto}"
+								style="text-align: right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur"
+									listener="#{cadCursosPacotesMB.calcularParcelamento2()}"
+									update="idvalorsaldo2, idvalorparcela2" />
+							</p:inputText>
 
-						<p:outputLabel value="Valor da Parcela:" style="margin-left:14.8%" />
-						<p:inputText id="idvalorparcela2"
-							value="#{cadCursosPacotesMB.formapagamento.valorparcelaboleto}"
-							style="margin-left:0.6%;text-align: right">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-								<p:ajax event="blur"/>
-						</p:inputText>
+							<p:outputLabel value="Saldo #{cadCursosPacotesMB.moedaNacional}:" />
+							<p:inputText id="idvalorsaldo2"
+								value="#{cadCursosPacotesMB.formapagamento.valorsaldoboleto}"
+								style="text-align: right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel value="Valor da Parcela:" />
+							<p:inputText id="idvalorparcela2"
+								value="#{cadCursosPacotesMB.formapagamento.valorparcelaboleto}"
+								style="text-align: right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
+						</h:panelGrid>
 					</p:fieldset>
 					<br></br>
 					<br></br>
@@ -501,34 +523,33 @@
 						legend="Opção 03 - Parcelamento em cartão de crédito em até 10x"
 						toggleable="true"
 						style="font-size: 10px;width: 95%;margin-left: 2.5%">
-						<h:panelGrid columns="6">
-							<p:outputLabel value="% Entrada:" style="margin-left:35%" />
+						<h:panelGrid columns="6" style="width:72%;margin-left:2%;">
+							<p:outputLabel value="% Entrada:" />
 							<p:inputText id="idpercentualentrada3"
 								value="#{cadCursosPacotesMB.formapagamento.entradacartao}"
 								style="margin-left:1%;text-align: right">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
-								<p:ajax event="blur"/>
+								<p:ajax event="blur" />
 								<p:ajax event="blur"
 									listener="#{cadCursosPacotesMB.calcularParcelamento3()}"
 									update="idparcelamentoemcartaocredito" />
 							</p:inputText>
-							<p:outputLabel value="Valor da Entrada R$:"
-								style="margin-left:55%" />
+							<p:outputLabel
+								value="Valor da Entrada #{cadCursosPacotesMB.moedaNacional}:" />
 							<p:inputText id="idvalorentrada3"
 								value="#{cadCursosPacotesMB.formapagamento.valorentradacartao}"
-								style="margin-left:8%;margin-left:1%;text-align: right">
+								style="text-align: right">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
-								<p:ajax event="blur"/>
 								<p:ajax event="blur"
 									listener="#{cadCursosPacotesMB.calcularParcelamentoValorEntrada3()}"
 									update="idparcelamentoemcartaocredito" />
 							</p:inputText>
-							<p:outputLabel value="Nº Parcelas:" style="margin-left:75%" />
-							<p:selectOneMenu class="espacocobranca29" id="nparcela3"
+							<p:outputLabel value="Nº Parcelas:" />
+							<p:selectOneMenu id="nparcela3"
 								value="#{cadCursosPacotesMB.formapagamento.numeroparcelascartao}"
-								style="width:80px;margin-left:8%">
+								style="width:80px;">
 								<f:selectItem itemLabel="2" itemValue="2" />
 								<f:selectItem itemLabel="3" itemValue="3" />
 								<f:selectItem itemLabel="4" itemValue="4" />
@@ -540,39 +561,48 @@
 								<f:selectItem itemLabel="10" itemValue="10" />
 								<f:selectItem itemLabel="11" itemValue="11" />
 								<f:selectItem itemLabel="12" itemValue="12" />
-								<p:ajax
-									listener="#{cadCursosPacotesMB.calcularParcelamento3()}"
+								<p:ajax listener="#{cadCursosPacotesMB.calcularParcelamento3()}"
 									update="idvalorparcela3" />
 							</p:selectOneMenu>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="% Saldo:" />
+							<p:inputText
+								value="#{cadCursosPacotesMB.formapagamento.saldocartao}"
+								style="text-align: right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
+
+							<p:outputLabel value="Saldo #{cadCursosPacotesMB.moedaNacional}:" />
+							<p:inputText id="idvalorsaldo3"
+								value="#{cadCursosPacotesMB.formapagamento.valorsaldocartao}"
+								style="text-align: right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
+
+							<p:outputLabel value="Valor da Parcela:" style="margin-left:15%" />
+							<p:inputText id="idvalorparcela3"
+								value="#{cadCursosPacotesMB.formapagamento.valorparcelacartao}"
+								style="text-align: right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
 						</h:panelGrid>
-						<br></br>
-						<br></br>
-						<p:outputLabel value="% Saldo:" style="margin-left:3.3%" />
-						<p:inputText
-							value="#{cadCursosPacotesMB.formapagamento.saldocartao}"
-							style="margin-left:0.3%;text-align: right">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-								<p:ajax event="blur"/>
-						</p:inputText>
-
-						<p:outputLabel value="Saldo R$:" style="margin-left:16.5%" />
-						<p:inputText id="idvalorsaldo3"
-							value="#{cadCursosPacotesMB.formapagamento.valorsaldocartao}"
-							style="margin-left:0.3%;text-align: right">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-								<p:ajax event="blur"/>
-						</p:inputText>
-
-						<p:outputLabel value="Valor da Parcela:" style="margin-left:15%" />
-						<p:inputText id="idvalorparcela3"
-							value="#{cadCursosPacotesMB.formapagamento.valorparcelacartao}"
-							style="margin-left:0.3%;text-align: right">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-								<p:ajax event="blur"/>
-						</p:inputText>
 					</p:fieldset>
 					<br></br>
 					<br></br>
@@ -580,22 +610,22 @@
 						legend="Opção 4 - Parcelamento em cheque, boleto ou débito em conta em até 12X via financeira*"
 						toggleable="true"
 						style="font-size: 10px;width: 95%;margin-left: 2.5%">
-						<h:panelGrid columns="6">
-							<p:outputLabel value="% Entrada:" style="margin-left:35%" />
+						<h:panelGrid columns="6" style="width:72%;margin-left:2%;">
+							<p:outputLabel value="% Entrada:" />
 							<p:inputText id="idpercentualentrada4"
 								value="#{cadCursosPacotesMB.formapagamento.entradafinanciamento}"
-								style="margin-left:1%;text-align: right">
+								style="text-align: right">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 								<p:ajax event="blur"
 									listener="#{cadCursosPacotesMB.calcularParcelamento4()}"
 									update="idparcelamentoemcheque" />
 							</p:inputText>
-							<p:outputLabel value="Valor da Entrada R$:"
-								style="margin-left:55%" />
+							<p:outputLabel
+								value="Valor da Entrada #{cadCursosPacotesMB.moedaNacional}:" />
 							<p:inputText id="idvalorentrada4"
 								value="#{cadCursosPacotesMB.formapagamento.valorentradafinanciamento}"
-								style="margin-left:8%;margin-left:1%;text-align: right">
+								style="text-align: right">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 								<p:ajax event="blur"
@@ -603,10 +633,10 @@
 									update="idparcelamentoemcheque" />
 							</p:inputText>
 
-							<p:outputLabel value="Nº Parcelas:" style="margin-left:75%" />
-							<p:selectOneMenu class="espacocobranca29" id="nparcela4"
+							<p:outputLabel value="Nº Parcelas:" />
+							<p:selectOneMenu id="nparcela4"
 								value="#{cadCursosPacotesMB.formapagamento.nparcelasfinanciamento}"
-								style="width:80px;margin-left:8%">
+								style="width:80px;">
 								<f:selectItem itemLabel="2" itemValue="2" />
 								<f:selectItem itemLabel="3" itemValue="3" />
 								<f:selectItem itemLabel="4" itemValue="4" />
@@ -618,38 +648,47 @@
 								<f:selectItem itemLabel="10" itemValue="10" />
 								<f:selectItem itemLabel="11" itemValue="11" />
 								<f:selectItem itemLabel="12" itemValue="12" />
-								<p:ajax
-									listener="#{cadCursosPacotesMB.calcularParcelamento4()}"
+								<p:ajax listener="#{cadCursosPacotesMB.calcularParcelamento4()}"
 									update="idvalorparcela4" />
 							</p:selectOneMenu>
-						</h:panelGrid>
-						<br></br>
-						<br></br>
-						<p:outputLabel value="% Saldo:" style="margin-left:3.3%" />
-						<p:inputText id="porcentagemSaldo4"
-							value="#{cadCursosPacotesMB.formapagamento.saldofinanciamento}"
-							style="margin-left:0.3%;text-align: right">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-								<p:ajax event="blur"/>
-						</p:inputText>
-						<p:outputLabel value="Saldo R$:" style="margin-left:16.5%" />
-						<p:inputText id="idvalorsaldo4"
-							value="#{cadCursosPacotesMB.formapagamento.valorsaldofinanciamento}"
-							style="margin-left:0.3%;text-align: right">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-								<p:ajax event="blur"/>
-						</p:inputText>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel value="% Saldo:" />
+							<p:inputText id="porcentagemSaldo4"
+								value="#{cadCursosPacotesMB.formapagamento.saldofinanciamento}"
+								style="text-align: right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
+							<p:outputLabel value="Saldo #{cadCursosPacotesMB.moedaNacional}:" />
+							<p:inputText id="idvalorsaldo4"
+								value="#{cadCursosPacotesMB.formapagamento.valorsaldofinanciamento}"
+								style="text-align: right">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
 
-						<p:outputLabel value="Valor da Parcela:" style="margin-left:15%" />
-						<p:inputText id="idvalorparcela4"
-							value="#{cadCursosPacotesMB.formapagamento.valorparcelafinanciamento}"
-							style="margin-left:0.3%;text-align: right;">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-								<p:ajax event="blur"/>
-						</p:inputText>
+							<p:outputLabel value="Valor da Parcela:" />
+							<p:inputText id="idvalorparcela4"
+								value="#{cadCursosPacotesMB.formapagamento.valorparcelafinanciamento}"
+								style="text-align: right;">
+								<f:convertNumber pattern="##,###,###,###.##"
+									minFractionDigits="2" />
+								<p:ajax event="blur" />
+							</p:inputText>
+						</h:panelGrid>
 					</p:fieldset>
 				</p:tab>
 			</p:tabView>
