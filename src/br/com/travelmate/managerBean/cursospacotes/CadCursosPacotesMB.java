@@ -226,7 +226,7 @@ public class CadCursosPacotesMB implements Serializable {
 				Mensagem.lancarMensagemErro("Atenção!", "Informe o número de semanas de acomodação.");
 				return false;
 			}
-		} else if(pais != null && pais.getIdpais() != null) {
+		} else if(pais == null || pais.getIdpais() == null) {
 			Mensagem.lancarMensagemInfo("Atenção!", "Informe o pais da unidade");
 			return false;
 		}
