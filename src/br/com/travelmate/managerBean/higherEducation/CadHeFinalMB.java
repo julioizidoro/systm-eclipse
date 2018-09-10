@@ -121,6 +121,8 @@ public class CadHeFinalMB implements Serializable {
 	private Cliente cliente;
 	private boolean camposPathway;
 	private String moedaNacional;
+	private float valorMoedaEstrangeira = 0;
+	private float valorMoedaReal = 0;
 
 	@PostConstruct
 	public void init() {
@@ -433,6 +435,22 @@ public class CadHeFinalMB implements Serializable {
 
 	public void setMoedaNacional(String moedaNacional) {
 		this.moedaNacional = moedaNacional;
+	}
+
+	public float getValorMoedaEstrangeira() {
+		return valorMoedaEstrangeira;
+	}
+
+	public void setValorMoedaEstrangeira(float valorMoedaEstrangeira) {
+		this.valorMoedaEstrangeira = valorMoedaEstrangeira;
+	}
+
+	public float getValorMoedaReal() {
+		return valorMoedaReal;
+	}
+
+	public void setValorMoedaReal(float valorMoedaReal) {
+		this.valorMoedaReal = valorMoedaReal;
 	}
 
 	public void excluirFormaPagamento(String ilinha) {
@@ -808,29 +826,36 @@ public class CadHeFinalMB implements Serializable {
 					if (orcamentoprodutosorcamento.getValorMoedaNacional() == null) {
 						orcamentoprodutosorcamento.setValorMoedaNacional(0f);
 					}
-					if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0)
-							&& (orcamento.getValorCambio() > 0)) {
-						orcamentoprodutosorcamento.setValorMoedaNacional(
-								orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
+					if ((valorMoedaEstrangeira > 0) && (orcamento.getValorCambio() > 0)) {
+						valorMoedaReal = valorMoedaEstrangeira * orcamento.getValorCambio();
 					} else {
-						if ((orcamentoprodutosorcamento.getValorMoedaNacional() > 0)
-								&& (orcamento.getValorCambio() > 0)) {
-							orcamentoprodutosorcamento.setValorMoedaEstrangeira(
-									orcamentoprodutosorcamento.getValorMoedaNacional() / orcamento.getValorCambio());
+						if ((valorMoedaReal > 0) && (orcamento.getValorCambio() > 0)) {
+							valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio();
 						}
 					}
 					if (produtosorcamento.getValormaximo()==0) {
+						orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+						orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
 						produtosorcamento = null;
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-					}else if (produtosorcamento.getValormaximo()>=orcamentoprodutosorcamento.getValorMoedaNacional()){
+					}else if (produtosorcamento.getValormaximo()>=valorMoedaReal){
+						orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+						orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 						calcularValorTotalOrcamento();
 						produtosorcamento = null;
 						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 					}else {
-						Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+						FacesContext fc = FacesContext.getCurrentInstance();
+				        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				        Map<String, Object> options = new HashMap<String, Object>();
+						options.put("contentWidth", 230);
+				        session.setAttribute("valorOriginal", 0f);
+				        session.setAttribute("novoValor", 0f);
+						RequestContext.getCurrentInstance().openDialog("validarTrocaCambioPIN", options, null);
+						//Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
 					}
 				} else
 					Mensagem.lancarMensagemErro("Assessoria TM já inclusa.", "");
@@ -838,6 +863,47 @@ public class CadHeFinalMB implements Serializable {
 				Mensagem.lancarMensagemErro("Produto não selecionado", "");
 		} else
 			Mensagem.lancarMensagemErro("Cambio não selecionado", "");
+	}
+	
+	
+	public void retornoDialogProdutoOrcamento() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        String adicionar = (String) session.getAttribute("adicionar");
+        session.removeAttribute("adicionar");
+        if (adicionar != null) {
+			if (adicionar.equalsIgnoreCase("sim")) {
+				FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
+				Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade.pesquisar(aplicacaoMB.getParametrosprodutos().getCursos(), 33);
+				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+				orcamentoprodutosorcamento.setImportado(false);
+				orcamentoprodutosorcamento.setDescricao(filtroorcamentoproduto.getProdutosorcamento().getDescricao());
+				orcamentoprodutosorcamento.setProdutosorcamento(filtroorcamentoproduto.getProdutosorcamento());
+				if ((valorMoedaEstrangeira > 0) && (orcamento.getValorCambio() > 0)) {
+					valorMoedaReal = valorMoedaEstrangeira * orcamento.getValorCambio();
+				} else {
+					if ((valorMoedaReal > 0) && (orcamento.getValorCambio() > 0)) {
+						valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio();
+					}
+				}
+				orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+				orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
+				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+				calcularValorTotalOrcamento();
+				if (filtroorcamentoproduto.getProdutosorcamento().getIdprodutosOrcamento() == 33) {
+					Filtroorcamentoproduto filtro = null;
+					for (int i = 0; i < listaProdutosOrcamento.size(); i++) {
+						if (listaProdutosOrcamento.get(i).getProdutos().getIdprodutos()==aplicacaoMB.getParametrosprodutos().getCursos()) {
+							if (listaProdutosOrcamento.get(i).getProdutosorcamento().getIdprodutosOrcamento() == 33) {
+								filtro = listaProdutosOrcamento.get(i);
+							}
+						}
+					}
+					listaProdutosOrcamento.remove(filtro);
+				}
+				produtosorcamento = null;
+			}
+		}
 	}
 
 	public void excluirProdutoOrcamento(String linha) {
