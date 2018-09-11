@@ -47,12 +47,14 @@ public class CadProgramaHeMB implements Serializable {
 	private float valorCambio = 0;
 	private Heorcamentopais heorcamentopais;
 	private String sigla = "";
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
 		PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 		listaPais = paisProdutoFacade.listar(22);
 		heorcamentopais = new Heorcamentopais();
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public Pais getPais() {
@@ -133,6 +135,14 @@ public class CadProgramaHeMB implements Serializable {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void listarCidades() {

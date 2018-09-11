@@ -52,6 +52,7 @@ public class CadOrcamentoHeMB implements Serializable{
 	private Heorcamento heorcamento;
 	private List<Moedas> listaMoedas;
 	private Moedas moeda;
+	private String moedaNacional;
 	
 	
 	@PostConstruct
@@ -74,6 +75,7 @@ public class CadOrcamentoHeMB implements Serializable{
 			}
 			verificarMoeda();
 		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 
@@ -144,6 +146,16 @@ public class CadOrcamentoHeMB implements Serializable{
 
 	public void setMoeda(Moedas moeda) {
 		this.moeda = moeda;
+	}
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 
