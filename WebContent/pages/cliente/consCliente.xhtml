@@ -16,13 +16,15 @@
 						<h:panelGrid columns="4" style="width:100%;">
 						<p:outputLabel value="Nome" for="cliente"
 							style="font-size: 11px;margin-left: 1%" />
-						<p:outputLabel value="CPF" for="cpf"
+						<p:outputLabel value="#{consultaClienteMB.nomeCpf}" for="cpf"
 							style="font-size: 11px;" />
 						<p:outputLabel/>
 						<p:outputLabel/>
 						<p:inputText id="cliente" size="40" maxlength="100"
 							class="camposs" value="#{consultaClienteMB.nome}" style="margin-left:1%" />
-						<p:inputMask  mask="999.999.999-99" id="cpf" size="20" maxlength="100"
+						<p:inputMask  mask="999.999.999-99" id="cpf" size="20" maxlength="100" rendered="#{consultaClienteMB.mascara}"
+							class="camposs" value="#{consultaClienteMB.cpf}" style="margin-left:1%" />
+						<p:inputText id="cpf2" size="20" maxlength="100" rendered="#{consultaClienteMB.semmascara}"
 							class="camposs" value="#{consultaClienteMB.cpf}" style="margin-left:1%" />
 						<h:panelGroup>
 							<p:commandButton value="Pesquisar" style="margin-left:20%"

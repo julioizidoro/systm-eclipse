@@ -38,6 +38,9 @@ public class ConsultaClienteMB implements Serializable{
     UsuarioLogadoMB usuarioLogadoMB;
     private String tipo;
     private  String cpf;
+    private boolean mascara = true;
+    private boolean semmascara = false;
+    private String nomeCpf = "CPF";
     
     @PostConstruct
     public void init() {
@@ -51,6 +54,11 @@ public class ConsultaClienteMB implements Serializable{
 	        if (tipo==null){
 	        	tipo="";
 	        }
+	        if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+				nomeCpf = "RUC";
+				mascara = false;
+				semmascara = true;
+			}
     	}
 	}
     
@@ -87,6 +95,30 @@ public class ConsultaClienteMB implements Serializable{
 		this.cpf = cpf;
 	}
 
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
+	}
+
+	public String getNomeCpf() {
+		return nomeCpf;
+	}
+
+	public void setNomeCpf(String nomeCpf) {
+		this.nomeCpf = nomeCpf;
+	}
+
 	public void limpar(){
 		nome = "";
 		cpf = "";
@@ -100,7 +132,7 @@ public class ConsultaClienteMB implements Serializable{
         ClienteFacade clienteFacade = new ClienteFacade();
         String sql = "select c from Cliente c where c.nome like '%" + nome + "%'";
         if (cpf != null && !cpf.equalsIgnoreCase("")) {
-			sql = sql + " and c.cpf='" + cpf + "'";
+			sql = sql + " and c.cpf like '%" + cpf + "%'";
 		}
         if (!tipo.equalsIgnoreCase("turismo")){
         	if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")){
