@@ -855,7 +855,6 @@ public class CadHeFinalMB implements Serializable {
 				        session.setAttribute("valorOriginal", 0f);
 				        session.setAttribute("novoValor", 0f);
 						RequestContext.getCurrentInstance().openDialog("validarTrocaCambioPIN", options, null);
-						//Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
 					}
 				} else
 					Mensagem.lancarMensagemErro("Assessoria TM já inclusa.", "");
