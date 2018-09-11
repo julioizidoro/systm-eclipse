@@ -49,6 +49,7 @@ public class FormaPagamentoMB implements Serializable{
 	private boolean habilitaFormaPagamento02=true;
 	private boolean habilitaFormaPagamento03=true;
 	private boolean habilitaFormaPagamento04=true;
+	private String moedaNacional;
 
 	public Float getTotal() {
 		return total;
@@ -95,6 +96,7 @@ public class FormaPagamentoMB implements Serializable{
         formaPagamento03.setObservacao2("Parcelado no cartão de crédito MASTER, VISA OU AMEX");
         formaPagamento04.setObservacao1("Parcelamento em cheque via financeira");
         formaPagamento04.setObservacao2(" ");
+        moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
         try {
 			calcularParcelamento();
 		} catch (SQLException e) {
@@ -185,6 +187,16 @@ public class FormaPagamentoMB implements Serializable{
 
 	public void setHabilitaFormaPagamento04(boolean habilitaFormaPagamento04) {
 		this.habilitaFormaPagamento04 = habilitaFormaPagamento04;
+	}
+
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 

@@ -13,7 +13,7 @@
                     <br></br>
                     <legend id="iUsu2" ><b>Cálculos de Pagamento</b></legend>
                      <p:fieldset id="idpagamentoavista" legend="Opção 01 - Pagamento á Vista" toggleable="true" style="font-size: 11px;width: 95%;margin-left: 2.5%" >
-                        <p:outputLabel value="Valor R$:" style="margin-left: 2%"/>
+                        <p:outputLabel value="Valor #{formaPagamentoMB.moedaNacional}:" style="margin-left: 2%"/>
                         <p:inputText id="idvalorRS01" value="#{formaPagamentoMB.total}" style="margin-left:1%;text-align: right" >
                             <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                             <p:ajax event="blur" listener="#{formaPagamentoMB.calcular()}"/>
@@ -25,21 +25,21 @@
                     	<p:ajax event="change" listener="#{formaPagamentoMB.verificarFormaPgamento02()}" update=":idCalculoFormaPagamento:idparcelamentoantesviagem" />
                     </p:selectBooleanCheckbox> 
                     <p:fieldset id="idparcelamentoantesviagem" legend="Opção 02 - Parcelamento antes da viagem" toggleable="true" style="font-size: 10px;width: 95%;margin-left: 2.5%" >
-                         <h:panelGrid columns="6">  
-                        	<p:outputLabel value="% Entrada:" style="margin-left:30%"/>
-                            <p:inputText id="idpercentual2" value="#{formaPagamentoMB.formaPagamento02.percentualEntrada}" style="margin-left:3%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}">
+                         <h:panelGrid columns="6" style="width:72%;margin-left:2%;">  
+                        	<p:outputLabel value="% Entrada:" />
+                            <p:inputText id="idpercentual2" value="#{formaPagamentoMB.formaPagamento02.percentualEntrada}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}">
                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                                 <p:ajax event="blur" listener="#{formaPagamentoMB.calcularParcelamento()}" update="idparcelamentoantesviagem"/>
                             </p:inputText>
                             
-                            <p:outputLabel value="Valor da Entrada R$:" style="margin-left:55%"/>
-                        	<p:inputText id="idvalorentrada2" value="#{formaPagamentoMB.formaPagamento02.valorEntrada}" style="margin-left:8%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}">
+                            <p:outputLabel value="Valor da Entrada #{formaPagamentoMB.moedaNacional}:" />
+                        	<p:inputText id="idvalorentrada2" value="#{formaPagamentoMB.formaPagamento02.valorEntrada}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}">
                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                                 <p:ajax event="blur" listener="#{formaPagamentoMB.calcularParcelamentoValorEntrada()}" update="idparcelamentoantesviagem"/>
                             </p:inputText>
                             
-                            <p:outputLabel value="Nº Parcelas:" style="margin-left:75%"/>
-                        	<p:selectOneMenu class="espacocobranca29" id="nparcela2"  value="#{formaPagamentoMB.formaPagamento02.numeroparcela}"  style="width:80px;margin-left:8%" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}">
+                            <p:outputLabel value="Nº Parcelas:"/>
+                        	<p:selectOneMenu id="nparcela2"  value="#{formaPagamentoMB.formaPagamento02.numeroparcela}"  style="width:80px;" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}">
                                 <f:selectItem itemLabel="1" itemValue="1"/> 
                                 <f:selectItem itemLabel="2" itemValue="2"/> 
                                 <f:selectItem itemLabel="3" itemValue="3"/> 
@@ -54,23 +54,34 @@
                                 <f:selectItem itemLabel="12" itemValue="12"/> 
                                 <p:ajax listener="#{formaPagamentoMB.calcularParcelamento()}" update="idparcelamentoantesviagem"/>
                             </p:selectOneMenu>
-                        </h:panelGrid>
-                        <br></br><br></br>
-                        <p:outputLabel value="% Saldo:" style="margin-left:3%"/>
-                        <p:inputText id="idpersentualsaldo2" value="#{formaPagamentoMB.formaPagamento02.percentualSaldo}" style="margin-left:0.4%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}" readonly="true">
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                        <p:outputLabel value="% Saldo:"/>
+                        <p:inputText id="idpersentualsaldo2" value="#{formaPagamentoMB.formaPagamento02.percentualSaldo}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}" readonly="true">
                             <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                             <p:ajax event="blur" listener="#{formaPagamentoMB.calcularParcelamento()}" update="idvalorsaldo2, idvalorparcela2"/>
 					    </p:inputText>
 					    
-					    <p:outputLabel value="Saldo R$:" style="margin-left:16%"/>
-                        <p:inputText id="idvalorsaldo2" value="#{formaPagamentoMB.formaPagamento02.valorSaldo}" style="margin-left:0.7%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}" readonly="true">
+					    <p:outputLabel value="Saldo #{formaPagamentoMB.moedaNacional}:"/>
+                        <p:inputText id="idvalorsaldo2" value="#{formaPagamentoMB.formaPagamento02.valorSaldo}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}" readonly="true">
                             <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                         </p:inputText>
                         
-                        <p:outputLabel value="Valor da Parcela:" style="margin-left:14%"/>
-                        <p:inputText id="idvalorparcela2" value="#{formaPagamentoMB.formaPagamento02.valorparcela}" style="margin-left:0.6%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}" readonly="true">
+                        <p:outputLabel value="Valor da Parcela:" />
+                        <p:inputText id="idvalorparcela2" value="#{formaPagamentoMB.formaPagamento02.valorparcela}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento02}" readonly="true">
                             <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                         </p:inputText>
+                        </h:panelGrid>
                     </p:fieldset>
                     
                     <br></br><br></br><br></br>
@@ -79,20 +90,20 @@
                     </p:selectBooleanCheckbox> 
                     <p:fieldset id="idparcelamentoemcartaocredito" legend="Opção 03 - Parcelamento em cartão de crédito em até 12x" toggleable="true" style="font-size: 10px;width: 95%;margin-left: 2.5%" >
                         
-                        <h:panelGrid columns="6">
-                            <p:outputLabel value="% Entrada:" style="margin-left:35%"/>
-                            <p:inputText id="idpercentualentrada3" value="#{formaPagamentoMB.formaPagamento03.percentualEntrada}" style="margin-left:1%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}">
+                        <h:panelGrid columns="6" style="width:72%;margin-left:2%;">
+                            <p:outputLabel value="% Entrada:"/>
+                            <p:inputText id="idpercentualentrada3" value="#{formaPagamentoMB.formaPagamento03.percentualEntrada}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}">
                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                                 <p:ajax event="blur" listener="#{formaPagamentoMB.calcularParcelamento()}" update="idparcelamentoemcartaocredito"/>
                             </p:inputText>
                             
-                            <p:outputLabel value="Valor da Entrada R$:" style="margin-left:55%"/>
-                            <p:inputText id="idvalorentrada3" value="#{formaPagamentoMB.formaPagamento03.valorEntrada}" style="margin-left:8%;margin-left:1%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}">
+                            <p:outputLabel value="Valor da Entrada #{formaPagamentoMB.moedaNacional}:"/>
+                            <p:inputText id="idvalorentrada3" value="#{formaPagamentoMB.formaPagamento03.valorEntrada}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}">
                                 <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                                 <p:ajax event="blur" listener="#{formaPagamentoMB.calcularParcelamentoValorEntrada()}" update="idparcelamentoemcartaocredito"/>
                             </p:inputText>
                             
-                            <p:outputLabel value="Nº Parcelas:" style="margin-left:75%"/>
+                            <p:outputLabel value="Nº Parcelas:" />
                             <p:selectOneMenu class="espacocobranca29" id="nparcela3"  value="#{formaPagamentoMB.formaPagamento03.numeroparcela}"  style="width:80px;margin-left:8%" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}">
                                 <f:selectItem itemLabel="2" itemValue="2"/> 
                                 <f:selectItem itemLabel="3" itemValue="3"/> 
@@ -107,23 +118,35 @@
                                 <f:selectItem itemLabel="12" itemValue="12"/>
                                 <p:ajax listener="#{formaPagamentoMB.calcularParcelamento()}" update="idvalorparcela3"/>
                              </p:selectOneMenu>
+                        
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                          <p:outputLabel value="% Saldo:"/>
+                          <p:inputText value="#{formaPagamentoMB.formaPagamento03.percentualSaldo}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}" readonly="true">
+                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                          </p:inputText>
+                          
+                          <p:outputLabel value="Saldo #{formaPagamentoMB.moedaNacional}:" />
+                          <p:inputText id="idvalorsaldo3" value="#{formaPagamentoMB.formaPagamento03.valorSaldo}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}" readonly="true">
+                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                          </p:inputText>
+                          
+                          <p:outputLabel value="Valor da Parcela:"/>
+                          <p:inputText id="idvalorparcela3" value="#{formaPagamentoMB.formaPagamento03.valorparcela}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}" readonly="true">
+                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                          </p:inputText>
                            
                         </h:panelGrid>
-                        <br></br><br></br>
-                          <p:outputLabel value="% Saldo:" style="margin-left:3.3%"/>
-                          <p:inputText value="#{formaPagamentoMB.formaPagamento03.percentualSaldo}" style="margin-left:0.3%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}" readonly="true">
-                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-                          </p:inputText>
-                          
-                          <p:outputLabel value="Saldo R$:" style="margin-left:15%"/>
-                          <p:inputText id="idvalorsaldo3" value="#{formaPagamentoMB.formaPagamento03.valorSaldo}" style="margin-left:0.3%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}" readonly="true">
-                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-                          </p:inputText>
-                          
-                          <p:outputLabel value="Valor da Parcela:" style="margin-left:13%"/>
-                          <p:inputText id="idvalorparcela3" value="#{formaPagamentoMB.formaPagamento03.valorparcela}" style="margin-left:0.3%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento03}" readonly="true">
-                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-                          </p:inputText>
                     </p:fieldset>
                      <br></br> <br></br> <br></br>
                      <p:selectBooleanCheckbox value="#{formaPagamentoMB.formaPagamento04.selecionado}" class="espacocobranca29">
@@ -131,21 +154,21 @@
                      </p:selectBooleanCheckbox> 
                       <p:fieldset id="idparcelamentoemcheque" legend="Opção 4 - Parcelamento em cheque em até 12X via financeira*" toggleable="true" style="font-size: 10px;width: 95%;margin-left: 2.5%" >
                         
-                        <h:panelGrid columns="6">
+                        <h:panelGrid columns="6" style="width:72%;margin-left:2%;">
                         
-                        		<p:outputLabel value="% Entrada:" style="margin-left:35%"/>
- 	                            <p:inputText id="idpercentualentrada4" value="#{formaPagamentoMB.formaPagamento04.percentualEntrada}" style="margin-left:1%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}">
+                        		<p:outputLabel value="% Entrada:" />
+ 	                            <p:inputText id="idpercentualentrada4" value="#{formaPagamentoMB.formaPagamento04.percentualEntrada}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}">
  	                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
  	                                <p:ajax event="blur" listener="#{formaPagamentoMB.calcularParcelamento()}" update="idparcelamentoemcheque"/>
  	                            </p:inputText>
   	                            
- 	                            <p:outputLabel value="Valor da Entrada R$:" style="margin-left:55%"/>
- 	                            <p:inputText id="idvalorentrada4" value="#{formaPagamentoMB.formaPagamento04.valorEntrada}" style="margin-left:8%;margin-left:1%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}">
+ 	                            <p:outputLabel value="Valor da Entrada #{formaPagamentoMB.moedaNacional}:" />
+ 	                            <p:inputText id="idvalorentrada4" value="#{formaPagamentoMB.formaPagamento04.valorEntrada}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}">
  	                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
  	                                <p:ajax event="blur" listener="#{formaPagamentoMB.calcularParcelamento()}" update="idparcelamentoemcheque"/>
  	                            </p:inputText>
-	                            <p:outputLabel value="Nº Parcelas:" style="margin-left:41%"/>
-	                            <p:selectOneMenu class="espacocobranca29" id="nparcela4"  value="#{formaPagamentoMB.formaPagamento04.numeroparcela}"  style="width:80px;margin-left:8%" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}">
+	                            <p:outputLabel value="Nº Parcelas:" />
+	                            <p:selectOneMenu  id="nparcela4"  value="#{formaPagamentoMB.formaPagamento04.numeroparcela}"  style="width:80px;" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}">
 	                                 <f:selectItem itemLabel="2" itemValue="2"/> 
 	                                <f:selectItem itemLabel="3" itemValue="3"/> 
 	                                <f:selectItem itemLabel="4" itemValue="4"/> 
@@ -159,22 +182,33 @@
 	                                <f:selectItem itemLabel="12" itemValue="12"/>
 	                                <p:ajax listener="#{formaPagamentoMB.calcularParcelamento()}" update="idvalorparcela4"/>
 	                             </p:selectOneMenu>
-                          
-                          </h:panelGrid>
-                          <br></br><br></br>
-                           <p:outputLabel value="% Saldo:" style="margin-left:3.3%"/>
-                           <p:inputText id="porcentagemSaldo4" value="#{formaPagamentoMB.formaPagamento04.percentualSaldo}"  style="margin-left:0.3%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}" readonly="true">
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                           <p:outputLabel value="% Saldo:"/>
+                           <p:inputText id="porcentagemSaldo4" value="#{formaPagamentoMB.formaPagamento04.percentualSaldo}"  style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}" readonly="true">
                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                           </p:inputText>
                            
-                           <p:outputLabel value="Saldo R$:" style="margin-left:15%"/>
-                          <p:inputText id="idvalorsaldo4" value="#{formaPagamentoMB.formaPagamento04.valorSaldo}" style="margin-left:0.3%;text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}" readonly="true">
+                           <p:outputLabel value="Saldo #{formaPagamentoMB.moedaNacional}:" style="margin-left:15%"/>
+                          <p:inputText id="idvalorsaldo4" value="#{formaPagamentoMB.formaPagamento04.valorSaldo}" style="text-align: right" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}" readonly="true">
                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                            </p:inputText>
-		                          <p:outputLabel value="Valor da Parcela:" style="margin-left:2.5%"/>
-		                          <p:inputText id="idvalorparcela4" value="#{formaPagamentoMB.formaPagamento04.valorparcela}" style="margin-left:0.3%;text-align: right;width:8%" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}" readonly="true">
+		                          <p:outputLabel value="Valor da Parcela:" />
+		                          <p:inputText id="idvalorparcela4" value="#{formaPagamentoMB.formaPagamento04.valorparcela}" style="text-align: right;" disabled="#{formaPagamentoMB.habilitaFormaPagamento04}" readonly="true">
 		                              <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 		                          </p:inputText>
+                          
+                          </h:panelGrid>
                     </p:fieldset>
                     <br></br> <br></br> <br></br> 
                      <br></br> 
