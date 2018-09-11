@@ -49,6 +49,15 @@ public class CadClienteMB implements Serializable {
 	private List<Cliente> listaCliente;
 	private String tipo;
 	private String voltar = "";
+	private boolean mascara = true;
+	private boolean semmascara = false;
+	private String nomeEstado;
+	private String nomeCpf;
+	private String nomeRg;
+	private boolean cep = true;
+	private boolean semcep = false;
+	
+	
 
 	@PostConstruct
 	public void init() {
@@ -72,16 +81,7 @@ public class CadClienteMB implements Serializable {
 				publicidade = cliente.getPublicidade();
 			}
 			gerarListaPublicidade();
-			digitosTelefoneCelular = aplicacaoMB.checkBoxTelefone(usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
-					cliente.getFoneCelular());
-			digitosTelefoneResi = aplicacaoMB.checkBoxTelefone(usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
-					cliente.getFoneResidencial());
-			digitosTelefoneComercio = aplicacaoMB.checkBoxTelefone(usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
-					cliente.getFoneComercial());
-			digitosTelefoneMae = aplicacaoMB.checkBoxTelefone(usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
-					cliente.getFoneMae());
-			digitosTelefonePai = aplicacaoMB.checkBoxTelefone(usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
-					cliente.getFonePai());
+			verificarPaisUnidade();
 		}
 	}
 
@@ -173,6 +173,70 @@ public class CadClienteMB implements Serializable {
 		this.lead = lead;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
+	}
+
+	public String getNomeEstado() {
+		return nomeEstado;
+	}
+
+	public void setNomeEstado(String nomeEstado) {
+		this.nomeEstado = nomeEstado;
+	}
+
+	public String getNomeCpf() {
+		return nomeCpf;
+	}
+
+	public void setNomeCpf(String nomeCpf) {
+		this.nomeCpf = nomeCpf;
+	}
+
+	public String getNomeRg() {
+		return nomeRg;
+	}
+
+	public void setNomeRg(String nomeRg) {
+		this.nomeRg = nomeRg;
+	}
+
+	public boolean isCep() {
+		return cep;
+	}
+
+	public void setCep(boolean cep) {
+		this.cep = cep;
+	}
+
+	public boolean isSemcep() {
+		return semcep;
+	}
+
+	public void setSemcep(boolean semcep) {
+		this.semcep = semcep;
+	}
+
 	public String salvar() {
 		if (publicidade != null) {
 			if (cliente.getNome() != null && cliente.getNome().length() > 0) {
@@ -249,9 +313,9 @@ public class CadClienteMB implements Serializable {
 								} else
 									Mensagem.lancarMensagemFatal("Atenção! Preencha o campo data de nascimento.", "");
 							} else
-								Mensagem.lancarMensagemFatal("Atenção! Preencha o campo CPF.", "");
+								Mensagem.lancarMensagemFatal("Atenção! Preencha o campo "+ nomeCpf +".", "");
 						} else
-							Mensagem.lancarMensagemFatal("Atenção! Preencha o campo RG.", "");
+							Mensagem.lancarMensagemFatal("Atenção! Preencha o campo "+ nomeRg +".", "");
 					}
 				} else
 					Mensagem.lancarMensagemFatal("Atenção! Preencha o campo email.", "");
@@ -285,26 +349,6 @@ public class CadClienteMB implements Serializable {
 		}
 	}
 	
-	public String validarMascaraFoneCelular(){
-		return aplicacaoMB.validarMascaraTelefone(digitosTelefoneCelular);
-	}
-	
-	public String validarMascaraFoneResidencial(){
-		return aplicacaoMB.validarMascaraTelefone(digitosTelefoneResi);
-	}
-	
-	public String validarMascaraFoneComercial(){
-		return aplicacaoMB.validarMascaraTelefone(digitosTelefoneComercio);
-	}
-	
-	public String validarMascaraFoneMae(){
-		return aplicacaoMB.validarMascaraTelefone(digitosTelefoneMae);
-	}
-	
-	public String validarMascaraFonePai(){
-		return aplicacaoMB.validarMascaraTelefone(digitosTelefonePai);
-	}
-	
 	public void verificarCPFCadastrado(){    
 		if (cliente.getCpf()!=null){
 			ClienteFacade clienteFacade = new ClienteFacade();
@@ -336,4 +380,27 @@ public class CadClienteMB implements Serializable {
 			Mensagem.lancarMensagemInfo("Endereço não encontrado!!", "");
 		}
 	}
+	
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			nomeCpf = "RUC";
+			nomeEstado = "Departamento";
+			nomeRg = "Cédula";
+			cep = false;
+			semcep = true;
+			mascara = false;
+			semmascara = true;
+		}else {
+			nomeCpf = "CPF";
+			nomeEstado = "Estado";
+			nomeRg = "RG";
+			cep = true;
+			semcep = false;
+			mascara = true;
+			semmascara = false;
+		}
+	}
+	
+	
+	
 }
