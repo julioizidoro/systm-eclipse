@@ -1488,6 +1488,7 @@ public class FollowUpMB implements Serializable {
 	
 	
 	public String orcamentoVitrine(){
+		usuarioLogadoMB.getUsuario().setDashboard("I"); 
 		return "paginainicial";
 	}
 	
