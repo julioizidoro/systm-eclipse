@@ -960,8 +960,8 @@ public class FichaSeguroViagemMB implements Serializable {
 
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularNumeroVendasProdutos(vendas, false);
-							dashBoardBean.calcularMetaMensal(vendas, 0, false);
-							dashBoardBean.calcularMetaAnual(vendas, 0, false);
+							dashBoardBean.calcularMetaMensal(vendas, vendaAlterada.getValor(), false);
+							dashBoardBean.calcularMetaAnual(vendas, vendaAlterada.getValor(), false);
 							int[] pontos = dashBoardBean.calcularPontuacao(vendas, 0, "", false, vendas.getUsuario());
 							int pontoremover = 0;
 							if (vendaAlterada!=null) {

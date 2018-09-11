@@ -1679,6 +1679,8 @@ public class CadCursoMB implements Serializable {
 							if (mes == mesVenda) {
 								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 								DashBoardBean dashBoardBean = new DashBoardBean();
+								dashBoardBean.calcularMetaMensal(venda, vendaAlterada.getValor(), true);
+								dashBoardBean.calcularMetaAnual(venda, vendaAlterada.getValor(), true);
 								int[] pontos = dashBoardBean.calcularPontuacao(venda, curso.getNumeroSenamas(), "", false, venda.getUsuario());
 								int pontosremover = vendaAlterada.getPonto();
 								productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontosremover, false, venda.getUsuario());
