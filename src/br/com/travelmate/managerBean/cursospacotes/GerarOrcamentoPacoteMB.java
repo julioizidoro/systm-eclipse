@@ -766,7 +766,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 						cursospacote, aplicacaoMB, usuarioLogadoMB, formapagamento);
 		Orcamentoprojetovoluntariado orcamentoprojetovoluntariado = salvarVoluntariadoProjeto
 				.gerarOrcamento();
-		GerarOrcamentoVoluntariadoPDFBean o = new GerarOrcamentoVoluntariadoPDFBean(orcamentoprojetovoluntariado);
+		GerarOrcamentoVoluntariadoPDFBean o = new GerarOrcamentoVoluntariadoPDFBean(orcamentoprojetovoluntariado, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 		OrcamentoPDFFactory.setLista(o.getLista());
 
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()

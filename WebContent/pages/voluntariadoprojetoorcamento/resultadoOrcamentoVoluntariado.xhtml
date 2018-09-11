@@ -109,7 +109,7 @@
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</p:outputLabel>
-							<p:outputLabel value="R$ "
+							<p:outputLabel value="#{resultadoOrcamentoVoluntariadoMB.moedaNacional}"
 								style="font-size: 15px;color:#312E25;font-weight: bold;float:right;margin-left:1%;" />
 						</h:panelGroup>
 
@@ -161,7 +161,7 @@
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
 									</p:outputLabel>
-									<p:outputLabel value="R$ "
+									<p:outputLabel value="#{resultadoOrcamentoVoluntariadoMB.moedaNacional} "
 										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;" />
 								</h:panelGroup>
 							</h:panelGrid>  
@@ -199,7 +199,7 @@
 										<f:convertNumber pattern="##,###,###,###.##"
 											minFractionDigits="2" />
 									</p:outputLabel>
-									<p:outputLabel value="R$ "
+									<p:outputLabel value="#{resultadoOrcamentoVoluntariadoMB.moedaNacional} "
 										style="font-size: 15px;color:#312E25;font-weight: bold;float:right;" />
 								</h:panelGroup>
 							</h:panelGrid>
@@ -264,7 +264,7 @@
 							style="font-weight:bold;font-size: 12px;" />
 						<p:outputLabel value="Valor" for="valorunitario"
 							style="font-weight:bold;font-size: 12px;" />
-						<p:outputLabel value="Valor em R$" for="valorunitarioRS"
+						<p:outputLabel value="Valor em #{resultadoOrcamentoVoluntariadoMB.moedaNacional}" for="valorunitarioRS"
 							style="font-weight:bold;font-size: 12px;" />
 
 						<p:selectOneMenu style="width:150px;" id="seguradora"
@@ -346,7 +346,7 @@
 							style="font-weight:bold;font-size:12px;" />
 						<p:outputLabel value="Valor Total" for="valormoeda"
 							style="font-weight:bold;font-size: 12px;" />
-						<p:outputLabel value="Valor Total em R$" for="valorseguro"
+						<p:outputLabel value="Valor Total em #{resultadoOrcamentoVoluntariadoMB.moedaNacional}" for="valorseguro"
 							style="font-weight:bold;font-size: 12px;" />
 						<p:outputLabel />
 
@@ -441,7 +441,7 @@
 									value="#{resultadoOrcamentoVoluntariadoMB.retornarValorString(outrosProdutos.valorOrigianl, resultadoOrcamentoVoluntariadoMB.orcamento.cambio.moedas.sigla)}"
 									style="font-weight:bold;font-size:14px;text-align: right;" />
 								<h:outputText id="valorRealOutrosProdutos"
-									value="#{resultadoOrcamentoVoluntariadoMB.retornarValorString(outrosProdutos.valorOriginalRS, R$)}"
+									value="#{resultadoOrcamentoVoluntariadoMB.retornarValorString(outrosProdutos.valorOriginalRS, resultadoOrcamentoVoluntariadoMB.moedaNacional)}"
 									style="font-weight:bold;font-size:14px;text-align: right;">
 								</h:outputText>
 								<p:overlayPanel id="painelDescricaoOutrosProdutos"
@@ -458,7 +458,7 @@
 									</h:outputText>
 									<br></br>
 									<br></br>
-									<h:outputText value="R$ " style="font-size:9px;"
+									<h:outputText value="#{resultadoOrcamentoVoluntariadoMB.moedaNacional} " style="font-size:9px;"
 										class="espacocobranca29" />
 									<h:outputText value="#{outrosProdutos.valorOriginalRS}"
 										style="font-size:9px;">
@@ -514,13 +514,13 @@
 								style="font-weight:bold;font-size: 13px;width: 20%;margin-left: 1%" />
 
 							<br></br>
-							<h:outputText value="Valor R$"
+							<h:outputText value="Valor #{resultadoOrcamentoVoluntariadoMB.moedaNacional}"
 								style="font-weight:bold;font-size: 12px;margin-left:60%" />
 							<p:inputText id="valordesconto"
 								value="#{desconto.valormoedanacional}"
 								readonly="#{desconto.taxaTmSelecionado}"
 								style="font-size:11px;text-align: right;margin-left:1%;width: 10%"
-								placeholder="Valor R$">
+								placeholder="Valor #{resultadoOrcamentoVoluntariadoMB.moedaNacional}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 								<p:ajax event="blur"
@@ -578,7 +578,7 @@
 										minFractionDigits="2" />
 								</h:outputText>
 								<br></br>
-								<h:outputText value="R$ "
+								<h:outputText value="#{resultadoOrcamentoVoluntariadoMB.moedaNacional} "
 									style="font-weight:bold;font-size: 13px;" />
 								<h:outputText
 									value="#{resultadoOrcamentoVoluntariadoMB.totalmoedanacional}"
@@ -608,7 +608,7 @@
 										minFractionDigits="2" />
 								</h:outputText>
 								<br></br>
-								<h:outputText value="R$ "
+								<h:outputText value="#{resultadoOrcamentoVoluntariadoMB.moedaNacional} "
 									style="font-weight:bold;font-size: 13px;" />
 								<h:outputText
 									value="#{resultadoOrcamentoVoluntariadoMB.totalextrasmoedanacional}"

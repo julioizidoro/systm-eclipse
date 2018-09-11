@@ -71,6 +71,7 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
 	private List<NumeroParcelasBean> listaNumeroParcelas;
 	private NumeroParcelasBean numeroParcelaSelecionado;
     private String obs;
+    private String moedaNacional;
     
 
 	@PostConstruct
@@ -83,6 +84,7 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
         listaNumeroParcelas = new ArrayList<NumeroParcelasBean>();
         gerarListaNuneroParcelas(orcamento.getDatainicial()); 
         orcamento.getOrcamentovoluntariadoformapagamento().setAvista(orcamento.getTotalRS()); 
+        moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
     }
 	
 	public List<NumeroParcelasBean> getListaNumeroParcelas() {
@@ -163,6 +165,14 @@ public class FormaPagamentoOrcamentoVoluntariadoMB implements Serializable{
 
 	public void setObs(String obs) {
 		this.obs = obs;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void calcularParcelamento2() throws SQLException {

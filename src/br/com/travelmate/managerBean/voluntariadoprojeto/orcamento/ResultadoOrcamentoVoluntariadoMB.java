@@ -54,6 +54,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 	private List<Valoresseguro> listaValoresSeguro; 
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
+	private String moedaNacional;
 
 	@PostConstruct
 	public void init() {
@@ -77,6 +78,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 		}else {
 			seguroplanos = new Seguroplanos();
 		}
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		somarValorTotal();
 	}
 
@@ -174,6 +176,14 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 
 	public void setSeguroplanos(Seguroplanos seguroplanos) {
 		this.seguroplanos = seguroplanos;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public String retornarDescricaoAcomodacao(){

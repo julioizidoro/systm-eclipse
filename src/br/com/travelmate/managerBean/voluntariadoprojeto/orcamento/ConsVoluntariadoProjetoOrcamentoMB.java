@@ -213,7 +213,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 	
 
 	public void gerarOrcamentoPDF(Orcamentoprojetovoluntariado orcamentoprojetovoluntariado, String tipo) throws IOException { 
-		GerarOrcamentoVoluntariadoPDFBean o = new GerarOrcamentoVoluntariadoPDFBean(orcamentoprojetovoluntariado);
+		GerarOrcamentoVoluntariadoPDFBean o = new GerarOrcamentoVoluntariadoPDFBean(orcamentoprojetovoluntariado, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 		OrcamentoPDFFactory.setLista(o.getLista());
 
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
