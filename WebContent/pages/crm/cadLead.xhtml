@@ -29,21 +29,48 @@
 				</p:commandLink> 
 			</h:panelGroup>
 			<h:panelGroup id="painelTelefone" rendered="#{cadLeadMB.pesquisatelefone}">
-				<p:inputMask id="buscarTelefone"  mask="(99)99999-9999"
+				<p:inputMask id="buscarTelefone"  mask="(99)99999-9999" rendered="#{cadLeadMB.mascara}"
 					value="#{cadLeadMB.nomeCliente}" style="width:20%;">
 					<p:ajax event="keyup" listener="#{cadLeadMB.buscarTelefone()}"
 						update="tabelaClienteFone" />
 				</p:inputMask>
+				<p:inputText id="buscarTelefone2" rendered="#{cadLeadMB.semmascara}"
+					value="#{cadLeadMB.nomeCliente}" style="width:20%;">
+					<p:ajax event="keyup" listener="#{cadLeadMB.buscarTelefone()}"
+						update="tabelaClienteFone2" />
+				</p:inputText>
 				<p:commandLink id="btnNomeCliente" title="Pesquisa por nome ou e-mail do cliente." 
 					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
 					action="#{cadLeadMB.mudarPesquisa()}" update="@form" style="text-decoration:none;">
 					<img src="../../resources/img/crm/pesquisanomecliente.png" />
 				</p:commandLink>  
-			</h:panelGroup>  
+			</h:panelGroup>   
 		</div>
 		<p:overlayPanel id="painelClienteTelefone" for="buscarTelefone"
 			hideEffect="fade" style="width:400px;background:#fff;">
 			<p:dataScroller id="tabelaClienteFone" var="cliente"
+				value="#{cadLeadMB.listaCliente}" chunkSize="10" mode="inline"
+				scrollHeight="110">
+				<p:outputPanel>    
+					<h:panelGrid columns="3" style="width:100%;"
+						columnClasses="tamanhoavisos2, tamanhoavisos2, tamanho6">
+						<h:outputLabel value="#{cliente.nome}"
+							style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+						<h:outputLabel value="#{cliente.foneCelular}"
+							style="font-size: 13px;color:#4C4C4C;font-weight: 500;float:right;" />
+						<p:commandLink id="btnSelecionarCliente"
+							action="#{cadLeadMB.selecionarCliente(cliente)}"
+							onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+							style="float:right;" title="Selecionar Cliente" update="@form">
+							<img src="../../resources/img/crm/confirmar.png" width="22" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dataScroller> 
+		</p:overlayPanel>
+		<p:overlayPanel id="painelClienteTelefone2" for="buscarTelefone2"
+			hideEffect="fade" style="width:400px;background:#fff;">
+			<p:dataScroller id="tabelaClienteFone2" var="cliente"
 				value="#{cadLeadMB.listaCliente}" chunkSize="10" mode="inline"
 				scrollHeight="110">
 				<p:outputPanel>    
@@ -132,7 +159,9 @@
 			<p:outputLabel value="Telefone" for="email" />
 			<p:outputLabel value="Origem" for="origem" />
 
-			<p:inputMask id="telefone" mask="(99)99999-9999" style="width:90%;"
+			<p:inputMask id="telefone" mask="(99)99999-9999" style="width:90%;" rendered="#{cadLeadMB.mascara}"
+				value="#{cadLeadMB.cliente.foneCelular}" />
+			<p:inputText id="telefone2" rendered="#{cadLeadMB.semmascara}" style="width:90%;"
 				value="#{cadLeadMB.cliente.foneCelular}" />
 			<p:selectOneMenu id="origem" value="#{cadLeadMB.publicidade}"
 				style="width:90%;" filter="true" filterMatchMode="startsWith"

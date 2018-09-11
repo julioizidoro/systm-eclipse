@@ -81,6 +81,8 @@ public class CadLeadMB implements Serializable {
     private boolean desabilitarConfirmar = false;
     private List<Pais> listaPais;
     private String email;
+    private boolean mascara = true;
+    private boolean semmascara = false;
 
 	@PostConstruct()
 	public void init() {
@@ -103,6 +105,7 @@ public class CadLeadMB implements Serializable {
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}
+		verificarPaisUnidade();
 	}
 
 	public String getNomeCliente() {
@@ -273,6 +276,22 @@ public class CadLeadMB implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
 	}
 
 	public void buscarCliente() {
@@ -532,5 +551,15 @@ public class CadLeadMB implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			mascara = false;
+			semmascara = true;
+		}else {
+			mascara = true;
+			semmascara = false;
+		}
 	}
 }
