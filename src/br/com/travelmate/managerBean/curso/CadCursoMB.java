@@ -1679,8 +1679,8 @@ public class CadCursoMB implements Serializable {
 							if (mes == mesVenda) {
 								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 								DashBoardBean dashBoardBean = new DashBoardBean();
-								dashBoardBean.calcularMetaMensal(venda, vendaAlterada.getValor(), true);
-								dashBoardBean.calcularMetaAnual(venda, vendaAlterada.getValor(), true);
+								dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
+								dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 								int[] pontos = dashBoardBean.calcularPontuacao(venda, curso.getNumeroSenamas(), "", false, venda.getUsuario());
 								int pontosremover = vendaAlterada.getPonto();
 								productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontosremover, false, venda.getUsuario());
@@ -2938,6 +2938,7 @@ public class CadCursoMB implements Serializable {
 			cambio.setValor(valorCambio);
 			calcularValorTotalOrcamento();
 			carregarCamposAcomodacao();
+			valorVendaAlterar = venda.getValor();
 		}
 		consultaCambio = true;
 	}
