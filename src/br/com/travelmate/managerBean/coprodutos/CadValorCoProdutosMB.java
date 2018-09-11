@@ -38,8 +38,8 @@ public class CadValorCoProdutosMB implements Serializable{
         session.removeAttribute("valorcoprodutos");
         if (valorcoprodutos==null){
             valorcoprodutos = new Valorcoprodutos();
-            valorcoprodutos.setDatainicial(Formatacao.ConvercaoStringData("01/01/2018"));
-            valorcoprodutos.setDatafinal(Formatacao.ConvercaoStringData("31/12/2018"));
+            valorcoprodutos.setDatainicial(Formatacao.ConvercaoStringData("01/01/2019"));
+            valorcoprodutos.setDatafinal(Formatacao.ConvercaoStringData("31/12/2019"));
             valorcoprodutos.setTipodata("DM");
             valorcoprodutos.setValorpromocional(0.0f);
             valorcoprodutos.setCoprodutos(coprodutos);
