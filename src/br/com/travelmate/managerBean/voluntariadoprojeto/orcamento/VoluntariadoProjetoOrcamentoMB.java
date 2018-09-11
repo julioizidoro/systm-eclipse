@@ -372,7 +372,7 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 			idMoeda = fornecedorPais.getPais().getMoedasVolutariado().getIdmoedas();
 		}
 		while (cambio == null) {
-			cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(data), idMoeda);
+			cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(data), idMoeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			try {
 				data = Formatacao.SomarDiasDatas(data, -1);
 			} catch (Exception ex) {

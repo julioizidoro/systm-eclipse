@@ -283,9 +283,9 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 		orcamento.getSeguroviagem().setValoresseguro(orcamento.getValorSeguro());
 		if ((orcamento.getSeguroviagem().getDataInicio() != null) && (orcamento.getSeguroviagem().getNumeroSemanas() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(
 					Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
-					orcamento.getValorSeguro().getMoedas().getIdmoedas());
+					orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				if (orcamento.getSeguroviagem().getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
 					orcamento.getSeguroviagem().setDataTermino(Formatacao.calcularDataFinalPorDias(orcamento.getSeguroviagem().getDataInicio(),
@@ -346,7 +346,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 		ProdutosExtrasBean feb = (ProdutosExtrasBean) event.getObject();
 		feb.setValorOrigianlString(orcamento.getCambio().getMoedas().getSigla() + " "
 				+ Formatacao.formatarFloatString(feb.getValorOrigianl()));
-		feb.setValorOriginalRSString("R$ " + Formatacao.formatarFloatString(feb.getValorOriginalRS()));
+		feb.setValorOriginalRSString(moedaNacional + " " + Formatacao.formatarFloatString(feb.getValorOriginalRS()));
 		orcamento.getListaOutrosProdutos().add(feb);
 		somarValorTotal();
 	}
