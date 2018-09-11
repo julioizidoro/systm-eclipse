@@ -173,7 +173,7 @@ public class ContasReceberBean {
 				conta.setNumerodocumento(String.valueOf(venda.getIdvendas()));
 			} else
 				conta.setNumerodocumento(numeroDocumento);
-
+			
 			if (i < 9) {
 				conta.setNumeroparcelas("0" + (String.valueOf(i + 1)) + "/" + numeroParcelasFormatado);
 			} else {
@@ -209,6 +209,7 @@ public class ContasReceberBean {
 			conta.setBoletoenviado(false);
 			conta.setVendas(venda);
 			conta.setIdparcelamentopagamento(parcela.getIdparcemlamentoPagamento());
+			conta.setHora(Formatacao.foramtarHoraString());
 			listaContas.add(conta);
 			if (cmes == 12) {
 				cmes = 1;
