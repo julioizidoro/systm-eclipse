@@ -1290,7 +1290,7 @@ public class ControleVendasMB implements Serializable {
 		if (vendas.getSituacao().equals("FINALIZADA")) {
 			return "../../resources/img/finalizadoFicha.png";
 		} else if (vendas.getSituacao().equals("ANDAMENTO")) {
-			return "../../resources/img/amarelaFicha.png";
+			return "../../resources/img/ficharestricao.png";
 		} else if (vendas.getSituacao().equals("CANCELADA")) {
 			return "../../resources/img/fichaCancelada.png";
 		} else if ((vendas.getSituacao().equalsIgnoreCase("PROCESSO")) && (vendas.isRestricaoparcelamento())) {
