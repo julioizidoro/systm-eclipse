@@ -489,6 +489,8 @@ public class EmissaoCancelamentoMB implements Serializable {
 	}
 
 	public String confirmar() {
+		int mesVenda = Formatacao.getMesData(vendas.getDataVenda());
+		int mesAtual = Formatacao.getMesData(new Date());
 		if (habilitarSalvar) {
 			if (validarValoresCreditoReembolso()) {
 
@@ -509,24 +511,30 @@ public class EmissaoCancelamentoMB implements Serializable {
 							Passagemaerea passagemaerea = passagemFacade.consultar(vendas.getIdvendas());
 							UsuarioFacade usuarioFacade = new UsuarioFacade();
 							vendaspontuacoes.setUsuario(usuarioFacade.consultar(passagemaerea.getIdusuario()));
-							dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
-							dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							if (mesAtual == mesVenda) {
+								dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+								dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							}
 							if (cancelamento.getMultacliente()<=0) {
 								dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
 								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 								productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
 							}
 						}else if(vendas.getProdutos().getIdprodutos() == 7) {
-							dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
-							dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							if (mesAtual == mesVenda) {
+								dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+								dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							}
 							if (cancelamento.getMultacliente()<=0) {
 								dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
 								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 								productRunnersCalculosBean.calcularPontuacao(vendas, vendas.getPonto(), 0, true, vendas.getUsuario());
 							}
 						}else {
-							dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
-							dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							if (mesAtual == mesVenda) {
+								dashBoardBean.calcularMetaMensal(vendas, vendas.getValor(), true);
+								dashBoardBean.calcularMetaAnual(vendas, vendas.getValor(), true);
+							}
 							if (cancelamento.getMultacliente()<=0) {
 								dashBoardBean.calcularPontuacao(vendas, 0, "", true, vendas.getUsuario());
 								ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
