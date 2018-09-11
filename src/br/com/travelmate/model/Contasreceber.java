@@ -121,8 +121,8 @@ public class Contasreceber implements Serializable {
     private Integer idparcelamentopagamento;
     @Column(name = "restrito")
     private boolean restrito;
-    @Column(name = "hora")
-    private String hora;
+    @Column(name = "horaemissao")
+    private String horaemissao;
     
 
     public Contasreceber() {
@@ -399,12 +399,12 @@ public class Contasreceber implements Serializable {
 		this.restrito = restrito;
 	}
 
-	public String getHora() {
-		return hora;
+	public String getHoraemissao() {
+		return horaemissao;
 	}
 
-	public void setHora(String hora) {
-		this.hora = hora;
+	public void setHoraemissao(String horaemissao) {
+		this.horaemissao = horaemissao;
 	}
 
 	@Override
