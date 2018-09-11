@@ -1143,6 +1143,7 @@ public class HistoricoClienteMB implements Serializable {
 	
 	
 	public String orcamentoVitrine(){
+		usuarioLogadoMB.getUsuario().setDashboard("I"); 
 		return "paginainicial";
 	}  
 	
