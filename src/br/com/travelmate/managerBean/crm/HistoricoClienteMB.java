@@ -1439,7 +1439,7 @@ public class HistoricoClienteMB implements Serializable {
 		session.setAttribute("vendaMatriz", vendaMatriz);
 		int idlead=0; 
 		session.setAttribute("idlead", idlead);
-		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("lead", lead);
 		return "fichaSeguroViagem";
 	}
     
@@ -1450,7 +1450,7 @@ public class HistoricoClienteMB implements Serializable {
 		session.setAttribute("vendaMatriz", vendaMatriz);
 		int idlead=0; 
 		session.setAttribute("idlead", idlead);
-		session.setAttribute("cliente", lead.getCliente());
+		session.setAttribute("lead", lead);
 		return "fichaSeguroViagem";
 	}
 	

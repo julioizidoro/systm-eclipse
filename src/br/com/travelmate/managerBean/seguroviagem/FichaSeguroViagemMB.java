@@ -23,6 +23,7 @@ import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.DataVencimentoBean;
+import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
@@ -138,10 +139,10 @@ public class FichaSeguroViagemMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		seguro = (Seguroviagem) session.getAttribute("seguro");
 		voltarControleVendas = (String) session.getAttribute("voltarControleVendas");
-		cliente = (Cliente) session.getAttribute("cliente");
+		lead = (Lead) session.getAttribute("lead");
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("seguro");
-		session.removeAttribute("cliente");
+		session.removeAttribute("lead");
 		String vendaMatriz = (String) session.getAttribute("vendaMatriz");
 		session.removeAttribute("vendaMatriz");
 		iniciarListaFornecedorCidade(); 
@@ -153,8 +154,10 @@ public class FichaSeguroViagemMB implements Serializable {
 			formaPagamento = new Formapagamento();
 			formaPagamento.setParcelamentopagamentoList(new ArrayList<Parcelamentopagamento>());
 			cambio = new Cambio();
-			if (cliente == null) {
+			if (lead == null) {
 				cliente = new Cliente();
+			}else {
+				cliente = lead.getCliente();
 			}
 			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 			orcamento = new Orcamento();
@@ -1404,5 +1407,12 @@ public class FichaSeguroViagemMB implements Serializable {
 			numero="3";
 		}
 	} 
+	
+	
+	public void finalizarLead(Lead lead, LeadDao leadDao, LeadSituacaoDao leadSituacaoDao){
+		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
+		lead.setSituacao(6);
+		leadDao.salvar(lead);
+	}
 
 }
