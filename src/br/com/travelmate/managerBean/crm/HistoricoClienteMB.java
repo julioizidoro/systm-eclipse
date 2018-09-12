@@ -1154,6 +1154,8 @@ public class HistoricoClienteMB implements Serializable {
 			resultado = false;
 		}else if(lead.getProdutos().getIdprodutos() == 22) {
 			resultado = false;
+		}else if(lead.getProdutos().getIdprodutos() == 2) {
+			resultado = false;
 		}
 		return resultado;
 	}
@@ -1168,6 +1170,14 @@ public class HistoricoClienteMB implements Serializable {
 	public boolean habiltiarCamposHe(){
 		boolean resultado = false;
 		if (lead.getProdutos().getIdprodutos() == 22) {
+			resultado = true;
+		}
+		return resultado;
+	}
+	
+	public boolean habiltiarCamposSeguro(){
+		boolean resultado = false;
+		if (lead.getProdutos().getIdprodutos() == 2) {
 			resultado = true;
 		}
 		return resultado;
@@ -1418,6 +1428,30 @@ public class HistoricoClienteMB implements Serializable {
 			}
 		}
 		return contrato;
+	}
+	
+	
+
+	public String vendaNaoMatriz() {
+		String vendaMatriz = "N";
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendaMatriz", vendaMatriz);
+		int idlead=0; 
+		session.setAttribute("idlead", idlead);
+		session.setAttribute("cliente", lead.getCliente());
+		return "fichaSeguroViagem";
+	}
+    
+	public String vendaMatriz() {
+		String vendaMatriz = "S";
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendaMatriz", vendaMatriz);
+		int idlead=0; 
+		session.setAttribute("idlead", idlead);
+		session.setAttribute("cliente", lead.getCliente());
+		return "fichaSeguroViagem";
 	}
 	
 	

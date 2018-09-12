@@ -1436,11 +1436,21 @@ public class FollowUpMB implements Serializable {
 		return resultado;
 	}
 	
+	public boolean habiltiarCamposSeguro(Lead lead){
+		boolean resultado = false;
+		if (lead.getProdutos().getIdprodutos() == 2) {
+			resultado = true;
+		}
+		return resultado;
+	}
+	
 	public boolean habiltiarVenda(Lead lead){
 		boolean resultado = true;
 		if (lead.getProdutos().getIdprodutos() == 21) {
 			resultado = false;
 		}else if(lead.getProdutos().getIdprodutos() == 22) {
+			resultado = false;
+		}else if (lead.getProdutos().getIdprodutos() == 2) {
 			resultado = false;
 		}
 		return resultado;
@@ -1512,6 +1522,29 @@ public class FollowUpMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
 		session.setAttribute("lead", lead);
 		return "cadOrcamentoHe";
+	}
+	
+	
+	public String vendaNaoMatriz(Lead lead) {
+		String vendaMatriz = "N";
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendaMatriz", vendaMatriz);
+		int idlead=0; 
+		session.setAttribute("idlead", idlead);
+		session.setAttribute("cliente", lead.getCliente());
+		return "fichaSeguroViagem";
+	}
+    
+	public String vendaMatriz(Lead lead) {
+		String vendaMatriz = "S";
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendaMatriz", vendaMatriz);
+		int idlead=0; 
+		session.setAttribute("idlead", idlead);
+		session.setAttribute("cliente", lead.getCliente());
+		return "fichaSeguroViagem";
 	}
 
 }

@@ -318,6 +318,39 @@
 										</h:panelGrid>
 										<p:ajax event="dialogReturn" listener="#{historicoClienteMB.retornoDialogEmissao}" update="@form"/>
 									</p:commandLink>
+									<p:commandLink id="btnEmissaoSeguro"
+										title="Emissão de vendas" rendered="#{historicoClienteMB.habiltiarCamposSeguro()}" style="margin-left:8%;">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/crm/emitirvendas.png"
+													width="48" />
+												<p:outputLabel value="EMISSÃO" style="font-size:11px;" />
+												<p:outputLabel value="DE VENDA" style="font-size:11px;" />
+											</h:panelGrid>
+									</p:commandLink>
+									<p:overlayPanel id="painelInformacoesSeguro"
+										for="btnEmissaoSeguro" hideEffect="fade"
+										style="background:#F0F0F0;width:200px;">
+										<h:panelGrid
+											style="width:100%;border-color:transparent;border:transparent;"
+											columns="1">
+											<p:outputLabel value="Venda emitida pela matriz?"
+												style="font-size:12px;" />
+										</h:panelGrid>
+										<h:panelGrid columns="2" style="width:100%;">
+											<p:outputLabel />
+											<p:outputLabel />
+											<p:commandButton value="Sim"
+												action="#{historicoClienteMB.vendaMatriz()}"
+												styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+												style="margin-left:10%;font-size:12px" />
+
+											<p:commandButton value="Não"
+												action="#{historicoClienteMB.vendaNaoMatriz()}"
+												styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+												style="font-size:12px" />
+
+										</h:panelGrid>
+									</p:overlayPanel>
 									<p:commandLink id="btnEmissao"
 										title="Emissão de vendas" rendered="#{historicoClienteMB.habiltiarCamposHe()}" style="margin-left:8%;">
 											<h:panelGrid columns="1" style="text-align:center;">

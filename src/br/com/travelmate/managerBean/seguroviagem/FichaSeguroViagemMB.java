@@ -138,8 +138,10 @@ public class FichaSeguroViagemMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		seguro = (Seguroviagem) session.getAttribute("seguro");
 		voltarControleVendas = (String) session.getAttribute("voltarControleVendas");
+		cliente = (Cliente) session.getAttribute("cliente");
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("seguro");
+		session.removeAttribute("cliente");
 		String vendaMatriz = (String) session.getAttribute("vendaMatriz");
 		session.removeAttribute("vendaMatriz");
 		iniciarListaFornecedorCidade(); 
@@ -151,7 +153,9 @@ public class FichaSeguroViagemMB implements Serializable {
 			formaPagamento = new Formapagamento();
 			formaPagamento.setParcelamentopagamentoList(new ArrayList<Parcelamentopagamento>());
 			cambio = new Cambio();
-			cliente = new Cliente();
+			if (cliente == null) {
+				cliente = new Cliente();
+			}
 			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 			orcamento = new Orcamento();
 			vendas.setVendasMatriz(vendaMatriz);

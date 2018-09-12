@@ -532,6 +532,34 @@
 									
 								</h:panelGrid> 
 							</p:overlayPanel>  
+							<p:commandLink id="btnEmissaoSeguro" style="border-color:transparent;border:none;"
+								title="Emissão de vendas" rendered="#{followUpMB.habiltiarCamposSeguro(lead)}">
+									<img src="../../resources/img/crm/emitirvendas.png" width="30" />
+							</p:commandLink>
+							<p:overlayPanel id="painelInformacoesSeguro" for="btnEmissaoSeguro"
+								hideEffect="fade" style="background:#F0F0F0;width:200px;">
+								<h:panelGrid
+									style="width:100%;border-color:transparent;border:transparent;"
+									columns="1">
+									<p:outputLabel value="Venda emitida pela matriz?"
+										style="font-size:12px;" />
+								</h:panelGrid>
+								<h:panelGrid columns="2" style="width:100%;">
+									<p:outputLabel/>
+									<p:outputLabel/>
+									<p:commandButton value="Sim"
+										action="#{followUpMB.vendaMatriz(lead)}"
+										styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+										
+										style="margin-left:10%;font-size:12px" />
+
+									<p:commandButton value="Não"
+										action="#{followUpMB.vendaNaoMatriz(lead)}"  styleClass="ui-confirmdialog-no"
+										icon="ui-icon-close"
+										style="font-size:12px" />
+
+								</h:panelGrid>
+							</p:overlayPanel>
 							<p:commandLink id="btnOrcamento" style="border-color:transparent;border:none;"
 								title="ORÇAMENTO" rendered="#{followUpMB.habiltiarCampos(lead)}">
 									<img src="../../resources/img/crm/orcamento.png" width="25" />
