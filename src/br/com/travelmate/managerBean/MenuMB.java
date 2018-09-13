@@ -1625,6 +1625,10 @@ public class MenuMB implements Serializable {
 	}
 	
 	
+	public String relatorioProgramas() {
+		return "relatorioProgramas";
+	}
+	
 	
 	
 }

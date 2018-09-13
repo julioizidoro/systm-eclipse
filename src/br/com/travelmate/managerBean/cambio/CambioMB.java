@@ -200,10 +200,5 @@ public class CambioMB  implements Serializable{
 	}
 	
 	
-	public void carregarCambio() {
-		
-	}
-	
-	
 	
 }

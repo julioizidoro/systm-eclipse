@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultacursos" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<p:accordionPanel rendered="true" class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="4"
+							style="width:98%;margin-left:4%;">
+							<p:outputLabel value="Unidade" for="unidade" />
+							<p:outputLabel value="Consultor" />
+							<p:outputLabel value="Programa" />
+							<p:outputLabel value="Data Inicio" />
+
+							<p:selectOneMenu id="unidade"
+								value="#{relatorioProgramasMB.unidadenegocio}"
+								style="width:250px;" converter="UnidadeNegocioConverter"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{relatorioProgramasMB.listaUnidadeNegocio}"
+									var="sUnidade" itemLabel="#{sUnidade.nomerelatorio}"
+									itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{relatorioProgramasMB.listaUnidadeNegocio}" />
+								<p:ajax event="change"
+									listener="#{relatorioProgramasMB.gerarListaConsultor()}"
+									update="consultor" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="consultor"
+								value="#{relatorioProgramasMB.consultor}"
+								style="width:200px;" filter="true"
+								filterMatchMode="startsWith" converter="UsuarioConverter">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idconsultor"
+									value="#{relatorioProgramasMB.listaConsultor}"
+									var="sUsuario" itemLabel="#{sUsuario.nome}"
+									itemValue="#{sUsuario}" />
+								<f:attribute name="listaUsuario"
+									value="#{relatorioProgramasMB.listaConsultor}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="produtolead"
+								value="#{relatorioProgramasMB.programas}"
+								style="width:200px;" converter="ProdutoConverter" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Todos" itemValue="0" />
+								<f:selectItems id="idproduto"
+									value="#{relatorioProgramasMB.listaProgramas}"
+									var="cproduto" itemLabel="#{cproduto.descricao}"
+									itemValue="#{cproduto}" />
+								<f:attribute name="listaProdutos"
+									value="#{relatorioProgramasMB.listaProgramas}" />
+							</p:selectOneMenu>
+							<h:panelGrid columns="2" style="width:57%;">
+								<p:calendar id="dataIni"
+									value="#{relatorioProgramasMB.dataInicio}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinal"
+									value="#{relatorioProgramasMB.dataTermino}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGrid>
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="Pais" />
+							<p:outputLabel value="Cidade" />
+							<p:outputLabel value="Parceiro" />
+							<p:outputLabel value="Data Venda" />
+
+
+
+
+							<p:selectOneMenu id="pais" value="#{relatorioProgramasMB.pais}"
+								style="width:250px;" converter="PaisConverterS" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{relatorioProgramasMB.listaPais}"
+									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+								<f:attribute name="listaPais" value="#{relatorioProgramasMB.listaPais}" />
+								<p:ajax event="change" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="cidade" value="#{relatorioProgramasMB.cidade}"
+								style="width:200px;" converter="CidadeConverter"
+								filter="true" filterMatchMode="startsWith"
+								>
+								<f:selectItem itemLabel="Cidade" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade2"
+									value="#{relatorioProgramasMB.pais.cidadeList}" var="cursocidade"
+									itemLabel="#{cursocidade.nome}" itemValue="#{cursocidade}" />
+								<f:attribute name="listaCidade"
+									value="#{relatorioProgramasMB.pais.cidadeList}" />
+								<p:ajax event="change"
+									listener="#{relatorioProgramasMB.listarFornecedorCidade()}"
+									update="fornecedor" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="fornecedor"
+								value="#{relatorioProgramasMB.fornecedorCidade}"
+								style="width:200px;"
+								converter="FornecedorCidadeConverter" filter="true"
+								filterMatchMode="startsWith"
+								>
+								<f:selectItem itemLabel="Escola" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{relatorioProgramasMB.listaFornecedorCidade}" var="fornecedor"
+									itemLabel="#{fornecedor.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{relatorioProgramasMB.listaFornecedorCidade}" />
+							</p:selectOneMenu>
+
+							<h:panelGrid columns="2" style="width:57%;">
+								<p:calendar id="dataIniRec"
+									value="#{relatorioProgramasMB.dataVendaIni}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinalRec"
+									value="#{relatorioProgramasMB.dataVendaFinal}"
+									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
+									maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGrid>
+
+
+						</h:panelGrid>
+						<br></br>
+						<br></br>
+						<h:panelGroup style="float: right;">
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								update=":consultacursos:tbl, :consultacursos:growl"
+								action="#{relatorioProgramasMB.pesquisar()}" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								update=":consultacursos:tbl, dataFinalRec, dataIniRec, fornecedor, dataFinal, dataIni, cidade, pais, produtolead, consultor, unidade"
+								action="#{relatorioProgramasMB.limparPesquisa()}" />
+						</h:panelGroup>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+				<br />
+				<legend id="iUsu2">
+					<b>Relatório Programas de Curso</b>
+				</legend>
+				<br />
+				<br />
+
+				<h:panelGrid columns="2" style="margin-left:2%">
+					<h:commandLink>
+						<img src="../../resources/img/icone_xls.png" width="36" />
+						<p:dataExporter type="xls" target="tbl" fileName="cursos" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<img src="../../resources/img/icone_pdf.png" width="32" />
+						<p:dataExporter type="pdf" target="tbl" fileName="cursos" />
+					</h:commandLink>
+				</h:panelGrid>
+
+				<p:dataTable id="tbl" var="cursos"
+					value="#{relatorioProgramasMB.listaCursos}"
+					style="width: 99%;margin-left:1%;" scrollable="true"
+					scrollHeight="300">
+					
+					<p:column headerText="ID" sortBy="#{cursos.vendas.idvendas}"
+						style="width:40px;text-align:left;">
+						<h:outputText value="#{cursos.vendas.idvendas}" />
+					</p:column>
+					
+					<p:column headerText="Nome" sortBy="#{cursos.vendas.cliente.nome}"
+						style="width:90px;text-align:left;">
+						<h:outputText value="#{cursos.vendas.cliente.nome}" />
+					</p:column>
+					
+					<p:column headerText="Data Venda" sortBy="#{cursos.vendas.dataVenda}"
+						style="width:55px;text-align:left;">
+						<h:outputText value="#{cursos.vendas.dataVenda}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Pais" sortBy="#{cursos.vendas.fornecedorcidade.cidade.pais.nome}" style="width:70px;text-align:left;">
+						<h:outputText value="#{cursos.vendas.fornecedorcidade.cidade.pais.nome}" />
+					</p:column>
+
+					<p:column headerText="Cidade"
+						sortBy="#{cursos.vendas.fornecedorcidade.cidade.nome}"
+						style="width:60px;text-align:left;">
+						<h:outputText value="#{cursos.vendas.fornecedorcidade.cidade.nome}" />
+					</p:column>
+					
+					<p:column headerText="Parceiro" sortBy="#{cursos.vendas.fornecedorcidade.fornecedor.nome}"
+						style="text-align:left;" width="70">
+						<h:outputText id="outputPais" value="#{cursos.vendas.fornecedorcidade.fornecedor.nome}" />
+					</p:column>
+					
+					<p:column headerText="Inicio"
+						sortBy="#{cursos.dataInicio}"
+						style="width:60px;text-align:center;">
+						<h:outputText value="#{cursos.dataInicio}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					  
+					<p:column headerText="Núm. Semanas" width="50"
+						sortBy="#{cursos.numeroSenamas}" style="text-align:center;">
+						<h:outputText value="#{cursos.numeroSenamas}"
+							 />
+					</p:column>
+					
+					<p:column headerText="Términmo"
+						sortBy="#{cursos.dataTermino}"
+						style="width:60px;text-align:center;">
+						<h:outputText value="#{cursos.dataTermino}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Unidade"
+						sortBy="#{cursos.vendas.unidadenegocio.nomerelatorio}"
+						style="width:80px;text-align:left;">
+						<h:outputText value="#{cursos.vendas.unidadenegocio.nomerelatorio}" />
+					</p:column>
+
+					<p:column headerText="Consultor" sortBy="##{cursos.vendas.usuario.nome}"
+						style="width:80px;text-align:left;">
+						<h:outputText value="#{cursos.vendas.usuario.nome}" />
+					</p:column>
+					
+					<p:column headerText="Situação" sortBy="##{cursos.vendas.situacao}"
+						style="width:80px;text-align:left;">
+						<p:commandLink action="#{relatorioProgramasMB.dadosCancelamento(cursos)}" update=":consultacursos:growl">
+							<h:outputText value="#{cursos.vendas.situacao}" />
+						</p:commandLink>
+					</p:column>
+					
+
+				</p:dataTable>
+				<br></br> <br></br> <br></br> <br></br>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
