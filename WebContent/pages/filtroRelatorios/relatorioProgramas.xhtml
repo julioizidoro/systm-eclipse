@@ -102,7 +102,7 @@
 								<f:selectItems id="idpais" value="#{relatorioProgramasMB.listaPais}"
 									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
 								<f:attribute name="listaPais" value="#{relatorioProgramasMB.listaPais}" />
-								<p:ajax event="change" />
+								<p:ajax event="change" update="cidade"/>
 							</p:selectOneMenu>
 
 							<p:selectOneMenu id="cidade" value="#{relatorioProgramasMB.cidade}"

@@ -280,7 +280,7 @@ public class RelatorioProgramasMB implements Serializable{
 		}
 		
 		if (dataInicio != null && dataTermino != null) {
-			sql = sql + " and c.dataInicio>='" + Formatacao.ConvercaoDataSql(dataInicio) + "' and c.dataTermino<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
+			sql = sql + " and c.dataInicio>='" + Formatacao.ConvercaoDataSql(dataInicio) + "' and c.dataInicio<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
 		}
 		
 		if (dataVendaIni != null && dataVendaFinal != null) {
