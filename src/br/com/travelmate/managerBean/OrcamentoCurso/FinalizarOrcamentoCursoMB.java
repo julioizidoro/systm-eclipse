@@ -690,7 +690,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 							
 							lead.setDataultimocontato(new Date());
 							if (lead.getSituacao() < 3) {
-								LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3, leadSituacaoDao);
+								new LeadSituacaoBean(lead, lead.getSituacao(), 3, leadSituacaoDao);
 		            			lead.setSituacao(3);
 							}
 							lead = leadDao.salvar(lead);

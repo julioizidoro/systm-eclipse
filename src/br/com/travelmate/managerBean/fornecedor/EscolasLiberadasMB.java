@@ -11,7 +11,6 @@ import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -93,7 +92,6 @@ public class EscolasLiberadasMB implements Serializable {
 	}
 
 	public void gerarListaFornecedor() {
-		FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
 		
 	}
 

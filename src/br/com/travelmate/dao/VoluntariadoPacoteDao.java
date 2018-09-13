@@ -12,10 +12,6 @@ import br.com.travelmate.model.Voluntariadopacote;
 
 public class VoluntariadoPacoteDao {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L; 
 	 
 	public Voluntariadopacote salvar(Voluntariadopacote voluntariadopacote) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();

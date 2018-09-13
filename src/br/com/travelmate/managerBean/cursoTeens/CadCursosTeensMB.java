@@ -1193,7 +1193,6 @@ public class CadCursosTeensMB implements Serializable {
 				float valorPrevisto = 0.0f;
 				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
 						) {
-					float valorVendaatual = venda.getValor();
 					valorPrevisto = 0.0f;
 					Vendascomissao vendasComissao = venda.getVendascomissao();
 					if (vendasComissao == null) {
@@ -1353,7 +1352,6 @@ public class CadCursosTeensMB implements Serializable {
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);

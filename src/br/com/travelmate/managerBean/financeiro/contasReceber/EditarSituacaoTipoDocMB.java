@@ -114,7 +114,7 @@ public class EditarSituacaoTipoDocMB implements Serializable{
 			listaContas.get(i).setSituacao(situacao);
 			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 			contasReceberFacade.salvar(listaContas.get(i));
-			EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Status alterado para " + situacao, listaContas.get(i), usuarioLogadoMB.getUsuario());
+			new EventoContasReceberBean("Status alterado para " + situacao, listaContas.get(i), usuarioLogadoMB.getUsuario());
 		}
 		RequestContext.getCurrentInstance().closeDialog(listaContas);
 		return "";

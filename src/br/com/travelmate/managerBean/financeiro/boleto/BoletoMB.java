@@ -177,7 +177,7 @@ public class BoletoMB implements Serializable {
 				lista = listarSelecionados;
 			}  
 			if (lista.size() > 0) {
-				GerarArquivoRemessaItau arquivoRemessaItau =new GerarArquivoRemessaItau(lista, usuarioLogadoMB,
+				new GerarArquivoRemessaItau(lista, usuarioLogadoMB,
 						nomearquivo, nomeFTP, unidade, bancoFranquia);
 				FacesMessage msg = new FacesMessage("Enviado! ", "Disponivel para download, aperte novamente");
 				FacesContext.getCurrentInstance().addMessage(null, msg); 

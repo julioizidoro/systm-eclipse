@@ -20,7 +20,6 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.arquivo.CadArquivoMB;
 import br.com.travelmate.model.Ftpdados;
@@ -36,8 +35,6 @@ public class UploadImagemMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private AplicacaoMB AplicacaoMB;
     @Inject 
     private UsuarioLogadoMB usuarioLogadoMB;
     private String caminho; 
@@ -105,7 +102,6 @@ public class UploadImagemMB implements Serializable{
 			excluirArquivoFTP();
 		}
 		salvarArquivoFTP(); 
-		String nome = e.getFile().getFileName();
 	}
     
     

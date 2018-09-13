@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.cancelamento;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +28,7 @@ import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 
-public class RelatorioCancelamentoFaturaMB {
+public class RelatorioCancelamentoFaturaMB implements Serializable{
 	/**
 	 * 
 	 */

@@ -99,7 +99,7 @@ public class CadVoluntariadoBean {
 	
 	public void salvarNovaFichha(AplicacaoMB aplicacaoMB){
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+			new ContasReceberBean(venda,
 					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, voluntariado.getDataInicio());
 		}	
 		float valorPrevisto = 0.0f;
@@ -398,7 +398,7 @@ public class CadVoluntariadoBean {
 			valorJuros = venda.getFormapagamento().getValorJuros();
 		}
 		if(seguroViagem.getPossuiSeguro().equalsIgnoreCase("Sim")){ 
-			ComissaoSeguroBean cc = new ComissaoSeguroBean(aplicacaoMB, seguroViagem.getVendas(),
+			new ComissaoSeguroBean(aplicacaoMB, seguroViagem.getVendas(),
 					new ArrayList<Parcelamentopagamento>(), new Vendascomissao(), seguroViagem.getDescontoloja(),
 					seguroViagem.getDescontomatriz(), valorJuros, false, formaPagamento,seguroViagem);
 			salvarControleSeguro(seguroViagem);

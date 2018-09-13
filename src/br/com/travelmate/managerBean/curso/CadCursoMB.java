@@ -3984,7 +3984,6 @@ public class CadCursoMB implements Serializable {
 		Integer nSemanas = Formatacao.formatarDouble(po.getNumeroSemanas());
 		if ((acomodacao.getDatainicial() != null) && (nSemanas != null)) {
 			if (po.getNumeroSemanas() > 0) {
-				int diaSemana = Formatacao.diaSemana(acomodacao.getDatainicial());
 				Date data = Formatacao.calcularDataFinalAcomodacao(acomodacao.getDatainicial(), nSemanas);
 				acomodacao.setDatatermino(data);
 				acomodacao.setNumerosemana(nSemanas);

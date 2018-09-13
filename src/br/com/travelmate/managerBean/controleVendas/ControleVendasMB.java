@@ -714,7 +714,7 @@ public class ControleVendasMB implements Serializable {
 		} else if (vendas.getProdutos().getIdprodutos() == 22) {
 			buscarHe();
 			if (he == null) {
-				listaVendas.remove(he);
+				listaVendas.remove(vendas);
 				return null;
 			} else {
 				return he.getDatainicio();
@@ -722,7 +722,7 @@ public class ControleVendasMB implements Serializable {
 		} else if (vendas.getProdutos().getIdprodutos() == 2) {
 			buscarSeguro();
 			if (seguroViagem == null) {
-				listaVendas.remove(seguroViagem);
+				listaVendas.remove(vendas);
 				return null;
 			} else {
 				return seguroViagem.getDataInicio();

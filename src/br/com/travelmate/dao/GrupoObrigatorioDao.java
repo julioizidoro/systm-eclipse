@@ -77,6 +77,10 @@ public class GrupoObrigatorioDao {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
        Query q = manager.createNativeQuery("Delete from grupoobrigatorio where coprodutos_produto=" + idgrupo);
+       if (q.getResultList().size()>0){
+       		Grupoobrigatorio grupoobrigatorio = (Grupoobrigatorio) q.getResultList().get(0);
+           manager.remove(grupoobrigatorio);
+       }
        tx.commit();
        manager.close();
    }

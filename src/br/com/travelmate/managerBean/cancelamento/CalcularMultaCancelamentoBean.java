@@ -3,20 +3,17 @@ package br.com.travelmate.managerBean.cancelamento;
 import java.util.Date;
 import java.util.List;
 
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
-import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendascomissao;
-import br.com.travelmate.util.Formatacao;
 
 
 public class CalcularMultaCancelamentoBean {
@@ -25,9 +22,6 @@ public class CalcularMultaCancelamentoBean {
 	
 	public Float consultarValorCambio(Date dataVenda, int idMoeda) {
 		Float ValorCambio = 0.0f;
-		CambioFacade cambioFacade = new CambioFacade();
-		String sData = Formatacao.ConvercaoDataSql(dataVenda);
-		Cambio cambio = cambioFacade.consultarCambioMoeda(sData, idMoeda);
 		return ValorCambio;
 	}
 	
@@ -265,7 +259,7 @@ public class CalcularMultaCancelamentoBean {
 								crmCobrancaBean.baixar(lista.get(i), usuario);
 							}
 						}
-						EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Cancelada", lista.get(i), usuario);
+						new EventoContasReceberBean("Cancelada", lista.get(i), usuario);
 					}
 				}
 			}

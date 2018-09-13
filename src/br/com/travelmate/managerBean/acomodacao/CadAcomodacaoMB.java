@@ -2771,7 +2771,7 @@ public class CadAcomodacaoMB implements Serializable {
 			orcamento = programasBean.salvarOrcamento(orcamento, cambio, vendas.getValorpais(), totalMoedaEstrangeira, valorCambio, vendas, null, totalMoedaReal, valorCambioBrasil);
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
 			if (novoLancamento) {
-				ContasReceberBean contasReceberBean = new ContasReceberBean(acomodacao.getVendas(),
+				new ContasReceberBean(acomodacao.getVendas(),
 						formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 						acomodacao.getDatainicial());
 			}

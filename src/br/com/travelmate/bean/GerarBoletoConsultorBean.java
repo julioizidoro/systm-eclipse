@@ -30,7 +30,6 @@ public class GerarBoletoConsultorBean {
         if (listaBoletos.size()>0){
             DadosBoletoBean dadosBoletoBean = new DadosBoletoBean();
             dadosBoletoBean.gerarPDFS(listaBoletos, idvenda);
-            ContasReceberFacade contasReceberFacade = new ContasReceberFacade(); 
         }
         return "";
     }

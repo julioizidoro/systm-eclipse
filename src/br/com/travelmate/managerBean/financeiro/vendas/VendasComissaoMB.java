@@ -198,37 +198,30 @@ public class VendasComissaoMB implements Serializable{
     
     public void Pesquisar(){
     	String usouAnd = "";
-        boolean executarFiltro = false;
     	String sql = "Select v from Vendascomissao v where";
     	if(dataInicial!=null && dataInicial!=null){
     		sql = sql + " v.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataInicial) +
                     "' and v.dataVenda<='" + Formatacao.ConvercaoDataSql(dataFinal) + "'";
     		usouAnd = " and";
-            executarFiltro = true;
     	}
     	if (unidadenegocio!=null){
             sql = sql + usouAnd + " v.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
             usouAnd = " and";
-            executarFiltro = true;
         }	
     	if (produtos!=null){
             sql = sql + usouAnd + " v.vendas.produtos.idprodutos=" + produtos.getIdprodutos();
             usouAnd = " and";
-            executarFiltro = true;
         }
     	if (usuario!=null){
             sql = sql + usouAnd + " v.vendas.usuario.idusuario=" + usuario.getIdusuario();
             usouAnd = " and";
-            executarFiltro = true;
         }
     	if (paga.equalsIgnoreCase("Sim")){
             sql = sql + usouAnd + " v.paga='Sim'";
             usouAnd = " and";
-            executarFiltro = true;
         }
     	if (paga.equalsIgnoreCase("Nao")){
             sql = sql + usouAnd + " v.paga='Nao'";
-            executarFiltro = true;
         }
     	sql = sql + " order by v.vendas.dataVenda, v.vendas.idvendas";	
     	VendasComissaoFacade vendasComissaoFacade = new VendasComissaoFacade();

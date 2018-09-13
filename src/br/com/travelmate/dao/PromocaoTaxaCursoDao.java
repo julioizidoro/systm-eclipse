@@ -44,6 +44,7 @@ public class PromocaoTaxaCursoDao {
         Promocaotaxacurso Promocaotaxacurso = null;
         if(q.getResultList().size()>0){
         	Promocaotaxacurso =  (Promocaotaxacurso) q.getResultList().get(0);
+        	return Promocaotaxacurso;
         }
         
         return null;

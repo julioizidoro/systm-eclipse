@@ -1410,7 +1410,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	
 	
 	public void finalizarLead(Lead lead, LeadDao leadDao, LeadSituacaoDao leadSituacaoDao){
-		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
+		new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
 		lead.setSituacao(6);
 		leadDao.salvar(lead);
 	}

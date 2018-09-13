@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -71,13 +69,6 @@ public class BoletosContasReceberMB implements Serializable{
 	
 	public void carregarListaContasReceber(int idVendas){
         ContasReceberFacade contasReceberController = new ContasReceberFacade();
-        Date dataVencimento=new Date();
-        try {
-            dataVencimento = Formatacao.SomarDiasDatas(new Date(), 10);
-        } catch (Exception ex) {
-            Logger.getLogger(BoletosContasReceberMB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String sData = Formatacao.ConvercaoDataSql(dataVencimento);
         String sql = "Select c From Contasreceber c where c.vendas.idvendas=" + idVendas + " and c.tipodocumento='Boleto' and c.numeroparcelas=1 and c.valorpago=0";
         listaContas = contasReceberController.listar(sql);
         if (listaContas==null){

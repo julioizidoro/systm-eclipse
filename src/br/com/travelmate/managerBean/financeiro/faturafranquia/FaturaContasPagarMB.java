@@ -166,7 +166,7 @@ public class FaturaContasPagarMB implements Serializable{
     		faturaRecebimento.setFatura(fatura);
     		FaturaRecebimentoFacade faturaRecebimentoFacade = new FaturaRecebimentoFacade();
     		faturaRecebimentoFacade.salvar(faturaRecebimento);
-    		EventoContasPagarBean enContasPagarBean = new EventoContasPagarBean(tipo, conta);
+    		new EventoContasPagarBean(tipo, conta);
     		RequestContext.getCurrentInstance().closeDialog(conta);
     	}else {
     		Mensagem.lancarMensagemInfo("Erro Lançamento", "Campo competencia obrigatório");

@@ -26,7 +26,6 @@ public class ControleAlteracoesDao {
 	public List<Controlealteracoes> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
 		Query q = manager.createQuery(sql);
 		List<Controlealteracoes> lista = null;
 		if (q.getResultList().size()>0){

@@ -469,12 +469,7 @@ public class OrcamentoManualMB implements Serializable {
 			parameters.put("adicionais", adicionais);
 
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/observacoes.png"));
-			BufferedImage obs = null;
-			try {
-				obs = ImageIO.read(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
 			parameters.put("nometipo", "Tipo de Curso");
 		}
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();

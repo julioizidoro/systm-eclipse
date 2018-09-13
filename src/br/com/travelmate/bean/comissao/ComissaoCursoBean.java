@@ -168,7 +168,6 @@ public class ComissaoCursoBean {
     	valorComissaoMatriz=0.0f;
     	valorComissionavel = 0.0f;
     	percentualComissao = 0.0f;
-    	Float percentualMatriz=0.0f;
 		if (fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList() != null) {
 			List<Fornecedorcomissaocursoproduto> lista = fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList();
 			if (listaProdutosGeral.size() > 0) {
@@ -195,7 +194,6 @@ public class ComissaoCursoBean {
 								}
 								Float calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getMatriz()/100));
 								valorComissaoMatriz = valorComissaoMatriz + calculo.floatValue();
-								percentualMatriz = lista.get(i).getMatriz()/100;
 							}
 						}
 					}

@@ -163,13 +163,6 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 				+ resultadoOrcamentoBean.getOcurso().getNumerosemanas() + " and v.tipodata='" + tipoData
 				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
 		List<Valorcoprodutos> listaValorCoprodutos = valorCoProdutosFacade.listar(sql);
-		int ano;
-		if (resultadoOrcamentoBean.getFornecedorcidadeidioma() != null) {
-			ano = resultadoOrcamentoBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
-					.getAnotarifario();
-		} else {
-			ano = Formatacao.getAnoData(new Date());
-		}
 		if (listaValorCoprodutos != null) {
 			for (int n = 0; n < listaValorCoprodutos.size(); n++) {
 				if (valorcoprodutos == null) {

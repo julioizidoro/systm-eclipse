@@ -260,7 +260,6 @@ public class CalcularComissaoManualBean {
 		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 		Seguroviagem seguro = seguroViagemFacade.consultar(vendascomissao.getVendas().getIdvendas());
 		if (seguro != null) {
-			ProdutoFacade produtoFacade = new ProdutoFacade();
 			List<Parcelamentopagamento> listaParcelamento = new ArrayList<Parcelamentopagamento>();
 			Parcelamentopagamento p = new Parcelamentopagamento();
 			p.setDiaVencimento(new Date());

@@ -585,7 +585,7 @@ public class Arquivo5MB implements Serializable {
 		List<GerarAvisosDocsBean> listaAviso = (List<GerarAvisosDocsBean>) event.getObject();
 		if (listaAviso.size() > 0) {
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
-			AvisoArquivoBean avisoArquivoBean = new AvisoArquivoBean(listaAviso);
+			new AvisoArquivoBean(listaAviso);
 		}
 		gerarListaCloudArquivo5();
 		semConteudo();

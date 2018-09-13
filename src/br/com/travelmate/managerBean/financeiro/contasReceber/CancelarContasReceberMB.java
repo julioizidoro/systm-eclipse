@@ -67,7 +67,7 @@ public class CancelarContasReceberMB implements Serializable {
 					crmCobrancaBean.baixar(listaContas.get(i), usuarioLogadoMB.getUsuario());
 				}
 			}
-			EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Cancelada pelo usuário",
+			new EventoContasReceberBean("Cancelada pelo usuário",
 					listaContas.get(i), usuarioLogadoMB.getUsuario());
 		}
 		RequestContext.getCurrentInstance().closeDialog(null);

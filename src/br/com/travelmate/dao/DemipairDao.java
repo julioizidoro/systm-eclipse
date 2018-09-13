@@ -22,7 +22,6 @@ public class DemipairDao {
     
     public Demipair salvar(Demipair demipair) throws SQLException{
     	EntityManager manager = ConectionFactory.getConnection();
-		EntityTransaction tx = manager.getTransaction();
         manager.getTransaction().begin();
         demipair = manager.merge(demipair);
         manager.getTransaction().commit();

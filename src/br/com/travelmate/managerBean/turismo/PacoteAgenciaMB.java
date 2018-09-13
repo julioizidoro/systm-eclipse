@@ -7,11 +7,9 @@ package br.com.travelmate.managerBean.turismo;
 
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Pacotes;
-import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -59,7 +57,6 @@ public class PacoteAgenciaMB implements Serializable {
 	}
 
 	public void gerarListaPacotes() {
-		String dataInicial = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
 		String sql = "Select p from Pacotes p where p.operacao='Agencia' and p.unidadenegocio.idunidadeNegocio="
 				+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()
 				+ "  and p. order by p.vendas.dataVenda";

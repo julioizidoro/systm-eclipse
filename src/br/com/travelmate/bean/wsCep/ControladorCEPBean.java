@@ -24,7 +24,6 @@ public class ControladorCEPBean implements Serializable{
 		Client c = Client.create();
 		WebResource wr = c.resource("http://viacep.com.br/ws/" + this.getCep() + "/json/");
 		this.endereco = servico.buscarEnderecoPor(wr.get(String.class));
-		String JSON = wr.get(String.class);
 		return this.endereco;
 	}
 

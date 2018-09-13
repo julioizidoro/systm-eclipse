@@ -89,7 +89,7 @@ public class ContasReceberBean {
 		valorJaRecebido=0;
 		for (int i = 0; i < lista.size(); i++) {
 			if (lista.get(i).getValorpago() == 0 && lista.get(i).getDatapagamento()==null) {
-				EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean(
+				new EventoContasReceberBean(
 						"Conta cancelada pelo SysTM", lista.get(i), usuarioLogadoBean.getUsuario());
 				lista.get(i).setSituacao("cc");
 				lista.get(i).setDatacancelamento(new Date());
@@ -231,7 +231,7 @@ public class ContasReceberBean {
 		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 		for (int i = 0; i < listaContas.size(); i++) {
 			Contasreceber contasreceber = contasReceberFacade.salvar(listaContas.get(i));
-			EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Conta criada pelo SysTM",
+			new EventoContasReceberBean("Conta criada pelo SysTM",
 					contasreceber, usuarioLogadoBean.getUsuario());
 		}
 	}

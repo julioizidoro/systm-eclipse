@@ -1371,7 +1371,6 @@ public class CadWorkTravelMB implements Serializable {
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);

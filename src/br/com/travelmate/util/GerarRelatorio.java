@@ -25,7 +25,7 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.connection.ConectionFactory;
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
@@ -85,7 +85,6 @@ public class GerarRelatorio {
             subDir = subDir.substring(0, (subDir.length()-1));
             parameters.put("SUBREPORT_DIR", subDir);
         }
-        JasperPrint arquivoPrint=null;
         HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
         response.reset();
         response.setContentType("application/pdf");

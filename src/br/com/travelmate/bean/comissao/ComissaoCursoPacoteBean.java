@@ -120,13 +120,11 @@ public class ComissaoCursoPacoteBean {
         vendasComissao.setDesagio(comissaoBean.calcularDesagio(listaParcelamento, aplicacaoMB, vendasComissao));
         vendasComissao.setTaxatm(comissaoBean.calcularTaxaTM(listaProdutosGeral, aplicacaoMB));
         vendasComissao.setJurospago(comissaoBean.calcularJurosPagos(listaParcelamento));
-        float jurosFranquia = 0.0f;
         	vendasComissao.setCustofinanceirofranquia(0.0f);
         
         vendasComissao.setValorbruto(venda.getValor() + vendasComissao.getDescontoloja() + vendasComissao.getDescontotm());
         vendasComissao.setProdutos(venda.getProdutos());
         if (vendasComissao.getDescontofornecedor()>0){
-        		float percDescontoFornecedorFranquia = (this.valorComissaoFranquia/this.valorComissionavel);
         		float percDescontoFornecedorMatriz = this.valorComissaoMatriz/this.valorComissionavel;
         		//this.valorComissaoFranquia = this.valorComissaoFranquia - (vendasComissao.getDescontofornecedor() * percDescontoFornecedorFranquia);
         		this.valorComissionavel = this.valorComissionavel - vendasComissao.getDescontofornecedor();
@@ -170,7 +168,6 @@ public class ComissaoCursoPacoteBean {
     	valorComissaoMatriz=0.0f;
     	valorComissionavel = 0.0f;
     	percentualComissao = 0.0f;
-    	Float percentualMatriz=0.0f;
 		if (fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList() != null) {
 			List<Fornecedorcomissaocursoproduto> lista = fornecedorcomissaocurso.getFornecedorcomissaocursoprodutoList();
 			if (listaProdutosGeral.size() > 0) {
@@ -184,7 +181,6 @@ public class ComissaoCursoPacoteBean {
 										+ listaProdutosGeral.get(n).getValorMoedaNacional();
 								Float calculo = listaProdutosGeral.get(n).getValorMoedaNacional() * ((lista.get(i).getMatriz()/100));
 								valorComissaoMatriz = valorComissaoMatriz + calculo.floatValue();
-								percentualMatriz = lista.get(i).getMatriz()/100;
 							}
 						}
 					}

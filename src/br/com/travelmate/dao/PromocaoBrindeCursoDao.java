@@ -44,6 +44,7 @@ public class PromocaoBrindeCursoDao {
         Promocaobrindecurso promocaobrindecurso = null;
         if(q.getResultList().size()>0){
         	promocaobrindecurso =  (Promocaobrindecurso) q.getResultList().get(0);
+        	return promocaobrindecurso;
         }
         
         return null;

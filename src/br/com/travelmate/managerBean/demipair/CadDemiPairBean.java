@@ -83,7 +83,7 @@ public class CadDemiPairBean {
 	
 	public void salvarNovaFichha(AplicacaoMB aplicacaoMB){ 
 		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
-			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
+			new ContasReceberBean(venda,
 					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, demipair.getDatainicio());
 		}
 		float valorPrevisto = 0.0f;

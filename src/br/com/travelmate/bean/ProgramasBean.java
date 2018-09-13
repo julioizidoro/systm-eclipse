@@ -157,10 +157,8 @@ public class ProgramasBean {
 	
 	public Orcamento salvarOrcamento(Orcamento orcamento, Cambio cambio, Float totalMoedaNacional, Float totalMoedaEstrangeira, Float valorCambio, Vendas venda, String cambioAlterado, Float valorBrasil,
 			float valorCambioBrasil) {
-		boolean novoOrcamento = false;
 		if (orcamento == null) {
 			orcamento = new Orcamento();
-			novoOrcamento = true;
 		}
 		orcamento.setDataCambio(cambio.getData());
 		orcamento.setValorCambio(valorCambio);
@@ -288,7 +286,7 @@ public class ProgramasBean {
 	}
 	
 	public void finalizarLead(Lead lead, LeadDao leadDao, LeadSituacaoDao leadSituacaoDao){
-		LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
+		new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
 		lead.setSituacao(6);
 		leadDao.salvar(lead);
 	}

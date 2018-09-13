@@ -89,7 +89,6 @@ public class AutorizacaoDebitoMB implements Serializable {
 			}
 			String caminhoRelatorio = "/reports/relatorios/AutorizacaoCartao.jasper";
 			Map<String, Object> parameters = new HashMap<String, Object>();
-			String nomeArquivo = "AutorizacaoCartao.pdf";
 			parameters.put("cidade", usuarioLogadoMB.getUsuario().getUnidadenegocio().getCidade());
 			parameters.put("unidade", usuarioLogadoMB.getUsuario().getUnidadenegocio().getNomeFantasia());
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

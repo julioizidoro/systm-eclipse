@@ -43,6 +43,7 @@ public class PromocaoCursoDao {
         Promocaocurso Promocaocurso = null;
         if(q.getResultList().size()>0){
             Promocaocurso =  (Promocaocurso) q.getResultList().get(0);
+            return Promocaocurso;
         }
         
         return null;

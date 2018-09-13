@@ -273,7 +273,6 @@ public class ConsultaOrcamentoMB implements Serializable {
 	public void pesquisar() {
 		String sql = null;
 		String usouAnd = "";
-		boolean executarFiltro = false;
 		if (nomeCliente == null) {
 			nomeCliente = "";
 		}
@@ -282,17 +281,14 @@ public class ConsultaOrcamentoMB implements Serializable {
 		if (unidadenegocio != null) {
 			sql = sql + usouAnd + " o.usuario.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
 			usouAnd = " and";
-			executarFiltro = true;
 		}
 		if (dataInicio != null) {
 			sql = sql + usouAnd + " o.dataorcamento>='" + Formatacao.ConvercaoDataSql(dataInicio) + "'";
 			usouAnd = " and";
-			executarFiltro = true;
 		}
 		if (dataTermino != null) {
 			sql = sql + usouAnd + " o.dataorcamento<='" + Formatacao.ConvercaoDataSql(dataTermino) + "'";
 			usouAnd = " and";
-			executarFiltro = true;
 		}
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			if (usuarioLogadoMB.getUsuario().getAcessounidade() != null) {

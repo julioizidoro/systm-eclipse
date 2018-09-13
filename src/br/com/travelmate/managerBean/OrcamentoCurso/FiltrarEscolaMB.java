@@ -1092,12 +1092,6 @@ public class FiltrarEscolaMB implements Serializable {
 		float valorSuplemento = 0.0f; 
 		Date dataTermino = calcularDataTerminoCurso(dataInical, filtrarEscolaBean.getOcurso().getNumerosemanas());
 		int numeroDias = 0;
-		boolean calcular = true;
-//		if ((po.getValorcoprodutos().getDatainicial().after(dataInical) && po.getValorcoprodutos().getDatainicial().after(dataTermino)) ||
-//				(po.getValorcoprodutos().getDatafinal().before(dataInical) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
-//			calcular = false;
-//		}   
-//		if (calcular) {
 		if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 						.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical)))

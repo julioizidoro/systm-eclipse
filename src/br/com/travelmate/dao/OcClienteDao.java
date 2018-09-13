@@ -40,6 +40,7 @@ public class OcClienteDao {
         Occliente cliente = null;
         if (q.getResultList().size()>0){
             cliente =  (Occliente) q.getSingleResult();
+            return cliente;
         } 
         return null;
     }

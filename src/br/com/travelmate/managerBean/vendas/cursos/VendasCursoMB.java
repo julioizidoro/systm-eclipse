@@ -295,7 +295,6 @@ public class VendasCursoMB implements Serializable{
 		if (listaCurso == null) {
 			listaCurso = new ArrayList<Curso>();
 		}
-		int numeroSemanas=0;
 		for (int i = 0; i < listaCurso.size(); i++) {
 			listaCurso.get(i).setIdade(Formatacao.calcularIdade(listaCurso.get(i).getVendas().getCliente().getDataNascimento()));
 		}

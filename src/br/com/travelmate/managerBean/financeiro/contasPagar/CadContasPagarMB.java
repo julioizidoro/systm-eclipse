@@ -162,7 +162,7 @@ public class CadContasPagarMB implements Serializable{
     			conta.setValorsaida(0.0f);
     		}
     		conta = contasPagarFacade.salvar(conta);
-    		EventoContasPagarBean enContasPagarBean = new EventoContasPagarBean(tipo, conta);
+    		new EventoContasPagarBean(tipo, conta);
     		RequestContext.getCurrentInstance().closeDialog(conta);
     	}else {
     		Mensagem.lancarMensagemInfo("Erro Lançamento", "Campo competencia obrigatório");

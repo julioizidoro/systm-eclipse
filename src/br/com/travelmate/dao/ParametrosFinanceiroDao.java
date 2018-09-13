@@ -25,7 +25,6 @@ public class ParametrosFinanceiroDao {
 	public Parametrosfinanceiro consultar() throws SQLException {
 		EntityManager manager;
         manager = ConectionFactory.getInstance();
-		EntityTransaction tx = manager.getTransaction();
 		Query q = manager.createQuery("select p from Parametrosfinanceiro p");
         return (Parametrosfinanceiro) q.getSingleResult();
 	}

@@ -177,7 +177,7 @@ public class SalvarOrcamentoOcurso {
 		Lead lead = leadDao.consultar("SELECT l From Lead l where l.cliente.idcliente=" + cliente.getIdcliente());
 		if (lead != null) {
 			if (lead.getSituacao() < 3) {
-				LeadSituacaoBean leadSituacaoBean = new LeadSituacaoBean(lead, lead.getSituacao(), 3, leadSituacaoDao);
+				new LeadSituacaoBean(lead, lead.getSituacao(), 3, leadSituacaoDao);
 				lead.setSituacao(3);
 			}
 			salvarHistoricoLead(ocrusoprodutos);

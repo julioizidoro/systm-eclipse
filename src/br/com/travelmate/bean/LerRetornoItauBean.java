@@ -208,7 +208,7 @@ public class LerRetornoItauBean {
 		contaspagar.setBanco(conta.getVendas().getUnidadenegocio().getBanco());
 		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
 		contasPagarFacade.salvar(contaspagar);
-		EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean("Recebimento pelo SysTM", conta, usuario);
+		new EventoContasReceberBean("Recebimento pelo SysTM", conta, usuario);
 	}
     
     

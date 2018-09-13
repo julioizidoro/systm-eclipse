@@ -17,6 +17,7 @@ import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Planoconta;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.util.Mensagem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -161,7 +161,7 @@ public class CadContasReceberMB implements Serializable{
 			}
 		}
         conta = contasReceberFacade.salvar(conta);
-        EventoContasReceberBean eventoContasReceberBean = new EventoContasReceberBean(operacao, conta, usuarioLogadoMB.getUsuario());
+        new EventoContasReceberBean(operacao, conta, usuarioLogadoMB.getUsuario());
         RequestContext.getCurrentInstance().closeDialog(conta);
         return "";
     }
@@ -184,7 +184,7 @@ public class CadContasReceberMB implements Serializable{
             
             this.vendas = vendasDao.consultarVendas(Integer.parseInt(idVendas));
             if (vendas == null) {
-                FacesMessage msg = new FacesMessage("Erro! ", "Venda não localizada.");
+                Mensagem.lancarMensagemInfo("Erro! ", "Venda não localizada.");
             } else {
                 nomeCliente = vendas.getCliente().getNome();
                 conta.setNumerodocumento(String.valueOf(idVendas));

@@ -125,7 +125,6 @@ public class EditarImagemUsuarioMB implements Serializable{
 		getFotoUsuarioLogado();
 		//salvarFotoUsuarioLogado();
 		mensagemAviso = "Em questão de minutos sua foto será atualizada.";
-		String nome = e.getFile().getFileName();
 	}
     
     
