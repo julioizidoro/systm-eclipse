@@ -76,7 +76,8 @@ public class CambioDao {
         return cambio;
     }
     
-    public List<Moedas> listaMoedas() throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Moedas> listaMoedas() throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select m from Moedas m");
@@ -117,7 +118,8 @@ public class CambioDao {
         return moeda;
     }
     
-    public List<Cambio> listar(String data) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Cambio> listar(String data) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Cambio c where c.data='" + data + "'");
@@ -126,7 +128,8 @@ public class CambioDao {
         return lista;
     }
     
-    public List<Cambio> listarCambio(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Cambio> listarCambio(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
@@ -136,7 +139,8 @@ public class CambioDao {
     }
     
     
-    public List<Cambio> listarCambioPais(String data, Pais pais) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Cambio> listarCambioPais(String data, Pais pais) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Cambio c where c.data='" + data + "' and c.pais.idpais=" + pais.getIdpais());

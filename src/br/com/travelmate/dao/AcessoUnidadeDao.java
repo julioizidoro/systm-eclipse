@@ -41,7 +41,8 @@ public class AcessoUnidadeDao {
         tx.commit();
     }
      
-    public List<Acessounidade> lista(String sql) throws SQLException {
+    @SuppressWarnings("unchecked")
+	public List<Acessounidade> lista(String sql) throws SQLException {
 		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Acessounidade> lista = q.getResultList();

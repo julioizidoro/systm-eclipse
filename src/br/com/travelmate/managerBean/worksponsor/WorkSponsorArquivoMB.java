@@ -172,6 +172,7 @@ public class WorkSponsorArquivoMB implements Serializable {
 		return "";
 	}
 
+	@SuppressWarnings("unchecked")
 	public void retornoDialog(SelectEvent event) {
 		if (event.getObject() instanceof Arquivos) {
 			Worksponsorarquivos arquivos = (Worksponsorarquivos) event.getObject();

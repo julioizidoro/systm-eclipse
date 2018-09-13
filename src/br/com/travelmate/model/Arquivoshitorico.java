@@ -48,7 +48,6 @@ private static final long serialVersionUID = 1L;
     private Usuario usuario;
 
 	public Arquivoshitorico() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getIdarquivoshitorico() {

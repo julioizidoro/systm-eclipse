@@ -21,6 +21,7 @@ public class VisualizarVendasMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private List<Vendas> listaVendas;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

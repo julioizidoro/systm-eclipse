@@ -36,7 +36,8 @@ public class UnidadeNegocioDao {
         return unidadeNegocio;
     }
     
-    public List<Unidadenegocio> listar() throws Exception{
+    @SuppressWarnings("unchecked")
+	public List<Unidadenegocio> listar() throws Exception{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("select u from Unidadenegocio u order by u.nomerelatorio");
@@ -44,7 +45,8 @@ public class UnidadeNegocioDao {
         return lista;
     }
     
-    public List<Unidadenegocio> listar(boolean sitaucao) throws Exception{
+    @SuppressWarnings("unchecked")
+	public List<Unidadenegocio> listar(boolean sitaucao) throws Exception{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("select u from Unidadenegocio u where u.situacao=" + sitaucao + " order by u.nomerelatorio");
@@ -52,7 +54,8 @@ public class UnidadeNegocioDao {
         return lista;
     }
     
-    public List<Unidadenegocio> listarContasPagar() throws Exception{
+    @SuppressWarnings("unchecked")
+	public List<Unidadenegocio> listarContasPagar() throws Exception{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("select u from Unidadenegocio u where u.cp=true order by u.nomeFantasia");
@@ -60,7 +63,8 @@ public class UnidadeNegocioDao {
         return lista;
     }
     
-    public List<Unidadenegocio> listar(String nome) throws Exception{
+    @SuppressWarnings("unchecked")
+	public List<Unidadenegocio> listar(String nome) throws Exception{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("select u from Unidadenegocio u where u.nomeFantasia like '%" + nome + "%' order by u.nomeFantasia");
@@ -68,7 +72,8 @@ public class UnidadeNegocioDao {
         return lista;
     }
     
-    public List<Unidadenegocio> listarUnidade(String sql) throws Exception{
+    @SuppressWarnings("unchecked")
+	public List<Unidadenegocio> listarUnidade(String sql) throws Exception{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

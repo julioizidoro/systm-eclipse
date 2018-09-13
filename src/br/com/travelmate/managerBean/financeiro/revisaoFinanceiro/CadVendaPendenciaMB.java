@@ -55,6 +55,7 @@ public class CadVendaPendenciaMB implements Serializable{
     private List<Vendas> listaVendaNova;
 	
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -182,7 +183,7 @@ public class CadVendaPendenciaMB implements Serializable{
 			try {
 				vendapendencia.setRelato(new String(vendapendencia.getRelato().getBytes("ISO-8859-1"), "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			vendapendencia.setVendamotivopendencia(vendamotivopendencia);

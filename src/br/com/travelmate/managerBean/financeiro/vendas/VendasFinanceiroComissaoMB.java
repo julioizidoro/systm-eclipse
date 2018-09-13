@@ -408,7 +408,8 @@ public class VendasFinanceiroComissaoMB implements Serializable{
         }
 	}
     
-    public void recalcular() {
+    @SuppressWarnings("unchecked")
+	public void recalcular() {
     	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB, vendasDao);
     	try {
     		if (vendascomissao.getIdvendascomissao()!=null){

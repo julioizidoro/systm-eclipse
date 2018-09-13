@@ -50,7 +50,7 @@ public class CobrancaFacade {
     	try {
 			return cobrancaDao.listar(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return null;
 		}

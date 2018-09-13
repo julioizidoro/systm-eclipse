@@ -27,7 +27,8 @@ public class TreinamentoPerguntasDao {
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
-        List<Treinamentoperguntas> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Treinamentoperguntas> lista = q.getResultList();
         return lista;
     }
     

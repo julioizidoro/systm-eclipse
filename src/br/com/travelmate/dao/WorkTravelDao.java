@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.travelmate.dao;
 
 import java.sql.SQLException;
@@ -15,10 +12,7 @@ import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Controlework;
 import br.com.travelmate.model.Worktravel;
 
-/**
- *
- * @author Wolverine
- */
+
 public class WorkTravelDao {
     
     public Worktravel salvar(Worktravel work) throws SQLException{
@@ -43,7 +37,8 @@ public class WorkTravelDao {
         return work;
     }
     
-    public List<Worktravel> lista(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Worktravel> lista(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
@@ -62,7 +57,8 @@ public class WorkTravelDao {
         return controle;
     }
     
-    public List<Controlework> listaControle(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Controlework> listaControle(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

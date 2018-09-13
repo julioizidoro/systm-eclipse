@@ -27,7 +27,7 @@ public class CorridaProdutoMesFacade {
 	        try {
 				return corridaProdutoMesDao.listar(sql);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			return null;

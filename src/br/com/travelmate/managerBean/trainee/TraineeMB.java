@@ -100,6 +100,7 @@ public class TraineeMB implements Serializable {
 	private String nomePrograma;
 	private String chamadaTela = "";
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

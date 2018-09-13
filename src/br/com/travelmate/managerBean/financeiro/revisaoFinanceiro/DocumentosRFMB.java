@@ -131,7 +131,7 @@ public class DocumentosRFMB implements Serializable{
 				listaArquivos = new ArrayList<>();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

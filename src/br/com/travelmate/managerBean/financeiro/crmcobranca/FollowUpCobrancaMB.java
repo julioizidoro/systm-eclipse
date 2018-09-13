@@ -587,7 +587,6 @@ public class FollowUpCobrancaMB implements Serializable{
 						try {
 							lista.get(i).setDatainiciocobranca(Formatacao.SomarDiasDatas(listaConta.get(0).getContasreceber().getDatavencimento(), 6));
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						lista.get(i).setDatavencimento(listaConta.get(0).getContasreceber().getDatavencimento());

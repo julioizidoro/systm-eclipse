@@ -12,7 +12,7 @@ public class ArquivosKitViagemFacade {
 		try {
 			return arquivosKitViagemDao.salvar(kitViagem);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return null;
 		}

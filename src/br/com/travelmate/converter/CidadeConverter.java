@@ -21,7 +21,8 @@ import br.com.travelmate.model.Cidade;
 @FacesConverter(value="CidadeConverter")
 public class CidadeConverter  implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Cidade> listaCidade = (List<Cidade>) component.getAttributes().get("listaCidade");
         if (listaCidade != null) {

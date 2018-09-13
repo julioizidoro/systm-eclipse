@@ -39,7 +39,6 @@ public class Arquvioslista implements Serializable{
 	    private String corArquivo;
 
 	public Arquvioslista() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getIdarquvioslista() {

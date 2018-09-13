@@ -27,6 +27,7 @@ public class ControleSeguroDao {
 		return controle;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Controleseguro> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

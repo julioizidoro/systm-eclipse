@@ -58,7 +58,7 @@ public class CadVendaMotivoPendenciaMB implements Serializable{
 		try {
 			descricao = new String(vendamotivopendencia.getDescricao().getBytes(Charset.defaultCharset()), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		if (descricao != null && descricao.length() > 0) {

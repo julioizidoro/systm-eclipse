@@ -23,7 +23,8 @@ public class VoluntariadoProjetoConverter implements Converter{
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        List<Voluntariadoprojetovalor> lista = (List<Voluntariadoprojetovalor>) component.getAttributes().get("listaVoluntariadoValor");
+        @SuppressWarnings("unchecked")
+		List<Voluntariadoprojetovalor> lista = (List<Voluntariadoprojetovalor>) component.getAttributes().get("listaVoluntariadoValor");
         if (lista != null) {
             for (Voluntariadoprojetovalor voluntariadoprojeto : lista) {
                 if (voluntariadoprojeto.getVoluntariadoprojeto().getDescricao().equals(value)) {

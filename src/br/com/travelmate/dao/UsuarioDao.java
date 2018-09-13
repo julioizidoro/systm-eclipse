@@ -49,7 +49,8 @@ public class UsuarioDao {
         return usuario;
     }
     
-    public List<Usuario> listaUsuario() throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Usuario> listaUsuario() throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("select u from Usuario u order by u.nome");
@@ -58,7 +59,8 @@ public class UsuarioDao {
         return lista;
     }
     
-    public List<Usuario> listaUsuarioUnidade(int idUnidade) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Usuario> listaUsuarioUnidade(int idUnidade) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("select u from Usuario u where u.unidadenegocio.idunidadeNegocio=" + idUnidade + " and u.situacao='Ativo' order by u.nome");
@@ -67,7 +69,8 @@ public class UsuarioDao {
         return lista;
     }
     
-     public List<Usuario> listar(String sql) throws SQLException{
+     @SuppressWarnings("unchecked")
+	public List<Usuario> listar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
@@ -76,7 +79,8 @@ public class UsuarioDao {
         return lista;
     }
     
-    public List<Usuario> listaUsuario(String nome) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Usuario> listaUsuario(String nome) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery("select u from Usuario u where u.nome like '%" + nome + "%' order by u.nome" );
@@ -109,7 +113,8 @@ public class UsuarioDao {
        return pincambio;
     }
     
-    public List<Usuario> consultar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Usuario> consultar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

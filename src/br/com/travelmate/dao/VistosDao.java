@@ -35,7 +35,8 @@ public class VistosDao {
         return visto;
     }
     
-    public List<Vistos> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Vistos> listar(String sql) throws SQLException{
     	EntityManager manager;
     	manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
@@ -67,7 +68,8 @@ public class VistosDao {
         return valoresVisto;
     }
     
-    public List<Valoresvistos> listar()throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Valoresvistos> listar()throws SQLException{
     	EntityManager manager;
     	manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select v from Valoresvistos v where v.situacao='ATIVO'");

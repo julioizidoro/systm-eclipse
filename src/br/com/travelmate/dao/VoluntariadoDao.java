@@ -58,7 +58,8 @@ public class VoluntariadoDao {
         manager.close();
     }
     
-    public List<Voluntariado> lista(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Voluntariado> lista(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
@@ -78,7 +79,8 @@ public class VoluntariadoDao {
         return controle;
     }
     
-    public List<Controlevoluntariado> listaControle(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Controlevoluntariado> listaControle(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

@@ -100,6 +100,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	private List<BolinhasBean> listaBolinhas;
 	private boolean botaocartaocredito = false;
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -910,6 +911,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 		return "";
 	} 
 	
+	@SuppressWarnings("unchecked")
 	public void retornoDialogCartaoCredito(){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

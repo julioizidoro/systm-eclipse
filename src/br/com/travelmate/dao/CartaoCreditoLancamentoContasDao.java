@@ -14,7 +14,8 @@ public class CartaoCreditoLancamentoContasDao {
 	
 	    
 	    
-	    public List<Cartaocreditolancamentocontas> listar(String sql) throws SQLException{
+	    @SuppressWarnings("unchecked")
+		public List<Cartaocreditolancamentocontas> listar(String sql) throws SQLException{
 	    	EntityManager manager = ConectionFactory.getInstance();
 	        Query q = manager.createQuery(sql);
 	        List<Cartaocreditolancamentocontas> lista = q.getResultList();

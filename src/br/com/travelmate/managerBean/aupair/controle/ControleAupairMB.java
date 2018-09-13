@@ -75,6 +75,7 @@ public class ControleAupairMB implements Serializable {
 	private int numeroTodos;
 	private String sql;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {

@@ -44,7 +44,8 @@ public class TraducaoJuramentadaDao {
     }
     
     
-    public List<Traducaojuramentada> lista(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Traducaojuramentada> lista(String sql) throws SQLException{
     		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Traducaojuramentada> lista = q.getResultList();

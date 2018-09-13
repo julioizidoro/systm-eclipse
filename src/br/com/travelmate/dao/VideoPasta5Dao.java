@@ -28,7 +28,8 @@ public class VideoPasta5Dao {
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
-        List<Videopasta5> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Videopasta5> lista = q.getResultList();
         
         return lista;
     }

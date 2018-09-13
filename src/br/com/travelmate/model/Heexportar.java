@@ -42,7 +42,6 @@ public class Heexportar implements Serializable{
 	 
 	 
 	 public Heexportar() {
-		// TODO Auto-generated constructor stub
 	}
 
 

@@ -344,7 +344,6 @@ public class RelatorioCancelamentoFaturaMB implements Serializable{
 						listaarquivos = arquivosFacade.listar("SELECT a FROM Arquivos a WHERE  a.vendas.idvendas=" +  listaCancelamento.get(i).getVendas().getIdvendas()
 								+ " and a.tipoarquivo.idtipoArquivo=14");
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					if (listaarquivos != null && listaarquivos.size() > 0) {

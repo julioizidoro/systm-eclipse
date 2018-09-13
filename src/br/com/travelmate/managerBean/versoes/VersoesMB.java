@@ -24,6 +24,7 @@ public class VersoesMB implements Serializable {
 
 	private List<Versaousuario> listaVersoes;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

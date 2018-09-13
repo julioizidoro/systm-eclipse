@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.travelmate.dao;
 
 import br.com.travelmate.connection.ConectionFactory; 
@@ -14,10 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-/**
- *
- * @author Kamila
- */
+
 public class VoluntariadoProjetoCursoDao {
     
     public Voluntariadoprojetocurso salvar(Voluntariadoprojetocurso voluntariadoprojetocurso) throws SQLException{
@@ -54,7 +47,8 @@ public class VoluntariadoProjetoCursoDao {
         tx.commit();
     }
     
-    public List<Voluntariadoprojetocurso> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Voluntariadoprojetocurso> listar(String sql)throws SQLException{
     	EntityManager manager;
          manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

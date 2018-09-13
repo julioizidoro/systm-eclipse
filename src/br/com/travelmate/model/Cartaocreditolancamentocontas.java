@@ -34,7 +34,6 @@ public class Cartaocreditolancamentocontas implements Serializable{
 	 	
 	 	
 	 	public Cartaocreditolancamentocontas() {
-			// TODO Auto-generated constructor stub
 		}
 
 

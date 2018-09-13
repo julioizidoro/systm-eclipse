@@ -87,6 +87,7 @@ public class ControleCursoMB implements Serializable {
 	private String pesquisar = "Nao";
 	private String nomePrograma;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

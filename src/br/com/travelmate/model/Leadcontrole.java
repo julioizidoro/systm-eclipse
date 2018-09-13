@@ -39,7 +39,6 @@ public class Leadcontrole implements Serializable{
 	
 	
 	public Leadcontrole() {
-		// TODO Auto-generated constructor stub
 	}
 
 

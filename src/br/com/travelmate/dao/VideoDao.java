@@ -23,7 +23,8 @@ public class VideoDao {
         return video;
     }
     
-    public List<Video> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Video> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

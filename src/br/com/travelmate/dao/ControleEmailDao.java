@@ -24,7 +24,8 @@ public class ControleEmailDao {
 	        return controleemail;
 	    }
 	    
-	    public List<Controleemail> listar(String sql)throws SQLException{
+	    @SuppressWarnings("unchecked")
+		public List<Controleemail> listar(String sql)throws SQLException{
 	    	EntityManager manager;
 	        manager = ConectionFactory.getInstance();
 	        Query q = manager.createQuery(sql);

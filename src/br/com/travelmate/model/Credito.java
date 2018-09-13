@@ -45,7 +45,6 @@ public class Credito implements Serializable{
 	
 	
 	public Credito() {
-		// TODO Auto-generated constructor stub
 	}
 
 

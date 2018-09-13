@@ -675,7 +675,6 @@ public class ArquivoMB implements Serializable {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

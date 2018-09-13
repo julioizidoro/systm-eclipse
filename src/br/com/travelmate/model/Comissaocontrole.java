@@ -38,7 +38,6 @@ public class Comissaocontrole implements Serializable{
 	
 	
 	public Comissaocontrole() {
-		// TODO Auto-generated constructor stub
 	}
 
 

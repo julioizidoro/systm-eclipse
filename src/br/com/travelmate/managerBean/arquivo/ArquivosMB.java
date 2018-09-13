@@ -83,6 +83,7 @@ public class ArquivosMB implements Serializable {
 	private String chamadaTela = "";
 	private List<ListaHeBean> listaHe;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
@@ -397,6 +398,7 @@ public class ArquivosMB implements Serializable {
 		return "";
 	}
 
+	@SuppressWarnings("unchecked")
 	public void retornoDialog(SelectEvent event) {
 		if (event.getObject() instanceof Arquivos) {
 			Arquivos arquivos = (Arquivos) event.getObject();

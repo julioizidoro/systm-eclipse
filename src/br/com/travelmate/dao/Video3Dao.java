@@ -24,7 +24,8 @@ public class Video3Dao {
         return video3;
     }
     
-    public List<Video3> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Video3> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

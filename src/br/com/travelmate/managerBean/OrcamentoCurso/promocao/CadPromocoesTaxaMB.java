@@ -56,11 +56,12 @@ public class CadPromocoesTaxaMB implements Serializable {
 	private Produtosorcamento produtoOrcamento;
 	private String descricao;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		listaCidade = (List<Cidade>) session.getAttribute("listaCidade");
+		listaCidade = ((List<Cidade>) session.getAttribute("listaCidade"));
 		fornecedor = (Fornecedor) session.getAttribute("fornecedor");
 		session.removeAttribute("fornecedor");
 		session.removeAttribute("listaCidade");

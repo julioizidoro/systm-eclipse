@@ -55,7 +55,7 @@ public class Ftp {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} 
         ftpClient.changeWorkingDirectory(pasta);
@@ -84,7 +84,7 @@ public class Ftp {
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 			ftpClient.enterLocalPassiveMode();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} 
         ftpClient.changeWorkingDirectory(pasta);
@@ -105,7 +105,7 @@ public class Ftp {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} 
         ftpClient.changeWorkingDirectory(pasta);
@@ -128,7 +128,7 @@ public class Ftp {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} 
         ftpClient.changeWorkingDirectory(pasta);
@@ -151,7 +151,7 @@ public class Ftp {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} 
         ftpClient.changeWorkingDirectory(pasta);
@@ -185,7 +185,6 @@ public class Ftp {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
         ftpClient.changeWorkingDirectory(pasta);
@@ -208,7 +207,6 @@ public class Ftp {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		ftpClient.changeWorkingDirectory(pasta);

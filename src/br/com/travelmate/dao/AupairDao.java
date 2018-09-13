@@ -49,7 +49,8 @@ public class AupairDao {
          return aupair;
      }
     
-    public List<Aupair> lista(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Aupair> lista(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

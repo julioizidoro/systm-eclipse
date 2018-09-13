@@ -253,7 +253,6 @@ public class PacoteMB implements Serializable {
 		try {
 			dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		sql = sql + " and p.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
@@ -282,7 +281,6 @@ public class PacoteMB implements Serializable {
 				try {
 					dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				sql = sql + " and p.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
@@ -295,7 +293,6 @@ public class PacoteMB implements Serializable {
 				try {
 					dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				sql = sql + " and p.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";

@@ -109,7 +109,7 @@ public class CrmCobrancaBean {
 		try {
 			parametrosfinanceiro.setDatacobranca(Formatacao.SomarDiasDatas(new Date(), -5));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		parametrosFinanceiroFacade.salvar(parametrosfinanceiro);

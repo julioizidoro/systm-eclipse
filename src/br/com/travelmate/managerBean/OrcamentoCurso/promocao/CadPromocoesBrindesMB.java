@@ -47,6 +47,7 @@ public class CadPromocoesBrindesMB implements Serializable {
 	private Fornecedor fornecedor;
 	private String descricao;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

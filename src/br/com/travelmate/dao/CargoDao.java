@@ -43,7 +43,8 @@ public class CargoDao {
         manager.close();
     }
      
-    public List<Cargo> lista(String sql) throws SQLException {
+    @SuppressWarnings("unchecked")
+	public List<Cargo> lista(String sql) throws SQLException {
 		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Cargo> lista = q.getResultList();

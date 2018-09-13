@@ -60,6 +60,7 @@ public class AdicionarAcomodacaoMB implements Serializable {
 	private String advertencia = "";
 	private String moedaNacional;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

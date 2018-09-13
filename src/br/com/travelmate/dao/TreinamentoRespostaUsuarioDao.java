@@ -23,7 +23,8 @@ public class TreinamentoRespostaUsuarioDao {
         return treinamentorespostausuario;
     }
     
-    public List<Treinamentorespostausuario> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Treinamentorespostausuario> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

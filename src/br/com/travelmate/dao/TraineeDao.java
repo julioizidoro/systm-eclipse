@@ -68,7 +68,8 @@ public class TraineeDao {
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
-        List<Trainee> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Trainee> lista = q.getResultList();
         manager.close();
         return lista;
     }
@@ -88,7 +89,8 @@ public class TraineeDao {
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
-        List<Controletrainee> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Controletrainee> lista = q.getResultList();
         manager.close();
         return lista;
     }

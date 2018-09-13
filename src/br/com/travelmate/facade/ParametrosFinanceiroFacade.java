@@ -12,7 +12,7 @@ public class ParametrosFinanceiroFacade {
 		try {
 			return parametrosFinanceiroDao.consultar();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return null;
 		}
@@ -23,7 +23,7 @@ public class ParametrosFinanceiroFacade {
 		try {
 			return parametrosFinanceiroDao.salvar(parametrosfinanceiro);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return null;
 		}

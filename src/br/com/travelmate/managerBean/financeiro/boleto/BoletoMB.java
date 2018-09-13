@@ -189,7 +189,6 @@ public class BoletoMB implements Serializable {
 				try {
 					file.createNewFile();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				//file = new DefaultStreamedContent(stream, "texto/txt", nomearquivo, "UTF-8");

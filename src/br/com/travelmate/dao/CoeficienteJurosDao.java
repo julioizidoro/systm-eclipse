@@ -44,7 +44,8 @@ public class CoeficienteJurosDao {
         return coeficientejuros;
     }
     
-    public List<Coeficientejuros> listar() throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Coeficientejuros> listar() throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Coeficientejuros c order by c.numeroParcelas");
@@ -56,7 +57,8 @@ public class CoeficienteJurosDao {
         return lista;
     }
     
-    public List<Coeficientejuros> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Coeficientejuros> listar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         List<Coeficientejuros> lista = null;

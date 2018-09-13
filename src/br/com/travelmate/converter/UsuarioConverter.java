@@ -13,7 +13,8 @@ import javax.faces.convert.FacesConverter;
 public class UsuarioConverter implements Converter{
     
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Usuario> listaUsuario = (List<Usuario>) component.getAttributes().get("listaUsuario");
         if (listaUsuario != null) {
