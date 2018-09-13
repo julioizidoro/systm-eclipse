@@ -303,7 +303,7 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 	public String gerarOrcamento() {
 		OrcamentoVoluntariadoBean orcamento = new OrcamentoVoluntariadoBean();
 		orcamento.setCliente(cliente);
-		orcamento.setVoluntariadoprojetovalor(voluntariadoprojeto);
+		orcamento.setVoluntariadoprojetovalor(voluntariadoprojetovalor);
 		orcamento.setValor(voluntariadoprojeto.getValor());
 		fornecedorcidade = voluntariadoprojeto.getVoluntariadoprojeto().getFornecedorcidade();
 		Cambio cambio = consultarCambio();
@@ -316,11 +316,11 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 		orcamento.setCambio(cambio);
 		orcamento.setValorcambio(cambio.getValor());
 		if (nsemanaadicional > 0) {
-			orcamento.setTotalnumerosemanas(voluntariadoprojeto.getNumerosemanainicial() + " Semana(s) + "
+			orcamento.setTotalnumerosemanas(voluntariadoprojetovalor.getNumerosemanainicial() + " Semana(s) + "
 					+ nsemanaadicional + " Semanas Adicionais");
 			orcamento.setPossuiSemanaAdicional(true);
 		} else {
-			orcamento.setTotalnumerosemanas(voluntariadoprojeto.getNumerosemanainicial() + " Semana(s)");
+			orcamento.setTotalnumerosemanas(voluntariadoprojetovalor.getNumerosemanainicial() + " Semana(s)");
 		}
 		// curso
 		if (voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetocursoList() != null
