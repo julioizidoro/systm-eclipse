@@ -582,6 +582,7 @@ public class Arquivo5MB implements Serializable {
 	}
 
 	public void retornoDialogNovoArquivo(SelectEvent event) {
+	    @SuppressWarnings("unchecked")
 		List<GerarAvisosDocsBean> listaAviso = (List<GerarAvisosDocsBean>) event.getObject();
 		if (listaAviso.size() > 0) {
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");

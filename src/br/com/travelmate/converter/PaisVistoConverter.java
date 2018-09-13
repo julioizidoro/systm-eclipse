@@ -15,6 +15,7 @@ public class PaisVistoConverter implements Converter{
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        @SuppressWarnings("unchecked")
         List<Pais> listaPais = (List<Pais>) component.getAttributes().get("listaPais");
         if (listaPais != null) {
             for (Pais paisProduto : listaPais) {

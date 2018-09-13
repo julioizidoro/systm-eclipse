@@ -72,6 +72,7 @@ public class BoletoMB implements Serializable {
 	private List<RetornoBean> listaEnviada;
 	private int numeroRegistros;
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {

@@ -21,6 +21,7 @@ import br.com.travelmate.util.Formatacao;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class CursoDao {
     
     

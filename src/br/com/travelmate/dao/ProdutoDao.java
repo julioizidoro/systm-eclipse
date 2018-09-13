@@ -16,6 +16,7 @@ import javax.persistence.Query;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class ProdutoDao {
     
     public Produtos salvar(Produtos produto) throws SQLException{
@@ -29,7 +30,7 @@ public class ProdutoDao {
         return produto;
     }
     
-    public List<Produtos> listarProdutos(String descricao) throws SQLException{
+	public List<Produtos> listarProdutos(String descricao) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select p from Produtos p where p.descricao like '" + descricao + "%' and p.mostrar=1 order by p.descricao" );

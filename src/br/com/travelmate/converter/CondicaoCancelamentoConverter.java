@@ -13,7 +13,8 @@ import br.com.travelmate.model.Condicaocancelamento;
 @FacesConverter(value = "CondicaoCancelamentoConverter")
 public class CondicaoCancelamentoConverter implements Converter {
 
-	 @Override
+	 @SuppressWarnings("unchecked")
+	@Override
 	    public Object getAsObject(FacesContext context, UIComponent component, String value) {
 	        List<Condicaocancelamento> listaCondicao = (List<Condicaocancelamento>) component.getAttributes().get("listaCondicao");
 	        if (listaCondicao != null) {

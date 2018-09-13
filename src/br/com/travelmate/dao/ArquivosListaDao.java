@@ -22,6 +22,7 @@ public class ArquivosListaDao implements Serializable{
 	
 	public List<Arquvioslista> lista(String sql) {
         Query q = manager.createQuery(sql);
+        @SuppressWarnings("unchecked")
         List<Arquvioslista> lista = q.getResultList();
         return lista;
     }

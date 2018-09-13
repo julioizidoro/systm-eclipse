@@ -24,7 +24,8 @@ public class FaturaComprovanteDao {
 	        return faturacomprovante;
 	    }
 	    
-	    public List<Faturacomprovante> listar(String sql)throws SQLException{
+	    @SuppressWarnings("unchecked")
+		public List<Faturacomprovante> listar(String sql)throws SQLException{
 	    	EntityManager manager;
 	        manager = ConectionFactory.getConnection();
 	        Query q = manager.createQuery(sql);

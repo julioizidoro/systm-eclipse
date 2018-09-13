@@ -33,7 +33,8 @@ public class LancamentoCartaoCreditoMB implements Serializable{
     private List<Vendas> listaVendaNova;
     private Lancamentocartaocredito lancamentocartaocredito;
     
-    
+
+    @SuppressWarnings("unchecked")
     @PostConstruct
     public void init(){
     	LancamentoCartaoCreditoFacade lancamentoCartaoCreditoFacade = new LancamentoCartaoCreditoFacade();

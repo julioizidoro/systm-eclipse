@@ -23,6 +23,7 @@ public class CreditoDao {
 		return credito;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Credito> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

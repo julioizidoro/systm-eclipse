@@ -13,6 +13,7 @@ import br.com.travelmate.bean.BolinhasBean;
 @FacesConverter(value="BolinhaConverter")
 public class BolinhaConverter implements Converter{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<BolinhasBean> listaBolinha = (List<BolinhasBean>) component.getAttributes().get("listaBolinha");

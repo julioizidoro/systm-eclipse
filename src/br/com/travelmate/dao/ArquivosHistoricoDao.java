@@ -37,7 +37,8 @@ public class ArquivosHistoricoDao implements Serializable{
         manager.remove(arquivoshistorico);
     }
     
-    public List<Arquivoshitorico> lista(String sql) {
+    @SuppressWarnings("unchecked")
+	public List<Arquivoshitorico> lista(String sql) {
         Query q = manager.createQuery(sql);
         List<Arquivoshitorico> lista = q.getResultList();
         return lista;

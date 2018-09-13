@@ -29,7 +29,8 @@ public class ProgramasTeensDao {
         return programasteens;
     }
     
-    public List<Programasteens> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Programasteens> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Programasteens> lista = q.getResultList();
@@ -84,7 +85,8 @@ public class ProgramasTeensDao {
         return cotrolehighschool;
     }
     
-    public List<Controleprogramasteen> listaControle(String sql) throws SQLException {
+    @SuppressWarnings("unchecked")
+	public List<Controleprogramasteen> listaControle(String sql) throws SQLException {
     	EntityManager manager = ConectionFactory.getConnection();
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

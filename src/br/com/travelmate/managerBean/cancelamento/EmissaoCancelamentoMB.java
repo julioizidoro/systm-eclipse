@@ -147,6 +147,7 @@ public class EmissaoCancelamentoMB implements Serializable {
 		valorOriginalMulta = cancelamento.getMultacliente();
 	}
 
+	@SuppressWarnings("unchecked")
 	private List<Cancelamento> extracted(HttpSession session) {
 		return (List<Cancelamento>) session.getAttribute("listaCancelamento");
 	}

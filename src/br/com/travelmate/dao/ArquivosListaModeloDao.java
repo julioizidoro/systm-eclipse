@@ -19,6 +19,7 @@ public class ArquivosListaModeloDao implements Serializable{
 	@Inject
 	private EntityManager manager;
 	
+	@SuppressWarnings("unchecked")
 	public List<Arquivoslistamodelo> lista(String sql) {
         Query q = manager.createQuery(sql);
         List<Arquivoslistamodelo> lista = q.getResultList();

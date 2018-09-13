@@ -17,6 +17,7 @@ import javax.persistence.Query;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class FornecedorComissaoCursoProdutoDao {
     
     public Fornecedorcomissaocursoproduto salvar(Fornecedorcomissaocursoproduto fornecedor) throws SQLException{

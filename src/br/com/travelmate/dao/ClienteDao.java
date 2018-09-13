@@ -16,6 +16,7 @@ import javax.persistence.Query;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class ClienteDao {
     
     public Cliente salvar(Cliente cliente) throws SQLException{

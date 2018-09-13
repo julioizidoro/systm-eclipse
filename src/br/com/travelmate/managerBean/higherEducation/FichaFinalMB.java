@@ -79,6 +79,7 @@ public class FichaFinalMB implements Serializable{
 	private String chamadaTela = "";
 	private String obsTM = "";
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct()
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

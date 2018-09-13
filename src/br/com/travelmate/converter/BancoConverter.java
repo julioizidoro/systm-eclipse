@@ -20,7 +20,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "BancoConverter")
 public class BancoConverter implements Converter {
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Banco> listaBanco = (List<Banco>) component.getAttributes().get("listaBanco");
         if (listaBanco != null) {

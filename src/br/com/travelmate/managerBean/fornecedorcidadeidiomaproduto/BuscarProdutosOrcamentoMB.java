@@ -25,7 +25,8 @@ public class BuscarProdutosOrcamentoMB implements Serializable{
 	private String nomeProduto;
 	private boolean selecionarTodos;
 	private List<Produtosorcamento> listaProdutoOrcamento; 
-	
+
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() { 
 		FacesContext fc = FacesContext.getCurrentInstance();

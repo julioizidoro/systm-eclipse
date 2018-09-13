@@ -41,6 +41,7 @@ public class ArquivosDao {
 		manager.close();
 	}
 	    
+	@SuppressWarnings("unchecked")
 	public List<Arquivos> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

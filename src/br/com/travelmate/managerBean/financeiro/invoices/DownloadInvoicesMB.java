@@ -25,6 +25,7 @@ public class DownloadInvoicesMB implements Serializable{
 	private Ftpdados ftpdados;
 	
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

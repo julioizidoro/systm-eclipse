@@ -115,6 +115,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	@Inject
 	private OcursoSeguroViagemDao oCursoSeguroViagemDao;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() throws SQLException {
 		FacesContext fc = FacesContext.getCurrentInstance();

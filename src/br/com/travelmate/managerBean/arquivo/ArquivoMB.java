@@ -89,6 +89,7 @@ public class ArquivoMB implements Serializable {
 	private List<Questionariohe> listaQuestionario;
 	private String urlArquivo;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		//gerarClientes();
@@ -442,6 +443,7 @@ public class ArquivoMB implements Serializable {
 		return "";
 	}
 
+	@SuppressWarnings("unchecked")
 	public void retornoDialog(SelectEvent event) {
 		if (event.getObject() instanceof Arquivos) {
 			Arquivos arquivos = (Arquivos) event.getObject();

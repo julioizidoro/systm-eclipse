@@ -23,6 +23,7 @@ public class ComissaoControleDao {
         return comissaocontrole;
     }
 	
+	@SuppressWarnings("unchecked")
 	public List<Comissaocontrole> listar(String sql)throws SQLException{
 		EntityManager manager;
         manager = ConectionFactory.getInstance();

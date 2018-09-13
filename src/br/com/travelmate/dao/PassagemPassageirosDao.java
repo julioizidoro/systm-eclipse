@@ -16,6 +16,7 @@ public class PassagemPassageirosDao {
 		EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
+        @SuppressWarnings("unchecked")
         List<Passagempassageiro> lista= q.getResultList();
         manager.close();
         return lista;

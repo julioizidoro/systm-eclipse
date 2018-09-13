@@ -12,6 +12,7 @@ import br.com.travelmate.model.Avisodocs;
 
 public class AvisoDocsDao{
 	
+	@SuppressWarnings("unchecked")
 	public List<Avisodocs> listar(String sql) throws SQLException{
 		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

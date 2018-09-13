@@ -13,6 +13,7 @@ import br.com.travelmate.model.Produtosorcamentoindice;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 @FacesConverter(value="ProdutoOrcamentoIndiceConverter")
 public class ProdutoOrcamentoIndiceConverter implements Converter{
     

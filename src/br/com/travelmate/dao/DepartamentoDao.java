@@ -31,7 +31,8 @@ public class DepartamentoDao {
         return departamento;
     }
     
-    public List<Departamento> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Departamento> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import br.com.travelmate.connection.ConectionFactory;  
 import br.com.travelmate.model.Voluntariadopacote; 
 
+@SuppressWarnings("unchecked")
 public class VoluntariadoPacoteDao {
 	
 	 

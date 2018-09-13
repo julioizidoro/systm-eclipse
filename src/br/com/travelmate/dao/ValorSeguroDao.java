@@ -50,7 +50,8 @@ public class ValorSeguroDao {
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
-        List<Valoresseguro> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Valoresseguro> lista = q.getResultList();
         manager.close();
         return lista;
     }
@@ -60,7 +61,8 @@ public class ValorSeguroDao {
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select v from Valoresseguro  v where v.fornecedorcidade.idfornecedorcidade=" + idFornecedor + 
         		" and v.situacao='" + situacao + "'");
-        List<Valoresseguro> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Valoresseguro> lista = q.getResultList();
         manager.close();
         return lista;
     }

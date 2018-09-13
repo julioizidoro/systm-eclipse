@@ -34,6 +34,7 @@ public class EditarSituacaoTipoDocMB implements Serializable{
 	private List<BolinhasBean> listaBolinhas;
 	private BolinhasBean bolinhas;
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

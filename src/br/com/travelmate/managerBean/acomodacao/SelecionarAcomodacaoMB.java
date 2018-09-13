@@ -65,6 +65,7 @@ public class SelecionarAcomodacaoMB implements Serializable{
 	private Acomodacao acomodacaoInd;
 	private String moedaNacional;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

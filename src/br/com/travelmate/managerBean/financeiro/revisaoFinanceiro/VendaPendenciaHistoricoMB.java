@@ -42,6 +42,7 @@ public class VendaPendenciaHistoricoMB implements Serializable{
     private Date dataProximoContato;
 	
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

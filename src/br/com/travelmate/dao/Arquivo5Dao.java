@@ -23,7 +23,8 @@ public class Arquivo5Dao {
         return arquivo5;
     }
     
-    public List<Arquivo5> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Arquivo5> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

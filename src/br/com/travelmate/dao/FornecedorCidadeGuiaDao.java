@@ -14,7 +14,8 @@ import javax.persistence.Query;
  */
 public class FornecedorCidadeGuiaDao {
     
-    public List<Fornecedorcidadeguia> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Fornecedorcidadeguia> listar(String sql)throws SQLException{
     	EntityManager manager; 
 		manager = ConectionFactory.getConnection();
 		Query q = manager.createQuery(sql);

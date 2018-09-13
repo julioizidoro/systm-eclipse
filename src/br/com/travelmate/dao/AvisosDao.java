@@ -13,6 +13,7 @@ import br.com.travelmate.model.Avisousuario;
 
 
 
+@SuppressWarnings("unchecked")
 public class AvisosDao {
 	
 	public List<Avisos> listar(String sql) throws SQLException{

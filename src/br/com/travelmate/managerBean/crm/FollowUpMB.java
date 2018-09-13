@@ -114,6 +114,7 @@ public class FollowUpMB implements Serializable {
 	private Pais paisConsulta;
 	private List<Pais> listaPaisConsulta;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct()
 	public void init() {
 			FacesContext fc = FacesContext.getCurrentInstance();

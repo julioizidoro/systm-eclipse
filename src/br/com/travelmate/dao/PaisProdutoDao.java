@@ -16,6 +16,7 @@ import javax.persistence.Query;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class PaisProdutoDao {
     
     public Paisproduto salvar(Paisproduto paisProduto) throws SQLException{

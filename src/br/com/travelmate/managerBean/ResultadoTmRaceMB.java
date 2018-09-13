@@ -23,6 +23,7 @@ public class ResultadoTmRaceMB implements Serializable{
 	private int ano;
 	private List<CategoriaTmRaceBean> listaCategoriaBean;
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

@@ -27,6 +27,7 @@ public class Pasta1Dao {
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
+        @SuppressWarnings("unchecked")
         List<Pasta1> lista = q.getResultList();
         
         return lista;

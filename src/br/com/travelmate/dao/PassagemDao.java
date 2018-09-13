@@ -70,7 +70,8 @@ public class PassagemDao {
     	 EntityManager manager;
          manager = ConectionFactory.getConnection();
          Query q = manager.createQuery(sql);
-         List<Passagemaerea> lista = q.getResultList();
+         @SuppressWarnings("unchecked")
+		List<Passagemaerea> lista = q.getResultList();
          manager.close();
          return lista;
      }

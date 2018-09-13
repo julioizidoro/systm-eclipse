@@ -50,7 +50,8 @@ public class FaturaFranquiasDao {
         manager.close();
     }
     
-    public List<Faturafranquias> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Faturafranquias> listar(String sql)throws SQLException{
     	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Faturafranquias> fatura = null;

@@ -29,7 +29,8 @@ public class ProdutoOrcamentoDao {
         return produto;
     }
     
-    public List<Produtosorcamento> listarProdutosOrcamento(String descricao) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Produtosorcamento> listarProdutosOrcamento(String descricao) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select p from Produtosorcamento p  where p.descricao like '%" + descricao + "%' order by p.descricao" );
@@ -38,7 +39,8 @@ public class ProdutoOrcamentoDao {
         return lista;
     }
     
-    public List<Produtosorcamento> listarProdutosOrcamentoSql(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Produtosorcamento> listarProdutosOrcamentoSql(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

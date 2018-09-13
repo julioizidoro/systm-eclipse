@@ -54,7 +54,8 @@ public class FaturaBancoDao {
         manager.close();
     }
     
-    public List<Faturabanco> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Faturabanco> listar(String sql)throws SQLException{
     	EntityManager manager;
          manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

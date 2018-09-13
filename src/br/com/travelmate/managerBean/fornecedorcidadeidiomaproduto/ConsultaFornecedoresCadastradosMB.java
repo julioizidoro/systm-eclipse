@@ -80,6 +80,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	private boolean filtrarProduto;
 	private boolean informaçõesEscola;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
@@ -662,6 +663,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 		return "";
 	} 
 
+	@SuppressWarnings("unchecked")
 	public void retornoDialogoProdutosOrcamento(SelectEvent event) {
 		List<Produtosorcamento> po = (List<Produtosorcamento>) event.getObject();
 		this.listaprodutosorcamento = po;

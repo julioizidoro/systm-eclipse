@@ -61,6 +61,7 @@ public class EnviarEmailMB implements Serializable {
 	private Fatura fatura;
 	private Fornecedorpacotearquivopagamento pacotesfornecedor;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

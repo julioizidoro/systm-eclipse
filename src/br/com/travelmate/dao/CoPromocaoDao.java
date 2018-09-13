@@ -22,7 +22,8 @@ public class CoPromocaoDao {
         
         return coPromocao;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Copromocao> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();

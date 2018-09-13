@@ -28,7 +28,8 @@ public class FornecedorCidadeDao {
         return fornecedorcidade;
     }
     
-    public List<Fornecedorcidade> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Fornecedorcidade> listar(String sql) throws SQLException{
     	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Fornecedorcidade> listaFornecedorCidade = q.getResultList();

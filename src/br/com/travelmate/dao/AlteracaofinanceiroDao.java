@@ -26,6 +26,7 @@ public class AlteracaofinanceiroDao {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Alteracaofinanceiro> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

@@ -27,7 +27,8 @@ public class Arquivo1Dao {
     		EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
-        List<Arquivo1> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Arquivo1> lista = q.getResultList();
         return lista;
     }
     

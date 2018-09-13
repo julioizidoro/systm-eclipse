@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import br.com.travelmate.connection.ConectionFactory; 
 import br.com.travelmate.model.Departamentoproduto;
 
+@SuppressWarnings("unchecked")
 public class DepartamentoProdutoDao {
 	
 	public Departamentoproduto consultar(int idProduto) throws SQLException {

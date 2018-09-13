@@ -36,7 +36,8 @@ public class AcomodacaoDao {
 	public List<Acomodacao> lista(String sql) throws SQLException {
 		EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
-        List<Acomodacao> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Acomodacao> lista = q.getResultList();
         manager.close();
         return lista; 
     }

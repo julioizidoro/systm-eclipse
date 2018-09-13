@@ -22,6 +22,7 @@ import javax.persistence.Query;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class ContasReceberDao {
     
     public Contasreceber salvar(Contasreceber conta) throws SQLException{

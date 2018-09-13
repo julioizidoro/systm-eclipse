@@ -12,6 +12,7 @@ import br.com.travelmate.bean.EstrelasBean;
 @FacesConverter(value="EstrelaConverter")
 public class EstrelaConverter implements Converter{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<EstrelasBean> listaEstrela = (List<EstrelasBean>) component.getAttributes().get("listaEstrela");

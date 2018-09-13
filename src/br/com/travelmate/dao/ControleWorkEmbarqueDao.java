@@ -43,7 +43,8 @@ public class ControleWorkEmbarqueDao {
         manager.close();
     }
      
-    public List<Controleworkembarque> lista(String sql) throws SQLException {
+    @SuppressWarnings("unchecked")
+	public List<Controleworkembarque> lista(String sql) throws SQLException {
 		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Controleworkembarque> lista = q.getResultList();

@@ -26,6 +26,7 @@ public class CadCoSuplementosMB implements Serializable{
 	
 
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unchecked")
 	@PostConstruct
     public void init(){
         FacesContext fc = FacesContext.getCurrentInstance();

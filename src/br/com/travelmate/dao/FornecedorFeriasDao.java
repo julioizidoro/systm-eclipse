@@ -26,7 +26,8 @@ public class FornecedorFeriasDao {
     }
     
     
-    public List<Fornecedorferias> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Fornecedorferias> listar(String sql)throws SQLException{
     	EntityManager manager;
          manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

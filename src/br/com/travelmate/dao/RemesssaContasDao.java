@@ -23,6 +23,7 @@ public class RemesssaContasDao {
 		return remessacontas;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Remessacontas> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

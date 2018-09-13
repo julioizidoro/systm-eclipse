@@ -71,7 +71,8 @@ public class AupairDao {
         return controle;
     }
     
-    public List<Controleaupair> listaControle(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Controleaupair> listaControle(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

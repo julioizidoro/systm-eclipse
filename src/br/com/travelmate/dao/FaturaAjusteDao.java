@@ -53,7 +53,8 @@ public class FaturaAjusteDao {
         manager.close();
     }
     
-    public List<Faturaajustes> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Faturaajustes> listar(String sql)throws SQLException{
     	EntityManager manager;
          manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

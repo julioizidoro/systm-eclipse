@@ -18,6 +18,7 @@ import br.com.travelmate.model.Demipair;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class DemipairDao {
     
     public Demipair salvar(Demipair demipair) throws SQLException{

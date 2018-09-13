@@ -80,6 +80,7 @@ public class FormAssessoriaMB implements Serializable{
 	private String situacaoLista = "";
 	private String obsTM = "";
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct()
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

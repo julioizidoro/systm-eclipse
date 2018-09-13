@@ -12,6 +12,7 @@ import javax.persistence.Query;
  *
  * @author Kamila
  */
+@SuppressWarnings("unchecked")
 public class CartaoCreditoLancamentoDao {
     
     public List<Cartaocreditolancamento> listar() throws SQLException{

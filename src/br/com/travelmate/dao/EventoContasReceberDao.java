@@ -12,6 +12,7 @@ import br.com.travelmate.model.Eventocontasreceber;
 
 public class EventoContasReceberDao {
 	
+	@SuppressWarnings("unchecked")
 	public List<Eventocontasreceber> listar(int idcontasreceber) throws SQLException{
 		EntityManager manager;
         manager = ConectionFactory.getConnection();

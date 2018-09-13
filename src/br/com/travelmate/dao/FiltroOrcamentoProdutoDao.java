@@ -66,7 +66,8 @@ public class FiltroOrcamentoProdutoDao {
         return filtro;
     }
     
-    public List<Filtroorcamentoproduto> pesquisar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Filtroorcamentoproduto> pesquisar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
@@ -75,7 +76,8 @@ public class FiltroOrcamentoProdutoDao {
         return lista;
     }
     
-    public List<Filtroorcamentoproduto> listarProdutosOrcamento(int idProduto) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Filtroorcamentoproduto> listarProdutosOrcamento(int idProduto) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select p from Filtroorcamentoproduto p  where p.produtos.idprodutos="+ idProduto +" order by p.descricao" );

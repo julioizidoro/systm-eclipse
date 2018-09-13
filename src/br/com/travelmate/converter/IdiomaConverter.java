@@ -20,7 +20,8 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value="IdiomaConverter")
 public class IdiomaConverter implements Converter{
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Idioma> listaIdioma = (List<Idioma>) component.getAttributes().get("listaIdiomas");
