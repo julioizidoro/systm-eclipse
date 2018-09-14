@@ -80,7 +80,7 @@
 									itemValue="#{cvalorseguro}" />
 								<f:attribute name="listaValorSeguro"
 									value="#{fichaSeguroViagemMB.listaValoresSeguro}" />
-								<p:ajax event="change" update="@form" listener="#{fichaSeguroViagemMB.verificarSeguroCancelamento()}"/>
+								<p:ajax event="change" update="panelSeguroCancelamento, seguroCancelamento, checkSeguroCancelamento" listener="#{fichaSeguroViagemMB.verificarSeguroCancelamento()}"/>
 							</p:selectOneMenu>    
 							<p:inputText id="cobranca"
 								value="#{fichaSeguroViagemMB.valoresseguro.cobranca}"
@@ -148,10 +148,10 @@
 							</p:inputText>
 						</h:panelGrid>   
 						<br></br>
-						<h:panelGrid rendered="#{fichaSeguroViagemMB.segurocancelamento}" id="seguroCancelamento" columns="#{fichaSeguroViagemMB.numero}"  style="margin-left:5%;width:58.6%"
+						<h:panelGrid id="seguroCancelamento" columns="#{fichaSeguroViagemMB.numero}"  style="margin-left:5%;width:58.6%"
 							columnClasses="tamanho2, tamanho4, tamanho4, tamanho4"> 
-							<h:panelGroup rendered="#{fichaSeguroViagemMB.segurocancelamento}" id="panelSeguroCancelamento">
-								<p:selectBooleanCheckbox value="#{fichaSeguroViagemMB.seguro.segurocancelamento}" id="checkSeguroCancelamento">
+							<h:panelGroup  id="panelSeguroCancelamento">
+								<p:selectBooleanCheckbox disabled="#{fichaSeguroViagemMB.segurocancelamento}" value="#{fichaSeguroViagemMB.seguro.segurocancelamento}" id="checkSeguroCancelamento">
 									<p:ajax event="change" listener="#{fichaSeguroViagemMB.selecionarSeguroCancelamento()}"
 										update="semanas, datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl" />
 								</p:selectBooleanCheckbox> 

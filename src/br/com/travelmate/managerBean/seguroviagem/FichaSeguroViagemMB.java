@@ -130,7 +130,7 @@ public class FichaSeguroViagemMB implements Serializable {
 	private List<Seguroplanos> listaSeguroPlanos;
 	private Seguroplanos seguroplanos;
 	private List<String> listaTipoParcelamento;
-	private boolean segurocancelamento=false;
+	private boolean segurocancelamento=true;
 	private String numero="3";
 
 	@PostConstruct
@@ -1400,10 +1400,10 @@ public class FichaSeguroViagemMB implements Serializable {
 	
 	public void verificarSeguroCancelamento() {
 		if(valoresseguro.isSegurocancelamento()) {
-			segurocancelamento = true;
+			segurocancelamento = false;
 			numero="4";
 		} else {
-			segurocancelamento = false;
+			segurocancelamento = true;
 			numero="3";
 		}
 	} 
