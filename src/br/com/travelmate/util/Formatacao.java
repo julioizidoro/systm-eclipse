@@ -1224,6 +1224,7 @@ public class Formatacao {
 	}
 
 	public static boolean validarEmail(String email) {
+		email = email.replaceAll(" ","");
 		if (email.length() > 0) {
 			Pattern p = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$");
 			Matcher m = p.matcher(email);
