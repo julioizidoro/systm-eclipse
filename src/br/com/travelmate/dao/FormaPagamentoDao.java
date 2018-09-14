@@ -19,6 +19,7 @@ import javax.persistence.Query;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class FormaPagamentoDao {
     
 	public Formapagamento salvar(Formapagamento formaPagamento) throws SQLException{

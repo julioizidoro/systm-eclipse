@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Midias;
 
+@SuppressWarnings("unchecked")
 public class MidiaDao {
 
 	public List<Midias> listarSql(String sql) throws SQLException {

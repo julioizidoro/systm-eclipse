@@ -23,6 +23,7 @@ public class HeorcamentoDao {
         return heorcamento;
     }
 	
+	@SuppressWarnings("unchecked")
 	public List<Heorcamento> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

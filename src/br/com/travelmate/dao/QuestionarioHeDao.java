@@ -20,7 +20,8 @@ public class QuestionarioHeDao {
         manager.close();
         return questionariohe;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Questionariohe> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

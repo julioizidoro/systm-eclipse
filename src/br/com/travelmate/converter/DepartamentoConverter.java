@@ -23,6 +23,7 @@ import br.com.travelmate.model.Departamento;
 @FacesConverter(value="DepartamentoConverter")
 public class DepartamentoConverter  implements Converter{
 	
+	@SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Departamento> listaDepartamento = (List<Departamento>) component.getAttributes().get("listaDepartamento");

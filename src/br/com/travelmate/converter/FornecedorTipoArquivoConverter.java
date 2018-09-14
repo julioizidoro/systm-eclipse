@@ -13,6 +13,7 @@ import br.com.travelmate.model.Fornecedorarquivotipo;
 @FacesConverter(value = "FornecedorTipoArquivoConverter")
 public class FornecedorTipoArquivoConverter implements Converter{
 
+	@SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Fornecedorarquivotipo> listaTipoArquivo = (List<Fornecedorarquivotipo>) component.getAttributes().get("listaFornecedorTipoArquivo");

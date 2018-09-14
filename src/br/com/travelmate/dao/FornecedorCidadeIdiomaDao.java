@@ -23,7 +23,8 @@ public class FornecedorCidadeIdiomaDao {
         return fornecedorcidadeidioma;
     }
     
-    
+
+    @SuppressWarnings("unchecked")
     public List<Fornecedorcidadeidioma> listar(String sql)throws SQLException{
     	EntityManager manager;
     	manager = ConectionFactory.getInstance();

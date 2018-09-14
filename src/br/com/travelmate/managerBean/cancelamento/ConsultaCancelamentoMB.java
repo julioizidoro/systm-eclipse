@@ -56,6 +56,7 @@ public class ConsultaCancelamentoMB implements Serializable {
 	private String situacao;
 	private Ftpdados ftpdados;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

@@ -43,6 +43,7 @@ public class VendasPacoteDao {
 		manager.remove(vendaspacote);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Vendaspacote> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

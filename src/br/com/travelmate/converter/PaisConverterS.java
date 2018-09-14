@@ -13,7 +13,8 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value="PaisConverterS")
 public class PaisConverterS implements Converter{
-    
+
+	@SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Pais> listaPais = (List<Pais>) component.getAttributes().get("listaPais");

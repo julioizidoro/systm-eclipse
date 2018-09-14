@@ -52,6 +52,7 @@ public class CorridaProdutoMesDao {
 		
 	}
 	    
+	@SuppressWarnings("unchecked")
 	public List<Corridaprodutomes> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

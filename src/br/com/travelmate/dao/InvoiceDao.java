@@ -71,7 +71,8 @@ public class InvoiceDao {
         manager.close();
         return invoice;
     }
-    
+
+	@SuppressWarnings("unchecked")
     public List<Invoice> listar(String sql) throws SQLException {
     	EntityManager manager;
     	manager =  ConectionFactory.getConnection();

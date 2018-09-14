@@ -739,6 +739,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void retornoEnviarEmail(SelectEvent event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

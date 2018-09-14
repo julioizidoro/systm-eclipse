@@ -13,6 +13,7 @@ import br.com.travelmate.model.Tipoarquivo;
 @FacesConverter(value = "TipoArquivoConverter")
 public class TipoArquivoConverter implements Converter{
 
+    @SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Tipoarquivo> listaTipoArquivo = (List<Tipoarquivo>) component.getAttributes().get("listaTipoArquivo");

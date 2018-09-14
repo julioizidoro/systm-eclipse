@@ -23,6 +23,7 @@ public class HeorcamentopaisDao {
         return heorcamentopais;
     }
 	
+	@SuppressWarnings("unchecked")
 	public List<Heorcamentopais> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

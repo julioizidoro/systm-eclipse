@@ -22,7 +22,8 @@ public class ResultadoProductRunnersMB implements Serializable{
 	private List<ProductRunnersBean> listaProductRunnersBean;
 	private int mes;
 	private int ano;
-	
+
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

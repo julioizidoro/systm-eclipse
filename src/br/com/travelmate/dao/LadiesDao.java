@@ -24,7 +24,8 @@ public class LadiesDao {
         return ladies;
     }
     
-    public List<Ladies> listar(String nome) throws Exception{
+    @SuppressWarnings("unchecked")
+	public List<Ladies> listar(String nome) throws Exception{
         EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select l from Ladies l order by l.vendas.dataVenda ");
         List<Ladies> lista = q.getResultList();

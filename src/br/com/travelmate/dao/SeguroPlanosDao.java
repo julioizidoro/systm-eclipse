@@ -28,7 +28,8 @@ public class SeguroPlanosDao {
         tx.commit();
         return seguroplanos;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Seguroplanos> listar(String sql) throws SQLException{
     		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

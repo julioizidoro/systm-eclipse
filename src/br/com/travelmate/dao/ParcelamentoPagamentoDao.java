@@ -41,7 +41,8 @@ public class ParcelamentoPagamentoDao {
         manager.close();
     }
      
-     public List<Parcelamentopagamento> listar(int idFormaPagamento) throws SQLException{
+     @SuppressWarnings("unchecked")
+	public List<Parcelamentopagamento> listar(int idFormaPagamento) throws SQLException{
     	 EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select p from Parcelamentopagamento p where p.formapagamento.idformaPagamento=" + idFormaPagamento);

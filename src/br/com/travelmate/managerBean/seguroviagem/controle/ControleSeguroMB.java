@@ -81,6 +81,7 @@ public class ControleSeguroMB implements Serializable {
 	private boolean pesquisa=false;
 	private String chamadaTela = "";
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		//salvarDataEmissão();

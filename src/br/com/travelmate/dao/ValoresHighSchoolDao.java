@@ -34,7 +34,8 @@ public class ValoresHighSchoolDao {
       manager.close();
       return valor;
    }
-   
+
+   @SuppressWarnings("unchecked")
    public List<Valoreshighschool> listar(String sql) throws SQLException{
 	   EntityManager manager;
        manager = ConectionFactory.getConnection();

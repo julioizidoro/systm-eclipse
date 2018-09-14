@@ -60,7 +60,8 @@ public class VendasFinanceiroMB  implements Serializable{
     private String sql;
     private String situacao;
     private boolean selecionado;
-    
+
+    @SuppressWarnings("unchecked")
     @PostConstruct
     public void inti(){
     		FacesContext fc = FacesContext.getCurrentInstance();

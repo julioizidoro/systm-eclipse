@@ -24,7 +24,8 @@ public class GrupoObrigatorioDao {
     }
     
     
-    public List<Grupoobrigatorio> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Grupoobrigatorio> listar(String sql)throws SQLException{
     	EntityManager manager;
          manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

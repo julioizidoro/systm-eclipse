@@ -19,6 +19,7 @@ import javax.persistence.Query;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class OCursoProdutoDao implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

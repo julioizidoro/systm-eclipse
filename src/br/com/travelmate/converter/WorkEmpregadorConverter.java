@@ -13,7 +13,8 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value="WorkEmpregadorConverter")
 public class WorkEmpregadorConverter implements Converter{
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Workempregador> listaWorkempregador = (List<Workempregador>) component.getAttributes().get("listaWorkEmpregador");

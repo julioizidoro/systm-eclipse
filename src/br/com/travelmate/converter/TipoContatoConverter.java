@@ -12,6 +12,7 @@ import br.com.travelmate.model.Tipocontato;
 @FacesConverter(value = "TipoContatoConverter")
 public class TipoContatoConverter implements Converter{
 
+    @SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Tipocontato> listaTipocontato = (List<Tipocontato>) component.getAttributes().get("listaTipocontato");

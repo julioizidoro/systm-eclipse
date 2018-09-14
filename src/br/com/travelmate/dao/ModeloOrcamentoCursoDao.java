@@ -19,6 +19,7 @@ import br.com.travelmate.model.Modeloprodutoorcamentocurso;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class ModeloOrcamentoCursoDao {
     
     public Modeloorcamentocurso salvar(Modeloorcamentocurso orcamento) throws SQLException{

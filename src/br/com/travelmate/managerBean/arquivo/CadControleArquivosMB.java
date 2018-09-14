@@ -120,6 +120,7 @@ public class CadControleArquivosMB implements Serializable{
 	private FinalizarMB finalizar;
 	private Cliente cliente;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

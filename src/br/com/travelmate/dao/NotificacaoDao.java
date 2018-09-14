@@ -22,6 +22,7 @@ public class NotificacaoDao {
 		return notificacao; 
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Notificacao> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

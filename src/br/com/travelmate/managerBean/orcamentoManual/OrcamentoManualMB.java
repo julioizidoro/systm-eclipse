@@ -596,6 +596,7 @@ public class OrcamentoManualMB implements Serializable {
 		}
 	}
 
+    @SuppressWarnings("unchecked")
 	public void retornoEnviarEmail(SelectEvent event) {
 		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();

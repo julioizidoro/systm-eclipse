@@ -29,7 +29,8 @@ public class WorkSponsorArquivoDao {
         return worksponsor;
     }
     
-    public List<Worksponsorarquivos> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Worksponsorarquivos> listar(String sql) throws SQLException{
     	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Worksponsorarquivos> lista = q.getResultList();

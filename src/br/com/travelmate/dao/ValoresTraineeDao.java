@@ -33,7 +33,8 @@ public class ValoresTraineeDao {
       manager.close();
       return valor;
    }
-   
+
+   @SuppressWarnings("unchecked")
    public List<Valorestrainee> listar(String sql) throws SQLException{
 	   EntityManager manager;
        manager = ConectionFactory.getConnection();

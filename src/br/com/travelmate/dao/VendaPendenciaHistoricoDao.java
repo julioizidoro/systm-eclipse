@@ -43,7 +43,8 @@ public class VendaPendenciaHistoricoDao {
         manager.close();
     }
     
-    public List<Vendapendenciahistorico> lista(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Vendapendenciahistorico> lista(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

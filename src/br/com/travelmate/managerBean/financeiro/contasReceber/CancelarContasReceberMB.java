@@ -31,6 +31,7 @@ public class CancelarContasReceberMB implements Serializable {
 	private List<Contasreceber> listaContas;
 	private String observacao;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

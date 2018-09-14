@@ -677,6 +677,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 		semConteudo();
 	}
 
+    @SuppressWarnings("unchecked")
 	public void retornoDialogNovoArquivo(SelectEvent event) {
 		List<GerarAvisosDocsBean> lisaAvisos =  (List<GerarAvisosDocsBean>) event.getObject();
 		if (lisaAvisos.size() > 0) {

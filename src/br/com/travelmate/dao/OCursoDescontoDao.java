@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 
+@SuppressWarnings("unchecked")
 public class OCursoDescontoDao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

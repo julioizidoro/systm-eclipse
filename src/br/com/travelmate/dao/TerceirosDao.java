@@ -19,7 +19,8 @@ import javax.persistence.Query;
  */
 public class TerceirosDao {
     
-    public List<Terceiros> lista() throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Terceiros> lista() throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select t from Terceiros t order by t.nome");

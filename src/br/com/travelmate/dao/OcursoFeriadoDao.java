@@ -22,7 +22,8 @@ public class OcursoFeriadoDao implements Serializable {
         return ocursoferiado;
     }
     
-    public List<Ocursoferiado> listar(String sql){
+    @SuppressWarnings("unchecked")
+	public List<Ocursoferiado> listar(String sql){
         Query q = manager.createQuery(sql);
         List<Ocursoferiado> lista = q.getResultList();    
         return lista;

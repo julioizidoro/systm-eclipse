@@ -47,7 +47,8 @@ public class SeguroViagemDao {
         manager.close();
         return seguro;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Seguroviagem> listar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

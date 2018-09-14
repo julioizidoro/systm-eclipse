@@ -169,7 +169,8 @@ public class FornecedorMB implements Serializable{
     public String cadFornecedorComissao(){ 
         return "cadFornecedorComissao";
     } 
-    
+
+	@SuppressWarnings("unchecked")
     public void retornoDialogNovo(SelectEvent event){
        List<Fornecedorcidade> listaFornecedorCidade = (List<Fornecedorcidade>) event.getObject();
        for (int i = 0; i < listaFornecedorCidade.size(); i++) {

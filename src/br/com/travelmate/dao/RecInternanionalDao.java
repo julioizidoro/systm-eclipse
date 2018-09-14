@@ -23,7 +23,8 @@ public class RecInternanionalDao {
         
         return recinternacional;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Recinternacional> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();

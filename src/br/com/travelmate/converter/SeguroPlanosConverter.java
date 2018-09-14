@@ -19,7 +19,8 @@ import br.com.travelmate.model.Seguroplanos;
  */
 @FacesConverter(value="SeguroPlanosConverter")
 public class SeguroPlanosConverter implements Converter{
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Seguroplanos> listaSeguroplanos = (List<Seguroplanos>) component.getAttributes().get("listaSeguroPlanos");

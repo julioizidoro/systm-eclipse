@@ -13,7 +13,8 @@ import br.com.travelmate.model.Motivorecinternacional;
 public class MotivoRecInternacionalConverter implements Converter{
 
 	
-	 @Override
+	 @SuppressWarnings("unchecked")
+	@Override
 	    public Object getAsObject(FacesContext context, UIComponent component, String value) {
 	    	List<Motivorecinternacional> listaMotivoRecInternacional = (List<Motivorecinternacional>) component.getAttributes().get("listaMotivoRecInternacional");
 	        for (Motivorecinternacional motivo : listaMotivoRecInternacional) {

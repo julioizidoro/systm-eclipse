@@ -58,6 +58,7 @@ public class ControleTraineeMB implements Serializable{
 	private List<Unidadenegocio> listaUnidadeNegocio;
 	private String voltar;
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

@@ -17,6 +17,7 @@ import javax.persistence.Query;
  *
  * @author Kamila
  */
+@SuppressWarnings("unchecked")
 public class NotificacaoEmailDao {
     
     public Notificacaoemail salvar(Notificacaoemail notificacaoemail) throws SQLException{

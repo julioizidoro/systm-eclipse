@@ -45,7 +45,8 @@ public class PacotePasseioDao {
         manager.close();
     }
     
-     public List<Pacotepasseio> listar(String sql) throws SQLException{
+     @SuppressWarnings("unchecked")
+	public List<Pacotepasseio> listar(String sql) throws SQLException{
     	 EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

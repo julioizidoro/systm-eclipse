@@ -25,7 +25,8 @@ public class PromocaoAcomodacaoDao {
     }
     
     
-    public List<Promocaoacomodacao> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Promocaoacomodacao> listar(String sql)throws SQLException{
     	EntityManager manager;
          manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

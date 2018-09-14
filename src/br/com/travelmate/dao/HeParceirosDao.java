@@ -22,6 +22,7 @@ public class HeParceirosDao {
         return heParceiros;
     }
 	
+	@SuppressWarnings("unchecked")
 	public List<Heparceiros> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

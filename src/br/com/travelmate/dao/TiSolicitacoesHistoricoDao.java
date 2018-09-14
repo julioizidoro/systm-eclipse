@@ -23,7 +23,8 @@ public class TiSolicitacoesHistoricoDao {
 	        
 	        return tisolicitacoeshistorico;
 	    }
-	    
+
+	    @SuppressWarnings("unchecked")
 	    public List<Tisolicitacoeshistorico> listar(String sql)throws SQLException{
 	    		EntityManager manager;
 	        manager = ConectionFactory.getInstance();

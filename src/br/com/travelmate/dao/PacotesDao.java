@@ -52,7 +52,8 @@ public class PacotesDao {
         return pacote;
     }
     
-    
+
+    @SuppressWarnings("unchecked")
     public List<Pacotes> consultar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

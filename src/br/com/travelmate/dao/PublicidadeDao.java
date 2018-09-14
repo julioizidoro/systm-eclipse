@@ -36,7 +36,8 @@ public class PublicidadeDao {
         manager.close();
         return publicidade;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Publicidade> listar() throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

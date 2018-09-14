@@ -17,6 +17,7 @@ import javax.persistence.Query;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class OcClienteDao {
     
     public Occliente salvar(Occliente ocCliente) throws SQLException{

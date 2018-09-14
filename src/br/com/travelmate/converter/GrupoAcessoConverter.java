@@ -22,7 +22,8 @@ import br.com.travelmate.model.Grupoacesso;
 @FacesConverter(value="GrupoAcessoConverter")
 public class GrupoAcessoConverter  implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Grupoacesso> listaGrupoacesso = (List<Grupoacesso>) component.getAttributes().get("listaGrupoAcesso");
         if (listaGrupoacesso != null) {

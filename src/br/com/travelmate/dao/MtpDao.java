@@ -46,7 +46,8 @@ public class MtpDao {
 	    
 	 
 	    
-	    public List<Mtp> lista(String sql) throws SQLException{
+	    @SuppressWarnings("unchecked")
+		public List<Mtp> lista(String sql) throws SQLException{
 	    	EntityManager manager;
 	        manager = ConectionFactory.getInstance();
 	        Query q = manager.createQuery(sql);

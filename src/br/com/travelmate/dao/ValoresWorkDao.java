@@ -35,7 +35,8 @@ public class ValoresWorkDao {
       return valor;
    }
    
-   public List<Valoreswork> listar(String sql) throws SQLException{
+   @SuppressWarnings("unchecked")
+public List<Valoreswork> listar(String sql) throws SQLException{
 	   EntityManager manager;
        manager = ConectionFactory.getConnection();
        Query q = manager.createQuery(sql);

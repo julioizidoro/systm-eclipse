@@ -14,7 +14,8 @@ import br.com.travelmate.model.Cargo;
 @FacesConverter(value="CargoConverter")
 public class CargoConverter implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Cargo> listaCargo = (List<Cargo>) component.getAttributes().get("listaCargo");
         if (listaCargo != null) {

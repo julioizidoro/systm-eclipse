@@ -13,7 +13,8 @@ import br.com.travelmate.model.Pais;
 @FacesConverter(value="PaisComissaoConverter")
 public class PaisComissaoConverter implements Converter{
 
-	
+
+	@SuppressWarnings("unchecked")
 	 @Override
 	    public Object getAsObject(FacesContext context, UIComponent component, String value) {
 	    	try {

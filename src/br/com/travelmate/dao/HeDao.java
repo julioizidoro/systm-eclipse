@@ -21,7 +21,8 @@ public class HeDao {
         return he;
     }
     
-    public List<He> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<He> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<He> lista = q.getResultList();

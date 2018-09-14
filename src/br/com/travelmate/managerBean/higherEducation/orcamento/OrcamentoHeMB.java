@@ -47,6 +47,7 @@ public class OrcamentoHeMB implements Serializable{
 	private String chamadaTela = "";
 	
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

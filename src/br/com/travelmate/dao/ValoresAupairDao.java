@@ -34,7 +34,8 @@ public class ValoresAupairDao {
       manager.close();
       return valor;
    }
-   
+
+   @SuppressWarnings("unchecked")
    public List<Valoresaupair> listar(String sql) throws SQLException{
 	   EntityManager manager;
        manager = ConectionFactory.getConnection();

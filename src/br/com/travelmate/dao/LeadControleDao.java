@@ -22,6 +22,7 @@ public class LeadControleDao implements Serializable {
 	private EntityManager manager;
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Leadcontrole> lista(String sql)  {
 		Query q = manager.createQuery(sql);
 		List<Leadcontrole> lista = q.getResultList();

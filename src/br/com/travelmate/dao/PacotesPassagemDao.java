@@ -50,7 +50,8 @@ public class PacotesPassagemDao {
         tx.commit();
         manager.close();
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Pacotepassagem> lista(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

@@ -22,7 +22,8 @@ public class ProdutosOrcamentoIndiceDao {
 	        
 	        return produtosorcamentogrupo;
 	    }
-	    
+
+	    @SuppressWarnings("unchecked")
 	    public List<Produtosorcamentoindice> listar(String sql)throws SQLException{
 	    	EntityManager manager;
 	        manager = ConectionFactory.getInstance();

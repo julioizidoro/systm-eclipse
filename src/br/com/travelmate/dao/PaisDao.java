@@ -9,6 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 
+@SuppressWarnings("unchecked")
 public class PaisDao {
     
     public Pais salvar(Pais pais) throws SQLException{

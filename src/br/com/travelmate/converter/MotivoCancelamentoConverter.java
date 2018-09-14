@@ -15,7 +15,8 @@ import br.com.travelmate.model.Motivocancelamento;
 @FacesConverter(value="MotivoCancelamentoConverter")
 public class MotivoCancelamentoConverter implements Converter{
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
     	List<Motivocancelamento> listaMotivo = (List<Motivocancelamento>) component.getAttributes().get("listaMotivo");
         for (Motivocancelamento motivo : listaMotivo) {

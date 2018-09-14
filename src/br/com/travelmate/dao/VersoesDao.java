@@ -36,6 +36,7 @@ public class VersoesDao {
 		return versoes;
 	}
 
+    @SuppressWarnings("unchecked")
 	public List<Versoes> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

@@ -11,7 +11,8 @@ import br.com.travelmate.model.Valoresprogramasteens;
 
 @FacesConverter(value="ValoresProgramasTeensConverter")
 public class ValoresProgramasTeensConverter  implements Converter{
-	
+
+    @SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Valoresprogramasteens> listaValor = (List<Valoresprogramasteens>) component.getAttributes().get("listaValoresProgramasTeens");

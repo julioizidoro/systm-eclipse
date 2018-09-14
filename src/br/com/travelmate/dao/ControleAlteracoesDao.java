@@ -23,6 +23,7 @@ public class ControleAlteracoesDao {
 		return alteracoes;
 	}
 	    
+	@SuppressWarnings("unchecked")
 	public List<Controlealteracoes> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

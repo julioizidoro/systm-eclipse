@@ -6,7 +6,6 @@ import java.util.List;
  *
  * @author Kamila
  */
-@SuppressWarnings("unchecked")
 public class MediaMatchFactory {
 
 	private static List<MediaMatchBean> listaMatch;

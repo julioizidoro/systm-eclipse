@@ -21,7 +21,8 @@ public class MetaFaturamentoMensalDao {
         tx.commit();
         return meta;
     }
-	
+
+	@SuppressWarnings("unchecked")
 	public List<Metasfaturamentomensal> listar(String sql)throws SQLException{
 		EntityManager manager;
         manager = ConectionFactory.getInstance();

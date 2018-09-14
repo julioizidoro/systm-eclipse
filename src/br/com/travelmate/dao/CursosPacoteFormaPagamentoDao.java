@@ -46,6 +46,7 @@ public class CursosPacoteFormaPagamentoDao {
 		tx.commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Cursopacoteformapagamento> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

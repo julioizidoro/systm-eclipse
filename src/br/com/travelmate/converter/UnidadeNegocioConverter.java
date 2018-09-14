@@ -20,6 +20,7 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="UnidadeNegocioConverter")
 public class UnidadeNegocioConverter implements Converter{
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
             List<Unidadenegocio> listaUnidadeNegocio = (List<Unidadenegocio>) component.getAttributes().get("listaUnidade");

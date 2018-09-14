@@ -22,7 +22,8 @@ public class TreinamentoRespostasCertaDao {
         
         return treinamentorespostacerta;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Treinamentorespostacerta> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();

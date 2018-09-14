@@ -41,7 +41,8 @@ public class VendaMotivoPendenciaDao {
         tx.commit();
         manager.close();
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Vendamotivopendencia> lista(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

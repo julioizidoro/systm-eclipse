@@ -21,7 +21,8 @@ public class HighSchoolDao {
         return highschool;
     }
     
-    public List<Highschool> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Highschool> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Highschool> lista = q.getResultList();
@@ -76,7 +77,8 @@ public class HighSchoolDao {
         return cotrolehighschool;
     }
     
-    public List<Controlehighschool> listaControle(String sql) throws SQLException {
+    @SuppressWarnings("unchecked")
+	public List<Controlehighschool> listaControle(String sql) throws SQLException {
     	EntityManager manager = ConectionFactory.getConnection();
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

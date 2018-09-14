@@ -22,6 +22,7 @@ public class CidadePaisProdutoDao {
 		return cidade;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Cidadepaisproduto> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

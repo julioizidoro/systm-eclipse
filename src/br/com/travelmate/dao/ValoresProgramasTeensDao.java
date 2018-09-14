@@ -34,7 +34,8 @@ public class ValoresProgramasTeensDao {
       manager.close();
       return valor;
    }
-   
+
+   @SuppressWarnings("unchecked")
    public List<Valoresprogramasteens> listar(String sql) throws SQLException{
 	   EntityManager manager;
        manager = ConectionFactory.getConnection();

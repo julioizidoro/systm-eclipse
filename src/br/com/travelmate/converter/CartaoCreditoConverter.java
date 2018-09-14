@@ -11,7 +11,8 @@ import br.com.travelmate.model.Cartaocredito;
 @FacesConverter(value="CartaoCreditoConverter")
 public class CartaoCreditoConverter implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
     	List<Cartaocredito> listaCartaocredito = (List<Cartaocredito>) component.getAttributes().get("listaCartaoCredito");
         for (Cartaocredito cartaocredito : listaCartaocredito) {

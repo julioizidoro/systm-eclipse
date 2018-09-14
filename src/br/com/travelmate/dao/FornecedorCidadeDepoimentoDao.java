@@ -12,6 +12,7 @@ import br.com.travelmate.model.Fornecedorcidadedepoimento;
 
 public class FornecedorCidadeDepoimentoDao {
 
+    @SuppressWarnings("unchecked")
 	public List<Fornecedorcidadedepoimento> lista(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

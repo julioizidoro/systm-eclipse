@@ -27,7 +27,8 @@ public class PacoteTrechoDao {
         return pacotetrecho;
     }
     
-    
+
+    @SuppressWarnings("unchecked")
     public List<Pacotetrecho> listar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

@@ -38,7 +38,8 @@ public class RegraVendaDao {
          manager.close();
          return regravenda;
      }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Regravenda> lista(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

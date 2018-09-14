@@ -115,6 +115,7 @@ public class CursoMB implements Serializable {
 	private List<Curso> listaVendasCursoFinanceiro;
 	private String chamadaTela = "";
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct()
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

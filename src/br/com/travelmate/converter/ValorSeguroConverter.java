@@ -20,7 +20,8 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value="ValorSeguroConverter")
 public class ValorSeguroConverter  implements Converter{
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Valoresseguro> listaValorSeguro = (List<Valoresseguro>) component.getAttributes().get("listaValorSeguro");

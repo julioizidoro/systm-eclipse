@@ -43,6 +43,7 @@ public class OcursoPacoteDao implements Serializable{
 	}
 	
 
+	@SuppressWarnings("unchecked")
 	public List<Ocursopacote> listar(String sql) {
 		Query q = manager.createQuery(sql);
 		List<Ocursopacote> ocursopacote = null;

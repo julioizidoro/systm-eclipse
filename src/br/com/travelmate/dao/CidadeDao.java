@@ -22,7 +22,8 @@ public class CidadeDao {
         return cidade;
     }
     
-    public List<Cidade> listar(int idPais) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Cidade> listar(int idPais) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Cidade c where c.pais.idpais=" + idPais + " order by c.nome");

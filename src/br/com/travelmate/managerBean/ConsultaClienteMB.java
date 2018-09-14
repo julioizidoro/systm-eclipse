@@ -42,7 +42,8 @@ public class ConsultaClienteMB implements Serializable{
     private boolean semmascara = false;
     private String nomeCpf = "CPF";
     
-    @PostConstruct
+    @SuppressWarnings("unchecked")
+	@PostConstruct
     public void init() {
     	if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 	    	FacesContext fc = FacesContext.getCurrentInstance();

@@ -24,6 +24,7 @@ public class LogVendaDao {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Logvenda> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

@@ -47,7 +47,8 @@ public class CrmCobrancaHistoricoDao {
     }
     
     
-    public List<Crmcobrancahistorico> lista(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Crmcobrancahistorico> lista(String sql) throws SQLException{
     		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Crmcobrancahistorico> lista = q.getResultList();

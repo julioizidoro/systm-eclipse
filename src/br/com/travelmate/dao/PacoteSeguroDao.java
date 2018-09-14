@@ -40,7 +40,8 @@ public class PacoteSeguroDao {
     }
     
     
-    public List<Pacoteseguro> consultar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Pacoteseguro> consultar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);

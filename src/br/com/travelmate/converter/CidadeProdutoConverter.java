@@ -15,7 +15,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="CidadeProdutoConverter")
 public class CidadeProdutoConverter implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Cidadepaisproduto> listaCidadePaisProduto = (List<Cidadepaisproduto>) component.getAttributes().get("listaCidadeProduto");
         if (listaCidadePaisProduto != null) {

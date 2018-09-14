@@ -46,7 +46,8 @@ public class CrmCobrancaContaDao {
     }
     
     
-    public List<Crmcobrancaconta> lista(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Crmcobrancaconta> lista(String sql) throws SQLException{
     		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Crmcobrancaconta> lista = q.getResultList();

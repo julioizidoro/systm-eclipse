@@ -22,6 +22,7 @@ import br.com.travelmate.util.Formatacao;
 @FacesConverter(value="InvoiceRemessaConverter")
 public class InvoiceRemessaConverter implements Converter{
     
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		List<Invoiceremessa> lista = (List<Invoiceremessa>) component.getAttributes().get("listaInvoiceRemessa");

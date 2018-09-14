@@ -46,6 +46,7 @@ public class LeadEncaminhadoDao implements Serializable{
 		manager.remove(leadencaminhado);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Leadencaminhado> listar(String sql) {
 		Query q = manager.createQuery(sql);
 		List<Leadencaminhado> lista = null;

@@ -11,7 +11,8 @@ import br.com.travelmate.model.Valoresaupair;
 
 @FacesConverter(value="ValoresAupairConverter")
 public class ValoresAupairConverter  implements Converter{
-	
+
+    @SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Valoresaupair> listaValor = (List<Valoresaupair>) component.getAttributes().get("listaValoresAupair");

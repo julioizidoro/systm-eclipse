@@ -24,6 +24,7 @@ public class RetornoContasDao {
 		return retornocontas;
 	}
 
+    @SuppressWarnings("unchecked")
 	public List<Retornocontas> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

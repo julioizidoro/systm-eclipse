@@ -45,6 +45,7 @@ public class CursosPacoteDao {
 		tx.commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Cursospacote> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

@@ -24,6 +24,7 @@ public class FornecedorCidadeIdiomaProdutoDataDao {
     }
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Fornecedorcidadeidiomaprodutodata> listar(String sql)throws SQLException{
 		EntityManager manager;
         manager = ConectionFactory.getConnection();

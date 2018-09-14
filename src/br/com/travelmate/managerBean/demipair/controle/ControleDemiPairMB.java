@@ -52,6 +52,7 @@ public class ControleDemiPairMB implements Serializable {
 	private int idVenda;
 	private String voltar;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

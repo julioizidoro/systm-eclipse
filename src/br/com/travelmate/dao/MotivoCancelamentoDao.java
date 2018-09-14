@@ -37,7 +37,8 @@ public class MotivoCancelamentoDao {
          return motivo;
      }
     
-    public List<Motivocancelamento> lista(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Motivocancelamento> lista(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

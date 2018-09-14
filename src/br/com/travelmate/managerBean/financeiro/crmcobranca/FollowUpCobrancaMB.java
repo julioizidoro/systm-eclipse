@@ -66,7 +66,8 @@ public class FollowUpCobrancaMB implements Serializable{
 	private List<Crmcobranca> listaCrmCobrancaTodos;
 	private String chamaraTela = "";
 	
-	
+
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

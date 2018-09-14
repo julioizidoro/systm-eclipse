@@ -606,6 +606,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 	}
 	
 
+	@SuppressWarnings("unchecked")
 	public void retornoEnviarEmail(SelectEvent event) {
 		OrcamentoProjetoVoluntariadoFacade oFacade = new OrcamentoProjetoVoluntariadoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();

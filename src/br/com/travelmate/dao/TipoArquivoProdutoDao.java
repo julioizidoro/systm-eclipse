@@ -41,7 +41,8 @@ public class TipoArquivoProdutoDao {
 		tx.commit();
 		manager.close();
 	}
-	    
+
+    @SuppressWarnings("unchecked")
 	public List<Tipoarquivoproduto> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

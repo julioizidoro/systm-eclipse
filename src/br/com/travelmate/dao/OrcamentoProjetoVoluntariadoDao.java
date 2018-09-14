@@ -23,7 +23,8 @@ public class OrcamentoProjetoVoluntariadoDao {
 	        
 	        return orcamentoprojetovoluntariado;
 	    }
-	    
+
+	    @SuppressWarnings("unchecked")
 	    public List<Orcamentoprojetovoluntariado> listar(String sql)throws SQLException{
 	    	EntityManager manager;
 	        manager = ConectionFactory.getInstance();

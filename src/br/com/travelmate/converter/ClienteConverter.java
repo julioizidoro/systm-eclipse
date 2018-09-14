@@ -11,7 +11,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="ClienteConverter")
 public class ClienteConverter implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Cliente> listaCliente = (List<Cliente>) component.getAttributes().get("listaCliente");
         for (Cliente cliente : listaCliente) {

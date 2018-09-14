@@ -31,7 +31,8 @@ public class ContasPagarDao {
         return conta;
     }
     
-    public List<Contaspagar> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Contaspagar> listar(String sql)throws SQLException{
     	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Contaspagar> lista = q.getResultList();

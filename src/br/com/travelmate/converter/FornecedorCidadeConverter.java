@@ -19,7 +19,8 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value="FornecedorCidadeConverter")
 public class FornecedorCidadeConverter implements Converter{
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Fornecedorcidade> listaFornecedorCidade = (List<Fornecedorcidade>) component.getAttributes().get("listaFornecedorCidade");

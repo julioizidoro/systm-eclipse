@@ -22,7 +22,8 @@ public class LeadDao implements Serializable{
 
 	
 	
-	
+
+	@SuppressWarnings("unchecked")
 	public List<Lead> lista(String sql)  {
 		Query q = manager.createQuery(sql);
 		List<Lead> lista = null;

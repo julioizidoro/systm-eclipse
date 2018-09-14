@@ -23,6 +23,7 @@ public class CondicaoCancelamentoDao {
 		return condicaocancelamento;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Condicaocancelamento> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

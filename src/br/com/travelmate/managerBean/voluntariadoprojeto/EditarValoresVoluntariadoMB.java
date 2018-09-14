@@ -31,7 +31,8 @@ public class EditarValoresVoluntariadoMB implements Serializable{
     private Date dataFinalNova; 
     private List<Voluntariadoprojeto> listaVoluntariadoProjeto;
     
-    @PostConstruct
+    @SuppressWarnings("unchecked")
+	@PostConstruct
     public void init(){ 
     	 FacesContext fc = FacesContext.getCurrentInstance();
          HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

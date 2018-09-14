@@ -19,6 +19,7 @@ import br.com.travelmate.model.Produtosorcamento;
  *
  * @author Wolverine
  */
+@SuppressWarnings("unchecked")
 public class OrcamentoDao {
     
     public Orcamento salvar(Orcamento orcamento) throws SQLException{

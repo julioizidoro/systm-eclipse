@@ -24,7 +24,8 @@ public class ProdutosOrcamentoGrupoDao {
 	        return produtosorcamentogrupo;
 	    }
 	    
-	    public List<Produtosorcamentogrupo> listar(String sql)throws SQLException{
+	    @SuppressWarnings("unchecked")
+		public List<Produtosorcamentogrupo> listar(String sql)throws SQLException{
 	    	EntityManager manager;
 	        manager = ConectionFactory.getInstance();
 	        Query q = manager.createQuery(sql);

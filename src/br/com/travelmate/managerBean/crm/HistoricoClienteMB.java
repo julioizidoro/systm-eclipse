@@ -129,6 +129,7 @@ public class HistoricoClienteMB implements Serializable {
 	private String sql;
 	private Vendas vendas;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {

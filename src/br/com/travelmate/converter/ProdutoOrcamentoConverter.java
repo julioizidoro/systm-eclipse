@@ -17,7 +17,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="ProdutoOrcamentoConverter")
 public class ProdutoOrcamentoConverter implements Converter{
     
-    
+
+    @SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
     	List<Object> lista =  (List<Object>) component.getAttributes().get("listaProdutos");

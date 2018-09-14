@@ -11,6 +11,7 @@ import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.model.Pacotepassagempassageiro;
 
 public class PacotePassagemPassageiroDao {
+	@SuppressWarnings("unchecked")
 	public List<Pacotepassagempassageiro> lista(String sql) throws SQLException{
 		EntityManager manager;
         manager = ConectionFactory.getConnection();

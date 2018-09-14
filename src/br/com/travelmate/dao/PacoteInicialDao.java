@@ -25,6 +25,7 @@ public class PacoteInicialDao {
 		return pacotesinicial;
 	}   
 
+	@SuppressWarnings("unchecked")
 	public List<Pacotesinicial> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

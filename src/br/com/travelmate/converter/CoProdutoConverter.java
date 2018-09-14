@@ -20,7 +20,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "CoProdutoConverter")
 public class CoProdutoConverter implements Converter {
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Coprodutos> listaCoProduto = (List<Coprodutos>) component.getAttributes().get("listaCoProduto");
         if (listaCoProduto != null) {

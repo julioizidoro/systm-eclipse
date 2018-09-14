@@ -41,7 +41,8 @@ public class FornecedorArquivoTipoDao {
 		tx.commit();
 		manager.close();
 	}
-	    
+
+    @SuppressWarnings("unchecked")
 	public List<Fornecedorarquivotipo> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

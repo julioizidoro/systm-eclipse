@@ -35,6 +35,7 @@ public class ValoresHeDao {
 		return valor;
 	}
 
+    @SuppressWarnings("unchecked")
 	public List<Valoreshe> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

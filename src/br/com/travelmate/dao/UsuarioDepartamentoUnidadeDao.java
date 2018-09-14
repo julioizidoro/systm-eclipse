@@ -34,6 +34,7 @@ public class UsuarioDepartamentoUnidadeDao {
         return usuariodepartamentounidade;
     }
 
+    @SuppressWarnings("unchecked")
 	public List<Usuariodepartamentounidade> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

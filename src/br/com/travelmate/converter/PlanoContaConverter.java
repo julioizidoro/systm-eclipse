@@ -10,7 +10,8 @@ import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value="PlanoContaConverter")
 public class PlanoContaConverter implements Converter{
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
     	List<Planoconta> listaPlanoConta = (List<Planoconta>) component.getAttributes().get("listaPlanoConta");

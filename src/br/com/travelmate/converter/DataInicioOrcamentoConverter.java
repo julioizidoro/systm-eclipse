@@ -12,6 +12,7 @@ import br.com.travelmate.managerBean.OrcamentoCurso.DatasBean;
 @FacesConverter(value="DataInicioOrcamentoConverter")
 public class DataInicioOrcamentoConverter implements Converter{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<DatasBean> listaData = (List<DatasBean>) component.getAttributes().get("listaData");

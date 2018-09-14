@@ -15,7 +15,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="CambioConverter")
 public class CambioConverter implements Converter{
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Cambio> listaCambio = (List<Cambio>) component.getAttributes().get("listaCambio");
         if (listaCambio != null) {

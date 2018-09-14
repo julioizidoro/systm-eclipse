@@ -22,7 +22,8 @@ public class OrcamentoVoluntariadoDescontoDao {
 	        tx.commit(); 
 	        return orcamentovoluntariadodesconto;
 	    }
-	    
+
+	    @SuppressWarnings("unchecked")
 	    public List<Orcamentovoluntariadodesconto> listar(String sql)throws SQLException{
 	    	EntityManager manager;
 	        manager = ConectionFactory.getInstance();

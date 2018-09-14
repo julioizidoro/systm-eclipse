@@ -23,6 +23,7 @@ public class PagamentoInvoiceDao {
         return pagamentoinvoice;
     }
 	
+	@SuppressWarnings("unchecked")
 	public List<Pagamentoinvoice> listar(String sql) throws SQLException {
 		EntityManager manager;
     	manager =  ConectionFactory.getConnection();

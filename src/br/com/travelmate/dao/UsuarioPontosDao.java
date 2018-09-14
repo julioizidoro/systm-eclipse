@@ -23,7 +23,8 @@ public class UsuarioPontosDao {
         manager.close();
         return usuariopontos;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Usuariopontos> listar(String sql) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

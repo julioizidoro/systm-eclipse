@@ -29,7 +29,8 @@ public class FornecedorPacoteArquivoPagamentoDao {
         return pacotesfornecedor;
     }
     
-    public List<Fornecedorpacotearquivopagamento> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Fornecedorpacotearquivopagamento> listar(String sql) throws SQLException{
     	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Fornecedorpacotearquivopagamento> listaPacotesfornecedor = q.getResultList();

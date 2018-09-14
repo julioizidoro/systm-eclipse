@@ -30,7 +30,8 @@ public class FornecedorDao {
         return fornecedor;
     }
     
-    public List<Fornecedor> listar(String sql) throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Fornecedor> listar(String sql) throws SQLException{
     	EntityManager manager;
     	manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

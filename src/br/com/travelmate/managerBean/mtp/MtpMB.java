@@ -195,6 +195,7 @@ public class MtpMB implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void retornoDialogEdicao(SelectEvent event) {
 		List<AlteracoesMtpBean> listaAlteracao = (List<AlteracoesMtpBean>) event.getObject();
 		if (listaAlteracao != null) {

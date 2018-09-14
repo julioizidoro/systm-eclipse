@@ -53,7 +53,8 @@ public class FornecedorCidadeIdiomaAcomodacaoDao {
         manager.remove(voluntariadoprojetoacomodacao);
         tx.commit();
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Fornecedorcidadeidiomaacomodacao> listar(String sql)throws SQLException{
     	EntityManager manager;
          manager = ConectionFactory.getInstance();

@@ -15,7 +15,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="MoedasConverter")
 public class MoedasConverter implements Converter{
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
     	List<Moedas> listaMoedas = (List<Moedas>) component.getAttributes().get("listaMoedas");
         for (Moedas Moedas : listaMoedas) {

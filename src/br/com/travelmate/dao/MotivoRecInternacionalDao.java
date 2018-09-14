@@ -23,7 +23,8 @@ public class MotivoRecInternacionalDao {
 	        return motivorecinternacional;
 	    }
 	    
-	    public List<Motivorecinternacional> listar(String sql)throws SQLException{
+	    @SuppressWarnings("unchecked")
+		public List<Motivorecinternacional> listar(String sql)throws SQLException{
 	    	EntityManager manager;
 	        manager = ConectionFactory.getInstance();
 	        Query q = manager.createQuery(sql);

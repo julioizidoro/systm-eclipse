@@ -50,7 +50,8 @@ public class FornecedorCidadeDocsDao {
         manager.remove(fornecedorcidadedocs);
         tx.commit();
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Fornecedorcidadedocs> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();

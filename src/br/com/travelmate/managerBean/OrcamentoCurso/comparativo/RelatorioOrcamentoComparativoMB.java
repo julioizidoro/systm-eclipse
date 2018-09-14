@@ -20,7 +20,8 @@ public class RelatorioOrcamentoComparativoMB implements Serializable {
 	private List<OrcamentoComparativoBean> listaOrcamento;
 	private boolean doisorcamentos;
 	private boolean tresorcamentos;
-	
+
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

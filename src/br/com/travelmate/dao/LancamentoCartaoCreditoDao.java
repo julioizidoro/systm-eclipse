@@ -41,6 +41,7 @@ public class LancamentoCartaoCreditoDao {
 		
 	}
 	    
+	@SuppressWarnings("unchecked")
 	public List<Lancamentocartaocredito> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

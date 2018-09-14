@@ -57,7 +57,8 @@ public class QuestionarioMB implements Serializable{
 	private boolean acessoUnidade = false;
 	
 	
-	
+
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

@@ -13,6 +13,7 @@ import br.com.travelmate.model.Produtosorcamento;
 @FacesConverter(value="ProdutoOrcamentoVinculadoConverter")
 public class ProdutoOrcamentoVinculadoConverter implements Converter{
 	
+	@SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Filtroorcamentoproduto> listaProdutos = (List<Filtroorcamentoproduto>) component.getAttributes().get("listaProdutosVinculado");

@@ -20,7 +20,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="FornecedorConverter")
 public class FornecedorConverter implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
     	List<Fornecedor> listaFornecedor = (List<Fornecedor>) component.getAttributes().get("listaFornecedor");
         if (listaFornecedor != null) {

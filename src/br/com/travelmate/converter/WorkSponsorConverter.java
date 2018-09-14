@@ -15,7 +15,8 @@ import br.com.travelmate.model.Worksponsor;
 @FacesConverter(value="WorkSponsorConverter")
 public class WorkSponsorConverter implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Worksponsor> lista = (List<Worksponsor>) component.getAttributes().get("listaWorkSponsor");
         if (lista != null) {

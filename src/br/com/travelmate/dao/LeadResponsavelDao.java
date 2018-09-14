@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Leadresponsavel;  
 
+@SuppressWarnings("unchecked")
 public class LeadResponsavelDao implements Serializable{ 
 	 
 	

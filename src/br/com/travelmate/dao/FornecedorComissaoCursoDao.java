@@ -29,6 +29,7 @@ public class FornecedorComissaoCursoDao {
 		return fornecedorcomissaocurso;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Fornecedorcomissaocurso> listar(int idFornecedor, int idPais) throws SQLException {
 		EntityManager manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery("Select f from Fornecedorcomissaocurso f where f.fornecedor.idfornecedor="

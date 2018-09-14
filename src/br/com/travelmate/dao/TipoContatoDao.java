@@ -12,6 +12,7 @@ import br.com.travelmate.model.Tipocontato;
 
 public class TipoContatoDao {
 
+	@SuppressWarnings("unchecked")
 	public List<Tipocontato> lista(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

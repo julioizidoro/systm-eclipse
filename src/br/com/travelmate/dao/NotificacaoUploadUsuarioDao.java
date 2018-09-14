@@ -40,6 +40,7 @@ public class NotificacaoUploadUsuarioDao {
 		
 	}
 	    
+	@SuppressWarnings("unchecked")
 	public List<Notificacaouploadusuario> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

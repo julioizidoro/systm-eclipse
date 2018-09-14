@@ -19,6 +19,7 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="TerceirosConverter")
 public class TerceirosConverter implements Converter{
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Terceiros> listaTerceiros = (List<Terceiros>) component.getAttributes().get("listaTerceiros");

@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author Wolverine
  */
-@SuppressWarnings("unchecked")
 public class PagamentoInvoiceFactory {
 
      private static List<PagamentoInvoiceBean> listaPagamentoInvoice;

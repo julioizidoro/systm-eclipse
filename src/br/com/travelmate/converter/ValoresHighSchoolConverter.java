@@ -11,7 +11,8 @@ import br.com.travelmate.model.Valoreshighschool;
 
 @FacesConverter(value="ValoresHighSchoolConverter")
 public class ValoresHighSchoolConverter  implements Converter{
-	
+
+    @SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Valoreshighschool> listaValor = (List<Valoreshighschool>) component.getAttributes().get("listaValoresHighSchool");

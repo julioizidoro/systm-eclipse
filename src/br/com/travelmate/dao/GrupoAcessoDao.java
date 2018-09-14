@@ -13,7 +13,8 @@ import br.com.travelmate.model.Grupoacesso;
 
 public class GrupoAcessoDao {
    
-    public List<Grupoacesso> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Grupoacesso> listar(String sql)throws SQLException{
     	EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery(sql);
         List<Grupoacesso> lista = q.getResultList();

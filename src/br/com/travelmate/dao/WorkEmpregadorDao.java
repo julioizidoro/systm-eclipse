@@ -28,7 +28,8 @@ public class WorkEmpregadorDao {
         tx.commit();
         return workempregador;
     }
-     
+
+    @SuppressWarnings("unchecked")
     public List<Workempregador> listar(String sql) throws SQLException{
     		EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

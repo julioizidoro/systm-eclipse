@@ -23,6 +23,7 @@ public class InvoiceRemessaDao {
         return invoiceRemessa;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Invoiceremessa> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();

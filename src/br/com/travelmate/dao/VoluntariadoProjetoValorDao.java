@@ -53,7 +53,8 @@ public class VoluntariadoProjetoValorDao {
         manager.remove(voluntariadoprojetovalor);
         tx.commit();
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Voluntariadoprojetovalor> listar(String sql)throws SQLException{
     	EntityManager manager;
          manager = ConectionFactory.getInstance();

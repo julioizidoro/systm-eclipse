@@ -34,7 +34,8 @@ public class OCursoDao implements Serializable {
         return ocurso;
     }
     
-    public List<Ocurso> listar(String sql){
+    @SuppressWarnings("unchecked")
+	public List<Ocurso> listar(String sql){
         List<Ocurso> lista = null;
         Query q = manager.createQuery(sql);
         lista = q.getResultList();

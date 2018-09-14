@@ -24,6 +24,7 @@ public class RelatorioCobrancaFinalMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<RelatorioCobrancaBean> listaRelatorio;
 
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

@@ -23,6 +23,7 @@ public class PastaVideoDao {
 		return pastavideo;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Pastavideo> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

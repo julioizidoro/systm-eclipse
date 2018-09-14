@@ -62,6 +62,7 @@ public class CadWorkSponsorArquivoMB implements Serializable {
 	private List<Worksponsorarquivos> listaArquivos;
 	private boolean arquivoEnviado = false;
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

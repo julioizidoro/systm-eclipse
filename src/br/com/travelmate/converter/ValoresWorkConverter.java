@@ -11,7 +11,8 @@ import br.com.travelmate.model.Valoreswork;
 
 @FacesConverter(value="ValoresWorkConverter")
 public class ValoresWorkConverter  implements Converter{
-	
+
+    @SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		List<Valoreswork> listaValores = (List<Valoreswork>) component.getAttributes().get("listaValoresWork");

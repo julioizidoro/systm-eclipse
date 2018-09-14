@@ -21,6 +21,7 @@ public class RelatorioSolicitacoesFinalMB implements Serializable {
 	private static final long serialVersionUID = 1L; 
 	private List<Tisolicitacoes> listaSolicitacoes; 
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

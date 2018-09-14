@@ -32,7 +32,8 @@ public class ExcluirFornecedorCidadeDocsMB implements Serializable{
 	private List<Fornecedordocs> listaDocs;
 	
 	
-	
+
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

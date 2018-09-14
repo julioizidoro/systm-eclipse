@@ -54,6 +54,7 @@ public class SolicitacoesMB implements Serializable{
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

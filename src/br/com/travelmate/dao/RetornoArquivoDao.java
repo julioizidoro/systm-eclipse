@@ -24,6 +24,7 @@ public class RetornoArquivoDao {
 		return retornoarquivo;
 	}
 
+    @SuppressWarnings("unchecked")
 	public List<Retornoarquivo> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

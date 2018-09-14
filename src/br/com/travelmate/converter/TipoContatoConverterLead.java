@@ -13,6 +13,7 @@ import br.com.travelmate.model.Tipocontato;
 public class TipoContatoConverterLead implements Converter{
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Tipocontato> listaTipocontato = (List<Tipocontato>) component.getAttributes().get("listaTipocontato");

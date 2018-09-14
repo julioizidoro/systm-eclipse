@@ -24,7 +24,8 @@ public class PlanoContaDao {
         manager.close();
         return planoconta;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Planoconta> listar(String descricao) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

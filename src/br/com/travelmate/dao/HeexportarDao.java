@@ -18,6 +18,7 @@ public class HeexportarDao implements Serializable{
 	@Inject
 	private EntityManager manager;
 
+	@SuppressWarnings("unchecked")
 	public List<Vendas> lista(String sql) {
 		Query q = manager.createQuery(sql);
 		List<Vendas> lista = q.getResultList();

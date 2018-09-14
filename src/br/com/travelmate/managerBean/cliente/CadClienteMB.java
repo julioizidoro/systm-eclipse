@@ -59,6 +59,7 @@ public class CadClienteMB implements Serializable {
 	
 	
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {

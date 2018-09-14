@@ -23,7 +23,8 @@ public class OrcamentoVoluntariadoFormaPagamentoDao {
         return orcamentovoluntariadoformapagamento;
     }
     
-    public List<Orcamentovoluntariadoformapagamento> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Orcamentovoluntariadoformapagamento> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

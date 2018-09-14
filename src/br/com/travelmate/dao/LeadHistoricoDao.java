@@ -20,6 +20,7 @@ public class LeadHistoricoDao implements Serializable {
 	private EntityManager manager;
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Leadhistorico> lista(String sql)  {
 		Query q = manager.createQuery(sql);
 		List<Leadhistorico> lista = q.getResultList();

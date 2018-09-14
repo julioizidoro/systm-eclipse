@@ -23,7 +23,8 @@ public class TiSolicitacoesDao {
 	        
 	        return tisolicitacoes;
 	    }
-	    
+
+	    @SuppressWarnings("unchecked")
 	    public List<Tisolicitacoes> listar(String sql)throws SQLException{
 	    		EntityManager manager;
 	        manager = ConectionFactory.getInstance();

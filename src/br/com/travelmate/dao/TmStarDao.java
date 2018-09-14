@@ -12,6 +12,7 @@ import br.com.travelmate.model.Tmstar;
 
 public class TmStarDao {
 
+	@SuppressWarnings("unchecked")
 	public List<Tmstar> lista() throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

@@ -13,6 +13,7 @@ import br.com.travelmate.model.Vendamotivopendencia;
 @FacesConverter(value = "VendaMotivoPendenciaConverter")
 public class VendaMotivoPendenciaConverter implements Converter{
 
+    @SuppressWarnings("unchecked")
 	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		try {

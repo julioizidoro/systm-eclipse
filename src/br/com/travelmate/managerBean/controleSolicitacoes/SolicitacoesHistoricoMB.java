@@ -35,7 +35,8 @@ public class SolicitacoesHistoricoMB implements Serializable{
 	
 	
 	
-	
+
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

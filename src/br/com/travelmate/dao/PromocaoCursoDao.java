@@ -23,7 +23,8 @@ public class PromocaoCursoDao {
         return promocaoCurso;
     }
     
-    
+
+    @SuppressWarnings("unchecked")
     public List<Promocaocurso> listar(String sql)throws SQLException{
     	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

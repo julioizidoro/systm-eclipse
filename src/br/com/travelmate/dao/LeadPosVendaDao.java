@@ -16,19 +16,16 @@ import br.com.travelmate.model.Leadposvenda;
  */
 public class LeadPosVendaDao implements Serializable {
 
-	
-	
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private EntityManager manager;
 
 	@Transactional
-	public Leadposvenda salvar(Leadposvenda leadposvenda)  {
+	public Leadposvenda salvar(Leadposvenda leadposvenda) {
 		leadposvenda = manager.merge(leadposvenda);
 		return leadposvenda;
 	}
@@ -40,15 +37,16 @@ public class LeadPosVendaDao implements Serializable {
 			leadposvenda = (Leadposvenda) q.getResultList().get(0);
 		}
 		return leadposvenda;
-	}  
+	}
 
 	@Transactional
-	public void excluir(int idleadposvenda)  {
+	public void excluir(int idleadposvenda) {
 		Leadposvenda leadposvenda = manager.find(Leadposvenda.class, idleadposvenda);
 		manager.remove(leadposvenda);
 	}
 
-	public List<Leadposvenda> listar(String sql)  {
+	@SuppressWarnings("unchecked")
+	public List<Leadposvenda> listar(String sql) {
 		Query q = manager.createQuery(sql);
 		List<Leadposvenda> lista = null;
 		if (q.getResultList().size() > 0) {

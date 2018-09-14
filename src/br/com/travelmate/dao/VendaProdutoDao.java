@@ -35,6 +35,7 @@ public class VendaProdutoDao {
 		return vendaproduto;
 	}
 
+    @SuppressWarnings("unchecked")
 	public List<Vendaproduto> listar(String sql) throws SQLException {
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();

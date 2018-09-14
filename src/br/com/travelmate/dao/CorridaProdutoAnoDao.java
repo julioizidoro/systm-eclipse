@@ -52,6 +52,7 @@ public class CorridaProdutoAnoDao {
 		
 	}
 	    
+	@SuppressWarnings("unchecked")
 	public List<Corridaprodutoano> listar(String sql)throws SQLException{
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();

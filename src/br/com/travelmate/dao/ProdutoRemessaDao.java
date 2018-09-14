@@ -19,7 +19,8 @@ import br.com.travelmate.model.Produtoremessa;
  * @author Wolverine
  */
 public class ProdutoRemessaDao {
-    
+
+    @SuppressWarnings("unchecked")
     public List<Produtoremessa> listar(int idProduto) throws Exception{
     	EntityManager manager;
     	manager = ConectionFactory.getConnection();

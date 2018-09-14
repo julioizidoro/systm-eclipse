@@ -134,6 +134,7 @@ public class FornecedorDocsMB implements Serializable {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public void retornoDialogExcluir(SelectEvent event) {
 		listaDocs = (List<Fornecedordocs>) event.getObject();
 		Mensagem.lancarMensagemInfo("Excluido com sucesso", "");

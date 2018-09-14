@@ -19,6 +19,7 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value="FornecedorCidadeIdiomaConverter")
 public class FornecedorCidadeIdiomaConverter implements Converter{
+    @SuppressWarnings("unchecked")
      @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Fornecedorcidadeidioma> listaFornecedorcidadeidiomas = (List<Fornecedorcidadeidioma>) component.getAttributes().get("listaFornecedorCidadeIdioma");

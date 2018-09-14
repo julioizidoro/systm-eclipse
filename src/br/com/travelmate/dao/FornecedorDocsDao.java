@@ -51,7 +51,8 @@ public class FornecedorDocsDao {
         tx.commit();
     }
     
-    public List<Fornecedordocs> listar(String sql)throws SQLException{
+    @SuppressWarnings("unchecked")
+	public List<Fornecedordocs> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

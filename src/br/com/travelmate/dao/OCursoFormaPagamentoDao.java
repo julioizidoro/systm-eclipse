@@ -37,7 +37,8 @@ public class OCursoFormaPagamentoDao implements Serializable{
         q.executeUpdate();
      }
     
-    public List<Ocursoformapagamento> listar(int idOcurso) {
+    @SuppressWarnings("unchecked")
+	public List<Ocursoformapagamento> listar(int idOcurso) {
         Query q = manager.createQuery("select p from Ocursoformapagamento p where p.ocurso.idocurso=" + idOcurso);
         List<Ocursoformapagamento> lista = q.getResultList();
         return lista;

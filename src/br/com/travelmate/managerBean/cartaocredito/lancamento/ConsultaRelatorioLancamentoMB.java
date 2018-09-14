@@ -24,6 +24,7 @@ public class ConsultaRelatorioLancamentoMB implements Serializable{
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();

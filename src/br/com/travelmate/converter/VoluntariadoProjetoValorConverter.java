@@ -20,7 +20,8 @@ import br.com.travelmate.model.Voluntariadoprojetovalor;
  */
 @FacesConverter(value="VoluntariadoProjetoValorConverter")
 public class VoluntariadoProjetoValorConverter implements Converter{
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Voluntariadoprojetovalor> lista = (List<Voluntariadoprojetovalor>) component.getAttributes().get("listaVoluntariadoProjetoValor");

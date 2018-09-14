@@ -51,7 +51,8 @@ public class VendasComissaoDao {
         manager.remove(vendasComissao);
         tx.commit();
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Vendascomissao> listar(String sql)throws SQLException{
     	EntityManager manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);

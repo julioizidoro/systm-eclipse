@@ -55,7 +55,8 @@ public class VendasDao implements Serializable{
         return venda;
     }
     
-    public List<Vendas> lista(String sql) {
+    @SuppressWarnings("unchecked")
+	public List<Vendas> lista(String sql) {
         Query q = manager.createQuery(sql);
         List<Vendas> lista = q.getResultList();
         return lista;

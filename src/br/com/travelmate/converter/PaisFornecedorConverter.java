@@ -14,7 +14,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="PaisFornecedorConverter")
 public class PaisFornecedorConverter implements Converter{
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Pais> listaPaisFornecedor = (List<Pais>) component.getAttributes().get("listaPaisFornecedor");
         if (listaPaisFornecedor != null) {

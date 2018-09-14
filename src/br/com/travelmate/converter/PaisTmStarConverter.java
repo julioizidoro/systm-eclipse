@@ -14,7 +14,8 @@ import br.com.travelmate.model.Pais;
 public class PaisTmStarConverter implements Converter{
 
 	
-	 	@Override
+	 	@SuppressWarnings("unchecked")
+		@Override
 	    public Object getAsObject(FacesContext context, UIComponent component, String value) {
 	        List<Pais> listaPais = (List<Pais>) component.getAttributes().get("listaPais");
 	        if (listaPais != null) {

@@ -44,7 +44,8 @@ public class PacotesIngressoDao {
         tx.commit();
         manager.close();
     }
-    
+
+    @SuppressWarnings("unchecked")
      public List<Pacoteingresso> listar(String sql) throws SQLException{
     	 EntityManager manager;
         manager = ConectionFactory.getConnection();

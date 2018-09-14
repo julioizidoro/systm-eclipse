@@ -22,7 +22,8 @@ public class Pasta4Dao {
         
         return pasta4;
     }
-    
+
+    @SuppressWarnings("unchecked")
     public List<Pasta4> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getInstance();

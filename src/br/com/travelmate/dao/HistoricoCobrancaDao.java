@@ -21,7 +21,8 @@ public class HistoricoCobrancaDao {
         return historicocobranca;
     }
     
-    
+
+	@SuppressWarnings("unchecked")
     public List<Historicocobranca> listar(String sql)throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();

@@ -51,7 +51,8 @@ public class RecebimentoMB implements Serializable{
 	private float desagioparcela;
 	private String novoCartao;
 	
-	
+
+    @SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();

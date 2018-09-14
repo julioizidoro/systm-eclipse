@@ -19,7 +19,8 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value="PublicidadeConverter")
 public class PublicidadeConverter implements Converter{
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Publicidade> listaPublicidade = (List<Publicidade>) component.getAttributes().get("listaPublicidade");
