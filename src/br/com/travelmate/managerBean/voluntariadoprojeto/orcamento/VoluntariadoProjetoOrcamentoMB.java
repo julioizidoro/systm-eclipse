@@ -304,12 +304,12 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 		OrcamentoVoluntariadoBean orcamento = new OrcamentoVoluntariadoBean();
 		orcamento.setCliente(cliente);
 		orcamento.setVoluntariadoprojetovalor(voluntariadoprojetovalor);
-		orcamento.setValor(voluntariadoprojeto.getValor());
-		fornecedorcidade = voluntariadoprojeto.getVoluntariadoprojeto().getFornecedorcidade();
+		orcamento.setValor(voluntariadoprojetovalor.getValor());
+		fornecedorcidade = voluntariadoprojetovalor.getVoluntariadoprojeto().getFornecedorcidade();
 		Cambio cambio = consultarCambio();
-		orcamento.setValorRS(voluntariadoprojeto.getValor() * cambio.getValor());
+		orcamento.setValorRS(voluntariadoprojetovalor.getValor() * cambio.getValor());
 		orcamento.setNumeroSemanasAdicionais(nsemanaadicional);
-		orcamento.setValorSemanaAdc(voluntariadoprojeto.getValorsemanaadicional() * nsemanaadicional);
+		orcamento.setValorSemanaAdc(voluntariadoprojetovalor.getValorsemanaadicional() * nsemanaadicional);
 		orcamento.setValorSemanaAdcRS(orcamento.getValorSemanaAdc() * cambio.getValor());
 		orcamento.setDatainicial(datainicial);
 		orcamento.setDatatermino(calcularDataTermino());
@@ -323,27 +323,27 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 			orcamento.setTotalnumerosemanas(voluntariadoprojetovalor.getNumerosemanainicial() + " Semana(s)");
 		}
 		// curso
-		if (voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetocursoList() != null
-				&& voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetocursoList().size() > 0) {
+		if (voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetocursoList() != null
+				&& voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetocursoList().size() > 0) {
 			orcamento.setPossuiCurso(true);
 			orcamento.setVoluntariadoprojetocurso(
-					voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetocursoList().get(0));
+					voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetocursoList().get(0));
 		} else {
 			orcamento.setPossuiCurso(false);
 		}
 		// acomodação
-		if (voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList() != null
-				&& voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList()
+		if (voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList() != null
+				&& voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList()
 						.size() > 0) {
 			orcamento.setPossuiAcomodacao(true);
 			orcamento.setVoluntariadoprojetoacomodacao(
-					voluntariadoprojeto.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList().get(0));
+					voluntariadoprojetovalor.getVoluntariadoprojeto().getVoluntariadoprojetoacomodacaoList().get(0));
 		} else {
 			orcamento.setPossuiAcomodacao(false);
 		}
 		// transfer
-		if (voluntariadoprojeto.getVoluntariadoprojeto().getTransfer() != null
-				&& voluntariadoprojeto.getVoluntariadoprojeto().getTransfer().length() > 0) {
+		if (voluntariadoprojetovalor.getVoluntariadoprojeto().getTransfer() != null
+				&& voluntariadoprojetovalor.getVoluntariadoprojeto().getTransfer().length() > 0) {
 			orcamento.setPossuiTransfer(true);
 		}
 		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
