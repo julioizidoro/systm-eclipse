@@ -75,6 +75,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutoFornecedorBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutosOrcamentoBean;
+import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFBean;
 import br.com.travelmate.model.Acomodacao;
 import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Cambio;
@@ -258,6 +259,7 @@ public class CadCursoMB implements Serializable {
 	private boolean semcep = true;
 	private boolean mascara = false;
 	private boolean semmascara = true;
+	private boolean acomodacaoEscola = false;
 
 	@PostConstruct()
 	public void init() {
@@ -3360,6 +3362,7 @@ public class CadCursoMB implements Serializable {
 									curso.setNumeroSemanasAcamodacao(ocurso.getOcrusoprodutosList().get(i).getNumerosemanas().intValue());
 								} 
 								calcularDataTerminoAcomodacao();
+								acomodacaoEscola = true;
 						}
 						orcamentoprodutosorcamento.setDescricao("Acomodação");
 					} else if(ocurso.getOcrusoprodutosList().get(i).getNomegrupo().equalsIgnoreCase("Adicionais")
@@ -3465,6 +3468,36 @@ public class CadCursoMB implements Serializable {
 						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 					}
 				//}
+			}
+		}
+		for (int i = 0; i < ocurso.getOcrusoprodutosList().size(); i++) {
+			if (ocurso.getOcrusoprodutosList().get(i)
+					.getValorcoprodutos().getCoprodutos().isAcomodacao() && !acomodacaoEscola) {
+				int numeroSemanas =  ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getNumerosemanas();
+				if( ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getNumerosemanas()==0) {
+					numeroSemanas = ocurso.getOcrusoprodutosList().get(i).getOcurso().getNumerosemanas();
+				}
+				
+				curso.setTipoAcomodacao(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao()
+						.getTipoacomodacao());
+				carregarCamposAcomodacao();
+					curso.setTipoQuarto(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getTipoquarto());
+					curso.setRefeicoes(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getTiporefeicao());
+					String tipoBanheiro = ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao().getTipobanheiro();
+					if (tipoBanheiro.equalsIgnoreCase("Privado")) {
+						curso.setBanheiroprivativo("Sim"); 
+					} else{
+						curso.setBanheiroprivativo("Não");
+					}
+					curso.setDataChegada(verificarDataInicioAcomodacaoOrcamento(ocurso.getDatainicio(), numeroSemanas));
+					if(numeroSemanas>0){
+						curso.setNumeroSemanasAcamodacao(numeroSemanas);
+					} 
+					calcularDataTerminoAcomodacao();
+					acomodacaoEscola = true;
+			}else if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransfer()) {
+				curso.setTransferin("Sim");
+				curso.setTransferouto("Sim");
 			}
 		}
 		if (ocurso.getOcursoseguroList() != null) {
