@@ -1917,8 +1917,10 @@ public class CadCursoMB implements Serializable {
 			if (dadosPais.getBairromae() == null || dadosPais.getBairromae().length() == 0) {
 				msg = msg + "Bairro mãe não informado;     ";
 			}
-			if (dadosPais.getCepmae() == null || dadosPais.getCepmae().length() == 0) {
-				msg = msg + "CEP mãe não informado;\r\n";
+			if (!usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+				if (dadosPais.getCepmae() == null || dadosPais.getCepmae().length() == 0) {
+					msg = msg + "CEP mãe não informado;\r\n";
+				}
 			}
 			if (dadosPais.getCidademae() == null || dadosPais.getCidademae().length() == 0) {
 				msg = msg + "Cidade mãe não informada;\r\n";
@@ -1951,8 +1953,10 @@ public class CadCursoMB implements Serializable {
 				if (dadosPais.getBairropai() == null || dadosPais.getBairropai().length() == 0) {
 					msg = msg + "Bairro mãe não informado;\r\n";
 				}
-				if (dadosPais.getCeppai() == null || dadosPais.getCeppai().length() == 0) {
-					msg = msg + "CEP pai não informado;\r\n";
+				if (!usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+					if (dadosPais.getCeppai() == null || dadosPais.getCeppai().length() == 0) {
+						msg = msg + "CEP pai não informado;\r\n";
+					}
 				}
 				if (dadosPais.getCidadepai() == null || dadosPais.getCidadepai().length() == 0) {
 					msg = msg + "Cidade pai não informada;\r\n";
