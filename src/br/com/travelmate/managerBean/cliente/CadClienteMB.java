@@ -403,6 +403,12 @@ public class CadClienteMB implements Serializable {
 		}
 	}
 	
+	public void validarEmail() {
+		if (cliente.getEmail() != null) {
+			cliente.setEmail(cliente.getEmail().replaceAll(" ", ""));
+		}
+	}
+	
 	
 	
 }

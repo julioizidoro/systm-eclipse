@@ -193,7 +193,9 @@
 									<p:inputText id="foneComercial2"  value="#{cadClienteMB.cliente.foneComercial}" rendered="#{cadClienteMB.semmascara}"   />
 									
 									<p:outputLabel value="Email:" for="email" />
-									<p:inputText id="email" value="#{cadClienteMB.cliente.email}" size="38"/>
+									<p:inputText id="email" value="#{cadClienteMB.cliente.email}" size="38">
+										<p:ajax event="blur" listener="#{cadClienteMB.validarEmail()}" update="email"/>
+									</p:inputText>
 									
 									<p:outputLabel value="Skype:" for="skype" />
 									<p:inputText id="skype" value="#{cadClienteMB.cliente.skype}" />

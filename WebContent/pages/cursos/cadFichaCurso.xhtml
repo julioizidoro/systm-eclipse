@@ -421,8 +421,9 @@
 							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
 						<p:outputLabel value="Bairro" for="bairroMae"
 							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:23.5%" />
-						<p:outputLabel value="CEP" for="cepMae"
+						<p:outputLabel value="CEP" for="cepMae" rendered="#{cadCursoMB.cep}"
 							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:23.5%" />
+						<p:outputLabel rendered="#{cadCursoMB.semcep}" />
 						<br></br>
 						<p:inputText id="complementoMae"
 							style="width:26%;margin-left: 11.5%" maxlength="100"
@@ -433,9 +434,7 @@
 							style="margin-left: 6%" maxlength="100"
 							value="#{cadCursoMB.dadosPais.cepmae}" />
 							
-						<p:inputText id="cepMae2" rendered="#{cadCursoMB.semcep}"
-							style="margin-left: 6%" maxlength="100"
-							value="#{cadCursoMB.dadosPais.cepmae}" />
+						<p:outputLabel rendered="#{cadCursoMB.semcep}" />
 						
 						<br></br>
 						<br></br>
@@ -562,8 +561,9 @@
 							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
 						<p:outputLabel value="Bairro" for="bairroPai"
 							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:23.5%" />
-						<p:outputLabel value="CEP" for="cepPai"
+						<p:outputLabel value="CEP" for="cepPai" rendered="#{cadCursoMB.cep}"
 							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:23.5%" />
+						<p:outputLabel  rendered="#{cadCursoMB.semcep}" />
 						<br></br>
 						<p:inputText id="complementoPai"
 							style="width:26%;margin-left: 11.5%" maxlength="100"
@@ -578,10 +578,8 @@
 							value="#{cadCursoMB.dadosPais.ceppai}"
 							disabled="#{cadCursoMB.habilitarDadosPai}" />
 						
-						<p:inputText id="cepPai2" rendered="#{cadCursoMB.semcep}" 
-							style="margin-left: 6%" maxlength="100"
-							value="#{cadCursoMB.dadosPais.ceppai}"
-							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						
+						<p:outputLabel id="cepPai2" rendered="#{cadCursoMB.semcep}" />
 						<br></br>
 						<br></br>
 						<p:outputLabel value="Cidade" for="cidadePai"
