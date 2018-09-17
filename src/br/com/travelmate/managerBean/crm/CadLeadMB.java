@@ -494,6 +494,7 @@ public class CadLeadMB implements Serializable {
 	
 	public void validarEmail() {
 			if(Formatacao.validarEmail(email)){ 
+				email =email.replaceAll(" ","");
 				ClienteFacade clienteFacade = new ClienteFacade();
 				String sql = "select c from Cliente c where (c.email like '%" + email + "%')";
 				if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
