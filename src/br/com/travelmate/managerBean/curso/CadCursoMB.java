@@ -75,7 +75,6 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutoFornecedorBean;
 import br.com.travelmate.managerBean.OrcamentoCurso.ProdutosOrcamentoBean;
-import br.com.travelmate.managerBean.OrcamentoCurso.pdf.OrcamentoPDFBean;
 import br.com.travelmate.model.Acomodacao;
 import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Cambio;
