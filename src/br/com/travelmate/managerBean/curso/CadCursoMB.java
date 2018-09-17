@@ -251,6 +251,13 @@ public class CadCursoMB implements Serializable {
 	private String nomeFornecedor2 = "";
 	private String nomeFornecedor3 = "";
 	private String moedaNacional = "";
+	private String nomeCpf;
+	private String nomeEstado;
+	private String nomeRg;
+	private boolean cep;
+	private boolean semcep = true;
+	private boolean mascara = false;
+	private boolean semmascara = true;
 
 	@PostConstruct()
 	public void init() {
@@ -328,6 +335,7 @@ public class CadCursoMB implements Serializable {
 					usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 					curso.getFoneContatoEmergencia());
 			moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+			verificarPaisUnidade();
 		}
 	}
 
@@ -1054,6 +1062,62 @@ public class CadCursoMB implements Serializable {
 
 	public void setMoedaNacional(String moedaNacional) {
 		this.moedaNacional = moedaNacional;
+	}
+
+	public String getNomeCpf() {
+		return nomeCpf;
+	}
+
+	public void setNomeCpf(String nomeCpf) {
+		this.nomeCpf = nomeCpf;
+	}
+
+	public String getNomeEstado() {
+		return nomeEstado;
+	}
+
+	public void setNomeEstado(String nomeEstado) {
+		this.nomeEstado = nomeEstado;
+	}
+
+	public String getNomeRg() {
+		return nomeRg;
+	}
+
+	public void setNomeRg(String nomeRg) {
+		this.nomeRg = nomeRg;
+	}
+
+	public boolean isCep() {
+		return cep;
+	}
+
+	public void setCep(boolean cep) {
+		this.cep = cep;
+	}
+
+	public boolean isSemcep() {
+		return semcep;
+	}
+
+	public void setSemcep(boolean semcep) {
+		this.semcep = semcep;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
 	}
 
 	public void carregarComboMoedas() {
@@ -5651,5 +5715,26 @@ public class CadCursoMB implements Serializable {
 			listaSemanas.add(nSemana);
 		}
 		return listaSemanas;
+	}
+	
+	
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			nomeCpf = "RUC";
+			nomeEstado = "Departamento";
+			nomeRg = "Cédula";
+			cep = false;
+			semcep = true;
+			mascara = false;
+			semmascara = true;
+		}else {
+			nomeCpf = "CPF";
+			nomeEstado = "Estado";
+			nomeRg = "RG";
+			cep = true;
+			semcep = false;
+			mascara = true;
+			semmascara = false;
+		}
 	}
 }

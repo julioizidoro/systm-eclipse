@@ -160,8 +160,8 @@
 						<h:panelGrid columns="3"
 							columnClasses="tamanhoavisos,tamanhoavisos,tamanhoavisos"
 							style="margin-left:8%;width:53.2%;">
-							<p:outputLabel value="Nº CPF Pai" for="cpfPai" />
-							<p:outputLabel value="Nº RG Pai" for="rgPai" />
+							<p:outputLabel value="Nº #{cadHighSchoolMB.nomeCpf} Pai" for="cpfPai" />
+							<p:outputLabel value="Nº #{cadHighSchoolMB.nomeRg} Pai" for="rgPai" />
 							<p:outputLabel value="Data Nascimento Pai" for="nascimentoPai" />
 
 							<p:inputMask mask="999.999.999-99" id="cpfPai" style="width:40;"
@@ -178,8 +178,8 @@
 							<p:outputLabel />
 							<p:outputLabel />
 
-							<p:outputLabel value="Nº CPF Mãe" for="cpfMae" />
-							<p:outputLabel value="Nº RG Mãe" for="rgMae" />
+							<p:outputLabel value="Nº #{cadHighSchoolMB.nomeCpf} Mãe" for="cpfMae" />
+							<p:outputLabel value="Nº #{cadHighSchoolMB.nomeRg} Mãe" for="rgMae" />
 							<p:outputLabel value="Data Nascimento Mãe" for="nascimentoMae" />
 
 							<p:inputMask mask="999.999.999-99" id="cpfMae" style="width:40;"
@@ -402,15 +402,6 @@
 						<h:panelGrid columns="2"
 							columnClasses="tamanhoavisos, tamanhoavisos2"
 							style="width:70%;margin-left:8%;">
-							<p:outputLabel />
-							<h:panelGroup>
-								<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
-									value="#{cadHighSchoolMB.digitosFoneContatoEmergencia}">
-									<p:ajax update="telefone" />
-								</p:selectBooleanCheckbox>
-								<h:outputText value="9 Digitos"
-									style="margin-left:1%;font-size:11px;" />
-							</h:panelGroup>
 
 							<p:outputLabel value="Nome" for="nome" />
 							<p:outputLabel value="Telefone" for="telefone" />
@@ -418,10 +409,14 @@
 							<p:inputText id="nome"
 								value="#{cadHighSchoolMB.highschool.nomeContatoEmergencia}"
 								style="width:85%;" />
-							<p:inputMask id="telefone"
+							<p:inputMask id="telefone" rendered="#{cadHighSchoolMB.mascara}"
 								value="#{cadHighSchoolMB.highschool.foneContatoEmergencia}"
 								style="width:120px;"
-								mask="#{cadHighSchoolMB.validarMascaraFoneContatoEmergencia()}" />
+								mask="(99)99999-9999" />
+							
+							<p:inputMask id="telefone2"
+								value="#{cadHighSchoolMB.highschool.foneContatoEmergencia}"
+								style="width:120px;" rendered="#{cadHighSchoolMB.semmascara}" />
 
 							<p:outputLabel />
 							<p:outputLabel />

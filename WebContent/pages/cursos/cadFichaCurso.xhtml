@@ -376,23 +376,18 @@
 						</p:inputMask>
 						<br></br>
 						<br></br>
-						<p:selectBooleanCheckbox id="digitosFoneMae"
-							value="#{cadCursoMB.digitosTelefoneMae}"
-							style="margin-left:67.5%;">
-							<p:ajax update="telefoneMae" />
-						</p:selectBooleanCheckbox>
-						<h:outputText value="9 Digitos"
-							style="margin-left:1%;font-size:11px;" />
-						<br></br>
 						<p:outputLabel value="Email" for="emailMae"
 							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
-						<p:outputLabel value="Telefone" for="telefoneMae"
+						<p:outputLabel value="Telefone" 
 							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:53.8%" />
 						<br></br>
 						<p:inputText id="emailMae" style="width:50%;margin-left: 11.5%"
 							maxlength="100" value="#{cadCursoMB.dadosPais.emailmae}" />
-						<p:inputMask id="telefoneMae" style="margin-left:6%"
-							mask="#{cadCursoMB.validarMascaraFoneMae()}"
+						<p:inputMask id="telefoneMae" style="margin-left:6%" rendered="#{cadCursoMB.mascara}"
+							mask="(99)99999-9999"
+							value="#{cadCursoMB.dadosPais.telefonemae}" />
+						<p:inputText id="telefoneMae2" style="margin-left:6%"
+							rendered="#{cadCursoMB.semmascara}"
 							value="#{cadCursoMB.dadosPais.telefonemae}" />
 						<br></br>
 						<br></br>
@@ -434,7 +429,11 @@
 							value="#{cadCursoMB.dadosPais.complementomae}" />
 						<p:inputText id="bairroMae" style="margin-left:3%;width:20%"
 							maxlength="100" value="#{cadCursoMB.dadosPais.bairromae}" />
-						<p:inputMask id="cepMae" mask="99999-999"
+						<p:inputMask id="cepMae" mask="99999-999" rendered="#{cadCursoMB.cep}"
+							style="margin-left: 6%" maxlength="100"
+							value="#{cadCursoMB.dadosPais.cepmae}" />
+							
+						<p:inputText id="cepMae2" rendered="#{cadCursoMB.semcep}"
 							style="margin-left: 6%" maxlength="100"
 							value="#{cadCursoMB.dadosPais.cepmae}" />
 						
@@ -442,14 +441,14 @@
 						<br></br>
 						<p:outputLabel value="Cidade" for="cidadeMae"
 							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
-						<p:outputLabel value="Estado" for="estadoMae"
+						<p:outputLabel value="#{cadCursoMB.nomeEstado}" for="estadoMae"
 							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:26.5%" />
 						<br></br>
 						<p:inputText id="cidadeMae" style="width:26%;margin-left:11.5%"
 							maxlength="100" value="#{cadCursoMB.dadosPais.cidademae}" />
 						<p:selectOneMenu id="estadoMae"
 							value="#{cadCursoMB.dadosPais.estadomae}" style="margin-left:3%;width:20%">
-							<f:selectItem itemLabel="Selecione o Estado" itemValue="sn"
+							<f:selectItem itemLabel="Selecione o #{cadCursoMB.nomeEstado}" itemValue="sn"
 								noSelectionOption="true" />
 							<f:selectItem itemLabel="Acre" itemValue="AC" />
 							<f:selectItem itemLabel="Alagoas" itemValue="AL" />
@@ -501,7 +500,7 @@
 						<p:inputText id="nomePai" style="width:50%;margin-left: 11.5%"
 							maxlength="100" value="#{cadCursoMB.dadosPais.nomepai}">
 							<p:ajax event="blur" listener="#{cadCursoMB.validarCampoPai()}"
-								update="dataNascPai, emailPai, telefonePai, tipoLogradouroPai, numeroPai, logradouroPai, complementoPai, estadoPai, cidadePai, cepPai, bairroPai" />
+								update="dataNascPai, emailPai, telefonePai, telefonePai2, tipoLogradouroPai, numeroPai, logradouroPai, complementoPai, estadoPai, cidadePai, cepPai, bairroPai" />
 						</p:inputText>
 						<p:inputMask id="dataNascPai" mask="99/99/9999"
 							style="margin-left:6%" maxlength="100"
@@ -512,14 +511,6 @@
 						</p:inputMask>
 						<br></br>
 						<br></br>
-						<p:selectBooleanCheckbox id="digitosFonePai"
-							value="#{cadCursoMB.digitosTelefonePai}"
-							style="margin-left:67.5%;">
-							<p:ajax update="telefonePai" />
-						</p:selectBooleanCheckbox>
-						<h:outputText value="9 Digitos"
-							style="margin-left:1%;font-size:11px;" />
-						<br></br>
 						<p:outputLabel value="Email" for="emailPai"
 							style="-webkit-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
 						<p:outputLabel value="Telefone" for="telefonePai"
@@ -529,8 +520,12 @@
 							maxlength="100" value="#{cadCursoMB.dadosPais.emailpai}"
 							disabled="#{cadCursoMB.habilitarDadosPai}" />
 						<p:inputMask id="telefonePai" style="margin-left:6%"
-							mask="#{cadCursoMB.validarMascaraFonePai()}"
+							mask="(99)99999-9999"
 							value="#{cadCursoMB.dadosPais.telefonepai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" rendered="#{cadCursoMB.mascara}"/>
+						
+						<p:inputText id="telefonePai2" style="margin-left:6%"
+							value="#{cadCursoMB.dadosPais.telefonepai}" rendered="#{cadCursoMB.semmascara}"
 							disabled="#{cadCursoMB.habilitarDadosPai}" />
 						<br></br>
 						<br></br>
@@ -578,7 +573,12 @@
 						<p:inputText id="bairroPai" style="margin-left:3.0%;width:20%"
 							maxlength="100" value="#{cadCursoMB.dadosPais.bairropai}"
 							disabled="#{cadCursoMB.habilitarDadosPai}" />
-						<p:inputMask id="cepPai" mask="99999-999"
+						<p:inputMask id="cepPai" mask="99999-999" rendered="#{cadCursoMB.cep}"
+							style="margin-left: 6%" maxlength="100"
+							value="#{cadCursoMB.dadosPais.ceppai}"
+							disabled="#{cadCursoMB.habilitarDadosPai}" />
+						
+						<p:inputText id="cepPai2" rendered="#{cadCursoMB.semcep}" 
 							style="margin-left: 6%" maxlength="100"
 							value="#{cadCursoMB.dadosPais.ceppai}"
 							disabled="#{cadCursoMB.habilitarDadosPai}" />
@@ -586,7 +586,7 @@
 						<br></br>
 						<p:outputLabel value="Cidade" for="cidadePai"
 							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:11.6%" />
-						<p:outputLabel value="Estado" for="estadoPai"
+						<p:outputLabel value="#{cadCursoMB.nomeEstado}" for="estadoPai"
 							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:26.5%" />
 						
 						
@@ -597,7 +597,7 @@
 						<p:selectOneMenu id="estadoPai"
 							value="#{cadCursoMB.dadosPais.estadopai}" style="margin-left:3%;width:20%"
 							disabled="#{cadCursoMB.habilitarDadosPai}">
-							<f:selectItem itemLabel="Selecione o Estado" itemValue="sn"
+							<f:selectItem itemLabel="Selecione o #{cadCursoMB.nomeEstado}" itemValue="sn"
 								noSelectionOption="true" />
 							<f:selectItem itemLabel="Acre" itemValue="AC" />
 							<f:selectItem itemLabel="Alagoas" itemValue="AL" />
@@ -1318,13 +1318,7 @@
 						<legend id="iUsu3">
 							<b>Contato de Emergência no Brasil</b>
 						</legend>
-						<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
-							value="#{cadCursoMB.digitosTelefoneContatoEmergencia}"
-							style="margin-left:68.5%;">
-							<p:ajax update="telefone" />
-						</p:selectBooleanCheckbox>
-						<h:outputText value="9 Digitos"
-							style="margin-left:1%;font-size:11px;" />
+						
 						<br></br>
 						<p:outputLabel value="Nome" for="nome" style="margin-left: 11.5%" />
 						<p:outputLabel value="Telefone" for="telefone"
@@ -1335,7 +1329,11 @@
 							style="width:52%;margin-left:11.5%" maxlength="45" />
 						<p:inputMask id="telefone"
 							value="#{cadCursoMB.curso.foneContatoEmergencia}"
-							mask="#{cadCursoMB.validarMascaraFoneContatoEmergencia()}"
+							mask="(99)99999-9999" rendered="#{cadCursoMB.mascara}"
+							style="width:19%;margin-left: 5%" />
+						
+						<p:inputText id="telefone2"
+							value="#{cadCursoMB.curso.foneContatoEmergencia}" rendered="#{cadCursoMB.semmascara}"
 							style="width:19%;margin-left: 5%" />
 						<br></br>
 						<br></br>

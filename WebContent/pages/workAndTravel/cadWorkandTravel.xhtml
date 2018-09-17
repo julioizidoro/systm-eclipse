@@ -267,16 +267,6 @@
 					<h:panelGrid columns="2"
 						columnClasses="tamanhoavisos, tamanhoavisos2"
 						style="width:70%;margin-left:11.6%;">
-						<p:outputLabel />
-						<h:panelGroup>
-							<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
-								value="#{cadWorkTravelMB.digitosFoneContatoEmergencia}">
-								<p:ajax update="telefoneEmergencial" />
-							</p:selectBooleanCheckbox>
-							<h:outputText value="9 Digitos"
-								style="margin-left:1%;font-size:11px;" />
-						</h:panelGroup>
-
 
 						<p:outputLabel value="Nome" for="nomeEmergencial" />
 						<p:outputLabel value="Telefone" for="telefoneEmergencial" />
@@ -284,8 +274,13 @@
 						<p:inputText id="nomeEmergencial"
 							value="#{cadWorkTravelMB.work.nomeContatoEmergencia}"
 							style="width:85%;" />
-						<p:inputMask id="telefoneEmergencial"
-							mask="#{cadWorkTravelMB.validarMascaraFoneContatoEmergencia()}"
+						<p:inputMask id="telefoneEmergencial" rendered="#{cadWorkTravekMB.mascara}"
+							mask="(99)99999-9999"
+							value="#{cadWorkTravelMB.work.foneContatoEmergencia}"
+							style="width:120px;" />
+							
+						
+						<p:inputMask id="telefoneEmergencial2" rendered="#{cadWorkTravekMB.semmascara}"
 							value="#{cadWorkTravelMB.work.foneContatoEmergencia}"
 							style="width:120px;" />
 

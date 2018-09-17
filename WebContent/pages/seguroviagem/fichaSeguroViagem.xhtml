@@ -166,26 +166,20 @@
 						<h:panelGrid columns="2"
 							columnClasses="tamanhoavisos, tamanhoavisos2"
 							style="width:70%;margin-left:5%;">
-							<p:outputLabel />
-							<h:panelGroup>
-								<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
-									value="#{fichaSeguroViagemMB.digitosFoneContatoEmergencia}">
-									<p:ajax update="telefone" />
-								</p:selectBooleanCheckbox>
-								<h:outputText value="9 Digitos"
-									style="margin-left:1%;font-size:11px;" />
-							</h:panelGroup>
-
 							<p:outputLabel value="Nome" for="contatoEmergencia" />
 							<p:outputLabel value="Telefone" for="telefone" />
 
 							<p:inputText id="contatoEmergencia"
 								value="#{fichaSeguroViagemMB.seguro.nomeContatoEmergencia}"
 								style="width:85%;" />
-							<p:inputMask id="telefone"
+							<p:inputMask id="telefone" rendered="#{fichaSeguroViagemMB.mascara}"
 								value="#{fichaSeguroViagemMB.seguro.foneContatoEmergencia}"
 								style="width:110px;"
-								mask="#{fichaSeguroViagemMB.validarMascaraFoneContatoEmergencia()}" />
+								mask="(99)99999-9999" />
+								
+							<p:inputMask id="telefone2" rendered="#{fichaSeguroViagemMB.semmascara}"
+								value="#{fichaSeguroViagemMB.seguro.foneContatoEmergencia}"
+								style="width:110px;" />
 
 						</h:panelGrid>
 						<br></br>

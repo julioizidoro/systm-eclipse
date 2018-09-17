@@ -124,34 +124,27 @@
 								<f:selectItem itemLabel="Sim" itemValue="Sim" />
 								<p:ajax event="change"
 									listener="#{cadAupairMB.habilitarAmigo()}"
-									update="nome, telefone, endereco, relacao, digitosFoneAmigo" />
+									update="nome, telefone, endereco, relacao, telefone2" />
 							</p:selectOneMenu>
 						</h:panelGrid>
 						<br></br>
 						<h:panelGrid columns="2"
 							columnClasses="tamanhoavisos, tamanhoavisos2"
 							style="width:70%;margin-left:14%;">
-							<p:outputLabel />
-							<h:panelGroup>
-								<p:selectBooleanCheckbox id="digitosFoneAmigo"
-									value="#{cadAupairMB.digitosTelefoneAmigo}"
-									disabled="#{cadAupairMB.camposAmigo}">
-									<p:ajax update="telefone" />
-								</p:selectBooleanCheckbox>
-								<h:outputText value="9 Digitos"
-									style="margin-left:1%;font-size:11px;" />
-							</h:panelGroup>
 
 							<p:outputLabel value="Nome" for="nome" />
-							<p:outputLabel value="Telefone" for="telefone" />
+							<p:outputLabel value="Telefone"  />
 
 							<p:inputText id="nome" style="width:85%;" maxlength="100"
 								value="#{cadAupairMB.aupair.nomeAmigo}"
 								disabled="#{cadAupairMB.camposAmigo}" />
 							<p:inputMask id="telefone" style="width:110px;"
-								mask="#{cadAupairMB.validarMascaraFoneAmigo()}"
+								mask="(99)99999-9999" disabled="#{cadAupairMB.camposAmigo}"
 								value="#{cadAupairMB.aupair.foneAmigo}"
-								disabled="#{cadAupairMB.camposAmigo}" />
+								rendered="#{cadAupairMB.mascara}"/>
+							<p:inputText id="telefone2" style="width:110px;"
+								value="#{cadAupairMB.aupair.foneAmigo}"
+								disabled="#{cadAupairMB.camposAmigo}"  rendered="#{cadAupairMB.semmascara}" />
 							<p:outputLabel />
 							<p:outputLabel />
 							<p:outputLabel value="Endereço" for="endereco" />
@@ -295,23 +288,17 @@
 						<h:panelGrid columns="2"
 							columnClasses="tamanhoavisos, tamanhoavisos2"
 							style="width:70%;margin-left:14%;">
-							<p:outputLabel />
-							<h:panelGroup>
-								<p:selectBooleanCheckbox id="digitosContatoEmergencia"
-									value="#{cadAupairMB.digitosTelefoneContatoEmergencia}">
-									<p:ajax update="telefoneContatoEmergencia" />
-								</p:selectBooleanCheckbox>
-								<h:outputText value="9 Digitos"
-									style="margin-left:1%;font-size:11px;" />
-							</h:panelGroup>
 
 							<p:outputLabel value="Nome" for="nome1" />
 							<p:outputLabel value="Telefone" for="telefoneContatoEmergencia" />
 
 							<p:inputText id="nome1" style="width:85%;" maxlength="100"
 								value="#{cadAupairMB.aupair.nomeContatoEmergencia}" />
-							<p:inputMask id="telefoneContatoEmergencia" style="width:120px;"
-								mask="#{cadAupairMB.validarMascaraFoneContatoEmergencia()}"
+							<p:inputMask id="telefoneContatoEmergencia" style="width:120px;" rendered="#{cadAupairMB.mascara}"
+								mask="(99)99999-9999"
+								value="#{cadAupairMB.aupair.foneContatoEmergencia}" />
+							
+							<p:inputText id="telefoneContatoEmergencia2" style="width:120px;" rendered="#{cadAupairMB.semmascara}"
 								value="#{cadAupairMB.aupair.foneContatoEmergencia}" />
 
 							<p:outputLabel />

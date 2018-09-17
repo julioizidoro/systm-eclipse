@@ -131,6 +131,12 @@ public class CadHighSchoolMB implements Serializable {
 	private String voltarControleVendas = "";
 	private boolean habilitarAvisoCambio = false;
 	private String moedaNacional;
+	private String nomeCpf;
+	private String nomeRg;
+	private String nomeEstado;
+	private boolean mascara;
+	private boolean semmascara;
+	
 
 	@PostConstruct()
 	public void init() {
@@ -164,6 +170,7 @@ public class CadHighSchoolMB implements Serializable {
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				highschool.getFoneContatoEmergencia());
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		verificarPaisUnidade();
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -501,6 +508,46 @@ public class CadHighSchoolMB implements Serializable {
 
 	public void setMoedaNacional(String moedaNacional) {
 		this.moedaNacional = moedaNacional;
+	}
+
+	public String getNomeCpf() {
+		return nomeCpf;
+	}
+
+	public void setNomeCpf(String nomeCpf) {
+		this.nomeCpf = nomeCpf;
+	}
+
+	public String getNomeRg() {
+		return nomeRg;
+	}
+
+	public void setNomeRg(String nomeRg) {
+		this.nomeRg = nomeRg;
+	}
+
+	public String getNomeEstado() {
+		return nomeEstado;
+	}
+
+	public void setNomeEstado(String nomeEstado) {
+		this.nomeEstado = nomeEstado;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
 	}
 
 	public void iniciarNovo() {
@@ -1715,5 +1762,22 @@ public class CadHighSchoolMB implements Serializable {
 	
 	public void fecharNotificacao() {
 		habilitarAvisoCambio = false;
+	}
+	
+	
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			nomeCpf = "RUC";
+			nomeEstado = "Departamento";
+			nomeRg = "Cédula";
+			mascara = false;
+			semmascara = true;
+		}else {
+			nomeCpf = "CPF";
+			nomeEstado = "Estado";
+			nomeRg = "RG";
+			mascara = true;
+			semmascara = false;
+		}
 	}
 }

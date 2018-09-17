@@ -132,6 +132,8 @@ public class FichaSeguroViagemMB implements Serializable {
 	private List<String> listaTipoParcelamento;
 	private boolean segurocancelamento=true;
 	private String numero="3";
+	private boolean mascara;
+	private boolean semmascara;
 
 	@PostConstruct
 	public void init() {
@@ -223,6 +225,7 @@ public class FichaSeguroViagemMB implements Serializable {
 		valorCambio = cambio.getValor();
 		orcamento.setValorCambio(valorCambio);
 		gerarListaTipoParcelamento();
+		verificarPaisUnidade();
 	}
 
 	public float getValorSemDesconto() {
@@ -593,6 +596,22 @@ public class FichaSeguroViagemMB implements Serializable {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
 	}
 
 	public String pesquisarCliente() {
@@ -1413,6 +1432,16 @@ public class FichaSeguroViagemMB implements Serializable {
 		new LeadSituacaoBean(lead, lead.getSituacao(), 6, leadSituacaoDao);
 		lead.setSituacao(6);
 		leadDao.salvar(lead);
+	}
+	
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			mascara = false;
+			semmascara = true;
+		}else {
+			mascara = true;
+			semmascara = false;
+		}
 	}
 
 }

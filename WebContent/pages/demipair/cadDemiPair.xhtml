@@ -137,17 +137,9 @@
 							<f:selectItem itemLabel="Sim" itemValue="Sim" />
 							<p:ajax event="change"
 								listener="#{cadDemiPairMB.habilitarAmigo()}"
-								update="nome, telefone, endereco, relacao" />
+								update="nome, telefone, telefone2, endereco, relacao" />
 						</p:selectOneMenu>
 						<br></br>
-						<br></br>
-						<p:selectBooleanCheckbox id="digitosFoneAmigo"
-							value="#{cadDemiPairMB.digitosTelefoneAmigo}"
-							style="margin-left:56.7%;">
-							<p:ajax update="telefone" />
-						</p:selectBooleanCheckbox>
-						<h:outputText value="9 Digitos"
-							style="margin-left:1%;font-size:11px;" />
 						<br></br>
 						<p:outputLabel value="Nome" for="nome" style="margin-left:14%" />
 						<p:outputLabel value="Telefone" for="telefone"
@@ -157,9 +149,14 @@
 							style="width:40.7%;-moz-border-radius: 5px;border-radius: 5px;margin-left:14%"
 							maxlength="100" value="#{cadDemiPairMB.demipair.nomeAmigo}"
 							disabled="#{cadDemiPairMB.camposAmigo}" />
-						<p:inputMask id="telefone"
+						<p:inputMask id="telefone" rendered="#{cadDemiPairMB.mascara}"
 							style="width:19%;-moz-border-radius: 5px;border-radius: 5px;margin-left:2%;"
-							mask="#{cadDemiPairMB.validarMascaraFoneAmigo()}"
+							mask="(99)99999-9999"
+							value="#{cadDemiPairMB.demipair.foneAmigo}"
+							class="espacocobranca29" disabled="#{cadDemiPairMB.camposAmigo}" />
+						
+						<p:inputText id="telefone2" rendered="#{cadDemiPairMB.semmascara}"
+							style="width:19%;-moz-border-radius: 5px;border-radius: 5px;margin-left:2%;"
 							value="#{cadDemiPairMB.demipair.foneAmigo}"
 							class="espacocobranca29" disabled="#{cadDemiPairMB.camposAmigo}" />
 						<br></br>
@@ -312,13 +309,6 @@
 						<legend id="iUsu3" style="margin-left: 14%; width: 60%">
 							<b>Contato de Emergência no Brasil</b>
 						</legend>
-						<p:selectBooleanCheckbox id="digitosContatoEmergencia"
-							value="#{cadDemiPairMB.digitosTelefoneContatoEmergencia}"
-							style="margin-left:55%;">
-							<p:ajax update="espaco0p" />
-						</p:selectBooleanCheckbox>
-						<h:outputText value="9 Digitos"
-							style="margin-left:1%;font-size:11px;" />
 						<br></br>
 						<p:outputLabel value="Nome" for="nome1"
 							style="font-size: 10px;margin-left:14%" />
@@ -329,7 +319,10 @@
 							maxlength="100"
 							value="#{cadDemiPairMB.demipair.nomeContatoEmergencia}" />
 						<p:inputMask id="espaco0p" style="width:19%;margin-left:6%"
-							mask="#{cadDemiPairMB.validarMascaraFoneAmigo()}"
+							mask="(99)99999-9999" rendered="#{cadDemiPairMB.mascara}"
+							value="#{cadDemiPairMB.demipair.foneContatoEmergencia}" />
+							
+						<p:inputText id="espaco0p2" style="width:19%;margin-left:6%" rendered="#{cadDemiPairMB.semmascara}"
 							value="#{cadDemiPairMB.demipair.foneContatoEmergencia}" />
 						<br></br>
 						<br></br>

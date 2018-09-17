@@ -154,6 +154,8 @@ public class CadVoluntariadoMB implements Serializable {
 	private float valorSeguroAntigo = 0.0f;
 	private boolean habilitarAvisoCambio = false;
 	private String moedaNacional;
+	private boolean mascara;
+	private boolean semmascara;
 
 	@PostConstruct()
 	public void init() {
@@ -188,6 +190,7 @@ public class CadVoluntariadoMB implements Serializable {
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				voluntariado.getFoneContatoEmergencia());
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		verificarPaisUnidade();
 	}
 
 	public float getValorMoedaReal() {
@@ -638,6 +641,22 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void setMoedaNacional(String moedaNacional) {
 		this.moedaNacional = moedaNacional;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
 	}
 
 	public void carregarComboMoedas() {
@@ -2195,6 +2214,16 @@ public class CadVoluntariadoMB implements Serializable {
 	
 	public void fecharNotificacao() {
 		habilitarAvisoCambio = false;
+	}
+	
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			mascara = false;
+			semmascara = true;
+		}else {
+			mascara = true;
+			semmascara = false;
+		}
 	}
 	
 }

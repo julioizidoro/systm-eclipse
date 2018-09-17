@@ -146,6 +146,8 @@ public class CadHeInscricaoMB implements Serializable {
 	private String moedaNacional;
 	private float valorMoedaEstrangeira = 0;
 	private float valorMoedaReal = 0;
+	private boolean mascara;
+	private boolean semmascara;
 
 	@PostConstruct
 	public void init() {
@@ -169,6 +171,7 @@ public class CadHeInscricaoMB implements Serializable {
 		}
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 		carregarCamposAcomodacao();
+		verificarPaisUnidade();
 	}
 
 	public He getHe() {
@@ -629,6 +632,22 @@ public class CadHeInscricaoMB implements Serializable {
 
 	public void setValorMoedaReal(float valorMoedaReal) {
 		this.valorMoedaReal = valorMoedaReal;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
 	}
 
 	public void excluirFormaPagamento(String ilinha) {
@@ -1861,6 +1880,17 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 				heparceiros3.setDatatermino(data);
 			}
+		}
+	}
+	
+	
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			mascara = false;
+			semmascara = true;
+		}else {
+			mascara = true;
+			semmascara = false;
 		}
 	}
 	

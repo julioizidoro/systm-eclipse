@@ -134,6 +134,8 @@ public class CadWorkTravelMB implements Serializable {
 	private float valorMoedaEstrangeira = 0f;
 	private boolean habilitarAvisoCambio = false;
 	private String moedaNacional;
+	private boolean mascara;
+	private boolean semmascara;
 
 	@PostConstruct()
 	public void init() {
@@ -171,6 +173,7 @@ public class CadWorkTravelMB implements Serializable {
 		digitosFoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(), work.getFoneContatoEmergencia());
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		verificarPaisUnidade();
 	}
 
 	public float getValorSaldoParcelar() {
@@ -525,6 +528,22 @@ public class CadWorkTravelMB implements Serializable {
 
 	public void setMoedaNacional(String moedaNacional) {
 		this.moedaNacional = moedaNacional;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
 	}
 
 	public void iniciarNovo() {
@@ -1635,5 +1654,17 @@ public class CadWorkTravelMB implements Serializable {
 	
 	public void fecharNotificacao() {
 		habilitarAvisoCambio = false;
+	}
+	
+	
+
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			mascara = false;
+			semmascara = true;
+		}else {
+			mascara = true;
+			semmascara = false;
+		}
 	}
 }

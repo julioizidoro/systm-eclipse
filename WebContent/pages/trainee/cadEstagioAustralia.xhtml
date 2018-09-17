@@ -195,13 +195,6 @@
 						<legend id="iUsu3" style="margin-left: 8%; width: 60%">
 							<b>Contato para Emergência</b>
 						</legend>
-						<p:selectBooleanCheckbox id="digitosFoneContatoEmergencia"
-							value="#{cadTraineeMB.digitosFoneContatoEmergencia}"
-							style="margin-left:46.4%;">
-							<p:ajax update="telefoneEmergencia" />
-						</p:selectBooleanCheckbox>
-						<h:outputText value="9 Digitos"
-							style="margin-left:1%;font-size:11px;" />
 						<br></br>
 						<p:outputLabel value="Nome" for="nomeEmergencia"
 							style="margin-left:8%" />
@@ -214,9 +207,14 @@
 							style="width:33%;-moz-border-radius: 5px;border-radius: 5px;margin-left:8%"
 							maxlength="100"
 							value="#{cadTraineeMB.trainee.nomeContatoEmergencia}" />
-						<p:inputMask id="telefoneEmergencia"
+						<p:inputMask id="telefoneEmergencia" rendered="#{cadTraineeMB.mascara}"
 							style="width:10%;-moz-border-radius: 5px;border-radius: 5px;margin-left:5.5%"
-							mask="#{cadTraineeMB.validarMascaraFoneContatoEmergencia()}"
+							mask="(99)99999-9999"
+							value="#{cadTraineeMB.trainee.foneContatoEmergencia}" />
+							
+						
+						<p:inputText id="telefoneEmergencia2" rendered="#{cadTraineeMB.semmascara}"
+							style="width:10%;-moz-border-radius: 5px;border-radius: 5px;margin-left:5.5%"
 							value="#{cadTraineeMB.trainee.foneContatoEmergencia}" />
 						<p:inputText id="relacaoEmergencia"
 							style="width:25%;-moz-border-radius: 5px;border-radius: 5px;margin-left:5.5%"

@@ -138,6 +138,10 @@ public class CadCursosTeensMB implements Serializable {
 	private String voltarControleVendas = "";
 	private boolean habilitarAvisoCambio = false;
 	private String moedaNacional;
+	private String nomeCpf;
+	private String nomeRg;
+	private boolean mascara;
+	private boolean semmascara;
 
 	@PostConstruct()
 	public void init() {
@@ -171,6 +175,7 @@ public class CadCursosTeensMB implements Serializable {
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				programasTeens.getFoneContatoEmergencia());
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		verificarPaisUnidade();
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -532,6 +537,38 @@ public class CadCursosTeensMB implements Serializable {
 
 	public void setMoedaNacional(String moedaNacional) {
 		this.moedaNacional = moedaNacional;
+	}
+
+	public String getNomeCpf() {
+		return nomeCpf;
+	}
+
+	public void setNomeCpf(String nomeCpf) {
+		this.nomeCpf = nomeCpf;
+	}
+
+	public String getNomeRg() {
+		return nomeRg;
+	}
+
+	public void setNomeRg(String nomeRg) {
+		this.nomeRg = nomeRg;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
 	}
 
 	public void iniciarNovo() {
@@ -1838,5 +1875,20 @@ public class CadCursosTeensMB implements Serializable {
 	
 	public void fecharNotificacao() {
 		habilitarAvisoCambio = false;
+	}
+	
+	
+	public void verificarPaisUnidade() {
+		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			nomeCpf = "RUC";
+			nomeRg = "Cédula";
+			mascara = false;
+			semmascara = true;
+		}else {
+			nomeCpf = "CPF";
+			nomeRg = "RG";
+			mascara = true;
+			semmascara = false;
+		}
 	}
 }
