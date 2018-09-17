@@ -450,7 +450,11 @@
 						<p:outputLabel value="Data Nascimento Pai" for="nascimentoPai"
 							style="font-size: 10px;margin-left:12.4%" />
 						<br></br>
-						<p:inputMask mask="999.999.999-99" id="cpfPai"
+						<p:inputMask mask="999.999.999-99" id="cpfPai" rendered="#{cadCursosTeensMB.mascara}"
+							style="width:11.5%;margin-left:11%" maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.cpfpai}" />
+						
+						<p:inputText  id="cpfPai2" rendered="#{cadCursosTeensMB.semmascara}"
 							style="width:11.5%;margin-left:11%" maxlength="100"
 							value="#{cadCursosTeensMB.programasTeens.cpfpai}" />
 						<p:inputText id="rgPai" style="width11%;margin-left:2%"
@@ -470,10 +474,14 @@
 						<p:outputLabel value="Data Nascimento Mãe" for="nascimentoMae"
 							style="font-size: 10px;margin-left:11.8%" />
 						<br></br>
-						<p:inputMask mask="999.999.999-99" id="cpfMae"
+						<p:inputMask mask="999.999.999-99" id="cpfMae" rendered="#{cadCursosTeensMB.mascara}"
 							style="width:11.5%;margin-left:11%" maxlength="100"
 							value="#{cadCursosTeensMB.programasTeens.cpfmae}">
 						</p:inputMask>
+						
+						<p:inputText id="cpfMae2" rendered="#{cadCursosTeensMB.semmascara}"
+							style="width:11.5%;margin-left:11%" maxlength="100"
+							value="#{cadCursosTeensMB.programasTeens.cpfmae}"/>
 						<p:inputText id="rgMae" style="width11%;margin-left:2%"
 							maxlength="100" value="#{cadCursosTeensMB.programasTeens.rgmae}" />
 						<p:inputMask mask="99/99/9999" id="nascimentoMae"

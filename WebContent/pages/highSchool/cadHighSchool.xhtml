@@ -165,7 +165,8 @@
 							<p:outputLabel value="Data Nascimento Pai" for="nascimentoPai" />
 
 							<p:inputMask mask="999.999.999-99" id="cpfPai" style="width:40;"
-								value="#{cadHighSchoolMB.highschool.cpfpai}" />
+								value="#{cadHighSchoolMB.highschool.cpfpai}" rendered="#{cadHighSchoolMB.mascara}"/>
+							<p:inputText id="cpf2" value="#{cadHighSchoolMB.highschool.cpfpai}" size="22" rendered="#{cadHighSchoolMB.semmascara}"/>
 							<p:inputText id="rgPai" style="width:40%;"
 								value="#{cadHighSchoolMB.highschool.rgpai}" />
 							<p:inputMask mask="99/99/9999" id="nascimentoPai" size="20"
@@ -183,7 +184,8 @@
 							<p:outputLabel value="Data Nascimento Mãe" for="nascimentoMae" />
 
 							<p:inputMask mask="999.999.999-99" id="cpfMae" style="width:40;"
-								value="#{cadHighSchoolMB.highschool.cpfmae}" />
+								value="#{cadHighSchoolMB.highschool.cpfmae}" rendered="#{cadHighSchoolMB.mascara}"/>
+							<p:inputText id="cpf2" value="#{cadHighSchoolMB.highschool.cpfmae}" size="22" rendered="#{cadHighSchoolMB.semmascara}"/>
 							<p:inputText id="rgMae" style="width:40%"
 								value="#{cadHighSchoolMB.highschool.rgmae}" />
 							<p:inputMask mask="99/99/9999" id="nascimentoMae" size="20"
