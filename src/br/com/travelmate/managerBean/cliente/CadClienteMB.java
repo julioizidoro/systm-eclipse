@@ -243,6 +243,7 @@ public class CadClienteMB implements Serializable {
 			if (cliente.getNome() != null && cliente.getNome().length() > 0) {
 				if (cliente.getEmail() != null && cliente.getEmail().length() > 0) {
 					if (Formatacao.validarEmail(cliente.getEmail())) {
+						cliente.setEmail(cliente.getEmail().replaceAll(" ",""));
 						if (cliente.getRg() != null && cliente.getRg().length() > 0) {
 							if (cliente.getCpf() != null && cliente.getCpf().length() > 0) {
 								if (cliente.getDataNascimento() != null) {
