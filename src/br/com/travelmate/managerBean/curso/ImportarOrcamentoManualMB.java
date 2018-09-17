@@ -31,6 +31,7 @@ public class ImportarOrcamentoManualMB implements Serializable{
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private String nome="";
 	private List<Orcamentocurso> listaOrcamento;
+	private String moedaNacional;
 	
 	@PostConstruct()
 	public void init() {
@@ -38,6 +39,7 @@ public class ImportarOrcamentoManualMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		nome = (String) session.getAttribute("nome");
 		gerarListaOrcamento();
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 	
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -62,6 +64,14 @@ public class ImportarOrcamentoManualMB implements Serializable{
 
 	public void setListaOrcamento(List<Orcamentocurso> listaOrcamento) {
 		this.listaOrcamento = listaOrcamento;
+	}
+
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
 	}
 
 	public void gerarListaOrcamento() {

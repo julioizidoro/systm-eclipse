@@ -33,6 +33,7 @@ public class ImportarOrcamentoMB implements Serializable{
 	private List<Ocurso> listaOCurso;
 	@Inject
 	private OCursoDao oCursoDao;
+	private String moedaNacional;
 	
 	@PostConstruct()
 	public void init() {
@@ -40,6 +41,7 @@ public class ImportarOrcamentoMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		nome = (String) session.getAttribute("nome");
 		carregarListaOrcamento();
+		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 	
 	public String getNome() {
@@ -58,6 +60,14 @@ public class ImportarOrcamentoMB implements Serializable{
 		this.listaOCurso = listaOCurso;
 	}
 	
+	public String getMoedaNacional() {
+		return moedaNacional;
+	}
+
+	public void setMoedaNacional(String moedaNacional) {
+		this.moedaNacional = moedaNacional;
+	}
+
 	public String carregarListaOrcamento(){
         if (nome==null){
             nome = "";

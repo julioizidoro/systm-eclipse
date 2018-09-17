@@ -49,7 +49,7 @@
 				<h:outputText
 					value="#{orcamento.fornecedorcidadeidioma.fornecedorcidade.fornecedor.nome}" />
 			</p:column>
-			<p:column headerText="Valor R$"
+			<p:column headerText="Valor #{importarOrcamentoMB.moedaNacional}"
 				style="width:115px;text-align:right;#{importarOrcamentoMB.corPromocaoAtrasada(orcamento)}">
 				<h:outputText value="#{orcamento.totalmoedanacional}">
 					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
