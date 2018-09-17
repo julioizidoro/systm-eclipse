@@ -456,6 +456,22 @@ public class CadHeFinalMB implements Serializable {
 		this.valorMoedaReal = valorMoedaReal;
 	}
 
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
+	}
+
 	public void excluirFormaPagamento(String ilinha) {
 		gerarListaParcelamentoOriginal();
 		int linha = Integer.parseInt(ilinha);
