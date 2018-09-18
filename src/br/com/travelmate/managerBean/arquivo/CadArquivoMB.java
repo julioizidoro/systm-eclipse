@@ -498,24 +498,13 @@ public class CadArquivoMB implements Serializable {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
 		String nomeArquivo = nomeArquivoSalvo();
-		nomeArquivo = nomeArquivo + "_" + new String(file.getFileName());
+			nomeArquivo = nomeArquivo + "_" + new String(file.getFileName());
 		String arquivo = servletContext.getRealPath("/arquivos/");
-		String a = arquivo + nomeArquivo;
-		File fl = null;
-		try {
-			InputStream reportStream = new BufferedInputStream(file.getInputstream());
-			fl = new File(a);
-			FileOutputStream outputStream = new FileOutputStream(fl);
-			while (reportStream.available() != 0) {
-				outputStream.write(reportStream.read());
-			}
-			outputStream.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		String nomeArquivoFile = arquivo + nomeArquivo;
 		String caminho = servletContext.getRealPath("/resources/aws.properties");
 		UploadAWSS3 s3 = new UploadAWSS3("arquivos", caminho);
-		if (s3.uploadFile(fl)) {
+		File arquivoFile = s3.getFile(file, nomeArquivoFile);
+		if (s3.uploadFile(arquivoFile)) {
 			msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
 			arquivoEnviado = true;
 		} else {
@@ -524,6 +513,7 @@ public class CadArquivoMB implements Serializable {
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(msg, ""));
+		arquivoFile.delete();
 		return true;
 	}
 

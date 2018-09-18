@@ -107,6 +107,7 @@ public class AWSPropertie {
         	setBucketImagem(props.getProperty("bucketImagem"));
         	setBucketRemessa(props.getProperty("bucketRemessa"));
         	setBucketDocs(props.getProperty("bucketDocs"));
+        	setBucketTreinamento(props.getProperty("bucketTreinamento"));
         	setClientRegion(props.getProperty("clientRegion"));
         	setAccesskey(props.getProperty("accesskey"));
         	setSecretaccesskey(props.getProperty("secretaccesskey"));

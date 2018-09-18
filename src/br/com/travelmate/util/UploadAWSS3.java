@@ -1,8 +1,15 @@
 package br.com.travelmate.util;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.primefaces.model.UploadedFile;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -145,6 +152,20 @@ public class UploadAWSS3 {
 		}
 		return false;
 		
+	}
+	
+	public File getFile(UploadedFile fileNome, String nomeArquivo) {
+		File file = null;
+		try {
+			//InputStream in = new BufferedInputStream(fileNome.getInputstream());
+			file = new File(nomeArquivo);
+			OutputStream outputStream = new FileOutputStream(file);
+			outputStream.write(fileNome.getContents());
+			outputStream.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return file;
 	}
 		
 
