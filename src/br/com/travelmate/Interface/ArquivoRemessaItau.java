@@ -18,6 +18,6 @@ public interface ArquivoRemessaItau {
     
     String gerarHeader(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade, String agencia, String contaBanco, String digitoConta)throws IOException;
     String gerarDetalhe(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade, String agencia, String contaBanco, String digitoConta)throws IOException, Exception;
-    String gerarMulta(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade)throws IOException, Exception;
+    //String gerarMulta(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade)throws IOException, Exception;
     String gerarTrailer(int numeroSequencial)throws IOException;
 }

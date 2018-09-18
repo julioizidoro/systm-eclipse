@@ -178,7 +178,7 @@ public class BoletoMB implements Serializable {
 				lista = listarSelecionados;
 			}  
 			if (lista.size() > 0) {
-				new GerarArquivoRemessaItau(lista, usuarioLogadoMB,
+				GerarArquivoRemessaItau remessaItau = new GerarArquivoRemessaItau(lista, usuarioLogadoMB,
 						nomearquivo, nomeFTP, unidade, bancoFranquia);
 				FacesMessage msg = new FacesMessage("Enviado! ", "Disponivel para download, aperte novamente");
 				FacesContext.getCurrentInstance().addMessage(null, msg); 
@@ -186,13 +186,7 @@ public class BoletoMB implements Serializable {
 		        ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
 				//InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/remessa/" + nomearquivo);
 				nomearquivo = servletContext.getRealPath("/remessa/"+nomearquivo);
-				file = new File(nomearquivo);
-				try {
-					file.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				//file = new DefaultStreamedContent(stream, "texto/txt", nomearquivo, "UTF-8");
+				file = remessaItau.getFile();
 				String caminho = nomearquivo = servletContext.getRealPath("/resources/aws.properties");
 				UploadAWSS3 s3 = new UploadAWSS3("remessa", caminho);
 				s3.uploadFile(file);
