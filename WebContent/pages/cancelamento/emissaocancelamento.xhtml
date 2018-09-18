@@ -134,7 +134,7 @@
 						update="growl" style="margin-left:3%;"></p:commandButton>
 				</div>
 				<br></br>  
-				<div align="center" style="width:80%;"> 
+				<div align="center" style="width:80%;margin-left: 9%;"> 
 					<p:commandButton icon="ui-icon-check"
 						value="Confirmar" action="#{emissaoCancelamentoMB.confirmar}"
 						update="growl" style="font-size:12px;" ></p:commandButton>
@@ -142,7 +142,7 @@
 						value="Contas a Receber" action="#{emissaoCancelamentoMB.visualizarContasReceber()}"
 						update="growl" style="font-size:12px;margin-left: 2%;" ></p:commandButton>
 					<p:commandButton icon="ui-icon-close"
-						value="Cancelar" action="#{emissaoCancelamentoMB.cancelar}"
+						value="Fechar" action="#{emissaoCancelamentoMB.cancelar}"
 						update="growl" style="margin-left: 2%;font-size:12px;"></p:commandButton>
 					<br></br> <br></br> <br></br>
 				</div>
@@ -163,7 +163,7 @@
 							style="margin-left:2%" icon="ui-icon-check"
 							action="#{emissaoCancelamentoMB.validarPin()}" update="growl, panelPin, totalRece, valorReembolso" />
 						<p:commandButton id="btncancelar" style="margin-left: 1%"
-							icon="ui-icon-close" value="Cancelar"
+							icon="ui-icon-close" value="Fechar"
 							action="#{emissaoCancelamentoMB.fecharPin()}" update="@all"/>
 					</h:panelGrid>
 					<br />
