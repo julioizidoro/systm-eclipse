@@ -171,7 +171,7 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
         return linha;
     }
     
-    public String gerarMulta(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade) throws IOException, Exception{
+    /*public String gerarMulta(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade) throws IOException, Exception{
         String linha="";
         linha = linha  + ("2");
         linha = linha  + ("1");
@@ -186,7 +186,7 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
         }else ns = "000" + String.valueOf(numeroSequencial);
         linha = linha  + (ns + "\r\n");
         return linha;
-    }
+    }*/
     
     public String gerarTrailer(int numeroSequencial) throws IOException{
         String linha="";

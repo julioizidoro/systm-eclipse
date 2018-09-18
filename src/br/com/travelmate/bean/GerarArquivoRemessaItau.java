@@ -36,6 +36,7 @@ import br.com.travelmate.util.Formatacao;
 public class GerarArquivoRemessaItau {
     
     private List<Contasreceber> listaContas;
+    private File file;
     private FileWriter remessa;
     private int numeroSequencial=0;
     private String nomeArquivo;
@@ -55,7 +56,19 @@ public class GerarArquivoRemessaItau {
     
     
     
-    public List<RetornoBean> getListaEnvidas() {
+    public File getFile() {
+		return file;
+	}
+
+
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+
+
+	public List<RetornoBean> getListaEnvidas() {
 		return listaEnvidas;
 	}
 
@@ -79,8 +92,8 @@ public class GerarArquivoRemessaItau {
         if (this.listaContas!=null){  
             try {
             	pasta = pasta + "/remessa/" + nomeArquivo;
-            	File arquivo = new File(pasta);
-                remessa = new FileWriter(arquivo);
+            	file = new File(pasta);
+                remessa = new FileWriter(file);
                 try { 
                     lerConta();  
                 } catch (Exception ex) {
@@ -154,7 +167,7 @@ public class GerarArquivoRemessaItau {
         numeroSequencial++;
         remessa.write(arquivoRemessaNormal.gerarDetalhe(conta, numeroSequencial, unidadePassar, bancoPassar.getAgencia(), bancoPassar.getConta(), bancoPassar.getDigitoconta()));
         numeroSequencial++;
-        remessa.write(arquivoRemessaNormal.gerarMulta(conta, numeroSequencial, unidadePassar));
+  //      remessa.write(arquivoRemessaNormal.gerarMulta(conta, numeroSequencial, unidadePassar));
         numeroSequencial++;
         remessa.write(arquivoRemessaNormal.gerarTrailer(numeroSequencial));
         RetornoBean r = new RetornoBean();
