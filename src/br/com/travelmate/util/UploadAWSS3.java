@@ -41,6 +41,8 @@ public class UploadAWSS3 {
 			bucket = awsPropertie.getBucketImagem();
 		}else if (tipo.equalsIgnoreCase("remessa")) {
 			bucket = awsPropertie.getBucketRemessa();
+		}else if (tipo.equalsIgnoreCase("treinamento")) {
+			bucket = awsPropertie.getBucketTreinamento();
 		}
 	}
 
@@ -79,10 +81,10 @@ public class UploadAWSS3 {
 	        catch(SdkClientException e) {
 	            e.printStackTrace();
 	        } catch (AmazonClientException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 	        return false;

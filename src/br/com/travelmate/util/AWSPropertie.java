@@ -12,6 +12,7 @@ public class AWSPropertie {
 	private String bucketImagem;
 	private String bucketRemessa;
 	private String bucketDocs;
+	private String bucketTreinamento;
 	private String clientRegion;
 	private String accesskey;
 	private String secretaccesskey;
@@ -84,6 +85,14 @@ public class AWSPropertie {
 		this.secretaccesskey = secretaccesskey;
 	}
 	
+	public String getBucketTreinamento() {
+		return bucketTreinamento;
+	}
+
+	public void setBucketTreinamento(String bucketTreinamento) {
+		this.bucketTreinamento = bucketTreinamento;
+	}
+
 	public void carregarInformacoes(String caminho) {
 		File file = new File(caminho);
         Properties props = new Properties();

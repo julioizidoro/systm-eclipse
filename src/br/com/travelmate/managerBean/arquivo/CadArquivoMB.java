@@ -498,16 +498,13 @@ public class CadArquivoMB implements Serializable {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
 		String nomeArquivo = nomeArquivoSalvo();
-		try {
-			nomeArquivo = nomeArquivo + "_" + new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		String arquivo = servletContext.getRealPath("/arquivos/" + nomeArquivo);
+		nomeArquivo = nomeArquivo + "_" + new String(file.getFileName());
+		String arquivo = servletContext.getRealPath("/arquivos/");
+		String a = arquivo + nomeArquivo;
 		File fl = null;
 		try {
 			InputStream reportStream = new BufferedInputStream(file.getInputstream());
-			fl = new File(arquivo);
+			fl = new File(a);
 			FileOutputStream outputStream = new FileOutputStream(fl);
 			while (reportStream.available() != 0) {
 				outputStream.write(reportStream.read());
