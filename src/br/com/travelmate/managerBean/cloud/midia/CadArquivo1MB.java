@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.cloud.midia;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -18,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
@@ -33,6 +35,7 @@ import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
 @Named
 @ViewScoped
@@ -338,46 +341,29 @@ public class CadArquivo1MB implements Serializable{
 	
 	
 	public boolean salvarArquivoFTP(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String nomeArquivo = nomeArquivo();
+		nomeArquivo = nomeArquivo + "_" + new String(file.getFileName());
+		String arquivo = servletContext.getRealPath("/arquivos/");
+		String nomeArquivoFile = arquivo + nomeArquivo;
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+		UploadAWSS3 s3 = new UploadAWSS3("docs", caminho);
+		File arquivoFile = s3.getFile(file, nomeArquivoFile);
 		String msg = "";
-        FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-        Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(CadArquivo1MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
+		if (s3.uploadFile(arquivoFile)) {
+			msg = "Arquivo: " + nomeArquivo + " enviado com sucesso";
+			arquivoEnviado = true;
+		} else {
+			msg = " Erro no nome do arquivo";
+			arquivoEnviado = false;
 		}
-        if (dadosFTP==null){
-            return false;
-        }
-        Ftp ftp = new Ftp(dadosFTP.getHostupload(),dadosFTP.getUser(), dadosFTP.getPassword());
-        try {
-            if (!ftp.conectar()){
-                mostrarMensagem(null, "Erro conectar FTP", "");
-                return false;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivo1MB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-        }
-        try {
-        	nomeArquivoFTP = nomeArquivo();
-        	arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/cloud/departamentos/");
-        	if (arquivoEnviado) {
-				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
-			}else{
-				msg = "Erro ao salvar arquivo";
-			}
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(msg, ""));
-            ftp.desconectar();
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivo1MB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-        } 
+         FacesContext context = FacesContext.getCurrentInstance();
+         context.addMessage(null, new FacesMessage(msg, ""));
+         arquivoFile.delete();
         return false;
     }
+	
 	
 	
 	public void mostrarMensagem(Exception ex, String erro, String titulo){
@@ -418,12 +404,12 @@ public class CadArquivo1MB implements Serializable{
 			Mensagem.lancarMensagemInfo("Atenção", "você não fez nenhum upload de arquivo!!");
 		} else {
 			for (int j = 0; j < listaNomeArquivo.size(); j++) {
-				if (arquivoExistente) {
-					for (int i = 0; i < listaArquivo1.size(); i++) {
-						arquivo1Facade.excluir(listaArquivo1.get(i).getIdArquivo1());
-					}
-					arquivoExistente = false;
-				}
+//				if (arquivoExistente) {
+//					for (int i = 0; i < listaArquivo1.size(); i++) {
+//						arquivo1Facade.excluir(listaArquivo1.get(i).getIdArquivo1());
+//					}
+//					arquivoExistente = false;
+//				}
 				arquivo1 = new Arquivo1(); 
 				arquivo1.setPasta1(pasta1);
 				arquivo1.setNomeftp(nomeArquivo() + "_" + listaNomeArquivo.get(j));
@@ -545,15 +531,7 @@ public class CadArquivo1MB implements Serializable{
 		if (listaNomeArquivo == null || listaNomeArquivo.isEmpty()) {
 			Mensagem.lancarMensagemInfo("Atenção", "você não fez nenhum upload de arquivo!!");
 		} else {
-			for (int j = 0; j < listaNomeArquivo.size(); j++) {
-				if (verificacaoArquivo(listaNomeArquivo.get(j))) {
-					arquivoExistente = true;
-					return "";
-				}else{
-					arquivoExistente = false;
-					salvar();
-				}
-			}
+			salvar();
 		}
 		return "";
 	}

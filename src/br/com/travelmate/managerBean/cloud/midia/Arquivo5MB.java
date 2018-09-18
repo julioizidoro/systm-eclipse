@@ -17,11 +17,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import br.com.travelmate.facade.Arquivo5Facade;
 import br.com.travelmate.facade.FtpDadosFacade;
@@ -44,6 +47,7 @@ import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
 @Named
 @ViewScoped
@@ -121,7 +125,7 @@ public class Arquivo5MB implements Serializable {
 			}
 
 			if (ftpDados != null) {
-				urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() + ":"+ ftpDados.getWww() +"/cloud/departamentos/";
+				urlArquivo = "http://docs.systm.com.br";
 			}
 			// Verificar se contém arquivos na tela
 			semConteudo();
@@ -608,7 +612,7 @@ public class Arquivo5MB implements Serializable {
 	}
 
 	public String excluirArquivo5(Arquivo5 arquivo5) {
-		excluirArquivo5FTP(arquivo5);
+		excluirArquivoFTP(arquivo5);
 		Arquivo5Facade arquivo5Facade = new Arquivo5Facade();
 		arquivo5Facade.excluir(arquivo5.getIdarquivo5());
 		gerarListaCloudArquivo5();
@@ -759,42 +763,21 @@ public class Arquivo5MB implements Serializable {
 			return classe;
 		}
 	}
-
-	public boolean excluirArquivo5FTP(Arquivo5 arquivo5) {
-		String msg = "";
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(Pasta3Arquivo2MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
-		}
-		if (dadosFTP == null) {
+  
+	public boolean excluirArquivoFTP(Arquivo5 arquivo5) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+		UploadAWSS3 s3 = new UploadAWSS3("docs", caminho);
+		S3ObjectSummary objectSummary = new S3ObjectSummary();
+		objectSummary.setKey(arquivo5.getNomeftp());
+		if (s3.delete(objectSummary)) {
+			Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+			return true;
+		} else {
+			Mensagem.lancarMensagemInfo("Falha ao excluir", "");
 			return false;
 		}
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-		try {
-			if (!ftp.conectar()) {
-				mostrarMensagem(null, "Erro conectar FTP", "");
-				return false;
-			}
-		} catch (IOException ex) {
-			Logger.getLogger(Pasta4Arquivo3MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
-		try {
-			String nomeArquivoFTP = arquivo5.getNomeftp();
-			msg = ftp.excluirArquivo(nomeArquivoFTP, "/cloud/departamentos/");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(msg, ""));
-			ftp.desconectar();
-			return true;
-		} catch (IOException ex) {
-			Logger.getLogger(Pasta4Arquivo3MB.class.getName()).log(Level.SEVERE, null, ex);
-			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-		}
-		return false;
 	}
 
 	public String voltarConsSubPasta4Arquivo3() {

@@ -17,11 +17,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import br.com.travelmate.facade.Arquivo1Facade;
 import br.com.travelmate.facade.Arquivo2Facade;
@@ -42,6 +45,7 @@ import br.com.travelmate.model.Arquivo2;
 import br.com.travelmate.model.Arquivo3;
 import br.com.travelmate.model.Arquivo4;
 import br.com.travelmate.model.Arquivo5;
+import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Pasta2;
 import br.com.travelmate.model.Pasta3;
 import br.com.travelmate.model.Pasta4;
@@ -51,6 +55,7 @@ import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
 @Named
 @ViewScoped
@@ -108,7 +113,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 					}
 
 					if (ftpDados != null) {
-						urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":" + ftpDados.getWww() + "/cloud/departamentos";
+						urlArquivo = "http://docs.systm.com.br";
 					}
 					// Verificar se existe pastas ou arquivos na tela
 					semConteudo();
@@ -702,48 +707,24 @@ public class Pastas2Arquivo1MB implements Serializable {
 
 		}
 	}
-
+	
 	public boolean excluirArquivoFTP(Arquivo1 arquivo1) {
-		String msg = "";
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(Pastas2Arquivo1MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
-		}
-		if (dadosFTP == null) {
-			return false;
-		}
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-		try {
-			if (!ftp.conectar()) {
-				mostrarMensagem(null, "Erro conectar FTP", "");
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+			UploadAWSS3 s3 = new UploadAWSS3("docs", caminho);
+			S3ObjectSummary objectSummary = new S3ObjectSummary();
+			objectSummary.setKey(arquivo1.getNomeftp());
+			if(s3.delete(objectSummary)) {
+				Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+				return true;
+			}else {
+				Mensagem.lancarMensagemInfo("Falha ao excluir", "");
 				return false;
 			}
-		} catch (IOException ex) {
-			Logger.getLogger(Pastas2Arquivo1MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
-		try {
-			String nomeArquivoFTP = arquivo1.getNomeftp();
-			msg = ftp.excluirArquivo(nomeArquivoFTP, "/cloud/departamentos/");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(msg, ""));
-			return true;
-		} catch (IOException ex) {
-			Logger.getLogger(Pastas2Arquivo1MB.class.getName()).log(Level.SEVERE, null, ex);
-			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-		}
-		try {
-			ftp.desconectar();
-		} catch (IOException ex) {
-			Logger.getLogger(Pastas2Arquivo1MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-		}
-		return false;
 	}
+
+	
 
 	public void mostrarMensagem(Exception ex, String erro, String titulo) {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -1590,6 +1571,15 @@ public class Pastas2Arquivo1MB implements Serializable {
 				}
 			}
 			return cor;
+		}
+		
+		
+		public String retornarBorder(Arquivo1 arquivo1){
+			String border = "";
+			if (arquivo1 != null) {
+				border = "border: 2px solid";
+			}
+			return border;
 		}
 
 }
