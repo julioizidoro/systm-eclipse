@@ -37,20 +37,14 @@ public class GerarBoletosBean {
 				} else {
 					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
-					RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
-					relatorioErroBean.iniciarRelatorioErro("Venda não possui forma de pagamento Boleto.");
 				}
 			} else {
 				FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-				RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
-				relatorioErroBean.iniciarRelatorioErro("Venda não possui forma de pagamento Boleto.");
 			}
 		} else {
 			FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			RelatorioErroBean relatorioErroBean = new RelatorioErroBean();
-			relatorioErroBean.iniciarRelatorioErro("Dados do cliente não converefe " + validarCliente.getMsg());
 		}
 
 		return "";
