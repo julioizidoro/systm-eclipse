@@ -160,7 +160,7 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				<textFieldExpression><![CDATA[$P{consultor}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="380" y="14" width="24" height="17" uuid="bbc7570e-cfc1-4bb6-bdc6-3a9a8f3c2958"/>
+				<reportElement x="372" y="14" width="32" height="17" uuid="bbc7570e-cfc1-4bb6-bdc6-3a9a8f3c2958"/>
 				<textElement textAlignment="Left">
 					<font size="12" isBold="true"/>
 				</textElement>
