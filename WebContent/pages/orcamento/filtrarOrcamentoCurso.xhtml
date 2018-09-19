@@ -35,11 +35,11 @@
 					<b>Orçamento de Curso</b>  
 				</legend>
 				<div class="ui-fluid" style="margin-left: 10%;">
-					<legend id="iUsu3">
+					<legend id="iUsu3" style="width:95%;">
 						<b>Dados do Cliente</b>
 					</legend>
-					<p:panelGrid columns="6" layout="grid"
-						style="background: transparent;border:none;"
+					<h:panelGrid columns="6" layout="grid"
+						style="background: transparent;border:none;width:92%;"
 						styleClass="panelgrid-noborder"
 						columnClasses="colunaVinteSeis,colunaQuarenta,colunacinco,colunatipovenda,colunaVintenove">
 						<p:outputLabel value="Cliente:" for="idcliente"
@@ -50,14 +50,15 @@
 						<p:outputLabel value="Email:" for="idemail" style="color: #1F8871" />
 						<p:inputText id="idemail" style="width:105%;" maxlength="100"
 							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.email}"/> 
-					</p:panelGrid> 
+					</h:panelGrid> 
 				</div> 
 				<div class="ui-fluid">
 				<br/>
-					<p:panelGrid columns="6" layout="grid"
-						style="background: transparent;border:none;margin-top:-15px;"
+					<h:panelGrid columns="6" layout="grid"
+						style="background: transparent;border:none;width:52%;"
 						styleClass="panelgrid-noborder"
 						columnClasses="colunaVinteSeis,colunaquatrorze,colunaSeis,dezoito,onze,colunaEspaco">
+						<p:panelGrid></p:panelGrid>
 						<p:panelGrid></p:panelGrid>
 						<p:panelGrid>
 							<p:selectBooleanCheckbox id="digitosResidencial"
@@ -68,14 +69,13 @@
 								style="margin-left:1%;color: #1F8871;" />
 						</p:panelGrid>
 						<p:panelGrid></p:panelGrid>
-						<p:panelGrid></p:panelGrid>
 						<p:panelGrid>
 						</p:panelGrid>
 
-					</p:panelGrid>
+					</h:panelGrid>
 					
-					<p:panelGrid columns="8" layout="grid"
-						style="background: transparent;border:none;margin-top:-15px;"
+					<h:panelGrid columns="8" 
+						style="background: transparent;border:none;width:86%;margin-left:10%;"
 						styleClass="panelgrid-noborder"
 						>
 						<p:outputLabel value="Fone Residêncial:" for="idfoneresidencial"
@@ -99,7 +99,7 @@
 								timeZone="America/Sao_Paulo" />
 						</p:inputMask>
 						
-						<p:outputLabel value="Idioma:" for="idioma" style="color:#1F8871;margin-left: 20%;" />
+						<p:outputLabel value="Idioma:" for="idioma" style="color:#1F8871;margin-left: 2%;" />
 						<p:selectOneMenu id="idioma"
 							value="#{filtrarEscolaMB.filtrarEscolaBean.idioma}"
 							style="width:100px;" converter="IdiomaConverter">
@@ -115,17 +115,17 @@
 								listener="#{filtrarEscolaMB.verificarIdiomaSelecionado()}"
 								update=":filtrarOrcamentocurso:cidade,:filtrarOrcamentocurso:pais,:filtrarOrcamentocurso:growl" />
 						</p:selectOneMenu>
-					</p:panelGrid>
+					</h:panelGrid>
 				</div>
 				
 				
 				<br></br>
-				<legend id="iUsu3">
+				<legend id="iUsu3" style="margin-left: 10%;width:85%;">
 					<b>Dados do Curso</b>
 				</legend>
 				<div class="ui-fluid">
-					<p:panelGrid columns="6" layout="grid"
-						style="background: transparent;border:none;"
+					<h:panelGrid columns="6" layout="grid"
+						style="background: transparent;border:none;margin-left: 10%;width:85%;"
 						styleClass="panelgrid-noborder"
 						columnClasses="colunaVinteSeis,colunaVintePontoSeis,colunatipovenda,colunaVinteoito,tamanho5font,colunaEspaco">
 						<p:outputLabel value="Pais:" for="pais" style="color: #1F8871" />
@@ -185,12 +185,12 @@
 							<p:ajax event="change" listener="#{filtrarEscolaMB.gerarListaCursos}"
 								update=":filtrarOrcamentocurso:tipodecurso" />
 						</p:selectOneMenu>
-					</p:panelGrid>
+					</h:panelGrid>
 				</div>
 				<br></br>
 				<div class="ui-fluid">
-					<p:panelGrid id="painel" columns="6" layout="grid"
-						style="background: transparent;border:none;"
+					<h:panelGrid id="painel" columns="6" layout="grid"
+						style="background: transparent;border:none;margin-left: 10%;width:72%;"
 						styleClass="panelgrid-noborder"
 						columnClasses="colunaVinteSeis,colunaVintePontoSeis,colunaSeis,tamanho143,onze,colunaEspaco">
 						<p:outputLabel value="Tipo:" for="tipodecurso"
@@ -241,7 +241,7 @@
 								<p:ajax event="change"/>
 							</p:selectOneMenu>
 						</h:panelGroup>
-					</p:panelGrid>    
+					</h:panelGrid>    
 				</div>
 				<br></br> <br></br>       
 					<p:panelGrid columns="1" layout="grid"
