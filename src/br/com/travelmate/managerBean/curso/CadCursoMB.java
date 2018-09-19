@@ -151,7 +151,6 @@ public class CadCursoMB implements Serializable {
 	@Inject
 	private LeadPosVendaDao leadPosVendaDao;
 	private Vendas venda;
-	private Vendas vendaAlterada;
 	private Formapagamento formaPagamento;
 	private Produtos produto;
 	private Cliente cliente;
@@ -259,6 +258,7 @@ public class CadCursoMB implements Serializable {
 	private boolean mascara = false;
 	private boolean semmascara = true;
 	private boolean acomodacaoEscola = false;
+	private Vendas vendaAlterada;
 
 	@PostConstruct()
 	public void init() {
@@ -3498,8 +3498,12 @@ public class CadCursoMB implements Serializable {
 					} 
 					calcularDataTerminoAcomodacao();
 					acomodacaoEscola = true;
+			}else if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransfer() && ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransferout()) {
+				curso.setTransferin("Sim");
+				curso.setTransferouto("Sim");
 			}else if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransfer()) {
 				curso.setTransferin("Sim");
+			}else if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransferout()) {
 				curso.setTransferouto("Sim");
 			}
 		}
