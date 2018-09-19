@@ -618,8 +618,14 @@ public class ContasReceberMB implements Serializable {
 		if (conta.getIdcontasreceber() != null) {
 			if (conta.getCrmcobrancaconta() != null) {
 				if (dataAnterior.before(conta.getDatavencimento())) {
-					CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
-					crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
+	        		String dataNovoString = Formatacao.ConvercaoDataPadrao(conta.getDatavencimento());
+	        		String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+	        		Date dataNovo = Formatacao.ConvercaoStringData(dataNovoString);
+	        		Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+	        		if (!dataNovo.before(dataAtual)) {
+						CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+						crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
+					}
 				}
 			}
 		}
