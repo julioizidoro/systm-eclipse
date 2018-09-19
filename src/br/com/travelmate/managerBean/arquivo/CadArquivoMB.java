@@ -23,6 +23,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.ContasReceberBean;
+import br.com.travelmate.bean.GerarBoletosBean;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
@@ -34,6 +35,7 @@ import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.InvoiceFacade;
+
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -644,6 +646,7 @@ public class CadArquivoMB implements Serializable {
 		vendas = finalizarMB.finalizar(aupair, vendasDao);
 		new ContasReceberBean(aupair.getVendas(), aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(),
 				usuarioLogadoMB, null, true, aupair.getDataInicioPretendida01());
+		new GerarBoletosBean(vendas, false);
 	}
 
 	public void finalizarTrainee() {
@@ -654,6 +657,7 @@ public class CadArquivoMB implements Serializable {
 		new ContasReceberBean(trainee.getVendas(),
 				trainee.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 				null);
+		new GerarBoletosBean(vendas, false);
 	}
 
 	public void finalizarWork() {
@@ -665,6 +669,7 @@ public class CadArquivoMB implements Serializable {
 			new ContasReceberBean(worktravel.getVendas(),
 					worktravel.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null,
 					true, worktravel.getDataInicioPretendida01());
+			new GerarBoletosBean(vendas, false);
 		}
 	}
 
@@ -677,6 +682,7 @@ public class CadArquivoMB implements Serializable {
 			new ContasReceberBean(voluntariado.getVendas(),
 					voluntariado.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null,
 					true, voluntariado.getDataInicio());
+			new GerarBoletosBean(vendas, false);
 		}
 	}
 
@@ -690,6 +696,7 @@ public class CadArquivoMB implements Serializable {
 			new ContasReceberBean(demipair.getVendas(),
 					demipair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null,
 					true, demipair.getDatainicio());
+			new GerarBoletosBean(vendas, false);
 		}
 	}
 
@@ -702,6 +709,7 @@ public class CadArquivoMB implements Serializable {
 			new ContasReceberBean(highschool.getVendas(),
 					highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null,
 					true, highschool.getValoreshighschool().getDatainicio());
+			new GerarBoletosBean(vendas, false);
 		}
 	}
 
@@ -713,6 +721,7 @@ public class CadArquivoMB implements Serializable {
 		new ContasReceberBean(programasteens.getVendas(),
 				programasteens.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null,
 				true, programasteens.getDataInicioCurso());
+		new GerarBoletosBean(vendas, false);
 	}
 
 	public void finalizarCurso() {
@@ -722,6 +731,7 @@ public class CadArquivoMB implements Serializable {
 		vendas = finalizarMB.finalizarCurso(curso, vendasDao);
 		new ContasReceberBean(curso.getVendas(), curso.getVendas().getFormapagamento().getParcelamentopagamentoList(),
 				usuarioLogadoMB, null, true, curso.getDataInicio());
+		new GerarBoletosBean(vendas, false);
 	}
 
 	public void verificarDocumentosHE() {

@@ -850,7 +850,7 @@ public class TraineeMB implements Serializable {
 				if (listaContas.size() > 0) {
 					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
 					gerarBoletoConsultorBean.gerarBoleto(listaContas,
-							String.valueOf(trainee.getVendas().getIdvendas()));
+							String.valueOf(trainee.getVendas().getIdvendas()), true);
 				} else {
 					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 					FacesContext.getCurrentInstance().addMessage(null, msg);

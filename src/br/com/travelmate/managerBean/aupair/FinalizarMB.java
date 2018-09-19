@@ -699,5 +699,7 @@ public class FinalizarMB implements Serializable {
 		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 		productRunnersCalculosBean.calcularPontuacao(vendaSeguro, pontos[0], 0, false, vendaSeguro.getUsuario());
 	}
+	
+	
 
 }

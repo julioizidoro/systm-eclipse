@@ -102,15 +102,15 @@
             <p:inputText id="idade" value="#{cadCoProdutosMB.coprodutos.idade}" style="width:10%;margin-left:0.4%"/>
 			<br></br><br></br>  
             <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.transfer}" disabled="#{cadCoProdutosMB.habilitarOpcoesPacotes}" class="espacopreto" id="transfer" style="margin-left:2%" />
-            <p:outputLabel value="Translado" for="transfer" style="margin-left:1%"/>
+            <p:outputLabel value="Translado Chegada" for="transfer" style="margin-left:1%"/>
             
             <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.transferout}" disabled="#{cadCoProdutosMB.habilitarOpcoesPacotes}" class="espacopreto" id="transferout" style="margin-left:2%" />
             <p:outputLabel value="Translado Sáida" for="transfer" style="margin-left:1%"/>
             
             <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.acomodacao}" disabled="#{cadCoProdutosMB.habilitarOpcoesPacotes}" class="espacopreto" id="acomodacao" style="margin-left:5%" />
             <p:outputLabel value="Acomodação" for="acomodacao" style="margin-left:1%"/>
-            
-            <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.apenaspacote}"  class="espacopreto" id="apenaspacote" style="margin-left:5%" />
+            <br/><br/>
+            <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.apenaspacote}"  class="espacopreto" id="apenaspacote" style="margin-left:2%" />
             <p:outputLabel value="Não mostrar no Orçamento Tarifario" for="apenaspacote" style="margin-left:1%"/>
             <br></br><br></br>   
             <div align="center">

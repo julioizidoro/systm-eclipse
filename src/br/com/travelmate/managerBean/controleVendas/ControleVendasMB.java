@@ -1167,7 +1167,7 @@ public class ControleVendasMB implements Serializable {
 			if (listaContas != null) {
 				if (listaContas.size() > 0) {
 					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
-					gerarBoletoConsultorBean.gerarBoleto(listaContas, String.valueOf(vendas.getIdvendas()));
+					gerarBoletoConsultorBean.gerarBoleto(listaContas, String.valueOf(vendas.getIdvendas()), true);
 				} else {
 					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 					FacesContext.getCurrentInstance().addMessage(null, msg);

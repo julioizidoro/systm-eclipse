@@ -680,7 +680,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 				if (listaContas.size() > 0) {
 					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
 					gerarBoletoConsultorBean.gerarBoleto(listaContas,
-							String.valueOf(seguroviagem.getVendas().getIdvendas()));
+							String.valueOf(seguroviagem.getVendas().getIdvendas()), true);
 				} else {
 					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 					FacesContext.getCurrentInstance().addMessage(null, msg);

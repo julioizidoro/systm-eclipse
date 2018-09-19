@@ -810,7 +810,7 @@ public class DemiPairMB implements Serializable {
 				if (listaContas.size() > 0) {
 					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
 					gerarBoletoConsultorBean.gerarBoleto(listaContas,
-							String.valueOf(demipair.getVendas().getIdvendas()));
+							String.valueOf(demipair.getVendas().getIdvendas()), true);
 				} else {
 					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 					FacesContext.getCurrentInstance().addMessage(null, msg);

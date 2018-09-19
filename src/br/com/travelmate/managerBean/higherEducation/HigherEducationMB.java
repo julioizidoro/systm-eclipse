@@ -903,7 +903,7 @@ public class HigherEducationMB implements Serializable {
 					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
 					if (listaHeBean.getHe() != null && listaHeBean.getHe().isFichafinal()) {
 						gerarBoletoConsultorBean.gerarBoleto(listaContas,
-								String.valueOf(listaHeBean.getHe().getVendas().getIdvendas()));
+								String.valueOf(listaHeBean.getHe().getVendas().getIdvendas()), true);
 					} else {
 			//			gerarBoletoConsultorBean.gerarBoleto(listaContas,
 				//				String.valueOf(listaHeBean.getQuestionariohe().getVendas().getIdvendas()));

@@ -18,7 +18,7 @@ import br.com.travelmate.util.Formatacao;
 public class GerarBoletoConsultorBean {
 	
 
-	public String gerarBoleto(List<Contasreceber> listaContas, String idvenda){
+	public String gerarBoleto(List<Contasreceber> listaContas, String idvenda, boolean emitirpdf){
         List<Boleto> listaBoletos = new ArrayList<Boleto>();
         if (listaContas!=null){
             for(int i=0;i<listaContas.size();i++){
@@ -27,7 +27,7 @@ public class GerarBoletoConsultorBean {
 	            	} 
             }
         }
-        if (listaBoletos.size()>0){
+        if (listaBoletos.size()>0 && emitirpdf){
             DadosBoletoBean dadosBoletoBean = new DadosBoletoBean();
             dadosBoletoBean.gerarPDFS(listaBoletos, idvenda);
         }
