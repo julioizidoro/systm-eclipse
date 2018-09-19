@@ -277,16 +277,7 @@ public class EncaminharLeadMB implements Serializable {
 		leadencaminhado.setHora(Formatacao.foramtarHoraString());
 		leadencaminhado.setUsuariode(usuarioLogadoMB.getUsuario());
 		leadencaminhado.setUsuariopara(usuario);
-		leadEncaminhadoDao.salvar(leadencaminhado); 
-		if (lead.getUnidadenegocio().getIdunidadeNegocio() != unidadenegocio.getIdunidadeNegocio()) {
-			trocaUnidade = true;
-		}
-		if (!trocaUnidade) {
-			if(lead.getUnidadenegocio().getIdunidadeNegocio()!=6 || !unidadenegocio.isLeadautomatica()) {
-				lead.setDataenvio(new Date());
-				lead.setHoraenvio(Formatacao.foramtarHoraString());
-			} 
-		}
+		leadEncaminhadoDao.salvar(leadencaminhado);
 		lead.setUnidadenegocio(unidadenegocio);
 		lead.setNomeunidade(unidadenegocio.getNomerelatorio());
 		lead.setSituacao(situacao);
@@ -324,7 +315,7 @@ public class EncaminharLeadMB implements Serializable {
 		}else{
 			dataEnvio = lead.getDataenvio();
 		}
-		avisos.setTexto("Você recebeu uma nova lead - "+lead.getCliente().getNome()+". Encaminhada por "+
+		avisos.setTexto("Você recebeu uma nova lead - Nome: "+lead.getCliente().getNome()+". Encaminhada por "+
 				usuarioLogadoMB.getUsuario().getNome()+". Incluida no dia: " + Formatacao.ConvercaoDataPadrao(dataEnvio) + "; Distribuida no dia: " 
 				+ Formatacao.ConvercaoDataPadrao(new Date()));
 		avisos.setIdunidade(0); 
