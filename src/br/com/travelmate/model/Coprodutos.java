@@ -75,6 +75,8 @@ public class Coprodutos implements Serializable {
    	@Size(max = 2147483647)
    	@Column(name = "advertenciaseguro")
    	private String advertenciaseguro;
+    @Column(name = "transferout")
+    private boolean transferout;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "coprodutos")
     private Complementoacomodacao complementoacomodacao;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "coprodutos")
@@ -261,6 +263,14 @@ public class Coprodutos implements Serializable {
 
 	public void setComplementoacomodacaodiasemana(Complementoacomodacaodiasemana complementoacomodacaodiasemana) {
 		this.complementoacomodacaodiasemana = complementoacomodacaodiasemana;
+	}
+
+	public boolean isTransferout() {
+		return transferout;
+	}
+
+	public void setTransferout(boolean transferout) {
+		this.transferout = transferout;
 	}
 
 	@Override

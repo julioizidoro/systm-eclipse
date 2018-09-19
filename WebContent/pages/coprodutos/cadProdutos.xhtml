@@ -91,7 +91,7 @@
             <p:inputTextarea value="#{cadCoProdutosMB.coprodutos.advertenciaseguro}" id="advertenciaseguro" rows="2" cols="87" class="espacocobranca29"  title="descrição do produto"/>
             <br></br><br></br>
             <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.pacote}" class="espacopreto" id="pacote" style="margin-left:2%" >
-            	<p:ajax listener="#{cadCoProdutosMB.habilitarOpcoesPacote()}" update="acomodacao, transfer"/>
+            	<p:ajax listener="#{cadCoProdutosMB.habilitarOpcoesPacote()}" update="acomodacao, transfer, transferout"/>
             </p:selectBooleanCheckbox>
             <p:outputLabel value="Pacote" for="pacote" style="margin-left:1%"/>  
             
@@ -103,6 +103,9 @@
 			<br></br><br></br>  
             <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.transfer}" disabled="#{cadCoProdutosMB.habilitarOpcoesPacotes}" class="espacopreto" id="transfer" style="margin-left:2%" />
             <p:outputLabel value="Translado" for="transfer" style="margin-left:1%"/>
+            
+            <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.transferout}" disabled="#{cadCoProdutosMB.habilitarOpcoesPacotes}" class="espacopreto" id="transferout" style="margin-left:2%" />
+            <p:outputLabel value="Translado Sáida" for="transfer" style="margin-left:1%"/>
             
             <p:selectBooleanCheckbox value="#{cadCoProdutosMB.coprodutos.acomodacao}" disabled="#{cadCoProdutosMB.habilitarOpcoesPacotes}" class="espacopreto" id="acomodacao" style="margin-left:5%" />
             <p:outputLabel value="Acomodação" for="acomodacao" style="margin-left:1%"/>
