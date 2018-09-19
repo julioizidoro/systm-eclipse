@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Wolverine
  */
-@SuppressWarnings("unchecked")
+
 public class ConciliacaoFactory {
     
     private static List<ConciliacaoBean> listaConciliacao;

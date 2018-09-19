@@ -203,8 +203,9 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
     }
     
     private String valorJuros(Float valorConta, float juros){
-        Float valorJuros = valorConta * (juros/100);
-        String valor = Formatacao.retirarPontos(Formatacao.formatarFloatString(valorJuros));
+       // Float valorJuros = valorConta * (juros/100);
+       // String valor = Formatacao.retirarPontos(Formatacao.formatarFloatString(valorJuros));
+        String valor = "0";
         if (valor.length()<13){
             valor = zeros.substring(0, 13 - valor.length()) + valor;
         }

@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -19,7 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -45,7 +42,6 @@ import br.com.travelmate.model.Pasta4;
 import br.com.travelmate.model.Pasta5;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
 import br.com.travelmate.util.UploadAWSS3;
 

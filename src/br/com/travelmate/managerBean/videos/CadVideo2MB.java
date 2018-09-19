@@ -1,18 +1,14 @@
 package br.com.travelmate.managerBean.videos;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -21,20 +17,15 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.Video2Facade;
-import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Video2;
 import br.com.travelmate.model.Videopasta1;
 import br.com.travelmate.model.Videopasta2;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
 import br.com.travelmate.util.UploadAWSS3;
 

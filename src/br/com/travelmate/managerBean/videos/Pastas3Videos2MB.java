@@ -41,7 +41,6 @@ import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Usuario;
-import br.com.travelmate.model.Video1;
 import br.com.travelmate.model.Video2;
 import br.com.travelmate.model.Video3;
 import br.com.travelmate.model.Video4;

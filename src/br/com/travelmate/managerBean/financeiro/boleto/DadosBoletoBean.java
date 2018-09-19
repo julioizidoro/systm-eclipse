@@ -239,8 +239,8 @@ public class DadosBoletoBean implements Serializable{
         boleto.addTextosExtras("txtRsAgenciaCodigoCedente", codigoCedente);
         boleto.addTextosExtras("txtFcNossoNumero", nossoNumeroExibicao);
         boleto.addTextosExtras("txtRsNossoNumero", nossoNumeroExibicao);
-        boleto.setInstrucao1("APOS O VENCIMENTO COBRAR JUROS DE..........R$ " + valorJuros + " AO DIA");
-        boleto.setInstrucao2("APOS O VENCIMENTO COBRAR MULTA DE..........R$ " + valorMulta);
+        boleto.setInstrucao1("APOS O VENCIMENTO COBRAR JUROS DE..........5,00% AO MÊS");
+        boleto.setInstrucao2("APOS O VENCIMENTO COBRAR MULTA DE..........2,00%");
         boleto.setInstrucao3("ATÉ O VENCIMENTO PAGUE PREFERENCIALMENTE NO ITAÚ");
         boleto.setInstrucao4("APÓS O VENCIMENTO PAGUE SOMENTE NO ITAÚ");
         

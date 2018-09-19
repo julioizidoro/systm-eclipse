@@ -1,10 +1,6 @@
 package br.com.travelmate.managerBean.arquivo;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -38,7 +34,6 @@ import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.InvoiceFacade;
-
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;

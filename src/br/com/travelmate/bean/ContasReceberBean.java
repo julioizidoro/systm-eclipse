@@ -209,7 +209,6 @@ public class ContasReceberBean {
 			conta.setBoletoenviado(false);
 			conta.setVendas(venda);
 			conta.setIdparcelamentopagamento(parcela.getIdparcemlamentoPagamento());
-			conta.setHoraemissao(Formatacao.foramtarHoraString());
 			listaContas.add(conta);
 			if (cmes == 12) {
 				cmes = 1;

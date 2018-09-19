@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -19,7 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -30,20 +27,17 @@ import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.Video5Facade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.cloud.midia.Pastas2Arquivo1MB;
 import br.com.travelmate.managerBean.fornecedordocs.ArquivoBean;
 import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Usuario;
-import br.com.travelmate.model.Video2;
 import br.com.travelmate.model.Video5;
 import br.com.travelmate.model.Videopasta1;
 import br.com.travelmate.model.Videopasta2;
 import br.com.travelmate.model.Videopasta3;
 import br.com.travelmate.model.Videopasta4;
 import br.com.travelmate.model.Videopasta5;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
 import br.com.travelmate.util.UploadAWSS3;
 

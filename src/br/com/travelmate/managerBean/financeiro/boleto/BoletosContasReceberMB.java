@@ -76,7 +76,7 @@ public class BoletosContasReceberMB implements Serializable{
         }
     }
 
-	public void gerarBoleto(Contasreceber contasreceber){
+	public void gerarBoleto1(Contasreceber contasreceber){
 		gerarClasseBoleto(contasreceber);
 	}
 	
@@ -102,6 +102,7 @@ public class BoletosContasReceberMB implements Serializable{
         ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
         conta.setNossonumero(dadosBoletoBean.getNossoNumeros());
         conta.setDataEmissao(new Date());
+        conta.setHoraemissao(Formatacao.foramtarHoraString());
         conta.setSituacao("am");
         contasReceberFacade.salvar(conta);
     }
