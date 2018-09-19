@@ -3495,16 +3495,30 @@ public class CadCursoMB implements Serializable {
 					curso.setDataChegada(verificarDataInicioAcomodacaoOrcamento(ocurso.getDatainicio(), numeroSemanas));
 					if(numeroSemanas>0){
 						curso.setNumeroSemanasAcamodacao(numeroSemanas);
-					} 
+					}
 					calcularDataTerminoAcomodacao();
 					acomodacaoEscola = true;
-			}else if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransfer() && ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransferout()) {
-				curso.setTransferin("Sim");
-				curso.setTransferouto("Sim");
+					if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransfer()) {
+						curso.setTransferin("Sim");
+						if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransferout()) {
+							curso.setTransferouto("Sim");
+						}
+					}else if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransferout()) {
+						curso.setTransferouto("Sim");
+						if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransfer()) {
+							curso.setTransferin("Sim");
+						}
+					}
 			}else if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransfer()) {
 				curso.setTransferin("Sim");
+				if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransferout()) {
+					curso.setTransferouto("Sim");
+				}
 			}else if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransferout()) {
 				curso.setTransferouto("Sim");
+				if(ocurso.getOcrusoprodutosList().get(i).getValorcoprodutos().getCoprodutos().isTransfer()) {
+					curso.setTransferin("Sim");
+				}
 			}
 		}
 		if (ocurso.getOcursoseguroList() != null) {
