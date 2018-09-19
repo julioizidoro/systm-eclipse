@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reciboPagamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="32"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
@@ -223,11 +223,11 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				<textFieldExpression><![CDATA[$F{valorjuros}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="25" width="105" height="14" uuid="bb75d1c5-3214-471e-9684-a610e270b3f2"/>
+				<reportElement x="10" y="25" width="78" height="14" uuid="bb75d1c5-3214-471e-9684-a610e270b3f2"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Valor dos Juros R$ :]]></text>
+				<text><![CDATA[Valor dos Juros ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="239" y="10" width="127" height="14" uuid="65185539-78ea-4af4-b88e-ea6fdf127f2d"/>
@@ -242,16 +242,30 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				<textFieldExpression><![CDATA[$F{totalmoedanacional}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="45" width="105" height="14" uuid="86fcd828-ee36-4cda-8bbb-5cbcea1270ce"/>
+				<reportElement x="10" y="45" width="93" height="14" uuid="86fcd828-ee36-4cda-8bbb-5cbcea1270ce"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Saldo Parcelado R$ :]]></text>
+				<text><![CDATA[Saldo Parcelado]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="120" y="45" width="106" height="15" uuid="5f2ffc22-952a-4775-9cc9-e0dd3a347e32"/>
+				<reportElement x="140" y="45" width="106" height="15" uuid="5f2ffc22-952a-4775-9cc9-e0dd3a347e32"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{valortotal} - $P{valorRecibo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="88" y="25" width="32" height="17" uuid="684e5ab8-903f-4bf2-bcfb-f9d77e8893d7"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="107" y="45" width="32" height="17" uuid="d12d88d6-d39f-4b34-82ef-62842d5766fe"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

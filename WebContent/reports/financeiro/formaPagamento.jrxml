@@ -78,11 +78,11 @@
 				<text><![CDATA[Opção 01 - Pagamento á Vista]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="145" width="59" height="15" uuid="2ec81603-9e9b-4da6-b5ea-3b8f8ba21d06"/>
-				<text><![CDATA[Valor R$ :]]></text>
+				<reportElement x="10" y="145" width="25" height="15" uuid="2ec81603-9e9b-4da6-b5ea-3b8f8ba21d06"/>
+				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="80" y="145" width="113" height="15" uuid="1cc8dc23-8863-49db-b99d-23fa8b388ae6"/>
+				<reportElement x="68" y="145" width="113" height="15" uuid="1cc8dc23-8863-49db-b99d-23fa8b388ae6"/>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -100,6 +100,10 @@
 				</textElement>
 				<text><![CDATA[Cálculo de Pagamento]]></text>
 			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="36" y="145" width="29" height="15" uuid="6794ead0-e831-4888-8054-90e25f7cd14e"/>
+				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
@@ -124,7 +128,7 @@
 				<textFieldExpression><![CDATA[$F{valorParcela}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="253" y="23" width="104" height="15" uuid="a2757f22-600a-44d3-93a0-ec6a80e99b46"/>
+				<reportElement x="265" y="23" width="104" height="15" uuid="a2757f22-600a-44d3-93a0-ec6a80e99b46"/>
 				<textFieldExpression><![CDATA[$F{valorentrada}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -132,7 +136,7 @@
 				<text><![CDATA[Valor da Entrada]]></text>
 			</staticText>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="212" y="44" width="104" height="15" uuid="be79ca29-0672-46d2-ab51-8353bb597312"/>
+				<reportElement x="222" y="44" width="104" height="15" uuid="be79ca29-0672-46d2-ab51-8353bb597312"/>
 				<textFieldExpression><![CDATA[$F{valorSaldo}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -168,11 +172,11 @@
 				<textFieldExpression><![CDATA[$F{obs2}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="234" y="23" width="19" height="15" uuid="ee1a1bf6-29fa-4412-9846-2308d9af3ef4"/>
+				<reportElement x="234" y="23" width="29" height="15" uuid="ee1a1bf6-29fa-4412-9846-2308d9af3ef4"/>
 				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="193" y="44" width="19" height="15" uuid="d5fb87b8-ebfb-441a-8e87-4a83d02a578e"/>
+				<reportElement x="193" y="44" width="29" height="15" uuid="d5fb87b8-ebfb-441a-8e87-4a83d02a578e"/>
 				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
 			</textField>
 		</band>
