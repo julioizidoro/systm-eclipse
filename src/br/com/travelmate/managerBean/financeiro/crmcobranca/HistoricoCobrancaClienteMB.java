@@ -918,8 +918,9 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("crmcobranca", crmcobranca);
 		session.setAttribute("sql", sql);
-		session.setAttribute("voltarPagina", "followupCobranca");
+		session.setAttribute("voltarPagina", voltarPagina);
 		session.setAttribute("funcao", funcao);
+		session.setAttribute("venda", venda);
 		if (venda.getProdutos().getIdprodutos() == 1) {
 			buscarCurso();
 			session.setAttribute("curso", curso);
