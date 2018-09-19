@@ -38,18 +38,21 @@
 					<legend id="iUsu3" style="width:95%;">
 						<b>Dados do Cliente</b>
 					</legend>
-					<h:panelGrid columns="6" layout="grid"
+					<h:panelGrid columns="2" layout="grid"
 						style="background: transparent;border:none;width:92%;"
 						styleClass="panelgrid-noborder"
-						columnClasses="colunaVinteSeis,colunaQuarenta,colunacinco,colunatipovenda,colunaVintenove">
-						<p:outputLabel value="Cliente:" for="idcliente"
-							style="color: #1F8871;" />
-						<p:inputText id="idcliente" style="width:100%;" 
-							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.nome}"/>  
-						<p:outputLabel />
-						<p:outputLabel value="Email:" for="idemail" style="color: #1F8871" />
-						<p:inputText id="idemail" style="width:105%;" maxlength="100"
-							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.email}"/> 
+						>
+						<h:panelGroup>
+							<p:outputLabel value="Cliente:" for="idcliente"
+								style="color: #1F8871;" />
+							<p:inputText id="idcliente" style="width:80%;margin-left:2%;" 
+								value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.nome}"/>
+						</h:panelGroup>  
+						<h:panelGroup>
+							<p:outputLabel value="Email:" for="idemail" style="color: #1F8871" />
+							<p:inputText id="idemail" style="width:80%;margin-left:2%;" maxlength="100"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.cliente.email}"/> 
+						</h:panelGroup>
 					</h:panelGrid> 
 				</div> 
 				<div class="ui-fluid">
@@ -75,7 +78,7 @@
 					</h:panelGrid>
 					
 					<h:panelGrid columns="8" 
-						style="background: transparent;border:none;width:86%;margin-left:10%;"
+						style="background: transparent;border:none;width:80%;margin-left:10%;"
 						styleClass="panelgrid-noborder"
 						>
 						<p:outputLabel value="Fone Residêncial:" for="idfoneresidencial"
@@ -124,123 +127,133 @@
 					<b>Dados do Curso</b>
 				</legend>
 				<div class="ui-fluid">
-					<h:panelGrid columns="6" layout="grid"
-						style="background: transparent;border:none;margin-left: 10%;width:85%;"
-						styleClass="panelgrid-noborder"
-						columnClasses="colunaVinteSeis,colunaVintePontoSeis,colunatipovenda,colunaVinteoito,tamanho5font,colunaEspaco">
-						<p:outputLabel value="Pais:" for="pais" style="color: #1F8871" />
-						<p:selectOneMenu id="pais"   
-							value="#{filtrarEscolaMB.filtrarEscolaBean.pais}"   
-							style="width:190px;" converter="PaisConverter" filter="true"
-							filterMatchMode="contains" panelStyle="width:180px"
-							disabled="#{filtrarEscolaMB.filtrarEscolaBean.idiomaescolhido}">
-							<f:selectItem itemLabel="País" itemValue="0"
-								noSelectionOption="true" />
-							<f:selectItems id="idpais"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaPais}"
-								var="cursopais" itemLabel="#{cursopais.pais.nome}"
-								itemValue="#{cursopais.pais}" />
-							<f:attribute name="listaPais"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaPais}" />
-							<p:ajax event="change" listener="#{filtrarEscolaMB.listarCidades()}" update="cidade" />
-						</p:selectOneMenu>
-						<p:outputLabel value="Cidade:" for="cidade" style="color: #1F8871" />
-						<p:selectOneMenu id="cidade"       
-							value="#{filtrarEscolaMB.filtrarEscolaBean.cidade}"
-							style="width:200px;margin-left:1%" converter="CidadePaisProdutoConverter"
-							filter="true" filterMatchMode="contains"
-							disabled="#{filtrarEscolaMB.filtrarEscolaBean.idiomaescolhido}">   
-							<f:selectItem itemLabel="Cidade" itemValue="0"     />  
-							<f:selectItems id="idcidade2"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaCidade}"
-								var="cursocidade" itemLabel="#{cursocidade.cidade.nome}"
-								itemValue="#{cursocidade}" />   
-							<f:attribute name="listaCidadePaisProduto"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaCidade}" />  
-							<p:ajax
-								listener="#{filtrarEscolaMB.gerarListaFornecedorCidade()}"
-								update=":filtrarOrcamentocurso:fornecedor, :filtrarOrcamentocurso:tipodecurso" />
-						</p:selectOneMenu>
-						<p:outputLabel value="Parceiro:" for="fornecedor"  
-							style="color: #1F8871" />
-						<p:selectOneMenu id="fornecedor"
-							value="#{filtrarEscolaMB.filtrarEscolaBean.fornecedorcidadeidioma}"
-							style="width:240px;" converter="FornecedorCidadeIdiomaConverter"
-							filter="true" filterMatchMode="contains" effect="fade" var="f"
-							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuifornecedor}">
-							<f:selectItem itemLabel="Escola" itemValue="0"
-								noSelectionOption="true" />
-							<f:selectItems id="idfornecedor"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaFornecedorCidadeIdioma}"     
-								var="fornecedor" itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}"
-								itemValue="#{fornecedor}" />      
-							<p:column style="width:10%">  
-				                <img src="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/estrelas/#{filtrarEscolaMB.retornarEstrela(f)}" width="65"/>
-				            </p:column>  
-				            <p:column>
-				                <h:outputText value="#{f.fornecedorcidade.fornecedor.nome}" />
-				            </p:column>
-							<f:attribute name="listaFornecedorCidadeIdioma"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaFornecedorCidadeIdioma}" />
-							<p:ajax event="change" listener="#{filtrarEscolaMB.gerarListaCursos}"
-								update=":filtrarOrcamentocurso:tipodecurso" />
-						</p:selectOneMenu>
+					<h:panelGrid columns="3" layout="grid"
+						style="background: transparent;border:none;margin-left: 10%;width:86%;"
+						
+						>
+						<h:panelGrid columns="2" style="width:100%;">
+							<p:outputLabel value="Pais:" for="pais" style="color: #1F8871" />
+							<p:selectOneMenu id="pais"   
+								value="#{filtrarEscolaMB.filtrarEscolaBean.pais}"   
+								style="width:190px;" converter="PaisConverter" filter="true"
+								filterMatchMode="contains" panelStyle="width:180px"
+								disabled="#{filtrarEscolaMB.filtrarEscolaBean.idiomaescolhido}">
+								<f:selectItem itemLabel="País" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.listaPais}"
+									var="cursopais" itemLabel="#{cursopais.pais.nome}"
+									itemValue="#{cursopais.pais}" />
+								<f:attribute name="listaPais"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.listaPais}" />
+								<p:ajax event="change" listener="#{filtrarEscolaMB.listarCidades()}" update="cidade" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<h:panelGrid columns="2" style="width:100%;">
+							<p:outputLabel value="Cidade:" for="cidade" style="color: #1F8871" />
+							<p:selectOneMenu id="cidade"       
+								value="#{filtrarEscolaMB.filtrarEscolaBean.cidade}"
+								style="width:200px;" converter="CidadePaisProdutoConverter"
+								filter="true" filterMatchMode="contains"
+								disabled="#{filtrarEscolaMB.filtrarEscolaBean.idiomaescolhido}">   
+								<f:selectItem itemLabel="Cidade" itemValue="0"     />  
+								<f:selectItems id="idcidade2"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.listaCidade}"
+									var="cursocidade" itemLabel="#{cursocidade.cidade.nome}"
+									itemValue="#{cursocidade}" />   
+								<f:attribute name="listaCidadePaisProduto"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.listaCidade}" />  
+								<p:ajax
+									listener="#{filtrarEscolaMB.gerarListaFornecedorCidade()}"
+									update=":filtrarOrcamentocurso:fornecedor, :filtrarOrcamentocurso:tipodecurso" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<h:panelGrid columns="2" style="width:100%;">
+							<p:outputLabel value="Parceiro:" for="fornecedor"  
+								style="color: #1F8871" />
+							<p:selectOneMenu id="fornecedor"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.fornecedorcidadeidioma}"
+								style="width:240px;" converter="FornecedorCidadeIdiomaConverter"
+								filter="true" filterMatchMode="contains" effect="fade" var="f"
+								disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuifornecedor}">
+								<f:selectItem itemLabel="Escola" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.listaFornecedorCidadeIdioma}"     
+									var="fornecedor" itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}"
+									itemValue="#{fornecedor}" />      
+								<p:column style="width:10%">  
+					                <img src="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/estrelas/#{filtrarEscolaMB.retornarEstrela(f)}" width="65"/>
+					            </p:column>  
+					            <p:column>
+					                <h:outputText value="#{f.fornecedorcidade.fornecedor.nome}" />
+					            </p:column>
+								<f:attribute name="listaFornecedorCidadeIdioma"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.listaFornecedorCidadeIdioma}" />
+								<p:ajax event="change" listener="#{filtrarEscolaMB.gerarListaCursos}"
+									update=":filtrarOrcamentocurso:tipodecurso" />
+							</p:selectOneMenu>
+						</h:panelGrid>
 					</h:panelGrid>
 				</div>
-				<br></br>
+				<br/><br/>
 				<div class="ui-fluid">
-					<h:panelGrid id="painel" columns="6" layout="grid"
-						style="background: transparent;border:none;margin-left: 10%;width:72%;"
-						styleClass="panelgrid-noborder"
-						columnClasses="colunaVinteSeis,colunaVintePontoSeis,colunaSeis,tamanho143,onze,colunaEspaco">
-						<p:outputLabel value="Tipo:" for="tipodecurso"
-							style="color: #1F8871" />
-						<p:selectOneMenu id="tipodecurso"
-							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.produtosorcamento}"
-							style="width:190px;" converter="OrcamentoProdutoConverter"
-							filter="true" filterMatchMode="startsWith"
-							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuifornecedor}">
-							<f:selectItem itemLabel="Selecione Curso" itemValue="0"
-								noSelectionOption="true" />
-							<f:selectItems id="idtipocurso"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaProdutosOrcamento}"
-								var="tipocurso" itemLabel="#{tipocurso.descricao}"
-								itemValue="#{tipocurso}" />
-							<f:attribute name="listaProdutosOrcamento"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.listaProdutosOrcamento}" />  
-							<p:ajax event="change" listener="#{filtrarEscolaMB.verificarDatas()}"
-								update=":filtrarOrcamentocurso:tipodecurso,:filtrarOrcamentocurso:datainicio,
-									:filtrarOrcamentocurso:nsemanas,:filtrarOrcamentocurso:idpesquisar, :filtrarOrcamentocurso:datas, :filtrarOrcamentocurso:painel" />
-						</p:selectOneMenu>
-						<p:outputLabel value="Nº Semanas:" for="nsemanas"
-							style="color: #1F8871;float:right" />
-						<p:inputText id="nsemanas" maxlength="11" size="5" 
-							value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.numerosemanas}"
-							disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}" >
-							<p:ajax event="blur" listener="#{filtrarEscolaMB.verificarDatasNumeroSemana()}"
-								update=":filtrarOrcamentocurso:datas, :filtrarOrcamentocurso:painel"/>
-						</p:inputText>
+					<h:panelGrid id="painel" columns="3" layout="grid"
+						style="background: transparent;border:none;margin-left: 10%;width:58%;">
+						<h:panelGrid columns="2" style="width:100%;">
+							<p:outputLabel value="Tipo:" for="tipodecurso"
+								style="color: #1F8871" />
+							<p:selectOneMenu id="tipodecurso"
+								value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.produtosorcamento}"
+								style="width:190px;" converter="OrcamentoProdutoConverter"
+								filter="true" filterMatchMode="startsWith"
+								disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuifornecedor}">
+								<f:selectItem itemLabel="Selecione Curso" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idtipocurso"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.listaProdutosOrcamento}"
+									var="tipocurso" itemLabel="#{tipocurso.descricao}"
+									itemValue="#{tipocurso}" />
+								<f:attribute name="listaProdutosOrcamento"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.listaProdutosOrcamento}" />  
+								<p:ajax event="change" listener="#{filtrarEscolaMB.verificarDatas()}"
+									update=":filtrarOrcamentocurso:tipodecurso,:filtrarOrcamentocurso:datainicio,
+										:filtrarOrcamentocurso:nsemanas,:filtrarOrcamentocurso:idpesquisar, :filtrarOrcamentocurso:datas, :filtrarOrcamentocurso:painel" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<h:panelGrid columns="2" style="width:100%;">
+							<p:outputLabel value="Nº Semanas:" for="nsemanas"
+								style="color: #1F8871;float:right" />
+							<p:inputText id="nsemanas" maxlength="11" size="5" 
+								value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.numerosemanas}"
+								disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}" >
+								<p:ajax event="blur" listener="#{filtrarEscolaMB.verificarDatasNumeroSemana()}"
+									update=":filtrarOrcamentocurso:datas, :filtrarOrcamentocurso:painel"/>
+							</p:inputText>
+						</h:panelGrid>
+						<h:panelGrid columns="2" style="width:100%;">
 						<p:outputLabel value="Data de Início:" for="datainicio"
 							style="color: #1F8871" />
-						<h:panelGroup id="datainicio" rendered="#{filtrarEscolaMB.calendario}">
-							<p:calendar  size="12"
-								value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.datainicio}"
-								locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="10"
-								disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}"
-								beforeShowDay="mondayEnabled" >
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-							</p:calendar> 
-						</h:panelGroup>
-						<h:panelGroup id="datas" rendered="#{filtrarEscolaMB.comboDatas}">
-							<p:selectOneMenu value="#{filtrarEscolaMB.datasBean}"
-								style="width:110px;" converter="DataInicioOrcamentoConverter" >
-								<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
-								<f:selectItems id="dataselecionada" value="#{filtrarEscolaMB.listaDatas}"
-									var="data" itemLabel="#{data.descricao}" itemValue="#{data}" />
-								<f:attribute name="listaData" value="#{filtrarEscolaMB.listaDatas}" />
-								<p:ajax event="change"/>
-							</p:selectOneMenu>
-						</h:panelGroup>
+							<h:panelGroup id="datainicio" rendered="#{filtrarEscolaMB.calendario}">
+								<p:calendar  size="12"
+									value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.datainicio}"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="10"
+									disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}"
+									beforeShowDay="mondayEnabled" >
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</p:calendar> 
+							</h:panelGroup>
+							<h:panelGroup id="datas" rendered="#{filtrarEscolaMB.comboDatas}">
+								<p:selectOneMenu value="#{filtrarEscolaMB.datasBean}"
+									style="width:110px;" converter="DataInicioOrcamentoConverter" >
+									<f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" />
+									<f:selectItems id="dataselecionada" value="#{filtrarEscolaMB.listaDatas}"
+										var="data" itemLabel="#{data.descricao}" itemValue="#{data}" />
+									<f:attribute name="listaData" value="#{filtrarEscolaMB.listaDatas}" />
+									<p:ajax event="change"/>
+								</p:selectOneMenu>
+							</h:panelGroup>
+						</h:panelGrid>
 					</h:panelGrid>    
 				</div>
 				<br></br> <br></br>       
