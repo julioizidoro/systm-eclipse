@@ -14,12 +14,14 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarRelatorio;
@@ -33,12 +35,18 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private Cancelamento cancelamento;
 	private String banco;
 	private String titular;
 	private String agencia;
 	private String conta;
 	private String cpf;
+	private String nomeCpf;
+	private boolean mascara = true;
+	private boolean semmascara = false;
+	private String moedaNacional;
 	
 	@PostConstruct
 	public void init(){
@@ -46,6 +54,16 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         cancelamento = (Cancelamento) session.getAttribute("cancelamento");
         session.removeAttribute("cancelamento");
+        if (!usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			nomeCpf = "CPF";
+			mascara = true;
+			semmascara = false;
+		}else {
+			nomeCpf = "RUC";
+			semmascara = true;
+			mascara = false;
+		}
+        moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}
 
 	public Cancelamento getCancelamento() {
@@ -97,7 +115,31 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
 	}
 
 	 
-    public String gerarRelatorioTermoQuitacao() throws SQLException, IOException {
+    public String getNomeCpf() {
+		return nomeCpf;
+	}
+
+	public void setNomeCpf(String nomeCpf) {
+		this.nomeCpf = nomeCpf;
+	}
+
+	public boolean isMascara() {
+		return mascara;
+	}
+
+	public void setMascara(boolean mascara) {
+		this.mascara = mascara;
+	}
+
+	public boolean isSemmascara() {
+		return semmascara;
+	}
+
+	public void setSemmascara(boolean semmascara) {
+		this.semmascara = semmascara;
+	}
+
+	public String gerarRelatorioTermoQuitacao() throws SQLException, IOException {
     	ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
    	 	String caminhoRelatorio = ("/reports/cancelamento/termoQuitacao.jasper");
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -137,7 +179,7 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
     				  cancelamento.getVendas().getCliente().getLogradouro() + " CEP " + cancelamento.getVendas().getCliente().getCep() +
     				 ", " + cancelamento.getVendas().getCliente().getCidade() + ", " + cancelamento.getVendas().getCliente().getEstado() +
     				 ", declaro a quem possa interessar que recebi da empresa TRAVELMATE INTERCÂMBIO E TURISMO LTDA, pessoa jurídica de direito privado, "
-    				 + "inscrita sob o CNPJ/MF n.º 05.138.734/0001-55, a quantia de R$ " +
+    				 + "inscrita sob o CNPJ/MF n.º 05.138.734/0001-55, a quantia de " + moedaNacional +
     				 Formatacao.formatarFloatString(cancelamento.getValorreembolso()) + ", referente a reembolso em decorrência do cancelamento do programa de " +
     				 "" + cancelamento.getVendas().getProdutos().getDescricao() + " no " + cancelamento.getVendas().getFornecedorcidade().getCidade().getPais().getNome() + " .";
     				 

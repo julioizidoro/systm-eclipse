@@ -924,59 +924,6 @@ public class FollowUpMB implements Serializable {
 		sql = sql + " order by l.dataproximocontato";
 		if (outroParametro) {
 			gerarListaLead();
-			
-//			gerarBotoesLead();
-			/*novos = 0;
-			atrasados = 0;
-			hoje = 0;
-			prox7 = 0;
-			todos = 0;
-			String dataHoje = Formatacao.ConvercaoDataPadrao(new Date());
-			Date dHoje = Formatacao.ConvercaoStringData(dataHoje);
-			todos = listaLeadTotal.size();
-			for (int i = 0; i < listaLeadTotal.size(); i++) {
-				String dataRecebimento = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataenvio());
-				Date dRecebimento = Formatacao.ConvercaoStringData(dataRecebimento);
-				Date data2 = null;
-				try {
-					data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				String dataProximo = null;
-				Date dProximo = null;
-				if (listaLeadTotal.get(i).getDataproximocontato() != null) {
-					dataProximo = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
-					dProximo = Formatacao.ConvercaoStringData(dataProximo);
-				}
-				if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje)) {
-					novos = novos + 1;
-				} else if ((dProximo != null)
-						&& (listaLeadTotal.get(i).getSituacao() != null && listaLeadTotal.get(i).getSituacao() <=5)
-						&& (dProximo.equals(dHoje))
-						&& (listaLeadTotal.get(i).getSituacao() > 0)) {
-					hoje = hoje + 1;
-				} else if ((dProximo != null
-						&& (listaLeadTotal.get(i).getSituacao() != null && listaLeadTotal.get(i).getSituacao() <=5)
-						&& dProximo.before(dHoje)
-						&& (listaLeadTotal.get(i).getSituacao() > 0)) || (listaLeadTotal.get(i).getSituacao() == 1 && data2.before(dHoje))) {
-					atrasados = atrasados + 1;
-				} else if (dProximo != null
-						&& (listaLeadTotal.get(i).getSituacao() != null) && listaLeadTotal.get(i).getSituacao() <=5
-						&& dProximo.after(dHoje)
-						&& (listaLeadTotal.get(i).getSituacao() > 0)) {
-					Date data7 = null;
-					try {
-						data7 = Formatacao.SomarDiasDatas(new Date(), 7);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					if (dProximo.before(data7)) {
-						prox7 = prox7 + 1;
-					}
-				}
-			}*/
-			
 			pesquisarPosVenda();
 		}else {
 			Mensagem.lancarMensagemInfo("PESQUISA", "Selecionar um campo de data");

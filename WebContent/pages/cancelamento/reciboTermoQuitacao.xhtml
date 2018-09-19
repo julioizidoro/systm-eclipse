@@ -26,11 +26,12 @@
 		<br></br><br></br>
 		<p:outputLabel value="Titular" for="titular"
 			style="color:#1F8871;margin-left:5%" />
-		<p:outputLabel value="CPF" for="cpf"
+		<p:outputLabel value="#{relatorioTermoQuitacaoMB.nomeCpf}" for="cpf"
 			style="color:#1F8871;margin-left:54%" />
 		<br></br>
 		<p:inputText id="titular" value="#{relatorioTermoQuitacaoMB.titular}" style="margin-left:5%;width:48%"/>
-		<p:inputMask mask="999.999.999-99" id="cpf" value="#{relatorioTermoQuitacaoMB.cpf}" style="margin-left:13%;width:24%"/>
+		<p:inputMask mask="999.999.999-99" id="cpf" value="#{relatorioTermoQuitacaoMB.cpf}" style="margin-left:13%;width:24%" rendered="#{relatorioTermoQuitacaoMB.mascara}"/>
+		<p:inputText id="cpf2" value="#{relatorioTermoQuitacaoMB.cpf}" style="margin-left:13%;width:24%" rendered="#{relatorioTermoQuitacaoMB.semmascara}"/>
 		<br></br><br></br><br></br>
 		<div align="center">
 			<p:commandButton value="Confirmar" icon="ui-icon-check"

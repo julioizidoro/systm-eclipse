@@ -354,6 +354,8 @@ public class PacoteMB implements Serializable {
 				String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 				parameters.put("valorExtenso", valorExtenso);
 				parameters.put("valorRecibo", valorRecibo);
+			    String moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+			    parameters.put("moedaNacional", moedaNacional);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

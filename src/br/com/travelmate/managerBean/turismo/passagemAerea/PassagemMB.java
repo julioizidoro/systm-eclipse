@@ -282,6 +282,8 @@ public class PassagemMB implements Serializable {
 			parameters.put("totalTaxa", Formatacao.formatarFloatString(totalTaxa));
 			parameters.put("totalTarifa", Formatacao.formatarFloatString(totalTarifa));
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
+		    String moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		    parameters.put("moedaNacional", moedaNacional);
 			BufferedImage logo = ImageIO.read(f);
 			parameters.put("logo", logo);
 			GerarRelatorio gerarRelatorioTermo = new GerarRelatorio();

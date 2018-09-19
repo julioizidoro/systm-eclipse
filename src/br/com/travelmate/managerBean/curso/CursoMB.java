@@ -717,6 +717,8 @@ public class CursoMB implements Serializable {
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 			BufferedImage logo = ImageIO.read(f);
 			parameters.put("logo", logo);
+		    String moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		    parameters.put("moedaNacional", moedaNacional);
 			GerarRelatorio gerarRelatorioTermo = new GerarRelatorio();
 			try {
 				gerarRelatorioTermo.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "reciboPagamento.pdf", null);

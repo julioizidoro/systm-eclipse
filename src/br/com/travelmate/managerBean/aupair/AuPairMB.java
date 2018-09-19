@@ -622,6 +622,8 @@ public class AuPairMB implements Serializable {
 			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
 			parameters.put("valorExtenso", valorExtenso);
 			parameters.put("valorRecibo", valorRecibo);
+		    String moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		    parameters.put("moedaNacional", moedaNacional);
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 			BufferedImage logo = ImageIO.read(f);
 			parameters.put("logo", logo);

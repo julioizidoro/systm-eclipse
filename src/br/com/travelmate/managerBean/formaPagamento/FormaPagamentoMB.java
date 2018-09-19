@@ -487,6 +487,8 @@ public class FormaPagamentoMB implements Serializable{
 	    parameters.put("total", Formatacao.formatarFloatString(total));
 	    parameters.put("consultor", usuarioLogadoMB.getUsuario().getNome());
 	    parameters.put("unidade", usuarioLogadoMB.getUsuario().getUnidadenegocio().getNomeFantasia());
+	    String moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+	    parameters.put("moedaNacional", moedaNacional);
 	    ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 	    File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 	    BufferedImage logo = ImageIO.read(f);  
