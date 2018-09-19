@@ -421,9 +421,14 @@ public class GerarOcamentoPDFBean {
 				}
 			}
 		}
+		boolean transferin = false;
 		if (produtoCurso.getValorcoprodutos().getCoprodutos().isTransfer()) {
 			o = carregarDados();
-			o.setTituloLista("Transfer");
+			String titulo = "Transfer Partida ";
+			if (produtoCurso.getValorcoprodutos().getCoprodutos().isTransferout()) {
+				titulo = titulo + " | Transfer Chegada";
+			}
+			o.setTituloLista(titulo);
 			o.setDescricaolista("INCLUSO NO PACOTE");
 			o.setSubDescricaoLista("");
 			o.setValorme("");
@@ -432,6 +437,22 @@ public class GerarOcamentoPDFBean {
 			lista.add(o);
 			o.setTotalmelista("");
 			o.setTotalrslista("");
+			transferin = true;
+		}
+		
+		if (!transferin) {
+			if (produtoCurso.getValorcoprodutos().getCoprodutos().isTransferout()) {
+				o = carregarDados();
+				o.setTituloLista("Transfer Chegada");
+				o.setDescricaolista("INCLUSO NO PACOTE");
+				o.setSubDescricaoLista("");
+				o.setValorme("");
+				o.setValorrs("");
+				o.setIdgrupo(1);
+				lista.add(o);
+				o.setTotalmelista("");
+				o.setTotalrslista("");
+			}
 		}
 	}
 
