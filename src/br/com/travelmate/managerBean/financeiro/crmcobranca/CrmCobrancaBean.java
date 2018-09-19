@@ -99,10 +99,7 @@ public class CrmCobrancaBean {
 				if (lista.get(i).getCrmcobrancaconta()==null){
 					criar(lista.get(i));
 				}else{
-					if (lista.get(i).getCrmcobrancaconta().getCrmcobranca()==null) {
-						criar(lista.get(i));
-					}
-					
+					criar(lista.get(i));
 				}
 			}
 		}
