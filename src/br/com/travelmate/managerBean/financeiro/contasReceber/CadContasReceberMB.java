@@ -17,6 +17,7 @@ import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Planoconta;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
 import java.io.Serializable;
@@ -155,8 +156,14 @@ public class CadContasReceberMB implements Serializable{
         if (conta.getIdcontasreceber() != null) {
 	        if (conta.getCrmcobrancaconta() != null) {
 	        	if (dataVencimentoOriginal.before(conta.getDatavencimento())) {
-	    			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
-	    			crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
+	        		String dataNovoString = Formatacao.ConvercaoDataPadrao(conta.getDatavencimento());
+	        		String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+	        		Date dataNovo = Formatacao.ConvercaoStringData(dataNovoString);
+	        		Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+	        		if (!dataNovo.before(dataAtual)) {
+		    			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+		    			crmCobrancaBean.baixar(conta, usuarioLogadoMB.getUsuario());
+					}
 				}
 			}
 		}

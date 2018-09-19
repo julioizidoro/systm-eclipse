@@ -145,27 +145,27 @@ public class VisualizarContasCobrancaMB implements Serializable{
 	
 	public void editar(RowEditEvent event) {
 		Contasreceber contasreceber = ((Contasreceber) event.getObject());
-		if (contasreceber != null) {
+			if (contasreceber != null) {
+				ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
+				contasReceberFacade.salvar(contasreceber);
+				Mensagem.lancarMensagemInfo("Editado com sucesso!", "");
+			}
+			if (contasreceber.getBoletoenviado()) {
+				contasreceber.setDataalterada(Boolean.TRUE);
+				contasreceber.setBoletoenviado(Boolean.FALSE);
+			}
 			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-			contasReceberFacade.salvar(contasreceber);
-			Mensagem.lancarMensagemInfo("Editado com sucesso!", "");
-		}
-		if (contasreceber.getBoletoenviado()) {
-			contasreceber.setDataalterada(Boolean.TRUE);
-			contasreceber.setBoletoenviado(Boolean.FALSE);
-		}
-		ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
-		contasreceber = contasReceberFacade.salvar(contasreceber);
-		Crmcobrancahistorico crmcobrancahistorico = new Crmcobrancahistorico();
-		crmcobrancahistorico.setHistorico("Nova Data de vencimento da parcela "+ contasreceber.getNumeroparcelas() + " para " 
-				+ Formatacao.ConvercaoDataPadrao(contasreceber.getDatanovovencimento()));
-		crmcobrancahistorico.setCliente(venda.getCliente());
-		crmcobrancahistorico.setData(new Date());
-		crmcobrancahistorico.setUsuario(usuarioLogadoMB.getUsuario());
-		crmcobrancahistorico.setProximocontato(new Date());
-		crmcobrancahistorico.setTipocontato("");
-		CrmCobrancaHistoricoFacade crmCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
-		crmCobrancaHistoricoFacade.salvar(crmcobrancahistorico);
+			contasreceber = contasReceberFacade.salvar(contasreceber);
+			Crmcobrancahistorico crmcobrancahistorico = new Crmcobrancahistorico();
+			crmcobrancahistorico.setHistorico("Nova Data de vencimento da parcela "+ contasreceber.getNumeroparcelas() + " para " 
+					+ Formatacao.ConvercaoDataPadrao(contasreceber.getDatanovovencimento()));
+			crmcobrancahistorico.setCliente(venda.getCliente());
+			crmcobrancahistorico.setData(new Date());
+			crmcobrancahistorico.setUsuario(usuarioLogadoMB.getUsuario());
+			crmcobrancahistorico.setProximocontato(new Date());
+			crmcobrancahistorico.setTipocontato("");
+			CrmCobrancaHistoricoFacade crmCobrancaHistoricoFacade = new CrmCobrancaHistoricoFacade();
+			crmCobrancaHistoricoFacade.salvar(crmcobrancahistorico);
 	}
 	
 	
