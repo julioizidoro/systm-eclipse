@@ -37,7 +37,7 @@ public class CrmCobrancaBean {
 	public void verificarCobranca(Crmcobranca crmCobranca, Usuario usuario){
 		CrmCobrancaContaFacade crmCobrancaContaFacade = new CrmCobrancaContaFacade();
 		String sql = "SELECT c FROM Crmcobrancaconta c where c.paga=0 and c.crmcobranca.vendas.idvendas=" + crmCobranca.getVendas().getIdvendas() +
-				" and c.crmcobranca.situacao<>'FINALIZADA'";
+				"";
 		List<Crmcobrancaconta> lista = crmCobrancaContaFacade.lista(sql);
 		if (lista==null || lista.size()==0){
 			CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
@@ -99,7 +99,11 @@ public class CrmCobrancaBean {
 				if (lista.get(i).getCrmcobrancaconta()==null){
 					criar(lista.get(i));
 				}else{
-					criar(lista.get(i));
+					if (lista.get(i).getCrmcobrancaconta().getCrmcobranca()==null){
+						criar(lista.get(i));
+					}else if (lista.get(i).getCrmcobrancaconta().getCrmcobranca().getDatafinalizada()!=null){
+						criar(lista.get(i));
+					}
 				}
 			}
 		}

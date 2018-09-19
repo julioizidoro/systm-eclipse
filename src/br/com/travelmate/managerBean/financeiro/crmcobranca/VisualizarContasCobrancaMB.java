@@ -153,6 +153,15 @@ public class VisualizarContasCobrancaMB implements Serializable{
 			if (contasreceber.getBoletoenviado()) {
 				contasreceber.setDataalterada(Boolean.TRUE);
 				contasreceber.setBoletoenviado(Boolean.FALSE);
+				contasreceber.setDatavencimento(contasreceber.getDatanovovencimento());
+				String dataNovoString = Formatacao.ConvercaoDataPadrao(contasreceber.getDatavencimento());
+        		String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+        		Date dataNovo = Formatacao.ConvercaoStringData(dataNovoString);
+        		Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+        		if (!dataNovo.before(dataAtual)) {
+	    			CrmCobrancaBean crmCobrancaBean = new CrmCobrancaBean();
+	    			crmCobrancaBean.baixar(contasreceber, usuarioLogadoMB.getUsuario());
+				}
 			}
 			ContasReceberFacade contasReceberFacade = new ContasReceberFacade();
 			contasreceber = contasReceberFacade.salvar(contasreceber);
