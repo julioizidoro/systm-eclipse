@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reciboPagamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="128"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="nome" class="java.lang.String"/>
 	<parameter name="valorExtenso" class="java.lang.String"/>
 	<parameter name="valorRecibo" class="java.lang.Float"/>
@@ -12,6 +12,7 @@
 	<parameter name="data" class="java.util.Date"/>
 	<parameter name="idusuario" class="java.lang.Integer"/>
 	<parameter name="consultor" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="moedaNacional" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[Select distinct
  unidadeNegocio.razaoSocial, unidadeNegocio.nomeFantasia, unidadeNegocio.tipologradouro as tipologradourounidadeNegocio, unidadeNegocio.logradouro as logradourounidadeNegocio, unidadeNegocio.numero as nuemrounidadeNegocio, unidadeNegocio.complemento as complementounidadeNegocio, unidadeNegocio.bairro as bairrounidadeNegocio, unidadeNegocio.cidade as cidadeunidadeNegocio, unidadeNegocio.estado as estadounidadeNegocio, unidadeNegocio.cep as cepunidadeNegocio, unidadeNegocio.cnpj as cnpjunidadeNegocio, unidadeNegocio.fone as foneunidadenegocio, unidadeNegocio.email as emailunudadenegocio,
@@ -101,13 +102,6 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				</textElement>
 				<textFieldExpression><![CDATA[$P{valorRecibo}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="383" y="14" width="17" height="17" uuid="8c002fd2-d76f-40ee-8f47-a0063a4a952f"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[R$]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="10" y="70" width="530" height="37" uuid="faf973b4-1364-4b32-944b-0f698bef832a"/>
 				<textElement textAlignment="Justified"/>
@@ -164,6 +158,13 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				<reportElement x="89" y="453" width="380" height="20" uuid="8a5bf3ec-eef5-4e89-b256-01356d6214e1"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{consultor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="380" y="14" width="24" height="17" uuid="bbc7570e-cfc1-4bb6-bdc6-3a9a8f3c2958"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

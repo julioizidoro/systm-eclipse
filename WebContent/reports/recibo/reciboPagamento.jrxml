@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reciboPagamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
@@ -10,6 +10,7 @@
 	<parameter name="valorExtenso" class="java.lang.String"/>
 	<parameter name="valorRecibo" class="java.lang.Float"/>
 	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="moedaNacional" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[Select distinct
    vendas.dataVenda, vendas.valor as valorVenda,
@@ -142,13 +143,6 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				</textElement>
 				<textFieldExpression><![CDATA[$P{valorRecibo}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="383" y="14" width="17" height="17" uuid="8c002fd2-d76f-40ee-8f47-a0063a4a952f"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[R$]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="10" y="70" width="530" height="37" uuid="faf973b4-1364-4b32-944b-0f698bef832a"/>
 				<textElement textAlignment="Justified"/>
@@ -164,6 +158,13 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="1" uuid="5632f176-8c27-4268-8362-f558b1793f9c"/>
 			</rectangle>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="381" y="14" width="23" height="17" uuid="c133bb8b-32e5-499f-a030-a74c6405a40c"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>

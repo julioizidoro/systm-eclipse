@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Forma de Pagamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="203"/>
+	<property name="ireport.x" value="63"/>
+	<property name="ireport.y" value="174"/>
 	<parameter name="idocurso" class="java.lang.Integer"/>
 	<parameter name="logo" class="java.awt.Image"/>
 	<parameter name="consultor" class="java.lang.String"/>
 	<parameter name="unidade" class="java.lang.String"/>
 	<parameter name="total" class="java.lang.String"/>
+	<parameter name="moedaNacional" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -123,20 +124,20 @@
 				<textFieldExpression><![CDATA[$F{valorParcela}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="277" y="23" width="104" height="15" uuid="a2757f22-600a-44d3-93a0-ec6a80e99b46"/>
+				<reportElement x="253" y="23" width="104" height="15" uuid="a2757f22-600a-44d3-93a0-ec6a80e99b46"/>
 				<textFieldExpression><![CDATA[$F{valorentrada}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="154" y="23" width="113" height="15" uuid="2919801c-c697-4b8d-951d-6b7172d5a22d"/>
-				<text><![CDATA[Valor da Entrada R$ :]]></text>
+				<reportElement x="154" y="23" width="80" height="15" uuid="2919801c-c697-4b8d-951d-6b7172d5a22d"/>
+				<text><![CDATA[Valor da Entrada]]></text>
 			</staticText>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="277" y="44" width="104" height="15" uuid="be79ca29-0672-46d2-ab51-8353bb597312"/>
+				<reportElement x="212" y="44" width="104" height="15" uuid="be79ca29-0672-46d2-ab51-8353bb597312"/>
 				<textFieldExpression><![CDATA[$F{valorSaldo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="154" y="44" width="110" height="15" uuid="bc7d434c-cade-4347-9b5a-e06326fe1488"/>
-				<text><![CDATA[Saldo  R$ :]]></text>
+				<reportElement x="154" y="44" width="39" height="15" uuid="bc7d434c-cade-4347-9b5a-e06326fe1488"/>
+				<text><![CDATA[Saldo ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="388" y="44" width="73" height="15" uuid="5904e068-6225-457d-b0e4-4ae8dd0e047b"/>
@@ -165,6 +166,14 @@
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
 				<reportElement x="12" y="83" width="518" height="15" uuid="013b4352-5ab5-40e2-be6a-31e3d0ba09ff"/>
 				<textFieldExpression><![CDATA[$F{obs2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="234" y="23" width="19" height="15" uuid="ee1a1bf6-29fa-4412-9846-2308d9af3ef4"/>
+				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="193" y="44" width="19" height="15" uuid="d5fb87b8-ebfb-441a-8e87-4a83d02a578e"/>
+				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
