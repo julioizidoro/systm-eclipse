@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reciboPagamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="224"/>
+	<property name="ireport.y" value="176"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
@@ -237,7 +237,7 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				<text><![CDATA[Valor Total dos Produtos :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="393" y="10" width="88" height="15" uuid="0fc55967-7eef-4bb4-a8c0-2c3180c56555"/>
+				<reportElement x="404" y="10" width="77" height="15" uuid="0fc55967-7eef-4bb4-a8c0-2c3180c56555"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{totalmoedanacional}]]></textFieldExpression>
 			</textField>
@@ -262,6 +262,13 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement x="107" y="45" width="32" height="17" uuid="d12d88d6-d39f-4b34-82ef-62842d5766fe"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="366" y="10" width="32" height="17" uuid="ba1b8800-cbb4-4dbe-8d13-4cd6c3d86b21"/>
 				<textElement textAlignment="Left">
 					<font size="10" isBold="true"/>
 				</textElement>
