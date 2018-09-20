@@ -154,6 +154,11 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
         parameters.put("texto", gerarTexto());
         parameters.put("cpfcliente", cancelamento.getVendas().getCliente().getCpf());
         parameters.put("cpf", cpf);
+        if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+			parameters.put("nomecpf", "RUC:");
+		}else {
+			parameters.put("nomecpf", "CPF:");
+		}
         parameters.put("nome", cancelamento.getVendas().getCliente().getNome());
         parameters.put("sql", "SELECT idcancelamento  FROM cancelamento WHERE idcancelamento=1");
         GerarRelatorio gerarRelatorioTermo = new GerarRelatorio();
@@ -174,10 +179,13 @@ public class RelatorioTermoQuitacaoMB implements Serializable{
     
     
     public String gerarTexto() {
-    		String texto = "Eu, "  +  cancelamento.getVendas().getCliente().getNome()  + ", brasileiro, portador do CPF/MF n.º  " +
+    		String texto = "Eu, "  +  cancelamento.getVendas().getCliente().getNome()  + ", " + cancelamento.getVendas().getCliente().getPaisNascimento() + ", portador do CPF/MF n.º  " +
     				  cpf + ", residente e domiciliado na " + cancelamento.getVendas().getCliente().getTipologradouro() + 
-    				  cancelamento.getVendas().getCliente().getLogradouro() + " CEP " + cancelamento.getVendas().getCliente().getCep() +
-    				 ", " + cancelamento.getVendas().getCliente().getCidade() + ", " + cancelamento.getVendas().getCliente().getEstado() +
+    				  cancelamento.getVendas().getCliente().getLogradouro();
+    		if (!usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
+        		texto = texto +  " CEP " + cancelamento.getVendas().getCliente().getCep();
+			}
+    		texto = texto + ", " + cancelamento.getVendas().getCliente().getCidade() + ", " + cancelamento.getVendas().getCliente().getEstado() +
     				 ", declaro a quem possa interessar que recebi da empresa TRAVELMATE INTERCÂMBIO E TURISMO LTDA, pessoa jurídica de direito privado, "
     				 + "inscrita sob o CNPJ/MF n.º 05.138.734/0001-55, a quantia de " + moedaNacional +
     				 Formatacao.formatarFloatString(cancelamento.getValorreembolso()) + ", referente a reembolso em decorrência do cancelamento do programa de " +
