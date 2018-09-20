@@ -47,6 +47,7 @@ public class MateRunnersMB implements Serializable {
 	private boolean habilitarMateRunners = true;
 	private boolean habilitarProductRunners = false;
 	private boolean habilitarTmRace = false;
+	private String urlArquivo = "";
 
 	@PostConstruct
 	public void init() {
@@ -139,6 +140,14 @@ public class MateRunnersMB implements Serializable {
 
 	public void setHabilitarTmRace(boolean habilitarTmRace) {
 		this.habilitarTmRace = habilitarTmRace;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public void carregarListaRunners() {
@@ -332,6 +341,9 @@ public class MateRunnersMB implements Serializable {
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
+			if (ftpdados != null) {
+				urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

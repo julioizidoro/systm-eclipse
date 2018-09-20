@@ -60,6 +60,7 @@ public class MtpMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private boolean criarQuestionario;
 	private Ftpdados ftpdados;
+	private String urlArquivo;
 
 	@PostConstruct
 	public void init() {
@@ -69,6 +70,9 @@ public class MtpMB implements Serializable {
 		}
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		ftpdados = new Ftpdados();
+		if (ftpdados != null) {
+			urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
+		}
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
@@ -138,6 +142,14 @@ public class MtpMB implements Serializable {
 
 	public void setFtpdados(Ftpdados ftpdados) {
 		this.ftpdados = ftpdados;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public void listarMTp() {

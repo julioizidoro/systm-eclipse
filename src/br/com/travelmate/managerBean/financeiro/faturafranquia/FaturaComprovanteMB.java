@@ -62,6 +62,7 @@ public class FaturaComprovanteMB implements Serializable {
 	private List<String> listaNomeArquivo;
 	private List<UploadedFile> listaFile;
 	private Ftpdados ftpdados;
+	private String urlArquivo = "";
 
 	@PostConstruct()
 	public void init() {
@@ -79,6 +80,9 @@ public class FaturaComprovanteMB implements Serializable {
 		ftpdados = new Ftpdados();
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
+			if (ftpdados != null) {
+				urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -175,6 +179,14 @@ public class FaturaComprovanteMB implements Serializable {
 	public String cancelar() {
 		RequestContext.getCurrentInstance().closeDialog(null);
 		return "";
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public String salvarFaturaComprovante() {

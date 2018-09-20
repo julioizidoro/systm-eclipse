@@ -23,6 +23,7 @@ public class DownloadInvoicesMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private List<Arquivos> listarArquivos;
 	private Ftpdados ftpdados;
+	private String urlArquivo = "";
 	
 	
 	@SuppressWarnings("unchecked")
@@ -36,6 +37,9 @@ public class DownloadInvoicesMB implements Serializable{
 			ftpdados = new Ftpdados();
 			try {
 				ftpdados = ftpDadosFacade.getFTPDados();
+				if (ftpdados != null) {
+					urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -57,5 +61,13 @@ public class DownloadInvoicesMB implements Serializable{
 
 	public void setFtpdados(Ftpdados ftpdados) {
 		this.ftpdados = ftpdados;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 }

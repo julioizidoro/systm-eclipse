@@ -30,6 +30,7 @@ public class DocumentosRFMB implements Serializable{
 	private List<Vendas> listaVendaPendente;
 	private List<Vendas> listaVendaNova;
 	private Ftpdados ftpdados;
+	private String urlArquivo = "";
 	
 	
 	
@@ -43,6 +44,9 @@ public class DocumentosRFMB implements Serializable{
 		gerarListaDocumentos();
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		ftpdados = new Ftpdados();
+		if (ftpdados != null) {
+			urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
+		}
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
@@ -118,6 +122,20 @@ public class DocumentosRFMB implements Serializable{
 
 	public void setFtpdados(Ftpdados ftpdados) {
 		this.ftpdados = ftpdados;
+	}
+
+
+
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+
+
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 

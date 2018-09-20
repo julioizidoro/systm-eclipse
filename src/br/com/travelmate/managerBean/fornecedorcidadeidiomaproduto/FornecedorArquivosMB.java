@@ -52,6 +52,7 @@ public class FornecedorArquivosMB implements Serializable {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private boolean semArquivo;
 	private boolean HabilitarBtnNovo;
+	private String urlArquivo = "";
 
 	@PostConstruct
 	public void init() {
@@ -65,6 +66,9 @@ public class FornecedorArquivosMB implements Serializable {
 			FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 			try {
 				ftpDados = ftpDadosFacade.getFTPDados();
+				if (ftpDados != null) {
+					urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() + ":" + ftpDados.getWww();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -149,6 +153,14 @@ public class FornecedorArquivosMB implements Serializable {
 
 	public void setHabilitarBtnNovo(boolean habilitarBtnNovo) {
 		HabilitarBtnNovo = habilitarBtnNovo;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public void gerarArquivosFornecedor() {
