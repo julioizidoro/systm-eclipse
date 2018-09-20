@@ -211,7 +211,7 @@ public class EditarOrcamentoOcursoBean {
 				ProdutosOrcamentoBean produto = new ProdutosOrcamentoBean();
 				produto.setNumeroSemanas(ocurso.getNumerosemanas());
 				produto.setValorcoprodutos(listaProdutos.get(i).getValorcoprodutos());
-				produto.setValorOriginalRS(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+				produto.setValorOriginalRS(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 				produto.setValorOrigianl(produto.getValorOriginalRS() / ocurso.getValorcambio());
 				produto.setOcrusoprodutos(listaProdutos.get(i));
 				listaProdutosObrigatorios.add(produto);

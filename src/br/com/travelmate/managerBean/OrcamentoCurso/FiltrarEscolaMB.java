@@ -357,7 +357,7 @@ public class FiltrarEscolaMB implements Serializable {
 			int idtxttmproduto = listaProdutos.get(i).getIdprodutosOrcamento();
 			Ocursodesconto ocursodesconto = new Ocursodesconto();
 			if (idtxtm == idtxttmproduto) {
-				ocursodesconto.setValormoedanacional(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+				ocursodesconto.setValormoedanacional(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 				ocursodesconto.setSelecionado(true);
 				ocursodesconto.setTaxaTmSelecionado(true);
 			} else {
@@ -1062,8 +1062,8 @@ public class FiltrarEscolaMB implements Serializable {
 			filtrarEscolaBean.setTaxaTM(new ProdutosOrcamentoBean());
 			filtrarEscolaBean.getTaxaTM().setValorcoprodutos(valorcoprodutos);
 			filtrarEscolaBean.getTaxaTM().setSelecionado(true);
-			filtrarEscolaBean.getTaxaTM().setValorOrigianl(aplicacaoMB.getParametrosprodutos().getValorTaxaTM() / valorCambio);
-			filtrarEscolaBean.getTaxaTM().setValorOriginalRS(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+			filtrarEscolaBean.getTaxaTM().setValorOrigianl(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm() / valorCambio);
+			filtrarEscolaBean.getTaxaTM().setValorOriginalRS(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 			filtrarEscolaBean.getTaxaTM().setValorPromocional(0.0f);
 			filtrarEscolaBean.getTaxaTM().setValorPromocionalRS(0.0f);
 		}

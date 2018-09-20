@@ -1240,7 +1240,7 @@ public class CadOrcamentoManualMB implements Serializable {
 		pob.setDescricaoProdutoOrcamento(produtosorcamento.getDescricao());
 		pob.setIdProdutoOrcamento(produtosorcamento.getIdprodutosOrcamento());
 		pob.setValorMoedaEstrangeira(0.0f);
-		pob.setValorMoedaReal(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+		pob.setValorMoedaReal(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 		pob.setApagar(false);
 		pob.setSomarvalortotal(true);
 		pob.setNovo(true);
@@ -1655,7 +1655,7 @@ public class CadOrcamentoManualMB implements Serializable {
 					produtoBean.setIdProdutoOrcamento(modeloProdto.getProdutosorcamento().getIdprodutosOrcamento());
 					int tx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 					if (produtoOrcamento.getIdprodutosOrcamento() == tx) {
-						produtoBean.setValorMoedaReal(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+						produtoBean.setValorMoedaReal(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 						produtoBean.setValorMoedaEstrangeira(modeloProdto.getValorMoedaNacional() / valorCambio);
 					} else {
 						produtoBean.setValorMoedaEstrangeira(modeloProdto.getValorMoedaEstrangeira());

@@ -498,7 +498,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 		Produtosorcamento taxatm = produtoOrcamentoFacade.consultar(aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM());
 		orcamento.setTaxatm(taxatm);
-		orcamento.setValortaxatmRS(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+		orcamento.setValortaxatmRS(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 		orcamento.setValortaxatm(orcamento.getValortaxatmRS()/orcamento.getValorcambio());
 		OrcamentoVoluntariadoFormaPagamentoFacade formaPagamentoFacade = new OrcamentoVoluntariadoFormaPagamentoFacade();
 		String sql = "select o from Orcamentovoluntariadoformapagamento o where"

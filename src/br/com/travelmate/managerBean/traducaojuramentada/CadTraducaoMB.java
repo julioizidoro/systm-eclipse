@@ -596,8 +596,8 @@ public class CadTraducaoMB implements Serializable {
 		orcamento.setValorCambio(0.0f); 
 		traducao.setValortraducao(0.0f);
 		traducao.setComissaofranquia(0.0f);
-		traducao.setAssessoriatm(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
-		traducao.setValortotal(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+		traducao.setAssessoriatm(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
+		traducao.setValortotal(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 	}
 
 	public void calcularValorTotal() {

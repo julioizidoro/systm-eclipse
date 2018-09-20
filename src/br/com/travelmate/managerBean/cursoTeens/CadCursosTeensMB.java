@@ -604,7 +604,7 @@ public class CadCursosTeensMB implements Serializable {
 		orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 		orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 		orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
-		orcamentoprodutosorcamento.setValorMoedaNacional(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+		orcamentoprodutosorcamento.setValorMoedaNacional(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 		orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 		parcelamentopagamento = new Parcelamentopagamento();
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();

@@ -47,6 +47,7 @@ public class cadPaisMB implements Serializable {
 	private UploadedFile file;
 	private String nomeArquivoFTP;
 	private String caminho;
+	private boolean taxatm;
 
 	@PostConstruct
 	public void init() {
@@ -56,10 +57,16 @@ public class cadPaisMB implements Serializable {
 		session.removeAttribute("pais");
 		if (pais == null) {
 			pais = new Pais();
+			taxatm = true;
 		} else {
 			moedas = pais.getMoedas();
 			caminho = aplicacaoMB.getParametrosprodutos().getCaminhoimagens();
 			caminho = caminho + "/pais/" + pais.getIdpais() + ".png";
+			if (pais.isPossuifranquia()) {
+				taxatm = false;
+			}else {
+				taxatm = true;
+			}
 		}
 		gerarListaMoedas();
 	}
@@ -110,6 +117,14 @@ public class cadPaisMB implements Serializable {
 
 	public void setCaminho(String caminho) {
 		this.caminho = caminho;
+	}
+
+	public boolean isTaxatm() {
+		return taxatm;
+	}
+
+	public void setTaxatm(boolean taxatm) {
+		this.taxatm = taxatm;
 	}
 
 	public String salvar() {
@@ -231,6 +246,15 @@ public class cadPaisMB implements Serializable {
 			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
 		}
 		return false;
+	}
+	
+	public void verificarTaxaTM() {
+		if (pais.isPossuifranquia()) {
+			taxatm = false;
+		}else {
+			taxatm = true;
+			pais.setTaxatm(0.0f);
+		}
 	}
 
 }

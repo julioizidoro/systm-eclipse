@@ -158,7 +158,7 @@ public class SalvarVoluntariadoProjeto {
 		Produtosorcamento taxatm = produtoOrcamentoFacade
 				.consultar(aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM());
 		orcamento.setTaxatm(taxatm);
-		orcamento.setValortaxatmRS(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+		orcamento.setValortaxatmRS(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 		orcamento.setValortaxatm(orcamento.getValortaxatmRS() / orcamento.getValorcambio());
 		orcamento.setSeguroviagem(new Seguroviagem());
 		orcamento.setListaOutrosProdutos(new ArrayList<ProdutosExtrasBean>());

@@ -681,7 +681,7 @@ public class CadModeloOrcaManualMB implements Serializable {
 				.consultarProdutoOrcamentoCurso(aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM());
 		modeloProdutos.setProdutosorcamento(produtosorcamento);
 		modeloProdutos.setValorMoedaEstrangeira(0.0f);
-		modeloProdutos.setValorMoedaNacional(aplicacaoMB.getParametrosprodutos().getValorTaxaTM());
+		modeloProdutos.setValorMoedaNacional(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 		listaProdutos.add(modeloProdutos);
 		modeloProdutos = new Modeloprodutoorcamentocurso();
 	}

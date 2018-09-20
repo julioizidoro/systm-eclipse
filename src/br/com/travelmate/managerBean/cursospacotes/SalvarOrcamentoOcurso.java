@@ -211,7 +211,7 @@ public class SalvarOrcamentoOcurso {
 				cursospacote.getValortotalcurso(), cursospacote.getValorcoprodutos_curso().getCoprodutos().getNome(),
 				cursospacote.getValorcoprodutos_curso().getCoprodutos().getDescricao(), 1, "Curso", "adicao"); 
 		//taxaTM
-		float valor = aplicacaoMB.getParametrosprodutos().getValorTaxaTM() / ocurso.getValorcambio();
+		float valor = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm() / ocurso.getValorcambio();
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos taxatm = valorCoProdutosFacade
 				.consultar(aplicacaoMB.getParametrosprodutos().getTaxatmorcamento());

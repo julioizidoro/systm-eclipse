@@ -71,8 +71,11 @@ public class Pais implements Serializable {
     @Column(name = "datacambio")
 	@Temporal(TemporalType.DATE)
 	private Date datacambio;
+    @Column(name = "taxatm")
+    private float taxatm;
     
     public Pais() {
+    	taxatm = 0.0f;
     }
 
     public Pais(Integer idpais) {
@@ -177,6 +180,14 @@ public class Pais implements Serializable {
 
 	public void setDatacambio(Date datacambio) {
 		this.datacambio = datacambio;
+	}
+
+	public float getTaxatm() {
+		return taxatm;
+	}
+
+	public void setTaxatm(float taxatm) {
+		this.taxatm = taxatm;
 	}
 
 	@Override
