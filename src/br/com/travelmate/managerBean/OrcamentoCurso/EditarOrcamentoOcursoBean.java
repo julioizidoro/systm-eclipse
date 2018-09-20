@@ -226,9 +226,6 @@ public class EditarOrcamentoOcursoBean {
 				boolean promocao = listaProdutos.get(i).isPossuipromocao();
 				if (promocao) {
 					produtosOrcamentoBean.setValorPromocional(produtosOrcamentoBean.getValorOrigianl() - listaProdutos.get(i).getValorpromocional());
-					if (promocao) {
-						
-					}
 				}else {
 					produtosOrcamentoBean.setValorPromocional(listaProdutos.get(i).getValorpromocional());
 				}
@@ -358,6 +355,7 @@ public class EditarOrcamentoOcursoBean {
 							if (po.getValorPromocional() != null && po.getValorPromocional() > 0) {
 								po.setValorPromocionalRS(
 										listaProdutos.get(j).getValorpromocional() * ocurso.getValorcambio());
+								po.setValorPromocional(listaProdutos.get(j).getValorpromocional());
 								po.setPromocao(true);
 							}
 						}
