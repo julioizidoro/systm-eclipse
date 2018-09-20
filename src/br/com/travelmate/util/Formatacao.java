@@ -354,7 +354,6 @@ public class Formatacao {
 		// definindo o extenso dos centavos do valor
 		if (!centavos.equals("0")) { // valor com centavos
 			if (s.length() != 0) // se não é valor somente com centavos
-				s = s + " E ";
 				s =  retornarSiglaMoedaCentavo(siglaMoeda, s, centavos, n, unidade, unid, dez, dezena);
 		}
 		return (s);
