@@ -312,10 +312,13 @@ public class Formatacao {
 					if (cent != 0)
 						saux = centena[cent];
 					if ((n % 100) <= 19) {
-						if (saux.length() != 0)
-							saux = saux + " E " + unidade[n % 100];
-						else
-							saux = unidade[n % 100];
+						String valorUnidade = null;
+						if (saux.length() != 0 && saux.length() > 0) {
+							valorUnidade = unidade[n % 100];
+							if (!valorUnidade.equalsIgnoreCase("0") && !valorUnidade.equalsIgnoreCase("") && !valorUnidade.equalsIgnoreCase(" ")) {
+								saux = saux + " E " + unidade[n % 100];
+							}
+						}
 					} else {
 						if (saux.length() != 0)
 							saux = saux + " E " + dezena[dez];
@@ -469,7 +472,7 @@ public class Formatacao {
 			int dez, String dezena[]) {
 		if (sigla.equalsIgnoreCase("USD")) {
 			if (centavos.equals("1"))
-				s = s + "UM CENT";
+				s = s + " UM CENT";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
@@ -487,7 +490,7 @@ public class Formatacao {
 			return s;
 		} else if (sigla.equalsIgnoreCase("R$")) {
 			if (centavos.equals("1"))
-				s = s + "UM CENTAVO";
+				s = s + " UM CENTAVO";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
@@ -505,7 +508,7 @@ public class Formatacao {
 			return s;
 		} else if (sigla.equalsIgnoreCase("EUR")) {
 			if (centavos.equals("1"))
-				s = s + "UM CENT";
+				s = s + " UM CENT";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
@@ -541,7 +544,7 @@ public class Formatacao {
 			return s;
 		} else if (sigla.equalsIgnoreCase("GBP")) {
 			if (centavos.equals("1"))
-				s = s + "UM PENNY";
+				s = s + " UM PENNY";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
@@ -559,7 +562,7 @@ public class Formatacao {
 			return s;
 		} else if (sigla.equalsIgnoreCase("AUD")) {
 			if (centavos.equals("1"))
-				s = s + "UM CENT";
+				s = s + " UM CENT";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
@@ -577,7 +580,7 @@ public class Formatacao {
 			return s;
 		} else if (sigla.equalsIgnoreCase("CAD")) {
 			if (centavos.equals("1"))
-				s = s + "UM CENT";
+				s = s + " UM CENT";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
@@ -595,7 +598,7 @@ public class Formatacao {
 			return s;
 		} else if (sigla.equalsIgnoreCase("NZD")) {
 			if (centavos.equals("1"))
-				s = s + "UM CENT";
+				s = s + " UM CENT";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
@@ -613,7 +616,7 @@ public class Formatacao {
 			return s;
 		} else if (sigla.equalsIgnoreCase("CHF")) {
 			if (centavos.equals("1"))
-				s = s + "UM CENTAVO";
+				s = s + " UM CENT";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
@@ -626,12 +629,12 @@ public class Formatacao {
 					if (unid != 0)
 						s = s + " E " + unidade[unid];
 				}
-				s = s + " CENTAVOS";
+				s = s + " CENTS";
 			}
 			return s;
 		} else if (sigla.equalsIgnoreCase("ZAR")) {
 			if (centavos.equals("1"))
-				s = s + "UM CENT";
+				s = s + " UM CENT";
 			else {
 				n = Integer.parseInt(centavos, 10);
 				if (n <= 19)
