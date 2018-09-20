@@ -55,6 +55,7 @@ public class WorkSponsorArquivoMB implements Serializable {
 	private Ftpdados ftpdados; 
 	private Tipoarquivoproduto tipoarquivo;
 	private List<Tipoarquivoproduto> listaTipoArquivo; 
+	private String urlArquivo;
 
 	@PostConstruct
 	public void init() {
@@ -69,6 +70,9 @@ public class WorkSponsorArquivoMB implements Serializable {
 				ftpdados = new Ftpdados();
 				try {
 					ftpdados = ftpDadosFacade.getFTPDados();
+					if (ftpdados != null) {
+						urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
+					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} 
@@ -142,6 +146,16 @@ public class WorkSponsorArquivoMB implements Serializable {
 	public void setListaTipoArquivo(List<Tipoarquivoproduto> listaTipoArquivo) {
 		this.listaTipoArquivo = listaTipoArquivo;
 	} 
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
+	}
+
 
 	public void gerarListaArquivos() {
 		WorkSponsorArquivoFacade workSponsorArquivoFacade = new WorkSponsorArquivoFacade();

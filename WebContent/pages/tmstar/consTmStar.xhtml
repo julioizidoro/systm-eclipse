@@ -35,7 +35,7 @@
                                 <p:ajax event="dialogReturn" listener="#{tmStarMB.retornoDialogImagem}" update=":consTmStar:tabelaTmStar, :consTmStar:growl"/>
                             </p:commandLink>
                             <h:panelGroup rendered="#{tmStarMB.habilitarImagem(tmstar)}" id="panelImagem" style="margin-left:1%;">
-								<a href="http://#{tmStarMB.ftpdados.host}:82/systm/tmstar/TMS0#{tmstar.idtmstar}.png"  title="Visualizar Imagem" name="#{tmstar.nomeimagem}" target="_blank" style="text-decoration: none;">
+								<a href="#{tmStarMB.urlArquivo}/systm/tmstar/TMS0#{tmstar.idtmstar}.png"  title="Visualizar Imagem" name="#{tmstar.nomeimagem}" target="_blank" style="text-decoration: none;">
 									<img src="../../resources/img/verOrcamento.png" width="25" height="25" style="font-size:12px;"/>
 								</a>
 							</h:panelGroup>
@@ -46,7 +46,7 @@
                                <p:ajax event="dialogReturn" listener="#{tmStarMB.retornoDialogPDF}" update=":consTmStar:tabelaTmStar, :consTmStar:growl"/>
                            </p:commandLink>
                            <h:panelGroup rendered="#{tmStarMB.habilitarPDF(tmstar)}" id="panelPDF">
-								<a href="http://#{tmStarMB.ftpdados.host}:82/systm/tmstar/TMS0#{tmstar.idtmstar}.pdf"  title="Visualização de PDF" name="#{tmstar.nomepdf}" target="_blank" style="text-decoration: none;">
+								<a href="#{tmStarMB.urlArquivo}/systm/tmstar/TMS0#{tmstar.idtmstar}.pdf"  title="Visualização de PDF" name="#{tmstar.nomepdf}" target="_blank" style="text-decoration: none;">
 									<img src="../../resources/img/verOrcamento.png" width="25" height="25" style="font-size:12px;"/>
 								</a>
 							</h:panelGroup>

@@ -55,6 +55,7 @@ public class ConsultaCancelamentoMB implements Serializable {
 	private boolean habilitarUnidade = true;
 	private String situacao;
 	private Ftpdados ftpdados;
+	private String urlArquivo;
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -75,6 +76,9 @@ public class ConsultaCancelamentoMB implements Serializable {
 		// gerarListaConsultaInicial();
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
+			if (ftpdados != null) {
+				urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -198,6 +202,14 @@ public class ConsultaCancelamentoMB implements Serializable {
 
 	public void setFtpdados(Ftpdados ftpdados) {
 		this.ftpdados = ftpdados;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public void gerarListaConsultaInicial() {

@@ -33,6 +33,7 @@ public class TmStarMB implements Serializable {
 	private Tmstar tmstar;
 	private List<Tmstar> listaTmStar;
 	private Ftpdados ftpdados;
+	private String urlArquivo;
 
 	@PostConstruct
 	public void init() {
@@ -62,6 +63,14 @@ public class TmStarMB implements Serializable {
 
 	public void setFtpdados(Ftpdados ftpdados) {
 		this.ftpdados = ftpdados;
+	}
+
+	public String getUrlArquivo() {
+		return urlArquivo;
+	}
+
+	public void setUrlArquivo(String urlArquivo) {
+		this.urlArquivo = urlArquivo;
 	}
 
 	public void gerarListaTmStar() {
@@ -149,6 +158,9 @@ public class TmStarMB implements Serializable {
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
+			if (ftpdados != null) {
+				urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
