@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Termo de Ciência do Visto " pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="240"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
 	</parameter>
@@ -18,6 +18,7 @@
 	<parameter name="nome" class="java.lang.String"/>
 	<parameter name="cpfcliente" class="java.lang.String"/>
 	<parameter name="cpf" class="java.lang.String"/>
+	<parameter name="nomecpf" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{sql}]]>
 	</queryString>
@@ -119,13 +120,6 @@
 				</textElement>
 				<text><![CDATA[Titular:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="10" y="297" width="50" height="15" uuid="b06e12c2-26bd-4129-ad28-de268cdc02a3"/>
-				<textElement>
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[CPF:]]></text>
-			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="121" y="463" width="307" height="20" uuid="715e7d50-bf92-4569-91f9-80392433f1a4"/>
 				<textElement textAlignment="Center"/>
@@ -165,6 +159,13 @@
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cpf}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="298" width="50" height="16" uuid="6096b0a2-0ccb-4112-818e-052766070157"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomecpf}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
