@@ -332,6 +332,7 @@ public class Formatacao {
 						}
 					}
 				}
+				saux = saux + unidade[unid];
 				if (vlrP.equals("1") || vlrP.equals("001")) {
 					if (i == 0) // 1a. parte do valor (um real)
 						umReal = true;
