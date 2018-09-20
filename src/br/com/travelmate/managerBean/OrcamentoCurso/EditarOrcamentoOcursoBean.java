@@ -223,10 +223,20 @@ public class EditarOrcamentoOcursoBean {
 						listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getNome(),
 						listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", listaProdutos.get(i));
 				produtosOrcamentoBean.setValorPromocional(listaProdutos.get(i).getValorpromocional());
+				boolean promocao = listaProdutos.get(i).isPossuipromocao();
+				if (promocao) {
+					produtosOrcamentoBean.setValorPromocional(produtosOrcamentoBean.getValorOrigianl() - listaProdutos.get(i).getValorpromocional());
+					if (promocao) {
+						
+					}
+				}else {
+					produtosOrcamentoBean.setValorPromocional(listaProdutos.get(i).getValorpromocional());
+				}
 				if (produtosOrcamentoBean.getValorPromocional() != null
 						&& produtosOrcamentoBean.getValorPromocional() > 0) {
 					produtosOrcamentoBean.setValorPromocionalRS(
 							listaProdutos.get(i).getValorpromocional() * ocurso.getValorcambio());
+					produtosOrcamentoBean.setValorPromocional(listaProdutos.get(i).getValorpromocional());
 					produtosOrcamentoBean.setPromocao(true);
 				}
 				produtosOrcamentoBean.setOcrusoprodutos(listaProdutos.get(i));
@@ -339,7 +349,12 @@ public class EditarOrcamentoOcursoBean {
 							po.setValorOrigianl(listaProdutos.get(j).getValororiginal());
 							po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());
 							po.setSomarvalortotal(listaProdutos.get(j).isSomavalortotal());
-							po.setValorPromocional(listaProdutos.get(j).getValorpromocional());
+							boolean promocao = listaProdutos.get(j).isPossuipromocao();
+							if (promocao) {
+								po.setValorPromocional(po.getValorOrigianl() - listaProdutos.get(j).getValorpromocional());
+							}else {
+								po.setValorPromocional(listaProdutos.get(j).getValorpromocional());
+							}
 							if (po.getValorPromocional() != null && po.getValorPromocional() > 0) {
 								po.setValorPromocionalRS(
 										listaProdutos.get(j).getValorpromocional() * ocurso.getValorcambio());
