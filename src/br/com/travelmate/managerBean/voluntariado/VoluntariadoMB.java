@@ -724,7 +724,7 @@ public class VoluntariadoMB implements Serializable {
 		if (valorRecibo > 0.0f) {
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", voluntariado.getVendas().getIdvendas());
-			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
+			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 			parameters.put("valorExtenso", valorExtenso);
 			parameters.put("valorRecibo", valorRecibo);
 		    String moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();

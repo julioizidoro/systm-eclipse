@@ -351,7 +351,7 @@ public class PacoteMB implements Serializable {
 				File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 				BufferedImage logo = ImageIO.read(f);
 				parameters.put("logo", logo);
-				String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
+				String valorExtenso = Formatacao.valorPorExtenso(valorRecibo, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 				parameters.put("valorExtenso", valorExtenso);
 				parameters.put("valorRecibo", valorRecibo);
 			    String moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();

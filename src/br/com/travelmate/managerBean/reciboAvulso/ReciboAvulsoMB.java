@@ -101,7 +101,7 @@ public class ReciboAvulsoMB implements Serializable {
 		String caminhoRelatorio = ("/reports/recibo/reciboAvulso.jasper");
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("nome", nome);
-		String valorExtenso = Formatacao.valorPorExtenso(valor);
+		String valorExtenso = Formatacao.valorPorExtenso(valor, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 		parameters.put("valorExtenso", valorExtenso);
 		parameters.put("valorRecibo", valor);
 		parameters.put("produto", produto);

@@ -227,7 +227,7 @@ public class Formatacao {
 		return (c.getTime());
 	}
 
-	public static String valorPorExtenso(double vlr) {
+	public static String valorPorExtenso(double vlr, String siglaMoeda) {
 		if (vlr == 0)
 			return ("ZERO");
 		String ve = String.valueOf(vlr);
@@ -284,7 +284,7 @@ public class Formatacao {
 		String[] qualificaP = { "", "MIL", "MILHÕES", "BILHÕES", "TRILHÕES" };
 
 		// definindo o extenso da parte inteira do valor
-		int n, unid, dez, cent, tam, i = 0;
+		int n = 0, unid = 0, dez = 0, cent, tam, i = 0;
 		boolean umReal = false, tem = false;
 		while (!vlrS.equals("0")) {
 			tam = vlrS.length();
@@ -348,18 +348,145 @@ public class Formatacao {
 		}
 
 		if (s.length() != 0) {
-			if (umReal)
-				s = s + " REAL";
-			else if (tem)
-				s = s + " REAIS";
-			else
-				s = s + " DE REAIS";
+			s = retornarSiglaMoeda(siglaMoeda, s, umReal, tem);
 		}
 
 		// definindo o extenso dos centavos do valor
 		if (!centavos.equals("0")) { // valor com centavos
 			if (s.length() != 0) // se não é valor somente com centavos
 				s = s + " E ";
+				s =  retornarSiglaMoedaCentavo(siglaMoeda, s, centavos, n, unidade, unid, dez, dezena);
+		}
+		return (s);
+	}
+	
+	public static String retornarSiglaMoeda(String sigla, String s, boolean umReal, boolean tem) {
+		if (sigla.equalsIgnoreCase("USD")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " DÓLAR AMERICANO";
+				else if (tem)
+					s = s + " DÓLARES AMERICANOS";
+				else
+					s = s + " DE DÓLARES AMERICANOS";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("R$")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " REAL";
+				else if (tem)
+					s = s + " REAIS";
+				else
+					s = s + " DE REAIS";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("EUR")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " EURO";
+				else if (tem)
+					s = s + " EUROS";
+				else
+					s = s + " DE EUROS";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("IATA")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " DÓLAR IATA";
+				else if (tem)
+					s = s + " DÓLARES IATA";
+				else
+					s = s + " DE DOLÁRES IATA";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("GBP")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " LIBRA";
+				else if (tem)
+					s = s + " LIBRAS";
+				else
+					s = s + " DE LIBRAS";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("AUD")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " DÓLAR AUSTRIALIANO";
+				else if (tem)
+					s = s + " DÓLARES AUSTRALIANOS";
+				else
+					s = s + " DE DÓLARES AUSTRALIANOS";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("CAD")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " DOLÁR CANADENSE";
+				else if (tem)
+					s = s + " DÓLARES CANADENSES";
+				else
+					s = s + " DE DÓLARES CANADENSES";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("NZD")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " DOLÁR NEOZELANDES";
+				else if (tem)
+					s = s + " DÓLARES NEOZELANDESES";
+				else
+					s = s + " DE DÓLARES NEOZELANDESES";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("CHF")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " FRANCO SUIÇO";
+				else if (tem)
+					s = s + " FRANCOS SUIÇOS";
+				else
+					s = s + " DE FRANCOS SUIÇOS";
+			}
+			return s;
+		}else if(sigla.equalsIgnoreCase("ZAR")) {
+			if (s.length() != 0) {
+				if (umReal)
+					s = s + " RANDS";
+				else if (tem)
+					s = s + " RANDSES";
+				else
+					s = s + " DE RANDESES";
+			}
+			return s;
+		}
+		return "";
+	}
+	
+	
+	public static String retornarSiglaMoedaCentavo(String sigla, String s, String centavos, int n, String unidade[], int unid,
+			int dez, String dezena[]) {
+		if (sigla.equalsIgnoreCase("USD")) {
+			if (centavos.equals("1"))
+				s = s + "UM CENT";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " CENTS";
+			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("R$")) {
 			if (centavos.equals("1"))
 				s = s + "UM CENTAVO";
 			else {
@@ -376,8 +503,153 @@ public class Formatacao {
 				}
 				s = s + " CENTAVOS";
 			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("EUR")) {
+			if (centavos.equals("1"))
+				s = s + "UM CENT";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " CENTS";
+			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("IATA")) {
+			if (centavos.equals("1"))
+				s = s + "UM CENT";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " CENTS";
+			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("GBP")) {
+			if (centavos.equals("1"))
+				s = s + "UM PENNY";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " PENNYS";
+			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("AUD")) {
+			if (centavos.equals("1"))
+				s = s + "UM CENT";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " CENTS";
+			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("CAD")) {
+			if (centavos.equals("1"))
+				s = s + "UM CENT";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " CENTS";
+			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("NZD")) {
+			if (centavos.equals("1"))
+				s = s + "UM CENT";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " CENTS";
+			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("CHF")) {
+			if (centavos.equals("1"))
+				s = s + "UM CENTAVO";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " CENTAVOS";
+			}
+			return s;
+		} else if (sigla.equalsIgnoreCase("ZAR")) {
+			if (centavos.equals("1"))
+				s = s + "UM CENT";
+			else {
+				n = Integer.parseInt(centavos, 10);
+				if (n <= 19)
+					s = s + unidade[n];
+				else { // para n = 37, tem-se:
+					unid = n % 10; // unid = 37 % 10 = 7 (unidade sete)
+					dez = n / 10; // dez = 37 / 10 = 3 (dezena trinta)
+
+					s = s + dezena[dez];
+					if (unid != 0)
+						s = s + " E " + unidade[unid];
+				}
+				s = s + " CENTS";
+			}
+			return s;
 		}
-		return (s);
+		return "";
 	}
 
 	public static boolean validaCPF(String s_aux) {

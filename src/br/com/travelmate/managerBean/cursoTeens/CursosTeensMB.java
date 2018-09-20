@@ -626,7 +626,7 @@ public class CursosTeensMB implements Serializable {
 		if (valorRecibo > 0.0f) {
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", programasteens.getVendas().getIdvendas());
-			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
+			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 			parameters.put("valorExtenso", valorExtenso);
 			parameters.put("valorRecibo", valorRecibo);
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

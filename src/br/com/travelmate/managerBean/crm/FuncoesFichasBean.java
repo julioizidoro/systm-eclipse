@@ -67,9 +67,11 @@ public class FuncoesFichasBean {
 	private He he;
 	private Seguroviagem seguroViagem;
 	private Vistos vistos;
+	private String moedaNacional;
 	
-	public FuncoesFichasBean(Vendas vendas) { 
+	public FuncoesFichasBean(Vendas vendas, String moedaNacional) { 
 		this.vendas = vendas;
+		this.moedaNacional = moedaNacional;
 		if (vendas.getProdutos().getIdprodutos() == 1) {
 			buscarCurso();
 		} else if (vendas.getProdutos().getIdprodutos() == 4) {
@@ -564,7 +566,7 @@ public class FuncoesFichasBean {
 		if (valorRecibo > 0.0f) {
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("idvendas", vendas.getIdvendas());
-			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo);
+			String valorExtenso = Formatacao.valorPorExtenso(valorRecibo, moedaNacional);
 			parameters.put("valorExtenso", valorExtenso);
 			parameters.put("valorRecibo", valorRecibo);
 			File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));

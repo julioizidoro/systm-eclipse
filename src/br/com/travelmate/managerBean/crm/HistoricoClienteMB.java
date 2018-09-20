@@ -1022,31 +1022,31 @@ public class HistoricoClienteMB implements Serializable {
 	}
 	
 	public String gerarRelatorioRecibo(Vendas vendas) throws SQLException, IOException {
-		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 		funcoesFichasBean.gerarRelatorioRecibo();
 		return "";
 	}
 	
 	public String gerarRelatorioTermoVisto(Vendas vendas) throws SQLException, IOException {
-		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 		funcoesFichasBean.gerarRelatorioTermoVisto(usuarioLogadoMB);
 		return "";
 	}
 	
 	public String gerarRelatorioContrato(Vendas vendas) throws SQLException, IOException {
-		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 		funcoesFichasBean.gerarRelatorioContrato();
 		return "";
 	}
 	
 	public String boletos(Vendas vendas) {
-		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 		funcoesFichasBean.boletos();
 		return "";
 	}
 	
 	public String imprimirFicha(Vendas vendas) throws IOException {
-		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas);
+		FuncoesFichasBean funcoesFichasBean = new FuncoesFichasBean(vendas, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());
 		funcoesFichasBean.gerarRelatorioFicha();
 		return ""; 
 	}
