@@ -283,6 +283,9 @@ public class EncaminharLeadMB implements Serializable {
 		lead.setSituacao(situacao);
 		lead.setTipocontato(tipocontato);
 		lead.setUsuario(usuario); 
+		if (lead.getDataenvio() == null) {
+			lead.setDataenvio(new Date());
+		}
 		leadDao.salvar(lead);
 		lead.getCliente().setUnidadenegocio(unidadenegocio);
 		ClienteFacade clienteFacade = new ClienteFacade();
