@@ -309,19 +309,24 @@ public class Formatacao {
 					cent = n / 100; // cent = 3 (centena trezentos)
 					dez = (n % 100) / 10; // dez = 7 (dezena setenta)
 					unid = (n % 100) % 10; // unid = 1 (unidade um)
-					if (cent != 0)
+					if (cent != 0) {
 						saux = centena[cent];
-					if ((n % 100) <= 19) {
+						if (saux.length() != 0)
+							saux = saux + " E ";
+					}
+//					else if(dez != 0) {
+//						saux = unidade[n];
+//					}
+					int numero = n% 100;
+					if ((numero) <= 19) {
 						String valorUnidade = null;
-						if (saux.length() != 0 && saux.length() > 0) {
 							valorUnidade = unidade[n % 100];
 							if (!valorUnidade.equalsIgnoreCase("0") && !valorUnidade.equalsIgnoreCase("") && !valorUnidade.equalsIgnoreCase(" ")) {
-								saux = saux + " E " + unidade[n % 100];
+								saux = saux + " " + unidade[n % 100];
 							}
-						}
 					} else {
 						if (saux.length() != 0)
-							saux = saux + " E " + dezena[dez];
+							saux = saux  + dezena[dez];
 						else
 							saux = dezena[dez];
 						if (unid != 0) {
@@ -332,7 +337,6 @@ public class Formatacao {
 						}
 					}
 				}
-				saux = saux + unidade[unid];
 				if (vlrP.equals("1") || vlrP.equals("001")) {
 					if (i == 0) // 1a. parte do valor (um real)
 						umReal = true;
@@ -352,12 +356,14 @@ public class Formatacao {
 		}
 
 		if (s.length() != 0) {
+			
 			s = retornarSiglaMoeda(siglaMoeda, s, umReal, tem);
 		}
 
 		// definindo o extenso dos centavos do valor
 		if (!centavos.equals("0")) { // valor com centavos
-			if (s.length() != 0) // se não é valor somente com centavos
+			if (s.length() != 0) // se não é valor somente com centavosif (unid != 0)
+				s = s + " E ";
 				s =  retornarSiglaMoedaCentavo(siglaMoeda, s, centavos, n, unidade, unid, dez, dezena);
 		}
 		return (s);
