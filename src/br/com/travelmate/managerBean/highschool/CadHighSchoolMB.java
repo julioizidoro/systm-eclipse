@@ -836,21 +836,19 @@ public class CadHighSchoolMB implements Serializable {
 	public void atualizarValoresProduto() {
 		if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
 			for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
-				int idProdTx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 				ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 				Produtosorcamento produto = produtoOrcamentoFacade
 						.consultar(aplicacaoMB.getParametrosprodutos().getSeguroOrcamento());
 				int idSeguro = produto.getIdprodutosOrcamento();
 				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
 						.getIdprodutosOrcamento() != idSeguro) {
-					if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
-							.getIdprodutosOrcamento() != idProdTx) {
 						if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaEstrangeira() > 0) {
 							orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaNacional(
 									orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaEstrangeira()
 											* orcamento.getValorCambio());
+						}else if(orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() > 0) {
+							orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaEstrangeira(orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() / orcamento.getValorCambio());
 						}
-					}
 				}
 				calcularValorTotalOrcamento();
 			}
@@ -1746,6 +1744,7 @@ public class CadHighSchoolMB implements Serializable {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
 			consultarCambio();
+			atualizarValoresProduto();
 		}
 	}
 	

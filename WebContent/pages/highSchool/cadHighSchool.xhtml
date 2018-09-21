@@ -330,7 +330,7 @@
 									var="paises" itemLabel="#{paises.nome}" itemValue="#{paises}" />
 								<f:attribute name="listaPaisFornecedor"
 									value="#{cadHighSchoolMB.listaPais}" />
-								<p:ajax event="change" update="cidade, idvalorcambio, moeda" listener="#{cadHighSchoolMB.selecionarCambio()}"/>
+								<p:ajax event="change" update="cidade, idvalorcambio, moeda, tabelaprodutos" listener="#{cadHighSchoolMB.selecionarCambio()}"/>
 							</p:selectOneMenu>
 							<p:selectOneMenu id="cidade" value="#{cadHighSchoolMB.cidade}"
 								style="width:80%;" filter="true" filterMatchMode="startsWith"
