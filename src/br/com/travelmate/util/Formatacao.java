@@ -284,7 +284,7 @@ public class Formatacao {
 		String[] qualificaP = { "", "MIL", "MILHÕES", "BILHÕES", "TRILHÕES" };
 
 		// definindo o extenso da parte inteira do valor
-		int n = 0, unid = 0, dez = 0, cent, tam, i = 0;
+		int n = 0, unid = 0, dez = 0, cent = 0, tam, i = 0;
 		boolean umReal = false, tem = false;
 		while (!vlrS.equals("0")) {
 			tam = vlrS.length();
@@ -311,7 +311,7 @@ public class Formatacao {
 					unid = (n % 100) % 10; // unid = 1 (unidade um)
 					if (cent != 0) {
 						saux = centena[cent];
-						if (saux.length() != 0)
+						if (saux.length() != 0 && (unid > 0 || dez > 0))
 							saux = saux + " E ";
 					}
 //					else if(dez != 0) {
@@ -344,10 +344,12 @@ public class Formatacao {
 						saux = saux + " " + qualificaS[i];
 				} else if (i != 0)
 					saux = saux + " " + qualificaP[i];
-				if (s.length() != 0)
+				if ((s.length() != 0))
 					s = saux + ", " + s;
-				else
-					s = saux;
+				else if(i == 0)
+					 s = saux + s;
+				else 
+					s = saux + " E " + s ;
 			}
 			if (((i == 0) || (i == 1)) && s.length() != 0)
 				tem = true; // tem centena ou mil no valor
