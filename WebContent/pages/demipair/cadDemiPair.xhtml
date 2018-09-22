@@ -61,7 +61,7 @@
 								var="cpais" itemLabel="#{cpais.pais.nome}"  
 								itemValue="#{cpais.pais}" />
 							<f:attribute name="listaPais" value="#{cadDemiPairMB.listaPais}" />
-							<p:ajax event="change" update="cidade, idvalorcambio, moeda" listener="#{cadDemiPairMB.selecionarCambio()}"/>
+							<p:ajax event="change" update="cidade, idvalorcambio, moeda, tabelaprodutosdemipair" listener="#{cadDemiPairMB.selecionarCambio()}"/>
 						</p:selectOneMenu>
 						<p:selectOneMenu id="cidade" value="#{cadDemiPairMB.cidade}"  
 							converter="CidadeConverter"

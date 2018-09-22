@@ -827,6 +827,9 @@ public class CadDemiPairMB implements Serializable {
 					orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaNacional(
 							orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaEstrangeira()
 									* orcamento.getValorCambio());
+				}else if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() > 0) {
+					orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaEstrangeira(orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional()
+							/ orcamento.getValorCambio());
 				}
 				calcularValorTotalOrcamento();
 			}
@@ -1555,6 +1558,7 @@ public class CadDemiPairMB implements Serializable {
 		if (pais != null && pais.getIdpais() != null) {
 			moeda = pais.getMoedas();
 			consultarCambio();
+			atualizarValoresProduto();
 		}
 	}
 	
