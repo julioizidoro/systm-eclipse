@@ -489,6 +489,16 @@
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" update="datatermino, valorseguro, :orcamentoCurso:valormoeda, semanas, datatermino"
+							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
+						<p:ajax event="blur"
+							listener="#{orcamentoCursoMB.calcularTotais()}"
+							update="orcamentoCurso:tabelatotal, :orcamentoCurso:valormoeda , :orcamentoCurso:valorseguro," />
+						<p:ajax event="blur"
+							listener="#{orcamentoCursoMB.corDescricaoSeguro()}" />
+						<p:ajax event="change"
+							listener="#{orcamentoCursoMB.convertendoValoresSeguro()}"
+							update="orcamentoCurso:tabelatotal, valorunitarioRS, valorseguro, valormoeda" />
 					</p:calendar>
 					<p:outputLabel value="No. dias:" for="semanas"
 						style="font-weight:bold;font-size: 12px;margin-left:3%" />
@@ -511,13 +521,26 @@
 					</p:inputText>
 					<p:outputLabel value="Data Final:" for="datatermino"
 						style="font-weight:bold;font-size:12px;margin-left:3%" />
-					<p:inputMask id="datatermino"
-						value="#{orcamentoCursoMB.seguroviagem.dataTermino}" size="15"
-						style="margin-left:1%" mask="99/99/9999"
-						disabled="#{orcamentoCursoMB.habilitarSeguro()}">  
+					
+					<p:calendar id="datatermino" size="15" mask="true"
+						value="#{orcamentoCursoMB.seguroviagem.dataTermino}"
+						style="margin-left:1%" locale="pt" pattern="dd/MM/yyyy"
+						disabled="#{orcamentoCursoMB.habilitarSeguro()}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
-					</p:inputMask>
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" update="datatermino, valorseguro, :orcamentoCurso:valormoeda, semanas"
+							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
+						<p:ajax event="blur"
+							listener="#{orcamentoCursoMB.calcularTotais()}"
+							update="orcamentoCurso:tabelatotal, :orcamentoCurso:valormoeda , :orcamentoCurso:valorseguro," />
+						<p:ajax event="blur"
+							listener="#{orcamentoCursoMB.corDescricaoSeguro()}" />
+						<p:ajax event="change"
+							listener="#{orcamentoCursoMB.convertendoValoresSeguro()}"
+							update="orcamentoCurso:tabelatotal, valorunitarioRS, valorseguro, valormoeda" />
+					</p:calendar>
 					<p:outputLabel value="Valor Total:" for="valormoeda"
 						style="font-weight:bold;font-size: 12px;margin-left:5%" />
 					<p:inputText id="valormoeda"

@@ -707,6 +707,32 @@ public class OrcamentoCursoMB implements Serializable {
 			}
 		}
 	}
+	
+	public void calcularDataTerminoData() {
+		if (valorSeguro != null) {
+			seguroviagem.setValoresseguro(valorSeguro);
+			if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getDataTermino() != null)) {
+				CambioFacade cambioFacade = new CambioFacade();
+				cambioSeguro = cambioFacade.consultarCambioMoeda(
+						Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
+						valorSeguro.getMoedas().getIdmoedas());
+				if (cambioSeguro != null) {
+					seguroviagem.setNumeroSemanas(Formatacao.subtrairDatas(seguroviagem.getDataInicio(), seguroviagem.getDataTermino()) + 1);
+					if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
+						seguroviagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroviagem.getDataInicio(),
+								seguroviagem.getNumeroSemanas()));
+					} else if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("diaria")) {
+						seguroviagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroviagem.getDataInicio(),
+								seguroviagem.getNumeroSemanas()));
+					}
+					float valornacional = seguroviagem.getValoresseguro().getValorgross() * cambioSeguro.getValor();
+					seguroviagem.setValorSeguro(valornacional * seguroviagem.getNumeroSemanas());
+					calcularTotais();
+					valorSeguroMoedaEstrangeira();
+				}
+			}
+		}
+	}
 
 	public String voltar() {
 		if(resultadoOrcamentoBean.getOcurso().getIdocurso()!=null){
