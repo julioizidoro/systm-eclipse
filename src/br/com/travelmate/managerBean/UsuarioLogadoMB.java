@@ -499,11 +499,10 @@ public class UsuarioLogadoMB implements Serializable {
 	}
 
 	public String getFotoUsuarioLogado(Usuario usuario) {
-		String caminho = null;
-		caminho = aplicacaoMB.getParametrosprodutos().getCaminhoimagens();
+		String caminho = "http://local.systm.com.br/usuario";
 		if(usuario!=null && usuario.getIdusuario()!=null){
 			if (usuario.isFoto()) {
-				caminho = caminho + "/usuario/" + usuario.getIdusuario() + ".jpg";
+				caminho = caminho + "/" + usuario.getIdusuario() + ".jpg";
 			} else
 				caminho = caminho + "/usuario/0.png";
 		}else{
