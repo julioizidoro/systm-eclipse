@@ -13,6 +13,7 @@ public class AWSPropertie {
 	private String bucketRemessa;
 	private String bucketDocs;
 	private String bucketTreinamento;
+	private String bucketLocal;
 	private String clientRegion;
 	private String accesskey;
 	private String secretaccesskey;
@@ -93,6 +94,14 @@ public class AWSPropertie {
 		this.bucketTreinamento = bucketTreinamento;
 	}
 
+	public String getBucketLocal() {
+		return bucketLocal;
+	}
+
+	public void setBucketLocal(String bucketLocal) {
+		this.bucketLocal = bucketLocal;
+	}
+
 	public void carregarInformacoes(String caminho) {
 		File file = new File(caminho);
         Properties props = new Properties();
@@ -108,6 +117,7 @@ public class AWSPropertie {
         	setBucketRemessa(props.getProperty("bucketRemessa"));
         	setBucketDocs(props.getProperty("bucketDocs"));
         	setBucketTreinamento(props.getProperty("bucketTreinamento"));
+        	setBucketLocal(props.getProperty("bucketLocal"));
         	setClientRegion(props.getProperty("clientRegion"));
         	setAccesskey(props.getProperty("accesskey"));
         	setSecretaccesskey(props.getProperty("secretaccesskey"));
