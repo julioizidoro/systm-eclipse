@@ -272,7 +272,7 @@ public class CadVideo2MB implements Serializable{
 		UploadAWSS3 s3 = new UploadAWSS3("treinamento", caminho);
 		File arquivoFile = s3.getFile(file, videoConverter);
 		String msg = "";
-		if (s3.uploadFile(arquivoFile)) {
+		if (s3.uploadFile(arquivoFile, "")) {
 			msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
 		} else {
 			msg = " Erro no nome do arquivo";

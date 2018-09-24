@@ -59,41 +59,36 @@ public class UploadAWSS3 {
 		this.bucket = bucket;
 	}
 	
-	public boolean uploadFile(File file) {
-		
-		 
-		 String keyName = file.getName();
-		 
-	        
+	public boolean uploadFile(File file, String pasta) {
+		String keyName ="";
+		if (pasta.length()>0) {
+			keyName = pasta + "/" + file.getName();
+		}else {
+			keyName = file.getName();
+		}
+		try {
 
-	        try {
-	        	
-	        	BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsPropertie.getAccesskey(), awsPropertie.getSecretaccesskey());
-	        	AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-	        			 				.withRegion(awsPropertie.getClientRegion())
-	        	                       .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
-	        	                       .build();
-	            TransferManager tm = TransferManagerBuilder.standard()
-	                    .withS3Client(s3Client)
-	                    .build();
-	            Upload upload = tm.upload(bucket, keyName, file);
-	            upload.waitForCompletion();
-	            return true;
-	        }
-	        catch(AmazonServiceException e) {
-	            e.printStackTrace();
-	        }
-	        catch(SdkClientException e) {
-	            e.printStackTrace();
-	        } catch (AmazonClientException e) {
-				
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			}
-	        return false;
-		
+			BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsPropertie.getAccesskey(),
+					awsPropertie.getSecretaccesskey());
+			AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(awsPropertie.getClientRegion())
+					.withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+			TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3Client).build();
+			Upload upload = tm.upload(bucket, keyName, file);
+			upload.waitForCompletion();
+			return true;
+		} catch (AmazonServiceException e) {
+			e.printStackTrace();
+		} catch (SdkClientException e) {
+			e.printStackTrace();
+		} catch (AmazonClientException e) {
+
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 	
 	public List<S3ObjectSummary> list() {

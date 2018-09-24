@@ -318,7 +318,7 @@ public class CadArquivo5MB implements Serializable {
 		UploadAWSS3 s3 = new UploadAWSS3("docs", caminho);
 		File arquivoFile = s3.getFile(file, nomeArquivoFile);
 		String msg = "";
-		if (s3.uploadFile(arquivoFile)) {
+		if (s3.uploadFile(arquivoFile, "")) {
 			msg = "Arquivo: " + nomeArquivo + " enviado com sucesso";
 			arquivoEnviado = true;
 		} else {

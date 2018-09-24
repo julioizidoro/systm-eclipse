@@ -68,7 +68,7 @@ public class GerarRelatorio {
         JasperRunManager.runReportToPdfStream(reportStream, outputStream, parameters, jrds);
         String caminho =  servletContext.getRealPath("/resources/aws.properties");
         UploadAWSS3 s3 = new UploadAWSS3("orcamento", caminho);
-        s3.uploadFile(file);
+        s3.uploadFile(file, "");
     }
     
     public void gerarRelatorioSqlPDF(String caminhoRelatorio, Map<String, Object> parameters, String nomeArquivo, String subDir) throws JRException, IOException, SQLException{
