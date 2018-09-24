@@ -160,20 +160,39 @@ public class UploadApplicationMB implements Serializable{
 
 
 	public void salvar() {
-		fornecedorapplication.setFornecedor(fornecedor);
-		fornecedorapplication.setPais(pais);
-		fornecedorapplication.setProdutosorcamento(produtosorcamento);
-		fornecedorapplication.setNomearquivo(nomeArquivoFTP);
-		FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
-		fornecedorapplication = fornecedorApplicationFacade.salvar(fornecedorapplication);
-		RequestContext.getCurrentInstance().closeDialog(fornecedorapplication);
+		if (validarDados()) {
+			fornecedorapplication.setFornecedor(fornecedor);
+			fornecedorapplication.setPais(pais);
+			fornecedorapplication.setProdutosorcamento(produtosorcamento);
+			fornecedorapplication.setNomearquivo(nomeArquivoFTP);
+			FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
+			fornecedorapplication = fornecedorApplicationFacade.salvar(fornecedorapplication);
+			RequestContext.getCurrentInstance().closeDialog(fornecedorapplication);
+		}
 	}
 	
 	public boolean validarDados() {
 		if (fornecedor == null || fornecedor.getIdfornecedor() == null) {
-			Mensagem.lancarMensagemInfo("", "");
+			Mensagem.lancarMensagemInfo("Fornecedor não informado", "");
+			return false;
 		}
-		return false;
+		
+		if (pais == null || pais.getIdpais() == null) {
+			Mensagem.lancarMensagemInfo("Pais não informado", "");
+			return false;
+			
+		}
+		
+		if (produtosorcamento == null || produtosorcamento.getIdprodutosOrcamento() == null ) {
+			Mensagem.lancarMensagemInfo("Programa não informado", "");
+			return false;
+		}
+		
+		if (!upload) {
+			Mensagem.lancarMensagemInfo("Favor anexar um application", "");
+			return false;
+		}
+		return true;
 	}
 	
 	public void cancelar() {
@@ -184,6 +203,7 @@ public class UploadApplicationMB implements Serializable{
 	public void fileUploadListener(FileUploadEvent e) {
 		this.file = e.getFile();
 		salvarArquivoFTP();
+		upload = true;
 	}
 
 	public boolean salvarArquivoFTP() {
