@@ -304,7 +304,33 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 			}
 		}
 	}
-	
+	public void calcularDataTerminoData() {
+		orcamento.getSeguroviagem().setValoresseguro(orcamento.getValorSeguro());
+		if ((orcamento.getSeguroviagem().getDataInicio() != null) && (orcamento.getSeguroviagem().getDataTermino() != null)) {
+			CambioFacade cambioFacade = new CambioFacade();
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+					Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
+					orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+			if (cambioSeguro != null) {
+				orcamento.getSeguroviagem().setNumeroSemanas(Formatacao.subtrairDatas(orcamento.getSeguroviagem().getDataInicio(), orcamento.getSeguroviagem().getDataTermino()) + 1);
+				if (orcamento.getSeguroviagem().getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
+					orcamento.getSeguroviagem().setDataTermino(Formatacao.calcularDataFinalPorDias(orcamento.getSeguroviagem().getDataInicio(),
+							orcamento.getSeguroviagem().getNumeroSemanas()));
+				} else if (orcamento.getSeguroviagem().getValoresseguro().getCobranca().equalsIgnoreCase("diaria")) {
+					orcamento.getSeguroviagem().setDataTermino(Formatacao.calcularDataFinalPorDias(orcamento.getSeguroviagem().getDataInicio(),
+							orcamento.getSeguroviagem().getNumeroSemanas()));
+				}
+				float valornacional = orcamento.getSeguroviagem().getValoresseguro().getValorgross() * cambioSeguro.getValor();
+				orcamento.getSeguroviagem().setValorSeguro(valornacional * orcamento.getSeguroviagem().getNumeroSemanas());
+				somarValorTotal();
+				if (orcamento.getSeguroviagem().getValorSeguro() != null) {
+					orcamento.getSeguroviagem().setValorMoedaEstrangeira(
+							orcamento.getSeguroviagem().getValorSeguro() / cambioSeguro.getValor());
+				}
+			}
+		}
+	}
+	  
 	public void selecionarSeguro() {
 		if (orcamento.isPossuiSeguroViagem()) {
 			orcamento.setSeguroviagem(new Seguroviagem());
@@ -317,7 +343,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 				e.printStackTrace();
 			}
 			orcamento.getSeguroviagem().setNumeroSemanas(
-					Formatacao.subtrairDatas(orcamento.getSeguroviagem().getDataTermino(), orcamento.getSeguroviagem().getDataInicio()));
+					Formatacao.subtrairDatas(orcamento.getSeguroviagem().getDataInicio(), orcamento.getSeguroviagem().getDataTermino()));
 			orcamento.getSeguroviagem().setNumeroSemanas(orcamento.getSeguroviagem().getNumeroSemanas() + 1);
 		} else {
 			orcamento.setSeguroviagem(new Seguroviagem());
