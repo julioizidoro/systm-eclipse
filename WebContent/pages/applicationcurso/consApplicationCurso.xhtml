@@ -1,0 +1,123 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultacursos" style="font-size:11px;">
+			<script type="text/javascript">
+
+</script>
+
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<br></br>
+				<h:panelGrid columns="4" style="margin-left: 6.5%;width:80%;">
+					<p:outputLabel value="Pais" />
+					<p:outputLabel value="Parceiros" />
+					<p:outputLabel value="Programas" />
+					<p:outputLabel value="" />
+					<p:selectOneMenu id="pais" value="#{applicationCursoMB.pais}"
+						style="width:200px;" converter="PaisConverterS" filter="true"
+						filterMatchMode="startsWith" panelStyle="width:180px">
+						<f:selectItem itemLabel="País" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idpais" value="#{applicationCursoMB.listaPais}"
+							var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+						<f:attribute name="listaPais"
+							value="#{applicationCursoMB.listaPais}" />
+						<p:ajax event="change" listener="#{applicationCursoMB.gerarFornecedorApplication()}" update="tabelaVendasCurso, btnUploadApplication"/>
+						<p:ajax event="change" listener="#{applicationCursoMB.gerarListaFornecedorCidade()}" update="fornecedor"/>
+					</p:selectOneMenu>
+					<p:selectOneMenu id="fornecedor"
+						value="#{applicationCursoMB.fornecedorcidadeidioma}"
+						style="width:240px;" converter="FornecedorCidadeIdiomaConverter"
+						filter="true" filterMatchMode="contains" effect="fade" var="f">
+						<f:selectItem itemLabel="Escola" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idfornecedor"
+							value="#{applicationCursoMB.listaFornecedorCidadeIdioma}"
+							var="fornecedor"
+							itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}"
+							itemValue="#{fornecedor}" />
+						<p:column>
+							<h:outputText value="#{f.fornecedorcidade.fornecedor.nome}" />
+						</p:column>
+						<f:attribute name="listaFornecedorCidadeIdioma"
+							value="#{applicationCursoMB.listaFornecedorCidadeIdioma}" />
+						<p:ajax event="change"
+							listener="#{applicationCursoMB.gerarListaCursos}"
+							update="tipodecurso" />
+						<p:ajax event="change" listener="#{applicationCursoMB.gerarFornecedorApplication()}" update="tabelaVendasCurso, btnUploadApplication"/>
+					</p:selectOneMenu>
+					<p:selectOneMenu id="tipodecurso"
+						value="#{applicationCursoMB.produtosorcamento}"
+						style="width:190px;" converter="OrcamentoProdutoConverter"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione Curso" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idtipocurso"
+							value="#{applicationCursoMB.listaProdutosOrcamento}"
+							var="tipocurso" itemLabel="#{tipocurso.descricao}"
+							itemValue="#{tipocurso}" />
+						<f:attribute name="listaProdutosOrcamento"
+							value="#{applicationCursoMB.listaProdutosOrcamento}" />
+						<p:ajax event="change" listener="#{applicationCursoMB.gerarFornecedorApplication()}" update="tabelaVendasCurso, btnUploadApplication"/>
+					</p:selectOneMenu>
+					<p:commandButton id="btnUploadApplication" disabled="#{applicationCursoMB.desabilitarUpload}"
+						icon="ui-icon-arrowthickstop-1-s"
+						title="Upload Arquivo" style="font-size:12px;"
+						value="Upload Arquivo" action="#{applicationCursoMB.novaApplication()}"  >
+						<p:ajax event="dialogReturn" listener="#{applicationCursoMB.retornoDialogUpload}" update="tabelaVendasCurso"/>
+					</p:commandButton>
+				</h:panelGrid>
+				<br/><br/>
+				<legend id="iUsu2">
+					<b>Application </b>
+				</legend>
+
+				<br />
+
+				<p:dataTable id="tabelaVendasCurso" var="arquivo" style="width:95%;margin-left:2%;"
+					value="#{applicationCursoMB.listaFornecedor}" scrollable="true"
+					scrollHeight="300">
+					<p:column headerText="Pais" sortBy="#{arquivo.pais.nome}"
+						style="width:83px;">
+						<h:outputText value="#{arquivo.pais.nome}" />
+					</p:column>
+					<p:column headerText="Parceiro"
+						sortBy="#{arquivo.fornecedor.nome}" style="width:110px;">
+						<h:outputText value="#{arquivo.fornecedor.nome}" />
+					</p:column>
+					<p:column headerText="Programa"
+						sortBy="#{arquivo.produtosorcamento.descricao}"
+						style="width:150px;" styleClass="alinharCenter">
+						<h:outputText
+							value="#{arquivo.produtosorcamento.descricao}" />
+					</p:column>
+					<p:column headerText="Application" style="width:125px;"
+						
+						styleClass="alinharCenter" sortBy="#{arquivo.nomearquivo}">
+						<a title="Abrir Arquivo" name="download" href="http://local.systm.com.br/application/#{arquivo.nomearquivo}" target="_blank" style="text-decoration:none; font-size:12px;" type="button"> 
+                          <h:outputText
+							value="#{arquivo.nomearquivo}" /></a>
+					</p:column>
+					<p:column headerText="" style="width:40px;"
+						
+						styleClass="alinharCenter" >
+						<p:commandLink action="#{applicationCursoMB.excluirArquivo(arquivo)}" update="tabelaVendasCurso" >
+							<img src="../../resources/img/excluir.png" width="25"/>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

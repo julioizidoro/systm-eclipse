@@ -1630,5 +1630,10 @@ public class MenuMB implements Serializable {
 	}
 	
 	
+	public String applicationCurso() {
+		return "consApplicationCurso";
+	}
+	
+	
 	
 }

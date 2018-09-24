@@ -813,6 +813,8 @@ public class CursoMB implements Serializable {
 	public String corNome(Curso curso) {
 		if (curso.getVendas().getSituacao().equals("CANCELADA")) {
 			return "color:#808080;text-decoration: line-through;";
+		}else if (curso.isUploadapplication()) {
+			return "color:red;";
 		}
 		return "color:#000000;";
 	}

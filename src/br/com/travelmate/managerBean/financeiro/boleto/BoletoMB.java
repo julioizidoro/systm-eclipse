@@ -189,7 +189,7 @@ public class BoletoMB implements Serializable {
 				file = remessaItau.getFile();
 				String caminho = nomearquivo = servletContext.getRealPath("/resources/aws.properties");
 				UploadAWSS3 s3 = new UploadAWSS3("remessa", caminho);
-				s3.uploadFile(file);
+				s3.uploadFile(file, "");
 			} else {
 				FacesMessage msg = new FacesMessage("Erro! ", "Nenhuma Conta Selecionada");
 				FacesContext.getCurrentInstance().addMessage(null, msg);

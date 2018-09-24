@@ -5,20 +5,12 @@
  */
 package br.com.travelmate.managerBean;
  
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-import br.com.travelmate.managerBean.arquivo.CadArquivoMB; 
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Usuario;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.UploadAWSS3;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException; 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -27,13 +19,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 /**
  *
@@ -47,13 +37,10 @@ public class EditarImagemUsuarioMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L; 
-	@Inject
-	private AplicacaoMB AplicacaoMB;
     @Inject 
     private UsuarioLogadoMB usuarioLogadoMB;
     private String caminho; 
     private UploadedFile file;
-    private String nomeArquivoFTP;
     private FileUploadEvent ex;
     private String mensagemAviso;
     

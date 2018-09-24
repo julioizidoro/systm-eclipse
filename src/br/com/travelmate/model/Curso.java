@@ -246,6 +246,8 @@ public class Curso implements Serializable {
 	private int idorcamento;
 	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "curso")
 	private Acomodacaocurso acomodacaocurso;
+	@Column(name = "uploadapplication")
+	private boolean uploadapplication;
 
 	public Curso() {
 		setFumante("Não");
@@ -918,6 +920,14 @@ public class Curso implements Serializable {
 
 	public void setAcomodacaocurso(Acomodacaocurso acomodacaocurso) {
 		this.acomodacaocurso = acomodacaocurso;
+	}
+
+	public boolean isUploadapplication() {
+		return uploadapplication;
+	}
+
+	public void setUploadapplication(boolean uploadapplication) {
+		this.uploadapplication = uploadapplication;
 	}
 
 	@Override

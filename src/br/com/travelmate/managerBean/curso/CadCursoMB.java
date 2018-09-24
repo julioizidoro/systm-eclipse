@@ -46,6 +46,7 @@ import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.DepartamentoProdutoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
+import br.com.travelmate.facade.FornecedorApplicationFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
@@ -91,6 +92,7 @@ import br.com.travelmate.model.Departamentoproduto;
 import br.com.travelmate.model.Filtroorcamentoproduto;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Fornecedorapplication;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
@@ -1691,6 +1693,11 @@ public class CadCursoMB implements Serializable {
 				curso.setPais(pais.getNome());
 				curso.setCidade(cidade.getNome());
 				curso.setEscola(fornecedorCidade.getFornecedor().getNome());
+				if (verificarApplication()) {
+					curso.setUploadapplication(true);
+				}else {
+					curso.setUploadapplication(false);
+				}
 				curso = cadCursoBean.salvarCurso(curso, vendaAlterada, CheckBoxSegundoCurso);
 				float valorCambioBrasil = 0.0f;
 				if (cambioBrasil != null) {
@@ -1795,6 +1802,27 @@ public class CadCursoMB implements Serializable {
 			}
 		}
 		return salvarOK;
+	}
+	
+	public boolean verificarApplication() {
+		Produtosorcamento produtosorcamento = null;
+		for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
+			if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento().getTipoproduto().equalsIgnoreCase("C")) {
+				produtosorcamento = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento();
+			}
+			 i = 100000;
+		}
+		String sql = "SELECT f FROM Fornecedorapplication f WHERE f.pais.idpais=" + pais.getIdpais() + " AND f.fornecedor.idfornecedor=" + fornecedorCidade.getFornecedor().getIdfornecedor();
+		if (produtosorcamento != null) {
+			sql = sql + " AND f.produtosorcamento.idprodutosOrcamento=" + produtosorcamento.getIdprodutosOrcamento();
+		}
+		FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
+		List<Fornecedorapplication> listaFornecedor = fornecedorApplicationFacade.listar(sql);
+		if (listaFornecedor == null || listaFornecedor.isEmpty()) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 
 	public String validarDados() {
