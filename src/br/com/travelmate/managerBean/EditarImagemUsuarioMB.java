@@ -134,10 +134,6 @@ public class EditarImagemUsuarioMB implements Serializable{
 	}
     
     
-    
-    
-    
-    
     public void mostrarMensagem(Exception ex, String erro, String titulo){
         FacesContext context = FacesContext.getCurrentInstance();
         erro = erro + " - " + ex;
