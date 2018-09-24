@@ -11,7 +11,9 @@ import br.com.travelmate.managerBean.arquivo.CadArquivoMB;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Ftp;
+import br.com.travelmate.util.UploadAWSS3;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException; 
@@ -23,12 +25,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named; 
+import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 /**
  *
@@ -102,11 +107,11 @@ public class EditarImagemUsuarioMB implements Serializable{
 	}
 
 	public String getFotoUsuarioLogado() { 
-		caminho = AplicacaoMB.getParametrosprodutos().getCaminhoimagens();
+		caminho = "http://local.systm.com.br/usuario/";
 		if (usuarioLogadoMB.getUsuario().isFoto()) {
-			caminho = caminho + "/usuario/" + usuarioLogadoMB.getUsuario().getIdusuario() + ".jpg";
+			caminho = caminho + usuarioLogadoMB.getUsuario().getIdusuario() + ".jpg";
 		} else
-			caminho = caminho + "/usuario/0.png";
+			caminho = caminho + "0.png";
 		return caminho;
 	}
 	
@@ -117,63 +122,20 @@ public class EditarImagemUsuarioMB implements Serializable{
 	
 	
 	public void fileUploadListener(FileUploadEvent e){
+		FacesContext facesContext = FacesContext.getCurrentInstance();  
+        ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
 		this.file = e.getFile();
-		if(usuarioLogadoMB.getUsuario().isFoto()){
-			excluirArquivoFTP();
-		}
-		salvarArquivoFTP(); 
+		String caminho =  servletContext.getRealPath("/resources/aws.properties");
+		UploadAWSS3 s3 = new UploadAWSS3("local", caminho);
+		File novoArquivo = s3.getFile(this.file, usuarioLogadoMB.getUsuario().getIdusuario() + ".jpg");
+		s3.uploadFile(novoArquivo, "usuario"); 
 		getFotoUsuarioLogado();
-		//salvarFotoUsuarioLogado();
 		mensagemAviso = "Em questão de minutos sua foto será atualizada.";
 	}
     
     
     
-    public boolean salvarArquivoFTP(){
-		String msg = "";
-        FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-        Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
-		}
-        if (dadosFTP==null){
-            return false;
-        }
-        Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-        try {
-            if (!ftp.conectar()){
-                mostrarMensagem(null, "Erro conectar FTP", "");
-                return false;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-        }
-        try {
-        	nomeArquivoFTP = usuarioLogadoMB.getUsuario().getIdusuario()+".jpg";
-        	msg = ftp.enviarArquivo(file, nomeArquivoFTP, "/systm/usuario");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(msg, "")); 
-            if(!usuarioLogadoMB.getUsuario().isFoto()){
-            	salvarUsuario();
-            }
-            ftp.desconectar();
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-        } 
-        try {
-           ftp.desconectar();
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-        }
-        return false;
-    }
+    
     
     
     public void mostrarMensagem(Exception ex, String erro, String titulo){
@@ -182,47 +144,7 @@ public class EditarImagemUsuarioMB implements Serializable{
         context.addMessage(null, new FacesMessage(titulo, erro));
     }
   	
-  	public boolean excluirArquivoFTP(){
-		String msg = "";
-        FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-        Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex); 
-		}
-        if (dadosFTP==null){
-            return false;
-        }
-        Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-        try {
-            if (!ftp.conectar()){
-                mostrarMensagem(null, "Erro conectar FTP", "");
-                return false;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-        }
-        try {
-        	String nomeArquivoFTP = usuarioLogadoMB.getUsuario().getIdusuario()+".jpg";
-        	msg = ftp.excluirArquivo(nomeArquivoFTP, "/systm/usuario");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(msg, "")); 
-            ftp.desconectar();
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-        } 
-        try {
-           ftp.desconectar();
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-        }
-        return false;
-    }
+  	
 	  
   	public void salvarUsuario(){
   		Usuario usuario = usuarioLogadoMB.getUsuario();
