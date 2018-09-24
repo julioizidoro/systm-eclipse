@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
 #top-nav {
   height: 45px;
   padding-right: 10px;
@@ -25,7 +25,7 @@
   line-height: 45px;
   width: 194px;
   color: #999999;
-  background: #323447;
+  background: #323447;  
   float: left;
   transition: all 0.5s ease;
   -webkit-transition: all 0.5s ease;
