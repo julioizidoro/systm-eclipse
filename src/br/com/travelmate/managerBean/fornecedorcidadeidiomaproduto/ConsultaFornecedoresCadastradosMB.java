@@ -79,6 +79,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 	private String nomeProdutosOrcamento;
 	private boolean filtrarProduto;
 	private boolean informaçõesEscola;
+	private String urlArquivos = "";
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -111,6 +112,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		urlArquivos = "http://local.systm.com.br/cordepartamento/";
 	}
 
 	public List<Fornecedorcidadeidiomaproduto> getFiltroTabelaProduto() {
@@ -335,6 +337,14 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 
 	public void setInformaçõesEscola(boolean informaçõesEscola) {
 		this.informaçõesEscola = informaçõesEscola;
+	}
+
+	public String getUrlArquivos() {
+		return urlArquivos;
+	}
+
+	public void setUrlArquivos(String urlArquivos) {
+		this.urlArquivos = urlArquivos;
 	}
 
 	public String arquivos(Fornecedorcidade fornecedorcidade) {

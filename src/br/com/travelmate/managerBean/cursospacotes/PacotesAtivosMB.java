@@ -416,7 +416,7 @@ public class PacotesAtivosMB implements Serializable {
 	public String visualizarInformativo(int idpacote) {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		try {
-			externalContext.redirect(aplicacaoMB.getParametrosprodutos().getCaminhoimagens()+"/informativospacotes/"
+			externalContext.redirect("http://local.systm.com.br/informativospacotes/"
 					+idpacote+".pdf");
 		} catch (IOException e) {
 			e.printStackTrace();
