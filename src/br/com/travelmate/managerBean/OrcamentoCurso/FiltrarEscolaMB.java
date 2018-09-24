@@ -2097,8 +2097,9 @@ public class FiltrarEscolaMB implements Serializable {
 					calendario = false;
 					comboDatas = true;
 				}else{
-					calendario = true;
-					comboDatas = false;
+					calendario = false;
+					comboDatas = true;
+					Mensagem.lancarMensagemInfo("Nenhuma data encontrada", "");
 				}
 			}else{
 				calendario = true;
