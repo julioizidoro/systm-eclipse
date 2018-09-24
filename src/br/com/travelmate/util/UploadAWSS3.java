@@ -48,6 +48,8 @@ public class UploadAWSS3 {
 			bucket = awsPropertie.getBucketRemessa();
 		}else if (tipo.equalsIgnoreCase("treinamento")) {
 			bucket = awsPropertie.getBucketTreinamento();
+		}else if (tipo.equalsIgnoreCase("local")) {
+			bucket = awsPropertie.getBucketLocal();
 		}
 	}
 
