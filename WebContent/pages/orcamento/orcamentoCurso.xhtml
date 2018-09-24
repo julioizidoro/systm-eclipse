@@ -489,7 +489,7 @@
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" update="datatermino, valorseguro, :orcamentoCurso:valormoeda, semanas, datatermino"
+						<p:ajax event="dateSelect" update="datatermino, valorseguro, :orcamentoCurso:valormoeda, semanas, datatermino"
 							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
 						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.calcularTotais()}"
@@ -530,7 +530,7 @@
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" update="datatermino, valorseguro, :orcamentoCurso:valormoeda, semanas"
+						<p:ajax event="dateSelect" update="valorseguro, :orcamentoCurso:valormoeda, semanas, datainicio"
 							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
 						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.calcularTotais()}"

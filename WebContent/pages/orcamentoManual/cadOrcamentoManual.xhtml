@@ -549,9 +549,9 @@
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
-								<p:ajax event="blur"
+								<p:ajax event="dateSelect"
 									update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
-									listener="#{cadOrcamentoManualMB.calcularNumeroDiasSeguro()}" />
+									listener="#{cadOrcamentoManualMB.dataTerminoSeguro()}" />
 							</p:calendar>
 
 							<p:inputText id="semanas"
@@ -571,7 +571,7 @@
 								size="20" locale="pt" pattern="dd/MM/yyyy">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
-								<p:ajax event="blur"
+								<p:ajax event="dateSelect"
 									update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
 									listener="#{cadOrcamentoManualMB.calcularNumeroDiasSeguro()}" />
 							</p:calendar>
