@@ -297,6 +297,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 				float valornacional = orcamento.getSeguroviagem().getValoresseguro().getValorgross() * cambioSeguro.getValor();
 				orcamento.getSeguroviagem().setValorSeguro(valornacional * orcamento.getSeguroviagem().getNumeroSemanas());
 				somarValorTotal();
+				convertendoValoresSeguro();
 				if (orcamento.getSeguroviagem().getValorSeguro() != null) {
 					orcamento.getSeguroviagem().setValorMoedaEstrangeira(
 							orcamento.getSeguroviagem().getValorSeguro() / cambioSeguro.getValor());
@@ -323,6 +324,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 				float valornacional = orcamento.getSeguroviagem().getValoresseguro().getValorgross() * cambioSeguro.getValor();
 				orcamento.getSeguroviagem().setValorSeguro(valornacional * orcamento.getSeguroviagem().getNumeroSemanas());
 				somarValorTotal();
+				convertendoValoresSeguro();
 				if (orcamento.getSeguroviagem().getValorSeguro() != null) {
 					orcamento.getSeguroviagem().setValorMoedaEstrangeira(
 							orcamento.getSeguroviagem().getValorSeguro() / cambioSeguro.getValor());
@@ -353,9 +355,20 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 	}
 	
 	public void convertendoValoresSeguro() {
+		CambioFacade cambioFacade = new CambioFacade();
+		Cambio cambioSeguro = null;
+		cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+				orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+		float valorCambio;
+		if (cambioSeguro != null) {
+			valorCambio = cambioSeguro.getValor();
+		}else {
+			valorCambio = 0.0f;
+		}
 		orcamento.setValorTotalSeguroDolar(orcamento.getSeguroviagem().getNumeroSemanas() * orcamento.getSeguroviagem().getValoresseguro().getValorgross());
 		orcamento.setValorUtilitarioRS(orcamento.getSeguroviagem().getValoresseguro().getValorgross()
-				* orcamento.getValorcambio());
+				* valorCambio);
 	}
 	
 	public String adicionarProdutosExtra() {

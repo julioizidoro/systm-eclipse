@@ -703,6 +703,7 @@ public class OrcamentoCursoMB implements Serializable {
 					seguroviagem.setValorSeguro(valornacional * seguroviagem.getNumeroSemanas());
 					calcularTotais();
 					valorSeguroMoedaEstrangeira();
+					convertendoValoresSeguro();
 				}
 			}
 		}
@@ -729,6 +730,7 @@ public class OrcamentoCursoMB implements Serializable {
 					seguroviagem.setValorSeguro(valornacional * seguroviagem.getNumeroSemanas());
 					calcularTotais();
 					valorSeguroMoedaEstrangeira();
+					convertendoValoresSeguro();
 				}
 			}
 		}
@@ -2899,7 +2901,7 @@ public class OrcamentoCursoMB implements Serializable {
 
 	public void convertendoValoresSeguro() {
 		CambioFacade cambioFacade = new CambioFacade();
-		if (cambioSeguro != null && cambioSeguro.getIdcambio() != null) {
+		if (cambioSeguro == null || cambioSeguro.getIdcambio() == null) {
 			cambioSeguro = cambioFacade.consultarCambioMoedaPais(
 					Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 					valorSeguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
