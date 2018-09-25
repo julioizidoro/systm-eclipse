@@ -2082,24 +2082,36 @@ public class FiltrarEscolaMB implements Serializable {
 				List<Fornecedorcidadeidiomaprodutodata> lista =
 						dataFacade.listar("SELECT f FROM Fornecedorcidadeidiomaprodutodata f WHERE"
 								+ " f.fornecedorcidadeidiomaproduto.idfornecedorcidadeidiomaproduto="
-								+fornecedorcidadeidiomaproduto.getIdfornecedorcidadeidiomaproduto() + " and f.datainicio>='" + Formatacao.ConvercaoDataSql(new Date()) + "' "
+								+fornecedorcidadeidiomaproduto.getIdfornecedorcidadeidiomaproduto() 
 										+ " order by f.datainicio");
 				if(lista!=null){    
 					listaFornecedorCidadeDatas= new ArrayList<>();
 					listaDatas = new ArrayList<>();
+					boolean semData = false;
+					String dataString = Formatacao.ConvercaoDataPadrao(new Date());
+					Date dataAtual = Formatacao.ConvercaoStringData(dataString);
 					for (int i = 0; i < lista.size(); i++) { 
-						DatasBean datasBean = new DatasBean();
-						datasBean.setDescricao(Formatacao.ConvercaoDataPadrao(lista.get(i).getDatainicio()));
-						datasBean.setNumerosemanas(lista.get(i).getNumerosemanas());
-						listaDatas.add(datasBean);
-						listaFornecedorCidadeDatas.add(datasBean);
+						String dataInicioString = Formatacao.ConvercaoDataPadrao(lista.get(i).getDatainicio());
+						Date dataIncio = Formatacao.ConvercaoStringData(dataInicioString);
+						if (dataIncio.before(dataAtual) && (listaDatas == null || listaDatas.isEmpty())) {
+							semData = true;
+						}else {
+							DatasBean datasBean = new DatasBean();
+							datasBean.setDescricao(Formatacao.ConvercaoDataPadrao(lista.get(i).getDatainicio()));
+							datasBean.setNumerosemanas(lista.get(i).getNumerosemanas());
+							listaDatas.add(datasBean);
+							listaFornecedorCidadeDatas.add(datasBean);
+							semData = false;
+						}
 					}
 					calendario = false;
 					comboDatas = true;
+					if (semData) {
+						Mensagem.lancarMensagemInfo("Nenhuma data encontrada", "");
+					}
 				}else{
-					calendario = false;
-					comboDatas = true;
-					Mensagem.lancarMensagemInfo("Nenhuma data encontrada", "");
+					calendario = true;
+					comboDatas = false;
 				}
 			}else{
 				calendario = true;
@@ -2117,6 +2129,9 @@ public class FiltrarEscolaMB implements Serializable {
 						|| listaFornecedorCidadeDatas.get(i).getNumerosemanas()==0){
 					listaDatas.add(listaFornecedorCidadeDatas.get(i));
 				}
+			}
+			if (listaDatas == null || listaDatas.isEmpty()) {
+				Mensagem.lancarMensagemErro("Nenhuma data disponivel com o número de semana informado", "");
 			}
 		}
 	}

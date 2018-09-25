@@ -228,7 +228,7 @@
 								value="#{filtrarEscolaMB.filtrarEscolaBean.ocurso.numerosemanas}"
 								disabled="#{filtrarEscolaMB.filtrarEscolaBean.possuiCurso}" >
 								<p:ajax event="blur" listener="#{filtrarEscolaMB.verificarDatasNumeroSemana()}"
-									update=":filtrarOrcamentocurso:datas, :filtrarOrcamentocurso:painel"/>
+									update=":filtrarOrcamentocurso:datas, :filtrarOrcamentocurso:painel, :filtrarOrcamentocurso:growl"/>
 							</p:inputText>
 						</h:panelGrid>
 						<h:panelGrid columns="2" style="width:100%;">
