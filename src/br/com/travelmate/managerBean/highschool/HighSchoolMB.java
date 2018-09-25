@@ -19,6 +19,7 @@ import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlehighschool;
 import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
 import br.com.travelmate.model.Highschool;
@@ -1062,5 +1063,22 @@ public class HighSchoolMB implements Serializable {
 		session.setAttribute("nomePrograma", "HighSchool");
 		session.setAttribute("chamadaTela", "HighSchool");
 		return "contratoHighSchool";
+	}
+	
+	
+	public void dadosCancelamento(Highschool highschool) {
+		if (highschool.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && highschool.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = highschool.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
 	}
 }

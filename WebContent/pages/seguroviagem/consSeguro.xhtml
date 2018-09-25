@@ -1379,14 +1379,15 @@
 							
 							<p:column headerText="Data Cancelamento"
 								style="text-align:left;width:80px;">
-
-								<h:outputText value="#{segurosCancelado.vendas.cancelanento.datasolicitacao}"
-									style="#{consultaSeguroViagemMB.cor(segurosCancelado)}">
-
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-
-								</h:outputText>
+								<p:commandLink action="#{consultaSeguroViagemMB.dadosCancelamento(segurosCancelado)}" update=":consultacursos:growl">
+									<h:outputText value="#{segurosCancelado.vendas.cancelamento.datasolicitacao}"
+										style="#{consultaSeguroViagemMB.cor(segurosCancelado)}">
+	
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+	
+									</h:outputText>
+								</p:commandLink>
 
 							</p:column>
 

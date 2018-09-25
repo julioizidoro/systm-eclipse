@@ -39,6 +39,7 @@ import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controledemipair;
@@ -994,5 +995,22 @@ public class DemiPairMB implements Serializable {
 		options.put("contentWidth", 550);
 		RequestContext.getCurrentInstance().openDialog("reciboTermoQuitacao", options, null);
 		return "";
+	}
+	
+	
+	public void dadosCancelamento(Demipair demipair) {
+		if (demipair.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && demipair.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = demipair.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
 	}
 }

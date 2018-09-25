@@ -742,11 +742,13 @@
 							</p:column>
 							<p:column headerText="Data Cancelamento"
 								style="text-align:center;width:115px;" sortBy="#{demipairCancelado.vendas.cancelamento.datasolicitacao}">
-								<h:outputText value="#{demipairCancelado.vendas.cancelamento.datasolicitacao}"
-									style="#{demiPairMB.cor(demipairCancelado)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
+								<p:commandLink action="#{demiPairMB.dadosCancelamento(demipairCancelado)}" update=":consultacursos:growl">
+									<h:outputText value="#{demipairCancelado.vendas.cancelamento.datasolicitacao}"
+										style="#{demiPairMB.cor(demipairCancelado)}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</p:commandLink>
 							</p:column>
 							<p:column headerText="Unidade" style="width:150px;"
 								styleClass="alinharCenter" sortBy="#{demipairCancelado.vendas.unidadenegocio.nomeFantasia}">

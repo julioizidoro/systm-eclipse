@@ -18,6 +18,7 @@ import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
+import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
@@ -1004,6 +1005,23 @@ public class CursosTeensMB implements Serializable {
 		options.put("contentWidth", 550);
 		RequestContext.getCurrentInstance().openDialog("reciboTermoQuitacao", options, null);
 		return "";
+	}
+	
+	
+	public void dadosCancelamento(Programasteens programasteens) {
+		if (programasteens.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && programasteens.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = programasteens.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
 	}
 
 }

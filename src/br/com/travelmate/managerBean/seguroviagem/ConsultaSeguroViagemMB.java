@@ -26,6 +26,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -35,6 +36,7 @@ import br.com.travelmate.facade.UsuarioFacade;
 
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
+import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
@@ -876,6 +878,23 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			return false;
 		}else {
 			return true;
+		}
+	}
+	
+	
+	public void dadosCancelamento(Seguroviagem seguroviagem) {
+		if (seguroviagem.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && seguroviagem.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = seguroviagem.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
 		}
 	}
 

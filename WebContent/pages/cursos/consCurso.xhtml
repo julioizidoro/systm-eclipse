@@ -734,21 +734,23 @@
 								<h:outputText value="#{cursosCancelada.vendas.cliente.nome}"
 									style="#{cursoMB.corNome(cursosCancelada)}" />
 							</p:column>
-							<p:column headerText="Data Inscrição" sortBy="#{cursosCancelada.dataInscricao}"
+							<p:column headerText="Data Venda" sortBy="#{cursosCancelada.vendas.dataVenda}"
 								style="text-align:center;width:115px;">
-								<h:outputText value="#{cursosCancelada.dataInscricao}"
+								<h:outputText value="#{cursosCancelada.vendas.dataVenda}"
 									style="#{cursoMB.cor(cursosCancelada)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Data Cancelamento" sortBy="#{cursosCancelada.vendas.cancelamento.datasolicitaca}"
+							<p:column headerText="Data Cancelamento" sortBy="#{cursosCancelada.vendas.cancelamento.datasolicitacao}"
 								style="text-align:center;width:115px;">
-								<h:outputText value="#{cursosCancelada.dataInicio}" 
-									style="#{cursoMB.cor(cursosCancelada)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
+								<p:commandLink action="#{cursoMB.dadosCancelamento(cursosCancelada)}" update=":consultacursos:growl">
+									<h:outputText value="#{cursosCancelada.vendas.cancelamento.datasolicitacao}" 
+										style="#{cursoMB.cor(cursosCancelada)}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</p:commandLink>
 							</p:column>
 							<p:column headerText="Unidade" sortBy="#{cursosCancelada.vendas.unidadenegocio.nomerelatorio}" style="width:110px;"
 								styleClass="alinharCenter">

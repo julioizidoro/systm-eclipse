@@ -709,16 +709,17 @@
 							<p:column headerText="Data Venda"
 								style="text-align:center;width:115px;" sortBy="#{workTravelCancelado.vendas.dataVenda}">
 								<h:outputText value="#{workTravelCancelado.vendas.dataVenda}" style="#{workTravelMB.cor(workTravelCancelado)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Data Cancelamento"
 								style="text-align:center;width:115px;" sortBy="#{workTravelCancelado.vendas.cancelamento.datasolicitacao}">
-								<h:outputText value="#{workTravelCancelado.vendas.cancelamento.datasolicitacao}" style="#{workTravelMB.cor(workTravelCancelado)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
+								<p:commandLink action="#{workTravelMB.dadosCancelamento(workTravelCancelado)}" update=":consultacursos:growl">
+									<h:outputText value="#{workTravelCancelado.vendas.cancelamento.datasolicitacao}" style="#{workTravelMB.cor(workTravelCancelado)}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</p:commandLink>
 							</p:column>
 							<p:column headerText="Tipo Work" style="width:100px;" sortBy="#{workTravel.tipo}"
 								styleClass="alinharCenter">

@@ -683,10 +683,12 @@
 							</p:column>
 							<p:column headerText="Data Cancelamento" sortBy="#{traineeCancelado.vendas.cancelamento.datasolicitacao}"
 								style="text-align:center;width:115px;">
-								<h:outputText value="#{traineeCancelado.cancelamento.datasolicitacao}" style="#{traineeMB.cor(traineeCancelado)}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
+								<p:commandLink action="#{traineeMB.dadosCancelamento(traineeCancelado)}" update=":consultacursos:growl">
+									<h:outputText value="#{traineeCancelado.vendas.cancelamento.datasolicitacao}" style="#{traineeMB.cor(traineeCancelado)}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</p:commandLink>
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;" sortBy="#{traineeCancelado.vendas.unidadenegocio.nomerelatorio}"
 								styleClass="alinharCenter">

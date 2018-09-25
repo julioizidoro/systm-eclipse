@@ -43,6 +43,7 @@ import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controleaupair;
 import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Unidadenegocio;
@@ -1022,6 +1023,24 @@ public class AuPairMB implements Serializable {
 //		session.setAttribute("voltar", voltar);
 //		return "consArquivo";
 //	}
+	
+	
+	
+	public void dadosCancelamento(Aupair aupair) {
+		if (aupair.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && aupair.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = aupair.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
+	}
 
 
 }

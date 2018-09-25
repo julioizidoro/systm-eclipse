@@ -45,6 +45,7 @@ import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
@@ -1076,5 +1077,22 @@ public class VoluntariadoMB implements Serializable {
 		session.setAttribute("nomePrograma", "Voluntariado");
 		session.setAttribute("chamadaTela", "Voluntariado");
 		return "contratoVoluntariado";
+	}
+	
+	
+	public void dadosCancelamento(Voluntariado voluntariado) {
+		if (voluntariado.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && voluntariado.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = voluntariado.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
 	}
 }

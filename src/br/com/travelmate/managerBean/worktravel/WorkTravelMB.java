@@ -43,6 +43,7 @@ import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Controlework;
 import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Unidadenegocio;
@@ -1027,6 +1028,23 @@ public class WorkTravelMB implements Serializable {
 		session.setAttribute("nomePrograma", "Worktravel");
 		session.setAttribute("chamadaTela", "Worktravel");
 		return "contratoWorkTravelPremium";
+	}
+	
+	
+	public void dadosCancelamento(Worktravel worktravel) {
+		if (worktravel.getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
+			Cancelamento cancelamento = worktravel.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
 	}
 	
 	

@@ -48,6 +48,17 @@
 				<legend id="iUsu3" style="margin-left: 2%; width: 70%">
 					<b>Dados Cancelamento</b>
 				</legend>
+				<h:panelGrid columns="1" style="width:92%;margin-left: 8%;">
+							<p:outputLabel
+								value="Motivo do Cancelamento"
+								for="motivocancelamento" class="fontepretas"
+								style="font-size: 11px" />
+							<p:inputTextarea id="motivocancelamento" cols="149" rows="4"
+								class="fontebranca" value="#{emissaoCancelamentoMB.cancelamento.motivo}"
+								/>
+
+						</h:panelGrid>
+						<br/><br/>
 				<h:panelGrid columns="4"
 					columnClasses="tamanho1, tamanho1, tamanho1, tamanho1"
 					style="margin-left:8%;">
@@ -133,7 +144,7 @@
 						title="Imprimir Termo de Cancelamento"
 						update="growl" style="margin-left:3%;"></p:commandButton>
 				</div>
-				<br></br>  
+				<br/><br/><br/>  
 				<div align="center" style="width:80%;margin-left: 9%;"> 
 					<p:commandButton icon="ui-icon-check"
 						value="Confirmar" action="#{emissaoCancelamentoMB.confirmar}"

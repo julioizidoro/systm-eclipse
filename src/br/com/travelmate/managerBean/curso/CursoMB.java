@@ -1230,5 +1230,22 @@ public class CursoMB implements Serializable {
 	
 	
 	
+	public void dadosCancelamento(Curso cursos) {
+		if (cursos.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && cursos.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = cursos.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
+	}
+	
+	
 	
 }

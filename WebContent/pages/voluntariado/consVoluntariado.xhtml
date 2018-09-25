@@ -1257,15 +1257,15 @@
 							<p:column headerText="Data Cancelamento"
 								sortBy="#{voluntariadoCancelada.vendas.cancelamento.datasolicitacao}"
 								style="text-align:center;width:100px;">
-
-								<h:outputText value="#{voluntariadoCancelada.vendas.cancelamento.datasolicitacao}"
-									style="#{voluntariadoMB.cor(voluntariadoCancelada)}">
-
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-
-								</h:outputText>
-
+								<p:commandLink action="#{voluntariadoMB.dadosCancelamento(voluntariadoCancelada)}" update=":consultacursos:growl">
+									<h:outputText value="#{voluntariadoCancelada.vendas.cancelamento.datasolicitacao}"
+										style="#{voluntariadoMB.cor(voluntariadoCancelada)}">
+	
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+	
+									</h:outputText>
+								</p:commandLink>
 							</p:column>
 
 							<p:column headerText="Unidade" style="width:130px;"
