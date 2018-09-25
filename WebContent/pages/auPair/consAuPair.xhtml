@@ -606,6 +606,11 @@
 									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
+							<p:column headerText="Data Cancelamento" sortBy="#{aupairCancelado.vendas.cancelamento.datasolicitacao}" style="text-align:center;width:115px;" >
+								<h:outputText value="#{aupairCancelado.vendas.cancelamento.datasolicitacao}"  style="#{auPairMB.cor(aupairCancelado)}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
 							<p:column headerText="Unidade" sortBy="#{aupairCancelado.vendas.unidadenegocio.nomeFantasia}" style="width:150px;" styleClass="alinharCenter">
 								<h:outputText
 									value="#{aupairCancelado.vendas.unidadenegocio.nomeFantasia}"  style="#{auPairMB.cor(aupairCancelado)}"/>

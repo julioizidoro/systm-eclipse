@@ -788,6 +788,13 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
+							<p:column headerText="Data Cancelamento" style="width:125px;" sortBy="#{highSchoolCancelada.vendas.cancelamento.datasolicitacao}">
+								<h:outputText value="#{highSchoolCancelada.vendas.cancelamento.datasolicitacao}"
+									style="#{highSchoolMB.cor(highSchoolCancelada)}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
 							<p:column headerText="Unidade" style="width:120px;"
 								sortBy="#{highSchoolCancelada.vendas.unidadenegocio.nomeFantasia}"
 								styleClass="alinharCenter">
