@@ -168,7 +168,7 @@ public class GerarArquivoRemessaItau {
         remessa.write(arquivoRemessaNormal.gerarDetalhe(conta, numeroSequencial, unidadePassar, bancoPassar.getAgencia(), bancoPassar.getConta(), bancoPassar.getDigitoconta()));
         numeroSequencial++;
   //      remessa.write(arquivoRemessaNormal.gerarMulta(conta, numeroSequencial, unidadePassar));
-        numeroSequencial++;
+        //numeroSequencial++;
         remessa.write(arquivoRemessaNormal.gerarTrailer(numeroSequencial));
         RetornoBean r = new RetornoBean();
         r.setCodigoOcorrencia("01");
