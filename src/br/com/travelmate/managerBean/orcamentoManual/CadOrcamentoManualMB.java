@@ -174,7 +174,7 @@ public class CadOrcamentoManualMB implements Serializable {
 		}
 		if (orcamentocurso == null) {
 			iniciarNovoOrcamento();
-			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+			dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
 		} else {
 			iniciarAlteracaoOrcamento();
 		}

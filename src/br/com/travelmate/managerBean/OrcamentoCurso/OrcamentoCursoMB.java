@@ -174,9 +174,9 @@ public class OrcamentoCursoMB implements Serializable {
 			verificarSeguroCancelamento();
 			if (cambioSeguro == null) {
 				CambioFacade cambioFacade = new CambioFacade();
-				cambioSeguro = cambioFacade.consultarCambioMoeda(
-						Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
-						valorSeguro.getMoedas().getIdmoedas());
+				cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+						Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+						valorSeguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			}
 		}   
 		if(resultadoOrcamentoBean.getListaOutrosProdutos()==null){
@@ -688,9 +688,9 @@ public class OrcamentoCursoMB implements Serializable {
 			seguroviagem.setValoresseguro(valorSeguro);
 			if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getNumeroSemanas() > 0)) {
 				CambioFacade cambioFacade = new CambioFacade();
-				cambioSeguro = cambioFacade.consultarCambioMoeda(
-						Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
-						valorSeguro.getMoedas().getIdmoedas());
+				cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+						Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+						valorSeguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				if (cambioSeguro != null) {
 					if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
 						seguroviagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroviagem.getDataInicio(),
@@ -713,9 +713,9 @@ public class OrcamentoCursoMB implements Serializable {
 			seguroviagem.setValoresseguro(valorSeguro);
 			if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getDataTermino() != null)) {
 				CambioFacade cambioFacade = new CambioFacade();
-				cambioSeguro = cambioFacade.consultarCambioMoeda(
-						Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
-						valorSeguro.getMoedas().getIdmoedas());
+				cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+						Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+						valorSeguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				if (cambioSeguro != null) {
 					seguroviagem.setNumeroSemanas(Formatacao.subtrairDatas(seguroviagem.getDataInicio(), seguroviagem.getDataTermino()) + 1);
 					if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {

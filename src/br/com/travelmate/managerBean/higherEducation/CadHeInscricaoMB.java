@@ -166,7 +166,7 @@ public class CadHeInscricaoMB implements Serializable {
 		if (he != null) {
 			iniciarAlteracao();
 		} else {
-			dataCambio = aplicacaoMB.getListaCambio().get(0).getData();
+			dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
 			iniciarNovo();
 		}
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();

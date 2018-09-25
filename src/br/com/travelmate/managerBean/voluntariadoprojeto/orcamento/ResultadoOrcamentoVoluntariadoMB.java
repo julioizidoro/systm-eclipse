@@ -284,7 +284,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 		if ((orcamento.getSeguroviagem().getDataInicio() != null) && (orcamento.getSeguroviagem().getNumeroSemanas() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(
-					Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
+					Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 					orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				if (orcamento.getSeguroviagem().getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
@@ -309,7 +309,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 		if ((orcamento.getSeguroviagem().getDataInicio() != null) && (orcamento.getSeguroviagem().getDataTermino() != null)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(
-					Formatacao.ConvercaoDataSql(aplicacaoMB.getListaCambio().get(0).getData()),
+					Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 					orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				orcamento.getSeguroviagem().setNumeroSemanas(Formatacao.subtrairDatas(orcamento.getSeguroviagem().getDataInicio(), orcamento.getSeguroviagem().getDataTermino()) + 1);
