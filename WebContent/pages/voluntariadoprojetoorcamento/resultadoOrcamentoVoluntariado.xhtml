@@ -392,11 +392,11 @@
 							<p:ajax event="change" />
 							<p:ajax event="dateSelect" />
 							<p:ajax event="dateSelect"
-								update="datainicio, valorseguro, :resultadoOrcamento:valormoeda, semanas"
+								update="datainicio, valorseguro, valormoeda, semanas"
 								listener="#{resultadoOrcamentoVoluntariadoMB.calcularDataTerminoData()}" />
 							<p:ajax event="blur"
 								listener="#{resultadoOrcamentoVoluntariadoMB.somarValorTotal()}"
-								update="resultadoOrcamento:tabelatotal, :resultadoOrcamento:valormoeda , :resultadoOrcamento:valorseguro," />
+								update="resultadoOrcamento:tabelatotal, valormoeda , :resultadoOrcamento:valorseguro," />
 							<p:ajax event="blur"
 								listener="#{resultadoOrcamentoVoluntariadoMB.convertendoValoresSeguro()}"
 								update="resultadoOrcamento:tabelatotal, valorunitarioRS, valorseguro, valormoeda" />

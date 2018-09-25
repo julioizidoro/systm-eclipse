@@ -298,7 +298,9 @@ public class CadCursoMB implements Serializable {
 					if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1
 							|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2) {
 						editarEscola = "false";
-					} else {
+					} else if(curso.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")){
+						editarEscola = "false";
+					}else {
 						editarEscola = "true";
 					}
 				}
