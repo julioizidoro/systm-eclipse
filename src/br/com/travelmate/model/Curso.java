@@ -248,6 +248,12 @@ public class Curso implements Serializable {
 	private Acomodacaocurso acomodacaocurso;
 	@Column(name = "uploadapplication")
 	private boolean uploadapplication;
+	@Column(name = "idfornecedorapplication")
+	private int idfornecedorapplication;
+	@Transient
+	private boolean imprimirApplication;
+	@Transient
+	private boolean escolherApplication;
 
 	public Curso() {
 		setFumante("Não");
@@ -928,6 +934,30 @@ public class Curso implements Serializable {
 
 	public void setUploadapplication(boolean uploadapplication) {
 		this.uploadapplication = uploadapplication;
+	}
+
+	public int getIdfornecedorapplication() {
+		return idfornecedorapplication;
+	}
+
+	public void setIdfornecedorapplication(int idfornecedorapplication) {
+		this.idfornecedorapplication = idfornecedorapplication;
+	}
+
+	public boolean isImprimirApplication() {
+		return imprimirApplication;
+	}
+
+	public void setImprimirApplication(boolean imprimirApplication) {
+		this.imprimirApplication = imprimirApplication;
+	}
+
+	public boolean isEscolherApplication() {
+		return escolherApplication;
+	}
+
+	public void setEscolherApplication(boolean escolherApplication) {
+		this.escolherApplication = escolherApplication;
 	}
 
 	@Override

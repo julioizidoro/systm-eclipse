@@ -188,10 +188,10 @@ public class UploadApplicationMB implements Serializable{
 			return false;
 		}
 		
-		if (!upload) {
-			Mensagem.lancarMensagemInfo("Favor anexar um application", "");
-			return false;
-		}
+//		if (!upload) {
+//			Mensagem.lancarMensagemInfo("Favor anexar um application", "");
+//			return false;
+//		}
 		return true;
 	}
 	

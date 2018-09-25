@@ -261,6 +261,7 @@ public class CadCursoMB implements Serializable {
 	private boolean semmascara = true;
 	private boolean acomodacaoEscola = false;
 	private Vendas vendaAlterada;
+	private int idFornecedorApplication = 0;
 
 	@PostConstruct()
 	public void init() {
@@ -1695,6 +1696,7 @@ public class CadCursoMB implements Serializable {
 				curso.setEscola(fornecedorCidade.getFornecedor().getNome());
 				if (verificarApplication()) {
 					curso.setUploadapplication(true);
+					curso.setIdfornecedorapplication(idFornecedorApplication);
 				}else {
 					curso.setUploadapplication(false);
 				}
@@ -1807,10 +1809,11 @@ public class CadCursoMB implements Serializable {
 	public boolean verificarApplication() {
 		Produtosorcamento produtosorcamento = null;
 		for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
-			if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento().getTipoproduto().equalsIgnoreCase("C")) {
+			Produtosorcamento produto = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento();
+			if (produto.getTipoproduto().equalsIgnoreCase("C")) {
 				produtosorcamento = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento();
+				 i = 100000;
 			}
-			 i = 100000;
 		}
 		String sql = "SELECT f FROM Fornecedorapplication f WHERE f.pais.idpais=" + pais.getIdpais() + " AND f.fornecedor.idfornecedor=" + fornecedorCidade.getFornecedor().getIdfornecedor();
 		if (produtosorcamento != null) {
@@ -1821,6 +1824,7 @@ public class CadCursoMB implements Serializable {
 		if (listaFornecedor == null || listaFornecedor.isEmpty()) {
 			return false;
 		}else {
+			idFornecedorApplication = listaFornecedor.get(0).getIdfornecedorapplication();
 			return true;
 		}
 	}

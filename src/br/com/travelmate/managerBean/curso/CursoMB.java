@@ -37,6 +37,7 @@ import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
+import br.com.travelmate.facade.FornecedorApplicationFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
@@ -55,8 +56,11 @@ import br.com.travelmate.model.Credito;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Fornecedorapplication;
 import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Orcamentoprodutosorcamento;
 import br.com.travelmate.model.Parcelamentopagamento;
+import br.com.travelmate.model.Produtosorcamento;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
@@ -1064,6 +1068,19 @@ public class CursoMB implements Serializable {
 		listaVendasCursoProcesso = new ArrayList<>();
 		listaVendasCursoFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaVendasCurso.size(); i++) {
+			FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
+			Fornecedorapplication fornecedorapplication = fornecedorApplicationFacade.consultar("SELECT f FROM Fornecedorapplication f WHERE f.idfornecedorapplication="
+					+ listaVendasCurso.get(i).getIdfornecedorapplication());
+			if (fornecedorapplication == null) {
+				listaVendasCurso.get(i).setEscolherApplication(true);
+				listaVendasCurso.get(i).setImprimirApplication(false);
+			}else if(fornecedorapplication.getProdutosorcamento().getIdprodutosOrcamento() == 2 || fornecedorapplication.getProdutosorcamento().getIdprodutosOrcamento() == 17) {
+				listaVendasCurso.get(i).setEscolherApplication(true);
+				listaVendasCurso.get(i).setImprimirApplication(false);
+			}else {
+				listaVendasCurso.get(i).setEscolherApplication(false);
+				listaVendasCurso.get(i).setImprimirApplication(true);
+			}
 			if (listaVendasCurso.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
 				listaVendasCursoFinalizada.add(listaVendasCurso.get(i));
@@ -1205,6 +1222,37 @@ public class CursoMB implements Serializable {
 		return "contratoCurso";
 	}
 	
+	
+	public String escolherApplication(Curso cursos) {
+		if (cursos.isUploadapplication()) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("fornecedorcidade", cursos.getVendas().getFornecedorcidade());
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 250);
+			RequestContext.getCurrentInstance().openDialog("escolherApplication", options, null);
+		}
+		return "";
+	}
+	
+	
+	
+	public String imprimirApplication(Curso cursos) {
+		FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
+		Fornecedorapplication fornecedorapplication = null;
+		fornecedorapplication = fornecedorApplicationFacade
+				.consultar("SELECT f FROM Fornecedorapplication f WHERE f.idfornecedorapplication="
+						+ cursos.getIdfornecedorapplication());
+		if (fornecedorapplication != null) {
+			try {
+				String url = "//local.systm.com.br/application/" + fornecedorapplication.getNomearquivo();
+				FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
 	
 	
 	

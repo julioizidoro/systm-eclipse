@@ -23,6 +23,7 @@ import br.com.travelmate.facade.FornecedorApplicationFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
 import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.model.Fornecedorapplication;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Fornecedorcidadeidiomaproduto;
@@ -294,6 +295,11 @@ public class ApplicationCursoMB implements Serializable{
 				for (int i = 0; i < lista.size(); i++) {
 					listaProdutosOrcamento.add(lista.get(i).getProdutosorcamento());
 				}
+				ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
+				Produtosorcamento produtosorcamento = produtoOrcamentoFacade.consultar(2);
+				listaProdutosOrcamento.add(produtosorcamento);
+				produtosorcamento = produtoOrcamentoFacade.consultar(17);
+				listaProdutosOrcamento.add(produtosorcamento);
 			}
 		}
 	}

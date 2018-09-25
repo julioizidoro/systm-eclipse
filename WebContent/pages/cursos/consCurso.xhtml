@@ -131,8 +131,14 @@
 									<h:outputText value="#{cursosProcesso.vendas.idvendas}" />
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursosProcesso.vendas.cliente.nome}" style="width:160px;">
-								<h:outputText value="#{cursosProcesso.vendas.cliente.nome}"
-									style="#{cursoMB.corNome(cursosProcesso)}" />
+								<p:commandLink  action="#{cursoMB.escolherApplication(cursosProcesso)}" rendered="#{cursosProcesso.escolherApplication}">
+										<h:outputText value="#{cursosProcesso.vendas.cliente.nome}"
+											style="#{cursoMB.corNome(cursosProcesso)}" />
+									</p:commandLink>
+								<p:commandLink  action="#{cursoMB.imprimirApplication(cursosProcesso)}" target="_blank" ajax="false" rendered="#{cursosProcesso.imprimirApplication}">
+										<h:outputText value="#{cursosProcesso.vendas.cliente.nome}"
+											style="#{cursoMB.corNome(cursosProcesso)}" />
+									</p:commandLink>
 							</p:column>
 							<p:column headerText="Data Inscrição" sortBy="#{cursosProcesso.dataInscricao}"
 								style="text-align:center;width:115px;">
@@ -332,8 +338,11 @@
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursosFinanceiro.vendas.cliente.nome}" style="width:155px;">
-								<h:outputText value="#{cursosFinanceiro.vendas.cliente.nome}"
-									style="#{cursoMB.corNome(cursosFinanceiro)}" />
+								
+									<p:commandLink  action="#{cursoMB.imprimirApplication(cursosFinanceiro)}">
+										<h:outputText value="#{cursosFinanceiro.vendas.cliente.nome}"
+											style="#{cursoMB.corNome(cursosFinanceiro)}" />
+									</p:commandLink>
 							</p:column>
 							<p:column headerText="Data Inscrição" sortBy="#{cursosFinanceiro.dataInscricao}"
 								style="text-align:center;width:115px;">  

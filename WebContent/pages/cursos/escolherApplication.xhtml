@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<link href="../../resources/css/bootstrap.min.css" rel="stylesheet"
+		media="screen" />
+
+</h:head>
+<h:body style="background:#DDDDE1;">
+	<f:view encoding="ISO-8859-1">
+		<h:form id="filtrarRelatorioCobranca"
+			style="text-align:left;font-size: 10px; margin-left: 7%; ">
+			
+			<title>Escolha o Programa</title>
+			
+			<p:outputLabel value="Tipo" for="tipocurso"
+				style="margin-left:3%">
+			</p:outputLabel>
+			<br />
+
+			<p:selectOneMenu id="tipocurso"
+						value="#{escolherApplicationMB.produtosorcamento}"
+						style="width:190px;font-size:12px;" converter="OrcamentoProdutoConverter"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Selecione Curso" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems id="idtipocurso"
+							value="#{escolherApplicationMB.listaProdutosOrcamento}"
+							var="tipocurso" itemLabel="#{tipocurso.descricao}"
+							itemValue="#{tipocurso}" />
+						<f:attribute name="listaProdutosOrcamento"
+							value="#{escolherApplicationMB.listaProdutosOrcamento}" />
+							<p:ajax event="change" listener="#{escolherApplicationMB.verificarImpressao()}" update="idconfirmar"/>
+					</p:selectOneMenu>
+			<br />
+			<br /><br /><br /><br />
+			<div align="center">
+				<p:commandButton value="Imprimir" id="idconfirmar" disabled="#{escolherApplicationMB.desabilitarImpressao}"
+					onclick="this.form.target='_blank'" icon="ui-icon-check"
+					action="#{escolherApplicationMB.imprimirApplication()}" ajax="false" />
+				<p:commandButton style="margin-left: 2%" icon="ui-icon-close"
+					value="Cancelar" action="#{relatorioCobrancaMB.fechar()}"></p:commandButton>
+			</div>
+			<br />
+		</h:form>
+	</f:view>
+</h:body>
+</html>
