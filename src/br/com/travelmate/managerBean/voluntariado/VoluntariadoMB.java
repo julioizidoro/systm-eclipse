@@ -443,32 +443,11 @@ public class VoluntariadoMB implements Serializable {
 			} else {
 				voluntariado.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 			}
-		} else if (voluntariado.getVendas().getSituacao().equals("ANDAMENTO")) {
-			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
-				voluntariado.setHabilitarImagemGerencial(true);
-				voluntariado.setHabilitarImagemFranquia(false);
-			} else {
-				voluntariado.setHabilitarImagemGerencial(false);
-				voluntariado.setHabilitarImagemFranquia(true);
-			}
-			voluntariado.setImagem("../../resources/img/amarelaFicha.png");
-			voluntariado.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
-		} else if (voluntariado.getVendas().getSituacao().equals("CANCELADA")) {
+		}  else if (voluntariado.getVendas().getSituacao().equals("CANCELADA")) {
 			voluntariado.setHabilitarImagemGerencial(false);
 			voluntariado.setHabilitarImagemFranquia(true);
 			voluntariado.setImagem("../../resources/img/fichaCancelada.png");
 			voluntariado.setTituloFicha("FICHA CANCELADA");
-		} else if ((voluntariado.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
-				&& (voluntariado.getVendas().isRestricaoparcelamento())) {
-			if (usuarioLogadoMB.isFinanceiro()) {
-				voluntariado.setHabilitarImagemGerencial(true);
-				voluntariado.setHabilitarImagemFranquia(false);
-			} else {
-				voluntariado.setHabilitarImagemGerencial(false);
-				voluntariado.setHabilitarImagemFranquia(true);
-			}
-			voluntariado.setImagem("../../resources/img/ficharestricao.png");
-			voluntariado.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else {
 			voluntariado.setHabilitarImagemGerencial(false);
 			voluntariado.setHabilitarImagemFranquia(true);

@@ -1647,23 +1647,7 @@ public class CadCursoMB implements Serializable {
 				} else {
 					enviarFicha = true;
 				}
-				if (enviarFicha) {
-					if ((nsituacao.equalsIgnoreCase("")) || (nsituacao.equalsIgnoreCase("PROCESSO"))) {
-						boolean verificaParcelamento = false;
-						verificaParcelamento = Formatacao
-								.veririfcarParcelamento(formaPagamento.getParcelamentopagamentoList());
-						venda.setRestricaoparcelamento(verificaParcelamento);
-						if (verificaParcelamento) {
-							Mensagem.lancarMensagemWarn("Data Vencimento",
-									"As parcelas possuem data de vencimento após o inicio do programa. Entrar em contato com Financeiro");
-						} 
-						
-					}
-				} else {
-					if (nsituacao.equalsIgnoreCase("")) {
-						nsituacao = "PROCESSO";
-					}
-				}
+				
 				if (venda.getIdvendas() == null) {
 					nsituacao = "PROCESSO";
 				}

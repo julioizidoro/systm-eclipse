@@ -424,32 +424,11 @@ public class WorkTravelMB implements Serializable {
 			}else {
 				work.setTituloFicha("FINANCEIRO - AGUARDANDO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 			}
-		} else if (work.getVendas().getSituacao().equals("ANDAMENTO")) {
-			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4) {
-				work.setHabilitarImagemGerencial(true);
-				work.setHabilitarImagemFranquia(false);
-			} else {
-				work.setHabilitarImagemGerencial(false);
-				work.setHabilitarImagemFranquia(true);
-			}
-			work.setImagem("../../resources/img/amarelaFicha.png");
-			work.setTituloFicha("ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)");
-		} else if (work.getVendas().getSituacao().equals("CANCELADA")) {
+		}  else if (work.getVendas().getSituacao().equals("CANCELADA")) {
 			work.setHabilitarImagemGerencial(false);
 			work.setHabilitarImagemFranquia(true);
 			work.setImagem("../../resources/img/fichaCancelada.png");
 			work.setTituloFicha("FICHA CANCELADA");
-		} else if ((work.getVendas().getSituacao().equalsIgnoreCase("PROCESSO"))
-				&& (work.getVendas().isRestricaoparcelamento())) {
-			if (usuarioLogadoMB.isFinanceiro()) {
-				work.setHabilitarImagemGerencial(true);
-				work.setHabilitarImagemFranquia(false);
-			} else {
-				work.setHabilitarImagemGerencial(false);
-				work.setHabilitarImagemFranquia(true);
-			}
-			work.setImagem("../../resources/img/ficharestricao.png");
-			work.setTituloFicha("FINANCEIRO (FICHA EM ANÁLISE NO DEPARTAMENTO FINANCEIRO)");
 		} else {
 			work.setHabilitarImagemGerencial(false);
 			work.setHabilitarImagemFranquia(true);
