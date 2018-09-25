@@ -297,6 +297,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 				float valornacional = orcamento.getSeguroviagem().getValoresseguro().getValorgross() * cambioSeguro.getValor();
 				orcamento.getSeguroviagem().setValorSeguro(valornacional * orcamento.getSeguroviagem().getNumeroSemanas());
 				somarValorTotal();
+				convertendoValoresSeguro();
 				if (orcamento.getSeguroviagem().getValorSeguro() != null) {
 					orcamento.getSeguroviagem().setValorMoedaEstrangeira(
 							orcamento.getSeguroviagem().getValorSeguro() / cambioSeguro.getValor());
@@ -323,6 +324,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 				float valornacional = orcamento.getSeguroviagem().getValoresseguro().getValorgross() * cambioSeguro.getValor();
 				orcamento.getSeguroviagem().setValorSeguro(valornacional * orcamento.getSeguroviagem().getNumeroSemanas());
 				somarValorTotal();
+				convertendoValoresSeguro();
 				if (orcamento.getSeguroviagem().getValorSeguro() != null) {
 					orcamento.getSeguroviagem().setValorMoedaEstrangeira(
 							orcamento.getSeguroviagem().getValorSeguro() / cambioSeguro.getValor());
