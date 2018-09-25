@@ -489,11 +489,11 @@
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
-						<p:ajax event="dateSelect" update="datatermino, valorseguro, :orcamentoCurso:valormoeda, semanas, datatermino"
+						<p:ajax event="dateSelect" update="datatermino, valorseguro, valormoeda, semanas, datatermino, orcamentoCurso:tabelatotal"
 							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
 						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.calcularTotais()}"
-							update="orcamentoCurso:tabelatotal, :orcamentoCurso:valormoeda , :orcamentoCurso:valorseguro," />
+							update="orcamentoCurso:tabelatotal, valormoeda , :orcamentoCurso:valorseguro," />
 						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.corDescricaoSeguro()}" />
 						<p:ajax event="change"
@@ -508,11 +508,11 @@
 						class="loginButton2" 
 						disabled="#{orcamentoCursoMB.habilitarSeguro()}">
 						<f:convertNumber type="number" />
-						<p:ajax event="blur" update="datatermino, valorseguro, :orcamentoCurso:valormoeda"
+						<p:ajax event="blur" update="datatermino, valorseguro, valormoeda, orcamentoCurso:tabelatotal"
 							listener="#{orcamentoCursoMB.calcularDataTermino()}" />
 						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.calcularTotais()}"
-							update="orcamentoCurso:tabelatotal, :orcamentoCurso:valormoeda , :orcamentoCurso:valorseguro," />
+							update="orcamentoCurso:tabelatotal, valormoeda , :orcamentoCurso:valorseguro," />
 						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.corDescricaoSeguro()}" />
 						<p:ajax event="change"
@@ -530,16 +530,10 @@
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
-						<p:ajax event="dateSelect" update="valorseguro, :orcamentoCurso:valormoeda, semanas, datainicio"
+						<p:ajax event="dateSelect" update="valorseguro, valormoeda, semanas, datainicio, orcamentoCurso:tabelatotal"
 							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
 						<p:ajax event="blur"
-							listener="#{orcamentoCursoMB.calcularTotais()}"
-							update="orcamentoCurso:tabelatotal, :orcamentoCurso:valormoeda , :orcamentoCurso:valorseguro," />
-						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.corDescricaoSeguro()}" />
-						<p:ajax event="change"
-							listener="#{orcamentoCursoMB.convertendoValoresSeguro()}"
-							update="orcamentoCurso:tabelatotal, valorunitarioRS, valorseguro, valormoeda" />
 					</p:calendar>
 					<p:outputLabel value="Valor Total:" for="valormoeda"
 						style="font-weight:bold;font-size: 12px;margin-left:5%" />

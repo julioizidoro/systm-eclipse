@@ -507,11 +507,14 @@
 									itemValue="#{cvalorseguro}" />
 								<f:attribute name="listaValorSeguro"
 									value="#{cadOrcamentoManualMB.listaValoresSeguro}" />
-								<p:ajax
+								<p:ajax event="change"
 									listener="#{cadOrcamentoManualMB.carregarCobrancaSeguro()}"
 									update="cobranca, painelseguro" />
-								<p:ajax
+								<p:ajax event="change"
 									listener="#{cadOrcamentoManualMB.calcularNumeroDiasSeguro()}"
+									update="valorunitario, valorunitarioRS, datainicio, semanas, datatermino, valormoeda, valorseguro" />
+								<p:ajax event="change"
+									listener="#{cadOrcamentoManualMB.convertendoValoresSeguro()}"
 									update="valorunitario, valorunitarioRS, datainicio, semanas, datatermino, valormoeda, valorseguro" />
 							</p:selectOneMenu>
 
@@ -550,7 +553,7 @@
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
 								<p:ajax event="dateSelect"
-									update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
+									update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista, valormoeda"
 									listener="#{cadOrcamentoManualMB.dataTerminoSeguro()}" />
 							</p:calendar>
 
@@ -572,7 +575,7 @@
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="dateSelect"
-									update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista"
+									update="semanas, datatermino, valorseguro, idpagamentoavista, idparcelamentoantesviagem, idparcelamentoemcartaocredito, idparcelamentoemcheque, tabelaprodutoscurso,produto, telaCadOrcamento:growl, valortotal, valoreal, valor, idpagamentoavista, valormoeda"
 									listener="#{cadOrcamentoManualMB.calcularNumeroDiasSeguro()}" />
 							</p:calendar>
 

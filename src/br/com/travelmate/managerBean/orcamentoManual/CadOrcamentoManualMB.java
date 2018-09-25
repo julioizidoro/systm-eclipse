@@ -1774,7 +1774,7 @@ public class CadOrcamentoManualMB implements Serializable {
 	}
 
 	public void dataTerminoSeguro() {
-		if ((seguroViagem.getDatainicio() != null) && (seguroViagem.getNumerodias() > 0)) {
+		if ((seguroViagem.getDatainicio() != null) && (seguroViagem.getNumerodias() != null && seguroViagem.getNumerodias() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			if (seguroViagem.getValoresseguro()!=null){
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
@@ -1837,12 +1837,23 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	  
 	public void convertendoValoresSeguro(){  
-		if(cambio==null || cambio.getValor()==null){
-			Mensagem.lancarMensagemErro("Atenção!", "Cambio não informado.");
-		}else{
-			valorTotalSeguroDola = seguroViagem.getNumerodias() * seguroViagem.getValoresseguro().getValorgross();
-			valorUtilitarioRS = seguroViagem.getValoresseguro().getValorgross() * cambio.getValor();
+		CambioFacade cambioFacade = new CambioFacade();
+		Cambio cambioSeguro = null;
+		if (seguroViagem.getValoresseguro()!=null){
+			cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+				seguroViagem.getValoresseguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		}
+		float valorCambio;
+		if (cambioSeguro != null) {
+			valorCambio = cambioSeguro.getValor();
+		}else {
+			valorCambio = 0.0f;
+		}
+		if (seguroViagem.getNumerodias() != null && seguroViagem.getValoresseguro().getValorgross() != null) {
+			valorTotalSeguroDola = seguroViagem.getNumerodias() * seguroViagem.getValoresseguro().getValorgross();
+		}
+		valorUtilitarioRS = seguroViagem.getValoresseguro().getValorgross() * valorCambio;
 	}
 	
 	
