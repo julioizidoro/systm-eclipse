@@ -491,6 +491,8 @@
 						<p:ajax event="dateSelect" />
 						<p:ajax event="dateSelect" update="datatermino, valorseguro, valormoeda, semanas, datatermino, orcamentoCurso:tabelatotal"
 							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
+						<p:ajax event="change" update="datatermino, valorseguro, valormoeda, semanas, datatermino, orcamentoCurso:tabelatotal"
+							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
 						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.calcularTotais()}"
 							update="orcamentoCurso:tabelatotal, valormoeda , :orcamentoCurso:valorseguro," />
@@ -531,6 +533,8 @@
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
 						<p:ajax event="dateSelect" update="valorseguro, valormoeda, semanas, datainicio, orcamentoCurso:tabelatotal"
+							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
+						<p:ajax event="change" update="valorseguro, valormoeda, semanas, datainicio, orcamentoCurso:tabelatotal"
 							listener="#{orcamentoCursoMB.calcularDataTerminoData()}" />
 						<p:ajax event="blur"
 							listener="#{orcamentoCursoMB.corDescricaoSeguro()}" />
