@@ -13,9 +13,9 @@ import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
-import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
@@ -45,6 +45,8 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private LeadDao leadDao;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private LeadResponsavelDao leadResponsavelDao;
 	@Inject
@@ -349,7 +351,6 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			
 
 			if(listaResponsavel != null && listaResponsavel.size() >0){
-				AvisosFacade avisosFacade = new AvisosFacade();
 				Avisos avisos = new Avisos();
 				avisos.setData(new Date());
 				avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -358,7 +359,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 				avisos.setTexto("Você recebeu uma nova lead - " + lead.getCliente().getNome() + ". Incluida por " + usuarioLogadoMB.getUsuario().getNome() 
 						+ ". No dia: " + Formatacao.ConvercaoDataPadrao(new Date()));
 				avisos.setIdunidade(0); 
-				avisos = avisosFacade.salvar(avisos);
+				avisos = avisosDao.salvar(avisos);
 				List<Avisousuario> lista = new ArrayList<Avisousuario>();
 				for (int i=0;i<listaResponsavel.size();i++) {
 					Avisousuario avisousuario = new Avisousuario();  
@@ -368,7 +369,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 					lista.add(avisousuario);
 				}
 				avisos.setAvisousuarioList(lista);
-				avisos = avisosFacade.salvar(avisos);
+				avisos = avisosDao.salvar(avisos);
 				RequestContext.getCurrentInstance().closeDialog(lead);
 			}
 		}else{

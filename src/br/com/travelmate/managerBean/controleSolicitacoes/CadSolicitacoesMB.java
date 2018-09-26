@@ -11,7 +11,8 @@ import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
+
 import br.com.travelmate.facade.TiSolicitacoesFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -36,6 +37,8 @@ public class CadSolicitacoesMB implements Serializable{
 	
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
+	private AvisosDao avisosDao;
 	private Tisolicitacoes tisolicitacoes;
 	private Departamento departamento;
 	private List<Departamento> listaDepartamento;
@@ -177,7 +180,6 @@ public class CadSolicitacoesMB implements Serializable{
 	
 	
 	public void notificarNovaSolicitacao(){
-		AvisosFacade avisosFacade = new AvisosFacade();
 		Avisos avisos = new Avisos();
 		Avisousuario avisousuario = new Avisousuario();
 		avisos.setData(new Date());
@@ -188,14 +190,14 @@ public class CadSolicitacoesMB implements Serializable{
 		avisos.setIdvenda(0);
 		avisos.setUsuario(usuario);
 		avisos.setTexto("Nova Solicitação de " + usuario.getNome() + " da unidade " + usuario.getUnidadenegocio().getNomerelatorio());
-		avisos = avisosFacade.salvar(avisos);
+		avisos = avisosDao.salvar(avisos);
 		List<Usuario> listaUsuario = GerarListas.listarUsuarios("SELECT u FROM Usuario u WHERE (u.idusuario=1 or u.idusuario=125 or u.idusuario=134)");
 		for (int i = 0; i < listaUsuario.size(); i++) {
 			avisousuario = new Avisousuario();
 			avisousuario.setAvisos(avisos);
 			avisousuario.setUsuario(listaUsuario.get(i));
 			avisousuario.setVisto(false);
-			avisosFacade.salvar(avisousuario);
+			avisosDao.salvar(avisousuario);
 		}
 	}
 	

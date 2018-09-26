@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.NotificacaoFacade;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Notificacao;
@@ -27,6 +27,8 @@ public class PollMB implements Serializable {
 	* 
 	*/
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -75,24 +77,23 @@ public class PollMB implements Serializable {
 	public void gerarListaAviso(String tipo) {
 		List<Avisousuario> listaAvisos;
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 15, "yyyy/MM/dd");
-		AvisosFacade avisosFacade = new AvisosFacade();
 		String sql = "Select a from Avisousuario a where a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario() +
 				 "  and a.avisos.imagem='promocao' and a.visto=false "+
 				 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc";
-		listaAvisos = avisosFacade.listarAvisoUsuario(sql);
+		listaAvisos = avisosDao.listarAvisoUsuario(sql);
 		numeroPromocao = listaAvisos.size();
 		//
 		sql = "Select a from Avisousuario a where a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario() +
 				 "  and (a.avisos.imagem='aviso' or a.avisos.imagem='lead') and a.visto=false "+
 				 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc";
-		listaAvisos = avisosFacade.listarAvisoUsuario(sql);
+		listaAvisos = avisosDao.listarAvisoUsuario(sql);
 		numeroAtencao = listaAvisos.size();
 		//
 	
 		sql = "Select a from Avisousuario a where a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario() +
 		 "  and a.avisos.imagem='Upload' and a.visto=false "+
 		 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc";
-		listaAvisos = avisosFacade.listarAvisoUsuario(sql);
+		listaAvisos = avisosDao.listarAvisoUsuario(sql);
 		numeroUpload = listaAvisos.size();
 	/*	if (tipo.equalsIgnoreCase("p")) {
 			dashBoardMB.gerarDadosDashBoard();

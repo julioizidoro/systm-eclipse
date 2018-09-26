@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.voluntariadoprojeto;
 
-import br.com.travelmate.facade.AvisosFacade; 
+import br.com.travelmate.dao.AvisosDao;
+
 import br.com.travelmate.facade.FornecedorCidadeFacade; 
 import br.com.travelmate.facade.FornecedorFacade; 
 import br.com.travelmate.facade.PaisFacade; 
@@ -44,6 +45,8 @@ public class VoluntariadoProjetoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -301,9 +304,8 @@ public class VoluntariadoProjetoMB implements Serializable {
 		aviso.setLiberar(true);
 		aviso.setDepartamento("outros");
 		aviso.setUsuario(usuarioLogadoMB.getUsuario());
-		AvisosFacade avisosFacade = new AvisosFacade();
 		aviso.setAvisousuarioList(salvarAvisoUsuario(aviso));
-		aviso = avisosFacade.salvar(aviso);
+		aviso = avisosDao.salvar(aviso);
 
 	}
 

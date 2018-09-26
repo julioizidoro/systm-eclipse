@@ -14,7 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
+
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.FornecedorCidadeDepoimentoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -35,6 +36,8 @@ public class FornecedorCidadeDepoimentoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Fornecedorcidadedepoimento> listaDepoimento; 
@@ -131,14 +134,13 @@ public class FornecedorCidadeDepoimentoMB implements Serializable {
 				avisos.setDepartamento("outros");   
 				avisos.setTexto("Novo depoimento inserido por "
 									+usuarioLogadoMB.getUsuario().getNome()+" aguardando aprovação!");
-				AvisosFacade avisosFacade = new AvisosFacade();
-				avisos =  avisosFacade.salvar(avisos);
+				avisos =  avisosDao.salvar(avisos);
 				for (int i = 0; i < lista.size(); i++) {
 					Avisousuario avisousuario = new Avisousuario();
 					avisousuario.setAvisos(avisos);
 					avisousuario.setUsuario(lista.get(i));
 					avisousuario.setVisto(false);
-					avisosFacade.salvar(avisousuario);
+					avisosDao.salvar(avisousuario);
 				}
 			}
 		}else{

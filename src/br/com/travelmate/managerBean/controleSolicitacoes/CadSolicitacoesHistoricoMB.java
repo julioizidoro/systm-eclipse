@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.TiSolicitacoesHistoricoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
@@ -35,6 +35,8 @@ public class CadSolicitacoesHistoricoMB implements Serializable{
 	
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
+	private AvisosDao avisosDao;
 	private Tisolicitacoes tisolicitacoes;
 	private Tisolicitacoeshistorico tisolicitacoeshistorico;
 	
@@ -120,7 +122,6 @@ public class CadSolicitacoesHistoricoMB implements Serializable{
 	
 	
 	public void notificarNovaSolicitacao(){
-		AvisosFacade avisosFacade = new AvisosFacade();
 		Avisos avisos = new Avisos();
 		Avisousuario avisousuario = new Avisousuario();
 		avisos.setData(new Date());
@@ -131,14 +132,14 @@ public class CadSolicitacoesHistoricoMB implements Serializable{
 		avisos.setLiberar(true);
 		avisos.setIdvenda(0);
 		avisos.setTexto("Nova histórico inserido na solicitação de " + usuarioLogadoMB.getUsuario().getNome() + " da unidade " + usuarioLogadoMB.getUsuario().getUnidadenegocio().getNomerelatorio());
-		avisos = avisosFacade.salvar(avisos);
+		avisos = avisosDao.salvar(avisos);
 		List<Usuario> listaUsuario = GerarListas.listarUsuarios("SELECT u FROM Usuario u WHERE (u.idusuario=1 or u.idusuario=125 or u.idusuario=134)");
 		for (int i = 0; i < listaUsuario.size(); i++) {
 			avisousuario = new Avisousuario();
 			avisousuario.setAvisos(avisos);
 			avisousuario.setUsuario(listaUsuario.get(i));
 			avisousuario.setVisto(false);
-			avisosFacade.salvar(avisousuario);
+			avisosDao.salvar(avisousuario);
 		}
 	}
 	

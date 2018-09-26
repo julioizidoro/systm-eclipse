@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
-import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.PaisFacade;
@@ -53,6 +53,8 @@ public class CadLeadMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private LeadDao leadDao;
 	@Inject
@@ -424,7 +426,6 @@ public class CadLeadMB implements Serializable {
 			}
 
 			if(consultor.getIdusuario()!=usuarioLogadoMB.getUsuario().getIdusuario()){
-				AvisosFacade avisosFacade = new AvisosFacade();
 				Avisos avisos = new Avisos();
 				avisos.setData(new Date());
 				avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -440,7 +441,7 @@ public class CadLeadMB implements Serializable {
 				avisousuario.setVisto(false); 
 				lista.add(avisousuario);
 				avisos.setAvisousuarioList(lista);
-				avisos = avisosFacade.salvar(avisos);
+				avisos = avisosDao.salvar(avisos);
 			}
 			RequestContext.getCurrentInstance().closeDialog(lead);
 		}else{

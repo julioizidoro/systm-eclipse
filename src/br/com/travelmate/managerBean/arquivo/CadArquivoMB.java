@@ -24,12 +24,12 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.GerarBoletosBean;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.AupairFacade;
-import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -90,6 +90,8 @@ public class CadArquivoMB implements Serializable {
 
 	@Inject
 	private LeadPosVendaDao leadPosVendaDao;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -344,7 +346,6 @@ public class CadArquivoMB implements Serializable {
 				if (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 					if (aplicacaoMB.getParametrosprodutos().getCursos() != idproduto) {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) {
-							AvisosFacade avisosFacade = new AvisosFacade();
 							Avisos avisos = new Avisos();
 							avisos.setData(new Date());
 							avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -354,7 +355,7 @@ public class CadArquivoMB implements Serializable {
 							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
 									+ cliente.getNome() + " - " + vendas.getProdutos().getDescricao() + " | " + obs);
 							avisos.setIdunidade(0);
-							avisos = avisosFacade.salvar(avisos);
+							avisos = avisosDao.salvar(avisos);
 							salvarAvisoUsuario(avisos);
 							if (arquivos.getTipoarquivo().isPertencefinanceiro()) {
 								notificarFinanceiro(avisos);
@@ -363,7 +364,6 @@ public class CadArquivoMB implements Serializable {
 					}
 				} else if (vendas.getSituacao().equalsIgnoreCase("FINALIZADA")) {
 					if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) {
-						AvisosFacade avisosFacade = new AvisosFacade();
 						Avisos avisos = new Avisos();
 						avisos.setData(new Date());
 						avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -373,7 +373,7 @@ public class CadArquivoMB implements Serializable {
 						avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " " + cliente.getNome()
 								+ " - " + vendas.getProdutos().getDescricao() + " | " + obs);
 						avisos.setIdunidade(0);
-						avisos = avisosFacade.salvar(avisos);
+						avisos = avisosDao.salvar(avisos);
 						salvarAvisoUsuario(avisos);
 						if (arquivos.getTipoarquivo().isPertencefinanceiro()) {
 							notificarFinanceiro(avisos);
@@ -383,7 +383,6 @@ public class CadArquivoMB implements Serializable {
 				if (vendas.getUnidadenegocio().getIdunidadeNegocio() == 2) {
 					if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null) {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) {
-							AvisosFacade avisosFacade = new AvisosFacade();
 							Avisos avisos = new Avisos();
 							avisos.setData(new Date());
 							avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -393,7 +392,7 @@ public class CadArquivoMB implements Serializable {
 							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
 									+ cliente.getNome() + " - " + vendas.getProdutos().getDescricao() + " | " + obs);
 							avisos.setIdunidade(0);
-							avisos = avisosFacade.salvar(avisos);
+							avisos = avisosDao.salvar(avisos);
 							salvarAvisoUsuarioVinculado(avisos);
 							if (arquivos.getTipoarquivo().isPertencefinanceiro()
 									&& !vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
@@ -616,7 +615,6 @@ public class CadArquivoMB implements Serializable {
 					vendasDao.salvar(seguroviagem.getVendas());
 				}
 			}
-			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			int idprodutoCurso = aplicacaoMB.getParametrosprodutos().getCursos();
 			if (idprodutoCurso == vendas.getProdutos().getIdprodutos()) {
@@ -624,7 +622,6 @@ public class CadArquivoMB implements Serializable {
 			}
 			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L"))
 					&& (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
-				avisosFacade = new AvisosFacade();
 				avisos = new Avisos();
 				avisos.setData(new Date());
 				avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -633,7 +630,7 @@ public class CadArquivoMB implements Serializable {
 				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
 						+ vendas.getIdvendas() + " está finalizada.");
 				avisos.setIdunidade(0);
-				avisos = avisosFacade.salvar(avisos);
+				avisos = avisosDao.salvar(avisos);
 				salvarAvisoUsuario(avisos);
 			}
 		}
@@ -758,7 +755,6 @@ public class CadArquivoMB implements Serializable {
 			vendas.setSituacaogerencia("F");
 
 			vendasDao.salvar(vendas);
-			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
 			avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -767,11 +763,10 @@ public class CadArquivoMB implements Serializable {
 			avisos.setTexto("Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
-			avisos = avisosFacade.salvar(avisos);
+			avisos = avisosDao.salvar(avisos);
 			salvarAvisoUsuario(avisos);
 			if ((vendas.getSituacaofinanceiro().equalsIgnoreCase("L"))
 					&& (vendas.getSituacaogerencia().equalsIgnoreCase("F"))) {
-				avisosFacade = new AvisosFacade();
 				avisos = new Avisos();
 				avisos.setData(new Date());
 				avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -780,7 +775,7 @@ public class CadArquivoMB implements Serializable {
 				avisos.setTexto("Venda do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
 						+ vendas.getIdvendas() + " está finalizada.");
 				avisos.setIdunidade(0);
-				avisos = avisosFacade.salvar(avisos);
+				avisos = avisosDao.salvar(avisos);
 				salvarAvisoUsuario(avisos);
 			}
 
@@ -813,14 +808,13 @@ public class CadArquivoMB implements Serializable {
 					+ vendas.getUnidadenegocio().getIdunidadeNegocio() + " and u.vende=true or u.idusuario=1";
 			listaUsuario = usuarioFacade.listar(sql);
 			if (listaUsuario != null) {
-				AvisosFacade avisosFacade = new AvisosFacade();
 				for (int i = 0; i < listaUsuario.size(); i++) {
 					if (listaUsuario.get(i).getIdusuario() != 396) {
 						Avisousuario avisousuario = new Avisousuario();
 						avisousuario.setAvisos(aviso);
 						avisousuario.setUsuario(listaUsuario.get(i));
 						avisousuario.setVisto(false);
-						avisousuario = avisosFacade.salvar(avisousuario);
+						avisousuario = avisosDao.salvar(avisousuario);
 						lista.add(avisousuario);
 					}
 				}
@@ -836,14 +830,13 @@ public class CadArquivoMB implements Serializable {
 				UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
 				List<Usuariodepartamentounidade> listaNoficacao = usuarioDepartamentoUnidadeFacade.listar(sql);
 				if (listaNoficacao != null) {
-					AvisosFacade avisosFacade = new AvisosFacade();
 					for (int i = 0; i < listaNoficacao.size(); i++) {
 						if (listaNoficacao.get(i).getUsuario().getIdusuario() != 396) {
 							Avisousuario avisousuario = new Avisousuario();
 							avisousuario.setAvisos(aviso);
 							avisousuario.setUsuario(listaNoficacao.get(i).getUsuario());
 							avisousuario.setVisto(false);
-							avisousuario = avisosFacade.salvar(avisousuario);
+							avisousuario = avisosDao.salvar(avisousuario);
 							lista.add(avisousuario);
 						}
 					}
@@ -877,7 +870,6 @@ public class CadArquivoMB implements Serializable {
 	public void gerarNotificacaoUsuarioVinculado(String programa) {
 		if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null
 				&& usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size() > 0) {
-			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos aviso = new Avisos();
 			aviso.setData(new Date());
 			aviso.setUsuario(usuarioLogadoMB.getUsuario());
@@ -886,14 +878,14 @@ public class CadArquivoMB implements Serializable {
 			aviso.setTexto(programa + ": Upload do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
 					+ vendas.getIdvendas() + " está completo.");
 			aviso.setIdunidade(0);
-			aviso = avisosFacade.salvar(aviso);
+			aviso = avisosDao.salvar(aviso);
 			for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
 				Avisousuario avisousuario = new Avisousuario();
 				avisousuario.setAvisos(aviso);
 				avisousuario.setUsuario(
 						usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
 				avisousuario.setVisto(false);
-				avisousuario = avisosFacade.salvar(avisousuario);
+				avisousuario = avisosDao.salvar(avisousuario);
 			}
 		}
 	}
@@ -972,13 +964,12 @@ public class CadArquivoMB implements Serializable {
 	public List<Avisousuario> salvarAvisoUsuarioVinculado(Avisos aviso) {
 		List<Avisousuario> lista = new ArrayList<Avisousuario>();
 		for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
-			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisousuario avisousuario = new Avisousuario();
 			avisousuario.setAvisos(aviso);
 			avisousuario.setUsuario(
 					usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
 			avisousuario.setVisto(false);
-			avisousuario = avisosFacade.salvar(avisousuario);
+			avisousuario = avisosDao.salvar(avisousuario);
 		}
 		return lista;
 	}
@@ -994,14 +985,13 @@ public class CadArquivoMB implements Serializable {
 			UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
 			List<Usuariodepartamentounidade> listaNoficacao = usuarioDepartamentoUnidadeFacade.listar(sql);
 			if (listaNoficacao != null) {
-				AvisosFacade avisosFacade = new AvisosFacade();
 				for (int i = 0; i < listaNoficacao.size(); i++) {
 					if (listaNoficacao.get(i).getUsuario().getIdusuario() != 396) {
 						Avisousuario avisousuario = new Avisousuario();
 						avisousuario.setAvisos(aviso);
 						avisousuario.setUsuario(listaNoficacao.get(i).getUsuario());
 						avisousuario.setVisto(false);
-						avisousuario = avisosFacade.salvar(avisousuario);
+						avisousuario = avisosDao.salvar(avisousuario);
 					}
 				}
 			}

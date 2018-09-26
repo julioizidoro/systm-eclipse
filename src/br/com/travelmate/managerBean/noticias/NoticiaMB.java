@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -35,6 +35,8 @@ public class NoticiaMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Avisousuario> listaAvisosUsuario;
@@ -347,10 +349,9 @@ public class NoticiaMB implements Serializable{
 
 
 	public void gerarListaAvisosInicial(){
-		AvisosFacade avisosFacade = new AvisosFacade();
 		String  dataString = Formatacao.SubtarirDatas(new Date(), 15, "dd/MM/yyyy");
 		Date dataFiltro = Formatacao.ConvercaoStringData(dataString);
-		listaAvisosTudo = avisosFacade.listarAvisoUsuario("SELECT a FROM Avisousuario a WHERE a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario()
+		listaAvisosTudo = avisosDao.listarAvisoUsuario("SELECT a FROM Avisousuario a WHERE a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario()
 				 + " and a.avisos.data>='" + Formatacao.ConvercaoDataSql(dataFiltro) + "' order by a.avisos.data DESC");
 		if (listaAvisosTudo == null) {
 			listaAvisosTudo = new ArrayList<Avisousuario>();
@@ -381,7 +382,6 @@ public class NoticiaMB implements Serializable{
 	
 	
 	public void pesquisarAvisosUsuario(){
-		AvisosFacade avisosFacade = new AvisosFacade();
 		String sql = "SELECT a FROM Avisousuario a WHERE a.avisos.imagem like '%" + tipo + "%' and a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		if (departamento != null && departamento.getIddepartamento() != null) {
 			sql = sql + " and a.avisos.usuario.departamento.iddepartamento=" + departamento.getIddepartamento();
@@ -393,7 +393,7 @@ public class NoticiaMB implements Serializable{
 			sql = sql + " and a.avisos.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		sql = sql + " order by a.avisos.data DESC";
-		listaAvisosTudo = avisosFacade.listarAvisoUsuario(sql);
+		listaAvisosTudo = avisosDao.listarAvisoUsuario(sql);
 		if (listaAvisosTudo == null) {
 			listaAvisosTudo = new ArrayList<Avisousuario>();
 		}
@@ -434,9 +434,8 @@ public class NoticiaMB implements Serializable{
 	
 	
 	public void limparVisualizacao(Avisousuario avisousuario){
-		AvisosFacade avisosFacade = new AvisosFacade();
 		avisousuario.setVisto(true);
-		avisosFacade.salvar(avisousuario);
+		avisosDao.salvar(avisousuario);
 		Mensagem.lancarMensagemInfo("Salvo com sucesso!!", "");
 	}
 	
