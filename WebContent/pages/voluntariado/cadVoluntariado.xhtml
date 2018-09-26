@@ -844,6 +844,12 @@
 											timeZone="America/Sao_Paulo" />
 										<p:ajax event="change" />
 										<p:ajax event="dateSelect" />
+										<p:ajax event="dateSelect"
+											listener="#{cadVoluntariadoMB.calcularDataTermino()}"
+											update="datatermino, ndias, datainicio, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, valortotal" />
+										<p:ajax event="change"
+											listener="#{cadVoluntariadoMB.calcularDataTermino()}"
+											update="datatermino, ndias, datainicio, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, valortotal" />
 									</p:calendar> 
 									<p:inputText id="ndias"
 										value="#{cadVoluntariadoMB.seguroViagem.numeroSemanas}"
@@ -860,6 +866,14 @@
 										disabled="#{cadVoluntariadoMB.camposSeguroViagem}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
+										<p:ajax event="change"/>
+										<p:ajax event="dateSelect"/>
+										<p:ajax event="dateSelect"
+											listener="#{cadVoluntariadoMB.calcularDataTerminoData()}"
+											update="datatermino, ndias, datainicio, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, valortotal" />
+										<p:ajax event="change"
+											listener="#{cadVoluntariadoMB.calcularDataTerminoData()}"
+											update="datatermino, ndias, datainicio, valorseguro,  tabelaprodutos,formapagamentotabela, cadVoluntariado:growl, valorparcela, nparcela, valoraparcelar, tipoparcelamento, formPag2, saldoparcelar, saldoreceber, valortotal" />
 									</p:calendar>
 								</h:panelGrid>   
 							</h:panelGroup> 

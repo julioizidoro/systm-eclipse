@@ -48,7 +48,11 @@ import javax.swing.JComboBox;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.primefaces.model.UploadedFile;
+
+import com.amazonaws.util.JodaTime;
 
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.NotificacaoFacade;
@@ -922,10 +926,26 @@ public class Formatacao {
 		if (dataInicial==null) {
 			dataInicial = new Date();
 		}
+		DateTime dataI = new DateTime(dataInicial);
+		DateTime dataF = new DateTime(dataFinal);
 		int resultado = 0;
-		resultado = (int) ((dataFinal.getTime() - dataInicial.getTime()) / 86400000L);
+		//resultado = (int) ((dataFinal.getTime() - dataInicial.getTime()) / 86400000L);
+		resultado = Days.daysBetween(dataI, dataF).getDays();
 		return resultado;
 	}
+	
+	public static int subtrairDatasC(Date dataInicial, Date dataFinal) {
+		Calendar data = Calendar.getInstance();
+		data.setTime(dataFinal);
+		Calendar   inicio = Calendar.getInstance();
+		inicio.setTime(dataInicial);
+		int calendarioData = Calendar.DATE;
+		int calendarioInicio = -inicio.get(Calendar.DAY_OF_MONTH);
+		data.add(calendarioData, calendarioInicio);
+		return data.get(Calendar.DAY_OF_MONTH);
+	}
+	
+	
 
 	public static String foramtarHoraString() {
 		DateFormat formato = new SimpleDateFormat("HH:mm:ss");
