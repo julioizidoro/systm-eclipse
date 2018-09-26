@@ -1242,4 +1242,14 @@ public class ContasReceberMB implements Serializable {
 		Mensagem.lancarMensagemInfo("Cobrança", "Foram incluidas " + contador + " contas na cobrança");
 	}
 	
+	
+	public void eventosContas(Contasreceber contasreceber) {
+		if (usuarioLogadoMB.getUsuario().getGrupoacesso().getAcesso().isEventoscontasreceber()) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("contasreceber", contasreceber);
+			RequestContext.getCurrentInstance().openDialog("visualizarEventos");
+		}
+	}
+	
 }

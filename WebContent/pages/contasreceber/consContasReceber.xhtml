@@ -246,7 +246,9 @@
 					</p:column>
 
 					<p:column headerText="Nº Documento" style="width:75px;">
-						<p:outputLabel value="#{contasrecebe.numerodocumento}" style="#{contasReceberMB.retornarContaCobranca(contasrecebe)}"/>
+						<p:commandLink action="#{contasReceberMB.eventosContas(contasrecebe)}" >
+							<p:outputLabel value="#{contasrecebe.numerodocumento}" style="#{contasReceberMB.retornarContaCobranca(contasrecebe)}"/>
+						</p:commandLink>
 					</p:column>
 					
 					<p:column headerText="ID Vendas" style="width:80px;"  

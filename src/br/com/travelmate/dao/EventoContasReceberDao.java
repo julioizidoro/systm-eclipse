@@ -16,7 +16,7 @@ public class EventoContasReceberDao {
 	public List<Eventocontasreceber> listar(int idcontasreceber) throws SQLException{
 		EntityManager manager;
         manager = ConectionFactory.getConnection();
-        Query q = manager.createQuery("Select e Eventocontasreceber e where e.contasreceber.idcontasreceber=" + idcontasreceber);
+        Query q = manager.createQuery("SELECT e FROM Eventocontasreceber e WHERE e.contasreceber.idcontasreceber=" + idcontasreceber);
         List<Eventocontasreceber> lista = q.getResultList();
         manager.close();
         return lista;
