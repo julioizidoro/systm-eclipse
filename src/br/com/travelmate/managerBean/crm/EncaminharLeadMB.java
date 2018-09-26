@@ -19,6 +19,7 @@ import br.com.travelmate.dao.LeadEncaminhadoDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
 import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.ClienteFacade;
+import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
@@ -26,6 +27,8 @@ import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadencaminhado;
 import br.com.travelmate.model.Leadresponsavel;
+import br.com.travelmate.model.Pais;
+import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
@@ -62,6 +65,10 @@ public class EncaminharLeadMB implements Serializable {
 	private boolean trocaUnidade = false;
 	private List<Leadresponsavel> listaResponsavel;
 	private boolean desabilitarUsuario = false;
+	private Produtos produto;
+	private List<Produtos> listaProdutos;
+	private Pais pais;
+	private List<Pais> listaPais;
 
 	@PostConstruct
 	public void init() {
@@ -73,6 +80,8 @@ public class EncaminharLeadMB implements Serializable {
 		leadencaminhado.setLead(lead);
 		listaUnidade = GerarListas.listarUnidade();
 		listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
+		gerarListaPais();
+		gerarListaProdutos();
 		if(!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")){
 			listaResponsavel = retornarResponsavelUsuario();
 			if (listaResponsavel != null && listaResponsavel.size() > 0) {
@@ -87,6 +96,8 @@ public class EncaminharLeadMB implements Serializable {
 		}
 		tipocontato = lead.getTipocontato();
 		situacao = lead.getSituacao();
+		pais = lead.getPais();
+		produto = lead.getProdutos();
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -201,6 +212,38 @@ public class EncaminharLeadMB implements Serializable {
 		this.desabilitarUsuario = desabilitarUsuario;
 	}
 
+	public Produtos getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produtos produto) {
+		this.produto = produto;
+	}
+
+	public List<Produtos> getListaProdutos() {
+		return listaProdutos;
+	}
+
+	public void setListaProdutos(List<Produtos> listaProdutos) {
+		this.listaProdutos = listaProdutos;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
+	public List<Pais> getListaPais() {
+		return listaPais;
+	}
+
+	public void setListaPais(List<Pais> listaPais) {
+		this.listaPais = listaPais;
+	}
+
 	public String retornarCoresSituacao(int numeroSituacao) {
 		if (numeroSituacao == 1) {
 			return "#1E90FF;";
@@ -273,27 +316,59 @@ public class EncaminharLeadMB implements Serializable {
 	}
 	
 	public String salvar(){
-		leadencaminhado.setData(new Date());
-		leadencaminhado.setHora(Formatacao.foramtarHoraString());
-		leadencaminhado.setUsuariode(usuarioLogadoMB.getUsuario());
-		leadencaminhado.setUsuariopara(usuario);
-		leadEncaminhadoDao.salvar(leadencaminhado);
-		lead.setUnidadenegocio(unidadenegocio);
-		lead.setNomeunidade(unidadenegocio.getNomerelatorio());
-		lead.setSituacao(situacao);
-		lead.setTipocontato(tipocontato);
-		lead.setUsuario(usuario); 
-		if (lead.getDataenvio() == null) {
-			lead.setDataenvio(new Date());
+		if (validarDados()) {
+			leadencaminhado.setData(new Date());
+			leadencaminhado.setHora(Formatacao.foramtarHoraString());
+			leadencaminhado.setUsuariode(usuarioLogadoMB.getUsuario());
+			leadencaminhado.setUsuariopara(usuario);
+			leadEncaminhadoDao.salvar(leadencaminhado);
+			lead.setUnidadenegocio(unidadenegocio);
+			lead.setNomeunidade(unidadenegocio.getNomerelatorio());
+			lead.setSituacao(situacao);
+			lead.setTipocontato(tipocontato);
+			lead.setUsuario(usuario); 
+			lead.setPais(pais);
+			lead.setProdutos(produto);
+			if (lead.getDataenvio() == null) {
+				lead.setDataenvio(new Date());
+			}
+			leadDao.salvar(lead);
+			lead.getCliente().setUnidadenegocio(unidadenegocio);
+			ClienteFacade clienteFacade = new ClienteFacade();
+			lead.setCliente(clienteFacade.salvar(lead.getCliente()));
+			gerarAviso();
+			Mensagem.lancarMensagemInfo("Encaminhado com sucesso!", "");
+			RequestContext.getCurrentInstance().closeDialog(lead);
 		}
-		leadDao.salvar(lead);
-		lead.getCliente().setUnidadenegocio(unidadenegocio);
-		ClienteFacade clienteFacade = new ClienteFacade();
-		lead.setCliente(clienteFacade.salvar(lead.getCliente()));
-		gerarAviso();
-		Mensagem.lancarMensagemInfo("Encaminhado com sucesso!", "");
-		RequestContext.getCurrentInstance().closeDialog(lead);
 		return "";
+	}
+	
+	public boolean validarDados() {
+		if (usuario == null || usuario.getIdusuario() == null) {
+			Mensagem.lancarMensagemInfo("Usuario não informado", "");
+			return false;
+		}
+		
+		if (tipocontato == null || tipocontato.getIdtipocontato() == null) {
+			Mensagem.lancarMensagemInfo("Tipo de Contato não informado", "");
+			return false;
+		}
+		
+		if (unidadenegocio == null || unidadenegocio.getIdunidadeNegocio() == null) {
+			Mensagem.lancarMensagemInfo("Unidade não informada", "");
+			return false;
+		}
+		
+		if (produto == null || produto.getIdprodutos() == null) {
+			Mensagem.lancarMensagemInfo("Programa não informado", "");
+			return false;
+		}
+		
+		if (pais == null || pais.getIdpais() == null) {
+			Mensagem.lancarMensagemInfo("Pais não informado", "");
+			return false;
+		}
+		return true;
 	}
 	
 	public String cancelar(){ 
@@ -366,6 +441,24 @@ public class EncaminharLeadMB implements Serializable {
 			lista = new ArrayList<Leadresponsavel>();
 		}
 		return lista;
+	}
+	
+	
+	
+	public void gerarListaProdutos() {
+		listaProdutos = GerarListas.listarProdutos("");
+		if (listaProdutos==null) {
+			listaProdutos = new ArrayList<Produtos>();
+		}
+	}
+	   
+	
+	public void gerarListaPais() {
+		PaisFacade paisFacade = new PaisFacade();
+		listaPais = paisFacade.listar("");
+		if (listaPais==null) {
+			listaPais = new ArrayList<Pais>();
+		}
 	}
 	
 	
