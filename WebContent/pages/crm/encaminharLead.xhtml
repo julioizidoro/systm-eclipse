@@ -49,6 +49,12 @@
 							<p:outputLabel value="Tipo de Contato" />
 							<p:outputLabel value="#{encaminharLeadMB.lead.tipocontato.tipo}"
 								style="font-weight: inherit;" />
+							<p:outputLabel value="Programa" />
+							<p:outputLabel value="#{encaminharLeadMB.lead.produtos.descricao}"
+								style="font-weight: inherit;" />
+							<p:outputLabel value="Pais" />
+							<p:outputLabel value="#{encaminharLeadMB.lead.pais.nome}"
+								style="font-weight: inherit;" />
 						</h:panelGrid>
 					</div>
 				</h:panelGroup>
@@ -108,6 +114,27 @@
 								value="#{encaminharLeadMB.listaTipoContato}" />
 							<p:ajax event="change" />
 						</p:selectOneMenu>
+						<p:outputLabel value="Programa" />
+						<p:selectOneMenu id="produto" value="#{encaminharLeadMB.produto}"
+							style="width:90%;" converter="ProdutoConverter" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{encaminharLeadMB.listaProdutos}" var="produtos"
+								itemLabel="#{produtos.descricao}" itemValue="#{produtos}" />
+							<f:attribute name="listaProdutos"
+								value="#{encaminharLeadMB.listaProdutos}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Pais" />
+						<p:selectOneMenu id="pais" value="#{encaminharLeadMB.pais}"
+							style="width:90%;" converter="PaisConverterS" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="País" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems id="idpais" value="#{encaminharLeadMB.listaPais}"
+								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais}" />
+							<f:attribute name="listaPais" value="#{encaminharLeadMB.listaPais}" />
+						</p:selectOneMenu>
 					</h:panelGrid>
 
 					<p:overlayPanel id="painelSituacao" for="btnSituacao"
@@ -149,7 +176,7 @@
 			<br />
 			<div align="center">
 				<p:commandButton value="Confirmar" icon="ui-icon-check" action="#{encaminharLeadMB.salvar()}"
-					update="growl" style="font-size:12px;" />
+					update=":cadLeadHistorico:growl" style="font-size:12px;" />
 				<p:commandButton style="margin-left: 1%;font-size:12px;"
 					icon="ui-icon-close" value="Cancelar" action="#{encaminharLeadMB.cancelar()}" />
 			</div>
