@@ -189,7 +189,7 @@ public class UploadApplicationMB implements Serializable{
 		}
 		
 		FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
-		fornecedorapplication = fornecedorApplicationFacade.consultar("SELECT f FROM Fornecedorapplcation f WHERE f.fornecedor.idfornecedor=" + fornecedor.getIdfornecedor() 
+		fornecedorapplication = fornecedorApplicationFacade.consultar("SELECT f FROM Fornecedorapplication f WHERE f.fornecedor.idfornecedor=" + fornecedor.getIdfornecedor() 
 				+ " AND f.produtosorcamento.idprodutosOrcamento=" + produtosorcamento.getIdprodutosOrcamento() + " AND f.pais.idpais=" + pais.getIdpais());
 		if (fornecedorapplication == null) {
 			fornecedorapplication = new Fornecedorapplication();
