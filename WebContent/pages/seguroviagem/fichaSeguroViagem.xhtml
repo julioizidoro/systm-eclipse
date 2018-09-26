@@ -103,6 +103,12 @@
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="change" />
 								<p:ajax event="dateSelect" />
+								<p:ajax event="dateSelect"
+									update="semanas, datatermino, valorOrca, datainicio, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
+									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
+								<p:ajax event="change"
+									update="semanas, datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
+									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
 							</p:calendar>
 
 							<p:inputText id="semanas"
@@ -110,7 +116,7 @@
 								style="width:55%;" maxlength="45">
 								<f:convertNumber type="number" />
 								<p:ajax event="blur"
-									update="datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
+									update="datatermino, valorOrca, datainicio, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
 									listener="#{fichaSeguroViagemMB.calcularDataTermino()}" />
 							</p:inputText>
 
@@ -122,7 +128,9 @@
 								<p:ajax event="dateSelect"
 									update="semanas, datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
 									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
-
+								<p:ajax event="change"
+									update="semanas, datatermino, valorOrca, totalpag, saldoreceber,saldoparcelar, valoraparcelar,valorseguro,valorDoSeguroSemDesconto, :telaSeguro:growl"
+									listener="#{fichaSeguroViagemMB.calcularNumeroDiasSeguro()}" />
 							</p:calendar>
 							<p:inputText id="valorDoSeguroSemDesconto"
 								value="#{fichaSeguroViagemMB.valorSemDesconto}"
