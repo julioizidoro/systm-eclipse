@@ -161,10 +161,15 @@ public class UploadApplicationMB implements Serializable{
 
 	public void salvar() {
 		if (validarDados()) {
+			if (upload) {
+				fornecedorapplication.setNomearquivo(nomeArquivoFTP);
+			}else {
+
+				fornecedorapplication.setNomearquivo("");
+			}
 			fornecedorapplication.setFornecedor(fornecedor);
 			fornecedorapplication.setPais(pais);
 			fornecedorapplication.setProdutosorcamento(produtosorcamento);
-			fornecedorapplication.setNomearquivo(nomeArquivoFTP);
 			FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
 			fornecedorapplication = fornecedorApplicationFacade.salvar(fornecedorapplication);
 			RequestContext.getCurrentInstance().closeDialog(fornecedorapplication);
@@ -194,11 +199,6 @@ public class UploadApplicationMB implements Serializable{
 		if (fornecedorapplication == null) {
 			fornecedorapplication = new Fornecedorapplication();
 		}
-		
-//		if (!upload) {
-//			Mensagem.lancarMensagemInfo("Favor anexar um application", "");
-//			return false;
-//		}
 		return true;
 	}
 	
@@ -227,8 +227,10 @@ public class UploadApplicationMB implements Serializable{
 		File arquivoFile = s3.getFile(file, nomeArquivoFile);
 		if (s3.uploadFile(arquivoFile, "application")) {
 			msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
+			upload = true;
 		} else {
 			msg = " Erro no nome do arquivo";
+			upload = false;
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(msg, ""));

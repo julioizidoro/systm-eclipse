@@ -395,7 +395,7 @@ public class ApplicationCursoMB implements Serializable{
 			if (listaFornecedor == null) {
 				listaFornecedor = new ArrayList<Fornecedorapplication>();
 			}
-			listaFornecedor.add(fornecedorapplication);
+			gerarFornecedorApplication();
 		}
 	}
 	

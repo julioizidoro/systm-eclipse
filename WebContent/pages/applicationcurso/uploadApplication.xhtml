@@ -21,7 +21,7 @@
 			
             <h:panelGrid>
 				<p:fileUpload multiple="true"  label="Anexar" fileUploadListener="#{uploadApplicationMB.fileUploadListener}" value="#{uploadApplicationMB.file}"  mode="advanced" 
-                     update="growl" fileLimit="6" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" allowTypes="#{aplicacaoMB.parametrosprodutos.tipoupload}" >
+                     update="growl" fileLimit="6" sizeLimit="#{aplicacaoMB.parametrosprodutos.tamanhoupload}" allowTypes="/(\.|\/)(pdf|)$/" >
                 </p:fileUpload>
 			</h:panelGrid> 
              <p:outputLabel value="#{finalizarMB.nome}"/>
