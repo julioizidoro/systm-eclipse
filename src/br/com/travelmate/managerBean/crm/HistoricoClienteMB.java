@@ -128,6 +128,10 @@ public class HistoricoClienteMB implements Serializable {
 	private List<Produtos> listaProduto;
 	private String sql;
 	private Vendas vendas;
+	private boolean habilitarEdicao = false;
+	private boolean habilitarVisualizacao = true;
+	private Produtos programas;
+	private List<Produtos> listaProgramas;
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -138,6 +142,7 @@ public class HistoricoClienteMB implements Serializable {
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			listaLead = (List<Lead>) session.getAttribute("listaLead");
 			Object obj = session.getAttribute("posicao");
+			gerarListaProdutos();
 			if (obj!=null){
 				posicao = (int) obj;
 			}else posicao=0;
@@ -348,6 +353,38 @@ public class HistoricoClienteMB implements Serializable {
 
 	public void setListaProduto(List<Produtos> listaProduto) {
 		this.listaProduto = listaProduto;
+	}
+
+	public boolean isHabilitarEdicao() {
+		return habilitarEdicao;
+	}
+
+	public void setHabilitarEdicao(boolean habilitarEdicao) {
+		this.habilitarEdicao = habilitarEdicao;
+	}
+
+	public boolean isHabilitarVisualizacao() {
+		return habilitarVisualizacao;
+	}
+
+	public void setHabilitarVisualizacao(boolean habilitarVisualizacao) {
+		this.habilitarVisualizacao = habilitarVisualizacao;
+	}
+
+	public Produtos getProgramas() {
+		return programas;
+	}
+
+	public void setProgramas(Produtos programas) {
+		this.programas = programas;
+	}
+
+	public List<Produtos> getListaProgramas() {
+		return listaProgramas;
+	}
+
+	public void setListaProgramas(List<Produtos> listaProgramas) {
+		this.listaProgramas = listaProgramas;
 	}
 
 	public String followUp() {
@@ -1455,6 +1492,25 @@ public class HistoricoClienteMB implements Serializable {
 		return "fichaSeguroViagem";
 	}
 	
+	
+	public void editarProdutos() {
+		if (habilitarVisualizacao) {
+			habilitarVisualizacao = false;
+			habilitarEdicao = true;
+		}else {
+			leadDao.salvar(lead);
+			habilitarEdicao = false;
+			habilitarVisualizacao = true;
+		}
+	}
+	
+	
+	public void gerarListaProdutos() {
+		listaProgramas = GerarListas.listarProdutos("");
+		if (listaProgramas==null) {
+			listaProgramas =new ArrayList<Produtos>();
+		}
+	}
 	
 	
 
