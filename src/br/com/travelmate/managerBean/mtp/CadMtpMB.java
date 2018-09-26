@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
@@ -23,7 +24,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.MtpFacade;
@@ -49,6 +50,8 @@ public class CadMtpMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	private Departamento departamento;
 	private Mtp mtp;
 	private Pais pais;
@@ -310,7 +313,6 @@ public class CadMtpMB implements Serializable {
 
 	public void gerarAvisos() {
 		listarUsuario();
-		AvisosFacade avisosFacade = new AvisosFacade();
 		Avisousuario avisousuario;
 		Avisos avisos;
 		for (int i = 0; i < listaUsuario.size(); i++) {
@@ -324,11 +326,11 @@ public class CadMtpMB implements Serializable {
 			avisos.setImagem("aviso");
 			avisos.setTexto("Teremos um novo treinamento do departamento: " + departamento.getNome()
 					+ ", verifique nas consultas de MTP, " + " data e horario do treinamento.");
-			avisos = avisosFacade.salvar(avisos);
+			avisos = avisosDao.salvar(avisos);
 			avisousuario.setAvisos(avisos);
 			avisousuario.setUsuario(listaUsuario.get(i));
 			avisousuario.setVisto(true);
-			avisousuario = avisosFacade.salvar(avisousuario);
+			avisousuario = avisosDao.salvar(avisousuario);
 		}
 	}
 

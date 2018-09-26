@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
 import br.com.travelmate.facade.PromocaoBrindeCursoCidadeFacade;
 import br.com.travelmate.facade.PromocaoBrindeCursoFacade;
@@ -37,6 +37,8 @@ public class CadPromocoesBrindesMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Cidade> listaCidade;
@@ -273,7 +275,6 @@ public class CadPromocoesBrindesMB implements Serializable {
 	
 
 	public void salvarAvisos() {
-		AvisosFacade avisosFacade = new AvisosFacade();
 		Avisos aviso = new Avisos();
 		aviso.setUsuario(usuarioLogadoMB.getUsuario());
     	aviso.setData(new Date());
@@ -282,7 +283,7 @@ public class CadPromocoesBrindesMB implements Serializable {
 		aviso.setImagem("promocao");
 		aviso.setTexto(descricao);
 		aviso.setAvisousuarioList(salvarAvisoUsuario(aviso));
-		aviso = avisosFacade.salvar(aviso);
+		aviso = avisosDao.salvar(aviso);
 	}
 	
 	public List<Avisousuario> salvarAvisoUsuario(Avisos aviso){

@@ -19,10 +19,10 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.BolinhasBean;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.AupairFacade;
-import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
@@ -75,6 +75,8 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -547,7 +549,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 					vendasAcomodacao.setSituacao("FINALIZADA");
 					vendasDao.salvar(vendasAcomodacao);
 				}
-				AvisosFacade avisosFacade = new AvisosFacade();
+				
 				Avisos avisos = new Avisos();
 				avisos.setData(new Date());
 				avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -556,7 +558,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 				avisos.setTexto("Venda do cliente " + venda.getCliente().getNome() + ", Nº da venda "
 						+ venda.getIdvendas() + " está finalizada.");
 				avisos.setIdunidade(0);
-				avisos = avisosFacade.salvar(avisos);
+				avisos = avisosDao.salvar(avisos);
 				salvarAvisoUsuario(avisos);
 			}
 			String titulo = "";
@@ -811,12 +813,12 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 		List<Avisousuario> lista = new ArrayList<Avisousuario>();
 		if (venda.getUnidadenegocio().getIdunidadeNegocio() == 2) {
 			for (int i = 0; i < usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().size(); i++) {
-				AvisosFacade avisosFacade = new AvisosFacade();
+				
 				Avisousuario avisousuario = new Avisousuario();
 				avisousuario.setAvisos(aviso);
 				avisousuario.setUsuario(usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList().get(i).getUsuarioNotificar());
 				avisousuario.setVisto(false);
-				avisousuario = avisosFacade.salvar(avisousuario);
+				avisousuario = avisosDao.salvar(avisousuario);
 			}
 		}
 		return lista;

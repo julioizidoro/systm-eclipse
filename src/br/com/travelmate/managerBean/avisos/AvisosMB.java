@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -36,6 +36,8 @@ public class AvisosMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	@Inject
+	private AvisosDao avisosDao;
 	private List<Avisos> listaAviso;
 	private Usuario usuario;
 	private Unidadenegocio unidadenegocio;
@@ -185,8 +187,7 @@ public class AvisosMB implements Serializable {
 	}
 	
 	public void gerarListaAvisos(){
-		AvisosFacade avisosFacade = new AvisosFacade();
-		listaAviso = avisosFacade.lista(gerarSql());
+		listaAviso = avisosDao.listar(gerarSql());
 		if (listaAviso==null){
 			listaAviso = new ArrayList<Avisos>();
 		}
@@ -233,18 +234,16 @@ public class AvisosMB implements Serializable {
 	}
 	
 	public String excluir(Avisos aviso){
-		AvisosFacade avisosFacade = new AvisosFacade();
-		avisosFacade.excluir(aviso);
+		avisosDao.excluir(aviso);
 		listaAviso.remove(aviso);
 		return null;
 	}
 	
 	public void liberar(Avisos aviso){
-		AvisosFacade avisosFacade = new AvisosFacade();
 		if(aviso.isLiberar()==false){
 			aviso.setLiberar(true);
 		}else aviso.setLiberar(false);
-		aviso = avisosFacade.salvar(aviso);
+		aviso = avisosDao.salvar(aviso);
 	}
 	
 	public String pesquisar(){

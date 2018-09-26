@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.MtpFacade;
 import br.com.travelmate.facade.TreinamentoAcessoFacade;
@@ -51,6 +51,8 @@ public class MtpMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	private Mtp mtp;
 	private List<Mtp> listaMtp;
 	private Date dataInicial;
@@ -270,7 +272,6 @@ public class MtpMB implements Serializable {
 
 	public void gerarAvisos(Mtp mtp) {
 		listarUsuario();
-		AvisosFacade avisosFacade = new AvisosFacade();
 		Avisousuario avisousuario;
 		Avisos avisos = new Avisos();
 		avisos.setData(new Date());
@@ -281,13 +282,13 @@ public class MtpMB implements Serializable {
 		avisos.setImagem("aviso");
 		avisos.setTexto("Teremos um novo treinamento do departamento " + mtp.getDepartamento().getNome()
 				+ ", Verifique suas consultas de MTP, " + " data e hora.");
-		avisos = avisosFacade.salvar(avisos);
+		avisos = avisosDao.salvar(avisos);
 		for (int i = 0; i < listaUsuario.size(); i++) {
 			avisousuario = new Avisousuario();
 			avisousuario.setAvisos(avisos);
 			avisousuario.setUsuario(listaUsuario.get(i));
 			avisousuario.setVisto(true);
-			avisousuario = avisosFacade.salvar(avisousuario);
+			avisousuario = avisosDao.salvar(avisousuario);
 		}
 	}
 
@@ -301,7 +302,6 @@ public class MtpMB implements Serializable {
 			alteracoesMtp = alteracoesMtp + listaAlteracao.get(i).getAlteracao();
 		}
 		listarUsuario();
-		AvisosFacade avisosFacade = new AvisosFacade();
 		Avisousuario avisousuario;
 		Avisos avisos = new Avisos();
 		avisos.setData(new Date());
@@ -312,13 +312,13 @@ public class MtpMB implements Serializable {
 		avisos.setImagem("aviso");
 		avisos.setTexto("O treinamento do departamento " + nomeDepartamento + " teve algumas alterações como: "
 				+ alteracoesMtp);
-		avisos = avisosFacade.salvar(avisos);
+		avisos = avisosDao.salvar(avisos);
 		for (int i = 0; i < listaUsuario.size(); i++) {
 			avisousuario = new Avisousuario();
 			avisousuario.setAvisos(avisos);
 			avisousuario.setUsuario(listaUsuario.get(i));
 			avisousuario.setVisto(false);
-			avisousuario = avisosFacade.salvar(avisousuario);
+			avisousuario = avisosDao.salvar(avisousuario);
 		}
 	}
 

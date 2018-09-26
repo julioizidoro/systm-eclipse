@@ -6,7 +6,7 @@
 package br.com.travelmate.managerBean;
    
 import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -61,6 +61,8 @@ public class UsuarioLogadoMB implements Serializable {
 
 	@Inject
 	private AplicacaoMB aplicacaoMB; 
+	@Inject
+	private AvisosDao avisosDao;
 	private Usuario usuario;
 	private String novaSenha;
 	private String senhaAtual;
@@ -354,10 +356,9 @@ public class UsuarioLogadoMB implements Serializable {
 	}
 
 	public String carregarNotificacao(String tipo, String tipo2) {
-		AvisosFacade avisosFacade = new AvisosFacade();
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 15, "yyyy/MM/dd");
 		int numeroAviso = 0;
-		List<Avisousuario> listaAvisos = avisosFacade.listarAvisoUsuario("Select a from Avisousuario a where a.usuario.idusuario=" + usuario.getIdusuario() +
+		List<Avisousuario> listaAvisos = avisosDao.listarAvisoUsuario("Select a from Avisousuario a where a.usuario.idusuario=" + usuario.getIdusuario() +
 				 "  and (a.avisos.imagem='aviso' or a.avisos.imagem='lead') and a.visto=false "+
 				 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc");
 		if (listaAvisos == null) {
@@ -381,10 +382,9 @@ public class UsuarioLogadoMB implements Serializable {
 	}
 	
 	public String carregarNotificacaoPromocao(String tipo, String tipo2) {
-		AvisosFacade avisosFacade = new AvisosFacade();
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 15, "yyyy/MM/dd");
 		int numeroAviso = 0;
-		List<Avisousuario> listaAvisos = avisosFacade.listarAvisoUsuario("Select a from Avisousuario a where a.usuario.idusuario=" + usuario.getIdusuario() +
+		List<Avisousuario> listaAvisos = avisosDao.listarAvisoUsuario("Select a from Avisousuario a where a.usuario.idusuario=" + usuario.getIdusuario() +
 				 "  and (a.avisos.imagem='promocao') and a.visto=false "+
 				 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc");
 		if (listaAvisos == null) {
@@ -408,10 +408,9 @@ public class UsuarioLogadoMB implements Serializable {
 	}
 	
 	public String carregarNotificacaoUpload(String tipo, String tipo2) {
-		AvisosFacade avisosFacade = new AvisosFacade();
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 15, "yyyy/MM/dd");
 		int numeroAviso = 0;
-		List<Avisousuario> listaAvisos = avisosFacade.listarAvisoUsuario("Select a from Avisousuario a where a.usuario.idusuario=" + usuario.getIdusuario() +
+		List<Avisousuario> listaAvisos = avisosDao.listarAvisoUsuario("Select a from Avisousuario a where a.usuario.idusuario=" + usuario.getIdusuario() +
 				 "  and (a.avisos.imagem='Upload') and a.visto=false "+
 				 " and a.avisos.data>='" + dataConsulta + "' and a.avisos.liberar=1  order by a.avisos.data desc");
 		if (listaAvisos == null) {

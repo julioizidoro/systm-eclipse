@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.AvisosFacade;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
@@ -28,7 +28,8 @@ public class CadAvisosMB implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Inject 
-	private UsuarioLogadoMB usuarioLogadoMB;
+	private UsuarioLogadoMB usuarioLogadoMB;@Inject
+	private AvisosDao avisosDao;
 	private Avisos aviso;
 	
 	@PostConstruct 
@@ -61,11 +62,10 @@ public class CadAvisosMB implements Serializable{
 	}
 	
 	public String salvar(){
-		AvisosFacade avisosFacade = new AvisosFacade();
 		aviso.setIdunidade(0);
 		aviso.setLiberar(true);
 		aviso.setAvisousuarioList(salvarAvisoUsuario());
-		aviso = avisosFacade.salvar(aviso);
+		aviso = avisosDao.salvar(aviso);
 		RequestContext.getCurrentInstance().closeDialog(aviso);
 		return "";
 	}

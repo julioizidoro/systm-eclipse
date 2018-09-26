@@ -1,59 +1,55 @@
 package br.com.travelmate.dao;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 
 
 
 @SuppressWarnings("unchecked")
-public class AvisosDao {
+public class AvisosDao implements Serializable {
 	
-	public List<Avisos> listar(String sql) throws SQLException{
-		EntityManager manager = ConectionFactory.getInstance();
-        Query q = manager.createQuery(sql);
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private EntityManager manager;
+	
+	public List<Avisos> listar(String sql) {
+	    Query q = manager.createQuery(sql);
         List<Avisos> lista = q.getResultList();
         return lista;
     }
 	
-	public Avisos salvar(Avisos aviso) throws SQLException{
-		EntityManager manager = ConectionFactory.getInstance();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-        aviso = manager.merge(aviso);
-        tx.commit();
+	@Transactional
+	public Avisos salvar(Avisos aviso) {
+	    aviso = manager.merge(aviso);
         return aviso;
     }
     
-    public void excluir(Avisos aviso) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+	@Transactional
+	public void excluir(Avisos aviso) {
         aviso = manager.find(Avisos.class, aviso.getIdavisos());
         manager.remove(aviso);
-        tx.commit();
     }
     
-    public List<Avisousuario> listarAvisoUsuario(String sql) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
+    public List<Avisousuario> listarAvisoUsuario(String sql) {
         Query q = manager.createQuery(sql);
         List<Avisousuario> lista = q.getResultList();
         return lista;
     }
     
-    public Avisousuario salvar(Avisousuario avisoUsuario) throws SQLException{
-    	EntityManager manager = ConectionFactory.getInstance();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-        avisoUsuario = manager.merge(avisoUsuario);
-        tx.commit();
+    @Transactional
+    public Avisousuario salvar(Avisousuario avisoUsuario) {
+       avisoUsuario = manager.merge(avisoUsuario);
         return avisoUsuario;
     }
 

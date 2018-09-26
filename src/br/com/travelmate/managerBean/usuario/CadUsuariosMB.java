@@ -13,8 +13,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.GrupoAcessoFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -39,6 +40,8 @@ public class CadUsuariosMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L; 
+	@Inject 
+	private AcessoUnidadeDao acessoUnidadeDao;
 	@Inject
 	private LeadResponsavelDao leadResponsavelDao;
 	private Usuario usuario;
@@ -323,8 +326,7 @@ public class CadUsuariosMB implements Serializable {
 	}
 	
 	public void salvarAcessoUnidade() {
-		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-		Acessounidade acessounidade = acessoUnidadeFacade.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
+		Acessounidade acessounidade = acessoUnidadeDao.consultar("SELECT a FROM Acessounidade a WHERE a.usuario.idusuario="
 				+usuario.getIdusuario());
 		if(acessounidade==null || acessounidade.getIdacessounidade() == null) {
 			acessounidade = new Acessounidade();
@@ -336,7 +338,7 @@ public class CadUsuariosMB implements Serializable {
 			acessounidade.setUsuario(usuario);
 			acessounidade.setMargemfinanceira(true);
 			acessounidade.setPosvendaunidade(false);
-			acessounidade = acessoUnidadeFacade.salvar(acessounidade);
+			acessounidade = acessoUnidadeDao.salvar(acessounidade);
 		}
 	} 
 	

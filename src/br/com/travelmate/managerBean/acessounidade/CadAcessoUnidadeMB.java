@@ -10,7 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+import br.com.travelmate.dao.AcessoUnidadeDao;
+
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Acessounidade;
@@ -25,6 +26,8 @@ public class CadAcessoUnidadeMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L; 
+	@Inject 
+	private AcessoUnidadeDao acessoUnidadeDao;
 	@Inject 
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	private Acessounidade acessoUnidade;
@@ -90,8 +93,8 @@ public class CadAcessoUnidadeMB implements Serializable{
 	public String salvar() {
 		if(usuario!=null && usuario.getIdusuario()!=null) {
 			acessoUnidade.setUsuario(usuario);
-			AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
-			acessoUnidade = acessoUnidadeFacade.salvar(acessoUnidade);
+			
+			acessoUnidade = acessoUnidadeDao.salvar(acessoUnidade);
 			Mensagem.lancarMensagemInfo("Salvo com sucesso!", "");
 			return "consAcessoUnidade";
 		}else Mensagem.lancarMensagemErro("Atenção!", "Usuário não informado.");

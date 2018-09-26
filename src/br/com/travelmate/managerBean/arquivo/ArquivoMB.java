@@ -24,9 +24,9 @@ import org.primefaces.event.SelectEvent;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import br.com.travelmate.bean.ListaHeBean;
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.ArquivosKitViagemFacade;
-import br.com.travelmate.facade.AvisosFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade;
@@ -61,6 +61,8 @@ public class ArquivoMB implements Serializable {
 
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject 
+	private AvisosDao avisosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Arquivos> listarArquivos;
@@ -362,7 +364,6 @@ public class ArquivoMB implements Serializable {
 		} else {
 			arquivos.setSe(true);
 			arquivosFacade.salvar(arquivos);
-			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
 			avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -373,7 +374,7 @@ public class ArquivoMB implements Serializable {
 			avisos.setIdunidade(0);
 			avisos.setIdvenda(vendas.getIdvendas());
 			avisos.setAvisousuarioList(salvarAvisoUsuario(avisos));
-			avisos = avisosFacade.salvar(avisos);
+			avisos = avisosDao.salvar(avisos);
 			Mensagem.lancarMensagemInfo("Solicitação de exclusão enviada.", "");
 		}
 		return "";
@@ -548,7 +549,6 @@ public class ArquivoMB implements Serializable {
 			kitViagem = vendas.getArquivoskitviagem();
 			kitViagem = arquivosKitViagemFacade.salvar(kitViagem);
 			vendas.setArquivoskitviagem(kitViagem);
-			AvisosFacade avisosFacade = new AvisosFacade();
 			Avisos avisos = new Avisos();
 			avisos.setData(new Date());
 			avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -557,7 +557,7 @@ public class ArquivoMB implements Serializable {
 			avisos.setTexto("Kit Viagem do cliente " + vendas.getCliente().getNome() + ", Nº da venda "
 					+ vendas.getIdvendas() + " está completo.");
 			avisos.setIdunidade(0);
-			avisos = avisosFacade.salvar(avisos);
+			avisos = avisosDao.salvar(avisos);
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2
 					|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 5
 					|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 4
@@ -572,7 +572,7 @@ public class ArquivoMB implements Serializable {
 						avisousuario.setAvisos(avisos);
 						avisousuario.setUsuario(listaUsuario.get(i));
 						avisousuario.setVisto(false);
-						avisousuario = avisosFacade.salvar(avisousuario); 
+						avisousuario = avisosDao.salvar(avisousuario); 
 					}
 				}
 			}

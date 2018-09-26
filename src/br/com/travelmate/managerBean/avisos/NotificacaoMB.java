@@ -14,8 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.AvisosFacade;
+
 
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisousuario;
@@ -30,6 +31,8 @@ public class NotificacaoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	private List<Avisousuario> listaAvisos;
 	private String tipo;
 	private String tipo2;
@@ -86,7 +89,6 @@ public class NotificacaoMB implements Serializable{
 
 	public void gerarListaNotificacao(){
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 15, "yyyy/MM/dd");
-		AvisosFacade avisosFacade = new AvisosFacade();
 		String sql = "Select a from Avisousuario a where a.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario() +
 					 "  and (a.avisos.imagem='" + tipo + "'";
 		if(tipo2!=null && tipo2.length()>2) {
@@ -94,7 +96,7 @@ public class NotificacaoMB implements Serializable{
 		}
 		sql = sql + ") and a.visto=false "+  " and a.avisos.data>='" + dataConsulta 
 				  + "' and a.avisos.liberar=1  order by a.avisos.data desc";
-		listaAvisos= avisosFacade.listarAvisoUsuario(sql);
+		listaAvisos= avisosDao.listarAvisoUsuario(sql);
 		if (listaAvisos==null){
 			listaAvisos= new ArrayList<Avisousuario>();
 		}
@@ -138,8 +140,7 @@ public class NotificacaoMB implements Serializable{
 	
 	public String limparNotificacao(Avisousuario avisousuario){
 		avisousuario.setVisto(true);
-		AvisosFacade avisosFacade = new AvisosFacade();
-		avisosFacade.salvar(avisousuario);
+		avisosDao.salvar(avisousuario);
 		listaAvisos.remove(avisousuario);
 		return "";
 	}
@@ -149,8 +150,7 @@ public class NotificacaoMB implements Serializable{
 			for(int i=0;i<listaAvisos.size();i++){
 				Avisousuario aviso = listaAvisos.get(i);
 				aviso.setVisto(true);
-				AvisosFacade avisosFacade = new AvisosFacade();
-				avisosFacade.salvar(aviso);
+				avisosDao.salvar(aviso);
 			}
 			listaAvisos = new ArrayList<Avisousuario>();
 		}
