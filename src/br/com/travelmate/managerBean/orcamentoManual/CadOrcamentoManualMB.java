@@ -1763,7 +1763,7 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	public void calcularNumeroDiasSeguro() {
 		if ((seguroViagem.getDatainicio() != null) && (seguroViagem.getDatatermino() != null)) {
-			seguroViagem.setNumerodias(Formatacao.subtrairDatas(seguroViagem.getDatainicio(), seguroViagem.getDatatermino()) + 2);
+			seguroViagem.setNumerodias(Formatacao.subtrairDatas(seguroViagem.getDatainicio(), seguroViagem.getDatatermino()) + 1);
 			if (seguroViagem.getNumerodias() < 0) {
 				seguroViagem.setNumerodias(seguroViagem.getNumerodias() * -1);
 			}
