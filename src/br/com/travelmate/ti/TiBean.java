@@ -8,8 +8,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.travelmate.dao.AcessoUnidadeDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.AcessoUnidadeFacade;
+
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -35,6 +36,8 @@ public class TiBean implements Serializable{
 
 	@Inject
 	private VendasDao vendasDao;
+	@Inject 
+	private AcessoUnidadeDao acessoUnidadeDao;
 
 	private Parametrosprodutos parametros;
 
@@ -45,11 +48,10 @@ public class TiBean implements Serializable{
 	
 
 	public void salvarAcessoUnidade() {
-		AcessoUnidadeFacade acessoUnidadeFacade = new AcessoUnidadeFacade();
 		List<Usuario> listaUsuario = GerarListas
 				.listarUsuarios("SELECT u FROM Usuario u WHERE u.situacao='Ativo' ORDER BY u.nome");
 		for (int i = 0; i < listaUsuario.size(); i++) {
-			Acessounidade acessounidade = acessoUnidadeFacade.consultar(
+			Acessounidade acessounidade = acessoUnidadeDao.consultar(
 					"SELECT a FROM Acessounidade a WHERE a.usuario.idusuario=" + listaUsuario.get(i).getIdusuario());
 			if (acessounidade == null) {
 				acessounidade = new Acessounidade();
@@ -59,7 +61,7 @@ public class TiBean implements Serializable{
 				acessounidade.setDashboard(true);
 				acessounidade.setEmissaoconsulta(true);
 				acessounidade.setUsuario(listaUsuario.get(i));
-				acessounidade = acessoUnidadeFacade.salvar(acessounidade);
+				acessounidade = acessoUnidadeDao.salvar(acessounidade);
 			}
 		}
 	}
