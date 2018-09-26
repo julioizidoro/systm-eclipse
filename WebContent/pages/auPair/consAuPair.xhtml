@@ -607,7 +607,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Data Cancelamento" sortBy="#{aupairCancelado.vendas.cancelamento.datasolicitacao}" style="text-align:center;width:115px;" >
-								<p:commandLink action="#{auPairMB.dadosCancelamento(aupairCancelado)}" update=":consultacursos:growl">
+								<p:commandLink action="#{auPairMB.dadosCancelamento(aupairCancelado)}" >
 									<h:outputText value="#{aupairCancelado.vendas.cancelamento.datasolicitacao}"  style="#{auPairMB.cor(aupairCancelado)}">
 										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 									</h:outputText>

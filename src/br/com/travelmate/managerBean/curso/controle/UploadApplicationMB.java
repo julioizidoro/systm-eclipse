@@ -188,6 +188,13 @@ public class UploadApplicationMB implements Serializable{
 			return false;
 		}
 		
+		FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
+		fornecedorapplication = fornecedorApplicationFacade.consultar("SELECT f FROM Fornecedorapplcation f WHERE f.fornecedor.idfornecedor=" + fornecedor.getIdfornecedor() 
+				+ " AND f.produtosorcamento.idprodutosOrcamento=" + produtosorcamento.getIdprodutosOrcamento() + " AND f.pais.idpais=" + pais.getIdpais());
+		if (fornecedorapplication == null) {
+			fornecedorapplication = new Fornecedorapplication();
+		}
+		
 //		if (!upload) {
 //			Mensagem.lancarMensagemInfo("Favor anexar um application", "");
 //			return false;

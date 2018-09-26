@@ -1379,7 +1379,7 @@
 							
 							<p:column headerText="Data Cancelamento"
 								style="text-align:left;width:80px;">
-								<p:commandLink action="#{consultaSeguroViagemMB.dadosCancelamento(segurosCancelado)}" update=":consultacursos:growl">
+								<p:commandLink action="#{consultaSeguroViagemMB.dadosCancelamento(segurosCancelado)}" >
 									<h:outputText value="#{segurosCancelado.vendas.cancelamento.datasolicitacao}"
 										style="#{consultaSeguroViagemMB.cor(segurosCancelado)}">
 	

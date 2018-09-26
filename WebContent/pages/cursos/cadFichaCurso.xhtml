@@ -1223,6 +1223,12 @@
 											timeZone="America/Sao_Paulo" />
 										<p:ajax event="change" />
 										<p:ajax event="dateSelect" />
+										<p:ajax event="dateSelect"
+											update="semanas, checkBoxSeguro, datatermino, valorseguro, tabelaprodutoscurso, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl"
+											listener="#{cadCursoMB.calcularNumeroDiasSeguro()}" />
+										<p:ajax event="change"
+											update="semanas, checkBoxSeguro, datatermino, valorseguro, tabelaprodutoscurso, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl"
+											listener="#{cadCursoMB.calcularNumeroDiasSeguro()}" />
 									</p:calendar> 
 									<p:inputText id="semanas" 
 										value="#{cadCursoMB.seguroViagem.numeroSemanas}"
@@ -1238,7 +1244,12 @@
 										disabled="#{cadCursoMB.camposSeguroViagem}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
-										<p:ajax event="blur"
+										<p:ajax event="change" />
+										<p:ajax event="dateSelect" />
+										<p:ajax event="dateSelect"
+											update="semanas, checkBoxSeguro, datatermino, valorseguro, tabelaprodutoscurso, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl"
+											listener="#{cadCursoMB.calcularNumeroDiasSeguro()}" />
+										<p:ajax event="change"
 											update="semanas, checkBoxSeguro, datatermino, valorseguro, tabelaprodutoscurso, valortotal, valoreal, valor, totalpag, saldoreceber, valorOrca, saldoparcelar, valoraparcelar, telaFichaCurso:growl"
 											listener="#{cadCursoMB.calcularNumeroDiasSeguro()}" />
 									</p:calendar> 

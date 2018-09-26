@@ -702,7 +702,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			if (numeroDias < 0) {
 				numeroDias = numeroDias * -1;
 			}
-			seguro.setNumeroSemanas(numeroDias + 2);
+			seguro.setNumeroSemanas(numeroDias + 1);
 			calcularDataTermino();
 		}
 	}

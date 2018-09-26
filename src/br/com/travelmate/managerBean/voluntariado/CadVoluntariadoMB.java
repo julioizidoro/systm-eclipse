@@ -1478,13 +1478,54 @@ public class CadVoluntariadoMB implements Serializable {
 		} else
 			Mensagem.lancarMensagemErro("Atenção", "Cliente não selecionado");
 	}
+	
+	public void calcularDataTerminoData() {
+		if (cliente != null) {
+			int idadeCliente = Formatacao.calcularIdade(cliente.getDataNascimento());
+			if (seguroViagem.getValoresseguro().isAdiconal70()) {
+				if (idadeCliente >= 70) {
+					dataTermino70anosData();
+					Mensagem.lancarMensagemInfo("Atenção",
+							"aplica-se aumento de 50 % no valor do seguro para clientes acima de 70 anos!");
+				} else {
+					dataTerminoData();
+				}
+			} else {
+				if (idadeCliente >= 40) {
+					Mensagem.lancarMensagemErro("Atenção", "Cliente acima da idade permitida!");
+				} else {
+					dataTerminoData();
+				}
+			}
+		} else
+			Mensagem.lancarMensagemErro("Atenção", "Cliente não selecionado");
+	}
 
 	public void dataTermino() {
-		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getNumeroSemanas() > 0)) {
+		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getNumeroSemanas() != null && seguroViagem.getNumeroSemanas() > 0)) {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
+				seguroViagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDataInicio(),
+						seguroViagem.getNumeroSemanas()));
+				float valornacional = seguroViagem.getValoresseguro().getValorgross() * cambioSeguro.getValor();
+				if (seguroViagem.getValoresseguro().getCobranca().equalsIgnoreCase("Fixo")) {
+					seguroViagem.setValorSeguro(valornacional);
+				} else
+					seguroViagem.setValorSeguro(valornacional * seguroViagem.getNumeroSemanas());
+				calcularValorSeguroPrivadoListaProdutos();
+			}
+		}
+	}
+	
+	public void dataTerminoData() {
+		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getDataTermino() != null)) {
+			CambioFacade cambioFacade = new CambioFacade();
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
+			if (cambioSeguro != null) {
+				seguroViagem.setNumeroSemanas(Formatacao.subtrairDatas(seguroViagem.getDataInicio(), seguroViagem.getDataTermino()) + 1);
 				seguroViagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDataInicio(),
 						seguroViagem.getNumeroSemanas()));
 				float valornacional = seguroViagem.getValoresseguro().getValorgross() * cambioSeguro.getValor();
@@ -1503,6 +1544,26 @@ public class CadVoluntariadoMB implements Serializable {
 			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
+				seguroViagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDataInicio(),
+						seguroViagem.getNumeroSemanas()));
+				float valornacional = seguroViagem.getValoresseguro().getValorgross() * cambioSeguro.getValor();
+				valornacional = (float) (valornacional * 1.5);
+				if (seguroViagem.getValoresseguro().getCobranca().equalsIgnoreCase("Fixo")) {
+					seguroViagem.setValorSeguro(valornacional);
+				} else
+					seguroViagem.setValorSeguro(valornacional * seguroViagem.getNumeroSemanas());
+				calcularValorSeguroPrivadoListaProdutos();
+			}
+		}
+	}
+	
+	public void dataTermino70anosData() {
+		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getNumeroSemanas() > 0)) {
+			CambioFacade cambioFacade = new CambioFacade();
+			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
+			if (cambioSeguro != null) {
+				seguroViagem.setNumeroSemanas(Formatacao.subtrairDatas(seguroViagem.getDataInicio(), seguroViagem.getDataTermino()) + 2);
 				seguroViagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDataInicio(),
 						seguroViagem.getNumeroSemanas()));
 				float valornacional = seguroViagem.getValoresseguro().getValorgross() * cambioSeguro.getValor();

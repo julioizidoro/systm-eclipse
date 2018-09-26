@@ -40,6 +40,7 @@ public class Fornecedorapplication implements Serializable {
 	private Produtosorcamento produtosorcamento;
 
 	public Fornecedorapplication() {
+		nomearquivo = "";
 	}
 
 	public Integer getIdfornecedorapplication() {

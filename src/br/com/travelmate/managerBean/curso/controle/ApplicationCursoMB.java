@@ -19,11 +19,13 @@ import org.primefaces.event.SelectEvent;
 
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FornecedorApplicationFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Fornecedorapplication;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Fornecedorcidadeidiomaproduto;
@@ -351,12 +353,25 @@ public class ApplicationCursoMB implements Serializable{
 	
 	public void excluirArquivo(Fornecedorapplication fornecedorapplication) {
 		excluirArquivoFTP(fornecedorapplication);
+		verificarCursos(fornecedorapplication);
 		FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
 		fornecedorApplicationFacade.excluir(fornecedorapplication.getIdfornecedorapplication());
 		Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
 		listaFornecedor.remove(fornecedorapplication);
 	}
 	
+	
+	public void verificarCursos(Fornecedorapplication fornecedorapplication) {
+		CursoFacade cursoFacade = new CursoFacade();
+		List<Curso> listaCurso = cursoFacade.lista("SELECT c FROM Curso c WHERE c.idfornecedorapplication=" + fornecedorapplication.getIdfornecedorapplication());
+		if (listaCurso != null && !listaCurso.isEmpty()) {
+			for (int i = 0; i < listaCurso.size(); i++) {
+				listaCurso.get(i).setUploadapplication(false);
+				listaCurso.get(i).setIdfornecedorapplication(0);
+				cursoFacade.salvar(listaCurso.get(i));
+			}
+		}
+	}
 	
 	public boolean excluirArquivoFTP(Fornecedorapplication fornecedorapplication) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
