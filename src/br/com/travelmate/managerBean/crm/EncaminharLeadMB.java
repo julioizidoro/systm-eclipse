@@ -14,10 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadEncaminhadoDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
-import br.com.travelmate.facade.AvisosFacade;
+
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -44,6 +45,8 @@ public class EncaminharLeadMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private AvisosDao avisosDao;
 	@Inject
 	private LeadResponsavelDao leadResponsavelDao;
 	@Inject
@@ -377,7 +380,6 @@ public class EncaminharLeadMB implements Serializable {
 	}
 	
 	public void gerarAviso(){
-		AvisosFacade avisosFacade = new AvisosFacade();
 		Avisos avisos = new Avisos();
 		avisos.setData(new Date());
 		avisos.setUsuario(usuarioLogadoMB.getUsuario());
@@ -409,7 +411,7 @@ public class EncaminharLeadMB implements Serializable {
 					lista.add(avisousuario);
 				}
 				avisos.setAvisousuarioList(lista);
-				avisos = avisosFacade.salvar(avisos);
+				avisos = avisosDao.salvar(avisos);
 			}
 		}else {
 			List<Avisousuario> lista = new ArrayList<Avisousuario>();
@@ -419,7 +421,7 @@ public class EncaminharLeadMB implements Serializable {
 			avisousuario.setVisto(false); 
 			lista.add(avisousuario);
 			avisos.setAvisousuarioList(lista);
-			avisos = avisosFacade.salvar(avisos);
+			avisos = avisosDao.salvar(avisos);
 		}
 	}
 	
