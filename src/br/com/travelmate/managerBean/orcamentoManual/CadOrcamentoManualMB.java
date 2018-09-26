@@ -671,6 +671,8 @@ public class CadOrcamentoManualMB implements Serializable {
 						if(this.seguroViagem != null && this.seguroViagem.isSomarvalortotal() && this.seguroViagem.getValor() > 0) {
 							seguro = false;
 							listaProdutoOrcamentoBean.get(i).setSomarvalortotal(true);
+							valorMoedaEstrangeira = 0.0f;
+							valorMoedaReal = 0.0f;
 						}
 					} else {
 						valorMoedaReal = listaProdutoOrcamentoBean.get(i).getValorMoedaReal();
@@ -1355,7 +1357,10 @@ public class CadOrcamentoManualMB implements Serializable {
 			orcamentocurso.setFornecedor(fornecedorCidade.getFornecedor());
 			orcamentocurso.setFornecedorcidade(fornecedorCidade);
 			orcamentocurso.setUnidadenegocio(usuarioLogadoMB.getUsuario().getUnidadenegocio());
-			orcamentocurso.setUsuario(usuarioLogadoMB.getUsuario());
+			if (orcamentocurso != null && orcamentocurso.getIdCurso() == null) {
+				orcamentocurso.setUsuario(usuarioLogadoMB.getUsuario());
+				
+			}
 			orcamentocurso.setValor(valorTotal);
 			orcamentocurso.setIdCurso(0);
 			OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();  
