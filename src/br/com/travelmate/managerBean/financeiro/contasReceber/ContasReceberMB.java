@@ -693,6 +693,7 @@ public class ContasReceberMB implements Serializable {
 	}
 
 	public String executarPesquisa() {
+		setSelecionarTodos(false);
 		gerarPesquisa();
 		carregarContasReceber();
 		return "";

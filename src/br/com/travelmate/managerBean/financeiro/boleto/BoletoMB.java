@@ -83,7 +83,7 @@ public class BoletoMB implements Serializable {
 			nomeFTP = nomearquivo.substring(6, 10) + nomearquivo.substring(3, 5) + nomearquivo.substring(0, 2) + ".REM";
 			nomearquivo = nomeFTP;
 			nomeBotao ="Enviar";
-			numeroRegistros = listarSelecionados.size() * 4;
+			numeroRegistros = listarSelecionados.size() * 3;
 		}
 	}
 
