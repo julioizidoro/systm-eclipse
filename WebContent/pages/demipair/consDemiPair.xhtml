@@ -742,7 +742,7 @@
 							</p:column>
 							<p:column headerText="Data Cancelamento"
 								style="text-align:center;width:115px;" sortBy="#{demipairCancelado.vendas.cancelamento.datasolicitacao}">
-								<p:commandLink action="#{demiPairMB.dadosCancelamento(demipairCancelado)}" update=":consultacursos:growl">
+								<p:commandLink action="#{demiPairMB.dadosCancelamento(demipairCancelado)}" >
 									<h:outputText value="#{demipairCancelado.vendas.cancelamento.datasolicitacao}"
 										style="#{demiPairMB.cor(demipairCancelado)}">
 										<f:convertDateTime pattern="dd/MM/yyyy"

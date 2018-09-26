@@ -1257,7 +1257,7 @@
 							<p:column headerText="Data Cancelamento"
 								sortBy="#{voluntariadoCancelada.vendas.cancelamento.datasolicitacao}"
 								style="text-align:center;width:100px;">
-								<p:commandLink action="#{voluntariadoMB.dadosCancelamento(voluntariadoCancelada)}" update=":consultacursos:growl">
+								<p:commandLink action="#{voluntariadoMB.dadosCancelamento(voluntariadoCancelada)}" >
 									<h:outputText value="#{voluntariadoCancelada.vendas.cancelamento.datasolicitacao}"
 										style="#{voluntariadoMB.cor(voluntariadoCancelada)}">
 	
