@@ -1763,11 +1763,10 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	public void calcularNumeroDiasSeguro() {
 		if ((seguroViagem.getDatainicio() != null) && (seguroViagem.getDatatermino() != null)) {
-			int numeroDias = Formatacao.subtrairDatas(seguroViagem.getDatainicio(), seguroViagem.getDatatermino());
-			if (numeroDias < 0) {
-				numeroDias = numeroDias * -1;
+			seguroViagem.setNumerodias(Formatacao.subtrairDatas(seguroViagem.getDatainicio(), seguroViagem.getDatatermino()) + 2);
+			if (seguroViagem.getNumerodias() < 0) {
+				seguroViagem.setNumerodias(seguroViagem.getNumerodias() * -1);
 			}
-			seguroViagem.setNumerodias(numeroDias + 1);
 			dataTerminoSeguro();
 			convertendoValoresSeguro();
 		}
