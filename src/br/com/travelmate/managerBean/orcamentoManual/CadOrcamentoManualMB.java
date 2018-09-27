@@ -669,10 +669,11 @@ public class CadOrcamentoManualMB implements Serializable {
 						valorMoedaEstrangeira = listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira() * -1;
 					}else if(seguroViagem == idProdutoOrcamento) {
 						if(this.seguroViagem != null && this.seguroViagem.isSomarvalortotal() && this.seguroViagem.getValor() > 0) {
-							seguro = false;
 							listaProdutoOrcamentoBean.get(i).setSomarvalortotal(true);
 							valorMoedaEstrangeira = 0.0f;
 							valorMoedaReal = 0.0f;
+						}else {
+							seguro = false;
 						}
 					} else {
 						valorMoedaReal = listaProdutoOrcamentoBean.get(i).getValorMoedaReal();
@@ -893,6 +894,14 @@ public class CadOrcamentoManualMB implements Serializable {
 			context.addMessage(null, new FacesMessage("Taxa TM não pode ser Excluída.", ""));
 		} else {
 			if (ilinha >= 0) {
+				int seguro = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
+				int seguroCancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid();
+				if (listaProdutoOrcamentoBean.get(ilinha).getIdProdutoOrcamento() == seguro) {
+					seguroViagem.setSomarvalortotal(false);
+				}
+				if (listaProdutoOrcamentoBean.get(ilinha).getIdProdutoOrcamento() == seguroCancelamento) {
+					seguroViagem.setSegurocancelamento(false);
+				}
 				listaProdutoOrcamentoBean.get(ilinha).setApagar(true);
 				listaProdutoOrcamentoApagarBean.add(listaProdutoOrcamentoBean.get(ilinha));
 				listaProdutoOrcamentoBean.remove(ilinha);
@@ -1361,6 +1370,7 @@ public class CadOrcamentoManualMB implements Serializable {
 				orcamentocurso.setUsuario(usuarioLogadoMB.getUsuario());
 				
 			}
+			calcularValorTotalOrcamento();
 			orcamentocurso.setValor(valorTotal);
 			orcamentocurso.setIdCurso(0);
 			OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();  
@@ -1910,7 +1920,7 @@ public class CadOrcamentoManualMB implements Serializable {
 	} 
 	
 	public void adicionarSeguroCancelamento() { 
-		if (segurocancelamento && seguroViagem.getValoresseguro().isSegurocancelamento()) { 
+		if (segurocancelamento && seguroViagem.getValoresseguro().isSegurocancelamento() && seguroViagem.isSegurocancelamento()) { 
 			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 			Produtosorcamento produto = produtoOrcamentoFacade
 					.consultar(aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid());
@@ -1982,6 +1992,10 @@ public class CadOrcamentoManualMB implements Serializable {
 			int codigoLista = listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamento();
 			if (codSeguroPrivado != codigoLista) {
 				listaProdutosBean.add(listaProdutoOrcamentoBean.get(i));
+			}else {
+				if (listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamentoCurso() > 0) {
+					listaProdutoOrcamentoApagarBean.add(listaProdutoOrcamentoBean.get(i));
+				}
 			}
 		}
 		listaProdutoOrcamentoBean = listaProdutosBean;

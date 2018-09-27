@@ -446,7 +446,7 @@
 						<br />
 						<div align="right" style="width: 80.5%;">
 							<p:outputLabel value="Incluso no Total do Programa" />
-							<p:selectBooleanCheckbox style="margin-left:1%;"
+							<p:selectBooleanCheckbox style="margin-left:1%;" id="seguroPrivado"
 								value="#{cadOrcamentoManualMB.seguroViagem.somarvalortotal}">
 								<p:ajax
 									listener="#{cadOrcamentoManualMB.calcularValorTotalOrcamento()}"
@@ -762,7 +762,7 @@
 								headerText="Excluir">
 								<p:commandLink id="btnexcluirproduto"
 									action="#{cadOrcamentoManualMB.excluirProdutoOrcamento(rowIx)}"
-									update="telaCadOrcamento:acordGeral:tabelaprodutoscurso,telaCadOrcamento:acordGeral:produto, telaCadOrcamento:growl, telaCadOrcamento:acordGeral:valortotal, telaCadOrcamento:acordGeral:valoreal, telaCadOrcamento:acordGeral:valor, telaCadOrcamento:acordGeral:idpagamentoavista,:telaCadOrcamento:acordGeral:idpagamentoavista, :telaCadOrcamento:acordGeral:idparcelamentoantesviagem, :telaCadOrcamento:acordGeral:idparcelamentoemcartaocredito, :telaCadOrcamento:acordGeral:idparcelamentoemcheque">
+									update="telaCadOrcamento:acordGeral:tabelaprodutoscurso,telaCadOrcamento:acordGeral:produto, telaCadOrcamento:growl, telaCadOrcamento:acordGeral:valortotal, telaCadOrcamento:acordGeral:valoreal, telaCadOrcamento:acordGeral:valor, telaCadOrcamento:acordGeral:idpagamentoavista,:telaCadOrcamento:acordGeral:idpagamentoavista, :telaCadOrcamento:acordGeral:idparcelamentoantesviagem, :telaCadOrcamento:acordGeral:idparcelamentoemcartaocredito, :telaCadOrcamento:acordGeral:idparcelamentoemcheque, :telaCadOrcamento:acordGeral:segurocancelamento, , :telaCadOrcamento:acordGeral:seguroPrivado">
 									<img src="../../resources/img/excluir.png" />
 								</p:commandLink>
 							</p:column>
