@@ -2,19 +2,31 @@ package br.com.travelmate.managerBean.curso;
 
 import java.util.List;
 
+import javax.inject.Inject;
 
-
-import br.com.travelmate.facade.CoProdutosFacade;
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.model.Coprodutos;
 import br.com.travelmate.model.Grupoobrigatorio;
 
 public class Limpar {
 	
+	
+	private CoProdutosDao coProdutosDao;
+	
+	
+	
+	
+	public Limpar(CoProdutosDao coProdutosDao) {
+		this.coProdutosDao = coProdutosDao;
+	}
+
+
+
+
 	public void limparAcomodacao(){
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
 		String sql = "Select c from Coprodutos c where c.produtosorcamento.idprodutosOrcamento=4"; 
-		List<Coprodutos> listaCoproduto = coProdutosFacade.listar(sql);
+		List<Coprodutos> listaCoproduto = coProdutosDao.listar(sql);
 		if (listaCoproduto!=null){
 			GrupoObrigatorioFacade grupoObrigatorioFacade = new GrupoObrigatorioFacade();
 			for(int i=0;i<listaCoproduto.size();i++){

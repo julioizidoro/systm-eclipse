@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.OCursoProdutosBean;
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
@@ -20,7 +21,6 @@ import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
 import br.com.travelmate.dao.OcursoPacoteDao;
-import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 
@@ -51,6 +51,7 @@ import br.com.travelmate.util.Formatacao;
 
 public class SalvarOrcamentoOcurso {
 	
+	private CoProdutosDao coProdutosDao;
 	private Ocurso ocurso;
 	private List<ProdutosOrcamentoBean> listaSuplemento;
 	private Date dataconsulta;
@@ -85,8 +86,9 @@ public class SalvarOrcamentoOcurso {
 	public SalvarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote,
 			AplicacaoMB aplicacaoMB,UsuarioLogadoMB usuarioLogadoMB,Cursopacoteformapagamento formapagamento, OCursoDao oCursoDao, OCursoProdutoDao oCursoProdutoDao,
 			LeadHistoricoDao leadHistoricoDao, LeadDao leadDao, OCursoFormaPagamentoDao oCursoFormaPagamentoDao, OCursoDescontoDao oCursoDescontoDao, OcursoPacoteDao ocursoPacoteDao,
-			LeadSituacaoDao leadSituacaoDao) {
+			LeadSituacaoDao leadSituacaoDao, CoProdutosDao coProdutosDao) {
 		this.cliente=cliente;
+		this.coProdutosDao = coProdutosDao;
 		this.datainicio=datainicio;
 		this.cursospacote=cursospacote;
 		this.aplicacaoMB=aplicacaoMB;
@@ -268,8 +270,7 @@ public class SalvarOrcamentoOcurso {
 												+ " and c.produtosorcamento.idprodutosOrcamento="
 												+ aplicacaoMB.getParametrosprodutos().getSuplementoidade();
 										Coprodutos coprodutos = new Coprodutos();
-										CoProdutosFacade produtosFacade = new CoProdutosFacade();
-										coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+										coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 
 										if (coprodutos != null) {
 											listaCoProdutos.add(coprodutos);
@@ -291,8 +292,7 @@ public class SalvarOrcamentoOcurso {
 											+ " and c.produtosorcamento.idprodutosOrcamento="
 											+ aplicacaoMB.getParametrosprodutos().getSuplementoidade();
 									Coprodutos coprodutos = new Coprodutos();
-									CoProdutosFacade produtosFacade = new CoProdutosFacade();
-									coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+									coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 									if (coprodutos != null) {
 										listaCoProdutos.add(coprodutos);
 										suplementoMenorDeIdade = 1;
@@ -722,8 +722,7 @@ public class SalvarOrcamentoOcurso {
 				+ " and c.produtosorcamento.idprodutosOrcamento="
 				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
 		Coprodutos coprodutos = new Coprodutos();
-		CoProdutosFacade produtosFacade = new CoProdutosFacade();
-		coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+		coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 		if (coprodutos != null) { 
 			ProdutosOrcamentoBean po = consultarValores("DI", coprodutos.getIdcoprodutos(),
 					dataconsulta, "Obrigatorio");

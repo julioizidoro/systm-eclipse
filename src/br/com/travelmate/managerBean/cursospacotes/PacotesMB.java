@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
@@ -44,6 +45,8 @@ import br.com.travelmate.util.Mensagem;
 public class PacotesMB implements Serializable{
 	
 	private static final long serialVersionUID = 1L;  
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	private List<Ocurso> listaOCursos; 
 	private boolean curso;
 	private boolean teens;
@@ -450,7 +453,7 @@ public class PacotesMB implements Serializable{
 		ocurso.setValorvisto(pacote.getValorvisto());
 		
 		EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, lead.getCliente(),
-				ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, pacote.getIdocurso(), oCursoDescontoDao, oCursoProdutoDao, ocursoSeguroViagemDao);
+				ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, pacote.getIdocurso(), oCursoDescontoDao, oCursoProdutoDao, ocursoSeguroViagemDao, coProdutosDao);
 		ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
 
 		resultadoOrcamentoBean.setOcurso(ocurso);

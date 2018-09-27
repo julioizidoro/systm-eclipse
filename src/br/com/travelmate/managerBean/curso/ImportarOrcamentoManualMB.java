@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.OrcamentoCursoFacade;
+import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Orcamentocurso;
 import br.com.travelmate.util.Formatacao;
@@ -26,7 +26,10 @@ public class ImportarOrcamentoManualMB implements Serializable{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private OrcamentoCursoDao orcamentoCursoDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private String nome="";
@@ -85,8 +88,8 @@ public class ImportarOrcamentoManualMB implements Serializable{
 					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()
 					+ " and o.cliente.nome like '%" + nome + "%' and o.situacao='Processo' and o.data>='" + dataConsulta + "' order by o.data";
 		}
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
-		listaOrcamento = orcamentoCursoFacade.listarOrcamento(sql);
+		
+		listaOrcamento = orcamentoCursoDao.listarOrcamento(sql);
 		if (listaOrcamento == null) {
 			listaOrcamento = new ArrayList<Orcamentocurso>();
 		}

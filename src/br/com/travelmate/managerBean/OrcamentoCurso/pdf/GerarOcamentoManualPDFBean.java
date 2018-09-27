@@ -3,9 +3,11 @@ package br.com.travelmate.managerBean.OrcamentoCurso.pdf;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.facade.EscolaPadraoFacade;
 import br.com.travelmate.facade.OcClienteFacade;
-import br.com.travelmate.facade.OrcamentoCursoFacade;
 import br.com.travelmate.model.Escolapadrao;
 import br.com.travelmate.model.Occliente;
 import br.com.travelmate.model.Orcamentocurso;
@@ -28,15 +30,17 @@ public class GerarOcamentoManualPDFBean {
 	private float totalDeMe;
 	private Orcamentocurso orcamentoCurso;
 	private String composicao;
+	private OrcamentoCursoDao orcamentoCursoDao;
 	
 	private Produtoorcamentocurso  p;
 	
 
-	public GerarOcamentoManualPDFBean(Orcamentocurso orcamentoCurso) {
+	public GerarOcamentoManualPDFBean(Orcamentocurso orcamentoCurso, OrcamentoCursoDao orcamentoCursoDao) {
 		this.orcamentoCurso = orcamentoCurso;
 		if(orcamentoCurso.getCambio().getMoedas().getSigla().equalsIgnoreCase("OUTRAS")){
 			orcamentoCurso.getCambio().getMoedas().setSigla("$");
 		}
+		this.orcamentoCursoDao = orcamentoCursoDao;
 		lista = new ArrayList<OrcamentoPDFBean>();
 		composicao = "Curso";
 		carregarTaxas();
@@ -56,10 +60,10 @@ public class GerarOcamentoManualPDFBean {
 	}
 	
 	public List<Produtoorcamentocurso> getListaProdutoOrcanentoCurso(String tipoOrcamento){
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
+		
 		String sql = "SELECT o FROM Produtoorcamentocurso o where o.produtosOrcamento.tipoorcamento='" + tipoOrcamento + "' and o.orcamentocurso=" + orcamentoCurso.getIdorcamentoCurso()
 				+ " order by o.produtosOrcamento.descricao";
-		return orcamentoCursoFacade.listarProdutoOrcamentoCurso(sql);
+		return orcamentoCursoDao.listarProdutoOrcamentoCurso(sql);
 	}
 	
 	
@@ -166,10 +170,10 @@ public class GerarOcamentoManualPDFBean {
 	
 	public void carregarCustosExtras() {
 		OrcamentoPDFBean o; 
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
+		
 		String sql = "SELECT o FROM Produtoorcamentocurso o where o.produtosOrcamento.tipoorcamento='R' and o.orcamentocurso=" + orcamentoCurso.getIdorcamentoCurso()
 				+ " and o.somarvalortotal=false order by o.produtosOrcamento.descricao";
-		List<Produtoorcamentocurso> listaR = orcamentoCursoFacade.listarProdutoOrcamentoCurso(sql);
+		List<Produtoorcamentocurso> listaR = orcamentoCursoDao.listarProdutoOrcamentoCurso(sql);
 		if (listaR != null) {
 			for (int i = 0; i < listaR.size(); i++) {
 				if (listaR.get(i).getProdutosOrcamento().getIdprodutosOrcamento() != 5) {
@@ -318,10 +322,10 @@ public class GerarOcamentoManualPDFBean {
 	
 	public void carregarItensAdicionais() {
 		OrcamentoPDFBean o = new OrcamentoPDFBean();
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
+		
 		String sql = "SELECT o FROM Produtoorcamentocurso o where o.produtosOrcamento.tipoorcamento='R' and o.orcamentocurso=" + orcamentoCurso.getIdorcamentoCurso()
 				+ " and o.somarvalortotal=true order by o.produtosOrcamento.descricao";
-		List<Produtoorcamentocurso> listaR = orcamentoCursoFacade.listarProdutoOrcamentoCurso(sql);
+		List<Produtoorcamentocurso> listaR = orcamentoCursoDao.listarProdutoOrcamentoCurso(sql);
 		if (listaR != null) {
 			for (int i = 0; i < listaR.size(); i++) {
 				if (listaR.get(i).getProdutosOrcamento().getIdprodutosOrcamento() != 5) {

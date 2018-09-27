@@ -1,11 +1,11 @@
 
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.OcursoFeriadoDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
-import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoDataFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
@@ -80,6 +80,8 @@ public class FiltrarEscolaMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -465,7 +467,6 @@ public class FiltrarEscolaMB implements Serializable {
 		fpb.setDataConsulta(retornarDataConsultaOrcamento(filtrarEscolaBean.getOcurso().getDatainicio(), fpb));
 		filtrarEscolaBean.setOcurso(nocurso);
 		fpb.setListaProdutoFornecedor(new ArrayList<ProdutoFornecedorBean>());
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
 		String sql;
 		if (filtrarEscolaBean.getTaxaTM() == null) {
 			carregarTaxaTM(fpb.getCambio().getValor());
@@ -474,7 +475,7 @@ public class FiltrarEscolaMB implements Serializable {
 				+ fornecedorCidadeIdioma.getIdfornecedorcidadeidioma() + " and c.produtosorcamento.idprodutosOrcamento="
 				+ filtrarEscolaBean.getOcurso().getProdutosorcamento().getIdprodutosOrcamento()
 				+ " and c.tipo<>'Acomodacao' and c.tipo<>'Transfer' and c.tipo<>'AcOpcional' and c.apenaspacote=FALSE";
-		List<Coprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+		List<Coprodutos> listaCoProdutos = coProdutosDao.listar(sql);
 		if (listaCoProdutos != null) {
 			listaCoProdutos = verificarCursoPossuiValor(listaCoProdutos, fpb);
 		}
@@ -586,7 +587,6 @@ public class FiltrarEscolaMB implements Serializable {
 		Date dataInicioTarifario = fornecedorProdutosBean.getDataConsulta();
 		List<ProdutosOrcamentoBean> listaRetorno = new ArrayList<ProdutosOrcamentoBean>();
 		List<Coprodutos> listaCoProdutos;
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
 		String sql = null;
 		if (tipo.equalsIgnoreCase("Obrigatorio")) {
 			sql = "Select g from Grupoobrigatorio g where g.coprodutos.idcoprodutos=" + idCoProdutos;
@@ -622,8 +622,7 @@ public class FiltrarEscolaMB implements Serializable {
 													+ " and c.produtosorcamento.idprodutosOrcamento="
 													+ aplicacaoMB.getParametrosprodutos().getSuplementoidade();
 											Coprodutos coprodutos = new Coprodutos();
-											CoProdutosFacade produtosFacade = new CoProdutosFacade();
-											coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+											coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 						
 											if (coprodutos != null) { 
 												listaCoProdutos.add(coprodutos);
@@ -647,8 +646,7 @@ public class FiltrarEscolaMB implements Serializable {
 												+ " and c.produtosorcamento.idprodutosOrcamento="
 												+ aplicacaoMB.getParametrosprodutos().getSuplementoidade();
 										Coprodutos coprodutos = new Coprodutos();
-										CoProdutosFacade produtosFacade = new CoProdutosFacade();
-										coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+										coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 										if (coprodutos != null) {
 											listaCoProdutos.add(coprodutos);
 											suplementoMenorDeIdade = 1;
@@ -674,7 +672,7 @@ public class FiltrarEscolaMB implements Serializable {
 					+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
 					+ " and c.produtosorcamento.idprodutosOrcamento<>"
 					+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
-			listaCoProdutos = coProdutosFacade.listar(sql);
+			listaCoProdutos = coProdutosDao.listar(sql);
 		}
 
 		if (listaCoProdutos != null) {

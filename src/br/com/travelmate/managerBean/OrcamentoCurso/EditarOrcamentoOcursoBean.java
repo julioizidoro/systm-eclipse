@@ -6,11 +6,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.inject.Inject;
 
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
 import br.com.travelmate.dao.OcursoSeguroViagemDao;
-import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -30,6 +31,8 @@ import br.com.travelmate.util.Formatacao;
 
 public class EditarOrcamentoOcursoBean {
 
+	
+	private CoProdutosDao coProdutosDao;
 	private Ocurso ocurso;
 	private List<ProdutosOrcamentoBean> listaSuplemento;
 	private Date dataconsulta;
@@ -48,8 +51,10 @@ public class EditarOrcamentoOcursoBean {
 	private OcursoSeguroViagemDao ocursoSeguroViagemDao;
 
 	public EditarOrcamentoOcursoBean(Ocurso ocurso, Cliente cliente, Date datainicio, AplicacaoMB aplicacaoMB,
-			UsuarioLogadoMB usuarioLogadoMB, int idOcurso, OCursoDescontoDao orCursoDescontoDao, OCursoProdutoDao oCursoProdutoDao, OcursoSeguroViagemDao ocursoSeguroViagemDao) {
+			UsuarioLogadoMB usuarioLogadoMB, int idOcurso, OCursoDescontoDao orCursoDescontoDao, OCursoProdutoDao oCursoProdutoDao, OcursoSeguroViagemDao ocursoSeguroViagemDao, 
+			CoProdutosDao coProdutosDao) {
 		this.cliente = cliente;
+		this.coProdutosDao = coProdutosDao;
 		this.datainicio = datainicio;
 		this.aplicacaoMB = aplicacaoMB;
 		this.usuarioLogadoMB = usuarioLogadoMB;
@@ -318,7 +323,6 @@ public class EditarOrcamentoOcursoBean {
 	public List<ProdutosOrcamentoBean> gerarListaValorCoProdutos(String tipo) {
 		List<ProdutosOrcamentoBean> listaRetorno = new ArrayList<ProdutosOrcamentoBean>();
 		List<Coprodutos> listaCoProdutos;
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
 		String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 				+ ocurso.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma() + " and c.tipo='" + tipo
 				+ "' and c.produtosorcamento.idprodutosOrcamento<>"
@@ -327,7 +331,7 @@ public class EditarOrcamentoOcursoBean {
 				+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
 				+ " and c.produtosorcamento.idprodutosOrcamento<>"
 				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
-		listaCoProdutos = coProdutosFacade.listar(sql);
+		listaCoProdutos = coProdutosDao.listar(sql);
 		if (listaCoProdutos != null) { 
 			for (int i = 0; i < listaCoProdutos.size(); i++) {
 				ProdutosOrcamentoBean po = consultarValores("DI", listaCoProdutos.get(i).getIdcoprodutos(),

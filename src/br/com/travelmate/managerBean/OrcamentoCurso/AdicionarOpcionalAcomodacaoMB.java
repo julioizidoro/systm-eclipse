@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.CoProdutosFacade;
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -33,6 +33,8 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -117,7 +119,6 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 
 	public void gerarListaAcOpcional() {
 		listaAcOpcional = new ArrayList<>();
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
 		String sql =  "";
 		List<Coprodutos> listaCoProdutos = null;
 		if (resultadoOrcamentoBean != null) {
@@ -129,7 +130,7 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 					+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
 					+ " and c.produtosorcamento.idprodutosOrcamento<>"
 					+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
-			listaCoProdutos = coProdutosFacade.listar(sql);
+			listaCoProdutos = coProdutosDao.listar(sql);
 		}
 		if (listaCoProdutos != null) {
 			for (int i = 0; i < listaCoProdutos.size(); i++) {
@@ -250,7 +251,7 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 	
 	public void gerarListaAcOpcionalIndependente() {
 		listaAcOpcionalIndependente = new ArrayList<>();
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
+	
 		String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 				+  resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos()
 				.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
@@ -260,7 +261,7 @@ public class AdicionarOpcionalAcomodacaoMB implements Serializable {
 				+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
 				+ " and c.produtosorcamento.idprodutosOrcamento<>"
 				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
-		List<Coprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+		List<Coprodutos> listaCoProdutos = coProdutosDao.listar(sql);
 		if (listaCoProdutos != null) {
 			Date dataconsulta = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
 					resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()

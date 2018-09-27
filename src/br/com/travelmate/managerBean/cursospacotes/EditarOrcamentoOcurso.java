@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import br.com.travelmate.facade.CoProdutosFacade;
+import javax.inject.Inject;
+
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
@@ -29,6 +31,8 @@ import br.com.travelmate.util.Formatacao;
 
 public class EditarOrcamentoOcurso {
 
+	
+	private CoProdutosDao coProdutosDao;
 	private Ocurso ocurso;
 	private List<ProdutosOrcamentoBean> listaSuplemento;
 	private Date dataconsulta;
@@ -40,7 +44,8 @@ public class EditarOrcamentoOcurso {
 	private Float valortotal;
 
 	public EditarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote, AplicacaoMB aplicacaoMB,
-			UsuarioLogadoMB usuarioLogadoMB) {
+			UsuarioLogadoMB usuarioLogadoMB, CoProdutosDao coProdutosDao) {
+		this.coProdutosDao = coProdutosDao;
 		this.cliente = cliente;
 		this.datainicio = datainicio;
 		this.cursospacote = cursospacote;
@@ -208,8 +213,7 @@ public class EditarOrcamentoOcurso {
 												+ " and c.produtosorcamento.idprodutosOrcamento="
 												+ aplicacaoMB.getParametrosprodutos().getSuplementoidade();
 										Coprodutos coprodutos = new Coprodutos();
-										CoProdutosFacade produtosFacade = new CoProdutosFacade();
-										coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+										coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 
 										if (coprodutos != null) {
 											listaCoProdutos.add(coprodutos);
@@ -231,8 +235,7 @@ public class EditarOrcamentoOcurso {
 											+ " and c.produtosorcamento.idprodutosOrcamento="
 											+ aplicacaoMB.getParametrosprodutos().getSuplementoidade();
 									Coprodutos coprodutos = new Coprodutos();
-									CoProdutosFacade produtosFacade = new CoProdutosFacade();
-									coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+									coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 									if (coprodutos != null) {
 										listaCoProdutos.add(coprodutos);
 										suplementoMenorDeIdade = 1;
@@ -493,8 +496,7 @@ public class EditarOrcamentoOcurso {
 					+ " and c.produtosorcamento.idprodutosOrcamento="
 					+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
 			Coprodutos coprodutos = new Coprodutos();
-			CoProdutosFacade produtosFacade = new CoProdutosFacade();
-			coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+			coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 			if (coprodutos != null) {
 				ProdutosOrcamentoBean po = consultarValores("DI", coprodutos.getIdcoprodutos(), dataconsulta,
 						"Obrigatorio");
@@ -574,7 +576,6 @@ public class EditarOrcamentoOcurso {
 	public List<ProdutosOrcamentoBean> gerarListaValorCoProdutos(String tipo) {
 		List<ProdutosOrcamentoBean> listaRetorno = new ArrayList<ProdutosOrcamentoBean>();
 		List<Coprodutos> listaCoProdutos;
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
 		String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 				+ cursospacote.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma() + " and c.tipo='" + tipo
 				+ "' and c.produtosorcamento.idprodutosOrcamento<>"
@@ -583,7 +584,7 @@ public class EditarOrcamentoOcurso {
 				+ aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
 				+ " and c.produtosorcamento.idprodutosOrcamento<>"
 				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
-		listaCoProdutos = coProdutosFacade.listar(sql);
+		listaCoProdutos = coProdutosDao.listar(sql);
 		if (listaCoProdutos != null) {
 			for (int i = 0; i < listaCoProdutos.size(); i++) {
 				ProdutosOrcamentoBean po = consultarValores("DI", listaCoProdutos.get(i).getIdcoprodutos(),

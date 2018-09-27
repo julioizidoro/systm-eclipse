@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.coprodutos;
 
-import br.com.travelmate.facade.CoProdutosFacade;
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -30,6 +30,9 @@ public class CadCoProdutosMB implements Serializable{
     
     
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
     private AplicacaoMB aplicacaoMB;
     private Coprodutos coprodutos;
@@ -201,8 +204,7 @@ public class CadCoProdutosMB implements Serializable{
             coprodutos.setFornecedorcidade(fornecedorcidade);
             coprodutos.setProdutosorcamento(prdutoOrcamento);
             coprodutos.setSituacao(true);
-            CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-            coprodutos = coProdutosFacade.salvar(coprodutos);
+            coprodutos = coProdutosDao.salvar(coprodutos);
             if(coProdutoVincular!=null){
             	grupoobrigatorio.setCoprodutos(coprodutos);
             	grupoobrigatorio.setProduto(coProdutoVincular);
@@ -227,8 +229,7 @@ public class CadCoProdutosMB implements Serializable{
     public void gerarListaCoProdutosVincular(){
     	if (fornecedorcidadeidioma!=null){
     		String sql = "Select c from Coprodutos c  where c.fornecedorcidadeidioma.idfornecedorcidadeidioma=" + fornecedorcidadeidioma.getIdfornecedorcidadeidioma();
-    		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-    		listaCoProdutos = coProdutosFacade.listar(sql);
+    		listaCoProdutos = coProdutosDao.listar(sql);
     		if (listaCoProdutos==null){
     			listaCoProdutos = new ArrayList<Coprodutos>();
     		}

@@ -30,6 +30,7 @@ import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.OCursoDao;
+import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -39,7 +40,6 @@ import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
-import br.com.travelmate.facade.OrcamentoCursoFacade;
 import br.com.travelmate.facade.PacotesFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.QuestionarioHeFacade;
@@ -93,6 +93,8 @@ public class HistoricoClienteMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private OrcamentoCursoDao orcamentoCursoDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -634,8 +636,7 @@ public class HistoricoClienteMB implements Serializable {
 				}
 			}
 		}else if (leadhistorico.getTipoorcamento().equalsIgnoreCase("m")){
-			OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
-			Orcamentocurso orcamentoCurso = orcamentoCursoFacade.consultar(leadhistorico.getIdorcamento());
+			Orcamentocurso orcamentoCurso = orcamentoCursoDao.consultar(leadhistorico.getIdorcamento());
 			if (orcamentoCurso!=null){
 				try {
 					gerarOrcamentoPDFManual(orcamentoCurso, "PDF");
@@ -812,7 +813,7 @@ public class HistoricoClienteMB implements Serializable {
 	}
 	
 	public void gerarOrcamentoPDFManual(Orcamentocurso orcamentocurso, String tipo) throws IOException{
-		GerarOcamentoManualPDFBean o = new GerarOcamentoManualPDFBean(orcamentocurso);
+		GerarOcamentoManualPDFBean o = new GerarOcamentoManualPDFBean(orcamentocurso, orcamentoCursoDao);
 		OrcamentoPDFFactory.setLista(o.getLista());
 
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()

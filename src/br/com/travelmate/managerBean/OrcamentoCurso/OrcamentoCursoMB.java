@@ -21,12 +21,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
 import br.com.travelmate.dao.OcursoSeguroViagemDao;
 import br.com.travelmate.facade.CambioFacade;
-import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorFeriasFacade;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -77,6 +77,8 @@ public class OrcamentoCursoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -870,8 +872,7 @@ public class OrcamentoCursoMB implements Serializable {
 				+ " and c.produtosorcamento.idprodutosOrcamento="
 				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
 		Coprodutos coprodutos = new Coprodutos();
-		CoProdutosFacade produtosFacade = new CoProdutosFacade();
-		coprodutos = produtosFacade.consultar(sqlSuplementoIdade);
+		coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
 		if (coprodutos != null) {
 			ProdutosOrcamentoBean po = consultarValores("DI", coprodutos.getIdcoprodutos(),
 					resultadoOrcamentoBean.getOcurso(), resultadoOrcamentoBean.getDataConsulta(), "Obrigatorio");

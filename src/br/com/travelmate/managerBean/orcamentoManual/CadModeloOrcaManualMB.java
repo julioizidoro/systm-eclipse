@@ -19,12 +19,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.ModeloOrcamentoCursoFacade;
-import br.com.travelmate.facade.OrcamentoCursoFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
@@ -54,6 +54,8 @@ public class CadModeloOrcaManualMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private OrcamentoCursoDao orcamentoCursoDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -675,9 +677,9 @@ public class CadModeloOrcaManualMB implements Serializable {
 		formaPagamento = new Modeloorcamentocursoforma();
 		cidade = new Cidade();
 		formaPagamento.setAVista(0.0f);
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
+		
 		modeloProdutos = new Modeloprodutoorcamentocurso();
-		Produtosorcamento produtosorcamento = orcamentoCursoFacade
+		Produtosorcamento produtosorcamento = orcamentoCursoDao
 				.consultarProdutoOrcamentoCurso(aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM());
 		modeloProdutos.setProdutosorcamento(produtosorcamento);
 		modeloProdutos.setValorMoedaEstrangeira(0.0f);

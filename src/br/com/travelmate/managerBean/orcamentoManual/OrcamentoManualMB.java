@@ -26,10 +26,10 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
- 
+
+import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.OcClienteFacade;
-import br.com.travelmate.facade.OrcamentoCursoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.ConsultaOrcamentoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.DadosEscolaEmailBean;
@@ -57,6 +57,8 @@ public class OrcamentoManualMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private OrcamentoCursoDao orcamentoCursoDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<Orcamentocurso> listaOrcamento;
@@ -186,8 +188,8 @@ public class OrcamentoManualMB implements Serializable {
 			}
 			sql = sql + " and o.tipoorcamento='"+tipo+"' order by o.data desc, o.idorcamentoCurso desc";
 		}
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
-		listaOrcamento = orcamentoCursoFacade.listarOrcamento(sql);
+		
+		listaOrcamento = orcamentoCursoDao.listarOrcamento(sql);
 		if (listaOrcamento == null) {
 			listaOrcamento = new ArrayList<Orcamentocurso>();
 		} else {
@@ -220,8 +222,8 @@ public class OrcamentoManualMB implements Serializable {
 			}
 		} 
 		sql = sql + " order by o.data desc";
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
-		listaOrcamento = orcamentoCursoFacade.listarOrcamento(sql);
+		
+		listaOrcamento = orcamentoCursoDao.listarOrcamento(sql);
 		if (listaOrcamento == null) {
 			listaOrcamento = new ArrayList<Orcamentocurso>();
 		} else {
@@ -269,7 +271,7 @@ public class OrcamentoManualMB implements Serializable {
 	}
 
 	public void gerarOrcamentoPDF(Orcamentocurso orcamentocurso, String tipo) throws IOException {
-		GerarOcamentoManualPDFBean o = new GerarOcamentoManualPDFBean(orcamentocurso);
+		GerarOcamentoManualPDFBean o = new GerarOcamentoManualPDFBean(orcamentocurso, orcamentoCursoDao);
 		OrcamentoPDFFactory.setLista(o.getLista());
 
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
@@ -582,10 +584,10 @@ public class OrcamentoManualMB implements Serializable {
 	}
 
 	public List<Produtoorcamentocurso> getListaProdutoOrcanentoCurso(String tipoOrcamento) {
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
+		
 		String sql = "SELECT o FROM Produtoorcamentocurso o where o.produtosOrcamento.tipoorcamento='" + tipoOrcamento
 				+ "' order by o.produtosOrcamento.descricao";
-		return orcamentoCursoFacade.listarProdutoOrcamentoCurso(sql);
+		return orcamentoCursoDao.listarProdutoOrcamentoCurso(sql);
 	}
 
 	public boolean verificarEnvioEmail(Orcamentocurso orcamentocurso) {
@@ -598,14 +600,14 @@ public class OrcamentoManualMB implements Serializable {
 
     @SuppressWarnings("unchecked")
 	public void retornoEnviarEmail(SelectEvent event) {
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		List<Orcamentocurso> listaOrcamentoCurso = (List<Orcamentocurso>) session.getAttribute("listaOrcamentoCurso");
 		session.removeAttribute("listaOrcamentoCurso");
 		for (int i = 0; i < listaOrcamentoCurso.size(); i++) {
 			listaOrcamentoCurso.get(i).setEnviadoemail(true);
-			orcamentoCursoFacade.salvar(listaOrcamentoCurso.get(i));
+			orcamentoCursoDao.salvar(listaOrcamentoCurso.get(i));
 		}
 		gerarListaOrcamento();
 	}

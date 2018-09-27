@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.CoProdutosFacade;
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Coprodutos;
@@ -24,6 +24,8 @@ import br.com.travelmate.model.Grupoobrigatorio;
 public class VincularCoProdutoMB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
     private UsuarioLogadoMB usuarioLogadoMB;
 	private Coprodutos coprodutos;
@@ -114,8 +116,7 @@ public class VincularCoProdutoMB implements Serializable {
 	
 	public void gerarListaCoProdutosVincular(){
 		String sql = "Select c from Coprodutos c  where c.fornecedorcidadeidioma.idfornecedorcidadeidioma=" + coprodutos.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma();
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-		listaCoProdutos = coProdutosFacade.listar(sql);
+		listaCoProdutos = coProdutosDao.listar(sql);
 		if (listaCoProdutos==null){
 			listaCoProdutos = new ArrayList<Coprodutos>();
     	}

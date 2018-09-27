@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.cursospacotes;
  
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
@@ -66,6 +67,8 @@ import org.primefaces.context.RequestContext;
 public class GerarOrcamentoPacoteMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -281,7 +284,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	public String salvar() throws IOException {
 		if(validarDados()){
 			SalvarOrcamentoOcurso salvarOrcamentoOcurso = new SalvarOrcamentoOcurso(cliente, datainicio, cursospacote, aplicacaoMB,usuarioLogadoMB,formapagamento, oCursoDao
-					, oCursoProdutoDao, leadHistoricoDao, leadDao, oCursoFormaPagamentoDao, oCursoDescontoDao, oCursoPacoteDao, leadSituacaoDao);
+					, oCursoProdutoDao, leadHistoricoDao, leadDao, oCursoFormaPagamentoDao, oCursoDescontoDao, oCursoPacoteDao, leadSituacaoDao, coProdutosDao);
 			Ocurso ocurso = salvarOrcamentoOcurso.salvarOcurso();  
 			ocurso = oCursoDao.consultar(ocurso.getIdocurso());
 			GerarOcamentoPDFBean o = new GerarOcamentoPDFBean(ocurso, aplicacaoMB);
@@ -446,7 +449,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	
 	public String editar(){
 		if(validarDados()){
-			EditarOrcamentoOcurso editarOrcamentoOcurso = new EditarOrcamentoOcurso(cliente, datainicio, cursospacote, aplicacaoMB,usuarioLogadoMB);
+			EditarOrcamentoOcurso editarOrcamentoOcurso = new EditarOrcamentoOcurso(cliente, datainicio, cursospacote, aplicacaoMB,usuarioLogadoMB, coProdutosDao);
 			ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
 			resultadoOrcamentoBean.setOcurso(editarOrcamentoOcurso.buscarOcurso());
 			resultadoOrcamentoBean.getOcurso().setValorcambio(editarOrcamentoOcurso.getOcurso().getValorcambio());

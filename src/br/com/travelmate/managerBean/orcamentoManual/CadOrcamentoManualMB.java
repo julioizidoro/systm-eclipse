@@ -27,6 +27,7 @@ import br.com.travelmate.bean.ProdutoOrcamentoCursoBean;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
+import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
@@ -34,7 +35,7 @@ import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.OcClienteFacade;
-import br.com.travelmate.facade.OrcamentoCursoFacade; 
+
 import br.com.travelmate.facade.OrcamentoManualSeguroFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
@@ -82,6 +83,8 @@ public class CadOrcamentoManualMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private OrcamentoCursoDao orcamentoCursoDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -1243,8 +1246,8 @@ public class CadOrcamentoManualMB implements Serializable {
 		orcamentoCursoFormaPagamento = new Orcamentocursoformapagamento();
 		cidade = new Cidade();
 		orcamentoCursoFormaPagamento.setAVista(0.0f);
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
-		Produtosorcamento produtosorcamento = orcamentoCursoFacade
+		
+		Produtosorcamento produtosorcamento = orcamentoCursoDao
 				.consultarProdutoOrcamentoCurso(aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM());
 		ProdutoOrcamentoCursoBean pob = new ProdutoOrcamentoCursoBean();
 		pob.setIdProdutoOrcamento(produtosorcamento.getIdprodutosOrcamento());
@@ -1300,12 +1303,12 @@ public class CadOrcamentoManualMB implements Serializable {
 			seguroViagem = new Orcamentomanualseguro();
 			seguroViagem.setValoresseguro(null);
 		} 
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
+		
 		listaProdutoOrcamentoBean = new ArrayList<ProdutoOrcamentoCursoBean>();
 		listaProdutoOrcamentoApagarBean = new ArrayList<ProdutoOrcamentoCursoBean>();
-		orcamentoCursoFormaPagamento = orcamentoCursoFacade
+		orcamentoCursoFormaPagamento = orcamentoCursoDao
 				.consultarFormaPagamento(orcamentocurso.getIdorcamentoCurso());
-		List<Produtoorcamentocurso> listaProdutos = orcamentoCursoFacade
+		List<Produtoorcamentocurso> listaProdutos = orcamentoCursoDao
 				.listarProdutoOrcamentoCurso(orcamentocurso.getIdorcamentoCurso());
 		for (int i = 0; i < listaProdutos.size(); i++) {
 			ProdutoOrcamentoCursoBean pob = new ProdutoOrcamentoCursoBean();
@@ -1373,8 +1376,8 @@ public class CadOrcamentoManualMB implements Serializable {
 			calcularValorTotalOrcamento();
 			orcamentocurso.setValor(valorTotal);
 			orcamentocurso.setIdCurso(0);
-			OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();  
-			orcamentocurso = orcamentoCursoFacade.salvar(orcamentocurso);
+			  
+			orcamentocurso = orcamentoCursoDao.salvar(orcamentocurso);
 			salvarOrcamentoProdutoOrcamento(orcamentocurso);
 			return true;
 		} else {
@@ -1404,7 +1407,7 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	public void salvarOrcamentoProdutoOrcamento(Orcamentocurso orcamento) {
 		if (listaProdutoOrcamentoBean != null) {
-			OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
+			
 			for (int i = 0; i < listaProdutoOrcamentoBean.size(); i++) {
 				Produtoorcamentocurso produto;
 				if (listaProdutoOrcamentoBean.get(i).isNovo()) {
@@ -1412,29 +1415,29 @@ public class CadOrcamentoManualMB implements Serializable {
 					produto.setOrcamentocurso(orcamento.getIdorcamentoCurso());
 					produto.setValorMoedaEstrangeira(listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira());
 					produto.setValorMoedaNacional(listaProdutoOrcamentoBean.get(i).getValorMoedaReal());
-					Produtosorcamento produtosorcamentos = orcamentoCursoFacade
+					Produtosorcamento produtosorcamentos = orcamentoCursoDao
 							.consultarProdutoOrcamentoCurso(listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamento());
 					produto.setProdutosOrcamento(produtosorcamentos);
 					produto.setSomarvalortotal(listaProdutoOrcamentoBean.get(i).isSomarvalortotal());
-					orcamentoCursoFacade.salvar(produto);
+					orcamentoCursoDao.salvar(produto);
 					if (produtosorcamentos.getTipoorcamento().equalsIgnoreCase("C")) {
 						if (produtosorcamentos.getDescricao().equalsIgnoreCase("Voluntariado")) {
 							orcamento.setTipoorcamento("Voluntariado");
-							orcamentoCursoFacade.salvar(orcamento);
+							orcamentoCursoDao.salvar(orcamento);
 						}
 					}
 				} else {
-					produto = orcamentoCursoFacade.consultarProdutoOrcamentoCuros(
+					produto = orcamentoCursoDao.consultarProdutoOrcamentoCuros(
 							listaProdutoOrcamentoBean.get(i).getIdProdutoOrcamentoCurso());
 					if (produto != null) {
 						produto.setValorMoedaEstrangeira(listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira());
 						produto.setValorMoedaNacional(listaProdutoOrcamentoBean.get(i).getValorMoedaReal());
 						produto.setSomarvalortotal(listaProdutoOrcamentoBean.get(i).isSomarvalortotal());
-						orcamentoCursoFacade.salvar(produto);
+						orcamentoCursoDao.salvar(produto);
 						if (produto.getProdutosOrcamento().getTipoorcamento().equalsIgnoreCase("C")) {
 							if (produto.getProdutosOrcamento().getDescricao().equalsIgnoreCase("Voluntariado")) {
 								orcamento.setTipoorcamento("Voluntariado");
-								orcamentoCursoFacade.salvar(orcamento);
+								orcamentoCursoDao.salvar(orcamento);
 							}
 						}
 					}
@@ -1578,8 +1581,8 @@ public class CadOrcamentoManualMB implements Serializable {
 		if (listaProdutoOrcamentoApagarBean != null) {
 			for (int i = 0; i < listaProdutoOrcamentoApagarBean.size(); i++) {
 				if (listaProdutoOrcamentoApagarBean.get(i).getIdProdutoOrcamentoCurso() > 0) {
-					OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
-					orcamentoCursoFacade.excluirProdutoOrcamentoCurso(
+					
+					orcamentoCursoDao.excluirProdutoOrcamentoCurso(
 							listaProdutoOrcamentoApagarBean.get(i).getIdProdutoOrcamentoCurso());
 				}
 			}
@@ -1592,8 +1595,8 @@ public class CadOrcamentoManualMB implements Serializable {
 		}
 		orcamentoCursoFormaPagamento.setAVista(valorTotal);
 		orcamentoCursoFormaPagamento.setOrcamentocurso(orcamentocurso);
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
-		orcamentoCursoFormaPagamento = orcamentoCursoFacade.salvarFormaPagamento(orcamentoCursoFormaPagamento);
+		
+		orcamentoCursoFormaPagamento = orcamentoCursoDao.salvarFormaPagamento(orcamentoCursoFormaPagamento);
 
 	}
 
@@ -1832,8 +1835,8 @@ public class CadOrcamentoManualMB implements Serializable {
 	}
 
 	public boolean habilitarCheckBoxSomar(ProdutoOrcamentoCursoBean produtoOrcamentoCursoBean) {
-		OrcamentoCursoFacade orcamentoCursoFacade = new OrcamentoCursoFacade();
-		Produtosorcamento produto = orcamentoCursoFacade
+		
+		Produtosorcamento produto = orcamentoCursoDao
 				.consultarProdutoOrcamentoCurso(produtoOrcamentoCursoBean.getIdProdutoOrcamento());
 		int seguro = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
 		if (seguro == produtoOrcamentoCursoBean.getIdProdutoOrcamento()) {

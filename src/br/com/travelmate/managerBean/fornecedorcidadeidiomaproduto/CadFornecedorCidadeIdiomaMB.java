@@ -14,8 +14,8 @@ import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
-import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
 import br.com.travelmate.facade.IdiomaFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
@@ -39,6 +39,8 @@ public class CadFornecedorCidadeIdiomaMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Fornecedorcidadeidioma fornecedorCidadeIdioma;
@@ -181,8 +183,7 @@ public class CadFornecedorCidadeIdiomaMB implements Serializable {
 	}
 
 	public String excluir(Fornecedorcidadeidioma fornecedorcidadeidioma) {
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-		List<Coprodutos> listaCoprodutos = coProdutosFacade
+		List<Coprodutos> listaCoprodutos = coProdutosDao
 				.listar("Select c From Coprodutos c Where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 						+ fornecedorcidadeidioma.getIdfornecedorcidadeidioma());
 		if (listaCoprodutos == null || listaCoprodutos.isEmpty()) {

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.CoProdutosFacade; 
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -33,6 +33,8 @@ public class AdicionarTransferMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -133,13 +135,12 @@ public class AdicionarTransferMB implements Serializable {
 
 	public void gerarListaTransfer() {
 		listaTransfer = new ArrayList<>();
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
 		String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 			+ resultadoOrcamentoBean.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma() + " and c.tipo='Transfer'"
 			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementoidade()
 			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
 			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
-		List<Coprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+		List<Coprodutos> listaCoProdutos = coProdutosDao.listar(sql);
 		if (listaCoProdutos != null) {
 			for (int i = 0; i < listaCoProdutos.size(); i++) {
 				ProdutosOrcamentoBean po = consultarValores("DI", listaCoProdutos.get(i).getIdcoprodutos(),
@@ -240,14 +241,13 @@ public class AdicionarTransferMB implements Serializable {
 	
 	public void gerarListaTransferIndependente() {
 		listaTransferIndependente = new ArrayList<>();
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
 		String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 			+ resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos()
 			.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()+ " and c.tipo='Transfer'"
 			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementoidade()
 			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementoacomodacao()
 			+ " and c.produtosorcamento.idprodutosOrcamento<>" + aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
-		List<Coprodutos> listaCoProdutos = coProdutosFacade.listar(sql);
+		List<Coprodutos> listaCoProdutos = coProdutosDao.listar(sql);
 		if (listaCoProdutos != null) {
 			Date dataconsulta = retornarDataConsultaOrcamento(resultadoOrcamentoBean.getOcurso().getDatainicio(),
 						resultadoOrcamentoBean.getListaAcomodacoes().get(0).getValorcoprodutos().getCoprodutos().getFornecedorcidadeidioma()

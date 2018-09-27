@@ -1,9 +1,8 @@
 package br.com.travelmate.managerBean.coprodutos;
 
 import br.com.travelmate.dao.AvisosDao;
-
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.CambioFacade;
-import br.com.travelmate.facade.CoProdutosFacade;
 import br.com.travelmate.facade.ComplementoAcomodacaoFacade;
 import br.com.travelmate.facade.ComplementoCursoFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
@@ -56,6 +55,8 @@ public class CoProdutosMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
 	private AvisosDao avisosDao;
 	@Inject
@@ -292,8 +293,7 @@ public class CoProdutosMB implements Serializable {
 			String sql = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 					+ fornecedorCidadeIdioma.getIdfornecedorcidadeidioma() + " and c.situacao=" + situacao
 					+ "  order by c.produtosorcamento.descricao";
-			CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-			listaCoProdutos = coProdutosFacade.listar(sql);
+			listaCoProdutos = coProdutosDao.listar(sql);
 			habilitarBotoes = false;
 			ano = fornecedorCidadeIdioma.getFornecedorcidade().getFornecedor().getAnotarifario();
 			if (listaCoProdutos == null) {
@@ -409,8 +409,7 @@ public class CoProdutosMB implements Serializable {
 	}
  
 	public void cadastrarCidadeIdioma() {
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-		List<Coprodutos> lista = coProdutosFacade
+		List<Coprodutos> lista = coProdutosDao
 				.listar("Select c from Coprodutos c where c.idcoprodutos>=4000 and c.idcoprodutos<=4400");
 		FornecedorCidadeIdiomaFacade fornecedorCidadeIdiomaFacade = new FornecedorCidadeIdiomaFacade();
 		for (int i = 0; i < lista.size(); i++) {
@@ -420,7 +419,7 @@ public class CoProdutosMB implements Serializable {
 								+ lista.get(i).getFornecedorcidade().getIdfornecedorcidade());
 				if (listaIdioma != null) {
 					lista.get(i).setFornecedorcidadeidioma(listaIdioma.get(0));
-					coProdutosFacade.salvar(lista.get(i));
+					coProdutosDao.salvar(lista.get(i));
 				}
 			}
 		} 
@@ -565,8 +564,7 @@ public class CoProdutosMB implements Serializable {
 		} else {
 			coprodutos.setSituacao(true);
 		}
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-		coProdutosFacade.salvar(coprodutos);
+		coProdutosDao.salvar(coprodutos);
 		filtrarProdutos();
 		return "";
 	}
@@ -578,8 +576,8 @@ public class CoProdutosMB implements Serializable {
 					+ " and c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 					+ fornecedorCidadeIdioma.getIdfornecedorcidadeidioma() + " and c.situacao=" + situacao
 					+ "  order by c.produtosorcamento.descricao";
-			CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-			listaCoProdutos = coProdutosFacade.listar(sql);
+			
+			listaCoProdutos = coProdutosDao.listar(sql);
 			habilitarBotoes = false;
 			if (listaCoProdutos == null) {
 				listaCoProdutos = new ArrayList<Coprodutos>();
@@ -622,8 +620,7 @@ public class CoProdutosMB implements Serializable {
         if(complementocurso!=null) {
         	complementoCursoFacade.excluir(complementocurso.getIdcomplementocurso());
     	}
-		CoProdutosFacade coProdutosFacade = new CoProdutosFacade();
-		coProdutosFacade.excluir(coprodutos.getIdcoprodutos());
+		coProdutosDao.excluir(coprodutos.getIdcoprodutos());
 		listaCoProdutos.remove(coprodutos);
 	}
 	
