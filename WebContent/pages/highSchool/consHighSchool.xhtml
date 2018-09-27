@@ -789,7 +789,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Data Cancelamento" style="width:125px;" sortBy="#{highSchoolCancelada.vendas.cancelamento.datasolicitacao}">
-								<p:commandLink action="#{highSchoolMB.dadosCancelamento(highSchoolCancelada)}" update=":consultacursos:growl">
+								<p:commandLink action="#{highSchoolMB.dadosCancelamento(highSchoolCancelada)}" update=":consultahighschool:growl">
 									<h:outputText value="#{highSchoolCancelada.vendas.cancelamento.datasolicitacao}"
 										style="#{highSchoolMB.cor(highSchoolCancelada)}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
