@@ -573,6 +573,18 @@
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
+							
+							
+							<p:column headerText="Data Cancelamento" sortBy="#{cancelada.vendas.cancelamento.datasolicitacao}"
+								style="text-align:center;width:115px;">
+								<p:commandLink action="#{acomodacaoMB.dadosCancelamento(cancelada)}" update=":telaConsAcomodacao:growl">
+									<h:outputText value="#{cancelada.vendas.cancelamento.datasolicitacao}" 
+										style="#{acomodacaoMB.cor(cancelada)}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</p:commandLink>
+							</p:column>
 							<p:column headerText="Cliente"
 								sortBy="#{cancelada.vendas.cliente.nome}"
 								style="width:100px;text-align:left;" styleClass="alinharCenter">

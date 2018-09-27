@@ -33,6 +33,7 @@ import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.He;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
@@ -609,4 +610,20 @@ public class AcomodacaoMB implements Serializable{
 		return true;
 	}
 
+	
+	public void dadosCancelamento(Acomodacao acomodacao) {
+		if (acomodacao.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && acomodacao.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = acomodacao.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
+	}
 }

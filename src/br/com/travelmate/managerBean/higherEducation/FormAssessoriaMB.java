@@ -32,7 +32,9 @@ import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
+import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
@@ -763,6 +765,23 @@ public class FormAssessoriaMB implements Serializable{
 			return "../../resources/img/obsVermelha.png";
 		}
 		return "../../resources/img/obsFicha.png";
+	}
+	
+	
+	public void dadosCancelamento(He he) {
+		if (he.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && he.getVendas().getCancelamento() != null) {
+			Cancelamento cancelamento = he.getVendas().getCancelamento();
+			if (cancelamento != null) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("cancelamento", cancelamento);
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put("contentWidth", 400);
+				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
+			}else {
+				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
 	}
 
 }

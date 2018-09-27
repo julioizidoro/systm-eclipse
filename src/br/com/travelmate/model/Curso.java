@@ -254,6 +254,10 @@ public class Curso implements Serializable {
 	private boolean imprimirApplication;
 	@Transient
 	private boolean escolherApplication;
+	@Transient
+	private String corVenda;
+	@Transient
+	private String corNome;
 
 	public Curso() {
 		setFumante("Não");
@@ -958,6 +962,22 @@ public class Curso implements Serializable {
 
 	public void setEscolherApplication(boolean escolherApplication) {
 		this.escolherApplication = escolherApplication;
+	}
+
+	public String getCorVenda() {
+		return corVenda;
+	}
+
+	public void setCorVenda(String corVenda) {
+		this.corVenda = corVenda;
+	}
+
+	public String getCorNome() {
+		return corNome;
+	}
+
+	public void setCorNome(String corNome) {
+		this.corNome = corNome;
 	}
 
 	@Override

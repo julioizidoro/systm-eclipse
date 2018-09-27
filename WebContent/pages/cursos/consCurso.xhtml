@@ -133,17 +133,17 @@
 							<p:column headerText="Cliente" sortBy="#{cursosProcesso.vendas.cliente.nome}" style="width:160px;">
 								<p:commandLink  action="#{cursoMB.escolherApplication(cursosProcesso)}" rendered="#{cursosProcesso.escolherApplication}">
 										<h:outputText value="#{cursosProcesso.vendas.cliente.nome}"
-											style="#{cursoMB.corNome(cursosProcesso)}" />
+											style="#{cursosProcesso.corNome}" />
 									</p:commandLink>
 								<p:commandLink  action="#{cursoMB.imprimirApplication(cursosProcesso)}" target="_blank" ajax="false" rendered="#{cursosProcesso.imprimirApplication}">
 										<h:outputText value="#{cursosProcesso.vendas.cliente.nome}"
-											style="#{cursoMB.corNome(cursosProcesso)}" />
+											style="#{cursosProcesso.corNome}" />
 									</p:commandLink>
 							</p:column>
 							<p:column headerText="Data Inscrição" sortBy="#{cursosProcesso.dataInscricao}"
 								style="text-align:center;width:115px;">
 								<h:outputText value="#{cursosProcesso.dataInscricao}"
-									style="#{cursoMB.cor(cursosProcesso)}">
+									style="#{cursosProcesso.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
@@ -151,7 +151,7 @@
 							<p:column headerText="Data Início" sortBy="#{cursosProcesso.dataInicio}"
 								style="text-align:center;width:115px;">
 								<h:outputText value="#{cursosProcesso.dataInicio}" 
-									style="#{cursoMB.cor(cursosProcesso)}">  
+									style="#{cursosProcesso.corVenda}">  
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
@@ -160,18 +160,18 @@
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursosProcesso.vendas.unidadenegocio.nomerelatorio}"
-									style="#{cursoMB.cor(cursosProcesso)}" />
+									style="#{cursosProcesso.corVenda}" />
 							</p:column>
 							<p:column headerText="Escola" style="width:142px;" sortBy="#{cursosProcesso.vendas.fornecedorcidade.fornecedor.nome}"
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursosProcesso.vendas.fornecedorcidade.fornecedor.nome}"
-									style="#{cursoMB.cor(cursosProcesso)}" />
+									style="#{cursosProcesso.corVenda}" />
 							</p:column>
 							<p:column headerText="Consultor" style="width:110px;" sortBy="#{cursosProcesso.vendas.usuario.nome}"
 								styleClass="alinharCenter">
 								<h:outputText value="#{cursosProcesso.vendas.usuario.nome}"
-									style="#{cursoMB.cor(cursosProcesso)}" />
+									style="#{cursosProcesso.corVenda}" />
 							</p:column>
 							<p:column style="width:43px;text-align:center;" styleClass="alinharCenter">
 								<p:commandLink action="#{cursoMB.editarCurso(cursosProcesso)}"
@@ -334,7 +334,7 @@
 									title="Visualizar Contas a Receber"
 									rendered="#{cursoMB.linkIdVendaFranquias}">
 									<h:outputText value="#{cursosFinanceiro.vendas.idvendas}"
-										style="#{cursoMB.cor(cursosFinanceiro)}" />
+										style="#{cursosFinanceiro.corVenda}" />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursosFinanceiro.vendas.cliente.nome}" style="width:155px;">
@@ -343,17 +343,17 @@
 									
 									<p:commandLink  action="#{cursoMB.escolherApplication(cursosFinanceiro)}" rendered="#{cursosFinanceiro.escolherApplication}">
 										<h:outputText value="#{cursosFinanceiro.vendas.cliente.nome}"
-											style="#{cursoMB.corNome(cursosFinanceiro)}" />
+											style="#{cursosFinanceiro.corNome}" />
 									</p:commandLink>
 								<p:commandLink  action="#{cursoMB.imprimirApplication(cursosFinanceiro)}" target="_blank" ajax="false" rendered="#{cursosFinanceiro.imprimirApplication}">
 										<h:outputText value="#{cursosFinanceiro.vendas.cliente.nome}"
-											style="#{cursoMB.corNome(cursosFinanceiro)}" />
+											style="#{cursosFinanceiro.corNome}" />
 									</p:commandLink>
 							</p:column>
 							<p:column headerText="Data Inscrição" sortBy="#{cursosFinanceiro.dataInscricao}"
 								style="text-align:center;width:115px;">  
 								<h:outputText value="#{cursosFinanceiro.dataInscricao}"
-									style="#{cursoMB.cor(cursosFinanceiro)}">
+									style="#{cursosFinanceiro.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
@@ -361,7 +361,7 @@
 							<p:column headerText="Data Início" sortBy="#{cursosFinanceiro.dataInicio}"
 								style="text-align:center;width:115px;">
 								<h:outputText value="#{cursosFinanceiro.dataInicio}" 
-									style="#{cursoMB.cor(cursosFinanceiro)}">
+									style="#{cursosFinanceiro.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
@@ -370,18 +370,18 @@
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursosFinanceiro.vendas.unidadenegocio.nomerelatorio}"
-									style="#{cursoMB.cor(cursosFinanceiro)}" />  
+									style="#{cursosFinanceiro.corVenda}" />  
 							</p:column>
 							<p:column headerText="Escola" style="width:140px;" sortBy="#{cursosFinanceiro.vendas.fornecedorcidade.fornecedor.nome}"
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursosFinanceiro.vendas.fornecedorcidade.fornecedor.nome}"
-									style="#{cursoMB.cor(cursosFinanceiro)}" />
+									style="#{cursosFinanceiro.corVenda}" />
 							</p:column>
 							<p:column headerText="Consultor" style="width:105px;" sortBy="#{cursosFinanceiro.vendas.usuario.nome}"
 								styleClass="alinharCenter">
 								<h:outputText value="#{cursosFinanceiro.vendas.usuario.nome}"
-									style="#{cursoMB.cor(cursosFinanceiro)}" />
+									style="#{cursosFinanceiro.corVenda}" />
 							</p:column>
 							<p:column style="width:43px;text-align:center;" styleClass="alinharCenter">
 								<p:commandLink action="#{cursoMB.editarCurso(cursosFinanceiro)}"
@@ -536,7 +536,7 @@
 									title="Visualizar Contas a Receber"
 									rendered="#{cursoMB.linkIdVendaFranquias}">
 									<h:outputText value="#{cursosFinalizado.vendas.idvendas}"
-										style="#{cursoMB.cor(cursosFinalizado)}" />
+										style="#{cursosFinalizado.corVenda}" />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursosFinalizado.vendas.cliente.nome}" style="width:170px;">
@@ -544,18 +544,18 @@
 									
 									<p:commandLink  action="#{cursoMB.escolherApplication(cursosFinalizado)}" rendered="#{cursosFinalizado.escolherApplication}">
 										<h:outputText value="#{cursosFinalizado.vendas.cliente.nome}"
-											style="#{cursoMB.corNome(cursosFinalizado)}" />
+											style="#{cursosFinalizado.corNome}" />
 									</p:commandLink>
 								<p:commandLink  action="#{cursoMB.imprimirApplication(cursosFinalizado)}" target="_blank" ajax="false" rendered="#{cursosFinalizado.imprimirApplication}">
 										<h:outputText value="#{cursosFinalizado.vendas.cliente.nome}"
-											style="#{cursoMB.corNome(cursosFinalizado)}" />
+											style="#{cursosFinalizado.corNome}" />
 									</p:commandLink>
 									
 							</p:column>
 							<p:column headerText="Data Inscrição" sortBy="#{cursosFinalizado.dataInscricao}"
 								style="text-align:center;width:113px;">
 								<h:outputText value="#{cursosFinalizado.dataInscricao}"
-									style="#{cursoMB.cor(cursosFinalizado)}">
+									style="#{cursosFinalizado.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
@@ -563,7 +563,7 @@
 							<p:column headerText="Data Início" sortBy="#{cursosFinalizado.dataInicio}"
 								style="text-align:center;width:115px;">
 								<h:outputText value="#{cursosFinalizado.dataInicio}" 
-									style="#{cursoMB.cor(cursosFinalizado)}">
+									style="#{cursosFinalizado.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
@@ -572,18 +572,18 @@
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursosFinalizado.vendas.unidadenegocio.nomerelatorio}"
-									style="#{cursoMB.cor(cursosFinalizado)}" />
+									style="#{cursosFinalizado.corVenda}" />
 							</p:column>
 							<p:column headerText="Escola" style="width:145px;" sortBy="#{cursosFinalizado.vendas.fornecedorcidade.fornecedor.nome}"
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursosFinalizado.vendas.fornecedorcidade.fornecedor.nome}"
-									style="#{cursoMB.cor(cursosFinalizado)}" />
+									style="#{cursosFinalizado.corVenda}" />
 							</p:column>
 							<p:column headerText="Consultor" style="width:110px;" sortBy="#{cursosFinalizado.vendas.usuario.nome}"
 								styleClass="alinharCenter">
 								<h:outputText value="#{cursosFinalizado.vendas.usuario.nome}"
-									style="#{cursoMB.cor(cursosFinalizado)}" />
+									style="#{cursosFinalizado.corVenda}" />
 							</p:column>
 							<p:column style="width:43px;text-align:center;" styleClass="alinharCenter">
 								<p:commandLink action="#{cursoMB.editarCurso(cursosFinalizado)}"
@@ -736,23 +736,23 @@
 							</p:column>
 							<p:column headerText="ID Venda" sortBy="#{cursosCancelada.vendas.idvendas}" style="width:85px;">
 								<p:commandLink >
-									<h:outputText value="#{cursosCancelada.vendas.idvendas}" style="#{cursoMB.cor(cursosCancelada)}"  />
+									<h:outputText value="#{cursosCancelada.vendas.idvendas}" style="#{cursosCancelada.corVenda}"  />
 								</p:commandLink>
 								<p:commandLink
 									action="#{cursoMB.visualizarContasReceber(cursosCancelada.vendas)}"
 									title="Visualizar Contas a Receber"
 									rendered="#{cursoMB.linkIdVendaFranquias}"
-										style="#{cursoMB.cor(cursosCancelada)}" >
+										style="#{cursosCancelada.corVenda}" >
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursosCancelada.vendas.cliente.nome}" style="width:170px;">
 								<h:outputText value="#{cursosCancelada.vendas.cliente.nome}"
-									style="#{cursoMB.corNome(cursosCancelada)}" />
+									style="#{cursosCancelada.corNome}" />
 							</p:column>
 							<p:column headerText="Data Venda" sortBy="#{cursosCancelada.vendas.dataVenda}"
 								style="text-align:center;width:115px;">
 								<h:outputText value="#{cursosCancelada.vendas.dataVenda}"
-									style="#{cursoMB.cor(cursosCancelada)}">
+									style="#{cursosCancelada.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
@@ -761,7 +761,7 @@
 								style="text-align:center;width:115px;">
 								<p:commandLink action="#{cursoMB.dadosCancelamento(cursosCancelada)}" update=":consultacursos:growl">
 									<h:outputText value="#{cursosCancelada.vendas.cancelamento.datasolicitacao}" 
-										style="#{cursoMB.cor(cursosCancelada)}">
+										style="#{cursosCancelada.corVenda}">
 										<f:convertDateTime pattern="dd/MM/yyyy"
 											timeZone="America/Sao_Paulo" />
 									</h:outputText>
@@ -771,18 +771,18 @@
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursosCancelada.vendas.unidadenegocio.nomerelatorio}"
-									style="#{cursoMB.cor(cursosCancelada)}" />
+									style="#{cursosCancelada.corVenda}" />
 							</p:column>
 							<p:column headerText="Escola" style="width:150px;" sortBy="#{cursosCancelada.vendas.fornecedorcidade.fornecedor.nome}"
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursosCancelada.vendas.fornecedorcidade.fornecedor.nome}"
-									style="#{cursoMB.cor(cursosCancelada)}" />
+									style="#{cursosCancelada.corVenda}" />
 							</p:column>
 							<p:column headerText="Consultor" style="width:110px;" sortBy="#{cursosCancelada.vendas.usuario.nome}"
 								styleClass="alinharCenter">
 								<h:outputText value="#{cursosCancelada.vendas.usuario.nome}"
-									style="#{cursoMB.cor(cursosCancelada)}" />
+									style="#{cursosCancelada.corVenda}" />
 							</p:column> 
 							<p:column headerText="Opções" style="width:75px;text-align:center;">  
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -851,24 +851,24 @@
 									<h:outputText value="#{cursos.vendas.idvendas}" />
 								</p:commandLink> 
 								<h:outputText value="#{cursos.vendas.idvendas}"
-										style="#{cursoMB.cor(cursos)}" rendered="#{cursoMB.linkIdVendaFranquias}"/>  
+										style="#{cursos.corVenda}" rendered="#{cursoMB.linkIdVendaFranquias}"/>  
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{cursos.vendas.cliente.nome}" style="width:150px;">
 								
 								
 								<p:commandLink  action="#{cursoMB.escolherApplication(cursos)}" rendered="#{cursos.escolherApplication}">
 										<h:outputText value="#{cursos.vendas.cliente.nome}"
-											style="#{cursoMB.corNome(cursos)}" />
+											style="#{cursos.corNome}" />
 									</p:commandLink>
 								<p:commandLink  action="#{cursoMB.imprimirApplication(cursos)}" target="_blank" ajax="false" rendered="#{cursos.imprimirApplication}">
 										<h:outputText value="#{cursos.vendas.cliente.nome}"
-											style="#{cursoMB.corNome(cursos)}" />
+											style="#{cursos.corNome}" />
 									</p:commandLink>
 							</p:column>
 							<p:column headerText="Data Venda" sortBy="#{cursos.vendas.dataVenda}"    
 								style="text-align:center;width:115px;">
 								<h:outputText value="#{cursos.vendas.dataVenda}"
-									style="#{cursoMB.cor(cursos)}">
+									style="#{cursos.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>   
@@ -876,7 +876,7 @@
 							<p:column headerText="Data Início" sortBy="#{cursos.dataInicio}"
 								style="text-align:center;width:115px;">
 								<h:outputText value="#{cursos.dataInicio}" 
-									style="#{cursoMB.cor(cursos)}">
+									style="#{cursos.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />    
 								</h:outputText>
@@ -885,18 +885,18 @@
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursos.vendas.unidadenegocio.nomerelatorio}"
-									style="#{cursoMB.cor(cursos)}" />        
+									style="#{cursos.corVenda}" />        
 							</p:column>     
 							<p:column headerText="Escola" style="width:125px;" sortBy="#{cursos.vendas.fornecedorcidade.fornecedor.nome}"
 								styleClass="alinharCenter">
 								<h:outputText
 									value="#{cursos.vendas.fornecedorcidade.fornecedor.nome}"
-									style="#{cursoMB.cor(cursos)}" />
+									style="#{cursos.corVenda}" />
 							</p:column>
 							<p:column headerText="Consultor" style="width:110px;" sortBy="#{cursos.vendas.usuario.nome}"
 								styleClass="alinharCenter">
 								<h:outputText value="#{cursos.vendas.usuario.nome}"
-									style="#{cursoMB.cor(cursos)}" />
+									style="#{cursos.corVenda}" />
 							</p:column>
 							<p:column style="width:43px;text-align:center;" styleClass="alinharCenter">
 								<p:commandLink action="#{cursoMB.editarCurso(cursos)}"

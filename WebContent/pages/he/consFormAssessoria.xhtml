@@ -875,13 +875,23 @@
 								<h:outputText value="#{cancelado.vendas.cliente.nome}"
 									style="#{formAssessoriaMB.corNome(cancelado)}" />
 							</p:column>
-							<p:column headerText="Data Envio" sortBy="#{cancelado.vendas.dataVenda}"
+							<p:column headerText="Data Venda" sortBy="#{cancelado.vendas.dataVenda}"
 								style="text-align:center;width:67px;">
 								<h:outputText value="#{cancelado.vendas.dataVenda}"
 									style="#{formAssessoriaMB.cor(cancelado)}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
+							</p:column>
+							<p:column headerText="Data Cancelamento" sortBy="#{cancelado.vendas.cancelamento.datasolicitacao}"
+								style="text-align:center;width:115px;">
+								<p:commandLink action="#{formAssessoriaMB.dadosCancelamento(cancelado)}" update=":consHe:growl">
+									<h:outputText value="#{cancelado.vendas.cancelamento.datasolicitacao}" 
+										style="#{fichaFinalMB.cor(cancelado)}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
+								</p:commandLink>
 							</p:column>
 							<p:column headerText="Unidade" sortBy="#{cancelado.vendas.unidadenegocio.nomerelatorio}"
 								style="width:85px;" styleClass="alinharCenter">

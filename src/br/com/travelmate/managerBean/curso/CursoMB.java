@@ -1055,6 +1055,15 @@ public class CursoMB implements Serializable {
 				listaVendasCurso.get(i).setEscolherApplication(false);
 				listaVendasCurso.get(i).setImprimirApplication(true);
 			}
+			if (listaVendasCurso.get(i).getVendas().getSituacao().equals("CANCELADA")) {
+				listaVendasCurso.get(i).setCorNome("color:#808080;text-decoration: line-through;");
+				listaVendasCurso.get(i).setCorVenda("color:#808080;");
+			}else if (listaVendasCurso.get(i).isUploadapplication()) {
+				listaVendasCurso.get(i).setCorNome("color:red;");
+				listaVendasCurso.get(i).setCorVenda("color:#000000;");
+			}else {
+				listaVendasCurso.get(i).setCorVenda("color:#000000;");
+			}
 			if (listaVendasCurso.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
 				listaVendasCursoFinalizada.add(listaVendasCurso.get(i));

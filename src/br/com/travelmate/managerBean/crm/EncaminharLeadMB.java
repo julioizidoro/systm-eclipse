@@ -21,6 +21,7 @@ import br.com.travelmate.dao.LeadResponsavelDao;
 
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Avisos;
@@ -363,8 +364,11 @@ public class EncaminharLeadMB implements Serializable {
 		}
 		
 		if (produto == null || produto.getIdprodutos() == null) {
-			Mensagem.lancarMensagemInfo("Programa não informado", "");
-			return false;
+			ProdutoFacade produtoFacade = new ProdutoFacade();
+			produto = produtoFacade.consultar(21);
+			if (produto == null || produto.getIdprodutos() == null) {
+				Mensagem.lancarMensagemInfo("Selecione um programa", "");
+			}
 		}
 		
 		if (pais == null || pais.getIdpais() == null) {
