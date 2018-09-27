@@ -295,7 +295,7 @@
 											</p:commandLink> 
 										<p:commandLink
 											action="#{cursosTeensMB.cancelarVenda(cursosTeensProcesso.vendas)}"
-											style="text-decoration: none" title="CANCELAR FICHA">
+											style="text-decoration: none" title="CANCELAR FICHA" update=":consultacursosteens:acordionPainel">
 											<p:confirm header="Cancelamento"
 												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
 											<img src="../../resources/img/cancel.png" width="36" />
@@ -487,9 +487,12 @@
 											</p:commandLink> 
 										<p:commandLink
 											action="#{cursosTeensMB.cancelarVenda(cursosTeensFinanceiro.vendas)}"
-											style="text-decoration: none" title="CANCELAR FICHA">
+											style="text-decoration: none" title="CANCELAR FICHA" update=":consultacursosteens:acordionPainel">
 											<p:confirm header="Cancelamento"
 												message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
+											<p:ajax event="dialogReturn"
+														listener="#{cursosTeensMB.retornoDialogoEditar}" process="@this"
+														update=":consultacursosteens:acordionPainel" />
 											<img src="../../resources/img/cancel.png" width="36" />
 											<h:panelGrid columns="1" style="text-align:1px;">
 												<p:outputLabel value="CANCELAR" style="font-size:11px;" />

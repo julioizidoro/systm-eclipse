@@ -49,6 +49,7 @@ import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Seguroviagem;
+import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Voluntariado;
@@ -1006,6 +1007,7 @@ public class VoluntariadoMB implements Serializable {
 			
 			vendas.setSituacao("CANCELADA");
 			vendasDao.salvar(vendas);
+			carregarLista();
 		}
 		return "";
 	}  
@@ -1094,5 +1096,10 @@ public class VoluntariadoMB implements Serializable {
 				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
 			}
 		}
+	}
+	
+	
+	public void retornoDialogoEditar(Voluntariado voluntariado) {
+		carregarLista();
 	}
 }

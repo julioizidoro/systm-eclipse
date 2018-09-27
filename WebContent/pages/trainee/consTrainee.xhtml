@@ -269,10 +269,13 @@
 													</p:commandLink> 
 												
 												<p:commandLink action="#{traineeMB.cancelarVenda(traineeProcesso)}"  disabled="#{traineeMB.botoesHabilitados(traineeProcesso)}"
-													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaProcesso">
+													style="text-decoration: none" title="CANCELAR FICHA" update=":idfrmconsultatraineer:acordionPainel:tabelaConsultaProcesso, :idfrmconsultatraineer:acordionPainel:tabelaConsultaCancelado, :idfrmconsultatraineer:acordionPainel">
 													<p:confirm header="Cancelamento"
 														message="Deseja Cancelar Ficha?" icon="ui-icon-alert" />
 													<img src="../../resources/img/cancel.png" width="36"/>
+													<p:ajax event="dialogReturn"
+														listener="#{traineeMB.retornoDialogoEditar}" process="@this"
+														update=":idfrmconsultatraineer:acordionPainel:tabelaConsultaProcesso, :idfrmconsultatraineer:acordionPainel:tabelaConsultaCancelado, :idfrmconsultatraineer:acordionPainel" />
 													<h:panelGrid columns="1" style="text-align:1px;">
 														<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
 														<p:outputLabel value=" "/>

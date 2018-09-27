@@ -276,16 +276,17 @@
 													</p:commandLink> 
 												
 												<p:commandLink action="#{workTravelMB.cancelarVenda(workTravelProcesso.vendas)}" disabled="#{workTravelMB.botoesHabilitados(workTravelProcesso)}"
-													style="text-decoration: none" title="CANCELAR FICHA" update="tabelaConsultaProcesso">
+													style="text-decoration: none" title="CANCELAR FICHA" update=":idfrmconsultaworkandtravel:acordionPainel">
 													<p:confirm header="Cancelamento"
 															message="Deseja Cancelar Ficha?" icon="ui-icon-alert"/>
 													<img src="../../resources/img/cancel.png" width="36"/>
+													<p:ajax event="dialogReturn"
+														listener="#{workTravelMB.retornoDialogoEditar}" process="@this"
+														update=":idfrmconsultaworkandtravel:acordionPainel" />
 													<h:panelGrid columns="1" style="text-align:1px;">
 															<p:outputLabel value="CANCELAR" style="font-size:11px;"/>
 															<p:outputLabel value=" "/>
 														</h:panelGrid>
-													<p:ajax event="dialogReturn" listener="#{workTravelMB.carregarListaVendasWork()}" 
-														update="tabelaConsultaProcesso"/>
 												</p:commandLink>
 												
 									</h:panelGrid>

@@ -1033,4 +1033,8 @@ public class TraineeMB implements Serializable {
 			}
 		}
 	}
+	
+	public void retornoDialogoEditar(Trainee trainee) {
+		carregarListaVendasTrainee();
+	}
 }

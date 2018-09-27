@@ -28,7 +28,8 @@ import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Vendas; 
+import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.GerarRelatorio;
@@ -749,7 +750,6 @@ public class CursosTeensMB implements Serializable {
 			session.setAttribute("voltar", "cursosTeens");
 			return "emissaocancelamento";
 		} else if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			
 			venda.setSituacao("CANCELADA");
 			vendasDao.salvar(venda);
 			carregarListaVendas();
@@ -1024,4 +1024,8 @@ public class CursosTeensMB implements Serializable {
 		}
 	}
 
+
+	public void retornoDialogoEditar(Programasteens programasteens) {
+		carregarListaVendas();
+	}
 }

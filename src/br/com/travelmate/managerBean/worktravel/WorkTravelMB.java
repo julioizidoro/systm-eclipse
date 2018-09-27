@@ -48,6 +48,7 @@ import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
@@ -951,6 +952,7 @@ public class WorkTravelMB implements Serializable {
 			
 			vendas.setSituacao("CANCELADA");
 			vendasDao.salvar(vendas);
+			carregarListaVendasWork();
 		}
 		return "";
 	}  
@@ -1045,6 +1047,11 @@ public class WorkTravelMB implements Serializable {
 				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
 			}
 		}
+	}
+	
+
+	public void retornoDialogoEditar(Worktravel worktravel) {
+		carregarListaVendasWork();
 	}
 	
 	
