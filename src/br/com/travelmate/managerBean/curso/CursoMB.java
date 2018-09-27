@@ -1042,19 +1042,25 @@ public class CursoMB implements Serializable {
 		listaVendasCursoProcesso = new ArrayList<>();
 		listaVendasCursoFinanceiro = new ArrayList<>();
 		for (int i = 0; i < listaVendasCurso.size(); i++) {
-			FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
-			Fornecedorapplication fornecedorapplication = fornecedorApplicationFacade.consultar("SELECT f FROM Fornecedorapplication f WHERE f.idfornecedorapplication="
-					+ listaVendasCurso.get(i).getIdfornecedorapplication());
-			if (fornecedorapplication == null) {
-				listaVendasCurso.get(i).setEscolherApplication(true);
-				listaVendasCurso.get(i).setImprimirApplication(false);
-			}else if(fornecedorapplication.getProdutosorcamento().getIdprodutosOrcamento() == 2 || fornecedorapplication.getProdutosorcamento().getIdprodutosOrcamento() == 17) {
+			if (listaVendasCurso.get(i).getIdfornecedorapplication() == 0) {
 				listaVendasCurso.get(i).setEscolherApplication(true);
 				listaVendasCurso.get(i).setImprimirApplication(false);
 			}else {
-				listaVendasCurso.get(i).setEscolherApplication(false);
-				listaVendasCurso.get(i).setImprimirApplication(true);
+				FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
+				Fornecedorapplication fornecedorapplication = fornecedorApplicationFacade.consultar("SELECT f FROM Fornecedorapplication f WHERE f.idfornecedorapplication="
+						+ listaVendasCurso.get(i).getIdfornecedorapplication());
+				if (fornecedorapplication == null) {
+					listaVendasCurso.get(i).setEscolherApplication(true);
+					listaVendasCurso.get(i).setImprimirApplication(false);
+				}else if(fornecedorapplication.getProdutosorcamento().getIdprodutosOrcamento() == 2 || fornecedorapplication.getProdutosorcamento().getIdprodutosOrcamento() == 17) {
+					listaVendasCurso.get(i).setEscolherApplication(true);
+					listaVendasCurso.get(i).setImprimirApplication(false);
+				}else {
+					listaVendasCurso.get(i).setEscolherApplication(false);
+					listaVendasCurso.get(i).setImprimirApplication(true);
+				}
 			}
+			
 			if (listaVendasCurso.get(i).getVendas().getSituacao().equals("CANCELADA")) {
 				listaVendasCurso.get(i).setCorNome("color:#808080;text-decoration: line-through;");
 				listaVendasCurso.get(i).setCorVenda("color:#808080;");
