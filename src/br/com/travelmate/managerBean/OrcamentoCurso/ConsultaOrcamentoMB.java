@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
+import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
@@ -63,6 +64,8 @@ public class ConsultaOrcamentoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CoProdutosDao coProdutosDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -354,7 +357,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 					"Data de validade do orçamento expirada, inície um novo orçamento.");
 		} else {
 			EditarOrcamentoOcursoBean editarOrcamentoOcurso = new EditarOrcamentoOcursoBean(ocurso, cliente,
-					ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, ocurso.getIdocurso(), oCursoDescontoDao, oCursoProdutoDao, ocursoSeguroViagemDao);
+					ocurso.getDatainicio(), aplicacaoMB, usuarioLogadoMB, ocurso.getIdocurso(), oCursoDescontoDao, oCursoProdutoDao, ocursoSeguroViagemDao, coProdutosDao);
 			ResultadoOrcamentoBean resultadoOrcamentoBean = new ResultadoOrcamentoBean();
 			resultadoOrcamentoBean.setOcurso(ocurso);
 			resultadoOrcamentoBean.setCambio(editarOrcamentoOcurso.getOcurso().getCambio());
