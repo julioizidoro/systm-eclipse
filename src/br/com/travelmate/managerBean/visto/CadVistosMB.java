@@ -684,11 +684,10 @@ public class CadVistosMB implements Serializable {
 			} else if (vendas.getVendasMatriz().equalsIgnoreCase("M")) {
 				vm = "Venda por Moema";
 			}
-			OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
-			Orcamento orcamento = orcamentoFacade.consultar(vendas.getIdvendas());
-			float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
-			float totalMoedaReal = orcamento.getTotalMoedaNacional();
-			vendas.setValorpais(totalMoedaEstrangeira * cambio.getValor());
+			Orcamento orcamento = new Orcamento();
+			float totalMoedaEstrangeira = formaPagamento.getValorOrcamento();
+			float totalMoedaReal = formaPagamento.getValorOrcamento();
+			vendas.setValorpais(totalMoedaEstrangeira);
 			Cambio cambioBrasil = null;
 			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
 				PaisFacade paisFacade = new PaisFacade();

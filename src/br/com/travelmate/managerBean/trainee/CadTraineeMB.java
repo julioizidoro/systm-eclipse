@@ -1138,23 +1138,39 @@ public class CadTraineeMB implements Serializable {
 						produtosorcamento = null;
 					}
 				} else {
-					orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
-					orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
-					if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0)
-							&& (orcamento.getValorCambio() > 0)) {
-						orcamentoprodutosorcamento.setValorMoedaNacional(
-								orcamentoprodutosorcamento.getValorMoedaEstrangeira() * orcamento.getValorCambio());
+					if ((valorMoedaEstrangeira > 0) && (orcamento.getValorCambio() > 0)) {
+						valorMoedaReal = valorMoedaEstrangeira * orcamento.getValorCambio() ;
 					} else {
-						if ((orcamentoprodutosorcamento.getValorMoedaNacional() > 0)
-								&& (orcamento.getValorCambio() > 0)) {
-							orcamentoprodutosorcamento.setValorMoedaEstrangeira(
-									orcamentoprodutosorcamento.getValorMoedaNacional() / orcamento.getValorCambio());
+						if ((valorMoedaReal > 0) && (orcamento.getValorCambio()  > 0)) {
+							valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio() ;
 						}
 					}
-					orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
-					calcularValorTotalOrcamento();
-					produtosorcamento = null;
-					orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					boolean excluirDescontoTM = true;
+					if (produtosorcamento.getValormaximo()==0) {
+						orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+						orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
+						orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
+						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+						calcularValorTotalOrcamento();
+						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					}else if (produtosorcamento.getValormaximo()>=valorMoedaReal){
+						orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
+						orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
+						orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
+						orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+						calcularValorTotalOrcamento();
+						orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+					}else {
+						FacesContext fc = FacesContext.getCurrentInstance();
+				        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				        Map<String, Object> options = new HashMap<String, Object>();
+						options.put("contentWidth", 230);
+				        session.setAttribute("valorOriginal", 0f);
+				        session.setAttribute("novoValor", 0f);
+						RequestContext.getCurrentInstance().openDialog("validarTrocaCambioPIN", options, null);
+						//Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+						excluirDescontoTM = false;
+					}
 				}
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();
