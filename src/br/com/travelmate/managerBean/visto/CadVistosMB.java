@@ -728,7 +728,7 @@ public class CadVistosMB implements Serializable {
 						dashBoardBean.calcularMetaAnual(vendas, valorAlteradoVendas, false);
 						int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
 						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
+						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false, vistos.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						
@@ -738,7 +738,7 @@ public class CadVistosMB implements Serializable {
 						DashBoardBean dashBoardBean = new DashBoardBean();
 						int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
 						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false, vendas.getUsuario());
+						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], 0, false, vistos.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						
@@ -759,7 +759,7 @@ public class CadVistosMB implements Serializable {
 						int[] pontos = dashBoardBean.calcularPontuacao(vistos.getUsuario(), vendas, 0, "", false);
 						int pontosremover = vendas.getPonto();
 						ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], pontosremover, false, vendas.getUsuario());
+						productRunnersCalculosBean.calcularPontuacao(vendas, pontos[0], pontosremover, false, vistos.getUsuario());
 						vendas.setPonto(pontos[0]);
 						vendas.setPontoescola(pontos[1]);
 						
