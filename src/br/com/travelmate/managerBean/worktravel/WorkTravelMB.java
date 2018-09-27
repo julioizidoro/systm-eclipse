@@ -106,22 +106,8 @@ public class WorkTravelMB implements Serializable {
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		pesquisar = (String) session.getAttribute("pesquisar");
-		listaVendasFinalizada = (List<Worktravel>) session.getAttribute("listaVendasFinalizada");
-		listaVendasAndamento = (List<Worktravel>) session.getAttribute("listaVendasAndamento");
-		listaVendasProcesso = (List<Worktravel>) session.getAttribute("listaVendasProcesso");
-		listaVendasFinanceiro = (List<Worktravel>) session.getAttribute("listaVendasFinanceiro");
-		listaVendasCancelada = (List<Worktravel>) session.getAttribute("listaVendasCancelada");
-		nomePrograma = (String) session.getAttribute("nomePrograma");
-		chamadaTela = (String) session.getAttribute("chamadaTela");
-		session.removeAttribute("listaVendasFinalizada");
-		session.removeAttribute("listaVendasAndamento");
-		session.removeAttribute("listaVendasProcesso");
-		session.removeAttribute("listaVendasFinanceiro");
-		session.removeAttribute("listaVendasCancelada");
-		session.removeAttribute("pesquisar");
-		session.removeAttribute("nomePrograma");
-		session.removeAttribute("chamadaTela");
+		listaWork = (List<Worktravel>) session.getAttribute("listaWork");
+		session.removeAttribute("listaWork");
 		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
 			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Worktravel")) {
 				pesquisar = "Sim";
@@ -130,8 +116,10 @@ public class WorkTravelMB implements Serializable {
 			}
 		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaWork == null || listaWork.size() == 0 ) {
 				carregarListaVendasWork();
+			}else {
+				gerarQuantidadesFichas();
 			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -961,14 +949,7 @@ public class WorkTravelMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("worktravel", worktravel);
-		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
-		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
-		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
-		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
-		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "Worktravel");
-		session.setAttribute("chamadaTela", "Worktravel");
+		session.setAttribute("listaWork", listaWork);
 		return "fichaWorkTravel";
 	}
 	
@@ -1019,14 +1000,7 @@ public class WorkTravelMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("worktravel", worktravel);
-		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
-		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
-		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
-		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
-		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "Worktravel");
-		session.setAttribute("chamadaTela", "Worktravel");
+		session.setAttribute("listaWork", listaWork);
 		return "contratoWorkTravelPremium";
 	}
 	

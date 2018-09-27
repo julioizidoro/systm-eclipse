@@ -152,9 +152,7 @@ public class MenuMB implements Serializable {
 
 	public String curso() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("chamadaTela", "Menu");
+		
 		return "consultafichacurso";
 	}
 
@@ -165,9 +163,7 @@ public class MenuMB implements Serializable {
 
 	public String highSchool() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("chamadaTela", "Menu");
+		
 		return "consultaHighSchool";
 	}
 
@@ -178,9 +174,7 @@ public class MenuMB implements Serializable {
 
 	public String cursosTeens() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("chamadaTela", "Menu");
+		
 		return "cursosTeens";
 	}
 
@@ -225,41 +219,30 @@ public class MenuMB implements Serializable {
 
 	public String auPair() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("chamadaTela", "Menu");
+		
 		return "consultaAuPair";
 	}
 
 	public String demiPair() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("chamadaTela", "Menu");
+		
 		return "consultaDemiPair";
 	}
 
 	public String trainee() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("chamadaTela", "Menu");
+		
 		return "consultaTrainee";
 	}
 
 	public String voluntariado() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("chamadaTela", "Menu");
+		
 		return "consultaVoluntariado";
 	}
 
 	public String workAndTravel() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("chamadaTela", "Menu");
 		return "consultaWorkandTravel";
 	}
 

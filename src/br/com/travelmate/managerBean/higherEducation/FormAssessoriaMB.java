@@ -76,8 +76,6 @@ public class FormAssessoriaMB implements Serializable{
 	private Integer nFichasAndamento;
 	private Integer nFichaCancelada;
 	private Integer nFichaFinanceiro;
-	private String pesquisar = "Nao";
-	private String nomePrograma;
 	private String chamadaTela = "";
 	private String situacaoLista = "";
 	private String obsTM = "";
@@ -87,31 +85,8 @@ public class FormAssessoriaMB implements Serializable{
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		pesquisar = (String) session.getAttribute("pesquisar");
-		listaProcesso = (List<He>) session.getAttribute("listaProcesso");
-		listaFinanceiro = (List<He>) session.getAttribute("listaFinanceiro");
-		listaAndamento = (List<He>) session.getAttribute("listaAndamento");
-		listaFinalizar = (List<He>) session.getAttribute("listaFinalizar");
-		listaCancelada = (List<He>) session.getAttribute("listaCancelada");
-		nomePrograma = (String) session.getAttribute("nomePrograma");
-		chamadaTela = (String) session.getAttribute("chamadaTela");
 		listaHe = (List<He>) session.getAttribute("listaHe");
-		session.removeAttribute("listaAndamento");
-		session.removeAttribute("listaFinalizar");
-		session.removeAttribute("listaProcesso");
-		session.removeAttribute("listaFinanceiro");
-		session.removeAttribute("listaCancelada");
-		session.removeAttribute("pesquisar");
-		session.removeAttribute("nomePrograma");
-		session.removeAttribute("chamadaTela");
 		session.removeAttribute("listaHe");
-		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
-			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("He")) {
-				pesquisar = "Sim";
-			}else {
-				pesquisar = "Não";
-			}
-		}
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			listaUnidade = GerarListas.listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -120,7 +95,7 @@ public class FormAssessoriaMB implements Serializable{
 				habilitarUnidade = true;
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 			}
-			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaHe == null || listaHe.size() == 0) {
 				gerarListaHe();
 			}else {
 				gerarQuantidadesFichas();
@@ -411,7 +386,6 @@ public class FormAssessoriaMB implements Serializable{
 		nomeCliente = "";
 		idvenda = 0;
 		situacao = "sn";
-		pesquisar = "Nao";
 		gerarListaHe();
 	}
 
@@ -451,7 +425,6 @@ public class FormAssessoriaMB implements Serializable{
 		if (listaHe == null) {
 			listaHe = new ArrayList<He>();
 		}
-		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -521,14 +494,6 @@ public class FormAssessoriaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("he", he);
-		session.setAttribute("listaAndamento", listaAndamento);
-		session.setAttribute("listaCancelada", listaCancelada);
-		session.setAttribute("listaFinalizar", listaFinalizar);
-		session.setAttribute("listaFinanceiro", listaFinanceiro);
-		session.setAttribute("listaProcesso", listaProcesso);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "He");
-		session.setAttribute("chamadaTela", "He");
 		session.setAttribute("listaHe", listaHe);
 		return "fichaFormAssessoria";
 	}
@@ -537,14 +502,6 @@ public class FormAssessoriaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("he", he);
-		session.setAttribute("listaAndamento", listaAndamento);
-		session.setAttribute("listaCancelada", listaCancelada);
-		session.setAttribute("listaFinalizar", listaFinalizar);
-		session.setAttribute("listaFinanceiro", listaFinanceiro);
-		session.setAttribute("listaProcesso", listaProcesso);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "He");
-		session.setAttribute("chamadaTela", "He");
 		session.setAttribute("listaHe", listaHe);
 		return "contratoHE";
 	}

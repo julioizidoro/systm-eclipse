@@ -101,8 +101,6 @@ public class VoluntariadoMB implements Serializable {
 	private List<Voluntariado> listaVendasProcesso;
 	private List<Voluntariado> listaVendasFinanceiro;
 	private int nFichasFinanceiro;
-	private String pesquisar  = "Nao";
-	private String nomePrograma;
 	private String chamadaTela = "";
 
 	@SuppressWarnings("unchecked")
@@ -110,32 +108,13 @@ public class VoluntariadoMB implements Serializable {
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		pesquisar = (String) session.getAttribute("pesquisar");
-		listaVendasFinalizada = (List<Voluntariado>) session.getAttribute("listaVendasFinalizada");
-		listaVendasAndamento = (List<Voluntariado>) session.getAttribute("listaVendasAndamento");
-		listaVendasProcesso = (List<Voluntariado>) session.getAttribute("listaVendasProcesso");
-		listaVendasFinanceiro = (List<Voluntariado>) session.getAttribute("listaVendasFinanceiro");
-		listaVendasCancelada = (List<Voluntariado>) session.getAttribute("listaVendasCancelada");
-		nomePrograma = (String) session.getAttribute("nomePrograma");
-		chamadaTela = (String) session.getAttribute("chamadaTela");
-		session.removeAttribute("listaVendasFinalizada");
-		session.removeAttribute("listaVendasAndamento");
-		session.removeAttribute("listaVendasProcesso");
-		session.removeAttribute("listaVendasFinanceiro");
-		session.removeAttribute("listaVendasCancelada");
-		session.removeAttribute("pesquisar");
-		session.removeAttribute("nomePrograma");
-		session.removeAttribute("chamadaTela");
-		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
-			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Voluntariado")) {
-				pesquisar = "Sim";
-			}else {
-				pesquisar = "Não";
-			}
-		}
+		listaVoluntariado = (List<Voluntariado>) session.getAttribute("listaVoluntariado");
+		session.removeAttribute("listaVoluntariado");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
-			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaVoluntariado == null || listaVoluntariado.size() == 0) {
 				carregarLista();
+			}else {
+				gerarQuantidadesFichas();
 			}
 			listaUnidadeNegocio = GerarListas.listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -492,7 +471,6 @@ public class VoluntariadoMB implements Serializable {
 		situacao = "TODAS";
 		nome = "";
 		idVenda = 0;
-		pesquisar = "Nao";
 		carregarLista();
 	}
 
@@ -534,7 +512,6 @@ public class VoluntariadoMB implements Serializable {
 			listaVoluntariado = new ArrayList<Voluntariado>();
 		}
 		numFichas = "" + String.valueOf(listaVoluntariado.size());
-		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -1054,14 +1031,7 @@ public class VoluntariadoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("voluntariado", voluntariado);
-		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
-		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
-		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
-		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
-		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "Voluntariado");
-		session.setAttribute("chamadaTela", "Voluntariado");
+		session.setAttribute("listaVoluntariado", listaVoluntariado);
 		return "fichaVoluntariado";
 	}
 	
@@ -1070,14 +1040,7 @@ public class VoluntariadoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("voluntariado", voluntariado);
-		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
-		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
-		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
-		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
-		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "Voluntariado");
-		session.setAttribute("chamadaTela", "Voluntariado");
+		session.setAttribute("listaVoluntariado", listaVoluntariado);
 		return "contratoVoluntariado";
 	}
 	

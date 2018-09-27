@@ -62,7 +62,9 @@ public class FichaWorkTravelMB implements Serializable{
 		}
 		dataHoje = new Date();
 		diaSemana = Formatacao.diaSemana(dataHoje) - 1;
-		moedaNacional = vendas.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		if (vendas.getUsuario().getUnidadenegocio().getPais() != null) {
+			moedaNacional = vendas.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
+		}
 		int dia = Formatacao.getDiaData(dataHoje); 
 		dataExtanso = Formatacao.getSemana(diaSemana) + " " + dia + " de "+ Formatacao.getMes() + " de " + Formatacao.getAnoData(dataHoje); 
 		if (vendas.getFormapagamento() != null) {
