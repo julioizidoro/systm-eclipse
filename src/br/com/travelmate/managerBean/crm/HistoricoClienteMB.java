@@ -1501,6 +1501,24 @@ public class HistoricoClienteMB implements Serializable {
 			leadDao.salvar(lead);
 			habilitarEdicao = false;
 			habilitarVisualizacao = true;
+			int idcurso = aplicacaoMB.getParametrosprodutos().getCursos();
+			int iddemipair = aplicacaoMB.getParametrosprodutos().getDemipair();
+			int idvoluntariado = aplicacaoMB.getParametrosprodutos().getVoluntariado();
+			camposvoluntariado = false;
+			if(idcurso == lead.getProdutos().getIdprodutos()){
+				camposcurso=true; 
+			}else if(iddemipair == lead.getProdutos().getIdprodutos()) {
+				camposcursodemipair = true;
+			}else if(idvoluntariado == lead.getProdutos().getIdprodutos()){
+				camposvoluntariado = true;
+			}
+			if(lead.getLeadposvenda()==null) {
+				mostrarLeads = true;
+				mostrarPosVenda = false;
+			}else {
+				mostrarLeads = false;
+				mostrarPosVenda = true;
+			}
 		}
 	}
 	
