@@ -1459,11 +1459,19 @@ public class CadOrcamentoManualMB implements Serializable {
 	public void atualizarValoresProduto() {
 		if (listaProdutoOrcamentoBean != null) {
 			int codTxTM = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
+			int codSeg = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
+			int codSegCancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid();
 			for (int i = 0; i < listaProdutoOrcamentoBean.size(); i++) {
 				int codProdutoTxTM = getListaProdutoOrcamentoBean().get(i).getIdProdutoOrcamento();
 				if (codProdutoTxTM == codTxTM) {
 					listaProdutoOrcamentoBean.get(i).setValorMoedaEstrangeira(
 							listaProdutoOrcamentoBean.get(i).getValorMoedaReal() / valorCambio);
+				}else if (codProdutoTxTM == codSegCancelamento) {
+					listaProdutoOrcamentoBean.get(i).setValorMoedaEstrangeira(
+							listaProdutoOrcamentoBean.get(i).getValorMoedaReal() / valorCambio);
+				}	else if (codProdutoTxTM == codSeg) {
+						listaProdutoOrcamentoBean.get(i).setValorMoedaEstrangeira(
+								listaProdutoOrcamentoBean.get(i).getValorMoedaReal() / valorCambio);
 				} else if (listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira() > 0) {
 					listaProdutoOrcamentoBean.get(i).setValorMoedaReal(
 							listaProdutoOrcamentoBean.get(i).getValorMoedaEstrangeira() * valorCambio);
