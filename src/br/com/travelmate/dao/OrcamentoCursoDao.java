@@ -4,6 +4,7 @@
  */
 package br.com.travelmate.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,7 +21,7 @@ import br.com.travelmate.model.Produtosorcamento;
  * @author Wolverine
  */
 @SuppressWarnings("unchecked")
-public class OrcamentoCursoDao {
+public class OrcamentoCursoDao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@Inject
