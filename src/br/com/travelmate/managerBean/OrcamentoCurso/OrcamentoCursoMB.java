@@ -585,6 +585,7 @@ public class OrcamentoCursoMB implements Serializable {
 				}
 				valorTotal = valorTotal
 						+ (seguroviagem.getValorSeguro() / resultadoOrcamentoBean.getOcurso().getValorcambio());
+				valorTotalSeguroDola = seguroviagem.getValorSeguro() / resultadoOrcamentoBean.getOcurso().getValorcambio();
 			}
 		}
 		for (int i = 0; i < resultadoOrcamentoBean.getProdutoFornecedorBean().getListaCursoPrincipal().size(); i++) {
@@ -2745,8 +2746,11 @@ public class OrcamentoCursoMB implements Serializable {
 		}
 		for (int i = 0; i < resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size(); i++) {
 			int idtaxatm = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
+			int idSeguro = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
 			if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i).getValorcoprodutos()
-					.getCoprodutos().getProdutosorcamento().getIdprodutosOrcamento() != idtaxatm) {
+					.getCoprodutos().getProdutosorcamento().getIdprodutosOrcamento() != idtaxatm 
+					|| resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i).getValorcoprodutos()
+					.getCoprodutos().getProdutosorcamento().getIdprodutosOrcamento() != idSeguro) {
 				if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i).isPromocao()) {
 					resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i)
 							.setValorPromocionalRS(resultadoOrcamentoBean.getProdutoFornecedorBean()
@@ -2757,7 +2761,7 @@ public class OrcamentoCursoMB implements Serializable {
 							resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i)
 									.getValorOrigianl() * resultadoOrcamentoBean.getOcurso().getValorcambio());
 				}
-			} else {
+			}else {
 				resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i)
 						.setValorOrigianl(resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios()
 								.get(i).getValorOriginalRS() / resultadoOrcamentoBean.getOcurso().getValorcambio());
