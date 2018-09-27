@@ -5,37 +5,6 @@
  */
 package br.com.travelmate.managerBean.cursoTeens;
  
-import br.com.travelmate.bean.GerarBoletoConsultorBean;
-import br.com.travelmate.bean.RelatorioErroBean;
-import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CancelamentoFacade;
-import br.com.travelmate.facade.ContasReceberFacade;
-import br.com.travelmate.facade.FormaPagamentoFacade;
-import br.com.travelmate.facade.FornecedorFacade;
-import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
-import br.com.travelmate.facade.ProgramasTeensFacede;
-
-import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
-import br.com.travelmate.model.Aupair;
-import br.com.travelmate.model.Cambio;
-import br.com.travelmate.model.Cancelamento;
-import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Credito;
-import br.com.travelmate.model.Formapagamento;
-import br.com.travelmate.model.Fornecedor;
-import br.com.travelmate.model.Parcelamentopagamento;
-import br.com.travelmate.model.Programasteens;
-import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Worktravel;
-import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.GerarListas;
-import br.com.travelmate.util.GerarRelatorio;
-import br.com.travelmate.util.Mensagem;
-import net.sf.jasperreports.engine.JRException;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +29,34 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
+
+import br.com.travelmate.bean.GerarBoletoConsultorBean;
+import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.CancelamentoFacade;
+import br.com.travelmate.facade.ContasReceberFacade;
+import br.com.travelmate.facade.FormaPagamentoFacade;
+import br.com.travelmate.facade.FornecedorFacade;
+import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
+import br.com.travelmate.facade.ProgramasTeensFacede;
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
+import br.com.travelmate.model.Cambio;
+import br.com.travelmate.model.Cancelamento;
+import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Credito;
+import br.com.travelmate.model.Formapagamento;
+import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Parcelamentopagamento;
+import br.com.travelmate.model.Programasteens;
+import br.com.travelmate.model.Unidadenegocio;
+import br.com.travelmate.model.Vendas;
+import br.com.travelmate.util.Formatacao;
+import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.GerarRelatorio;
+import br.com.travelmate.util.Mensagem;
+import net.sf.jasperreports.engine.JRException;
 
 @Named
 @ViewScoped
