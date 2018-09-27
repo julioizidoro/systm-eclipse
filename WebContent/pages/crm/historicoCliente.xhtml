@@ -34,17 +34,17 @@
 								<p:outputLabel id="programa2"
 									value="Programa:"
 									style="font-size:16px;" />
-								<p:selectOneMenu id="produtos" value="#{historicoClienteMB.lead.produtos}"
+								<p:selectOneMenu id="produtos" value="#{historicoClienteMB.programas}"
 									style="width:90%;" converter="ProdutoConverter" filter="true"
 									filterMatchMode="startsWith">
-									<f:selectItem itemLabel="Todos" itemValue="0" />
+									<f:selectItem itemLabel="Selecione" itemValue="0" />
 									<f:selectItems id="idproduto"
 										value="#{historicoClienteMB.listaProgramas}" var="cproduto"
 										itemLabel="#{cproduto.descricao}" itemValue="#{cproduto}" />
 									<f:attribute name="listaProdutos"
 										value="#{historicoClienteMB.listaProgramas}" />
 								</p:selectOneMenu>	
-								<p:commandButton value="Confirmar" action="#{historicoClienteMB.editarProdutos()}" update="@all"/>
+								<p:commandButton value="Confirmar" action="#{historicoClienteMB.editarProdutos()}" update="@form, :historicoCliente:growl"/>
 							</h:panelGrid>
 							<p:outputLabel></p:outputLabel>  
 							<p:outputLabel style="font-size:14px;" value="Consultor: #{historicoClienteMB.lead.usuario.nome} - #{historicoClienteMB.lead.usuario.unidadenegocio.nomerelatorio}"/>

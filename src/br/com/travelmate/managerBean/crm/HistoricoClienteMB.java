@@ -1497,27 +1497,33 @@ public class HistoricoClienteMB implements Serializable {
 		if (habilitarVisualizacao) {
 			habilitarVisualizacao = false;
 			habilitarEdicao = true;
+			programas = lead.getProdutos();
 		}else {
-			leadDao.salvar(lead);
-			habilitarEdicao = false;
-			habilitarVisualizacao = true;
-			int idcurso = aplicacaoMB.getParametrosprodutos().getCursos();
-			int iddemipair = aplicacaoMB.getParametrosprodutos().getDemipair();
-			int idvoluntariado = aplicacaoMB.getParametrosprodutos().getVoluntariado();
-			camposvoluntariado = false;
-			if(idcurso == lead.getProdutos().getIdprodutos()){
-				camposcurso=true; 
-			}else if(iddemipair == lead.getProdutos().getIdprodutos()) {
-				camposcursodemipair = true;
-			}else if(idvoluntariado == lead.getProdutos().getIdprodutos()){
-				camposvoluntariado = true;
-			}
-			if(lead.getLeadposvenda()==null) {
-				mostrarLeads = true;
-				mostrarPosVenda = false;
+			if (programas != null) {
+				lead.setProdutos(programas);
+				leadDao.salvar(lead);
+				habilitarEdicao = false;
+				habilitarVisualizacao = true;
+				int idcurso = aplicacaoMB.getParametrosprodutos().getCursos();
+				int iddemipair = aplicacaoMB.getParametrosprodutos().getDemipair();
+				int idvoluntariado = aplicacaoMB.getParametrosprodutos().getVoluntariado();
+				camposvoluntariado = false;
+				if(idcurso == lead.getProdutos().getIdprodutos()){
+					camposcurso=true; 
+				}else if(iddemipair == lead.getProdutos().getIdprodutos()) {
+					camposcursodemipair = true;
+				}else if(idvoluntariado == lead.getProdutos().getIdprodutos()){
+					camposvoluntariado = true;
+				}
+				if(lead.getLeadposvenda()==null) {
+					mostrarLeads = true;
+					mostrarPosVenda = false;
+				}else {
+					mostrarLeads = false;
+					mostrarPosVenda = true;
+				}
 			}else {
-				mostrarLeads = false;
-				mostrarPosVenda = true;
+				Mensagem.lancarMensagemInfo("Informe um programa para seu cliente", "");
 			}
 		}
 	}
