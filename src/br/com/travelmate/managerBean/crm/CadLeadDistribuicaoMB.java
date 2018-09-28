@@ -76,6 +76,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		cliente = new Cliente();
 		lead = new Lead();
 		gerarListaUnidadeNegocio();
+		desabilitarConfirmar = true;
 		if(usuarioLogadoMB.getUsuario().isPertencematriz()){
 			desabilitarUnidade=false;
 		}else{
@@ -276,30 +277,24 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	}
 
 	
-	public void selecionarCliente(Cliente cliente){
+	public void selecionarCliente(Cliente cliente) {
 		this.cliente = cliente;
-		unidadenegocio = cliente.getUnidadenegocio(); 
-		publicidade = cliente.getPublicidade(); 
-		String sql = "select l from Lead l where l.cliente.idcliente="+cliente.getIdcliente();
+		unidadenegocio = cliente.getUnidadenegocio();
+		publicidade = cliente.getPublicidade();
+		String sql = "select l from Lead l where l.cliente.idcliente=" + cliente.getIdcliente();
 		Lead lead = leadDao.consultar(sql);
 		email = cliente.getEmail();
-		if(lead!=null && lead.getUsuario().getIdusuario()!=usuarioLogadoMB.getUsuario().getIdusuario()){
-				this.lead.setJaecliente(false); 
-				if (lead.getSituacao() != 6 && usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio()!=lead.getUnidadenegocio().getIdunidadeNegocio()) {
-					this.lead.setJaecliente(true);
-					mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: "+lead.getUsuario().getNome() + " - " + lead.getUnidadenegocio().getNomerelatorio(); 
-					desabilitarConfirmar = true;
-				}else{
-					this.lead.setJaecliente(false); 
-					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-					desabilitarConfirmar = false;
-				}
+		if (lead != null) {
+			if (lead.getSituacao() != 6) {
+				this.lead.setJaecliente(true);
+				mensagem = "Atenção! Este cliente já esta sendo atendido pelo consultor: " + lead.getUsuario().getNome()
+						+ " - " + lead.getUnidadenegocio().getNomerelatorio();
+				desabilitarConfirmar = true;
+			} else {
+				this.lead.setJaecliente(true);
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 				desabilitarConfirmar = false;
-		}else{
-			this.lead.setJaecliente(false); 
-			unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
-			desabilitarConfirmar = false;
+			}
 		}
 	}
 	
@@ -413,20 +408,26 @@ public class CadLeadDistribuicaoMB implements Serializable{
 	}
 	
 	public void validarEmail() {
-		if(Formatacao.validarEmail(email)){ 
-			email =email.replaceAll(" ","");
+		if (Formatacao.validarEmail(email)) {
+			email = email.replaceAll(" ", "");
 			ClienteFacade clienteFacade = new ClienteFacade();
 			String sql = "select c from Cliente c where (c.email like '%" + email + "%')";
-			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-				sql = sql + "  and c.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-			}
-			sql = sql + " order by c.nome";
+
 			Cliente c = clienteFacade.consultarEmailSql(sql);
-			if(c!=null && c.getIdcliente()!=null){
-				selecionarCliente(c);
-				email = cliente.getEmail();
-			}else {
+			if (c != null && c.getIdcliente() != null) {
+				int idunidade = usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+					selecionarCliente(c);
+					email = c.getEmail();
+				} else if (idunidade == c.getUnidadenegocio().getIdunidadeNegocio()) {
+					selecionarCliente(c);
+					email = c.getEmail();
+				} else {
+					this.mensagem = "Atenção! Este cliente já esta cadastrado na unidade "
+							+ c.getUnidadenegocio().getNomerelatorio();
+				}
+
+			} else {
 				cliente = new Cliente();
 				cliente.setEmail(email);
 				desabilitarConfirmar = false;
@@ -437,15 +438,15 @@ public class CadLeadDistribuicaoMB implements Serializable{
 				cliente.setFoneCelular("");
 				lead.setNotas("");
 				lead.setJaecliente(false);
-				if(usuarioLogadoMB.getUsuario().isPertencematriz()){
-					desabilitarUnidade=false;
-				}else{
-					unidadenegocio=usuarioLogadoMB.getUsuario().getUnidadenegocio();
+				if (usuarioLogadoMB.getUsuario().isPertencematriz()) {
+					desabilitarUnidade = false;
+				} else {
+					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 					desabilitarUnidade = true;
 				}
 			}
 		}
-}
+	}
 	
 	public void mudarPesquisa(){
 		if(pesquisanome){

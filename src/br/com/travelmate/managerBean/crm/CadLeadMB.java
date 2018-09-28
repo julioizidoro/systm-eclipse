@@ -100,6 +100,7 @@ public class CadLeadMB implements Serializable {
 			gerarListaConsultor();
 			consultor = usuarioLogadoMB.getUsuario();
 		}
+		desabilitarConfirmar = true;
 		gerarListaPublicidade();
 		listaProdutos = GerarListas.listarProdutos("");
 		PaisFacade paisFacade = new PaisFacade();
@@ -494,41 +495,44 @@ public class CadLeadMB implements Serializable {
 	  
 	
 	public void validarEmail() {
-			if(Formatacao.validarEmail(email)){ 
-				email =email.replaceAll(" ","");
-				ClienteFacade clienteFacade = new ClienteFacade();
-				String sql = "select c from Cliente c where (c.email like '%" + email + "%')";
-				if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
-					sql = sql + "  and c.unidadenegocio.idunidadeNegocio="
-							+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
-				}
-				sql = sql + " order by c.nome";
-				Cliente c = clienteFacade.consultarEmailSql(sql);
-				if(c!=null && c.getIdcliente()!=null){
+		if (Formatacao.validarEmail(email)) {
+			email = email.replaceAll(" ", "");
+			ClienteFacade clienteFacade = new ClienteFacade();
+			String sql = "select c from Cliente c where (c.email like '%" + email + "%')";
+
+			Cliente c = clienteFacade.consultarEmailSql(sql);
+			if (c != null && c.getIdcliente() != null) {
+				int idunidade = usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 					selecionarCliente(c);
-					email = cliente.getEmail();
-				}else {
-					cliente = new Cliente();
-					cliente.setEmail(email);
-					unidadenegocio = null;
-					consultor = null;
-					publicidade = null;
-					lead.setPais(null);
-					cliente.setNome("");
-					cliente.setFoneCelular("");
-					lead.setNotas("");
-					lead.setJaecliente(false);
-					if(usuarioLogadoMB.getUsuario().isPertencematriz()){
-						desabilitarUnidade=false;
-					}else{
-						desabilitarUnidade = true;
-						unidadenegocio=usuarioLogadoMB.getUsuario().getUnidadenegocio();
-						gerarListaConsultor();
-						consultor = usuarioLogadoMB.getUsuario();
-					}
-					desabilitarConfirmar = false;
+					email = c.getEmail();
+				} else if (idunidade == c.getUnidadenegocio().getIdunidadeNegocio()) {
+					selecionarCliente(c);
+					email = c.getEmail();
+				} else {
+					this.mensagem = "Atenção! Este cliente já esta cadastrado na unidade "
+							+ c.getUnidadenegocio().getNomerelatorio();
+				}
+
+			} else {
+				cliente = new Cliente();
+				cliente.setEmail(email);
+				desabilitarConfirmar = false;
+				unidadenegocio = null;
+				publicidade = null;
+				lead.setPais(null);
+				cliente.setNome("");
+				cliente.setFoneCelular("");
+				lead.setNotas("");
+				lead.setJaecliente(false);
+				if (usuarioLogadoMB.getUsuario().isPertencematriz()) {
+					desabilitarUnidade = false;
+				} else {
+					unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
+					desabilitarUnidade = true;
 				}
 			}
+		}
 	}
 	
 	public void mudarPesquisa(){
