@@ -1031,6 +1031,9 @@ public class CursoMB implements Serializable {
 	} 
 	
 	public void gerarQuantidadesFichas(){
+		if (listaVendasCurso != null) {
+			numeroFichas = "" + String.valueOf(listaVendasCurso.size());
+		}
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;

@@ -875,6 +875,9 @@ public class HighSchoolMB implements Serializable {
 	
 	
 	public void gerarQuantidadesFichas(){
+		if (listaHighSchool != null) {
+			numeroFichas = "" + String.valueOf(listaHighSchool.size());
+		}
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;

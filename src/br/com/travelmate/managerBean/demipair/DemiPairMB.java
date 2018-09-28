@@ -809,6 +809,9 @@ public class DemiPairMB implements Serializable {
     
     
     public void gerarQuantidadesFichas(){
+    	if (listaDemipair != null) {
+    		numeroFichas = "" + String.valueOf(listaDemipair.size());
+		}
   		nFichaCancelada = 0;
   		nFichasAndamento = 0;
   		nFichasFinalizadas = 0;

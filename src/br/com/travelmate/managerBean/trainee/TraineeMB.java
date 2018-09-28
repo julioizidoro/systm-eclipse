@@ -847,6 +847,9 @@ public class TraineeMB implements Serializable {
 	}
 	
 	public void gerarQuantidadesFichas(){
+		if (listaTrainee != null) {
+			numFichas = "" + String.valueOf(listaTrainee.size());
+		}
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;

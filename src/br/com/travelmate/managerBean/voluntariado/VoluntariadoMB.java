@@ -890,6 +890,9 @@ public class VoluntariadoMB implements Serializable {
 	}
 
 	public void gerarQuantidadesFichas() {
+		if (listaVoluntariado != null) {
+			numFichas = "" + String.valueOf(listaVoluntariado.size());
+		}
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;

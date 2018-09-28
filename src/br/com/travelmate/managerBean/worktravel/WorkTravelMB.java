@@ -840,6 +840,9 @@ public class WorkTravelMB implements Serializable {
 	
 	
 	public void gerarQuantidadesFichas(){
+		if (listaWork != null) {
+			numeroFichas = "" + String.valueOf(listaWork.size());
+		}
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;

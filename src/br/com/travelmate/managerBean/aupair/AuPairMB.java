@@ -814,6 +814,9 @@ public class AuPairMB implements Serializable {
 	}
 
 	public void gerarQuantidadesFichas() {
+		if (listaAupair != null) {
+			numeroFichas = "" + String.valueOf(listaAupair.size());
+		}
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;

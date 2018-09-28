@@ -785,6 +785,9 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	
 	
 	public void gerarQuantidadesFichas(){
+		if (listaSeguro != null) {
+			numeroFichas = "" + String.valueOf(listaSeguro.size());
+		}
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
 		nFichasFinalizadas = 0;
