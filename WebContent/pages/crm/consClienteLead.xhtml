@@ -66,7 +66,7 @@
 			        <h:panelGrid columns="2" style="margin-left:2%">
 			            <h:commandLink>
 			                <img src="../../resources/img/icone_xls.png" width="36" />
-			                <p:dataExporter type="xls" target="tbl" fileName="cursos" />
+			                <p:dataExporter type="xls" target="tbl" fileName="LeadsCliente" />
 			            </h:commandLink>
 			 
 			            <h:commandLink>
@@ -85,10 +85,13 @@
 			         <p:column headerText="Email" sortBy="#{leads.cliente.email}" style="width:100px;text-align:left;" >
 			            <h:outputText value="#{leads.cliente.email}" />
 			        </p:column>
-			         <p:column headerText="Telefone" sortBy="#{leads.cliente.foneCelular}" style="width:100px;text-align:left;" >
+			         <p:column headerText="Telefone" sortBy="#{leads.cliente.foneCelular}" style="width:70px;text-align:left;" >
 			            <h:outputText value="#{leads.cliente.foneCelular}" />
 			        </p:column>
-			         <p:column headerText="Programa" sortBy="#{leads.produtos.descricao}" style="width:100px;text-align:left;"  >
+			         <p:column headerText="Consultor" sortBy="#{leads.usuairo.nome}" style="width:70px;text-align:left;"  >
+			            <h:outputText value="#{leads.usuario.nome}" />
+			        </p:column>
+			         <p:column headerText="Programa" sortBy="#{leads.produtos.descricao}" style="width:70px;text-align:left;"  >
 			            <h:outputText value="#{leads.produtos.descricao}" />
 			        </p:column>
 			 		 <p:column headerText="Situação" width="50" sortBy="#{leads.situacao}"  
