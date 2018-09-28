@@ -100,33 +100,14 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		pesquisar = (String) session.getAttribute("pesquisar");
-		listaVendasFinalizada = (List<Seguroviagem>) session.getAttribute("listaVendasFinalizada");
-		listaVendasAndamento = (List<Seguroviagem>) session.getAttribute("listaVendasAndamento");
-		listaVendasProcesso = (List<Seguroviagem>) session.getAttribute("listaVendasProcesso");
-		listaVendasFinanceiro = (List<Seguroviagem>) session.getAttribute("listaVendasFinanceiro");
-		listaVendasCancelada = (List<Seguroviagem>) session.getAttribute("listaVendasCancelada");
-		nomePrograma = (String) session.getAttribute("nomePrograma");
-		chamadaTela = (String) session.getAttribute("chamadaTela");
-		session.removeAttribute("listaVendasFinalizada");
-		session.removeAttribute("listaVendasAndamento");
-		session.removeAttribute("listaVendasProcesso");
-		session.removeAttribute("listaVendasFinanceiro");
-		session.removeAttribute("listaVendasCancelada");
-		session.removeAttribute("pesquisar");
-		session.removeAttribute("nomePrograma");
-		session.removeAttribute("chamadaTela");
-		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
-			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("SeguroViagem")) {
-				pesquisar = "Sim";
-			}else {
-				pesquisar = "Não";
-			}
-		}
+		listaSeguro = (List<Seguroviagem>) session.getAttribute("listaSeguro");
+		session.removeAttribute("listaSeguro");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			setNomeCliente("");
-			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
+			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaSeguro == null || listaSeguro.size() == 0) {
 				carregarListaSeguro();
+			}else {
+				gerarQuantidadesFichas();
 			}
 			listarUnidade();
 			if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -861,14 +842,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("seguroviagem", seguroviagem);
-		session.setAttribute("listaVendasFinalizada", listaVendasFinalizada);
-		session.setAttribute("listaVendasAndamento", listaVendasAndamento);
-		session.setAttribute("listaVendasCancelada", listaVendasCancelada);
-		session.setAttribute("listaVendasProcesso", listaVendasProcesso);
-		session.setAttribute("listaVendasFinanceiro", listaVendasFinanceiro);
-		session.setAttribute("pesquisar", pesquisar);
-		session.setAttribute("nomePrograma", "SeguroViagem");
-		session.setAttribute("chamadaTela", "SeguroViagem");
+		session.setAttribute("listaSeguro", listaSeguro);
 		return "fichasSeguroViagem";
 	}
 	
