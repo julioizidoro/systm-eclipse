@@ -112,7 +112,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 					}
 
 					if (ftpDados != null) {
-						urlArquivo = "docs.systm.com.br";
+						urlArquivo = "http://docs.systm.com.br";
 					}
 					// Verificar se existe pastas ou arquivos na tela
 					semConteudo();
