@@ -2746,11 +2746,8 @@ public class OrcamentoCursoMB implements Serializable {
 		}
 		for (int i = 0; i < resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().size(); i++) {
 			int idtaxatm = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
-			int idSeguro = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
 			if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i).getValorcoprodutos()
-					.getCoprodutos().getProdutosorcamento().getIdprodutosOrcamento() != idtaxatm 
-					|| resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i).getValorcoprodutos()
-					.getCoprodutos().getProdutosorcamento().getIdprodutosOrcamento() != idSeguro) {
+					.getCoprodutos().getProdutosorcamento().getIdprodutosOrcamento() != idtaxatm) {
 				if (resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i).isPromocao()) {
 					resultadoOrcamentoBean.getProdutoFornecedorBean().getListaObrigaroerios().get(i)
 							.setValorPromocionalRS(resultadoOrcamentoBean.getProdutoFornecedorBean()
