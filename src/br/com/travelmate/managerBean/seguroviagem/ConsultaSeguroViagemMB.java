@@ -91,8 +91,6 @@ public class ConsultaSeguroViagemMB implements Serializable {
 	private List<Seguroviagem> listaVendasFinanceiro;
 	private String numeroFichas;
 	private String voltar = "";
-	private String pesquisar = "Nao";
-	private String nomePrograma;
 	private String chamadaTela = "";
 
 	@SuppressWarnings("unchecked")
@@ -101,6 +99,8 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaSeguro = (List<Seguroviagem>) session.getAttribute("listaSeguro");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("chamadaTela");
 		session.removeAttribute("listaSeguro");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			setNomeCliente("");
@@ -440,7 +440,6 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			listaSeguro = new ArrayList<Seguroviagem>();
 		}
 		numeroFichas = "" + String.valueOf(listaSeguro.size());
-		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -573,7 +572,6 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		tipoEmissao="Todos";
 		dataSeguroInicial=null;
 		dataSeguroFinal=null;
-		pesquisar = "Nao";
 		carregarListaSeguro();
 
 	}

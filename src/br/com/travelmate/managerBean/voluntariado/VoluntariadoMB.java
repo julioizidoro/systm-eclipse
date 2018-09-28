@@ -109,6 +109,8 @@ public class VoluntariadoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaVoluntariado = (List<Voluntariado>) session.getAttribute("listaVoluntariado");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("chamadaTela");
 		session.removeAttribute("listaVoluntariado");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaVoluntariado == null || listaVoluntariado.size() == 0) {

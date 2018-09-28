@@ -107,6 +107,8 @@ public class WorkTravelMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaWork = (List<Worktravel>) session.getAttribute("listaWork");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.getAttribute("chamadaTela");
 		session.removeAttribute("listaWork");
 		if (pesquisar != null && pesquisar.equalsIgnoreCase("Sim")) {
 			if (nomePrograma != null && nomePrograma.equalsIgnoreCase("Worktravel")) {

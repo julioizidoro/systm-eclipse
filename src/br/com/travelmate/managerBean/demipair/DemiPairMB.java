@@ -104,6 +104,8 @@ public class DemiPairMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaDemipair = (List<Demipair>) session.getAttribute("listaDemipair");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("chamadaTela");
 		session.removeAttribute("listaDemipair");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaDemipair == null || listaDemipair.size() == 0) {

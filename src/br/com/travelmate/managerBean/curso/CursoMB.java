@@ -125,6 +125,8 @@ public class CursoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaVendasCurso = (List<Curso>) session.getAttribute("listaVendasCurso");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("chamadaTela");
 		session.removeAttribute("listaVendasCurso");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaVendasCurso == null || listaVendasCurso.size() == 0) {

@@ -104,6 +104,7 @@ public class AuPairMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaAupair = (List<Aupair>) session.getAttribute("listaAupair");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
 		session.removeAttribute("chamadaTela");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaAupair == null || listaAupair.size() == 0) {

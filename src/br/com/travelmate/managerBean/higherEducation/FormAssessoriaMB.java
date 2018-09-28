@@ -86,6 +86,8 @@ public class FormAssessoriaMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaHe = (List<He>) session.getAttribute("listaHe");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("chamadaTela");
 		session.removeAttribute("listaHe");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			listaUnidade = GerarListas.listarUnidade();

@@ -105,6 +105,8 @@ public class TraineeMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaTrainee = (List<Trainee>) session.getAttribute("listaTrainee");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("chamadaTela");
 		session.removeAttribute("listaTrainee");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaTrainee == null || listaTrainee.size() == 0) {

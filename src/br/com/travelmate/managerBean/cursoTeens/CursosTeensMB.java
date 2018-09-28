@@ -103,8 +103,6 @@ public class CursosTeensMB implements Serializable {
 	private List<Programasteens> listaVendasCancelada;
 	private List<Programasteens> listaVendasProcesso;
 	private List<Programasteens> listaVendasFinanceiro;
-	private String pesquisar = "Nao";
-	private String nomePrograma;
 	private String chamadaTela = "";
 
 	@SuppressWarnings("unchecked")
@@ -113,6 +111,8 @@ public class CursosTeensMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		listaCursosTeens = (List<Programasteens>) session.getAttribute("listaCursosTeens");
+		chamadaTela = (String) session.getAttribute("chamadaTela");
+		session.removeAttribute("chanadaTela");
 		session.removeAttribute("listaCursosTeens");
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaCursosTeens == null || listaCursosTeens.size() == 0) {
@@ -485,7 +485,6 @@ public class CursosTeensMB implements Serializable {
 			listaCursosTeens = new ArrayList<Programasteens>();
 		}
 		numeroFichas = "" + String.valueOf(listaCursosTeens.size());
-		pesquisar = "Sim";
 		gerarQuantidadesFichas();
 	}
 
@@ -497,7 +496,6 @@ public class CursosTeensMB implements Serializable {
 		nome = "";
 		idVenda = 0;
 		fornecedor = null;
-		pesquisar = "Nao";
 		carregarListaVendas();
 	}
 
