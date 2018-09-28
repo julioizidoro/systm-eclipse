@@ -727,14 +727,12 @@ public class Pasta5Arquivo4MB implements Serializable {
 
 	public boolean verificarArquivo1(Arquivo4Bean arquivo) {
 		Boolean acesso = false;
-		if (usuarioLogadoMB.getUsuario() == null || usuarioLogadoMB.getUsuario().getIdusuario() == null) {
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			if (arquivo.getArquivo1() != null) {
 				if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == departamento
 						.getIddepartamento()) {
 					acesso = true;
-				} else if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 9
-						|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1
-						|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 3) {
+				} else if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 9) {
 					acesso = true;
 					if (departamento.getIddepartamento() == 1) {
 						acesso = false;
