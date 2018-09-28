@@ -295,6 +295,9 @@ public class CadLeadDistribuicaoMB implements Serializable{
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 				desabilitarConfirmar = false;
 			}
+		}else {
+			this.lead.setJaecliente(false);
+			desabilitarConfirmar = false;
 		}
 	}
 	
