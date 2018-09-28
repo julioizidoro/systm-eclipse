@@ -268,7 +268,7 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				<textFieldExpression><![CDATA[$P{moedaNacional}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="366" y="10" width="32" height="17" uuid="ba1b8800-cbb4-4dbe-8d13-4cd6c3d86b21"/>
+				<reportElement x="366" y="10" width="38" height="17" uuid="ba1b8800-cbb4-4dbe-8d13-4cd6c3d86b21"/>
 				<textElement textAlignment="Left">
 					<font size="10" isBold="true"/>
 				</textElement>

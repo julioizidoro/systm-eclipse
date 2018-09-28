@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reciboPagamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="408"/>
+	<property name="ireport.y" value="120"/>
 	<parameter name="idvendas" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
@@ -214,7 +214,7 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				<text><![CDATA[Valor Total :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="393" y="10" width="88" height="15" uuid="0fc55967-7eef-4bb4-a8c0-2c3180c56555"/>
+				<reportElement x="418" y="10" width="84" height="15" uuid="0fc55967-7eef-4bb4-a8c0-2c3180c56555"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{valortotal}]]></textFieldExpression>
 			</textField>
@@ -223,6 +223,13 @@ $F{logradourounidadeNegocio} + ", " + $F{nuemrounidadeNegocio} + ", " + $F{compl
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA["Assinatura do(a) " +$F{nome}+" - CPF: "+$F{clientecpf}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="397" y="10" width="21" height="14" uuid="8fdec611-7e2d-46bc-9a5a-2e49ff811eb0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R$]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
