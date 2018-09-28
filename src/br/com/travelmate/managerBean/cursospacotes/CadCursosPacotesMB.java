@@ -277,6 +277,7 @@ public class CadCursosPacotesMB implements Serializable {
 			session.setAttribute("sql", sql); 
 			session.setAttribute("fornecedorcidadeidioma", fornecedorCidadeIdioma);
 			session.setAttribute("pais", pais);
+			session.removeAttribute("cursospacote");
 			return "cursospacotes";
 		}
 		return "";
