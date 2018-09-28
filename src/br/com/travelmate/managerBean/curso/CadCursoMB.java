@@ -3733,9 +3733,8 @@ public class CadCursoMB implements Serializable {
 				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 				orcamentoprodutosorcamento.setDescricao(produtoorcamento.getDescricao());
 				orcamentoprodutosorcamento.setProdutosorcamento(produtoorcamento);
-				orcamentoprodutosorcamento.setValorMoedaEstrangeira(orcamentoCurso.getOrcamentomanualseguro().getValor() / orcamentoCurso.getOrcamentomanualseguro().getValoresseguro().getValorgross());
-				orcamentoprodutosorcamento.setValorMoedaNacional(
-						orcamentoprodutosorcamento.getValorMoedaEstrangeira() * cambio.getValor());
+				orcamentoprodutosorcamento.setValorMoedaNacional(orcamentoCurso.getOrcamentomanualseguro().getValor());
+				orcamentoprodutosorcamento.setValorMoedaEstrangeira(orcamentoprodutosorcamento.getValorMoedaNacional() / cambio.getValor());
 				orcamentoprodutosorcamento.setTipo("S"); 
 				seguroViagem = new Seguroviagem();
 				fornecedorSeguro = orcamentoCurso.getOrcamentomanualseguro().getValoresseguro().getFornecedorcidade();
@@ -3756,11 +3755,31 @@ public class CadCursoMB implements Serializable {
 				camposSeguroViagem = "false";
 		}
 		int idTaxaTm = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
+		int idSeguro = aplicacaoMB.getParametrosprodutos().getSeguroOrcamento();
+		int idSeguroCancelamento = aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid();
 		if (listaProdutosOrcamentoCurso != null) {
 			for (int i = 0; i < listaProdutosOrcamentoCurso.size(); i++) {
 				if (listaProdutosOrcamentoCurso.get(i).getProdutosOrcamento().getIdprodutosOrcamento() == idTaxaTm) {
 					gerarTaxaTm();
-				}else {
+				}else if(listaProdutosOrcamentoCurso.get(i).getProdutosOrcamento().getIdprodutosOrcamento() == idSeguro
+						|| listaProdutosOrcamentoCurso.get(i).getProdutosOrcamento().getIdprodutosOrcamento() == idSeguroCancelamento) {
+					if (orcamentoCurso.getOrcamentomanualseguro() != null) {
+							//Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+							//		seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
+							produtosorcamento = listaProdutosOrcamentoCurso.get(i).getProdutosOrcamento();
+							Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
+							orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
+							orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
+							orcamentoprodutosorcamento.setValorMoedaNacional(
+									listaProdutosOrcamentoCurso.get(i).getValorMoedaNacional());
+							orcamentoprodutosorcamento
+									.setValorMoedaEstrangeira(listaProdutosOrcamentoCurso.get(i).getValorMoedaNacional() / cambio.getValor());
+							orcamentoprodutosorcamento.setImportado(true);
+							orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+							calcularValorTotalOrcamento();
+							produtosorcamento = null;
+					}
+				}else{
 					produtosorcamento = listaProdutosOrcamentoCurso.get(i).getProdutosOrcamento();
 					Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 					orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
