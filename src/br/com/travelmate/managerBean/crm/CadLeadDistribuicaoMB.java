@@ -423,6 +423,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 					selecionarCliente(c);
 					email = c.getEmail();
 				} else {
+					lead.setJaecliente(true);
 					this.mensagem = "Atenção! Este cliente já esta cadastrado na unidade "
 							+ c.getUnidadenegocio().getNomerelatorio();
 				}

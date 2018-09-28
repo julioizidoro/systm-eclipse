@@ -121,7 +121,7 @@
 
 			<p:inputText id="email" style="width:90%;"
 				value="#{cadLeadDistribuicaoMB.email}">
-				<p:ajax event="blur" listener="#{cadLeadDistribuicaoMB.validarEmail()}"
+				<p:ajax event="change" listener="#{cadLeadDistribuicaoMB.validarEmail()}"
 					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
 					update="@form" />
 			</p:inputText> 
