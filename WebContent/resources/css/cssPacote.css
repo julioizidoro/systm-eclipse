@@ -115,7 +115,7 @@ hr {
 }   
 
 #divImagemEspecial{
-	background: linear-gradient(to bottom, rgba(255,255,280,0.0) 0%,rgba(255,255,254,0.8) 109%), url('http://local.systm.com.br/informativospacotes/especial.jpg') repeat 0 0;
+	background: linear-gradient(to bottom, rgba(255,255,280,0.0) 0%,rgba(255,255,254,0.8) 109%), url('https://local.systm.com.br/informativospacotes/especial.jpg') repeat 0 0;
 	background-repeat: no-repeat;
     background-size:100%;    
 	width:100%;                 

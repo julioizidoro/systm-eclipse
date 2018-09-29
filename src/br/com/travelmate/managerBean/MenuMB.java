@@ -1627,7 +1627,7 @@ public class MenuMB implements Serializable {
 	}
 	
 	public String condicaomes() {
-		return "http://local.systm.com.br";
+		return "https://local.systm.com.br";
 	}
 	
 	

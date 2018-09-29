@@ -73,7 +73,6 @@ public class Pasta3Arquivo2MB implements Serializable {
 	private List<ArquivoSubPastaBean> listaArquivoSub;
 	private ArquivoSubPastaBean arquivoBean;
 	private boolean semPastasAquivos = false;
-	private Ftpdados ftpDados;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private boolean tabelaArquivoLista = false;
@@ -109,18 +108,7 @@ public class Pasta3Arquivo2MB implements Serializable {
 					e.printStackTrace();
 				}
 			}
-	
-			ftpDados = new Ftpdados();
-			FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-			try {
-				ftpDados = ftpDadosFacade.getFTPDados();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			if (ftpDados != null) {
-				urlArquivo = "http://docs.systm.com.br";
-			}
-			
+			urlArquivo = "https://docs.systm.com.br";
 			// Verifica se contém Pastas e Arquivos na tela
 			semConteudo();
 			verificarExibicao();
@@ -135,14 +123,7 @@ public class Pasta3Arquivo2MB implements Serializable {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
-	public Ftpdados getFtpDados() {
-		return ftpDados;
-	}
-
-	public void setFtpDados(Ftpdados ftpDados) {
-		this.ftpDados = ftpDados;
-	}
-
+	
 	public boolean isSemPastasAquivos() {
 		return semPastasAquivos;
 	}

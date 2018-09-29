@@ -112,7 +112,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		urlArquivos = "http://local.systm.com.br/cordepartamento/";
+		urlArquivos = "https://local.systm.com.br/cordepartamento/";
 	}
 
 	public List<Fornecedorcidadeidiomaproduto> getFiltroTabelaProduto() {

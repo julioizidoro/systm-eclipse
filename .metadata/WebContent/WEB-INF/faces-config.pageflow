@@ -352,7 +352,7 @@
   <nodes xsi:type="pageflow:PFPage" name="pages/acomodacao/selecionarAcomodacao.xhtml" x="338" y="131122" id="pf153437383616514" referenceLink="//@navigationRule.348/@navigationCase.0/@toViewId|" inlinks="pf15343738361615" path="/pages/acomodacao/selecionarAcomodacao.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages/acomodacao/consAcomodacao.xhtml" x="338" y="131506" id="pf153437383616515" referenceLink="//@navigationRule.349/@navigationCase.0/@toViewId|" inlinks="pf15343738361616" path="/pages/acomodacao/consAcomodacao.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages/filtroRelatorios/relatorioFornCidadeIdioma.xhtml" x="338" y="131890" id="pf153437383616516" referenceLink="//@navigationRule.350/@navigationCase.0/@toViewId|" inlinks="pf15343738361617" path="/pages/filtroRelatorios/relatorioFornCidadeIdioma.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="/http://systm.com.br:82/systm/arquivos/Contrato.html" id="pf153437383616617" referenceLink="//@navigationRule.309/@navigationCase.0/@toViewId|" inlinks="pf15343738361618" path="//http://systm.com.br:82/systm/arquivos/Contrato.html"/>
+  <nodes xsi:type="pageflow:PFPage" name="/systm.com.br:82/systm/arquivos/Contrato.html" id="pf153437383616617" referenceLink="//@navigationRule.309/@navigationCase.0/@toViewId|" inlinks="pf15343738361618" path="//http://systm.com.br:82/systm/arquivos/Contrato.html"/>
   <links id="pf14694779022431" target="pf1469477902244117" source="pf14694779022420" outcome="produtoremessa" redirect="true"/>
   <links id="pf14694779022432" target="pf1469477902244118" source="pf14694779022420" outcome="index" redirect="true"/>
   <links id="pf14694779022434" target="pf1469477902244120" source="pf14694779022420" outcome="conciliacaobancaria" redirect="true"/>
