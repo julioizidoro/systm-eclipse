@@ -16,25 +16,30 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
- 
+
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade; 
 import br.com.travelmate.facade.WorkSponsorArquivoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Arquivos; 
+import br.com.travelmate.model.Arquivos;
+import br.com.travelmate.model.Fornecedorapplication;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Worksponsor;
 import br.com.travelmate.model.Worksponsorarquivos;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
 @Named
 @ViewScoped
@@ -66,16 +71,7 @@ public class WorkSponsorArquivoMB implements Serializable {
 			gerarListaTipoArquivo(); 
 			if (worksponsor!=null) {
 				gerarListaArquivos();
-				FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-				ftpdados = new Ftpdados();
-				try {
-					ftpdados = ftpDadosFacade.getFTPDados();
-					if (ftpdados != null) {
-						urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} 
+				urlArquivo = "https://local.systm.com.br/worksponsor";
 			} else {
 				listarArquivos = new ArrayList<Worksponsorarquivos>();
 			}
@@ -199,48 +195,21 @@ public class WorkSponsorArquivoMB implements Serializable {
 			}
 		}
 	}
-
+	
 	public boolean excluirArquivoFTP(Worksponsorarquivos arquivos) {
-		String msg = "";
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(CadWorkSponsorArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
-		}
-		if (dadosFTP == null) {
-			return false;
-		}
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-		try {
-			if (!ftp.conectar()) {
-				mostrarMensagem(null, "Erro conectar FTP", "");
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+			UploadAWSS3 s3 = new UploadAWSS3("local", caminho);
+			S3ObjectSummary objectSummary = new S3ObjectSummary();
+			objectSummary.setKey("worksponsor/" + arquivos.getNomeftp());
+			if(s3.delete(objectSummary)) {
+				Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+				return true;
+			}else {
+				Mensagem.lancarMensagemInfo("Falha ao excluir", "");
 				return false;
 			}
-		} catch (IOException ex) {
-			Logger.getLogger(CadWorkSponsorArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
-		try {
-			String nomeArquivoFTP = arquivos.getNomeftp();
-			msg = ftp.excluirArquivo(nomeArquivoFTP, "/systm/worksponsor/");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(msg, ""));
-			ftp.desconectar();
-			return true;
-		} catch (IOException ex) {
-			Logger.getLogger(CadWorkSponsorArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-		}
-		try {
-			ftp.desconectar();
-		} catch (IOException ex) {
-			Logger.getLogger(CadWorkSponsorArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-		}
-		return false;
 	}
 
 	public void mostrarMensagem(Exception ex, String erro, String titulo) {

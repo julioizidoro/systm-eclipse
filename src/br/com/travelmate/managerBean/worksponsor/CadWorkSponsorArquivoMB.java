@@ -1,14 +1,12 @@
 package br.com.travelmate.managerBean.worksponsor;
 
-import java.io.IOException;
+import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.ArrayList; 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -16,24 +14,22 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile; 
-import br.com.travelmate.facade.FtpDadosFacade; 
 import br.com.travelmate.facade.TipoArquivoProdutoFacade; 
 import br.com.travelmate.facade.WorkSponsorArquivoFacade; 
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB; 
-import br.com.travelmate.model.Ftpdados; 
 import br.com.travelmate.model.Tipoarquivoproduto; 
 import br.com.travelmate.model.Worksponsor;
 import br.com.travelmate.model.Worksponsorarquivos; 
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
 @Named
 @ViewScoped
@@ -280,54 +276,29 @@ public class CadWorkSponsorArquivoMB implements Serializable {
 			listaNomeArquivo.add(nome);
 		}
 	}
-
+	
 	public boolean salvarArquivoFTP() {
 		String msg = "";
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(CadWorkSponsorArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String nomeArquivoFile = worksponsor.getIdworksponsor()+"_" + file.getFileName();
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+		UploadAWSS3 s3 = new UploadAWSS3("local", caminho);
+		File arquivoFile = s3.getFile(file, nomeArquivoFile);
+		if (s3.uploadFile(arquivoFile, "worksponsor")) {
+			msg = "Arquivo: " + nomeArquivoFile + " enviado com sucesso";
+			arquivoEnviado = true;
+		} else {
+			msg = " Erro no nome do arquivo";
+			arquivoEnviado = false;
 		}
-		if (dadosFTP == null) {
-			return false;
-		}
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-		try {
-			if (!ftp.conectar()) {
-				mostrarMensagem(null, "Erro conectar FTP", "");
-				return false;
-			}
-		} catch (IOException ex) {
-			Logger.getLogger(CadWorkSponsorArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
-		try {
-			nomeArquivoFTP = worksponsor.getIdworksponsor()+"";
-			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "/systm/worksponsor");
-			if (arquivoEnviado) {
-				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
-			}else{
-				msg = "Erro ao salvar arquivo";
-			}
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(msg, ""));
-			ftp.desconectar();
-			return true;
-		} catch (IOException ex) {
-			Logger.getLogger(CadWorkSponsorArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-		}
-		try {
-			ftp.desconectar();
-		} catch (IOException ex) {
-			Logger.getLogger(CadWorkSponsorArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-		}
-		return false;
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(msg, ""));
+		arquivoFile.delete();
+		return true;
 	}
+
+
 
 	public void mostrarMensagem(Exception ex, String erro, String titulo) {
 		FacesContext context = FacesContext.getCurrentInstance();
