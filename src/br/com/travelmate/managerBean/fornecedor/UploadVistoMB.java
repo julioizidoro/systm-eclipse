@@ -1,19 +1,13 @@
 package br.com.travelmate.managerBean.fornecedor;
  
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.managerBean.arquivo.CadArquivoMB; 
-import br.com.travelmate.model.Ftpdados; 
 import br.com.travelmate.model.Pais;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
-import java.io.IOException;
+import java.io.File;
 import java.io.Serializable;
-import java.sql.SQLException; 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -21,12 +15,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 @Named
 @ViewScoped
@@ -125,44 +121,30 @@ public class UploadVistoMB implements Serializable{
 		this.file = e.getFile();
 		salvarArquivoFTP(); 
 	}
-      
-    public boolean salvarArquivoFTP(){
+    
+    public boolean salvarArquivoFTP() {
 		String msg = "";
-        FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-        Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String extensao = file.getFileName().substring(file.getFileName().lastIndexOf("."), file.getFileName().length());
+    	nomeArquivoFTP = pais.getIdpais()+extensao;
+		String arquivo = servletContext.getRealPath("/arquivos/");
+		String nomeArquivoFile = arquivo + nomeArquivoFTP;
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+		UploadAWSS3 s3 = new UploadAWSS3("local", caminho);
+		File arquivoFile = s3.getFile(file, nomeArquivoFile);
+		if (s3.uploadFile(arquivoFile, "documentovisto")) {
+			msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
+		} else {
+			msg = " Erro no nome do arquivo";
 		}
-        if (dadosFTP==null){
-            return false;
-        }
-        Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-        try {
-            if (!ftp.conectar()){
-                mostrarMensagem(null, "Erro conectar FTP", "");
-                return false;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-        }
-        try {
-        	String extensao = file.getFileName().substring(file.getFileName().lastIndexOf("."), file.getFileName().length());
-        	nomeArquivoFTP = pais.getIdpais()+extensao;
-        	msg = ftp.enviarArquivo(file, nomeArquivoFTP, "/systm/documentovisto");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(msg, "")); 
-            ftp.desconectar();
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-        }  
-        return false;
-    }
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(msg, ""));
+		arquivoFile.delete();
+		return true;
+	}
+      
+   
     
     
     public void mostrarMensagem(Exception ex, String erro, String titulo){
@@ -170,53 +152,25 @@ public class UploadVistoMB implements Serializable{
         erro = erro + " - " + ex;
         context.addMessage(null, new FacesMessage(titulo, erro));
     }
-  	
-  	public boolean excluirArquivoFTP(){
-  		if(pais.getDocumentovisto()!=null && pais.getDocumentovisto().length()>0){
-			String msg = "";
-	        FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-	        Ftpdados dadosFTP = null;
-			try {
-				dadosFTP = ftpDadosFacade.getFTPDados();
-			} catch (SQLException ex) {
-				Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-				mostrarMensagem(ex, "Erro", "");
-			}
-	        if (dadosFTP==null){
-	            return false;
-	        }
-	        Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-	        try {
-	            if (!ftp.conectar()){
-	                mostrarMensagem(null, "Erro conectar FTP", "");
-	                return false;
-	            }
-	        } catch (IOException ex) {
-	            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-	            mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-	        }
-	        try {
-	        	String nomeArquivoFTP = pais.getDocumentovisto();
-	        	msg = ftp.excluirArquivo(nomeArquivoFTP, "/systm/documentovisto/");
-	        	PaisFacade paisFacade = new PaisFacade();
+    
+    public boolean excluirArquivoFTP() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+			UploadAWSS3 s3 = new UploadAWSS3("local", caminho);
+			S3ObjectSummary objectSummary = new S3ObjectSummary();
+			objectSummary.setKey("documentovisto/" + pais.getDocumentovisto());
+			if(s3.delete(objectSummary)) {
+				Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+				PaisFacade paisFacade = new PaisFacade();
 	        	pais.setDocumentovisto(null);
 	        	pais=paisFacade.salvar(pais);
-	            FacesContext context = FacesContext.getCurrentInstance();
-	            context.addMessage(null, new FacesMessage(msg, "")); 
-	            return true;
-	        } catch (IOException ex) {
-	            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-	            JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-	        } 
-	        try {
-	           ftp.desconectar();
-	        } catch (IOException ex) {
-	            Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-	            mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-	        }
-  		}else Mensagem.lancarMensagemErro("Atenção", "Não possui documentos inserido.");
-        return false;
-    }
+				return true;
+			}else {
+				Mensagem.lancarMensagemInfo("Falha ao excluir", "");
+				return false;
+			}
+	}
   	
   	public boolean habilitarDocumentosVisto() { 
 		if(pais.getDocumentovisto()!=null && pais.getDocumentovisto().length()>0){

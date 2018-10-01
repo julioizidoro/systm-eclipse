@@ -53,15 +53,15 @@
             <br></br> <br></br>   
             <p:outputLabel value="Produto" for="produto" style="margin-left:6.2%" />
             <br></br>
-            <h:panelGrid columns="3">
-	            <p:selectOneMenu id="produto" value="#{fornecedorCidadeIdiomaProdutoMB.produtoOrcamento}" style="width:210px;font-size: 10px;margin-left:18.5%" 
+            <h:panelGrid columns="3" style="width:56%;margin-left:6.2%;">
+	            <p:selectOneMenu id="produto" value="#{fornecedorCidadeIdiomaProdutoMB.produtoOrcamento}" style="width:210px;font-size: 10px;" 
 	                             converter="ProdutoOrcamentoConverter" filter="true" filterMatchMode="startsWith">
 	                <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
 	                <f:selectItems id="idproduto" value="#{fornecedorCidadeIdiomaProdutoMB.listaProdutos}" var="cproduto" itemLabel="#{cproduto.produtosorcamento.descricao}" itemValue="#{cproduto.produtosorcamento}"/>
 	                <f:attribute name="listaProdutos" value="#{fornecedorCidadeIdiomaProdutoMB.listaProdutos}"/>
 	                <p:ajax event="change" listener="#{fornecedorCidadeIdiomaProdutoMB.listarFornecedorCidadeIdiomaProduto()}" update=":cadFornecedorCidadeIdiomaProduto:tabelafornecedorProduto"/> 
 	            </p:selectOneMenu>
-	            <p:commandButton style="margin-left:77%" icon="ui-icon-plus" value="Adicionar" action="#{fornecedorCidadeIdiomaProdutoMB.salvar()}" update=":cadFornecedorCidadeIdiomaProduto:tabelafornecedorProduto, produto, fornecedor, cidade, idioma, pais"></p:commandButton>
+	            <p:commandButton style="margin-left:2%" icon="ui-icon-plus" value="Adicionar" action="#{fornecedorCidadeIdiomaProdutoMB.salvar()}" update=":cadFornecedorCidadeIdiomaProduto:tabelafornecedorProduto, produto, fornecedor, cidade, idioma, pais"></p:commandButton>
           		 <p:commandButton class="espacocampos" icon="ui-icon-close" value="Cancelar" action="#"/>
             </h:panelGrid>
             <br></br> <br></br>

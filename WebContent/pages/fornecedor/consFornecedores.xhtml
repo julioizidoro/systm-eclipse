@@ -15,8 +15,8 @@
                     <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/> 
                     <p:inputText id="nomeFornecedor" value="#{consultaFornecedorMB.nomefornecedor}"  style="margin-left:2%;width:50%"/> 
                     <p:commandButton id="bntpesquisar"  icon="ui-icon-search" style="font-size:12px;margin-left:2.6%" value="Pesquisar" update="idtabelafornecedor" action="#{consultaFornecedorMB.gerarListaFornecedor()}"/>
-                   <p:commandButton id="bntnovo"  icon="ui-icon-plus" style="font-size:12px;margin-left:12%" value="Novo" update=":formAdicionar:dialog_adicionarFornecedor" oncomplete="PF('novofornecedor').show()"/>
-                    <br/><br/>
+                   <p:commandButton id="bntnovo"  icon="ui-icon-plus" style="font-size:12px;margin-left:4%" value="Novo" update=":formAdicionar:dialog_adicionarFornecedor" oncomplete="PF('novofornecedor').show()"/>
+                    <br/><br/><br/>
                     <p:dataTable id="idtabelafornecedor" var="fornecedor"  value="#{consultaFornecedorMB.listaFornecedor}" class="tabela5" 
                                  scrollable="true" scrollHeight="280" style="margin-bottom:20px;margin-left:2%;width:97%;" >
                         <p:column headerText="Parceiro"  >

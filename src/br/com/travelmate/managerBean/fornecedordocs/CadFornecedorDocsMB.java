@@ -206,28 +206,23 @@ public class CadFornecedorDocsMB implements Serializable {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
 		String nomeArquivo = nomeArquivo(file.getFileName());
-		String pasta = "";
 		nomeArquivo = nomeArquivo + "_" + new String(file.getFileName());
-		String arquivo = servletContext.getRealPath("/arquivos/");
 		String destino ="";
 		if (fornecedordocs.getTipo().equalsIgnoreCase("Vídeo")) {
 			int pos = nomeArquivoFTP.indexOf(".");
 			String nomevideo = nomeArquivoFTP.substring(0, pos);
 			String videoConverter = String.format(nomevideo + ".mov", file);
 			nomeArquivoFTP = videoConverter;
-			pasta = "/videos";
 			destino = "treinamento";
 		} else {
 			nomeArquivoFTP = nomeArquivo(file.getFileName());
-			pasta = "/cloud/departamentos";
 			destino = "docs";
 		}
-		//String nomeArquivoFile = arquivo + nomeArquivo;
 		String caminho = servletContext.getRealPath("/resources/aws.properties");
 		UploadAWSS3 s3 = new UploadAWSS3(destino, caminho);
 		File arquivoFile = s3.getFile(file, nomeArquivoFTP);
 		String msg = "";
-		if (s3.uploadFile(arquivoFile, pasta)) {
+		if (s3.uploadFile(arquivoFile, "")) {
 			msg = "Arquivo: " + nomeArquivo + " enviado com sucesso";
 		} else {
 			msg = " Erro no nome do arquivo";
@@ -238,53 +233,6 @@ public class CadFornecedorDocsMB implements Serializable {
         return false;
     }
 
-//	public boolean salvarArquivoFTP() {
-//		String msg = "";
-//		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-//		Ftpdados dadosFTP = null;
-//		String pasta = "";
-//		try {
-//			dadosFTP = ftpDadosFacade.getFTPDados();
-//		} catch (SQLException ex) {
-//			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
-//			mostrarMensagem(ex, "Erro", "");
-//		}
-//		if (dadosFTP == null) {
-//			return false;
-//		}
-//		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-//		try {
-//			if (!ftp.conectar()) {
-//				mostrarMensagem(null, "Erro conectar FTP", "");
-//				return false;
-//			}
-//		} catch (IOException ex) {
-//			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
-//			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-//		}
-//		try {
-//			nomeArquivoFTP = nomeArquivo(file.getFileName());
-//			if (fornecedordocs.getTipo().equalsIgnoreCase("Vídeo")) {
-//				int pos = nomeArquivoFTP.indexOf(".");
-//				String nomevideo = nomeArquivoFTP.substring(0, pos);
-//				String videoConverter = String.format(nomevideo + ".mov", file);
-//				nomeArquivoFTP = videoConverter;
-//				pasta = "/videos/";
-//			} else {
-//				nomeArquivoFTP = nomeArquivo(file.getFileName().trim());
-//				pasta = "/cloud/departamentos/";
-//			}
-//			msg = ftp.enviarArquivo(file, nomeArquivoFTP, pasta);
-//			FacesContext context = FacesContext.getCurrentInstance();
-//			context.addMessage(null, new FacesMessage(msg, ""));
-//			ftp.desconectar();
-//			return true;
-//		} catch (IOException ex) {
-//			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
-//			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-//		}
-//		return false;
-//	}
 
 	public void mostrarMensagem(Exception ex, String erro, String titulo) {
 		FacesContext context = FacesContext.getCurrentInstance();
