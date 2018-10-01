@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -19,7 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -45,7 +42,6 @@ import br.com.travelmate.model.Videopasta2;
 import br.com.travelmate.model.Videopasta3;
 import br.com.travelmate.model.Videopasta4;
 import br.com.travelmate.model.Videopasta5;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
 import br.com.travelmate.util.UploadAWSS3;
 
@@ -822,7 +818,7 @@ public class Pastas5Videos4MB implements Serializable{
 			Mensagem.lancarMensagemInfo("Excluido", "com sucesso");
 		} else {
 			for (int i = 0; i < listaVideo5.size(); i++) {   
-				excluirVideosPasta5FTP(listaVideo5.get(i));
+				excluirTodosArquivoFTP(listaVideo5.get(i).getHost());
 				video5Facade.excluir(listaVideo5.get(i).getIdvideo5());
 			}
 			videoPasta5Facade.excluir(videopasta5.getIdvideopasta5());
@@ -832,41 +828,20 @@ public class Pastas5Videos4MB implements Serializable{
 	}
 	
 
-	public boolean excluirVideosPasta5FTP(Video5 video5) {
-		String msg = "";
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(Pastas5Videos4MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
-		}
-		if (dadosFTP == null) {
-			return false;
-		}
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-		try {
-			if (!ftp.conectar()) {
-				mostrarMensagem(null, "Erro conectar FTP", "");
+	public boolean excluirTodosArquivoFTP(String nomeArquivo) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+			UploadAWSS3 s3 = new UploadAWSS3("treinamento", caminho);
+			S3ObjectSummary objectSummary = new S3ObjectSummary();
+			objectSummary.setKey(nomeArquivo);
+			if(s3.delete(objectSummary)) {
+				Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+				return true;
+			}else {
+				Mensagem.lancarMensagemInfo("Falha ao excluir", "");
 				return false;
 			}
-		} catch (IOException ex) {
-			Logger.getLogger(Pastas5Videos4MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
-		try {
-			String nomeArquivoFTP = video5.getHost();
-			msg = ftp.excluirArquivo(nomeArquivoFTP, "/videos/");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(msg, ""));
-			ftp.desconectar();
-			return true;
-		} catch (IOException ex) {
-			Logger.getLogger(Pastas5Videos4MB.class.getName()).log(Level.SEVERE, null, ex);
-			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-		}
-		return false;
 	}
 
 	public boolean verificarAcesso() {
