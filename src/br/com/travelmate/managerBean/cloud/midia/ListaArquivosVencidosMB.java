@@ -135,7 +135,7 @@ public class ListaArquivosVencidosMB implements Serializable{
 			e.printStackTrace();
 		}
 		if (ftpDados != null) {
-			urlArquivo = "https:docs.systm.com.br/cloud/departamentos";
+			urlArquivo = "https:docs.systm.com.br";
 		}
 		verificacaoNiveisPastas();
 	}
