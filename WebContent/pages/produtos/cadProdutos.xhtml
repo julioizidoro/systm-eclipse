@@ -41,25 +41,26 @@
             <title>Produtos</title>
            
             <p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-                <p:outputLabel value="Descrição" style="margin-left: 17%"/>
-                <br></br>
-                <p:inputText value="#{cadProdutosMB.produtos.descricao}" style="width:66%;margin-left: 17%"/>
+            
+                <h:panelGrid columns="1" style="width:79%;margin-left:17%;">
+	                <p:outputLabel value="Descrição" />
+	                <p:inputText value="#{cadProdutosMB.produtos.descricao}" style="width:87%;"/>
+                </h:panelGrid>
                 <br></br> <br></br>
-                <p:outputLabel value="Gerente" for="gerente" style="margin-left: 17%"/>
-                <p:outputLabel value="% Comissão Gerente" style="margin-left: 38.5%"/>
-                <br></br>
-                <h:panelGrid columns="2">
-                <p:selectOneMenu id="gerente"  style="width:180px;margin-left:37%" value="#{cadProdutosMB.usuario}" 
-                                 converter="UsuarioConverter" >
-                    <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/>
-                    <f:selectItems id="idgerente" value="#{cadProdutosMB.listaUsuario}" var="gerente" itemLabel="#{gerente.nome}" itemValue="#{gerente}"/>
-                    <f:attribute name="listaUsuario" value="#{cadProdutosMB.listaUsuario}"/>
-                    <p:ajax event="change"/> 
-                </p:selectOneMenu>
-                
-                <p:inputText value="#{cadProdutosMB.produtos.comissaogerente}" style="width:60%;margin-left:45%" >
-                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-                </p:inputText>
+                <h:panelGrid columns="2" style="width:79%;margin-left:17%;">
+                <p:outputLabel value="Gerente" for="gerente" />
+                <p:outputLabel value="% Comissão Gerente" />
+	                <p:selectOneMenu id="gerente"  style="width:180px;" value="#{cadProdutosMB.usuario}" 
+	                                 converter="UsuarioConverter" >
+	                    <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"/>
+	                    <f:selectItems id="idgerente" value="#{cadProdutosMB.listaUsuario}" var="gerente" itemLabel="#{gerente.nome}" itemValue="#{gerente}"/>
+	                    <f:attribute name="listaUsuario" value="#{cadProdutosMB.listaUsuario}"/>
+	                    <p:ajax event="change"/> 
+	                </p:selectOneMenu>
+	                
+	                <p:inputText value="#{cadProdutosMB.produtos.comissaogerente}" style="width:70%;" >
+	                    <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+	                </p:inputText>
                 </h:panelGrid>
                 <br></br>
                 <br></br> 

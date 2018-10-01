@@ -33,7 +33,7 @@ public class CadProdutosMB implements Serializable{
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         produtos = (Produtos) session.getAttribute("produtos");
         session.removeAttribute("produtos");
-        String sql = "Select u from Usuario u where u.funcao like '%erente%' order by u.nome";
+        String sql = "SELECT u FROM Usuario u WHERE u.cargo.idcargo=1 and u.situacao='Ativo' order by u.nome";
         listaUsuario = GerarListas.listarUsuarios(sql);
         if(produtos==null){
             produtos = new Produtos();
