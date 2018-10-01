@@ -320,7 +320,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String produtoremessa() {
-		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 490);
 		RequestContext.getCurrentInstance().openDialog("produtoremessa", options, null);
@@ -328,12 +327,10 @@ public class MenuMB implements Serializable {
 	}
 
 	public String calculoFormaPagamento() {
-		
 		return "calculoFormaPagamento";
 	}
 
 	public String midia(String tipoMidais) {
-		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipomidias", tipoMidais);
@@ -341,7 +338,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String consGuias(String tipoMidais) {
-		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipomidias", tipoMidais);
@@ -349,7 +345,6 @@ public class MenuMB implements Serializable {
 	}
 
 	public String consVideos(String tipoMidais) {
-		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipomidias", tipoMidais);
@@ -357,17 +352,14 @@ public class MenuMB implements Serializable {
 	}
 
 	public String flyers() {
-		
 		return "flyers";
 	}
 
 	public String invoicesCurso() {
-		
 		return "consultainvoice";
 	}
 
 	public String dadosVenda() {
-		
 		return "dadosVenda";
 	}
 
