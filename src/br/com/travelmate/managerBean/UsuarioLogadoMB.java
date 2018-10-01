@@ -498,15 +498,15 @@ public class UsuarioLogadoMB implements Serializable {
 	}
 
 	public String getFotoUsuarioLogado(Usuario usuario) {
-		String caminho = "http://local.systm.com.br/usuario/";
+		String caminho = "https://local.systm.com.br/usuario/";
 		if(usuario!=null && usuario.getIdusuario()!=null){
 			if (usuario.isFoto()) {
 				caminho = caminho + usuario.getIdusuario() + ".jpg";
 			} else
-				caminho = caminho + "/usuario/0.png";
+				caminho = caminho + "/0.png";
 		}else{
 			Mensagem.lancarMensagemErro("Atenção!", "Nenhum usuário encontrado, favor logar novamente.");  
-			caminho = caminho + "/usuario/0.png";
+			caminho = caminho + "/0.png";
 		}
 		return caminho;
 	}

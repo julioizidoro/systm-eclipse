@@ -354,7 +354,7 @@ public class EnviarEmail {
 		for (int j = 0; j < listaDadosEscolas.size(); j++) {
 			corpoEmail = corpoEmail 
 					+ "<table><tr><td> <div style=\"width:90%;\" class=\"menu\">\n" + " <img src=\""
-					+ "http://local.systm.com.br/paisemail/" + listaDadosEscolas.get(j).getIdpais() + ".png"
+					+ "https://local.systm.com.br/paisemail/" + listaDadosEscolas.get(j).getIdpais() + ".png"
 					+ "\" width=\"185\" style=\"float:right;\"/>\n" + " </div></td><td>"
 					+ " <div  class=\"menu\" style=\"width:100%;margin-left:4%;text-align:left;LINE-HEIGHT:8px;\">  \n"
 					+ " <p style=\"font-size:13px;\">Destino: " + listaDadosEscolas.get(j).getLocal() + "</p>\n"
@@ -364,10 +364,10 @@ public class EnviarEmail {
 					+ "</p>\n" + " <p style=\"font-size:13px;\">Duração do Curso: "
 					+ listaDadosEscolas.get(j).getDuracao() + " Semanas" + "</p>\n"
 					+ " <p style=\"font-size:13px;\">Turno do Curso: " + listaDadosEscolas.get(j).getTurno() + "</p/>\n"
-					+ " <a href=\\http://orcamentos.systm.com.br/"
+					+ " <a href=\\https://orcamentos.systm.com.br/"
 					+ listaDadosEscolas.get(j).getNomeArquivo()
 					+ "\" target=\"blanck\" style=\"text-decoration:none;\">\n"
-					+ " <img src=\""+  "http://local.systm.com.br/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";
+					+ " <img src=\""+  "https://local.systm.com.br/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";
 		}
 	}
 

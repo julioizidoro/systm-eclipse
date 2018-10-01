@@ -75,7 +75,6 @@ public class Pastas2Arquivo1MB implements Serializable {
 	private ArquivoPastaBean arquivoPastaBean;
 	private List<ArquivoPastaBean> listaArquivoBean;
 	private boolean semPastaArquivo = false;
-	private Ftpdados ftpDados;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private boolean tabelaArquivoLista = false;
@@ -103,18 +102,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 				if (pasta1.getDepartamento()!=null){
 					gerarCloudFiles();
 					gerarCloudSubPastas();
-					ftpDados = new Ftpdados();
-					FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-					try {
-						ftpDados = ftpDadosFacade.getFTPDados();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-
-					if (ftpDados != null) {
-						urlArquivo = "http://docs.systm.com.br";
-					}
-					// Verificar se existe pastas ou arquivos na tela
+					urlArquivo = "https://docs.systm.com.br";
 					semConteudo();
 					verificarExibicao();
 				}
@@ -134,14 +122,6 @@ public class Pastas2Arquivo1MB implements Serializable {
 
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
-	}
-
-	public Ftpdados getFtpDados() {
-		return ftpDados;
-	}
-
-	public void setFtpDados(Ftpdados ftpDados) {
-		this.ftpDados = ftpDados;
 	}
 
 	public boolean isSemPastaArquivo() {

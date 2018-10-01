@@ -94,7 +94,7 @@ public class EditarImagemUsuarioMB implements Serializable{
 	}
 
 	public String getFotoUsuarioLogado() { 
-		caminho = "http://local.systm.com.br/usuario/";
+		caminho = "https://local.systm.com.br/usuario/";
 		if (usuarioLogadoMB.getUsuario().isFoto()) {
 			caminho = caminho + usuarioLogadoMB.getUsuario().getIdusuario() + ".jpg";
 		} else

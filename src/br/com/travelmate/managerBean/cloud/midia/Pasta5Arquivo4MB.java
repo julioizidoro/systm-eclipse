@@ -74,7 +74,6 @@ public class Pasta5Arquivo4MB implements Serializable {
 	private List<Arquivo4Bean> listaArquivo4Bean;
 	private Arquivo4Bean arquivo4Bean;
 	private boolean semArquivos = false;
-	private Ftpdados ftpDados;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Pasta4 pasta4;
@@ -116,18 +115,8 @@ public class Pasta5Arquivo4MB implements Serializable {
 					e.printStackTrace();
 				}
 			}
-			ftpDados = new Ftpdados();
-			FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-			try {
-				ftpDados = ftpDadosFacade.getFTPDados();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			if (ftpDados != null) {
-				urlArquivo = "http://docs.systm.com.br";
-			}
-
-			// Verificar se contém arquivos na tela
+			urlArquivo = "https://docs.systm.com.br";
+					// Verificar se contém arquivos na tela
 			semConteudo();
 			verificarExibicao();
 		}
@@ -141,13 +130,7 @@ public class Pasta5Arquivo4MB implements Serializable {
 		this.listaArquivo4 = listaArquivo4;
 	}
 
-	public Ftpdados getFtpDados() {
-		return ftpDados;
-	}
-
-	public void setFtpDados(Ftpdados ftpDados) {
-		this.ftpDados = ftpDados;
-	}
+	
 
 	public boolean isSemArquivos() {
 		return semArquivos;
