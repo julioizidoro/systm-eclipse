@@ -10,40 +10,33 @@
 		<h:form id="idtelaconsultaprodutos">
 			<div id="centro">
 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
-				<br></br> <br></br>
-				<p:accordionPanel class="painel" activeIndex="-1">
-					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
-						title="Pesquisar">
-						<h:panelGrid columns="1">
+				
+				<legend id="iUsu2">
+					<b>Consulta de Produtos </b>
+				</legend>
+				
+				<h:panelGrid columns="1" style="margin-left:25%;">
 							<p:outputLabel value="Descrição" for="produtodescricao" style="font-size:11px;" />
-							<p:inputText id="produtodescricao" size="50" maxlength="100"
+							<p:inputText id="produtodescricao" size="50" maxlength="100" placeholder="Pesquisar Produto.."
 								 value="#{produtosMB.descricao}">
 								<p:ajax event="blur"
 									listener="#{produtosMB.listarPesquisaPorDescricao()}"
 									update=":idtelaconsultaprodutos:idtabelaprodutos" />
 							</p:inputText> 
 						</h:panelGrid>
-					</p:tab>
-				</p:accordionPanel>
-
+				<br/><br/>
 				<p:contextMenu for="idtabelaprodutos">
 					<p:menuitem value="Usuário" icon=" ui-icon-tag"
 						action="#{produtosMB.consultarUsuarios(produtosMB.produtos)}" />
 				</p:contextMenu>
-				
-				<legend id="iUsu2">
-					<b>Consulta de Produtos </b>
-				</legend>
-				<p:commandButton id="bntAddConta" class="espacocobranca21botao" icon="ui-icon-plus"
+				<p:commandButton id="bntAddConta"  icon="ui-icon-plus"
 					style="font-size:12px;margin-left: 25%" value="Novo Produto"
 					action="#{produtosMB.cadastrarProdutos()}">
 					<p:ajax event="dialogReturn"
-						listener="#{produtosMB.retornoDialogNovo}" process="@this"
+						listener="#{produtosMB.retornoDialogNovo}" 
 						update="idtabelaprodutos" />
 				</p:commandButton>
-				<br></br>
-				<br></br>
-				<br></br>
+				<br/><br/>
 				<p:dataTable id="idtabelaprodutos" var="produtos"
 					value="#{produtosMB.listaProdutos}" class="tabela4"
 					scrollable="true" scrollHeight="300"
@@ -63,7 +56,6 @@
 						</h:commandLink>
 					</p:column>
 				</p:dataTable>
-				<br></br>
 			</div>
 		</h:form>
 	</ui:define>
