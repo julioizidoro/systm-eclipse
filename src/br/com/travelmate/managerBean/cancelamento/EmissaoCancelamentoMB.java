@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.cancelamento;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
@@ -58,6 +60,7 @@ import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
 @Named
 @ViewScoped
@@ -645,45 +648,30 @@ public class EmissaoCancelamentoMB implements Serializable {
 		listaNomeArquivo.add(file.getFileName());
 		Mensagem.lancarMensagemInfo("Salvo com sucesso.", "");
 	}
-
-	public boolean salvarArquivoFTP() {
+	
+	public boolean salvarArquivoFTP(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String nomeArquivo = nomeArquivo(file.getFileName());
+		nomeArquivo = nomeArquivo + "_" + new String(file.getFileName());
+		String arquivo = servletContext.getRealPath("/arquivos/");
+		String nomeArquivoFile = arquivo + nomeArquivo;
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+		UploadAWSS3 s3 = new UploadAWSS3("docs", caminho);
+		File arquivoFile = s3.getFile(file, nomeArquivoFile);
 		String msg = "";
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		String pasta = "";
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
+		if (s3.uploadFile(arquivoFile, "")) {
+			msg = "Arquivo: " + nomeArquivo + " enviado com sucesso";
+		} else {
+			msg = " Erro no nome do arquivo";
 		}
-		if (dadosFTP == null) {
-			return false;
-		}
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-		try {
-			if (!ftp.conectar()) {
-				mostrarMensagem(null, "Erro conectar FTP", "");
-				return false;
-			}
-		} catch (IOException ex) {
-			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
-		try {
-			nomeArquivoFTP = nomeArquivo(file.getFileName().trim());
-			pasta = "/cloud/departamentos/";
-			msg = ftp.enviarArquivo(file, nomeArquivoFTP, pasta);
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(msg, ""));
-			ftp.desconectar();
-			return true;
-		} catch (IOException ex) {
-			Logger.getLogger(CadVideoMB.class.getName()).log(Level.SEVERE, null, ex);
-			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-		}
-		return false;
-	}
+         FacesContext context = FacesContext.getCurrentInstance();
+         context.addMessage(null, new FacesMessage(msg, ""));
+         arquivoFile.delete();
+        return false;
+    }
+
+	
 
 	public void mostrarMensagem(Exception ex, String erro, String titulo) {
 		FacesContext context = FacesContext.getCurrentInstance();

@@ -72,6 +72,8 @@ public class ControleDocsVideosMB implements Serializable{
 			listaArquivo = new ArrayList<>();
 		}
 		buscarFtpDados();
+		urlArquivo = "https://docs.systm.com.br";
+		urlArquivoFornecedor = "https://docs.systm.com.br";
 		gerarListaArquivo1();
 		gerarListaArquivo2();
 		gerarListaArquivo3();
@@ -486,10 +488,6 @@ public class ControleDocsVideosMB implements Serializable{
 			ftpDados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		if (ftpDados != null) {
-			urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":" + ftpDados.getWww() + " /cloud/departamentos";
-			urlArquivoFornecedor = ftpDados.getProtocolo() + "://" + ftpDados.getHost() + ":" + ftpDados.getWww();
 		}
 	}
 	
