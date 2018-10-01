@@ -4,7 +4,10 @@ import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.model.Produtos;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -57,7 +60,9 @@ public class ProdutosMB implements Serializable{
     }
 
     public String cadastrarProdutos(){
-        RequestContext.getCurrentInstance().openDialog("cadProdutos");
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 500);
+        RequestContext.getCurrentInstance().openDialog("cadProdutos", options, null);
         return "";
     }
     
@@ -112,8 +117,10 @@ public class ProdutosMB implements Serializable{
     public String editar(Produtos produtos){
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        session.setAttribute("produtos", produtos);       
-        RequestContext.getCurrentInstance().openDialog("cadProdutos");
+        session.setAttribute("produtos", produtos);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 500);
+        RequestContext.getCurrentInstance().openDialog("cadProdutos", options, null);
         return "";
     }
     
