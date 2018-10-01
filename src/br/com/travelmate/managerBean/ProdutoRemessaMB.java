@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.ProdutoFacade;
@@ -122,12 +123,11 @@ public class ProdutoRemessaMB implements Serializable{
 			e.printStackTrace();
 		}
 	}
-
-	
 	
 	
 	public String fechar(){
-		return null;
+		RequestContext.getCurrentInstance().closeDialog(null);
+		return "";
 	}
 	
 	
