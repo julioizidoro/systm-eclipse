@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-    	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="../../resources/css/css.css" rel="stylesheet" type="text/css" />
         
     </h:head>
@@ -13,7 +13,7 @@
     	<f:view encoding="ISO-8859-1">
 	        <h:form id="idFormRelatorioInvoiceParceiro"  style="font-size:12px;">
 	
-	            <title>Gerar Relatório de Invoice Parceiro</title>
+	            <title>Gerar RelatÃ³rio de Invoice Parceiro</title>
 	            
 				<p:selectBooleanCheckbox style=" margin-left:1%;" id="habilitarInformacao"   value="#{relatorioInvoiceParceiroMB.habilitarInformacao}">
 					<p:ajax event="change" listener="#{relatorioInvoiceParceiroMB.habilitarCampos()}" update="panelTudo, panelProgamDates, panelStudents, programdates, studentname, studentnumber"/>
