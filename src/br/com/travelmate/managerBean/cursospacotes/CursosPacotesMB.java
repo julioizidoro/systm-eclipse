@@ -269,6 +269,7 @@ public class CursosPacotesMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("cursospacote", cursospacote);
 		session.setAttribute("sql", sql);
+		session.setAttribute("pais", paisS);
 		return "cadcursospacote"; 
 	}   
 	
