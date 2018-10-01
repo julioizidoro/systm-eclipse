@@ -52,8 +52,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.primefaces.model.UploadedFile;
 
-import com.amazonaws.util.JodaTime;
-
 import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.NotificacaoFacade;
 import br.com.travelmate.facade.ParametrosProdutosFacade;

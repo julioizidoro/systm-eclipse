@@ -1496,6 +1496,7 @@ public class CadCursoMB implements Serializable {
 			calcularParcelamentoPagamento(); 
 		}
 	}
+	
 
 	public void adicionarFormaPagamento() {
 		gerarListaParcelamentoOriginal();

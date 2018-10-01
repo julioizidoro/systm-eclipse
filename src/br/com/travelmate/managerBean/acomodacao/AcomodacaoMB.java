@@ -33,7 +33,6 @@ import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Credito;
-import br.com.travelmate.model.He;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;

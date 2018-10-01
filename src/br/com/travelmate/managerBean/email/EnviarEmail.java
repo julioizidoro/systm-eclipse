@@ -350,7 +350,6 @@ public class EnviarEmail {
 	}
 
 	public void gerarCorpoOrcamento() {
-		String urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost();
 		for (int j = 0; j < listaDadosEscolas.size(); j++) {
 			corpoEmail = corpoEmail 
 					+ "<table><tr><td> <div style=\"width:90%;\" class=\"menu\">\n" + " <img src=\""

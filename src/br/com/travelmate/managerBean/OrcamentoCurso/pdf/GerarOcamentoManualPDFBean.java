@@ -3,7 +3,6 @@ package br.com.travelmate.managerBean.OrcamentoCurso.pdf;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 
 import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.facade.EscolaPadraoFacade;

@@ -2,8 +2,6 @@ package br.com.travelmate.managerBean.curso;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.facade.GrupoObrigatorioFacade;
 import br.com.travelmate.model.Coprodutos;

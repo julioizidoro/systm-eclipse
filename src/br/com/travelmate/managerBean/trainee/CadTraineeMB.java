@@ -1145,7 +1145,6 @@ public class CadTraineeMB implements Serializable {
 							valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio() ;
 						}
 					}
-					boolean excluirDescontoTM = true;
 					if (produtosorcamento.getValormaximo()==0) {
 						orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
 						orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
@@ -1169,7 +1168,6 @@ public class CadTraineeMB implements Serializable {
 				        session.setAttribute("novoValor", 0f);
 						RequestContext.getCurrentInstance().openDialog("validarTrocaCambioPIN", options, null);
 						//Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
-						excluirDescontoTM = false;
 					}
 				}
 			} else {

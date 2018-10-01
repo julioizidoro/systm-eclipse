@@ -2,7 +2,6 @@ package br.com.travelmate.managerBean.cloud.midia;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,7 +23,6 @@ import org.primefaces.event.SelectEvent;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import br.com.travelmate.facade.Arquivo5Facade;
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.fornecedordocs.ArquivoBean;
@@ -34,7 +32,6 @@ import br.com.travelmate.model.Arquivo3;
 import br.com.travelmate.model.Arquivo4;
 import br.com.travelmate.model.Arquivo5;
 import br.com.travelmate.model.Departamento;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Pasta1;
 import br.com.travelmate.model.Pasta2;
 import br.com.travelmate.model.Pasta3;
