@@ -1,15 +1,11 @@
 package br.com.travelmate.managerBean.cloud.midia;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -17,11 +13,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import br.com.travelmate.facade.Arquivo1Facade;
 import br.com.travelmate.facade.Arquivo2Facade;
@@ -33,7 +31,6 @@ import br.com.travelmate.facade.Pasta2Facade;
 import br.com.travelmate.facade.Pasta3Facade;
 import br.com.travelmate.facade.Pasta4Facade;
 import br.com.travelmate.facade.Pasta5Facade;
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Arquivo2;
@@ -46,11 +43,10 @@ import br.com.travelmate.model.Pasta3;
 import br.com.travelmate.model.Pasta4;
 import br.com.travelmate.model.Pasta5;
 import br.com.travelmate.model.Departamento;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Midias;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
 @Named
 @ViewScoped
@@ -493,7 +489,7 @@ public class Pasta1MB implements Serializable {
 		List<Arquivo5> listaArquivo5 = arquivo5Facade.listar("Select c from Arquivo5 c Where c.pasta1.idpasta1="+ pasta1.getIdpasta1());
 		if (listaArquivo5 != null) {
 			for (int i = 0; i < listaArquivo5.size(); i++) {
-				excluirArquivoSubFTP(listaArquivo5.get(i).getNomeftp());
+				excluirArquivoFTP(listaArquivo5.get(i).getNomeftp());
 				arquivo5Facade.excluir(listaArquivo5.get(i).getIdarquivo5());
 			}
 		}
@@ -512,7 +508,7 @@ public class Pasta1MB implements Serializable {
 				.listar("Select c from Arquivo4 c where c.pasta1.idpasta1=" + pasta1.getIdpasta1());
 		if (listaArquivo4 != null) {
 			for (int i = 0; i < listaArquivo4.size(); i++) {
-				excluirArquivoSubFTP(listaArquivo4.get(i).getNomeftp());
+				excluirArquivoFTP(listaArquivo4.get(i).getNomeftp());
 				arquivo4Facade.excluir(listaArquivo4.get(i).getIdarquivo4());
 			}
 		}
@@ -532,7 +528,7 @@ public class Pasta1MB implements Serializable {
 				.listar("Select c from Arquivo3 c where c.pasta1.idpasta1=" + pasta1.getIdpasta1());
 		if (listaArquivo3 != null) {
 			for (int i = 0; i < listaArquivo3.size(); i++) {
-				excluirArquivoSubFTP(listaArquivo3.get(i).getNomeftp());
+				excluirArquivoFTP(listaArquivo3.get(i).getNomeftp());
 				arquivo3Facade.excluir(listaArquivo3.get(i).getIdarquivo3());
 			}
 		}
@@ -553,7 +549,7 @@ public class Pasta1MB implements Serializable {
 				.listar("Select c from Arquivo2 c where c.pasta1.idpasta1=" + pasta1.getIdpasta1());
 		if (listaArquivo2 != null) {
 			for (int i = 0; i < listaArquivo2.size(); i++) {
-				excluirArquivoSubFTP(listaArquivo2.get(i).getNomeftp());
+				excluirArquivoFTP(listaArquivo2.get(i).getNomeftp());
 				arquivo2Facade.excluir(listaArquivo2.get(i).getIdarquivo2());
 			}	
 		}
@@ -572,55 +568,30 @@ public class Pasta1MB implements Serializable {
 				.listar("Select c from Arquivo1 c where c.pasta1.idpasta1=" + pasta1.getIdpasta1());
 		if (listaArquivo1 != null) {
 			for (int i = 0; i < listaArquivo1.size(); i++) {
-				excluirArquivoSubFTP(listaArquivo1.get(i).getNomeftp());
+				excluirArquivoFTP(listaArquivo1.get(i).getNomeftp());
 				arquivo1Facade.excluir(listaArquivo1.get(i).getIdArquivo1());
 			}	
 		}
 	}
 	
 	
-	public boolean excluirArquivoSubFTP(String nomeArquivo) {
-		String msg = "";
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(Pasta5Arquivo4MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
-		}
-		if (dadosFTP == null) {
-			return false;
-		}
-		Ftp ftp = new Ftp(dadosFTP.getHost(), dadosFTP.getUser(), dadosFTP.getPassword());
-		try {
-			if (!ftp.conectar()) {
-				mostrarMensagem(null, "Erro conectar FTP", "");
+	public boolean excluirArquivoFTP(String nomeArquivo) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+		String caminho = servletContext.getRealPath("/resources/aws.properties");
+			UploadAWSS3 s3 = new UploadAWSS3("docs", caminho);
+			S3ObjectSummary objectSummary = new S3ObjectSummary();
+			objectSummary.setKey(nomeArquivo);
+			if(s3.delete(objectSummary)) {
+				Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
+				return true;
+			}else {
+				Mensagem.lancarMensagemInfo("Falha ao excluir", "");
 				return false;
 			}
-		} catch (IOException ex) {
-			Logger.getLogger(Pasta5Arquivo4MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
-		try {
-			msg = ftp.excluirArquivo(nomeArquivo, "/cloud/departamentos/");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(msg, ""));
-			return true;
-		} catch (IOException ex) {
-			Logger.getLogger(Pasta5Arquivo4MB.class.getName()).log(Level.SEVERE, null, ex);
-			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-		}
-		try {
-			ftp.desconectar();
-		} catch (IOException ex) {
-			Logger.getLogger(Pasta5Arquivo4MB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-		}
-		return false;
 	}
-
-
+	
+	
 
 	public void mostrarMensagem(Exception ex, String erro, String titulo) {
 		FacesContext context = FacesContext.getCurrentInstance();

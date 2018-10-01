@@ -909,7 +909,8 @@ public class Pasta4Arquivo3MB implements Serializable {
 			listaPasta4 = new ArrayList<Pasta4>();
 		}
 	}
-
+	
+	
 	public boolean excluirPasta4Arquivo4FTP(Arquivo4 arquivo4) {
 		String msg = "";
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
