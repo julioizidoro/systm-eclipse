@@ -86,7 +86,7 @@
 								</p:cellEditor>
 							</p:column>
 						</p:dataTable>
-						<h:panelGrid columns="6" cellpadding="3" id="idpaineltotal">
+						<h:panelGrid columns="6" style="width:100%;" id="idpaineltotal">
 							<p:outputLabel value="Total Receber" for="totalconta"
 								class="fontebranca" style="font-size: 11px;margin-left: 10%" />
 							<p:outputLabel value="Valor de Juros" for="totaljuros"
@@ -132,8 +132,8 @@
 							</p:commandLink>
 
 						</h:panelGrid>
-						<br></br>
-						<h:panelGrid columns="3" cellpadding="1" style="width:100%;">
+						<br/><br/> 
+						<h:panelGrid columns="3"  style="width:100%;margin-left:2%;">
 							<p:outputLabel value="Nº Documento" class="fontebranca"
 								style="font-size: 11px;color:#000;" />
 							<p:outputLabel value="Deságio por Parcela" class="fontebranca"
@@ -166,7 +166,7 @@
 						</h:panelGrid>
 						<p class="botaoreceber" style="width:98%;margin-left:1%">
 							<br></br>
-								<p:commandButton value="Confirmar" icon="ui-icon-check" action="#{recebimentoMB.salvar()}" class="imagemm" update=":telaRecebimentoCartao:growl" actionListener="#{recebimentoMB.validarDataRecebimentoCartao()}"/>
+								<p:commandButton value="Confirmar" icon="ui-icon-check" action="#{recebimentoMB.salvar()}" class="imagemm" update=":telaRecebimentoCartao:growl" />
                                 <p:commandButton value="Cancelar" icon="ui-icon-close" action="#{recebimentoMB.cancelar()}" class="espacocampos"/>
 							<br></br>
 							<br></br>
