@@ -1,16 +1,12 @@
 package br.com.travelmate.managerBean.cancelamento;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -20,7 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -36,13 +31,11 @@ import br.com.travelmate.facade.CondicaoCancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CreditoFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.PassagemFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.cloud.midia.CadVideoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
 import br.com.travelmate.model.Cancelamento;
@@ -52,13 +45,11 @@ import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Credito;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Passagemaerea;
 import br.com.travelmate.model.Pincambio;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
 import br.com.travelmate.util.UploadAWSS3;
 

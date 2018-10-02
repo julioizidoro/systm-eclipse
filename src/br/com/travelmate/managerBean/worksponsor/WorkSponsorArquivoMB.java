@@ -1,14 +1,11 @@
 package br.com.travelmate.managerBean.worksponsor;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -18,7 +15,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
@@ -26,18 +22,15 @@ import org.primefaces.event.SelectEvent;
 
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade; 
 import br.com.travelmate.facade.WorkSponsorArquivoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Arquivos;
-import br.com.travelmate.model.Fornecedorapplication;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Worksponsor;
 import br.com.travelmate.model.Worksponsorarquivos;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
 import br.com.travelmate.util.UploadAWSS3;
 
