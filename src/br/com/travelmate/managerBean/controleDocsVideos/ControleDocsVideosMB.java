@@ -22,6 +22,7 @@ import br.com.travelmate.facade.Arquivo3Facade;
 import br.com.travelmate.facade.Arquivo4Facade;
 import br.com.travelmate.facade.Arquivo5Facade;
 import br.com.travelmate.facade.FornecedorCidadeDocsFacade;
+import br.com.travelmate.facade.FornecedorDocsFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.managerBean.cloud.midia.Pastas2Arquivo1MB;
 import br.com.travelmate.model.Arquivo1;
@@ -30,6 +31,7 @@ import br.com.travelmate.model.Arquivo3;
 import br.com.travelmate.model.Arquivo4;
 import br.com.travelmate.model.Arquivo5;
 import br.com.travelmate.model.Fornecedorcidadedocs;
+import br.com.travelmate.model.Fornecedordocs;
 import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Ftp;
@@ -672,6 +674,14 @@ public class ControleDocsVideosMB implements Serializable{
 	
 	public void limpar() {
 		listaArquivo = new ArrayList<>();
+	}
+	
+	
+	public void atualizarFornecedorDocs(Fornecedordocs fornecedordocs) {
+		FornecedorDocsFacade fornecedorDocsFacade = new FornecedorDocsFacade();
+		fornecedorDocsFacade.salvar(fornecedordocs);
+		gerarListaDocsFornecedorCidade();
+		Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
 	}
 
 }

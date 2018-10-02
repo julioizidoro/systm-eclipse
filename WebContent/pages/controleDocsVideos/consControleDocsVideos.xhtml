@@ -133,33 +133,54 @@
 										value="#{controleDocsVideosMB.listaFornecedorCidadeDocs}"
 										style="border:transparent;width:100%;"
 										scrollRows="10" scrollable="true" scrollHeight="300"
-										>
+										editable="true" editMode="cell" rowIndexVar="rowIndex">
 										
 										<p:column headerText=""
 											style="font-size:12px; width:10%; text-align:left; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}"
 											styleClass="alinharCenter">
 											<a
-												href="#{contorleDocsVideosMB.urlArquivoFornecedor}/systm/fornecedordocs/#{arquivoFornecedor.fornecedordocs.nomeftp}"
+												href="#{contorleDocsVideosMB.urlArquivoFornecedor}/#{arquivoFornecedor.fornecedordocs.nomeftp}"
 												title="#{arquivoFornecedor.fornecedordocs.nome}" name="#{arquivoFornecedor.fornecedordocs.nome}" target="_blank">
 												<img src="#{controleDocsVideosMB.retornaIconeDocumento(arquivoFornecedor.fornecedordocs.nomeftp)}"
 													width="30" height="30" style="font-size: 12px;"> </img>
 											</a>
 										</p:column>
-										<p:column headerText="Nome" sortBy="#{arquivo.nome}" 
+										<p:column headerText="Parceiro" sortBy="#{arquivoFornecedor.fornecedordocs.fornecedor.nome}" 
+											style="font-size:12px; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
+												<h:outputText value="#{arquivoFornecedor.fornecedordocs.fornecedor.nome}" style="color:black"/>
+										</p:column> 
+										<p:column headerText="Cidade" sortBy="#{arquivoFornecedor.fornecedorcidade.cidade.nome}" 
+											style="font-size:12px; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
+												<h:outputText value="#{arquivoFornecedor.fornecedorcidade.cidade.nome}" style="color:black"/>
+										</p:column> 
+										<p:column headerText="Nome" sortBy="#{arquivoFornecedor.fornecedordocs.nome}" 
 											style="font-size:12px; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
 											<a
-												href="#{contorleDocsVideosMB.urlArquivoFornecedor}/systm/fornecedordocs/#{arquivoFornecedor.fornecedordocs.nomeftp}"
+												href="#{contorleDocsVideosMB.urlArquivoFornecedor}/#{arquivoFornecedor.fornecedordocs.nomeftp}"
 												title="#{arquivoFornecedor.fornecedordocs.nome}" name="#{arquivoFornecedor.fornecedordocs.nome}" target="_blank">
 												<h:outputText value="#{arquivoFornecedor.fornecedordocs.nome}" style="color:black"/>
 											</a>
 										</p:column> 
 										<p:column headerText="Validade" sortBy="#{arquivoFornecedor.fornecedordocs.datavalidade}" 
 											style="font-size:12px; color:black; border:none;text-align:left; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
-											<h:outputText value="#{arquivoFornecedor.fornecedordocs.datavalidade}" 
-												style="#{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</h:outputText>
+											<p:cellEditor>
+												<f:facet name="output">
+													<h:outputText value="#{arquivoFornecedor.fornecedordocs.datavalidade}" 
+														style="#{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}">
+														<f:convertDateTime pattern="dd/MM/yyyy"
+															timeZone="America/Sao_Paulo" />
+													</h:outputText>
+												</f:facet>
+												<f:facet name="input">
+													<p:calendar id="datavalidadeFornecedor" value="#{arquivoFornecedor.fornecedordocs.datavalidade}" size="12"
+														locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+														<f:convertDateTime pattern="dd/MM/yyyy"
+															timeZone="America/Sao_Paulo" />
+														<p:ajax event="dateSelect" listener="#{controleDocsVideosMB.atualizarFornecedorDocs(arquivoFornecedor.fornecedordocs)}" update=":consultaDocumentosFornecedor:growl, idTabelaArquivosFornecedor"/>
+														<p:ajax event="change" listener="#{controleDocsVideosMB.atualizarFornecedorDocs(arquivoFornecedor.fornecedordocs)}" update=":consultaDocumentosFornecedor:growl, idTabelaArquivosFornecedor" />  
+													</p:calendar>
+												</f:facet>
+											</p:cellEditor>
 										</p:column>
 										
 										<p:column headerText="" style="font-size:12px; text-align:right; color:white; border:none; #{controleDocsVideosMB.trocarCorLinhaTabelaFornecedor(arquivoFornecedor)}"
@@ -176,7 +197,36 @@
 
 				<br></br> <br></br>
 			</div>
-
+			<style>
+				.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+					.ui-datatable tfoot th {
+					padding: 2px 2px;
+					overflow: hidden;
+					border-width: 0px;   
+					border-style: solid;
+				}
+				.ui-confirm-dialog-message {
+				    display: inline-block;
+				    margin-top: 1px;
+				    font-size: 17px !important;
+				}      
+				.ui-accordion .ui-accordion-content {
+				    padding: 1em 2.2em;
+				    border-top: 0;
+				    margin-top: -2px;
+				    position: relative;
+				    top: 1px;
+				    margin-bottom: 2px; 
+				    overflow: inherit !important;  
+				    zoom: 1;   
+				} 
+				.row {
+				    margin-right: -11px;
+				    margin-left: -15px;
+				    overflow: hidden;
+				}
+				
+				</style>
 		</h:form>
 	</ui:define>
 </ui:composition>
