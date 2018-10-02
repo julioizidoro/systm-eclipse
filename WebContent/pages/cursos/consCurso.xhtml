@@ -140,9 +140,9 @@
 											style="#{cursosProcesso.corNome}" />
 									</p:commandLink>
 							</p:column>
-							<p:column headerText="Data Inscrição" sortBy="#{cursosProcesso.dataInscricao}"
+							<p:column headerText="Data Venda" sortBy="#{cursosProcesso.vendas.dataVenda}"
 								style="text-align:center;width:115px;">
-								<h:outputText value="#{cursosProcesso.dataInscricao}"
+								<h:outputText value="#{cursosProcesso.vendas.dataVenda}"
 									style="#{cursosProcesso.corVenda}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
@@ -350,7 +350,7 @@
 											style="#{cursosFinanceiro.corNome}" />
 									</p:commandLink>
 							</p:column>
-							<p:column headerText="Data Inscrição" sortBy="#{cursosFinanceiro.dataInscricao}"
+							<p:column headerText="Data Venda" sortBy="#{cursosFinanceiro.dataInscricao}"
 								style="text-align:center;width:115px;">  
 								<h:outputText value="#{cursosFinanceiro.dataInscricao}"
 									style="#{cursosFinanceiro.corVenda}">
@@ -552,7 +552,7 @@
 									</p:commandLink>
 									
 							</p:column>
-							<p:column headerText="Data Inscrição" sortBy="#{cursosFinalizado.dataInscricao}"
+							<p:column headerText="Data Venda" sortBy="#{cursosFinalizado.dataInscricao}"
 								style="text-align:center;width:113px;">
 								<h:outputText value="#{cursosFinalizado.dataInscricao}"
 									style="#{cursosFinalizado.corVenda}">
