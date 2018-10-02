@@ -888,6 +888,7 @@ public class ListaEscolasMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("lead", FiltrarEscolaBean.getLead());
 		session.setAttribute("cliente", FiltrarEscolaBean.getOcurso().getCliente());
+		FiltrarEscolaBean.setTaxaTM(null);
 		return "filtrarOrcamentoCurso";
 	}
 

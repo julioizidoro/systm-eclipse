@@ -536,7 +536,6 @@ public class FiltrarEscolaMB implements Serializable {
 	public Cambio consultarCambio(FornecedorProdutosBean fornecedorProdutosBean) {
 		CambioFacade cambioFacade = new CambioFacade();
 		Cambio cambio = null;
-		Date data = new Date();
 		Fornecedorpais fornecedorPais = buscarFornecedorPais(
 				fornecedorProdutosBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
 						.getIdfornecedor(),
@@ -547,15 +546,9 @@ public class FiltrarEscolaMB implements Serializable {
 		if (fornecedorPais != null) {
 			idMoeda = fornecedorPais.getMoedas().getIdmoedas();
 		}
-		while (cambio == null) {
-			cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(data), idMoeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
-			try {
-				data = Formatacao.SomarDiasDatas(data, -1);
-			} catch (Exception ex) {
-				Logger.getLogger(br.com.travelmate.managerBean.OrcamentoCurso.FiltrarEscolaMB.class.getName())
-						.log(Level.SEVERE, null, ex);
-			}
-		}
+		cambio = cambioFacade.consultarCambioMoedaPais(
+				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+				idMoeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		return cambio;
 	}
 
