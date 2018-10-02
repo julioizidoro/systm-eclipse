@@ -746,21 +746,9 @@ public class CadPacoteAgenciaMB implements Serializable {
 		ProgramasBean programasBean = new ProgramasBean();
 		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 		Orcamento orcamento = orcamentoFacade.consultar(vendass.getIdvendas());
-		float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
-		float totalMoedaReal = orcamento.getTotalMoedaNacional();
-		vendass.setValorpais(totalMoedaEstrangeira * cambio.getValor());
-		Cambio cambioBrasil = null;
-		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
-			PaisFacade paisFacade = new PaisFacade();
-			Pais pais = paisFacade.consultar(5);
-			CambioFacade cambioFacade = new CambioFacade();
-			cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
-			totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
-		}
+		float totalMoedaEstrangeira = 0.0f;
+		float totalMoedaReal = 0.0f;
 		float valorCambioBrasil = 0.0f;
-		if (cambioBrasil != null) {
-			valorCambioBrasil = cambioBrasil.getValor();
-		}
 		programasBean.salvarOrcamento(orcamento, cambio, vendass.getValorpais(), totalMoedaEstrangeira, 0.0f, vendass, "Não", totalMoedaReal, valorCambioBrasil);
 		adicionarValorSeguroTotal();
 		calcularParcelamentoPagamento();
