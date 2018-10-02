@@ -710,6 +710,7 @@
 							<p:column headerText="Data Venda"
 								style="text-align:center;width:115px;" sortBy="#{workTravelCancelado.vendas.dataVenda}">
 								<h:outputText value="#{workTravelCancelado.vendas.dataVenda}" style="#{workTravelMB.cor(workTravelCancelado)}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 								</h:outputText>
 							</p:column>
@@ -1080,19 +1081,36 @@
 					<br></br>
 					<br></br>
 				</p:dialog>
-			<style>
+			
+				<style>
 				.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
 					.ui-datatable tfoot th {
 					padding: 2px 2px;
 					overflow: hidden;
-					border-width: 0px;
+					border-width: 0px;   
 					border-style: solid;
 				}
 				.ui-confirm-dialog-message {
 				    display: inline-block;
 				    margin-top: 1px;
 				    font-size: 17px !important;
-				}  
+				}      
+				.ui-accordion .ui-accordion-content {
+				    padding: 1em 2.2em;
+				    border-top: 0;
+				    margin-top: -2px;
+				    position: relative;
+				    top: 1px;
+				    margin-bottom: 2px; 
+				    overflow: inherit !important;  
+				    zoom: 1;   
+				} 
+				.row {
+				    margin-right: -11px;
+				    margin-left: -15px;
+				    overflow: hidden;
+				}
+				
 				</style>
 			<br></br>
 		</h:form>  
