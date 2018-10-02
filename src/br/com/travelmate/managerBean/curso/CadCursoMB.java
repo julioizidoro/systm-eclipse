@@ -3718,8 +3718,8 @@ public class CadCursoMB implements Serializable {
 		List<Produtoorcamentocurso> listaProdutosOrcamentoCurso = orcamentoCursoDao
 				.listarProdutoOrcamentoCurso(orcamentoCurso.getIdorcamentoCurso());
 		CambioFacade cambioFacade = new CambioFacade();
-		cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-				orcamentoCurso.getCambio().getMoedas().getIdmoedas());
+		cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+				orcamentoCurso.getCambio().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		orcamento.setValorCambio(cambio.getValor());
 		moeda = cambio.getMoedas();
 		valorCambio = cambio.getValor();
