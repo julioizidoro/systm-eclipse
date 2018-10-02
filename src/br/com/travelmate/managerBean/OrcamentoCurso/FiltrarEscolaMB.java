@@ -128,7 +128,9 @@ public class FiltrarEscolaMB implements Serializable {
 			filtrarEscolaBean.getOcurso().setCliente(new Cliente());
 		} else {
 			filtrarEscolaBean.setClientelead(true);
-			filtrarEscolaBean.setLead(filtrarEscolaBean.getOcurso().getCliente().getLead());
+			if (filtrarEscolaBean.getLead() == null) {
+				filtrarEscolaBean.setLead(filtrarEscolaBean.getOcurso().getCliente().getLead());
+			}
 		}
 		gerarListaIdioma();
 		if (lead != null) {
