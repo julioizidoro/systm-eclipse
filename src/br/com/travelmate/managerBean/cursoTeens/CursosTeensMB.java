@@ -521,7 +521,7 @@ public class CursosTeensMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"fichaCursoTeens-" + programasteens.getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(CursosTeensMB.class.getName()).log(Level.SEVERE, null, ex1);

@@ -20,7 +20,7 @@ public class FornecedorTipoArquivoConverter implements Converter{
         try {
         	value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			  
 		}
         if (listaTipoArquivo != null) {
             for (Fornecedorarquivotipo tipoarquivo : listaTipoArquivo) {

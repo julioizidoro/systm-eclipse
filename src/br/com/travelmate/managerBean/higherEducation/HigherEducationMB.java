@@ -737,7 +737,7 @@ public class HigherEducationMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"Ficha de Inscrição-" + listaHeBean.getHe().getVendas().getCliente().getNome() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(HigherEducationMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -763,7 +763,7 @@ public class HigherEducationMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"Contrato de Higher Education-" + listaHeBean.getHe().getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(HigherEducationMB.class.getName()).log(Level.SEVERE, null, ex1);

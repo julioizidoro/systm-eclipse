@@ -300,7 +300,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				mascote = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("mascote", mascote);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/pagina01.png"));
@@ -308,7 +308,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				pagina01 = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pagina01", pagina01);
 	
@@ -317,7 +317,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				logocinza = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("logocinza", logocinza);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/curso.png"));
@@ -325,7 +325,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				curso = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("curso", curso);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/pais.png"));
@@ -333,7 +333,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				pais = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pais", pais);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/orcamento.png"));
@@ -341,7 +341,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				orcamento = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("orcamento", orcamento);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/icon.png"));
@@ -349,7 +349,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				icon = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("icon", icon);
 			//
@@ -358,7 +358,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				logo = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("logo", logo);
 			//
@@ -367,7 +367,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				pagamento = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pagamento", pagamento);
 			//
@@ -376,7 +376,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				adicionais = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("adicionais", adicionais);
 	
@@ -385,7 +385,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try {
 				obs = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("obs", obs);
 			parameters.put("nometipo", "Tipo de Curso");
@@ -411,7 +411,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 					imgPais = ImageIO.read(is);
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			ftp.desconectar();
 			ftp.conectar();
@@ -426,7 +426,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 					imgCidade = ImageIO.read(is);
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			ftp.desconectar();
 	
@@ -439,7 +439,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 			try { 
 				gerarRelatorio.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, nomeArquivo); 
 			} catch (JRException e) { 
-				e.printStackTrace();
+				  
 			}
 			Mensagem.lancarMensagemInfo("Gerado com sucesso!", "");
 		}
@@ -783,7 +783,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			mascote = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("mascote", mascote);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pagina01.png"));
@@ -791,7 +791,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			pagina01 = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagina01", pagina01);
 
@@ -800,7 +800,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			logocinza = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logocinza", logocinza);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/curso.png"));
@@ -808,7 +808,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			curso = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("curso", curso);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pais.png"));
@@ -816,7 +816,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			pais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pais", pais);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/orcamento.png"));
@@ -824,7 +824,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			orcamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("orcamento", orcamento);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/icon.png"));
@@ -832,7 +832,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			icon = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("icon", icon);
 		//
@@ -841,7 +841,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			logo = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logo", logo);
 		//
@@ -850,7 +850,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			pagamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagamento", pagamento);
 		//
@@ -859,7 +859,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			adicionais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("adicionais", adicionais);
 
@@ -868,7 +868,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			obs = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("obs", obs);
 
@@ -893,7 +893,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 				imgPais = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 		ftp.conectar();
@@ -908,7 +908,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 				imgCidade = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 
@@ -923,7 +923,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 		try {
 			gerarRelatorio.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, nomeArquivo);
 		} catch (JRException e) { 
-			e.printStackTrace();
+			  
 		}
 	}
 	

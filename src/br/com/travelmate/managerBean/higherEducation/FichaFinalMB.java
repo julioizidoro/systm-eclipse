@@ -486,7 +486,7 @@ public class FichaFinalMB implements Serializable{
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"Ficha de Inscrição-" + he.getVendas().getCliente().getNome() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(HigherEducationMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -512,7 +512,7 @@ public class FichaFinalMB implements Serializable{
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"Contrato de Higher Education-" + he.getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(HigherEducationMB.class.getName()).log(Level.SEVERE, null, ex1);

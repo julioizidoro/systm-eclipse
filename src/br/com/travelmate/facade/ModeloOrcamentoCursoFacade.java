@@ -27,7 +27,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			return modeloOrcamentoCursoDao.salvar(orcamento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -37,7 +37,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			return modeloOrcamentoCursoDao.consultar(idOrcamento);
         } catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -47,7 +47,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			return modeloOrcamentoCursoDao.salvar(modeloProdutoOrcamentoCurso);
         } catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -57,7 +57,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			return modeloOrcamentoCursoDao.listarProdutoOrcamentoCurso(idOrcamento);
         } catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -67,7 +67,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			modeloOrcamentoCursoDao.excluirModleoProdutoOrcamentoCurso(idProdutoOrcamentoCurso);
         } catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     }
     
@@ -77,7 +77,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			return modeloOrcamentoCursoDao.consultarProdutoOrcamentoCuros(idProdutoOrcamentoCurso);
         } catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -87,7 +87,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			return modeloOrcamentoCursoDao.salvar(modeloForma);
         } catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -97,7 +97,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			return modeloOrcamentoCursoDao.consultarFormaPagamento(idOrcamento);
         } catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -108,7 +108,7 @@ public class ModeloOrcamentoCursoFacade {
         try {
 			return modeloOrcamentoCursoDao.listarModeloOrcamentoCurso(sql);
         } catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

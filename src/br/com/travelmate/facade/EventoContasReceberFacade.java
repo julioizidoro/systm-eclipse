@@ -15,7 +15,7 @@ public class EventoContasReceberFacade {
 		try {
 			return eventoContasReceberDao.listar(idcontasreceber);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class EventoContasReceberFacade {
 		try {
 			return eventoContasReceberDao.salvar(evento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

@@ -24,7 +24,7 @@ public class FaturaFacade {
         try {
 			return faturaDao.salvar(fatura);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -34,7 +34,7 @@ public class FaturaFacade {
         try {
 			return faturaDao.getFatura(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -44,7 +44,7 @@ public class FaturaFacade {
     	try {
 			faturaDao.excluir(idFatura);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		} 
     }
     
@@ -53,7 +53,7 @@ public class FaturaFacade {
         try {
 			return faturaDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

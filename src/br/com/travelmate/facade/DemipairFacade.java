@@ -39,7 +39,7 @@ public class DemipairFacade {
         try {
 			return demipairDao.consultar(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -83,7 +83,7 @@ public class DemipairFacade {
         try {
 			return demipairDao.consultarControle(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

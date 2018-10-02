@@ -28,7 +28,7 @@ public class FornecedorArquivoTipoFacade {
         try {
 			return fornecedorArquivoTipoDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -38,7 +38,7 @@ public class FornecedorArquivoTipoFacade {
         try {
 			return fornecedorArquivoTipoDao.consultar(idTipoArquivos);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

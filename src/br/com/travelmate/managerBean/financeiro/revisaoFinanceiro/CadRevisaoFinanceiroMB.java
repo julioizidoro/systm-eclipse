@@ -687,7 +687,7 @@ public class CadRevisaoFinanceiroMB implements Serializable{
     				gerarLogVenda("Pendencia", "Venda com pendencia financeira");
 				FacesContext.getCurrentInstance().getExternalContext().redirect("consVendasRevisaoFinanceiro.jsf");
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
     }

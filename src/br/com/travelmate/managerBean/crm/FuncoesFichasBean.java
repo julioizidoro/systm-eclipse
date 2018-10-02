@@ -414,7 +414,7 @@ public class FuncoesFichasBean {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"ficha-" + vendas.getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);

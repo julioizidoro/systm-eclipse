@@ -80,7 +80,7 @@ public class ConsultaCancelamentoMB implements Serializable {
 				urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -341,7 +341,7 @@ public class ConsultaCancelamentoMB implements Serializable {
 								+ listaCancelamento.get(i).getVendas().getIdvendas()
 								+ " and a.tipoarquivo.idtipoArquivo=14");
 					} catch (SQLException e) {
-						e.printStackTrace();
+						  
 					}
 					if (listaarquivos != null && listaarquivos.size() > 0) {
 						listaCancelamento.get(i).setNomeArquivo(listaarquivos.get(0).getNomesalvos());

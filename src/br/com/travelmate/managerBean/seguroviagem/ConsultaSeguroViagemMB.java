@@ -510,7 +510,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 				gerarRelatorioContrato.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"reciboPagamento-SeguroViagem-" + seguro.getIdseguroViagem() + ".pdf", null);
 			} catch (JRException | IOException | SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} else {
 			FacesMessage msg = new FacesMessage("Sem recibo para imprimir.", " ");
@@ -558,7 +558,7 @@ public class ConsultaSeguroViagemMB implements Serializable {
 		try {
 			gerarRelatorioContrato.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "fichaSeguroViagem", null);
 		} catch (JRException | IOException | SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 

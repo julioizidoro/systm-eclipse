@@ -15,7 +15,7 @@ public class VendaProdutoFacade {
 		try {
 			return vendaProdutoDao.salvar(vendaproduto);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class VendaProdutoFacade {
 		try {
 			return vendaProdutoDao.lista(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

@@ -27,7 +27,7 @@ public class UsuarioDepartamentoUnidadeFacade {
     	try {
 			return usuarioDepartamentoUnidadeDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

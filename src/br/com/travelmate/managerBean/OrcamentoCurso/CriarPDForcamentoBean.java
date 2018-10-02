@@ -48,7 +48,7 @@ public class CriarPDForcamentoBean {
 		try {
 			converter(corpo);
 		} catch (DocumentException | IOException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 

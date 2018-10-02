@@ -115,7 +115,7 @@ public class ArquivoMB implements Serializable {
 				try {
 					ftpdados = ftpDadosFacade.getFTPDados();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					  
 				}
 				if (ftpdados != null) {
 					urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":"+ ftpdados.getWww() +"/systm/arquivos";
@@ -350,7 +350,7 @@ public class ArquivoMB implements Serializable {
 				listarArquivos = new ArrayList<Arquivos>();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 
 	}
@@ -611,7 +611,7 @@ public class ArquivoMB implements Serializable {
 				listaArquivosS.add(listaTipoArquivo.get(i).getTipoarquivo());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	
@@ -649,7 +649,7 @@ public class ArquivoMB implements Serializable {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

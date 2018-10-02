@@ -43,7 +43,7 @@ public class RelatorioSolicitacoesMB implements Serializable {
 			// 45 dias depois
 			dataFinal = Formatacao.SomarDiasDatas(new Date(), 45);
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 	}
 

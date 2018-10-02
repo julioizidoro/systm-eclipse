@@ -114,7 +114,7 @@ public class UtilMB implements Serializable{
 		try {
 			leadposvenda.setDatachegada(Formatacao.SomarDiasDatas(controle.getCurso().getDataTermino(), 2));
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		leadposvenda.setDataembarque(controle.getDataEmbarque());
 		leadposvenda.setLead(lead);

@@ -721,7 +721,7 @@ public class ControleCursoMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"fichaCurso-" + curso.getIdcursos() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);

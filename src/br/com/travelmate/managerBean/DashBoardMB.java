@@ -89,7 +89,7 @@ public class DashBoardMB implements Serializable {
 			try {
 				ftpdados = ftpDadosFacade.getFTPDados();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		
@@ -524,7 +524,7 @@ public class DashBoardMB implements Serializable {
 			try {
 				data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			
 			

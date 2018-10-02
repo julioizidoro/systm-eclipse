@@ -40,7 +40,7 @@ public class MotivoCancelamentoFacade {
         try {
 			return motivoCancelamentoDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

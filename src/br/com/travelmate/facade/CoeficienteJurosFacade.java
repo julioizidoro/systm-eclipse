@@ -25,7 +25,7 @@ public class CoeficienteJurosFacade {
 			return coeficienteJurosDao.salvar(coeficientejuros);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -36,7 +36,7 @@ public class CoeficienteJurosFacade {
 			return coeficienteJurosDao.consultar(numeroParcelas, tipo);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -47,7 +47,7 @@ public class CoeficienteJurosFacade {
 			return coeficienteJurosDao.listar();
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -57,7 +57,7 @@ public class CoeficienteJurosFacade {
         try {
 			return coeficienteJurosDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

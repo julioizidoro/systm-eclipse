@@ -16,7 +16,7 @@ public class PagamentoInvoiceFacade {
 		try {
 			return pagamentoInvoiceDao.salvar(pagamentoinvoice);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -26,7 +26,7 @@ public class PagamentoInvoiceFacade {
 		try {
 			return pagamentoInvoiceDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

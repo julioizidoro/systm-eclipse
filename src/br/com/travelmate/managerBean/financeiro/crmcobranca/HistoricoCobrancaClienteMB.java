@@ -611,7 +611,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"ficha-" + crmcobranca.getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -643,7 +643,7 @@ public class HistoricoCobrancaClienteMB implements Serializable{
 		try {
 			gerarRelatorioFicha();
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

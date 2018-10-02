@@ -489,7 +489,7 @@ public class ControleDocsVideosMB implements Serializable{
 		try {
 			ftpDados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

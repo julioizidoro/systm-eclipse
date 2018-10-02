@@ -19,7 +19,7 @@ public class CancelamentoFacade {
 		try {
 			return cancelamentoDao.salvar(cancelamento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -29,7 +29,7 @@ public class CancelamentoFacade {
 		try {
 			return cancelamentoDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

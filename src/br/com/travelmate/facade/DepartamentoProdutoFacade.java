@@ -15,7 +15,7 @@ public class DepartamentoProdutoFacade {
 		try {
 			return departamentoProdutoDao.consultar(idProduto);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class DepartamentoProdutoFacade {
 		try {
 			return departamentoProdutoDao.listar(iddepartamento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -35,7 +35,7 @@ public class DepartamentoProdutoFacade {
 		try {
 			return departamentoProdutoDao.listar();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

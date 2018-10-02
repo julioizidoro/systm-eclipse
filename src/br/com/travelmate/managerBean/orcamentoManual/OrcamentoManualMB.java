@@ -265,7 +265,7 @@ public class OrcamentoManualMB implements Serializable {
 		try {
 			gerarOrcamentoPDF(orcamentocurso, "PDF");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		return "";
 	}
@@ -291,7 +291,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				pagina01 = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pagina01", pagina01);
 			f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/mascote.png"));
@@ -299,7 +299,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				mascote = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("mascote", mascote);
 			f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/logocinza.png"));
@@ -307,7 +307,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				logocinza = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("logocinza", logocinza);
 			f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/curso.png"));
@@ -315,7 +315,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				curso = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("curso", curso);
 			f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pais.png"));
@@ -323,7 +323,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				pais = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pais", pais);
 			f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/orcamento.png"));
@@ -331,7 +331,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				orcamento = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("orcamento", orcamento);
 			f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/icon.png"));
@@ -339,7 +339,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				icon = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("icon", icon);
 			//
@@ -348,7 +348,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				logo = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("logo", logo);
 			//
@@ -357,7 +357,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				pagamento = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pagamento", pagamento);
 			//
@@ -366,7 +366,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				adicionais = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("adicionais", adicionais);
 
@@ -375,7 +375,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				obs = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("obs", obs);
 			parameters.put("nometipo", "Projeto de Voluntariado");
@@ -391,7 +391,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				pagina01 = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pagina01", pagina01);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/mascote.png"));
@@ -399,7 +399,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				mascote = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("mascote", mascote);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/logocinza.png"));
@@ -407,7 +407,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				logocinza = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("logocinza", logocinza);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/curso.png"));
@@ -415,7 +415,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				curso = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("curso", curso);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/pais.png"));
@@ -423,7 +423,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				pais = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pais", pais);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/orcamento.png"));
@@ -431,7 +431,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				orcamento = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("orcamento", orcamento);
 			f = new File(servletContext.getRealPath("/reports/orcamentopdf/icon.png"));
@@ -439,7 +439,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				icon = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("icon", icon);
 			//
@@ -448,7 +448,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				logo = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("logo", logo);
 			//
@@ -457,7 +457,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				pagamento = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("pagamento", pagamento);
 			//
@@ -466,7 +466,7 @@ public class OrcamentoManualMB implements Serializable {
 			try {
 				adicionais = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			parameters.put("adicionais", adicionais);
 
@@ -494,7 +494,7 @@ public class OrcamentoManualMB implements Serializable {
 				imgPais = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 		ftp.conectar();
@@ -508,7 +508,7 @@ public class OrcamentoManualMB implements Serializable {
 				imgCidade = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 		parameters.put("pais", imgPais);
@@ -524,7 +524,7 @@ public class OrcamentoManualMB implements Serializable {
 			} else
 				gerarRelatorio.gerarRelatorioDSFile(caminhoRelatorio, parameters, jrds, nomeArquivo);
 		} catch (JRException | SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -561,7 +561,7 @@ public class OrcamentoManualMB implements Serializable {
 					Orcamentocurso orcamentocurso = listaOrcamento.get(i);
 					listaOrcamentoCursoSelecionado.add(orcamentocurso);
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}
@@ -630,7 +630,7 @@ public class OrcamentoManualMB implements Serializable {
 		try {
 			gerarOrcamentoPDF(orcamentocurso, "email");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		Ftpdados dadosFTP = null;

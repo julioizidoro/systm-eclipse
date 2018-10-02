@@ -906,7 +906,7 @@ public class CadCursosTeensMB implements Serializable {
 		try {
 			listaProdutoRemessa = produtoRemessaFacade.listar(aplicacaoMB.getParametrosprodutos().getProgramasTeens());
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		float valorremessa = 0.0f;
 		if (listaProdutoRemessa != null) {

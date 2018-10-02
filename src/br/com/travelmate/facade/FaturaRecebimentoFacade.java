@@ -14,7 +14,7 @@ public class FaturaRecebimentoFacade {
 		try {
 			return faturaRecebimentoDao.salvar(faturaRecebimento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

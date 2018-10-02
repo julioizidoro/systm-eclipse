@@ -105,7 +105,7 @@ public class Pasta5Arquivo4MB implements Serializable {
 				try {
 					FacesContext.getCurrentInstance().getExternalContext().redirect("consDepartamentos.jsf");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 			urlArquivo = "https://docs.systm.com.br";

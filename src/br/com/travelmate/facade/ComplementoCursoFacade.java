@@ -17,7 +17,7 @@ private ComplementoCursoDao complementoCursoDao;
 		try {
 			return complementoCursoDao.salvar(complemento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -27,7 +27,7 @@ private ComplementoCursoDao complementoCursoDao;
 		try {
 			return complementoCursoDao.consultar(idComplemento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

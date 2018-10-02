@@ -660,7 +660,7 @@ public class FollowUpMB implements Serializable {
 				try {
 					data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje) && listaLeadTotal.get(i).getDataproximocontato() == null) {
 					listaLead.add(listaLeadTotal.get(i));
@@ -700,7 +700,7 @@ public class FollowUpMB implements Serializable {
 				try {
 					data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				if (listaLeadTotal.get(i).getDataproximocontato() != null && listaLeadTotal.get(i).getSituacao() <=5) {
 					String dataProximo = Formatacao.ConvercaoDataPadrao(listaLeadTotal.get(i).getDataproximocontato());
@@ -953,7 +953,7 @@ public class FollowUpMB implements Serializable {
 			try {
 				data2 = Formatacao.SomarDiasDatas(dRecebimento, 2);
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			if (listaLeadTotal.get(i).getSituacao() == 1 && !data2.before(dHoje) && listaLeadTotal.get(i).getDataproximocontato() == null) {
 				novos = novos + 1;
@@ -973,7 +973,7 @@ public class FollowUpMB implements Serializable {
 				try {
 					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				if (dProximo.before(data7)) {
 					prox7 = prox7 + 1;
@@ -1061,7 +1061,7 @@ public class FollowUpMB implements Serializable {
 				session.setAttribute("listaLead", listaLead);
 				FacesContext.getCurrentInstance().getExternalContext().redirect("historicoCliente.jsf");
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";
@@ -1078,7 +1078,7 @@ public class FollowUpMB implements Serializable {
 			session.setAttribute("listatipocontato", listaTipoContato);
 			session.setAttribute("listausuario", listaUsuario);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		
 		return "historicoCliente";
@@ -1116,7 +1116,7 @@ public class FollowUpMB implements Serializable {
 		try {
 			data = Formatacao.SomarDiasDatas(new Date(), 5);
 		} catch (Exception e) { 
-			e.printStackTrace();
+			  
 		}
 		String sql = "SELECT l FROM Leadposvenda l WHERE l.vendas.situacao<>'CANCELADA' AND l.lead.produtos.idprodutos<>3 AND l.lead.produtos.idprodutos<>6 AND l.lead.produtos.idprodutos<>7 ";
 		sql = sql + " AND l.vendas.unidadenegocio.idunidadeNegocio="+usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
@@ -1263,7 +1263,7 @@ public class FollowUpMB implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("../trainee/cadEstagioAustralia.jsf");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		return "";
 	}

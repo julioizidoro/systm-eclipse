@@ -946,7 +946,7 @@ public class CadAupairMB implements Serializable {
 		try {
 			listaProdutoRemessa = produtoRemessaFacade.listar(aplicacaoMB.getParametrosprodutos().getAupair());
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		float valorremessa = 0.0f;
 		if (listaProdutoRemessa != null) {

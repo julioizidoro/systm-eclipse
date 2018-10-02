@@ -20,7 +20,7 @@ public class PaisComissaoConverter implements Converter{
 	    	try {
 				value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
+				  
 			}
 	        List<Pais> listaPaisFornecedor = (List<Pais>) component.getAttributes().get("listaPaisFornecedor");
 	        if (listaPaisFornecedor != null) {

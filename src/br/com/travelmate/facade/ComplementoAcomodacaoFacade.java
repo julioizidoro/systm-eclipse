@@ -16,7 +16,7 @@ private ComplementoAcomodacaoDao complementoAcomodacaoDao;
 		try {
 			return complementoAcomodacaoDao.salvar(complemento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -26,7 +26,7 @@ private ComplementoAcomodacaoDao complementoAcomodacaoDao;
 		try {
 			return complementoAcomodacaoDao.consultar(idComplemento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

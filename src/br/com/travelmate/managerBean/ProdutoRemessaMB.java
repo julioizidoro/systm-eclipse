@@ -92,7 +92,7 @@ public class ProdutoRemessaMB implements Serializable{
 			try {
 				listaProdutoRemessa = produtoRemessaFacade.listar(produto.getIdprodutos());
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 		}
 	}
@@ -106,7 +106,7 @@ public class ProdutoRemessaMB implements Serializable{
 			try {
 				produtoremessa = produtoRemessaFacade.salvar(produtoremessa);
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			listaProdutoRemessa.add(produtoremessa);
 		}
@@ -120,7 +120,7 @@ public class ProdutoRemessaMB implements Serializable{
 			produtoRemessaFacade.excluir(listaProdutoRemessa.get(nlinha).getIdprodutoremessa());
 			listaProdutoRemessa.remove(nlinha);
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

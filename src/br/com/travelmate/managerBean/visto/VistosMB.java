@@ -442,7 +442,7 @@ public class VistosMB implements Serializable {
 			try {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "OrcamentoVisto.pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);

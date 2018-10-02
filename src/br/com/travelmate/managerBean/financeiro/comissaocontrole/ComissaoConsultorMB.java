@@ -65,14 +65,14 @@ public class ComissaoConsultorMB implements Serializable{
 				gerarRelatorioComissaoGerente(comissaoControle);
 			} catch (IOException | SQLException e) {
 				
-				e.printStackTrace();
+				  
 			}
 		} else {
 			try {
 				gerarReltorioComissaoConsultor(comissaoControle);
 			} catch (Exception e) {
 				
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";

@@ -246,7 +246,7 @@ public class WorkSponsorArquivoMB implements Serializable {
 				listaTipoArquivo = new ArrayList<Tipoarquivoproduto>();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

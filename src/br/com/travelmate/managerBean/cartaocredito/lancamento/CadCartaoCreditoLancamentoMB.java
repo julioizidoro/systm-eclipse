@@ -361,7 +361,7 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		try {
 			cartao.setData(Formatacao.SomarDiasDatas(cartaocreditolancamento.getData(), 30));
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		cartaoCreditoLancamentoFacade.salvar(cartao);
 	}

@@ -37,7 +37,7 @@ public class TreinamentoAcessoFacade {
     	try {
 			return treinamentoAcessoDao.consultar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 			return null;
 		}  
     }

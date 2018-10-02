@@ -48,7 +48,7 @@ public class ProgramasTeensFacede {
     	try {
 			return programasTeensDao.find(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

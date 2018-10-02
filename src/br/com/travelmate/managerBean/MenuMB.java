@@ -1468,7 +1468,7 @@ public class MenuMB implements Serializable {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/inicio/pages/cartaocreditolancamento/consPesquisaLancamentosCredito.jsf");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}  
 	}
 	

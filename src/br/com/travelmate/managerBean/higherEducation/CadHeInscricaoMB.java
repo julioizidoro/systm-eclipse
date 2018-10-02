@@ -937,7 +937,7 @@ public class CadHeInscricaoMB implements Serializable {
 		try {
 			listaProdutoRemessa = produtoRemessaFacade.listar(aplicacaoMB.getParametrosprodutos().getHighereducation());
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		float valorremessa = 0.0f;
 		if (listaProdutoRemessa != null) {

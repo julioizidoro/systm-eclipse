@@ -31,7 +31,7 @@ public class CursoTraducaoFacade {
     	try {
 			return cursoTraducaoDao.consultar(idcurso);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

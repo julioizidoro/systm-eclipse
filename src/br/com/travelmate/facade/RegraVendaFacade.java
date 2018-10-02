@@ -40,7 +40,7 @@ public class RegraVendaFacade {
         try {
 			return regraVendaDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

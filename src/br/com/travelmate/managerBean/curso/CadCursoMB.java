@@ -3111,7 +3111,7 @@ public class CadCursoMB implements Serializable {
 		try {
 			listaProdutoRemessa = produtoRemessaFacade.listar(aplicacaoMB.getParametrosprodutos().getCursos());
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		float valorremessa = 0.0f;
 		if (listaProdutoRemessa != null) {
@@ -4131,7 +4131,7 @@ public class CadCursoMB implements Serializable {
 			try {
 				data = Formatacao.SomarDiasDatas(datainicio, diasemana);
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			return data;
 		}

@@ -43,7 +43,7 @@ public class QuestionarioHeFacade {
     	try {
 			return questionarioHeDao.consultar(id);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     } 
@@ -54,7 +54,7 @@ public class QuestionarioHeFacade {
     	try {
 			return questionarioHeDao.consultar(id);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     } 

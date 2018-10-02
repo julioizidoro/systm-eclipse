@@ -25,7 +25,7 @@ public class FtpDadosFacade {
         try {
 			return ftpDadosDao.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
         

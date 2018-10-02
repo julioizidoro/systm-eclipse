@@ -196,7 +196,7 @@ public class CadWorkSponsorArquivoMB implements Serializable {
 				listaTipoArquivo = new ArrayList<Tipoarquivoproduto>();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -209,7 +209,7 @@ public class CadWorkSponsorArquivoMB implements Serializable {
 					nome = new String(worksponsorarquivos.getNome().getBytes(Charset.defaultCharset()), "UTF-8");
 					obs = new String(worksponsorarquivos.getDescricao().getBytes(Charset.defaultCharset()), "UTF-8");
 				} catch (UnsupportedEncodingException e) { 
-					e.printStackTrace();
+					  
 				}
 			}
 		}
@@ -235,7 +235,7 @@ public class CadWorkSponsorArquivoMB implements Serializable {
 			try {
 				tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";
@@ -248,7 +248,7 @@ public class CadWorkSponsorArquivoMB implements Serializable {
 		try {
 			tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		RequestContext.getCurrentInstance().closeDialog(new WorkSponsorArquivoMB());
 		return "";

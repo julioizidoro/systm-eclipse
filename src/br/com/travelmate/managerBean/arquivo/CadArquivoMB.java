@@ -306,7 +306,7 @@ public class CadArquivoMB implements Serializable {
 				listaTipoArquivo = new ArrayList<Tipoarquivoproduto>();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -318,7 +318,7 @@ public class CadArquivoMB implements Serializable {
 				try {
 					obs = new String(arquivos.getObservacao().getBytes(Charset.defaultCharset()), "UTF-8");
 				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}
@@ -428,7 +428,7 @@ public class CadArquivoMB implements Serializable {
 			try {
 				tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";
@@ -441,7 +441,7 @@ public class CadArquivoMB implements Serializable {
 		try {
 			tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

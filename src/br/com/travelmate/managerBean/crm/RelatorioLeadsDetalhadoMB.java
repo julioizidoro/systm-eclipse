@@ -321,7 +321,7 @@ public class RelatorioLeadsDetalhadoMB implements Serializable{
 		try {
 			listaPublicidades = publicidadeFacade.listar();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		if (listaPublicidades == null) {
 			listaPublicidades = new ArrayList<Publicidade>();

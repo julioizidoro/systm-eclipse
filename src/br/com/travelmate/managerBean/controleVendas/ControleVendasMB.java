@@ -652,7 +652,7 @@ public class ControleVendasMB implements Serializable {
 		try {
 			gerarRelatorioFicha();
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -839,7 +839,7 @@ public class ControleVendasMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"ficha-" + vendas.getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);

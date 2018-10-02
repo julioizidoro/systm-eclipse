@@ -305,7 +305,7 @@ public class EnviarEmailMB implements Serializable {
 					usuarioLogadoMB.getUsuario(), emailConsultor, texto, usuarioLogadoMB.getUsuario().getNome(),
 					assunto, cliente.getNome(), listaEmails, textoRodape, fatura, pacotesfornecedor);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			  
 		}
 		return null;
 	}

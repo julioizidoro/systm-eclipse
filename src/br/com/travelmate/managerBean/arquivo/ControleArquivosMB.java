@@ -98,7 +98,7 @@ public class ControleArquivosMB implements Serializable{
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 		}
 		if (ftpdados != null) {
 			urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":"+ ftpdados.getWww() +"/systm/arquivos/";

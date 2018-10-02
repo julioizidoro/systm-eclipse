@@ -56,7 +56,7 @@ public class GrupoObrigatorioFacade {
 	    	try {
 				grupoObrigatorioDao.excluir(idgrupo);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 	    }
 	    

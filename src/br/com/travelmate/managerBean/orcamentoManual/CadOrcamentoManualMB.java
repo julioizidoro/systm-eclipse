@@ -703,7 +703,7 @@ public class CadOrcamentoManualMB implements Serializable {
 			try {
 				calcularParcelamento();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 	}
@@ -714,7 +714,7 @@ public class CadOrcamentoManualMB implements Serializable {
 		try {
 			listaProdutoRemessa = produtoRemessaFacade.listar(aplicacaoMB.getParametrosprodutos().getVoluntariado());
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		float valorremessa = 0.0f;
 		if (listaProdutoRemessa != null) {

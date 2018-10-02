@@ -56,7 +56,7 @@ public class FornecedorFinanceiroProdutoFacade {
     		try {
     			fornecedorFinanceiroDao.excluir(idFornecedorfinanceiroproduto);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		} 
     }
 }

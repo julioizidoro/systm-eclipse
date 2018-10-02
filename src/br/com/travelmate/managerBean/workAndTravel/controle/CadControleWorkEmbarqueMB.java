@@ -97,7 +97,7 @@ public class CadControleWorkEmbarqueMB implements Serializable {
 				controleworkembarque.setDataembarquefinal(Formatacao.SomarDiasDatas
 						(controlework.getDataIniciojoboffer(), -1));
 			} catch (Exception e) { 
-				e.printStackTrace();
+				  
 			}
 		}
 		if(controlework.getDataTerminojoboffer()!=null) {
@@ -107,7 +107,7 @@ public class CadControleWorkEmbarqueMB implements Serializable {
 				controleworkembarque.setDataretornofinal(Formatacao.SomarDiasDatas
 						(controlework.getDataTerminojoboffer(), 29));
 			} catch (Exception e) { 
-				e.printStackTrace();
+				  
 			}
 		}
 	}

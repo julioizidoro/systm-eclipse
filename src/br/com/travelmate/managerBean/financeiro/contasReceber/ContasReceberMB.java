@@ -1180,7 +1180,7 @@ public class ContasReceberMB implements Serializable {
 			try {
 				logo = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}  
 	        parameters.put("logo", logo); 
 	        parameters.put("titulo", "Títulos Baixados");

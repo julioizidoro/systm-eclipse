@@ -15,7 +15,7 @@ public class DadosAlteracoesFacade {
 		try {
 			return dadosAlteracoesDao.salvar(dados);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class DadosAlteracoesFacade {
 		try {
 			return dadosAlteracoesDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

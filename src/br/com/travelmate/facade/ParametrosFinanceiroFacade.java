@@ -13,7 +13,7 @@ public class ParametrosFinanceiroFacade {
 			return parametrosFinanceiroDao.consultar();
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -24,7 +24,7 @@ public class ParametrosFinanceiroFacade {
 			return parametrosFinanceiroDao.salvar(parametrosfinanceiro);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

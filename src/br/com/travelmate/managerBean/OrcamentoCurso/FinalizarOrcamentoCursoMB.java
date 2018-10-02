@@ -726,7 +726,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		try {
 			calcularParcelamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		
 	}
@@ -739,7 +739,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		try {
 			calcularParcelamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		
 	}
@@ -748,7 +748,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 		try {
 			calcularParcelamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		if (formaPagamento04.isSelecionado()) {
 			habilitaFormaPagamento04 = false;

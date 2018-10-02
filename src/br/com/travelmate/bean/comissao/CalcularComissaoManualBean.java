@@ -89,7 +89,7 @@ public class CalcularComissaoManualBean {
 					try {
 						recalcular(null);
 					} catch (SQLException e) {
-						e.printStackTrace();
+						  
 					}
 				}
 			}

@@ -117,7 +117,7 @@ public class LerRetornoItauBean {
 				try {
 					data = converterData(dataPagamento);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
                 retornoBean.setDataPagamento(Formatacao.ConvercaoDataPadrao(data));
                 retornoBean.setInscricao(inscricao);
@@ -157,7 +157,7 @@ public class LerRetornoItauBean {
 					conta.setDataRetorno(new Date());
 					conta.setDatapagamento(converterData(dataPagamento));
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 			} else if (ocorrencia.equalsIgnoreCase("02")) {
 				conta.setSituacao("vd");

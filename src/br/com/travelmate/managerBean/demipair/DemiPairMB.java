@@ -457,7 +457,7 @@ public class DemiPairMB implements Serializable {
 			try {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "fichaDemipair"+demipair.getVendas().getIdvendas()+".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(DemiPairMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -483,7 +483,7 @@ public class DemiPairMB implements Serializable {
 			try {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "contratoDemipair"+demipair.getVendas().getIdvendas()+".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(DemiPairMB.class.getName()).log(Level.SEVERE, null, ex1);

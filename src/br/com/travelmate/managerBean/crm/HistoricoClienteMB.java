@@ -567,7 +567,7 @@ public class HistoricoClienteMB implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("../trainee/cadEstagioAustralia.jsf");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		return "";
 	}
@@ -632,7 +632,7 @@ public class HistoricoClienteMB implements Serializable {
 				try {
 					gerarOrcamentoPDFTarifario(ocurso, "PDF");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}else if (leadhistorico.getTipoorcamento().equalsIgnoreCase("m")){
@@ -641,7 +641,7 @@ public class HistoricoClienteMB implements Serializable {
 				try {
 					gerarOrcamentoPDFManual(orcamentoCurso, "PDF");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}
@@ -665,7 +665,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			mascote = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("mascote", mascote);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/pagina01.png"));
@@ -673,7 +673,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			pagina01 = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();      
+			        
 		}
 		parameters.put("pagina01", pagina01);
 
@@ -682,7 +682,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			logocinza = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logocinza", logocinza);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/curso.png"));
@@ -690,7 +690,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			curso = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("curso", curso);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/pais.png"));
@@ -698,7 +698,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			pais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pais", pais);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/orcamento.png"));
@@ -706,7 +706,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			orcamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("orcamento", orcamento);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/icon.png"));
@@ -714,7 +714,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			icon = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("icon", icon);
 		//
@@ -723,7 +723,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			logo = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logo", logo);
 		//
@@ -732,7 +732,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			pagamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagamento", pagamento);
 		//
@@ -741,7 +741,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			adicionais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("adicionais", adicionais);
 
@@ -750,7 +750,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			obs = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("obs", obs);
 
@@ -775,7 +775,7 @@ public class HistoricoClienteMB implements Serializable {
 				imgPais = ImageIO.read(is);
 			} 
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 		ftp.conectar();
@@ -790,7 +790,7 @@ public class HistoricoClienteMB implements Serializable {
 				imgCidade = ImageIO.read(is);
 			} 
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 
@@ -808,7 +808,7 @@ public class HistoricoClienteMB implements Serializable {
 			} else
 				gerarRelatorio.gerarRelatorioDSFile(caminhoRelatorio, parameters, jrds, nomeArquivo);
 		} catch (JRException | SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	
@@ -827,7 +827,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			pagina01 = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagina01", pagina01);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/mascote.png"));
@@ -835,7 +835,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			mascote = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("mascote", mascote);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/logocinza.png"));
@@ -843,7 +843,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			logocinza = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logocinza", logocinza);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/curso.png"));
@@ -851,7 +851,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			curso = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("curso", curso);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/pais.png"));
@@ -859,7 +859,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			pais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pais", pais);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/orcamento.png"));
@@ -867,7 +867,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			orcamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("orcamento", orcamento);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/icon.png"));
@@ -875,7 +875,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			icon = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("icon", icon);
 		//
@@ -884,7 +884,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			logo = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logo", logo);
 		//
@@ -893,7 +893,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			pagamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagamento", pagamento);
 		//
@@ -902,7 +902,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			adicionais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("adicionais", adicionais);
 
@@ -911,7 +911,7 @@ public class HistoricoClienteMB implements Serializable {
 		try {
 			obs = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("obs", obs);
 
@@ -936,7 +936,7 @@ public class HistoricoClienteMB implements Serializable {
 				imgPais = ImageIO.read(is);
 			} 
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 		ftp.conectar();
@@ -951,7 +951,7 @@ public class HistoricoClienteMB implements Serializable {
 				imgCidade = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 
@@ -969,7 +969,7 @@ public class HistoricoClienteMB implements Serializable {
 			} else
 				gerarRelatorio.gerarRelatorioDSFile(caminhoRelatorio, parameters, jrds, nomeArquivo);
 		} catch (JRException | SQLException e) {
-			e.printStackTrace();
+			  
 		}  
 	}
 	

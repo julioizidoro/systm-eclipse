@@ -200,7 +200,7 @@ public class UploadPDFTmStarMB implements Serializable{
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

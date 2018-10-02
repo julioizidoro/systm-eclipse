@@ -51,7 +51,7 @@ public class CobrancaFacade {
 			return cobrancaDao.listar(sql);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

@@ -484,7 +484,7 @@ public class ConsultaInvoiceMB implements Serializable {
 			try {
 				gerarRelatorioContrato.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, "PagametnoInvoices.pdf");
 			} catch (JRException e) {
-				e.printStackTrace();
+				  
 				Mensagem.lancarMensagemErro("Erro Relatório",
 						"Erro gerar relatório de invoices para pagamento " + e.getMessage());
 			}
@@ -750,7 +750,7 @@ public class ConsultaInvoiceMB implements Serializable {
 			}
 			listaRemassa = invoiceRemessaFacade.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		if (listaRemassa == null) {
 			listaRemassa = new ArrayList<Invoiceremessa>();

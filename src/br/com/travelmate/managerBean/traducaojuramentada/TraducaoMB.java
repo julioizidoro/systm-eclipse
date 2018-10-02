@@ -575,7 +575,7 @@ public class TraducaoMB implements Serializable {
 				gerarRelatorioContrato.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"reciboPagamento-Traducao-" + traducaojuramentada.getIdtraducaojuramentada() + ".pdf", null);
 			} catch (JRException | IOException | SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} else {
 			FacesMessage msg = new FacesMessage("Sem recibo para imprimir.", " ");

@@ -20,7 +20,7 @@ public class FornecedorCidadeIdiomaAcomodacaoFacade {
         try {
 			return fornecedorCidadeIdiomaAcomodacaoDao.salvar(fornecedorcidadeidiomaacomodacao);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -30,7 +30,7 @@ public class FornecedorCidadeIdiomaAcomodacaoFacade {
         try {
 			return fornecedorCidadeIdiomaAcomodacaoDao.consultar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -40,7 +40,7 @@ public class FornecedorCidadeIdiomaAcomodacaoFacade {
     	try {
     		fornecedorCidadeIdiomaAcomodacaoDao.excluir(id);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		} 
     }
     
@@ -49,7 +49,7 @@ public class FornecedorCidadeIdiomaAcomodacaoFacade {
         try {
 			return fornecedorCidadeIdiomaAcomodacaoDao.listar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

@@ -25,7 +25,7 @@ public class CursosPacotesFacade {
         try {
 			return cursosPacoteDao.salvar(cursospacote);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -35,7 +35,7 @@ public class CursosPacotesFacade {
         try {
 			return cursosPacoteDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -45,7 +45,7 @@ public class CursosPacotesFacade {
     	try {
     		cursosPacoteDao.excluir(idCursospacote);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		} 
     }
     
@@ -54,7 +54,7 @@ public class CursosPacotesFacade {
         try {
 			return cursosPacoteDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

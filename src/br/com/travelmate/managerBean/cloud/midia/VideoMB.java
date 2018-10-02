@@ -175,7 +175,7 @@ public class VideoMB implements Serializable{
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	
@@ -206,7 +206,7 @@ public class VideoMB implements Serializable{
 		try {
 			is = ftp.receberArquivo("", "primeiroVideo.avi", "/videos/");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		midia = new DefaultStreamedContent(is, "video/quicktime");
 		return midia;

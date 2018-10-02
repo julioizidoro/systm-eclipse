@@ -14,7 +14,7 @@ public class AcomodacaoCursoFacade {
 		try {
 			return acomodacaoCursoDao.salvar(acomodacaoCurso);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -24,7 +24,7 @@ public class AcomodacaoCursoFacade {
 		try {
 			 acomodacaoCursoDao.excluir(idacomdoacao);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class AcomodacaoCursoFacade {
 		try {
 			return acomodacaoCursoDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

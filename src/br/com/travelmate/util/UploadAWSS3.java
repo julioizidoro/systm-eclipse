@@ -79,15 +79,15 @@ public class UploadAWSS3 {
 			upload.waitForCompletion();
 			return true;
 		} catch (AmazonServiceException e) {
-			e.printStackTrace();
+			  
 		} catch (SdkClientException e) {
-			e.printStackTrace();
+			  
 		} catch (AmazonClientException e) {
 
-			e.printStackTrace();
+			  
 		} catch (InterruptedException e) {
 
-			e.printStackTrace();
+			  
 		}
 		return false;
 
@@ -118,10 +118,10 @@ public class UploadAWSS3 {
         } while (result.isTruncated());
     }
     catch(AmazonServiceException e) {
-        e.printStackTrace();
+          
     }
     catch(SdkClientException e) {
-        e.printStackTrace();
+          
     }
     return lista;
 }
@@ -139,10 +139,10 @@ public class UploadAWSS3 {
 	            return true;
 	        }
 	        catch(AmazonServiceException e) {
-	            e.printStackTrace();
+	              
 	        }
 			catch(SdkClientException e) {
-	            e.printStackTrace();
+	              
 	        }
 		}
 		return false;

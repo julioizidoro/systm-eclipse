@@ -1380,7 +1380,7 @@ public class Formatacao {
 			gravarArq.write(html);
 			conteudo.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		return file;
 	}
@@ -1603,7 +1603,7 @@ public class Formatacao {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		return false;
 	}

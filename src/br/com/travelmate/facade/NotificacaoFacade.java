@@ -15,7 +15,7 @@ public class NotificacaoFacade {
 		try {
 			return notificacaoDao.salvar(notificacao);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return  null;
 		}
 	}
@@ -25,7 +25,7 @@ public class NotificacaoFacade {
 		try {
 			return notificacaoDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

@@ -547,7 +547,7 @@ public class OrcamentoCursoMB implements Serializable {
 				seguroviagem.setDataTermino(
 						Formatacao.SomarDiasDatas(resultadoOrcamentoBean.getOcurso().getDatatermino(), 7));
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			seguroviagem.setNumeroSemanas(
 					Formatacao.subtrairDatas(seguroviagem.getDataInicio(), seguroviagem.getDataTermino()));

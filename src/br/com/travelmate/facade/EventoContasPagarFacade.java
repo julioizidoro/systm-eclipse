@@ -16,7 +16,7 @@ public class EventoContasPagarFacade {
 		try {
 			return eventoContasPagarDao.listar(idcontaspagar);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -26,7 +26,7 @@ public class EventoContasPagarFacade {
 		try {
 			return eventoContasPagarDao.salvar(evento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

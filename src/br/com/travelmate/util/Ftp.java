@@ -56,7 +56,7 @@ public class Ftp {
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			  
 		} 
         ftpClient.changeWorkingDirectory(pasta);
         FileInputStream arqEnviar = new FileInputStream(file.getAbsolutePath());
@@ -85,7 +85,7 @@ public class Ftp {
 			ftpClient.enterLocalPassiveMode();
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			  
 		} 
         ftpClient.changeWorkingDirectory(pasta);
         FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
@@ -106,7 +106,7 @@ public class Ftp {
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			  
 		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
@@ -129,7 +129,7 @@ public class Ftp {
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			  
 		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
@@ -152,7 +152,7 @@ public class Ftp {
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			  
 		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
@@ -185,7 +185,7 @@ public class Ftp {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		} 
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
@@ -207,7 +207,7 @@ public class Ftp {
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		} 
 		ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);

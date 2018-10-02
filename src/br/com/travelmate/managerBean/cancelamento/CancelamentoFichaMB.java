@@ -535,7 +535,7 @@ public class CancelamentoFichaMB implements Serializable {
 				try {
 					arquivos.setTipoarquivo(tipoarquivo.consultar(14));
 				} catch (SQLException e) {
-					e.printStackTrace();
+					  
 				}
 				arquivosFacade.salvar(arquivos);
 			}

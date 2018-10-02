@@ -95,7 +95,7 @@ public class ImportarOrcamentoMB implements Serializable{
 			try {
 				ontem = Formatacao.SomarDiasDatas(hoje, -1);
 			} catch (Exception e) { 
-				e.printStackTrace();
+				  
 			}
 			if(ocurso.getDatavalidade()!=null && ocurso.getDatavalidade().before(hoje) && ocurso.getDatavalidade().after(ontem)){
 				return "- Orçamento possui promoção encerrando hoje.";
@@ -112,7 +112,7 @@ public class ImportarOrcamentoMB implements Serializable{
 			try {
 				ontem = Formatacao.SomarDiasDatas(hoje, -1);
 			} catch (Exception e) { 
-				e.printStackTrace();
+				  
 			}
 			if(ocurso.getDatavalidade()!=null && ocurso.getDatavalidade().before(hoje) && ocurso.getDatavalidade().after(ontem)){
 				return "color:cornflowerblue;";

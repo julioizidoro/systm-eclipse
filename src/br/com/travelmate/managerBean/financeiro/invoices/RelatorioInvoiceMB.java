@@ -132,7 +132,7 @@ public class RelatorioInvoiceMB implements Serializable{
 		    try {
 				gerarRelatorioContrato.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, "GanhoPerdarCambial.pdf");
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 				Mensagem.lancarMensagemErro("Erro Relatório", "Erro gerar relatório de Ganho/Perda Câmbial " + e.getMessage());
 			}
 		}
@@ -190,7 +190,7 @@ public class RelatorioInvoiceMB implements Serializable{
 		    try {
 				gerarRelatorioContrato.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, "InvoicesPagar.pdf");
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 				Mensagem.lancarMensagemErro("Erro Relatório", "Erro gerar relatório de Ganho/Perda Câmbial " + e.getMessage());
 			}
 		}

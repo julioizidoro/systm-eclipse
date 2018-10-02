@@ -15,7 +15,7 @@ public class MateFaturamentoAnualFacade {
 		try {
 			return metaFaturamentoAnualDao.salvar(meta);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class MateFaturamentoAnualFacade {
 		try {
 			return metaFaturamentoAnualDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -35,7 +35,7 @@ public class MateFaturamentoAnualFacade {
 		try {
 			return metaFaturamentoAnualDao.getMeta(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

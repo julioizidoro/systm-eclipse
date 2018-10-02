@@ -56,7 +56,7 @@ public class SeguroPlanosFacade {
     		try {
     			seguroPlanosDao.excluir(idSeguroplanos);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		} 
     }
 }

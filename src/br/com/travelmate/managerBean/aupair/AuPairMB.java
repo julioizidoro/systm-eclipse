@@ -436,7 +436,7 @@ public class AuPairMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"fichaAupair-" + aupair.getIdaupair() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(AuPairMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -467,7 +467,7 @@ public class AuPairMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"contratoAupair-" + aupair.getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(AuPairMB.class.getName()).log(Level.SEVERE, null, ex1);

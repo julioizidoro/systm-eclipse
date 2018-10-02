@@ -18,7 +18,7 @@ public class RelatorioErroBean {
 		try {
 			gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "ERRO", null);
 		} catch (JRException | IOException | SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 

@@ -88,7 +88,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		try {
 			publicidade = publicidadeFacade.consultar(9);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		verificarPaisUnidade();
 	}
@@ -306,7 +306,7 @@ public class CadLeadDistribuicaoMB implements Serializable{
 		try {
 			listaPublicidades = publicidadeFacade.listar();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		if (listaPublicidades == null) {
 			listaPublicidades = new ArrayList<Publicidade>();

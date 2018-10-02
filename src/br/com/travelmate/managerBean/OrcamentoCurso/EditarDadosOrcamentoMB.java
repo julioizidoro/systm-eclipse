@@ -274,7 +274,7 @@ public class EditarDadosOrcamentoMB implements Serializable {
 		try {
 			recalcularFormaPagamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		
 	}

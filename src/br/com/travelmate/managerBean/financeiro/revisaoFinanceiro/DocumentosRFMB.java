@@ -50,7 +50,7 @@ public class DocumentosRFMB implements Serializable{
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -150,7 +150,7 @@ public class DocumentosRFMB implements Serializable{
 			}
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 		}
 	}
 

@@ -168,7 +168,7 @@ public class EscolherApplicationMB implements Serializable{
 				String url = "https://local.systm.com.br/application/" + fornecedorapplication.getNomearquivo();
 				FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";

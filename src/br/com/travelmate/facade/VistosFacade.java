@@ -17,7 +17,7 @@ public class VistosFacade {
         try {
 			return vistosDao.salvar(visto);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -27,7 +27,7 @@ public class VistosFacade {
         try {
 			return vistosDao.consultarVistos(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -47,7 +47,7 @@ public class VistosFacade {
         try {
 			vistosDao.excluir(idVisto);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 
     }

@@ -15,7 +15,7 @@ public class AlteracaofinanceiroFacade {
 		try {
 			return alteracaofinanceiroDao.salvar(alteracaofinanceiro);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class AlteracaofinanceiroFacade {
 		try {
 			return alteracaofinanceiroDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

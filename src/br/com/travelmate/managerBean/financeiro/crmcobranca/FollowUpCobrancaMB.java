@@ -564,7 +564,7 @@ public class FollowUpCobrancaMB implements Serializable{
 				try {
 					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				if (listaCrmCobranca.get(i).getProximocontato().before(data7)) {
 					prox7 = prox7 + 1;
@@ -588,7 +588,7 @@ public class FollowUpCobrancaMB implements Serializable{
 						try {
 							lista.get(i).setDatainiciocobranca(Formatacao.SomarDiasDatas(listaConta.get(0).getContasreceber().getDatavencimento(), 6));
 						} catch (Exception e) {
-							e.printStackTrace();
+							  
 						}
 						lista.get(i).setDatavencimento(listaConta.get(0).getContasreceber().getDatavencimento());
 						crmCobrancaDao.salvar(lista.get(i));
@@ -652,7 +652,7 @@ public class FollowUpCobrancaMB implements Serializable{
 				try {
 					data7 = Formatacao.SomarDiasDatas(new Date(), 7);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				if (listaCrmCobranca.get(i).getProximocontato().before(data7)) {
 					prox7 = prox7 + 1;

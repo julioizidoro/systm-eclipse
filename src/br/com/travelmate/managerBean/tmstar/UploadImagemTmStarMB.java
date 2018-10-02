@@ -189,7 +189,7 @@ public class UploadImagemTmStarMB implements Serializable{
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 

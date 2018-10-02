@@ -172,7 +172,7 @@ public class RelatorioApplicationMB implements Serializable {
 			try {
 				logoescola = ImageIO.read(is);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		ftp.desconectar();

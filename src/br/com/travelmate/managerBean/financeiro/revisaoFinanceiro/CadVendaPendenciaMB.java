@@ -184,7 +184,7 @@ public class CadVendaPendenciaMB implements Serializable{
 				vendapendencia.setRelato(new String(vendapendencia.getRelato().getBytes("ISO-8859-1"), "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
 				
-				e.printStackTrace();
+				  
 			}
 			vendapendencia.setVendamotivopendencia(vendamotivopendencia);
 			vendapendencia.setVendas(venda);

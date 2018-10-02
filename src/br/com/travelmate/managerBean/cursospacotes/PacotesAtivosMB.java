@@ -381,7 +381,7 @@ public class PacotesAtivosMB implements Serializable {
         		try {
 					fc.getExternalContext().redirect("/inicio/pages/orcamento/orcamentoCurso.jsf");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
         	}
         }
@@ -419,7 +419,7 @@ public class PacotesAtivosMB implements Serializable {
 			externalContext.redirect("https://local.systm.com.br/informativospacotes/"
 					+idpacote+".pdf");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		return "";
 	}

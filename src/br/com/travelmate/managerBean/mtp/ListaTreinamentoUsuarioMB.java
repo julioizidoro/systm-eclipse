@@ -43,7 +43,7 @@ public class ListaTreinamentoUsuarioMB implements Serializable {
 							+ " where t.treinamentorespostas.idtreinamentorespostas="
 							+ treinamentorespostas.getIdtreinamentorespostas());
 		} catch (SQLException e) {
-			e.printStackTrace();  
+			    
 		}
 		gerarListaTreinamentoRespostaUsuario();
 	}

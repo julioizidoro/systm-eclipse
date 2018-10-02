@@ -95,7 +95,7 @@ public class Pastas4Videos3MB implements Serializable {
 				try {
 					ftpDados = ftpDadosFacade.getFTPDados();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					  
 				}
 
 				if (ftpDados != null) {
@@ -108,14 +108,14 @@ public class Pastas4Videos3MB implements Serializable {
 				try {
 					FacesContext.getCurrentInstance().getExternalContext().redirect("consDepartamentos1Videos.jsf");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		} else {
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("consDepartamentos1Videos.jsf");
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 	}

@@ -193,7 +193,7 @@ public class ControleEmailMB implements Serializable {
 			email.close();
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/inicio/email/"+usuarioLogadoMB.getUsuario().getIdusuario()+".html");
 		} catch (IOException e) { 
-			e.printStackTrace();  
+			    
 		}
 		return "";  
 	}

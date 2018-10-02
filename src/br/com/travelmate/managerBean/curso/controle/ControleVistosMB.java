@@ -346,7 +346,7 @@ public class ControleVistosMB implements Serializable{
 				return listaArquivos.get(0).getTipoarquivo().getDescricao();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		return "";
 	}

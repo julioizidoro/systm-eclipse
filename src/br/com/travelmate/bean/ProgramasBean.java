@@ -114,14 +114,14 @@ public class ProgramasBean {
 					try {
 						data = Formatacao.SomarDiasDatas(datainicio, -2); 
 					} catch (Exception e) { 
-						e.printStackTrace();
+						  
 					}
 				}
 				if(datatermino!=null) {
 					try { 
 						datachegada = Formatacao.SomarDiasDatas(datatermino, 2);
 					} catch (Exception e) { 
-						e.printStackTrace();
+						  
 					}
 				}
 				leadposvenda.setDatachegada(datachegada);

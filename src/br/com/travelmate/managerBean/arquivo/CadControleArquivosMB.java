@@ -312,7 +312,7 @@ public class CadControleArquivosMB implements Serializable{
 				listaTipoArquivo = new ArrayList<Tipoarquivoproduto>();
 			}
 		} catch (SQLException e) {  
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -324,7 +324,7 @@ public class CadControleArquivosMB implements Serializable{
 				try {
 					obs = new String(arquivos.getObservacao().getBytes(Charset.defaultCharset()), "UTF-8");
 				} catch (UnsupportedEncodingException e) { 
-					e.printStackTrace();
+					  
 				}
 			}
 		}
@@ -429,7 +429,7 @@ public class CadControleArquivosMB implements Serializable{
 			try {
 				tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";
@@ -442,7 +442,7 @@ public class CadControleArquivosMB implements Serializable{
 		try {
 			tipoarquivo = tipoArquivoProdutoFacade.consultar(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -1486,7 +1486,7 @@ public class CadControleArquivosMB implements Serializable{
 			lista = tipoArquivoProdutoFacade.listar("SELECT t FROM Tipoarquivoproduto t WHERE t.produtos.idprodutos=" 
 					+ arquivos.getVendas().getProdutos().getIdprodutos() + " and t.tipoarquivo.idtipoArquivo=" + arquivos.getTipoarquivo().getIdtipoArquivo());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		
 		if (lista != null && lista.size() > 0) {

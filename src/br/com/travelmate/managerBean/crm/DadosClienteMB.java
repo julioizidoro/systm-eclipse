@@ -114,7 +114,7 @@ public class DadosClienteMB implements Serializable{
 		try {
 			nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			  
 		}
 		cliente.setNome(nome);
 		cliente.setFoneCelular(telefone);

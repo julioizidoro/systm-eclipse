@@ -67,7 +67,7 @@ public class EnviarEmail {
 		try {
 			ftpDados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		criarEmail();
 	}

@@ -142,7 +142,7 @@ public class CadVincularTerceirosMB implements Serializable{
 		try {
 			cc.recalcular(vendasComissao);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		RequestContext.getCurrentInstance().closeDialog(vendas);
 	}

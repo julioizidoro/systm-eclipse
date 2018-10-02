@@ -15,7 +15,7 @@ private MetaFaturamentoMensalDao metaFaturamentoMensalDao;
 		try {
 			return metaFaturamentoMensalDao.salvar(meta);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ private MetaFaturamentoMensalDao metaFaturamentoMensalDao;
 		try {
 			return metaFaturamentoMensalDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -35,7 +35,7 @@ private MetaFaturamentoMensalDao metaFaturamentoMensalDao;
 		try {
 			return metaFaturamentoMensalDao.getMeta(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

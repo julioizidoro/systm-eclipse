@@ -210,7 +210,7 @@ public class BoletoMB implements Serializable {
 				String url = "//remessa.systm.com.br/" + this.file.getName();
 				FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 			
 		}
@@ -236,7 +236,7 @@ public class BoletoMB implements Serializable {
 			ftp.desconectar();  
 		} catch (IOException e) {
 			System.out.println("Problema no recebimento");
-			e.printStackTrace();
+			  
 		}
 		return is;
 	}
@@ -251,7 +251,7 @@ public class BoletoMB implements Serializable {
 			try {
 				logo = ImageIO.read(f);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}  
 	        parameters.put("logo", logo);
 	        parameters.put("titulo", "Remessa Enviada");

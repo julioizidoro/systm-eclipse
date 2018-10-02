@@ -78,7 +78,7 @@ public class MtpMB implements Serializable {
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -235,7 +235,7 @@ public class MtpMB implements Serializable {
 		try {
 			data = Formatacao.SomarDiasDatas(new Date(), 7);
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		String sql = "Select m From Mtp m Where m.data='" + Formatacao.ConvercaoDataSql(data) + "'";
 		MtpFacade mtpFacade = new MtpFacade();
@@ -400,7 +400,7 @@ public class MtpMB implements Serializable {
 		try {
 			externalContext.redirect(mtp.getHost());
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		return "";
 	}
@@ -456,7 +456,7 @@ public class MtpMB implements Serializable {
 			try {
 				ontem = Formatacao.SomarDiasDatas(hoje, -1);
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			if (mtp.getData() != null && mtp.getData().before(hoje) && mtp.getData().after(ontem)) {
 				return "color:#000000;";
@@ -475,7 +475,7 @@ public class MtpMB implements Serializable {
 			try {
 				ontem = Formatacao.SomarDiasDatas(hoje, -1);
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			if (mtp.getData() != null && mtp.getData().before(hoje) && mtp.getData().after(ontem)) {
 				return false;

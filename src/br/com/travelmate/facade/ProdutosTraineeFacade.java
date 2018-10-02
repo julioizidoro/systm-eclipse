@@ -15,7 +15,7 @@ public class ProdutosTraineeFacade {
 		try {
 			return produtoTraineeDao.salvar(produto);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class ProdutosTraineeFacade {
 		try {
 			return produtoTraineeDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

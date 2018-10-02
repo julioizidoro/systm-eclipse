@@ -55,7 +55,7 @@ public class ContasPagarFacade {
     	try {
 			return contasPagarDao.gerarSaldoInicial(dataInicio, idbanco);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return 0.0f;
 		}
     }

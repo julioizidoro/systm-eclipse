@@ -103,7 +103,7 @@ public class Pastas2Arquivo1MB implements Serializable {
 				try {
 					FacesContext.getCurrentInstance().getExternalContext().redirect("consDepartamentos.jsf");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}

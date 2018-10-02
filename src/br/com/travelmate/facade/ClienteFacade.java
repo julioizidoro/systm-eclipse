@@ -65,7 +65,7 @@ public class ClienteFacade {
     	try {
 			return clienteDao.consultarCpf(cpf);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

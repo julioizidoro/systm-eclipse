@@ -501,7 +501,7 @@ public class ControleSeguroMB implements Serializable {
 			data = Formatacao.SomarDiasDatas(new Date(), 20);
 			dataemissao = Formatacao.SomarDiasDatas(new Date(), 3);
 		} catch (Exception e) { 
-			e.printStackTrace();
+			  
 		}
 		for (int i = 0; i < listaControleSeguro.size(); i++) { 
 			if(pesquisa) { 
@@ -686,7 +686,7 @@ public class ControleSeguroMB implements Serializable {
 		try {
 			gerarRelatorioContrato.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "fichaSeguroViagem", null);
 		} catch (JRException | IOException | SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

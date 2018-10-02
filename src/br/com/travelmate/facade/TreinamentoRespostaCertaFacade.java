@@ -37,7 +37,7 @@ public class TreinamentoRespostaCertaFacade {
     	try {
 			return treinamentoRespostasCertaDao.consultar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 			return null;
 		}  
     }

@@ -25,7 +25,7 @@ public class VendasPacoteFacade {
         try {
 			return vendasPacoteDao.salvar(vendaspacote);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -35,7 +35,7 @@ public class VendasPacoteFacade {
         try {
 			return vendasPacoteDao.consultar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -45,7 +45,7 @@ public class VendasPacoteFacade {
     	try {
     		vendasPacoteDao.excluir(idVendaspacote);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		} 
     }
     
@@ -54,7 +54,7 @@ public class VendasPacoteFacade {
         try {
 			return vendasPacoteDao.listar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

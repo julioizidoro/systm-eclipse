@@ -110,7 +110,7 @@ public class ConsultaFornecedoresCadastradosMB implements Serializable {
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		urlArquivos = "https://local.systm.com.br/cordepartamento/";
 	}

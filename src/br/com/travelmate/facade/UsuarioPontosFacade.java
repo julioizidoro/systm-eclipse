@@ -15,7 +15,7 @@ public class UsuarioPontosFacade {
 		try {
 			return usuarioPontosDao.salvar(usuariopontos);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class UsuarioPontosFacade {
 		try {
 			return usuarioPontosDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -35,7 +35,7 @@ public class UsuarioPontosFacade {
 		try {
 			return usuarioPontosDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

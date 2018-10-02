@@ -25,7 +25,7 @@ public class PacoteInicialFacade {
         try {
 			return pacoteInicialDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     } 
@@ -35,7 +35,7 @@ public class PacoteInicialFacade {
         try {
 			return pacoteInicialDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

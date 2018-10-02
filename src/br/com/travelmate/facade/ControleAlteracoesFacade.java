@@ -15,7 +15,7 @@ public class ControleAlteracoesFacade {
 		try {
 			return controleAlteracoesDao.salvar(alteracoes);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class ControleAlteracoesFacade {
 		try {
 			return controleAlteracoesDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

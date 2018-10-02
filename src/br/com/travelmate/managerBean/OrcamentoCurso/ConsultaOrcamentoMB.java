@@ -334,7 +334,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			gerarOrcamentoPDF(ocurso, "PDF");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -485,7 +485,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			mascote = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("mascote", mascote);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/pagina01.png"));
@@ -493,7 +493,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			pagina01 = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagina01", pagina01);
 
@@ -502,7 +502,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			logocinza = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logocinza", logocinza);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/curso.png"));
@@ -510,7 +510,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			curso = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("curso", curso);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/pais.png"));
@@ -518,7 +518,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			pais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pais", pais);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/orcamento.png"));
@@ -526,7 +526,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			orcamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("orcamento", orcamento);
 		f = new File(servletContext.getRealPath("/reports/orcamentopdf/icon.png"));
@@ -534,7 +534,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			icon = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("icon", icon);
 		//
@@ -543,7 +543,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			logo = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logo", logo);
 		//
@@ -552,7 +552,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			pagamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagamento", pagamento);
 		//
@@ -561,7 +561,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			adicionais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("adicionais", adicionais);
 
@@ -570,7 +570,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			obs = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("obs", obs);
 
@@ -595,7 +595,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 				imgPais = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 		ftp.conectar();
@@ -610,7 +610,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 				imgCidade = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 
@@ -628,7 +628,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 			} else
 				gerarRelatorio.gerarRelatorioDSFile(caminhoRelatorio, parameters, jrds, nomeArquivo);
 		} catch (JRException | SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -664,7 +664,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 					Ocurso ocursoSelecionado = listaOcurso.get(i);
 					listaOcursoSelecionado.add(ocursoSelecionado);
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}
@@ -783,7 +783,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		try {
 			gerarOrcamentoPDF(ocurso, "email");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		String text = "orcamentos.systm.com.br/TM-" + ocurso.getIdocurso() + ".pdf";
 		Map<String, Object> options = new HashMap<String, Object>();

@@ -17,7 +17,7 @@ public class CondicaoCancelamentoFacade {
 		try {
 			return condicaoCancelamentoDao.salvar(condicaocancelamento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -27,7 +27,7 @@ public class CondicaoCancelamentoFacade {
 		try {
 			return condicaoCancelamentoDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

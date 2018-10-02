@@ -77,7 +77,7 @@ public class SeguroViagemFacade {
     	try {
 			return seguroViagemDao.consultarSeguroCurso(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

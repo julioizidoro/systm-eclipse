@@ -228,7 +228,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			mascote = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("mascote", mascote);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pagina01.png"));
@@ -236,7 +236,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			pagina01 = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagina01", pagina01);
 
@@ -245,7 +245,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			logocinza = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logocinza", logocinza);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/curso.png"));
@@ -253,7 +253,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			curso = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("curso", curso);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/pais.png"));
@@ -261,7 +261,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			pais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pais", pais);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/orcamento.png"));
@@ -269,7 +269,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			orcamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("orcamento", orcamento);
 		f = new File(servletContext.getRealPath("/reports/orcamentovoluntariadopdf/icon.png"));
@@ -277,7 +277,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			icon = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("icon", icon);
 		//
@@ -286,7 +286,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			logo = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logo", logo);
 		//
@@ -295,7 +295,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			pagamento = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("pagamento", pagamento);
 		//
@@ -304,7 +304,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			adicionais = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("adicionais", adicionais);
 
@@ -313,7 +313,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			obs = ImageIO.read(f);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("obs", obs);
 
@@ -338,7 +338,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 				imgPais = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 		ftp.conectar();
@@ -353,7 +353,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 				imgCidade = ImageIO.read(is);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		ftp.desconectar();
 
@@ -371,7 +371,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 			} else
 				gerarRelatorio.gerarRelatorioDSFile(caminhoRelatorio, parameters, jrds, nomeArquivo);
 		} catch (JRException | SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	
@@ -379,7 +379,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 		try {
 			gerarOrcamentoPDF(orcamentoprojetovoluntariado, "email");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		Ftpdados dadosFTP = null; 
@@ -430,7 +430,7 @@ public class ConsVoluntariadoProjetoOrcamentoMB implements Serializable {
 					Orcamentoprojetovoluntariado orcamentoprojetovoluntariado = listaOrcamento.get(i);
 					lista.add(orcamentoprojetovoluntariado);
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}

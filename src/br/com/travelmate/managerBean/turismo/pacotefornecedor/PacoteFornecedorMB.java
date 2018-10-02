@@ -62,7 +62,7 @@ public class PacoteFornecedorMB implements Serializable{
 		try {
 			ftpDados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 
@@ -367,7 +367,7 @@ public class PacoteFornecedorMB implements Serializable{
 			try {
 				externalContext.redirect(ftpDados.getProtocolo() +"://"+ftpDados.getHost()+":82/systm/turismo/comprovantes/"+fornecedorpacotearquivopagamento.getNomeftp());
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";
@@ -383,7 +383,7 @@ public class PacoteFornecedorMB implements Serializable{
 			try {
 				externalContext.redirect(ftpDados.getProtocolo() +"://"+ftpDados.getHost()+":82/systm/turismo/invoice/"+fornecedorpacotearquivoinvoice.getNomeftp());
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";

@@ -254,7 +254,7 @@ public class PacoteMB implements Serializable {
 		try {
 			dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 		}
 		sql = sql + " and p.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
 		sql = sql + "  order by p.vendas.dataVenda desc";
@@ -282,7 +282,7 @@ public class PacoteMB implements Serializable {
 				try {
 					dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				sql = sql + " and p.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
 			}
@@ -294,7 +294,7 @@ public class PacoteMB implements Serializable {
 				try {
 					dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				sql = sql + " and p.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
 			}
@@ -364,7 +364,7 @@ public class PacoteMB implements Serializable {
 				gerarRelatorioContrato.gerarRelatorioSqlPDF(caminhoRelatorio, parameters, "reciboPagamento-Pacote.pdf",
 						null);
 			} catch (JRException | IOException | SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} else {
 			FacesMessage msg = new FacesMessage("Sem recibo para imprimir.", " ");

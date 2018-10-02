@@ -207,7 +207,7 @@ public class GerarArquivoRemessaItau {
 				ftp.enviarArquivoRemessa(file, nomeArquivo, "/systm/remessa/");
 				ftp.desconectar();
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 	}*/
     

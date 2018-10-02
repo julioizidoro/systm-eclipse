@@ -70,7 +70,7 @@ public class FornecedorArquivosMB implements Serializable {
 					urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() + ":" + ftpDados.getWww();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1
 					|| usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 2

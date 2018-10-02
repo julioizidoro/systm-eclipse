@@ -15,7 +15,7 @@ public class HeorcamentopaisFacade {
 		try {
 			return heorcamentopaisDao.salvar(heorcamentopais);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class HeorcamentopaisFacade {
 		try {
 			return heorcamentopaisDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -35,7 +35,7 @@ public class HeorcamentopaisFacade {
 		try {
 			heorcamentopaisDao.remover(idheorcamentopais);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 

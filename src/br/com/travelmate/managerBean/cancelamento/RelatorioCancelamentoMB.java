@@ -279,7 +279,7 @@ public class RelatorioCancelamentoMB implements Serializable {
 				logo = ImageIO.read(f);
 			} catch (IOException e) {
 				
-				e.printStackTrace();
+				  
 			}
 			parameters.put("logo", logo);
 			JRDataSource jrds = new JRBeanCollectionDataSource(gerarListaCancelamentoFactory(lista));
@@ -287,7 +287,7 @@ public class RelatorioCancelamentoMB implements Serializable {
 			try {
 				gerarRelatorio.gerarRelatorioDSPDF(caminhoRelatorio, parameters, jrds, "RelatorioCancelamento");
 			} catch (JRException | IOException e) {
-				e.printStackTrace();
+				  
 			}
 	 }
 	 

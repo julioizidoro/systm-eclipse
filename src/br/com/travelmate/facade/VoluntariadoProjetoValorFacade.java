@@ -24,7 +24,7 @@ public class VoluntariadoProjetoValorFacade {
         try {
 			return voluntariadoProjetoValorDao.salvar(voluntariadoprojetovalor);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -34,7 +34,7 @@ public class VoluntariadoProjetoValorFacade {
         try {
 			return voluntariadoProjetoValorDao.consultar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -44,7 +44,7 @@ public class VoluntariadoProjetoValorFacade {
     	try {
 			voluntariadoProjetoValorDao.excluir(idFatura);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		} 
     }
     
@@ -53,7 +53,7 @@ public class VoluntariadoProjetoValorFacade {
         try {
 			return voluntariadoProjetoValorDao.listar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

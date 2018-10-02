@@ -100,7 +100,7 @@ public class FormaPagamentoMB implements Serializable{
         try {
 			calcularParcelamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     }
 	
@@ -465,7 +465,7 @@ public class FormaPagamentoMB implements Serializable{
 			try {
 				gerarRelatorio(listaFormaPagamento);
 			} catch (SQLException | IOException e) {
-				e.printStackTrace();
+				  
 				Mensagem.lancarMensagemErro("Erro Sistema", "Erro gerar listar forma de pagamento");
 			}
 		}else {
@@ -508,7 +508,7 @@ public class FormaPagamentoMB implements Serializable{
     	try {
 			calcularParcelamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     	if (formaPagamento02.isSelecionado()){
     		habilitaFormaPagamento02=false;
@@ -519,7 +519,7 @@ public class FormaPagamentoMB implements Serializable{
     	try {
 			calcularParcelamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     	if (formaPagamento03.isSelecionado()){
     		habilitaFormaPagamento03=false;
@@ -530,7 +530,7 @@ public class FormaPagamentoMB implements Serializable{
     	try {
 			calcularParcelamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     	if (formaPagamento04.isSelecionado()){
     		habilitaFormaPagamento04=false;

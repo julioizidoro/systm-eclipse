@@ -14,7 +14,7 @@ public class OrcamentoManualSeguroFacade {
 		try {
 			return orcamentoManualSeguroDao.salvar(orcamentomanualseguro);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -24,7 +24,7 @@ public class OrcamentoManualSeguroFacade {
 		try {
 			return orcamentoManualSeguroDao.consultar(idOrcamento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

@@ -713,7 +713,7 @@ public class HighSchoolMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"fichaHighSchool" + highschool.getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(HighSchoolMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -740,7 +740,7 @@ public class HighSchoolMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"contratoHighSchool" + highschool.getVendas().getIdvendas() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(HighSchoolMB.class.getName()).log(Level.SEVERE, null, ex1);

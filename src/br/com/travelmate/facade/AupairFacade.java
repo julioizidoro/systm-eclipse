@@ -41,7 +41,7 @@ public class AupairFacade {
         try {
 			return aupairDao.consultar(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -85,7 +85,7 @@ public class AupairFacade {
         try {
 			return aupairDao.consultarControle(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

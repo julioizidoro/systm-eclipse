@@ -65,7 +65,7 @@ public class FornecedorComissaoCursoProdutoFacade {
     	try {
 			return fornecedorComissaoCursoProdutoDao.pesquisar(idfornecedorcomissaocurso, idprodutoOrcamento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

@@ -330,7 +330,7 @@ public class AcomodacaoMB implements Serializable{
 				try {
 					dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				sql = sql + " and a.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
 			}
@@ -342,7 +342,7 @@ public class AcomodacaoMB implements Serializable{
 				try {
 					dataconsulta = Formatacao.SomarDiasDatas(dataconsulta, -30);
 				} catch (Exception e) {
-					e.printStackTrace();
+					  
 				}
 				sql = sql + " and a.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(dataconsulta) + "'";
 			}

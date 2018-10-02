@@ -541,7 +541,7 @@ public class VoluntariadoMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"FichaVoluntariado-" + voluntariado.getIdvoluntariado() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(VoluntariadoMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -644,7 +644,7 @@ public class VoluntariadoMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"ContratoVoluntariado-" + voluntariado.getIdvoluntariado() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(TraineeMB.class.getName()).log(Level.SEVERE, null, ex1);

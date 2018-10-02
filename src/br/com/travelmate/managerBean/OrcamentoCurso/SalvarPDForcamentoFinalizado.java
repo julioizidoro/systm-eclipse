@@ -46,7 +46,7 @@ public class SalvarPDForcamentoFinalizado {
 		try {
 			converter(corpo);
 		} catch (DocumentException | IOException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 

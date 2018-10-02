@@ -17,7 +17,7 @@ public class CancelamentoVendaFacade {
 		try {
 			return cancelamentoVendaDao.salvar(cancelamentovenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -28,7 +28,7 @@ public class CancelamentoVendaFacade {
 		try {
 			return cancelamentoVendaDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 		

@@ -225,7 +225,6 @@ public class CalcularComissaoBean {
 			FaturaFranquiaBean faturaFranquias = new FaturaFranquiaBean(vendasComissao, listaParcelamento, percentualComissao, aplicacaoMB, seguroAvulso, cursoPacote);
 			vendasComissao.setFaturaFranquias(faturaFranquias.getFatura());
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
         return vendasComissao;
     }

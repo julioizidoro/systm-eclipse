@@ -114,7 +114,7 @@ public class OrcamentoFacade {
     	  try {
 			return orcamentoDao.listarOrcamentoProdutoOrcamento();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
       }

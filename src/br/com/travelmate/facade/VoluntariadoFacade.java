@@ -32,7 +32,7 @@ public class VoluntariadoFacade {
         try {
 			return voluntariadoDao.salvar(voluntariado);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -42,7 +42,7 @@ public class VoluntariadoFacade {
         try {
 			return voluntariadoDao.consultar(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -52,7 +52,7 @@ public class VoluntariadoFacade {
         try {
         	voluntariadoDao.excluir(idvoluntariado);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     }
     
@@ -95,7 +95,7 @@ public class VoluntariadoFacade {
         try {
 			return voluntariadoDao.consultarControle(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

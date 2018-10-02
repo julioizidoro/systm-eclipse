@@ -235,7 +235,7 @@ public class CalculoJurosMB implements Serializable {
 		try {
 			calcularJuros3();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		if (formaPagamento03) {
 			habilitaFormaPagamento03 = false;
@@ -252,7 +252,7 @@ public class CalculoJurosMB implements Serializable {
 		try {
 			calcularJuros4();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		if (formaPagamento04) {
 			habilitaFormaPagamento04 = false;

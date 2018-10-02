@@ -419,7 +419,7 @@ public class VendasFinanceiroComissaoMB implements Serializable{
     		}
 			ccb.recalcular(vendascomissao);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     		vendascomissao = ccb.getVendascomissao();  
     		Vendas venda = vendascomissao.getVendas();
@@ -450,7 +450,7 @@ public class VendasFinanceiroComissaoMB implements Serializable{
 			fatura = faturaFranquiasFacade.salvar(fatura);
 			vendascomissao.setFaturaFranquias(fatura);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     	
     }

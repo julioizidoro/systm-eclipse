@@ -552,7 +552,7 @@ public class TraineeMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"fichaEstagioAustralia-" + trainee.getIdtrainee() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(TraineeMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -583,7 +583,7 @@ public class TraineeMB implements Serializable {
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"ContratoEstagioAustralia-" + trainee.getIdtrainee() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(TraineeMB.class.getName()).log(Level.SEVERE, null, ex1);

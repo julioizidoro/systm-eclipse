@@ -342,7 +342,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 				orcamento.getSeguroviagem().setDataTermino(
 						Formatacao.SomarDiasDatas(orcamento.getDatatermino(), 7));
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			orcamento.getSeguroviagem().setNumeroSemanas(
 					Formatacao.subtrairDatas(orcamento.getSeguroviagem().getDataInicio(), orcamento.getSeguroviagem().getDataTermino()));

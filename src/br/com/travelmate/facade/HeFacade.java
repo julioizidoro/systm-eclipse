@@ -43,7 +43,7 @@ public class HeFacade {
     	try {
 			return heDao.consultar(id);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     } 
@@ -54,7 +54,7 @@ public class HeFacade {
     	try {
 			return heDao.consultarVenda(id);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     } 

@@ -199,7 +199,7 @@ public class UsuarioMB implements Serializable {
 				Mensagem.lancarMensagemInfo("Senha alterada com sucesso", "");
 			}
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

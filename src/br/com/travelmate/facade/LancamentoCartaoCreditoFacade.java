@@ -28,7 +28,7 @@ public class LancamentoCartaoCreditoFacade {
 			return lancamentoCartaoCreditoDao.listar(sql);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 		}
 		return null;
     }
@@ -44,7 +44,7 @@ public class LancamentoCartaoCreditoFacade {
 			return lancamentoCartaoCreditoDao.consultarVenda(idvenda);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 		}
 		return null;
     }

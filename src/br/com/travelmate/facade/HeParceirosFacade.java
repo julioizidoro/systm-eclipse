@@ -16,7 +16,7 @@ public class HeParceirosFacade {
 			return heParceirosDao.salvar(heParceiros);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -27,7 +27,7 @@ public class HeParceirosFacade {
 			return heParceirosDao.listar(sql);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -38,7 +38,7 @@ public class HeParceirosFacade {
 			heParceirosDao.remover(heParceiros);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			  
 		}
 	}
 

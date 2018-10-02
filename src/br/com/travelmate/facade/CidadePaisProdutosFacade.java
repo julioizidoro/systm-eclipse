@@ -18,7 +18,7 @@ public class CidadePaisProdutosFacade {
 		try {
 			return cidadePaisProdutoDao.salvar(cidade);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -28,7 +28,7 @@ public class CidadePaisProdutosFacade {
 		try {
 			return cidadePaisProdutoDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -38,7 +38,7 @@ public class CidadePaisProdutosFacade {
 		try {
 			cidadePaisProdutoDao.excluir(idcidade);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	

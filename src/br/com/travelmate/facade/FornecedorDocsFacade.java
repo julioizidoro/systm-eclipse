@@ -25,7 +25,7 @@ public class FornecedorDocsFacade {
         try {
 			return fornecedorDocsDao.salvar(fornecedordocs);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -35,7 +35,7 @@ public class FornecedorDocsFacade {
         try {
 			return fornecedorDocsDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -45,7 +45,7 @@ public class FornecedorDocsFacade {
     	try {
     		fornecedorDocsDao.excluir(idFornecedordocs);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		} 
     }
     
@@ -54,7 +54,7 @@ public class FornecedorDocsFacade {
         try {
 			return fornecedorDocsDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

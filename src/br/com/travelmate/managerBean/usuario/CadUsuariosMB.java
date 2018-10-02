@@ -239,7 +239,7 @@ public class CadUsuariosMB implements Serializable {
 					try {
 						senha = Criptografia.encript(senha);
 					} catch (NoSuchAlgorithmException e) {
-						e.printStackTrace();
+						  
 					}
 					usuario.setSenha(senha);
 				}

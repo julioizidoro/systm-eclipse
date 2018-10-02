@@ -61,7 +61,7 @@ public class DocumentosFornecedorMB implements Serializable {
 			try {
 				ftpDados = ftpDadosFacade.getFTPDados();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 	}

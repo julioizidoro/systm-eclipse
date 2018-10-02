@@ -33,7 +33,7 @@ public class TraineeFacade {
         try {
 			return traineeDao.salvar(trainee);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -43,7 +43,7 @@ public class TraineeFacade {
         try {
 			return traineeDao.consultar(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -53,7 +53,7 @@ public class TraineeFacade {
         try {
 			traineeDao.excluir(idTrainee);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     }
     
@@ -101,7 +101,7 @@ public class TraineeFacade {
         try {
 			return traineeDao.consultarControle(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

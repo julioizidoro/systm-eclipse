@@ -16,7 +16,7 @@ public class DadosPaisFacade {
 		try {
 			return dadosPaisDao.salvar(dadosPais);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -26,7 +26,7 @@ public class DadosPaisFacade {
 		try {
 			return dadosPaisDao.consultar(idDadosPais);
 		} catch (Exception e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

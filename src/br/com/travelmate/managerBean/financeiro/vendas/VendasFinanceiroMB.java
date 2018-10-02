@@ -360,7 +360,7 @@ public class VendasFinanceiroMB  implements Serializable{
     	try {
 			faturaFranquiasFacade.salvar(venda.getVendascomissao().getFaturaFranquias());
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}
     	Mensagem.lancarMensagemInfo("Fatura ativa!", ""); 
     }
@@ -411,7 +411,7 @@ public class VendasFinanceiroMB  implements Serializable{
 		    		}
 					ccb.recalcular(listaVendas.get(i).getVendascomissao());
 				} catch (SQLException e) {
-					e.printStackTrace();
+					  
 				}
 				listaVendas.get(i).setVendascomissao(ccb.getVendascomissao()); 
 				
@@ -437,7 +437,7 @@ public class VendasFinanceiroMB  implements Serializable{
 			fatura = faturaFranquiasFacade.salvar(fatura);
 			vendascomissao.setFaturaFranquias(fatura);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
     	
     }

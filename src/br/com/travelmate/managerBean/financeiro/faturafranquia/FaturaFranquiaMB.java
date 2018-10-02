@@ -221,7 +221,7 @@ public class FaturaFranquiaMB implements Serializable {
 		try {
 			lista = faturaFranquiasFacade.listar("Select f from Faturafranquias f ");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		if (lista != null) {
 			for (int i = 0; i < lista.size(); i++) {
@@ -238,7 +238,7 @@ public class FaturaFranquiaMB implements Serializable {
 							}
 							faturaFranquiasFacade.salvar(lista.get(i));
 						} catch (SQLException e) {
-							e.printStackTrace();
+							  
 						}
 					}
 				}
@@ -369,7 +369,7 @@ public class FaturaFranquiaMB implements Serializable {
 				try {
 					fatura.setFaturafranquias(faturaFranquiasFacade.salvar(fatura.getFaturafranquias()));
 				} catch (SQLException e) {
-					e.printStackTrace();
+					  
 				}
 				Mensagem.lancarMensagemInfo("Editado com sucesso!", "");
 			}else{
@@ -411,7 +411,7 @@ public class FaturaFranquiaMB implements Serializable {
 						listaFatura.get(i)
 								.setFaturafranquias(faturaFranquiasFacade.salvar(listaFatura.get(i).getFaturafranquias()));
 					} catch (SQLException e) {
-						e.printStackTrace();
+						  
 					}
 					gerado = true;
 				}else if (listaFatura.get(i).isSelecionado() && !listaFatura.get(i).isFatura()){
@@ -445,7 +445,7 @@ public class FaturaFranquiaMB implements Serializable {
 							listaFatura.get(i)
 									.setFaturafranquias(faturaFranquiasFacade.salvar(listaFatura.get(i).getFaturafranquias()));
 						} catch (SQLException e) {
-							e.printStackTrace();
+							  
 						}
 						gerado = true;
 					}
@@ -497,7 +497,7 @@ public class FaturaFranquiaMB implements Serializable {
 						gerarFaturaBean
 								.setFaturafranquias(faturaFranquiasFacade.salvar(gerarFaturaBean.getFaturafranquias()));
 					} catch (SQLException e) {
-						e.printStackTrace();
+						  
 					}
 					Mensagem.lancarMensagemInfo("Excluído com sucesso!", "");
 				}
@@ -815,7 +815,7 @@ public class FaturaFranquiaMB implements Serializable {
 			try {
 				faturaFranquiasFacade.salvar(gerarFaturaBean.getFaturafranquias());
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 			listaFatura.remove(gerarFaturaBean);
 			Mensagem.lancarMensagemInfo("Fatura descartada com sucesso!", "Função para ativar fatura novamente, "

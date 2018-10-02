@@ -18,7 +18,7 @@ public class ComissaoControleFacade {
 		try {
 			return comissaoControleDao.salvar(comissaocontrole);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -28,7 +28,7 @@ public class ComissaoControleFacade {
 		try {
 			return comissaoControleDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -38,7 +38,7 @@ public class ComissaoControleFacade {
 		try {
 			return comissaoControleDao.getComissao(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

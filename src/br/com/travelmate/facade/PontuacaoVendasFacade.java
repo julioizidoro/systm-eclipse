@@ -15,7 +15,7 @@ public class PontuacaoVendasFacade {
 		try {
 			return pontuacaoVendasDao.salvar(pontuacao);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class PontuacaoVendasFacade {
 		try {
 			return pontuacaoVendasDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

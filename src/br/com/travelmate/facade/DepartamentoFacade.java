@@ -29,7 +29,7 @@ public class DepartamentoFacade {
     	try {
 			return departamentoDao.consultar(idDepartamento);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

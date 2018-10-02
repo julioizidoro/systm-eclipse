@@ -33,7 +33,7 @@ public class DataVencimentoBean {
 			horatime = Formatacao.converterStringHora(horaAtual);
 			horaMaxTime = Formatacao.converterStringHora(horaMaxima);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			  
 		}
 		String dataString = Formatacao.ConvercaoDataPadrao(new Date());
 		Date dataHoje = Formatacao.ConvercaoStringData(dataString);

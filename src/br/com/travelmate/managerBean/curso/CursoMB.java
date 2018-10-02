@@ -584,7 +584,7 @@ public class CursoMB implements Serializable {
 //		try {
 //			gerarRelatorioFicha();
 //		} catch (IOException e) {
-//			e.printStackTrace();
+//			  
 //		}
 //	}
 
@@ -623,7 +623,7 @@ public class CursoMB implements Serializable {
 //				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 //						"fichaCurso-" + curso.getIdcursos() + ".pdf", null);
 //			} catch (SQLException e) {
-//				e.printStackTrace();
+//				  
 //			}
 //		} catch (JRException ex1) {
 //			Logger.getLogger(RelatorioConciliacaoMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -1007,7 +1007,7 @@ public class CursoMB implements Serializable {
 		try {
 			imgPais = ImageIO.read(is);
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		parameters.put("logoescola", imgPais);
 		ftp.desconectar();
@@ -1240,7 +1240,7 @@ public class CursoMB implements Serializable {
 				String url = "https://local.systm.com.br/application/" + fornecedorapplication.getNomearquivo();
 				FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";

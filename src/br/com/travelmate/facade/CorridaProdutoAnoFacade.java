@@ -28,7 +28,7 @@ public class CorridaProdutoAnoFacade {
 				return corridaProdutoAnoDao.listar(sql);
 			} catch (SQLException e) {
 				
-				e.printStackTrace();
+				  
 			}
 			return null;
 	    }

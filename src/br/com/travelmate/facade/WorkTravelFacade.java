@@ -43,7 +43,7 @@ public class WorkTravelFacade {
         try {
 			return workTravelDao.consultarWork(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -87,7 +87,7 @@ public class WorkTravelFacade {
         try {
 			return workTravelDao.consultarControle(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

@@ -41,7 +41,7 @@ public class DownloadInvoicesMB implements Serializable{
 					urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 	}

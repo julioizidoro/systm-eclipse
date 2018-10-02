@@ -27,7 +27,7 @@ public class FuncaoFacade {
     	try {
 			return funcaoDao.consultar(idfuncao);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }
@@ -38,7 +38,7 @@ public class FuncaoFacade {
     	try {
 			return funcaoDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

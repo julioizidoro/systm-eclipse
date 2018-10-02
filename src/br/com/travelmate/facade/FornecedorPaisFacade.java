@@ -14,7 +14,7 @@ public class FornecedorPaisFacade {
 		try {
 			return fornecedorPaisDao.salvar(fornecedorpais);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -24,7 +24,7 @@ public class FornecedorPaisFacade {
 		try {
 			return fornecedorPaisDao.buscar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

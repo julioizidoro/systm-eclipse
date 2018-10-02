@@ -16,7 +16,7 @@ public class RegraVistoFacade {
 		try {
 			return regraVistoDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

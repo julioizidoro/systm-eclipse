@@ -44,7 +44,7 @@ public class HighSchoolFacade {
     	try {
 			return highSchoolDao.consultarHighschool(idVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
     }

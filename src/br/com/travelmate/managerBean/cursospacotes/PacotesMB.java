@@ -311,7 +311,7 @@ public class PacotesMB implements Serializable{
         		try {
 					fc.getExternalContext().redirect("/inicio/pages/orcamento/orcamentoCurso.jsf");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
         	}
         }
@@ -348,7 +348,7 @@ public class PacotesMB implements Serializable{
 			externalContext.redirect("https://local.systm.com.br/informativospacotes/"
 					+idpacote+".pdf");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		}
 		return "";
 	}
@@ -584,12 +584,12 @@ public class PacotesMB implements Serializable{
 			try {   
 				gerarOrcamento();
 			} catch (Exception e) {
-				e.printStackTrace();
+				  
 			}
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/orcamento/orcamentoCurso.jsf");
 			} catch (IOException e) {
-				e.printStackTrace();
+				  
 			}
 		}
 		return "";

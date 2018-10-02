@@ -100,7 +100,7 @@ public class CadQuestionarioMB implements Serializable {
 									+ " where t.treinamentorespostas.idtreinamentorespostas="
 									+ treinamentorespostas.getIdtreinamentorespostas());
 				} catch (SQLException e) {
-					e.printStackTrace();  
+					    
 				}
 				if (treinamentorespostacerta == null) {
 					treinamentorespostacerta = new Treinamentorespostacerta();

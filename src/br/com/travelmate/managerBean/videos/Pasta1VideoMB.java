@@ -81,7 +81,7 @@ public class Pasta1VideoMB implements Serializable {
 				try {
 					FacesContext.getCurrentInstance().getExternalContext().redirect("consDepartamentos1Videos.jsf");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}

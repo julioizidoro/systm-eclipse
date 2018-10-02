@@ -20,7 +20,7 @@ public class LogVendaFacade {
 		try {
 			return logVendaDao.salvar(logVenda);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -30,7 +30,7 @@ public class LogVendaFacade {
 		try {
 			return logVendaDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}

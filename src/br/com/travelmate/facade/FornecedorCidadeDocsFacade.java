@@ -25,7 +25,7 @@ public class FornecedorCidadeDocsFacade {
         try {
 			return fornecedorCidadeDocsDao.salvar(fornecedorcidadedocs);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -35,7 +35,7 @@ public class FornecedorCidadeDocsFacade {
         try {
 			return fornecedorCidadeDocsDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -45,7 +45,7 @@ public class FornecedorCidadeDocsFacade {
     	try {
     		fornecedorCidadeDocsDao.excluir(idFornecedordocs);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		} 
     }
     
@@ -54,7 +54,7 @@ public class FornecedorCidadeDocsFacade {
         try {
 			return fornecedorCidadeDocsDao.listar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

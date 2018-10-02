@@ -25,7 +25,7 @@ public class VoluntariadoProjetoAcomodacaoFacade {
         try {
 			return voluntariadoProjetoAcomodacaoDao.salvar(voluntariadoprojetoacomodacao);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -35,7 +35,7 @@ public class VoluntariadoProjetoAcomodacaoFacade {
         try {
 			return voluntariadoProjetoAcomodacaoDao.consultar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}
         return null;
     }
@@ -45,7 +45,7 @@ public class VoluntariadoProjetoAcomodacaoFacade {
     	try {
 			voluntariadoProjetoAcomodacaoDao.excluir(id);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		} 
     }
     
@@ -54,7 +54,7 @@ public class VoluntariadoProjetoAcomodacaoFacade {
         try {
 			return voluntariadoProjetoAcomodacaoDao.listar(sql);
 		} catch (SQLException e) { 
-			e.printStackTrace();
+			  
 		}   
         return null;
     }

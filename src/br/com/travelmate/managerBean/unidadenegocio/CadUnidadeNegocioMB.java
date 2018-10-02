@@ -250,7 +250,7 @@ public class CadUnidadeNegocioMB implements Serializable {
 				try {
 					FacesContext.getCurrentInstance().getExternalContext().redirect("consUnidadeNegocio.jsf");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}else {
 				return "consUnidade";

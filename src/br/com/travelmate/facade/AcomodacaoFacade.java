@@ -15,7 +15,7 @@ public class AcomodacaoFacade {
 		try {
 			return acomodacaoDao.salvar(acomodacao);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -25,7 +25,7 @@ public class AcomodacaoFacade {
 		try {
 			return acomodacaoDao.consultar(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -35,7 +35,7 @@ public class AcomodacaoFacade {
 		try {
 			return acomodacaoDao.lista(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 			return null;
 		}
 	}
@@ -44,7 +44,7 @@ public class AcomodacaoFacade {
 		try {
 			acomodacaoDao.excluir(idacomdoacao);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 

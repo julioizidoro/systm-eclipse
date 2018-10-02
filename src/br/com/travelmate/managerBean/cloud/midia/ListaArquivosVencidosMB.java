@@ -131,7 +131,7 @@ public class ListaArquivosVencidosMB implements Serializable{
 		try {
 			ftpDados = ftpDadosFacade.getFTPDados();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 		if (ftpDados != null) {
 			urlArquivo = "https:docs.systm.com.br";

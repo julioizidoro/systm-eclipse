@@ -19,7 +19,7 @@ public class VendaMotivoPendenciaConverter implements Converter{
 		try {
 			value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			  
 		}
     	List<Vendamotivopendencia> listaVendaMotivoPencencia = (List<Vendamotivopendencia>) component.getAttributes().get("listaVendaMotivoPencencia");
         for (Vendamotivopendencia vendamotivopendencia : listaVendaMotivoPencencia) {

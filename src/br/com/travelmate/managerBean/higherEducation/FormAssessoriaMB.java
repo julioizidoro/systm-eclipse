@@ -481,7 +481,7 @@ public class FormAssessoriaMB implements Serializable{
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"Ficha de Inscrição-" + he.getVendas().getCliente().getNome() + ".pdf", null);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				  
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(HigherEducationMB.class.getName()).log(Level.SEVERE, null, ex1);

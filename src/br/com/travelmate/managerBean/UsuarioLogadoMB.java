@@ -443,7 +443,7 @@ public class UsuarioLogadoMB implements Serializable {
 				try {
 					FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/noticias/consNoticias.jsf");
 				} catch (IOException e) {
-					e.printStackTrace();
+					  
 				}
 			}
 		}
@@ -530,7 +530,7 @@ public class UsuarioLogadoMB implements Serializable {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("inicial.jsf");
 		} catch (IOException e) {
-			e.printStackTrace();
+			  
 		} 
 	}
 	

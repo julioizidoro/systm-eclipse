@@ -102,7 +102,7 @@ public class ArquivosMB implements Serializable {
 				try {
 					ftpdados = ftpDadosFacade.getFTPDados();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					  
 				}
 				if (vendas.getArquivoskitviagem()==null){
 					Arquivoskitviagem kitViagem = new Arquivoskitviagem();
@@ -306,7 +306,7 @@ public class ArquivosMB implements Serializable {
 				listarArquivos = new ArrayList<Arquivos>();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 
 	}
@@ -580,7 +580,7 @@ public class ArquivosMB implements Serializable {
 				listaArquivosS.add(listaTipoArquivo.get(i).getTipoarquivo());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			  
 		}
 	}
 	
