@@ -33,16 +33,7 @@ public class DownloadInvoicesMB implements Serializable{
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         listarArquivos = (List<Arquivos>) session.getAttribute("listarArquivos");
 		if (listarArquivos != null) {
-			FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-			ftpdados = new Ftpdados();
-			try {
-				ftpdados = ftpDadosFacade.getFTPDados();
-				if (ftpdados != null) {
-					urlArquivo = ftpdados.getProtocolo() + "://" + ftpdados.getHost() + ":" + ftpdados.getWww();
-				}
-			} catch (SQLException e) {
-				  
-			}
+			urlArquivo = "https://arquivos.systm.com.br";
 		}
 	}
 
