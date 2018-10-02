@@ -1034,6 +1034,7 @@ public class VoluntariadoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("voluntariado", voluntariado);
+		session.setAttribute("chamadaTela", "Voluntariado");
 		session.setAttribute("listaVoluntariado", listaVoluntariado);
 		return "fichaVoluntariado";
 	}
@@ -1043,6 +1044,7 @@ public class VoluntariadoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("voluntariado", voluntariado);
+		session.setAttribute("chamadaTela", "Voluntariado");
 		session.setAttribute("listaVoluntariado", listaVoluntariado);
 		return "contratoVoluntariado";
 	}
