@@ -815,5 +815,98 @@ public class CadTraducaoMB implements Serializable {
 					parcelamentopagamento.getValorParcelamento() / parcelamentopagamento.getNumeroParcelas());
 		}
 	}
+	
+	
+	public String calcularJuros() {
+		if (formaPagamento.getValorOrcamento() != null && formaPagamento.getValorOrcamento() > 0) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("total", formaPagamento.getValorOrcamento());
+			RequestContext.getCurrentInstance().openDialog("calcularJuros");
+		}
+		return "";
+	}
+	
+	
+	public void retornoValorJuros() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		formaPagamento.setValorJuros((float) session.getAttribute("valorJuros"));
+		session.removeAttribute("valorJuros");
+		calcularValorTotalOrcamento();
+	}
+	
+	
+	public void calcularValorTotalOrcamento() {
+		formaPagamento.setValorTotal(0.0f);
+		if (orcamento.getOrcamentoprodutosorcamentoList() != null) {
+			float valorTotal = 0.0f;
+			orcamento.setTotalMoedaEstrangeira(0.0f);
+			orcamento.setTotalMoedaNacional(0.0f);
+			for (int i = 0; i < orcamento.getOrcamentoprodutosorcamentoList().size(); i++) {
+				float valorMoedaReal = 0.0f;
+				float valorMoedaEstrangeira = 0.0f;
+				int idProdutoOrcamento = orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
+						.getIdprodutosOrcamento();
+				if (idProdutoOrcamento == aplicacaoMB.getParametrosprodutos().getDescontoloja()) {
+					valorMoedaReal = orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() * -1;
+					valorMoedaEstrangeira = orcamento.getOrcamentoprodutosorcamentoList().get(i)
+							.getValorMoedaEstrangeira() * -1;
+				} else if (idProdutoOrcamento == aplicacaoMB.getParametrosprodutos().getDescontomatriz()) {
+					valorMoedaReal = orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() * -1;
+					valorMoedaEstrangeira = orcamento.getOrcamentoprodutosorcamentoList().get(i)
+							.getValorMoedaEstrangeira() * -1;
+				} else if (idProdutoOrcamento == aplicacaoMB.getParametrosprodutos().getPromocaoescola()) {
+					valorMoedaReal = orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() * -1;
+					valorMoedaEstrangeira = orcamento.getOrcamentoprodutosorcamentoList().get(i)
+							.getValorMoedaEstrangeira() * -1;
+				} else {
+					valorMoedaReal = orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional();
+					valorMoedaEstrangeira = orcamento.getOrcamentoprodutosorcamentoList().get(i)
+							.getValorMoedaEstrangeira();
+				}
+				valorTotal = valorTotal + valorMoedaReal;
+				orcamento.setTotalMoedaEstrangeira(orcamento.getTotalMoedaEstrangeira() + valorMoedaEstrangeira);
+				orcamento.setTotalMoedaNacional(orcamento.getTotalMoedaNacional() + valorMoedaReal);
+				venda.setValor(valorTotal);
+				formaPagamento.setValorOrcamento(valorTotal);
+			}
+			if (formaPagamento.getPossuiJuros().equalsIgnoreCase("Não")) {
+				formaPagamento.setValorJuros(0.0f);
+			}
+			venda.setValor(venda.getValor() + formaPagamento.getValorJuros());
+			formaPagamento.setValorTotal(venda.getValor());
+			calcularParcelamentoPagamento();
+			parcelamentopagamento.setValorParcelamento(valorSaldoParcelar);
+		}
+	}
+	
+	
+	public String selecionarCreditoCancelamento() {
+		if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Credito")) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			int idcliente = cliente.getIdcliente();
+			session.setAttribute("idcliente", String.valueOf(idcliente));
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("closable", false);
+			RequestContext.getCurrentInstance().openDialog("utilizarCredito", options, null);
+		} else {
+			Mensagem.lancarMensagemInfo("", "Selecione a Forma de pagamento Credito");
+		}
+		return "";
+	}
+
+	public void retornoSelecionarCancelamento(SelectEvent event) {
+		if (event.getObject() != null) {
+			cancelamento = (Cancelamento) event.getObject();
+			parcelamentopagamento.setDiaVencimento(new Date());
+			parcelamentopagamento.setValorParcelamento(cancelamento.getTotalreembolso());
+			parcelamentopagamento.setNumeroParcelas(1);
+			parcelamentopagamento.setValorParcela(parcelamentopagamento.getValorParcelamento());
+			adicionarFormaPagamento();
+		}
+	}
+
 
 }

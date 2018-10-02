@@ -157,6 +157,10 @@ public class FuncaoMB implements Serializable {
 			}
 		}
 	}
+	
+	public void limpar() {
+		listaFuncao = new ArrayList<Funcao>();
+	}
 
 	public String visualizarFuncao(Funcao funcao) {
 		FacesContext fc = FacesContext.getCurrentInstance();

@@ -10,83 +10,10 @@
 			<div id="centro">
 				<p:growl id="growl" showDetail="true" sticky="false"
 					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
-				<link href="../../resources/css/cssPacote.css" rel="stylesheet" />
+				<link href="../../resources/css/cssPacote.css" rel="stylesheet" >
+				</link>
 				<div style="margin-left: 2%; width: 98%;">
-					<p:accordionPanel class="painel" activeIndex="-1">        
-						<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
-							title="Pesquisar">
-							<h:panelGrid columns="5" style="width:92%;margin-left:2.5%;"
-								columnClasses="dezoito,colunaVintenove,colunaquatrorze,colunaVintenove,colunaquatrorze">
-								<p:outputLabel value="País" />
-								<p:outputLabel value="Cidade" />
-								<p:outputLabel value="Idioma" />
-								<p:outputLabel value="Parceiro" />
-								<p:outputLabel />   
-
-								<p:selectOneMenu id="pais" value="#{pacotesAtivosMB.pais}"
-									style="width:85%;" converter="PaisConverter" filter="true"
-									filterMatchMode="startsWith" panelStyle="width:180px">
-									<f:selectItem itemLabel="País" itemValue="0"
-										noSelectionOption="true" />
-									<f:selectItems id="idpais" value="#{pacotesAtivosMB.listaPais}"
-										var="cpais" itemLabel="#{cpais.pais.nome}"
-										itemValue="#{cpais.pais}" />
-									<f:attribute name="listaPais"
-										value="#{pacotesAtivosMB.listaPais}" />
-									<p:ajax event="change"   
-										listener="#{pacotesAtivosMB.listarIdiomas()}"
-										update="cidade,idioma,parceiro" />
-								</p:selectOneMenu>
-								<p:selectOneMenu id="cidade" value="#{pacotesAtivosMB.cidade}"
-									style="width:85%;" converter="CidadeConverter" filter="true"
-									filterMatchMode="startsWith">
-									<f:selectItem itemLabel="Cidade" itemValue="0"
-										noSelectionOption="true" />
-									<f:selectItems id="idcidade2"
-										value="#{pacotesAtivosMB.pais.cidadeList}" var="ccidade"
-										itemLabel="#{ccidade.nome}" itemValue="#{ccidade}" />
-									<f:attribute name="listaCidade"
-										value="#{pacotesAtivosMB.pais.cidadeList}" />
-									<p:ajax event="change"
-										listener="#{pacotesAtivosMB.listarIdiomas()}"
-										update="idioma,parceiro" />
-								</p:selectOneMenu>
-								<p:selectOneMenu id="idioma" value="#{pacotesAtivosMB.idioma}"
-									style="width:85%;" converter="IdiomaConverter" filter="true"
-									filterMatchMode="startsWith">
-									<f:selectItem itemLabel="Idioma" itemValue="0"
-										noSelectionOption="true" />
-									<f:selectItems id="idioma2"
-										value="#{pacotesAtivosMB.listaIdiomas}" var="idioma"
-										itemLabel="#{idioma.descricao}" itemValue="#{idioma}" />
-									<f:attribute name="listaIdiomas"
-										value="#{pacotesAtivosMB.listaIdiomas}" />
-									<p:ajax
-										update="parceiro,:cursospacotes:tabelapacotes, :cursospacotes:growl"
-										listener="#{pacotesAtivosMB.listarFornecedorCidadeIdioma()}" />
-								</p:selectOneMenu>
-								<p:selectOneMenu id="parceiro"
-									value="#{pacotesAtivosMB.fornecedorCidadeIdioma}"   
-									style="width:85%;" converter="FornecedorCidadeIdiomaConverter"
-									filter="true" filterMatchMode="startsWith">
-									<f:selectItem itemLabel="Fornecedor" itemValue="0"
-										noSelectionOption="true" />
-									<f:selectItems id="idfornecedor"
-										value="#{pacotesAtivosMB.listaFornecedorIdioma}"
-										var="fornecedor"
-										itemLabel="#{fornecedor.fornecedorcidade.fornecedor.nome}"
-										itemValue="#{fornecedor}" />
-									<f:attribute name="listaFornecedorCidadeIdioma"
-										value="#{pacotesAtivosMB.listaFornecedorIdioma}" />
-									<p:ajax event="change"
-										listener="#{pacotesAtivosMB.listarCursosPacotes()}"
-										update=":cursospacotes:tabelapacotes, :cursospacotes:growl" />
-								</p:selectOneMenu>
-								<p:commandButton value="Pesquisar" action="#{pacotesAtivosMB.pesquisar()}" 
-									update=":cursospacotes:tabelapacotes, :cursospacotes:growl" />
-							</h:panelGrid> 
-						</p:tab>
-					</p:accordionPanel>
+					
 
 					<div align="center">
 						<p:outputLabel value="Pacotes" class="tituloPacote" />
@@ -108,8 +35,7 @@
 														<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
 															width="40" />
 														<p:outputLabel
-															value="#{pacote.valorcoprodutos_curso.coprodutos.fornecedorcidadeidioma.fornecedorcidade.cidade.pais.nome} | 
-														#{pacote.valorcoprodutos_curso.coprodutos.fornecedorcidadeidioma.fornecedorcidade.cidade.nome}"
+															value="#{pacote.pais} | #{pacote.cidade}"
 															style="font-size:16px;margin-left:2%;" />
 													</h:panelGrid>
 												</h:panelGroup>
@@ -127,7 +53,7 @@
 											<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
 												columnClasses="tamanho98">
 												<h:panelGroup> 
-													<p:outputLabel value="#{pacote.valortotalpacote}"
+													<p:outputLabel value="#{pacote.valoravista}"
 														style="font-size:30px;color:#A0C637;margin-left:1%;"> 
 													</p:outputLabel>
 												</h:panelGroup>
@@ -135,14 +61,14 @@
 													style="font-size:14px;font-weight: initial;" />
 												<br />
 												<p:outputLabel
-													value="Curso: #{pacote.valorcoprodutos_curso.coprodutos.produtosorcamento.descricao} | 
+													value="Curso: #{pacote.curso} | 
 												Duração: #{pacote.numerosemanacurso} semana(s)"
 													style="font-size:15px;font-weight: initial;" />
 												<p:outputLabel
 													value="Hospedagem: #{pacotesAtivosMB.acomodacaoInclusa(pacote)}"
 													style="font-size:15px;font-weight: initial;" />
 												<p:outputLabel
-													value="Escola: #{pacote.valorcoprodutos_curso.coprodutos.fornecedorcidade.fornecedor.nome}"
+													value="Escola: #{pacote.escola}"
 													style="font-size:15px;font-weight: initial;" />
 											</h:panelGrid>
 											<br />

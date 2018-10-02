@@ -933,7 +933,7 @@ public class CadAupairMB implements Serializable {
 			}
 			venda.setValor(venda.getValor() + formaPagamento.getValorJuros());
 			formaPagamento.setValorTotal(venda.getValor());
-			valorMoedaEstrangeira =- 0.0f;
+			valorMoedaEstrangeira = 0.0f;
 			valorMoedaReal = 0.0f;
 			calcularParcelamentoPagamento();
 			parcelamentopagamento.setValorParcelamento(valorSaldoParcelar);

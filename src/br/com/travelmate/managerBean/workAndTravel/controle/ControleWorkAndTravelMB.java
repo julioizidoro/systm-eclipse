@@ -510,4 +510,9 @@ public class ControleWorkAndTravelMB implements Serializable {
 	public String controleWorkEmbarqueConsultor() { 
 		return "consControleWorkConsultor";
 	}
+	
+	
+	public void retornoDialogAtualizar() {
+		listarControle();
+	}
 }

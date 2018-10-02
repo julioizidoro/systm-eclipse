@@ -55,9 +55,9 @@
 						<f:selectItem itemLabel="Escola" itemValue="0"
 							noSelectionOption="true" />
 						<f:selectItems id="idfornecedor"
-							value="#{cadWorkEmpregadorMB.listaSponsor}" var="sponsor"
-							itemLabel="#{sponsor.fornecedorcidade.fornecedor.nome}"
-							itemValue="#{fornecedor}" />
+							value="#{cadWorkEmpregadorMB.listaSponsor}" var="sponsorSelecionado"
+							itemLabel="#{sponsorSelecionado.fornecedorcidade.fornecedor.nome}" 
+							itemValue="#{sponsorSelecionado}" />
 						<f:attribute name="listaWorkSponsor"
 							value="#{cadWorkEmpregadorMB.listaSponsor}" />
 						<p:ajax event="change"/>

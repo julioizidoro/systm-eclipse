@@ -508,7 +508,7 @@
 		<div style="border: 2px solid; border-color: #9C9C9C; width: 100%;">
 			<div style="width: 100%; background-color: #CFCFCF;">
 
-				<table border="0" style="width: 100%;">
+				<table style="width: 100%;">
 					<tr>
 						<td><h:panelGroup style="margin-left:2%;">VALOR TOTAL</h:panelGroup>
 						</td>
@@ -523,7 +523,7 @@
 						</td>
 						<td style="float: right; width: 40%;">
 								 <h:panelGroup style="margin-left:20%;">
-									#{fichaHighSchoolMB.moedaNacional}:  
+									#{fichaPacotesMB.moedaNacional}:  
 									 <h:outputText
 										value="#{fichaPacotesMB.vendas.formapagamento.valorOrcamento}">
 										<f:convertNumber pattern="##,###,###,###.##"
@@ -541,12 +541,12 @@
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</h:outputText> 
-				| Valor Juros: #{fichaHighSchoolMB.moedaNacional} <h:outputText
+				| Valor Juros: #{fichaPacotesMB.moedaNacional} <h:outputText
 								value="#{fichaPacotesMB.vendas.formapagamento.valorJuros}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
 							</h:outputText> 
-				| Valor Final: #{fichaHighSchoolMB.moedaNacional} <h:outputText
+				| Valor Final: #{fichaPacotesMB.moedaNacional} <h:outputText
 								value="#{fichaPacotesMB.vendas.formapagamento.valorTotal}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
@@ -561,7 +561,7 @@
 					<h:panelGroup style="margin-left: 0.3%;">Forma de Pagamento: #{parcelamento.formaPagamento}</h:panelGroup>
 					<hr style="width: 99%; float: left;" />
 					<h:panelGrid style="width:100%;" columns="4">
-						<h:panelGroup>Saldo Parcelar: #{fichaHighSchoolMB.moedaNacional}  <h:outputText
+						<h:panelGroup>Saldo Parcelar: #{fichaPacotesMB.moedaNacional}  <h:outputText
 								value="#{parcelamento.valorParcelamento}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />
@@ -579,7 +579,7 @@
 								N° Parcelas: #{parcelamento.numeroParcelas}
 							</h:panelGroup>
 						<h:panelGroup>
-								Valor Parcela: #{fichaHighSchoolMB.moedaNacional} <h:outputText
+								Valor Parcela: #{fichaPacotesMB.moedaNacional} <h:outputText
 								value="#{parcelamento.valorParcela}">
 								<f:convertNumber pattern="##,###,###,###.##"
 									minFractionDigits="2" />

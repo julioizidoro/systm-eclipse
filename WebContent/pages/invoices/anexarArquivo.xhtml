@@ -25,7 +25,7 @@
 				<p:selectOneMenu  id="tipoArquivo"  style="width: 280px;margin-left: 2%"  value="#{cadArquivoMB.tipoarquivo}" converter="TipoArquivoConverter"
                              filter="true" filterMatchMode="contains" panelStyle="width:180px" >
                     <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
-                    <f:selectItems  value="#{cadArquivoMB.listaTipoArquivo}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.descricao}" itemValue="#{tipoarquivoselecionado}"/>
+                    <f:selectItems  value="#{cadArquivoMB.listaTipoArquivo}" var="tipoarquivoselecionado" itemLabel="#{tipoarquivoselecionado.tipoarquivo.descricao}" itemValue="#{tipoarquivoselecionado}"/>
                     <f:attribute name="listaTipoArquivo" value="#{cadArquivoMB.listaTipoArquivo}"/>
                 </p:selectOneMenu>
             </h:panelGrid>

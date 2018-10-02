@@ -185,34 +185,6 @@
 			<img src="../../../resources/img/precoFormaFicha.PNG" width="47%" />
 		</div>
 		<br/>
-		<p:dataTable  id="idTabelaArquivos" var="produtos"
-				styleClass="table-transparent" value="#{fichaPacotesMB.vendas.orcamento.orcamentoprodutosorcamentoList}"
-				style="border:transparent;width:100%;" 
-				 
-				>
-
-				<p:column headerText=""
-					style="background:white; font-size:12px; color:white; border:none; text-align:left;color: black;width:75px;"
-					styleClass="alinharCenter">
-					<p:outputLabel value="#{produtos.descricao}" style="color: black;font-size:12px;"/>
-				</p:column>
-				<p:column headerText="#{fichaPacotesMB.vendas.orcamento.cambio.moedas.sigla}"
-					style="width:30px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
-					styleClass="alinharCenter">
-					<p:outputLabel value="#{produtos.valorMoedaEstrangeira}" style="color: black;font-size:12px;color: black;">
-						<f:convertNumber pattern="##,###,###,###.##"
-									minFractionDigits="2" />
-					</p:outputLabel>
-				</p:column>
-				<p:column headerText="#{fichaPacotesMB.moedaNacional}"
-					style="width:20px; background:white; font-size:12px; color:white; border:none; text-align:right;color: black;"
-					styleClass="alinharCenter">
-					<p:outputLabel value="#{produtos.valorMoedaNacional}" style="color: black;font-size:12px;">
-						<f:convertNumber pattern="##,###,###,###.##"
-									minFractionDigits="2" />
-					</p:outputLabel>
-				</p:column>
-			</p:dataTable>
 		<h:panelGrid style="width:100%;">
 			
 			<h:panelGrid style="width:100%;background-color:#CFCFCF;font-size:12px;" columns="2">
@@ -220,14 +192,14 @@
 					
 					<h:panelGrid style="width:94%;float:right;float: right;" columns="2">
 						<h:panelGroup style="text-align:right;float: right;">
-							#{fichaPacotesMB.vendas.orcamento.cambio.moedas.sigla}: <h:outputText
-								value="#{fichaPacotesMB.vendas.orcamento.totalMoedaEstrangeira}">  
+							#{fichaPacotesMB.vendas.cambio.moedas.sigla}: <h:outputText
+								value="#{fichaPacotesMB.totalPagamento}">  
 								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 							</h:outputText>
 						</h:panelGroup>
 						<h:panelGroup style="text-align:right;float: right;">
 							#{fichaPacotesMB.moedaNacional}: <h:outputText
-								value="#{fichaPacotesMB.vendas.orcamento.totalMoedaNacional}">
+								value="#{fichaPacotesMB.vendas.formapagamento.valorOrcamento}">
 								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 							</h:outputText>
 						</h:panelGroup>

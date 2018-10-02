@@ -286,7 +286,7 @@
 							<p:column headerText="Imprimir"
 								style="width:58px;text-align:center;" styleClass="alinharCenter">
 								<h:commandButton
-									action="#{acomodacaoMB.fichaCurso(financeiro)}" title="Ficha"
+									action="#" title="Ficha"
 									image="../../resources/img/imprimiFicha.png" ajax="false"
 									onclick="this.form.target='_blank'"
 									style="width:30px;margin-left:4%">
@@ -753,7 +753,7 @@
 										</p:commandLink>
 
 
-										<p:commandLink action="#{acomodacaoMB.contratoCurso(acomodacao)}"
+										<p:commandLink action="#"
 											title="IMPRIMIR O CONTRATO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiContrato.png" width="36" />
 											<h:panelGrid columns="1"
@@ -763,7 +763,7 @@
 											</h:panelGrid>
 										</p:commandLink>
 										<p:commandLink
-											action="#{acomodacaoMB.gerarRelatorioTermoVisto(acomodacao)}"
+											action="#"
 											title="IMPRIMIR O TERMO DE VISTO" ajax="false"
 											target="_blank">
 											<img src="../../resources/img/imprimiVisto.png" width="36" />
@@ -773,7 +773,7 @@
 											</h:panelGrid>
 										</p:commandLink>
 										<p:commandLink
-											action="#{acomodacaoMB.gerarRelatorioRecibo(acomodacao)}"
+											action="#"
 											title="IMPRIMIR O RECIBO" ajax="false" target="_blank">
 											<img src="../../resources/img/imprimiRecibo.png" width="36" />
 											<h:panelGrid columns="1" style="text-align:center;">

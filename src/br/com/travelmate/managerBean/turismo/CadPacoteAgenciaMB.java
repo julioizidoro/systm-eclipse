@@ -36,7 +36,6 @@ import br.com.travelmate.facade.OrcamentoFacade;
 import br.com.travelmate.facade.PacoteSeguroFacade;
 import br.com.travelmate.facade.PacoteTrechoFacade;
 import br.com.travelmate.facade.PacotesFacade;
-import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoFacade;
@@ -65,7 +64,6 @@ import br.com.travelmate.model.Pacoteservico;
 import br.com.travelmate.model.Pacotetransfer;
 import br.com.travelmate.model.Pacotetrecho;
 import br.com.travelmate.model.Pacotetrem;
-import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Paisproduto;
 import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Produtos;
@@ -177,7 +175,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 				listaSeguro = new ArrayList<Pacoteseguro>();
 				novaFicha = true;
 				CambioFacade cambioFacade = new CambioFacade();
-				cambio =cambioFacade.consultar(1);
+				cambio =cambioFacade.consultar(3240);
 			} else {
 				if (pacotes.getIdpacotes() != null) {
 					cliente = pacotes.getCliente();
@@ -1253,7 +1251,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 								vendass.setValor(valorJuros + formaPagamento.getValorOrcamento());
 								vendass.setCliente(pacotes.getCliente());
 								vendass.setUsuario(usuarioLogadoMB.getUsuario());
-								
+								vendass.setValorcambio(1f);
 								if (vendass.getSituacaogerencia().equalsIgnoreCase("P")){
 									vendass.setSituacaogerencia("F");
 								}

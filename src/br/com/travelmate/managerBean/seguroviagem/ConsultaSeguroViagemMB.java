@@ -26,6 +26,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -37,6 +38,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
+import br.com.travelmate.model.Credito;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Parcelamentopagamento;
@@ -869,6 +871,42 @@ public class ConsultaSeguroViagemMB implements Serializable {
 			}else {
 				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
 			}
+		}
+	}
+	
+	
+	public String relatorioTermoQuitacao(Seguroviagem seguroviagem) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		CancelamentoFacade cancelamentoFacade = new CancelamentoFacade();
+		Cancelamento cancelamento = cancelamentoFacade.consultar(seguroviagem.getVendas().getIdvendas());
+		session.setAttribute("cancelamento", cancelamento);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 550);
+		RequestContext.getCurrentInstance().openDialog("reciboTermoQuitacao", options, null);
+		return "";
+	}
+	
+	
+	public void verificarIdCredito(Seguroviagem seguroviagem) {
+		if (seguroviagem.getVendas().getCancelamento() != null) {
+			if (seguroviagem.getVendas().getCancelamento().getCancelamentocredito() != null) {
+				if (seguroviagem.getVendas().getCancelamento().getCancelamentocredito().getCredito().getTipocredito().equalsIgnoreCase("Crédito")) {
+					Credito credito = seguroviagem.getVendas().getCancelamento().getCancelamentocredito().getCredito();
+					FacesContext fc = FacesContext.getCurrentInstance();
+					HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+					session.setAttribute("credito", credito);
+					Map<String, Object> options = new HashMap<String, Object>();
+					options.put("contentWidth", 150);
+					RequestContext.getCurrentInstance().openDialog("visualizarIdCredito", options, null);
+				}else {
+					Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+				}
+			}else {
+				Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
+			}
+		}else {
+			Mensagem.lancarMensagemFatal("Não há crédito para está venda", "");
 		}
 	}
 

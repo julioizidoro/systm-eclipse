@@ -35,14 +35,7 @@
 
 							<p:inputText id="idcliente" readonly="true" style="width:94%;"
 								maxlength="100" value="#{cadAcomodacaoMB.cliente.nome}" />
-							<p:commandLink rendered="false"
-								actionListener="#{cadAcomodacaoMB.pesquisarCliente()}"
-								style="text-decoration: none">
-								<img src="../../resources/img/pesquisar.png" />
-								<p:ajax event="dialogReturn" process="@this"
-									listener="#{cadAcomodacaoMB.retornoDialogCliente}"
-									update="idcliente, :telaAcomodacao:growl" />
-							</p:commandLink>
+							
 						</h:panelGrid>
 						<br></br>
 						<h:panelGrid columns="4" style="margin-left:1%;width:90%"
@@ -225,22 +218,19 @@
 															<h:outputText value="R$"
 																style="margin-left:4%;font-size:13px;" />
 															<h:outputText id="valorOriginalAcomodacao"
-																value="#{acomodacao.valorOrigianl}"
+																value="0.00"
 																style="margin-left:0.5%;text-decoration:line-through;font-size:11px;color:#363636;">
-																<f:convertNumber pattern="##,###,###,###.##"
-																	minFractionDigits="2" />
+																
 															</h:outputText>
 															<p:outputLabel id="valorPromocionalAcomodacao"
-																value="#{acomodacao.valorPromocional}"
+																value="0.00"
 																style="text-align: right;margin-left:0.5%;font-size:13px;">
-																<f:convertNumber pattern="##,###,###,###.##"
-																	minFractionDigits="2" />
+																
 															</p:outputLabel>
 															<p:outputLabel id="valorPromocionalrsAcomodacao"
-																value="#{acomodacao.valorPromocionalRS}"
+																value="0.00"
 																style="font-size:13px;text-align: right;margin-left:0.5%">
-																<f:convertNumber pattern="##,###,###,###.##"
-																	minFractionDigits="2" />
+																
 															</p:outputLabel>
 														</h:panelGrid>
 													</div>
