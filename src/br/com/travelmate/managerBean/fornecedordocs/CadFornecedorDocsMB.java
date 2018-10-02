@@ -1,13 +1,5 @@
 package br.com.travelmate.managerBean.fornecedordocs;
 
-import br.com.travelmate.facade.FornecedorDocsFacade;
-import br.com.travelmate.facade.FornecedorFacade;
-import br.com.travelmate.managerBean.AplicacaoMB;
-import br.com.travelmate.model.Fornecedor;
-import br.com.travelmate.model.Fornecedordocs;
-import br.com.travelmate.util.Mensagem;
-import br.com.travelmate.util.UploadAWSS3;
-
 import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -27,6 +19,14 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+
+import br.com.travelmate.facade.FornecedorDocsFacade;
+import br.com.travelmate.facade.FornecedorFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Fornecedordocs;
+import br.com.travelmate.util.Mensagem;
+import br.com.travelmate.util.UploadAWSS3;
 
 @Named
 @ViewScoped
