@@ -447,7 +447,7 @@ public class PacotesAtivosMB implements Serializable {
 	public float calcularValorCambioAtual(Pacotesinicial pacote) {
 		float valorInicial = pacote.getValoravista();
 		if (pacote.getValorcambio()==0) {
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), pacote.getMoeda());
+			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getIdmoedas());
 			if (cambio!=null) {
 				float valor = pacote.getValormoedaestrangeira() * cambio.getValor();
 				valorInicial = valor;
