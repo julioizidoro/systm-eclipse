@@ -45,7 +45,7 @@ public class DocumentosRFMB implements Serializable{
 		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
 		ftpdados = new Ftpdados();
 		if (ftpdados != null) {
-			urlArquivo = "https://arquivos.systm.com.br/";
+			urlArquivo = "https://arquivos.systm.com.br";
 		}
 		try {
 			ftpdados = ftpDadosFacade.getFTPDados();
