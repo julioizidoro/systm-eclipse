@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.cursospacotes;
   
+import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
@@ -130,7 +131,10 @@ public class InformacoesCursosPacoteMB implements Serializable {
 	public Float calcularValorCambioAtual() {
 		Float valorInicial = cursospacote.getValoravista();
 		if (cursospacote.getValorcambio()==0) {
-			Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas().getIdmoedas());
+			CambioFacade cambioFacade = new CambioFacade();
+			Cambio cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+					 usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getIdmoedas(), 
+						usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambio!=null) {
 				valorInicial = cursospacote.getValormoedaestrangeira() * cambio.getValor();
 			}
