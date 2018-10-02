@@ -33,12 +33,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext; 
+import org.primefaces.context.RequestContext;
 
 @Named
 @ViewScoped
 public class CursosPacotesMB implements Serializable {
- 
+
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
@@ -62,27 +62,27 @@ public class CursosPacotesMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) { 
+		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			sql = (String) session.getAttribute("sql");
 			fornecedorCidadeIdioma = (Fornecedorcidadeidioma) session.getAttribute("fornecedorcidadeidioma");
 			paisS = (Pais) session.getAttribute("pais");
-			session.removeAttribute("fornecedorcidadeidioma"); 
+			session.removeAttribute("fornecedorcidadeidioma");
 			session.removeAttribute("sql");
 			session.removeAttribute("pais");
-			if(fornecedorCidadeIdioma!=null && fornecedorCidadeIdioma.getIdfornecedorcidadeidioma()!=null){
+			if (fornecedorCidadeIdioma != null && fornecedorCidadeIdioma.getIdfornecedorcidadeidioma() != null) {
 				produtos = fornecedorCidadeIdioma.getFornecedorcidade().getProdutos();
 				gerarListaPais();
 				pais = fornecedorCidadeIdioma.getFornecedorcidade().getCidade().getPais();
 				cidade = fornecedorCidadeIdioma.getFornecedorcidade().getCidade();
 				listarIdiomas();
-				idioma = fornecedorCidadeIdioma.getIdioma(); 
+				idioma = fornecedorCidadeIdioma.getIdioma();
 				listarFornecedorCidadeIdioma();
 				listarCursosPacotes();
 			}
 			getAplicacaoMB();
-			listaProdutos = GerarListas.listarProdutos(""); 
+			listaProdutos = GerarListas.listarProdutos("");
 			gerarListaPaisS();
 		}
 	}
@@ -229,7 +229,7 @@ public class CursosPacotesMB implements Serializable {
 		if (listaIdiomas == null) {
 			listaIdiomas = new ArrayList<Idioma>();
 		}
-		idioma = null; 
+		idioma = null;
 		listaFornecedorIdioma = new ArrayList<>();
 		listaCursosPacotes = new ArrayList<>();
 	}
@@ -238,7 +238,7 @@ public class CursosPacotesMB implements Serializable {
 		if (cidade != null && idioma != null) {
 			String sql = "select f from Fornecedorcidadeidioma f where f.fornecedorcidade.cidade.idcidade="
 					+ cidade.getIdcidade() + " and f.idioma.ididioma =" + idioma.getIdidioma()
-					+ " and f.fornecedorcidade.produtos.idprodutos="+produtos.getIdprodutos()
+					+ " and f.fornecedorcidade.produtos.idprodutos=" + produtos.getIdprodutos()
 					+ " order by f.fornecedorcidade.fornecedor.nome";
 			FornecedorCidadeIdiomaFacade fornecedorCidadeIdiomaFacade = new FornecedorCidadeIdiomaFacade();
 			listaFornecedorIdioma = fornecedorCidadeIdiomaFacade.listar(sql);
@@ -247,7 +247,6 @@ public class CursosPacotesMB implements Serializable {
 			}
 		}
 	}
-	
 
 	public String cadCursosPacotes() {
 		if (fornecedorCidadeIdioma != null) {
@@ -270,55 +269,57 @@ public class CursosPacotesMB implements Serializable {
 		session.setAttribute("cursospacote", cursospacote);
 		session.setAttribute("sql", sql);
 		session.setAttribute("pais", paisS);
-		return "cadcursospacote"; 
-	}   
-	
-	public String voltar(){
+		return "cadcursospacote";
+	}
+
+	public String voltar() {
 		return "orcamentocurso";
 	}
-	
-	
-	public void listarCursosPacotes(){
-		if(fornecedorCidadeIdioma!=null && fornecedorCidadeIdioma.getIdfornecedorcidadeidioma()!=null && (paisS != null && paisS.getIdpais() != null)){
+
+	public void listarCursosPacotes() {
+		if (sql != null) {
 			CursosPacotesFacade cursosPacotesFacade = new CursosPacotesFacade();
-			sql = "Select c From Cursospacote c Where c.pais.idpais="+ paisS.getIdpais() +" and c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
-					+fornecedorCidadeIdioma.getIdfornecedorcidadeidioma();
-			if(!vencidos){
-				sql = sql + " and c.dataterminovenda>='"+Formatacao.ConvercaoDataSql(new Date())+"'";
+			listaCursosPacotes = cursosPacotesFacade.listar(sql);
+		} else if (fornecedorCidadeIdioma != null && fornecedorCidadeIdioma.getIdfornecedorcidadeidioma() != null
+				&& (paisS != null && paisS.getIdpais() != null)) {
+			CursosPacotesFacade cursosPacotesFacade = new CursosPacotesFacade();
+			sql = "Select c From Cursospacote c Where c.pais.idpais=" + paisS.getIdpais()
+					+ " and c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
+					+ fornecedorCidadeIdioma.getIdfornecedorcidadeidioma();
+			if (!vencidos) {
+				sql = sql + " and c.dataterminovenda>='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
 			}
 			sql = sql + " order by c.valorcoprodutos_curso.coprodutos.produtosorcamento.descricao, c.datainicovenda";
-			listaCursosPacotes = cursosPacotesFacade.listar(sql); 
-		}              
+			listaCursosPacotes = cursosPacotesFacade.listar(sql);
+		}
 	}
-	
-	public String retornarImagemAcomodação(Cursospacote cursospacote){
-		if(cursospacote.getValorcoprodutos_acomodacao()!=null){
+
+	public String retornarImagemAcomodação(Cursospacote cursospacote) {
+		if (cursospacote.getValorcoprodutos_acomodacao() != null) {
 			return "../../resources/img/crm/confirmar.png";
 		}
 		return "../../resources/img/crm/cancelar.png";
 	}
-	
-	public String retornarTitleAcomodação(Cursospacote cursospacote){
-		if(cursospacote.getValorcoprodutos_acomodacao()!=null){
+
+	public String retornarTitleAcomodação(Cursospacote cursospacote) {
+		if (cursospacote.getValorcoprodutos_acomodacao() != null) {
 			return "Pacote possui acomodação.";
 		}
 		return "Pacote não possui acomodação.";
 	}
-	
+
 	public String adicionarFornecedorIdioma() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("idioma", idioma);
-		session.setAttribute("cidade", cidade); 
+		session.setAttribute("cidade", cidade);
 		session.setAttribute("produtos", produtos);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 500);
 		RequestContext.getCurrentInstance().openDialog("cadFornecedorCidadeIdioma");
 		return "";
 	}
-	
-	
-	
+
 	public void gerarListaPaisS() {
 		PaisFacade paisFacade = new PaisFacade();
 		listaPaisS = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.possuifranquia=true");
@@ -326,11 +327,11 @@ public class CursosPacotesMB implements Serializable {
 			listaPaisS = new ArrayList<Pais>();
 		}
 	}
-	
+
 	public void gerarListaPais() {
-		if(produtos!=null && produtos.getIdprodutos()!=null) {
+		if (produtos != null && produtos.getIdprodutos() != null) {
 			PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
-			listaPais = paisProdutoFacade.listar(produtos.getIdprodutos());  
+			listaPais = paisProdutoFacade.listar(produtos.getIdprodutos());
 		}
 	}
 }
