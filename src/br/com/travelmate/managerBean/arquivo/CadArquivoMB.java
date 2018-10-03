@@ -417,7 +417,7 @@ public class CadArquivoMB implements Serializable {
 
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("cliente", cliente);
+			//session.setAttribute("cliente", cliente);
 			session.setAttribute("msgBilhete", "");
 			session.setAttribute("listaArquivos", listaArquivos);
 			session.setAttribute("vendas", vendas);
