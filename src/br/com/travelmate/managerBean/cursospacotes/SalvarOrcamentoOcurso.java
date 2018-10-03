@@ -140,7 +140,7 @@ public class SalvarOrcamentoOcurso {
 		ocurso = oCursoDao.salvar(ocurso);
 		dataconsulta = retornarDataConsultaOrcamento();
 		salvarProdutosCurso();
-	//	salvarTaxasCurso();
+		salvarTaxasCurso();
 		salvarProdutosObrigatorios();
 		if (cursospacote.getValorcoprodutos_acomodacao() != null) {
 			salvarAcomodacao();

@@ -98,7 +98,7 @@ public class TraineeDao {
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, int idUnidade) throws IOException {
         try {
             ResultSet rs;
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.jdbc.Driver");
             try {String conexao = "jdbc:mysql://" + local + ":" + porta + "/" + banco;
                 com.mysql.jdbc.Connection conn = (com.mysql.jdbc.Connection) DriverManager.getConnection(conexao, usuario, senha);
                 com.mysql.jdbc.Statement stm = (com.mysql.jdbc.Statement) conn.createStatement();
@@ -137,11 +137,7 @@ public class TraineeDao {
             }
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-        } catch (InstantiationException ex) {
-            ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
-        }
+        } 
         return null;
     }
     
