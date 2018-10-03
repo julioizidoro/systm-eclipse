@@ -64,7 +64,8 @@ public class CambioDao implements Serializable {
     
  	public List<Moedas> listaMoedas()  {
         Query q = manager.createQuery("select m from Moedas m");
-        List<Moedas> lista = q.getResultList();
+        @SuppressWarnings("unchecked")
+		List<Moedas> lista = q.getResultList();
         return lista;
     }
     

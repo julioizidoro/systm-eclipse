@@ -82,7 +82,8 @@ public class InvoiceDao {
         return lista;
     }
     
-    public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, int idUnidade) throws IOException {
+    @SuppressWarnings("deprecation")
+	public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, int idUnidade) throws IOException {
         try {
             ResultSet rs;
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -113,7 +114,7 @@ public class InvoiceDao {
                 //agora, salvando o StringBuffer no arquivo  
                 FileWriter excelFile = new FileWriter(caminhoSalvarExcel); // nome do arquivo  
                 excelFile.write(new String(contenu)); //aqui ele passa a String para salvar  
-                excelFile.close();
+                excelFile.close(); 
                 JOptionPane.showMessageDialog(null, "Invoice Exportado com Sucesso");
                 return rs;
             } catch (SQLException ex) {
