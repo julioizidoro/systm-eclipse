@@ -1,7 +1,6 @@
 package br.com.travelmate.managerBean.financeiro.invoices;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import br.com.travelmate.facade.FtpDadosFacade;
+
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Ftpdados;
 
