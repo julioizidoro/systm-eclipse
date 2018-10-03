@@ -831,7 +831,7 @@ public class CadArquivoMB implements Serializable {
 				List<Usuariodepartamentounidade> listaNoficacao = usuarioDepartamentoUnidadeFacade.listar(sql);
 				if (listaNoficacao != null) {
 					for (int i = 0; i < listaNoficacao.size(); i++) {
-						if (listaNoficacao.get(i).getUsuario().getIdusuario() != 396) {
+						if (listaNoficacao.get(i).getUsuario().getIdusuario() != 396 || listaNoficacao.get(i).getUsuario().getIdusuario() != 446) {
 							Avisousuario avisousuario = new Avisousuario();
 							avisousuario.setAvisos(aviso);
 							avisousuario.setUsuario(listaNoficacao.get(i).getUsuario());
