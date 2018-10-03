@@ -277,10 +277,7 @@ public class CursosPacotesMB implements Serializable {
 	}
 
 	public void listarCursosPacotes() {
-		if (sql != null) {
-			CursosPacotesFacade cursosPacotesFacade = new CursosPacotesFacade();
-			listaCursosPacotes = cursosPacotesFacade.listar(sql);
-		} else if (fornecedorCidadeIdioma != null && fornecedorCidadeIdioma.getIdfornecedorcidadeidioma() != null
+		if (fornecedorCidadeIdioma != null && fornecedorCidadeIdioma.getIdfornecedorcidadeidioma() != null
 				&& (paisS != null && paisS.getIdpais() != null)) {
 			CursosPacotesFacade cursosPacotesFacade = new CursosPacotesFacade();
 			sql = "Select c From Cursospacote c Where c.pais.idpais=" + paisS.getIdpais()
