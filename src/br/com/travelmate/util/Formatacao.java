@@ -52,7 +52,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.primefaces.model.UploadedFile;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.NotificacaoFacade;
 import br.com.travelmate.facade.ParametrosProdutosFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
@@ -1029,11 +1029,10 @@ public class Formatacao {
 		return "";
 	}
 
-	public static String carregarCambioDia() {
+	public static String carregarCambioDia(CambioDao cambioDao) {
 		String scambio = null;
 		String data = Formatacao.ConvercaoDataSql(new Date());
-		CambioFacade cambioFacade = new CambioFacade();
-		List<Cambio> listaCambio = cambioFacade.listar(data);
+		List<Cambio> listaCambio = cambioDao.listar(data);
 		int contador = 0;
 		if (listaCambio == null) {
 			while (listaCambio == null) {
@@ -1042,7 +1041,7 @@ public class Formatacao {
 				} catch (Exception ex) {
 					Logger.getLogger(Formatacao.class.getName()).log(Level.SEVERE, null, ex);
 				}
-				listaCambio = cambioFacade.listar(data);
+				listaCambio = cambioDao.listar(data);
 				contador++;
 			}
 		}

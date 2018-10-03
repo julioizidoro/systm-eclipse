@@ -20,6 +20,7 @@ import br.com.travelmate.bean.comissao.ComissaoProgramasTeensBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
@@ -64,6 +65,8 @@ public class CalculadoraMargemMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -741,8 +744,9 @@ public class CalculadoraMargemMB implements Serializable {
 			ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 			orcamentoprodutosorcamento.setProdutosorcamento(produtoOrcamentoFacade.consultar(12));
 			venda.getOrcamento().getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
+			Cambio cambioComissao = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(venda.getDataVenda()), venda.getCambio().getMoedas().getIdmoedas());
 			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, venda, venda.getOrcamento().getOrcamentoprodutosorcamentoList(),
-					venda.getCambio(), valoresHighSchool, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), dataInicio, 0.0f, false);
+					venda.getCambio(), valoresHighSchool, venda.getFormapagamento().getParcelamentopagamentoList(), new Vendascomissao(), dataInicio, 0.0f, false, cambioComissao);
 			margemFinal = cc.getVendasComissao().getLiquidofranquia();
 		}  else if (idProduto==aplicacaoMB.getParametrosprodutos().getDemipair()) {
 			Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();

@@ -26,11 +26,11 @@ import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoVistoBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
@@ -68,7 +68,8 @@ public class CadVistosMB implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -142,8 +143,8 @@ public class CadVistosMB implements Serializable {
 			vistos.setDescontoloja(0.0f);
 			vistos.setDescontomatriz(0.0f);
 			vistos.setTaxaloja(0.0f);
-			CambioFacade cambioFacade = new CambioFacade();
-			cambio = cambioFacade.consultar(1);
+			
+			cambio = cambioDao.consultar(1);
 			formaPagamento = new Formapagamento();
 			unidadenegocio = new Unidadenegocio();
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -691,8 +692,8 @@ public class CadVistosMB implements Serializable {
 			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
 				PaisFacade paisFacade = new PaisFacade();
 				Pais pais = paisFacade.consultar(5);
-				CambioFacade cambioFacade = new CambioFacade();
-				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
+				
+				cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
 			}
 			vendas.setValor(totalMoedaReal);

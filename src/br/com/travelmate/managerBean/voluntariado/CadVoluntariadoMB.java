@@ -26,11 +26,11 @@ import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -83,6 +83,8 @@ public class CadVoluntariadoMB implements Serializable {
 	/**
 	 * 
 	 */
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -660,8 +662,8 @@ public class CadVoluntariadoMB implements Serializable {
 	}
 
 	public void carregarComboMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}
@@ -1167,8 +1169,8 @@ public class CadVoluntariadoMB implements Serializable {
 				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
 					PaisFacade paisFacade = new PaisFacade();
 					Pais pais = paisFacade.consultar(5);
-					CambioFacade cambioFacade = new CambioFacade();
-					cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
+					
+					cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
 				}
 				venda.setValor(totalMoedaReal);
@@ -1503,8 +1505,8 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void dataTermino() {
 		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getNumeroSemanas() != null && seguroViagem.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				seguroViagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDataInicio(),
@@ -1521,8 +1523,8 @@ public class CadVoluntariadoMB implements Serializable {
 	
 	public void dataTerminoData() {
 		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getDataTermino() != null)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				seguroViagem.setNumeroSemanas(Formatacao.subtrairDatas(seguroViagem.getDataInicio(), seguroViagem.getDataTermino()) + 1);
@@ -1540,8 +1542,8 @@ public class CadVoluntariadoMB implements Serializable {
 
 	public void dataTermino70anos() {
 		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				seguroViagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDataInicio(),
@@ -1559,8 +1561,8 @@ public class CadVoluntariadoMB implements Serializable {
 	
 	public void dataTermino70anosData() {
 		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				seguroViagem.setNumeroSemanas(Formatacao.subtrairDatas(seguroViagem.getDataInicio(), seguroViagem.getDataTermino()) + 2);
@@ -2063,8 +2065,8 @@ public class CadVoluntariadoMB implements Serializable {
 			if (dias > 3) {
 				Mensagem.lancarMensagemInfo("", "Cambio alterado para o dia atual");
 			}
-			CambioFacade cambioFacade = new CambioFacade();
-			cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio), moeda.getIdmoedas());
+			
+			cambio = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio), moeda.getIdmoedas());
 			if (cambio != null) {
 				orcamento.setValorCambio(cambio.getValor());
 				atualizarValoresProduto();
@@ -2200,8 +2202,8 @@ public class CadVoluntariadoMB implements Serializable {
 					.consultar(aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid());
 			orcamentoprodutosorcamento.setProdutosorcamento(produto);
 			orcamentoprodutosorcamento.setDescricao(produto.getDescricao());
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
 			orcamentoprodutosorcamento.setValorMoedaNacional(
 					seguroViagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor()); 

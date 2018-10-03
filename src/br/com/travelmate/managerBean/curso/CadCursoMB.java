@@ -32,6 +32,7 @@ import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.RegraVistoBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
@@ -40,7 +41,6 @@ import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.AcomodacaoFacade;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadeFacade;
 import br.com.travelmate.facade.DadosPaisFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
@@ -138,6 +138,8 @@ import br.com.travelmate.util.Mensagem;
 public class CadCursoMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private OrcamentoCursoDao orcamentoCursoDao;
 	@Inject
@@ -1125,8 +1127,8 @@ public class CadCursoMB implements Serializable {
 	}
 
 	public void carregarComboMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}
@@ -1684,8 +1686,8 @@ public class CadCursoMB implements Serializable {
 				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
 					PaisFacade paisFacade = new PaisFacade();
 					Pais pais = paisFacade.consultar(5);
-					CambioFacade cambioFacade = new CambioFacade();
-					cambioBrasil = cambioFacade.consultarCambioMoedaPais(
+					
+					cambioBrasil = cambioDao.consultarCambioMoedaPais(
 							Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
 				}
@@ -2631,8 +2633,8 @@ public class CadCursoMB implements Serializable {
 
 	public void dataTermino() {
 		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				seguroViagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDataInicio(),
@@ -2649,8 +2651,8 @@ public class CadCursoMB implements Serializable {
 
 	public void dataTermino70anos() {
 		if ((seguroViagem.getDataInicio() != null) && (seguroViagem.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				seguroViagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDataInicio(),
@@ -3313,8 +3315,8 @@ public class CadCursoMB implements Serializable {
 			curso.setNumeroSenamas(ocurso.getNumerosemanas());
 		curso.setDataInicio(ocurso.getDatainicio());
 		curso.setDataTermino(ocurso.getDatatermino());
-		CambioFacade cambioFacade = new CambioFacade();
-		cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+		
+		cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
 				ocurso.getCambio().getMoedas().getIdmoedas(),
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		orcamento.setValorCambio(cambio.getValor());
@@ -3780,8 +3782,8 @@ public class CadCursoMB implements Serializable {
 		curso.setsTipoCargaHoraria(orcamentoCurso.getTipoDuracao());
 		List<Produtoorcamentocurso> listaProdutosOrcamentoCurso = orcamentoCursoDao
 				.listarProdutoOrcamentoCurso(orcamentoCurso.getIdorcamentoCurso());
-		CambioFacade cambioFacade = new CambioFacade();
-		cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+		
+		cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
 				orcamentoCurso.getCambio().getMoedas().getIdmoedas(),
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		orcamento.setValorCambio(cambio.getValor());
@@ -3834,7 +3836,7 @@ public class CadCursoMB implements Serializable {
 								.getIdprodutosOrcamento() == idSeguroCancelamento) {
 					if (orcamentoCurso.getOrcamentomanualseguro() != null) {
 						// Cambio cambioSeguro =
-						// cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+						// cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 						// seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 						produtosorcamento = listaProdutosOrcamentoCurso.get(i).getProdutosOrcamento();
 						Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
@@ -4063,8 +4065,8 @@ public class CadCursoMB implements Serializable {
 					.consultar(aplicacaoMB.getParametrosprodutos().getSegurocancelamentoid());
 			orcamentoprodutosorcamento.setProdutosorcamento(produto);
 			orcamentoprodutosorcamento.setDescricao(produto.getDescricao());
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 			orcamentoprodutosorcamento.setValorMoedaNacional(
 					seguroViagem.getValoresseguro().getValorsegurocancelamento() * cambioSeguro.getValor());

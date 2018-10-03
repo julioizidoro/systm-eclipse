@@ -5,7 +5,7 @@
  */
 package br.com.travelmate.managerBean.financeiro.vendas;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
@@ -17,6 +17,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
@@ -33,6 +34,8 @@ public class EditarValoresComissaoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	private String titulo;
     private String selecao;
     private Cambio cambio;
@@ -173,8 +176,7 @@ public class EditarValoresComissaoMB implements Serializable{
     
     
     public void consultarCambio(Date dataCambio){
-        CambioFacade cambioFacade = new CambioFacade();
-        listaCambio = cambioFacade.listar(Formatacao.ConvercaoDataSql(dataCambio));
+        listaCambio = cambioDao.listar(Formatacao.ConvercaoDataSql(dataCambio));
         if (listaCambio==null){
             listaCambio = new ArrayList<Cambio>();
         }

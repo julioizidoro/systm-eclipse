@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.HeorcamentoFacade;
 import br.com.travelmate.facade.HeorcamentopaisFacade;
@@ -43,6 +43,8 @@ public class CadOrcamentoHeMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Lead lead;
@@ -247,8 +249,8 @@ public class CadOrcamentoHeMB implements Serializable{
 	
 	
 	public void carregarComboMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}

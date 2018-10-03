@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.travelmate.bean.FinalizarPacoteOperadora;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.CursoFacade;
@@ -26,6 +27,7 @@ import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
@@ -44,6 +46,7 @@ import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.model.Vistos;
 import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
+import br.com.travelmate.util.Formatacao;
 
 public class CalcularComissaoManualBean {
 
@@ -51,10 +54,12 @@ public class CalcularComissaoManualBean {
 	private Vendas venda;
 	private AplicacaoMB aplicacaoMB;
 	private VendasDao vendasDao;
+	private CambioDao cambioDao;
 
-	public CalcularComissaoManualBean(AplicacaoMB aplicacaoMB, VendasDao vendasDao) {
+	public CalcularComissaoManualBean(AplicacaoMB aplicacaoMB, VendasDao vendasDao, CambioDao cambioDao) {
 		this.aplicacaoMB = aplicacaoMB;
 		this.vendasDao = vendasDao;
+		this.cambioDao = cambioDao;
 	}
 
 	public Vendascomissao getVendascomissao() {
@@ -231,10 +236,11 @@ public class CalcularComissaoManualBean {
 		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
 		Highschool highschool = highSchoolFacade.consultarHighschool(venda.getIdvendas());
 		if (highschool != null) {
+			Cambio cambioComissao = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(venda.getDataVenda()), venda.getCambio().getMoedas().getIdmoedas());
 			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, venda,
 					venda.getOrcamento().getOrcamentoprodutosorcamentoList(), venda.getOrcamento().getCambio(),
 					highschool.getValoreshighschool(), formapagamento.getParcelamentopagamentoList(), vendascomissao,
-					highschool.getValoreshighschool().getDatainicio(), getValorJuros(venda), true);
+					highschool.getValoreshighschool().getDatainicio(), getValorJuros(venda), true, cambioComissao);
 			vendascomissao = cc.getVendasComissao();
 		}
 	}

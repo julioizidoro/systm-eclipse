@@ -27,11 +27,11 @@ import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -74,6 +74,8 @@ public class CadHeFinalMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -637,12 +639,12 @@ public class CadHeFinalMB implements Serializable {
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
+		
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 			int dias = Formatacao.subtrairDatas(new Date(), venda.getDataVenda());
 			if (dias > 3) {
 				Mensagem.lancarMensagemErro("Cambio alterado para o dia atual", "");
-				cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+				cambio = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 						cambio.getMoedas().getIdmoedas());
 				if (cambio != null) {
 					orcamento.setValorCambio(cambio.getValor());
@@ -757,8 +759,8 @@ public class CadHeFinalMB implements Serializable {
 	}
 
 	public void carregarComboMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}
@@ -1171,8 +1173,8 @@ public class CadHeFinalMB implements Serializable {
 			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
 				PaisFacade paisFacade = new PaisFacade();
 				Pais pais = paisFacade.consultar(5);
-				CambioFacade cambioFacade = new CambioFacade();
-				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
+				
+				cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
 			}
 			venda.setValor(totalMoedaReal);

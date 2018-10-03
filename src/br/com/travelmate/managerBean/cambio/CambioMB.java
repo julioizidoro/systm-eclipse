@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cambio;
@@ -34,6 +34,8 @@ public class CambioMB  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Date data;
@@ -123,9 +125,9 @@ public class CambioMB  implements Serializable{
 
 	public void pesquisar(){ 
 		if(data!=null){
-			CambioFacade cambioFacade = new CambioFacade();
+			
 			if (data != null && pais != null) {
-				listaCambio = cambioFacade.listarCambioPais(Formatacao.ConvercaoDataSql(data), pais);
+				listaCambio = cambioDao.listarCambioPais(Formatacao.ConvercaoDataSql(data), pais);
 				if(listaCambio==null || listaCambio.size()==0){
 					 Map<String,Object> options = new HashMap<String, Object>();
 				     options.put("contentWidth",200);
@@ -143,8 +145,8 @@ public class CambioMB  implements Serializable{
 	
 	public void pesquisarData(){ 
 		if(data!=null && pais != null){
-			CambioFacade cambioFacade = new CambioFacade();
-			listaCambio = cambioFacade.listarCambioPais(Formatacao.ConvercaoDataSql(data), pais);
+			
+			listaCambio = cambioDao.listarCambioPais(Formatacao.ConvercaoDataSql(data), pais);
 			if(listaCambio==null){
 				 listaCambio = new ArrayList<Cambio>();
 			}
@@ -154,9 +156,9 @@ public class CambioMB  implements Serializable{
 	
 	public void gerarcambiodia(String gerarcambio){
 		if(gerarcambio.equalsIgnoreCase("Sim")){
-			CambioFacade cambioFacade = new CambioFacade();
+			
 			List<Moedas> listamoedas;
-			listamoedas = cambioFacade.listaMoedas();
+			listamoedas = cambioDao.listaMoedas();
 			Cambio cambio;
 			for (int i = 0; i < listamoedas.size(); i++) {
 				cambio = new Cambio();
@@ -164,7 +166,7 @@ public class CambioMB  implements Serializable{
 				cambio.setMoedas(listamoedas.get(i));
 				cambio.setValor(0.0f);
 				cambio.setPais(pais);
-				cambio = cambioFacade.salvar(cambio);
+				cambio = cambioDao.salvar(cambio);
 			}
 			PaisFacade paisFacade = new PaisFacade();
 			pais.setDatacambio(data);
@@ -186,8 +188,8 @@ public class CambioMB  implements Serializable{
 	}
 	
 	public void editarCambio(Cambio cambio){
-		CambioFacade cambioFacade = new CambioFacade();
-		cambio = cambioFacade.salvar(cambio);
+		
+		cambio = cambioDao.salvar(cambio);
 	}
 	
 	public void gerarListaPais() {

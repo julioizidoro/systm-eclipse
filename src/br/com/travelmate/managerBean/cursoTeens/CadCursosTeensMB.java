@@ -29,11 +29,11 @@ import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoProgramasTeensBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -81,6 +81,8 @@ public class CadCursosTeensMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -807,8 +809,8 @@ public class CadCursosTeensMB implements Serializable {
 	}
 
 	public void carregarComboMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}
@@ -1176,8 +1178,8 @@ public class CadCursosTeensMB implements Serializable {
 				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
 					PaisFacade paisFacade = new PaisFacade();
 					Pais pais = paisFacade.consultar(5);
-					CambioFacade cambioFacade = new CambioFacade();
-					cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
+					
+					cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
 				}
 				venda.setValor(totalMoedaReal);
@@ -1435,9 +1437,9 @@ public class CadCursosTeensMB implements Serializable {
 			orcamentoprodutosorcamento.setProdutosorcamento(produto.getProdutosorcamento());
 			orcamentoprodutosorcamento.setDescricao(produto.getProdutosorcamento().getDescricao());
 			if (valoresprogramasteens.getValorgross() > 0) {
-				CambioFacade cambioFacade = new CambioFacade();
+				
 				Cambio cambioValor = new Cambio();
-				cambioValor = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+				cambioValor = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
 						valoresprogramasteens.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				orcamentoprodutosorcamento
 						.setValorMoedaNacional(valoresprogramasteens.getValorgross() * cambioValor.getValor());

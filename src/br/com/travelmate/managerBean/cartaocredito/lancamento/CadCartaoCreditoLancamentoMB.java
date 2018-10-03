@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.CartaoCreditoFacade;
 import br.com.travelmate.facade.CartaoCreditoLancamentoContasFacade;
 import br.com.travelmate.facade.CartaoCreditoLancamentoFacade;
@@ -39,6 +39,8 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject 
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Planoconta planoconta;
@@ -72,9 +74,9 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 		moedas = new Moedas();
 		if (lancamento == null) {
 			lancamento = new Cartaocreditolancamento();
-			CambioFacade cambioFacade = new CambioFacade();
+			
 			PlanoContaFacade planoContaFacade = new PlanoContaFacade();
-			moedas = cambioFacade.consultarMoeda(8);
+			moedas = cambioDao.consultarMoeda(8);
 			planoconta = planoContaFacade.consultar(1);
 			lancamento.setData(new Date());
 			lancamento.setConferido(false);
@@ -239,8 +241,8 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 				lancamento.setMoedas(moedas);
 				lancamento.setValorlancado(lancamento.getValorinformado());
 				if (lancamento.isHabilitarmoeda()) {
-					CambioFacade cambioFacade = new CambioFacade();
-					Cambio cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(new Date()), moedas.getIdmoedas());
+					
+					Cambio cambio = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(new Date()), moedas.getIdmoedas());
 					if (cambio != null) {
 						lancamento.setValorcambio(cambio.getValor());
 						lancamento.setValorlancado(lancamento.getValorlancado() * cambio.getValor());
@@ -293,8 +295,8 @@ public class CadCartaoCreditoLancamentoMB implements Serializable {
 	}
 
 	public void gerarlistaMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}

@@ -27,8 +27,8 @@ import br.com.travelmate.bean.GerarPacotesFornecedorBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoPacotesBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
@@ -90,6 +90,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private VendasDao vendasDao;
 	private Pacotes pacotes;
@@ -174,8 +176,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 				idvenda = "";
 				listaSeguro = new ArrayList<Pacoteseguro>();
 				novaFicha = true;
-				CambioFacade cambioFacade = new CambioFacade();
-				cambio =cambioFacade.consultar(3240);
+				
+				cambio =cambioDao.consultar(3240);
 			} else {
 				if (pacotes.getIdpacotes() != null) {
 					cliente = pacotes.getCliente();
@@ -1644,8 +1646,8 @@ public class CadPacoteAgenciaMB implements Serializable {
 	public void calcularDataTermino() {
 		Date dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 		if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					valoresSeguro.getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				vendass.setCambio(cambioSeguro);

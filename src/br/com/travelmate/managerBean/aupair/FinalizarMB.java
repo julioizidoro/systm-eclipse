@@ -22,12 +22,14 @@ import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
 import br.com.travelmate.bean.comissao.ComissaoTraineeBean;
 import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Aupair;
+import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Controleseguro;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
@@ -53,6 +55,8 @@ public class FinalizarMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -448,10 +452,11 @@ public class FinalizarMB implements Serializable {
 		if (vendasComissao.getPaga().equalsIgnoreCase("Não")) {
 			highschool.getVendas().getOrcamento();
 			highschool.getVendas().getFormapagamento();
+			Cambio cambioComissao = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(highschool.getVendas().getDataVenda()), highschool.getVendas().getCambio().getMoedas().getIdmoedas());
 			ComissaoHighSchoolBean cc = new ComissaoHighSchoolBean(aplicacaoMB, highschool.getVendas(),
 					highschool.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(), highschool.getVendas().getCambio(),
 					highschool.getValoreshighschool(), highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(),
-					vendasComissao, highschool.getValoreshighschool().getDatainicio(), valorJuros, true);
+					vendasComissao, highschool.getValoreshighschool().getDatainicio(), valorJuros, true, cambioComissao);
 			valorPrevisto = cc.getVendasComissao().getValorfornecedor();
 			highschool.getVendas().setVendascomissao(cc.getVendasComissao());
 		}

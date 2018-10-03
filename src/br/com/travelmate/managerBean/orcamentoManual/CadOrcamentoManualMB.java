@@ -24,11 +24,11 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
 import br.com.travelmate.bean.ProdutoOrcamentoCursoBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.OrcamentoCursoDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
@@ -83,6 +83,8 @@ public class CadOrcamentoManualMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private OrcamentoCursoDao orcamentoCursoDao;
 	@Inject
@@ -690,8 +692,8 @@ public class CadOrcamentoManualMB implements Serializable {
 			if (seguro) {
 				if (seguroViagem.isSomarvalortotal() && seguroViagem.getValor() > 0) {
 					valorTotal = valorTotal + seguroViagem.getValor();
-					CambioFacade cambioFacade = new CambioFacade();
-					Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+					
+					Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 							seguroViagem.getValoresseguro().getMoedas().getIdmoedas());
 					totalMoedaEstrangeira = totalMoedaEstrangeira + (seguroViagem.getValor() / cambioSeguro.getValor());
 					totalMoedaReal = totalMoedaReal + seguroViagem.getValor();
@@ -1214,18 +1216,18 @@ public class CadOrcamentoManualMB implements Serializable {
 	}
 
 	public void carregarComboMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
+		
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Cambio alterado para o dia atual", ""));
-		cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+		cambio = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 				cambio.getMoedas().getIdmoedas());
 		if (cambio != null) {
 			valorCambio = cambio.getValor();
@@ -1800,9 +1802,9 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	public void dataTerminoSeguro() {
 		if ((seguroViagem.getDatainicio() != null) && (seguroViagem.getNumerodias() != null && seguroViagem.getNumerodias() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
+			
 			if (seguroViagem.getValoresseguro()!=null){
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+			Cambio cambioSeguro = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				seguroViagem.setDatatermino(Formatacao.calcularDataFinalPorDias(seguroViagem.getDatainicio(),
@@ -1862,10 +1864,10 @@ public class CadOrcamentoManualMB implements Serializable {
 
 	  
 	public void convertendoValoresSeguro(){  
-		CambioFacade cambioFacade = new CambioFacade();
+		
 		Cambio cambioSeguro = null;
 		if (seguroViagem.getValoresseguro()!=null){
-			cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+			cambioSeguro = cambioDao.consultarCambioMoedaPais(
 				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 				seguroViagem.getValoresseguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		}
@@ -1939,8 +1941,8 @@ public class CadOrcamentoManualMB implements Serializable {
 			pob.setIdProdutoOrcamentoCurso(0);
 			pob.setDescricaoProdutoOrcamento(produto.getDescricao());
 			pob.setIdProdutoOrcamento(produto.getIdprodutosOrcamento());
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					seguroViagem.getValoresseguro().getMoedas().getIdmoedas()); 
 			float valorSeguro = seguroViagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor();
 			pob.setValorMoedaEstrangeira(valorSeguro/cambio.getValor());

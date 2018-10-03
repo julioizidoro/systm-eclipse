@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.cursospacotes;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.FornecedorPaisFacade; 
 import br.com.travelmate.facade.OrcamentoProjetoVoluntariadoFacade;
 import br.com.travelmate.facade.OrcamentoVoluntariadoDescontoFacade;
@@ -42,12 +42,14 @@ public class SalvarVoluntariadoProjeto {
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Cursospacote cursospacote;
 	private Cursopacoteformapagamento formapagamento;
+	private CambioDao cambioDao;
 
 	public SalvarVoluntariadoProjeto(Cliente cliente, Date datainicio,
 			Voluntariadoprojetovalor voluntariadoprojetovalor, Cursospacote cursospacote, AplicacaoMB aplicacaoMB,
-			UsuarioLogadoMB usuarioLogadoMB, Cursopacoteformapagamento formapagamento) {
+			UsuarioLogadoMB usuarioLogadoMB, Cursopacoteformapagamento formapagamento, CambioDao cambioDao) {
 		this.cliente = cliente;
 		this.datainicial = datainicio;
+		this.cambioDao = cambioDao;
 		this.voluntariadoprojetovalor = voluntariadoprojetovalor;
 		this.cursospacote = cursospacote;
 		this.aplicacaoMB = aplicacaoMB;
@@ -169,7 +171,6 @@ public class SalvarVoluntariadoProjeto {
 	}
 
 	public Cambio consultarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		Cambio cambio = null;
 		Date data = new Date();
 		Fornecedorpais fornecedorPais = buscarFornecedorPais(
@@ -183,7 +184,7 @@ public class SalvarVoluntariadoProjeto {
 			idMoeda = fornecedorPais.getMoedas().getIdmoedas();
 		}
 		while (cambio == null) {
-			cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(data), idMoeda);
+			cambio = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(data), idMoeda);
 			try {
 				data = Formatacao.SomarDiasDatas(data, -1);
 			} catch (Exception ex) {

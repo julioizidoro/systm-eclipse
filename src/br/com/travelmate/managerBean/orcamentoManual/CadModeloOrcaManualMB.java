@@ -19,8 +19,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.OrcamentoCursoDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
@@ -54,6 +54,8 @@ public class CadModeloOrcaManualMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private OrcamentoCursoDao orcamentoCursoDao;
 	@Inject
@@ -646,18 +648,18 @@ public class CadModeloOrcaManualMB implements Serializable {
 	}
 
 	public void carregarComboMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}
 	}
 
 	public void carregarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
+		
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Cambio alterado para o dia atual", ""));
-		cambio = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+		cambio = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 				cambio.getMoedas().getIdmoedas());
 		if (cambio != null) {
 			valorCambio = cambio.getValor();

@@ -10,8 +10,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ParametrosProdutosFacade;
 import br.com.travelmate.facade.RegraVendaFacade;
@@ -35,6 +35,8 @@ public class AplicacaoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -234,26 +236,7 @@ public class AplicacaoMB implements Serializable {
 			}
 		}
 		sql = sql + " order by c.pais.idpais";
-		CambioFacade cambioFacade = new CambioFacade();
-		listaCambio = cambioFacade.listarCambio(sql);
-	/*	int contador = 0;
-		if ((listaCambio != null) && (listaCambio.size() == 0)) {
-			listaCambio = null;
-		}
-	*/	/*if (listaCambio == null) {
-			while (listaCambio == null) {
-				try {
-					data = Formatacao.SubtarirDatas(new Date(), contador, "yyyy/MM/dd");
-				} catch (Exception ex) {
-					Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
-				}
-				listaCambio = cambioFacade.listar(data);
-				if ((listaCambio != null) && (listaCambio.size() == 0)) {
-					listaCambio = null;
-				}
-				contador++;
-			}
-		}*/
+		listaCambio = cambioDao.listarCambio(sql);
 
 		if (listaCambio == null) {
 			datacambio = "Erro";

@@ -2,6 +2,7 @@ package br.com.travelmate.managerBean.financeiro.vendas;
 
  
 import br.com.travelmate.bean.comissao.CalcularComissaoManualBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.FaturaFranquiasFacade;
 import br.com.travelmate.facade.ProdutoFacade;
@@ -44,6 +45,8 @@ public class VendasFinanceiroMB  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -372,7 +375,7 @@ public class VendasFinanceiroMB  implements Serializable{
     }
     
     public void recalcular() {
-    	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB, vendasDao);
+    	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB, vendasDao, cambioDao);
     	for (int i = 0; i < listaVendas.size(); i++) {
 			if(listaVendas.get(i).isSelecionado()){
 				try {

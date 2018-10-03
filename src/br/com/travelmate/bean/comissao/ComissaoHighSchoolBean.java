@@ -8,8 +8,6 @@ package br.com.travelmate.bean.comissao;
 import java.util.Date;
 import java.util.List;
 
-
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cambio;
@@ -19,7 +17,6 @@ import br.com.travelmate.model.Parcelamentopagamento;
 import br.com.travelmate.model.Valoreshighschool;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
-import br.com.travelmate.util.Formatacao;
 
 
 /**
@@ -40,10 +37,11 @@ public class ComissaoHighSchoolBean {
 	 private float valorJuros;
 	 private Date dataInicioPrograma;
 	 private boolean salvarCalculos;
+	 private Cambio cambioComissao;
     
     
     public ComissaoHighSchoolBean(AplicacaoMB aplicacaoMB, Vendas venda, List<Orcamentoprodutosorcamento> listaProdutosGeral, Cambio valorCambio,
-    		Valoreshighschool valoreshighschool, List<Parcelamentopagamento> listaParcelamento, Vendascomissao vendascomissao, Date datainicio, float valorJuros, boolean salvarCalculos) {
+    		Valoreshighschool valoreshighschool, List<Parcelamentopagamento> listaParcelamento, Vendascomissao vendascomissao, Date datainicio, float valorJuros, boolean salvarCalculos,  Cambio cambioComissao) {
         this.vendasComissao = vendascomissao;
         this.aplicacaoMB = aplicacaoMB;
         this.venda = venda;
@@ -131,8 +129,6 @@ public class ComissaoHighSchoolBean {
     
     public Float calcularComissaoFranquiaBruto() {
         float comissaoLoja = 0.0f;
-        CambioFacade cambioFacade = new CambioFacade();
-        Cambio cambioComissao = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(cambioVenda.getData()), valoreshighschool.getMoedas1().getIdmoedas());
         if (cambioComissao != null) {
             if (vendasComissao.getVendas().getUnidadenegocio().getTipo().equalsIgnoreCase("Premium")) {
                 comissaoLoja = valoreshighschool.getComissaopremium() * cambioComissao.getValor();

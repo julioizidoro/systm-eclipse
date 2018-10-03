@@ -27,11 +27,11 @@ import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -75,6 +75,8 @@ public class FichaSeguroViagemMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -164,8 +166,8 @@ public class FichaSeguroViagemMB implements Serializable {
 			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 			orcamento = new Orcamento();
 			vendas.setVendasMatriz(vendaMatriz);
-			CambioFacade cambioFacade = new CambioFacade();
-			cambio = cambioFacade.consultarSigla(Formatacao.ConvercaoDataSql(dataCambio), "USD");
+			
+			cambio = cambioDao.consultarSigla(Formatacao.ConvercaoDataSql(dataCambio), "USD");
 			valorSemDesconto = 0.0f;
 			seguroplanos = new Seguroplanos();
 			novaFicha = true;
@@ -217,8 +219,8 @@ public class FichaSeguroViagemMB implements Serializable {
 			verificarSeguroCancelamento();
 			seguroAlterado = seguro;
 		}
-		CambioFacade cambioFacade = new CambioFacade();
-		cambio = cambioFacade.consultarSiglaPais(Formatacao.ConvercaoDataSql(dataCambio), "USD", usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+		
+		cambio = cambioDao.consultarSiglaPais(Formatacao.ConvercaoDataSql(dataCambio), "USD", usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		digitosFoneContatoEmergencia = aplicacaoMB.checkBoxTelefone(
 				usuarioLogadoMB.getUsuario().getUnidadenegocio().getDigitosTelefone(),
 				seguro.getFoneContatoEmergencia());
@@ -649,8 +651,8 @@ public class FichaSeguroViagemMB implements Serializable {
 	public void dataTermino() {
 		seguro.setValoresseguro(valoresseguro);
 		if ((seguro.getDataInicio() != null) && (seguro.getNumeroSemanas() != null && seguro.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
 					valoresseguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				seguro.setDataTermino(
@@ -671,8 +673,8 @@ public class FichaSeguroViagemMB implements Serializable {
 
 	public void dataTermino70Anos() {
 		if ((seguro.getDataInicio() != null) && (seguro.getNumeroSemanas() != null && seguro.getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
 					valoresseguro.getMoedas().getIdmoedas());
 			if (cambioSeguro != null) {
 				seguro.setDataTermino(
@@ -945,8 +947,8 @@ public class FichaSeguroViagemMB implements Serializable {
 			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
 				PaisFacade paisFacade = new PaisFacade();
 				Pais pais = paisFacade.consultar(5);
-				CambioFacade cambioFacade = new CambioFacade();
-				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
+				
+				cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 			}
 			vendas = programasBean.salvarVendas(vendas, usuarioLogadoMB, nsituacao, cliente, vendas.getValor(), produto,
 					valoresseguro.getFornecedorcidade(), cambio, orcamento.getValorCambio(), lead, seguro.getDataInicio(), seguro.getDataTermino(), 

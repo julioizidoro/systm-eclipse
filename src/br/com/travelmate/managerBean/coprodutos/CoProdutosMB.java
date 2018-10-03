@@ -1,8 +1,8 @@
 package br.com.travelmate.managerBean.coprodutos;
 
 import br.com.travelmate.dao.AvisosDao;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.CoProdutosDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.ComplementoAcomodacaoFacade;
 import br.com.travelmate.facade.ComplementoCursoFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
@@ -56,6 +56,8 @@ public class CoProdutosMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
+	private CambioDao cambioDao;
+	@Inject
 	private CoProdutosDao coProdutosDao;
 	@Inject
 	private AvisosDao avisosDao;
@@ -101,8 +103,7 @@ public class CoProdutosMB implements Serializable {
 			PaisProdutoFacade paisProdutoFacade = new PaisProdutoFacade();
 			idProduto = aplicacaoMB.getParametrosprodutos().getCursos();
 			listaPais = paisProdutoFacade.listar(idProduto);
-			CambioFacade cambioFacade = new CambioFacade();
-			listaMoedas = cambioFacade.listaMoedas();
+			listaMoedas = cambioDao.listaMoedas();
 			if (coprodutos == null) {
 				fornecedorCidadeIdioma = new Fornecedorcidadeidioma();
 				ano = Formatacao.getAnoData(new Date());

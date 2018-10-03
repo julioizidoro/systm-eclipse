@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.voluntariadoprojeto.orcamento;
  
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.SeguroPlanosFacade;
 import br.com.travelmate.facade.ValorSeguroFacade;
@@ -40,6 +40,8 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -282,8 +284,8 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 	public void calcularDataTermino() {
 		orcamento.getSeguroviagem().setValoresseguro(orcamento.getValorSeguro());
 		if ((orcamento.getSeguroviagem().getDataInicio() != null) && (orcamento.getSeguroviagem().getNumeroSemanas() > 0)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoedaPais(
 					Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 					orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
@@ -308,8 +310,8 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 	public void calcularDataTerminoData() {
 		orcamento.getSeguroviagem().setValoresseguro(orcamento.getValorSeguro());
 		if ((orcamento.getSeguroviagem().getDataInicio() != null) && (orcamento.getSeguroviagem().getDataTermino() != null)) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+			
+			Cambio cambioSeguro = cambioDao.consultarCambioMoedaPais(
 					Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 					orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
@@ -355,9 +357,9 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 	}
 	
 	public void convertendoValoresSeguro() {
-		CambioFacade cambioFacade = new CambioFacade();
+		
 		Cambio cambioSeguro = null;
-		cambioSeguro = cambioFacade.consultarCambioMoedaPais(
+		cambioSeguro = cambioDao.consultarCambioMoedaPais(
 				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 				orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		float valorCambio;

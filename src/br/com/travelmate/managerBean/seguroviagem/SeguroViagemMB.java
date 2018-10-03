@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.SeguroPlanosFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -41,6 +41,8 @@ public class SeguroViagemMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
     private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -192,8 +194,7 @@ public class SeguroViagemMB implements Serializable{
     public void calcularDataTermino(){
     	seguroviagem.setValoresseguro(valoresseguro);
         if ((seguroviagem.getDataInicio()!=null) && (seguroviagem.getNumeroSemanas()>0)){
-        	CambioFacade cambioFacade= new CambioFacade(); 
-        	Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio), valoresseguro.getMoedas().getIdmoedas());
+        	Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio), valoresseguro.getMoedas().getIdmoedas());
         	if (cambioSeguro!=null){
         		if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("semana")){
         			seguroviagem.setDataTermino(Formatacao.calcularDataFinalPorDias(seguroviagem.getDataInicio(), seguroviagem.getNumeroSemanas()));

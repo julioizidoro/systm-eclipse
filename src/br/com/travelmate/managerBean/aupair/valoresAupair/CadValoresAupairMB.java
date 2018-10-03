@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.facade.ValorAupairFacade;
@@ -35,6 +35,8 @@ public class CadValoresAupairMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private Valoresaupair valoresAupair;
@@ -171,8 +173,7 @@ public class CadValoresAupairMB implements Serializable {
 	}
 
 	public void carregarComboMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}

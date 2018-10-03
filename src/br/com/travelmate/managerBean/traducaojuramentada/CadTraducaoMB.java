@@ -23,11 +23,11 @@ import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoTraducaoBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.DepartamentoProdutoFacade;
@@ -68,6 +68,8 @@ import br.com.travelmate.util.Mensagem;
 public class CadTraducaoMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -692,8 +694,8 @@ public class CadTraducaoMB implements Serializable {
 				}   
 			}
 			Date dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio), 8, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+			
+			Cambio cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio), 8, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			ProgramasBean programasBean = new ProgramasBean(); 
 			venda.setVendasMatriz(vendaMatriz);
 			float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
@@ -703,8 +705,7 @@ public class CadTraducaoMB implements Serializable {
 			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
 				PaisFacade paisFacade = new PaisFacade();
 				Pais pais = paisFacade.consultar(5);
-				cambioFacade = new CambioFacade();
-				cambioBrasil = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
+				cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
 			}
 			venda.setValor(totalMoedaReal);

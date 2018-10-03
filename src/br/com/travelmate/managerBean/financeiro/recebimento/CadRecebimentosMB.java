@@ -14,9 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.BancoFacade;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.MotivoRecInternacionalFacade;
 import br.com.travelmate.facade.RecinternacionalFacade;
@@ -39,6 +39,8 @@ public class CadRecebimentosMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private VendasDao vendasDao;
 	private Vendas vendas;
@@ -250,8 +252,8 @@ public class CadRecebimentosMB implements Serializable{
 	
 	
 	public void gerarListaMoedas(){
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<>();
 		}

@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.voluntariadoprojeto.orcamento;
  
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.FornecedorPaisFacade; 
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
@@ -43,6 +43,8 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -362,7 +364,6 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 	}
 
 	public Cambio consultarCambio() {
-		CambioFacade cambioFacade = new CambioFacade();
 		Cambio cambio = null;
 		Date data = new Date();
 		Fornecedorpais fornecedorPais = buscarFornecedorPais(fornecedorcidade.getFornecedor().getIdfornecedor(),
@@ -372,7 +373,7 @@ public class VoluntariadoProjetoOrcamentoMB implements Serializable {
 			idMoeda = fornecedorPais.getPais().getMoedasVolutariado().getIdmoedas();
 		}
 		while (cambio == null) {
-			cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(data), idMoeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+			cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(data), idMoeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			try {
 				data = Formatacao.SomarDiasDatas(data, -1);
 			} catch (Exception ex) {

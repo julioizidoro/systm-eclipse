@@ -1,5 +1,6 @@
 package br.com.travelmate.managerBean.cursospacotes;
  
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
@@ -67,6 +68,8 @@ import org.primefaces.context.RequestContext;
 public class GerarOrcamentoPacoteMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private CoProdutosDao coProdutosDao;
 	@Inject
@@ -766,7 +769,7 @@ public class GerarOrcamentoPacoteMB implements Serializable {
 	public void gerarOrcamentoPDFVoluntariado() throws IOException { 
 		SalvarVoluntariadoProjeto salvarVoluntariadoProjeto = new SalvarVoluntariadoProjeto
 				(cliente, datainicio, cursospacote.getVoluntariadopacoteList().get(0).getVoluntariadoprojetovalor(), 
-						cursospacote, aplicacaoMB, usuarioLogadoMB, formapagamento);
+						cursospacote, aplicacaoMB, usuarioLogadoMB, formapagamento, cambioDao);
 		Orcamentoprojetovoluntariado orcamentoprojetovoluntariado = salvarVoluntariadoProjeto
 				.gerarOrcamento();
 		GerarOrcamentoVoluntariadoPDFBean o = new GerarOrcamentoVoluntariadoPDFBean(orcamentoprojetovoluntariado, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla());

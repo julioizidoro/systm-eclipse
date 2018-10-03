@@ -1,9 +1,9 @@
 
 package br.com.travelmate.managerBean.OrcamentoCurso;
 
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.CoProdutosDao;
 import br.com.travelmate.dao.OcursoFeriadoDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
@@ -80,6 +80,8 @@ public class FiltrarEscolaMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private CoProdutosDao coProdutosDao;
 	@Inject
@@ -536,7 +538,6 @@ public class FiltrarEscolaMB implements Serializable {
 	}
 
 	public Cambio consultarCambio(FornecedorProdutosBean fornecedorProdutosBean) {
-		CambioFacade cambioFacade = new CambioFacade();
 		Cambio cambio = null;
 		Fornecedorpais fornecedorPais = buscarFornecedorPais(
 				fornecedorProdutosBean.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
@@ -548,7 +549,7 @@ public class FiltrarEscolaMB implements Serializable {
 		if (fornecedorPais != null) {
 			idMoeda = fornecedorPais.getMoedas().getIdmoedas();
 		}
-		cambio = cambioFacade.consultarCambioMoedaPais(
+		cambio = cambioDao.consultarCambioMoedaPais(
 				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 				idMoeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		return cambio;

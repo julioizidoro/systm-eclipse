@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.cursospacotes;
  
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
 import br.com.travelmate.facade.PaisFacade;
@@ -35,6 +35,8 @@ import org.primefaces.context.RequestContext;
 public class PacotesAtivosMB implements Serializable {
  
 	private static final long serialVersionUID = 1L;  
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Pacotesinicial> listaCursosPacotes; 
@@ -448,8 +450,7 @@ public class PacotesAtivosMB implements Serializable {
 	public float calcularValorCambioAtual(Pacotesinicial pacote) {
 		float valorInicial = pacote.getValoravista();
 		if (pacote.getValorcambio()==0) {
-			CambioFacade cambioFacade = new CambioFacade();
-			Cambio cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+			Cambio cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
 					 pacote.getMoeda(), 
 						usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambio!=null) {

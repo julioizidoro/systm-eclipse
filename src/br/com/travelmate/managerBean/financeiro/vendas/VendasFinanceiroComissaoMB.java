@@ -26,6 +26,7 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.comissao.CalcularComissaoBean;
 import br.com.travelmate.bean.comissao.CalcularComissaoManualBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.FaturaFranquiasFacade;
 import br.com.travelmate.facade.TerceirosFacade;
@@ -50,6 +51,8 @@ public class VendasFinanceiroComissaoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -410,7 +413,7 @@ public class VendasFinanceiroComissaoMB implements Serializable{
     
     @SuppressWarnings("unchecked")
 	public void recalcular() {
-    	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB, vendasDao);
+    	CalcularComissaoManualBean ccb = new CalcularComissaoManualBean(aplicacaoMB, vendasDao, cambioDao);
     	try {
     		if (vendascomissao.getIdvendascomissao()!=null){
     			if (vendascomissao.getFaturaFranquias()==null){

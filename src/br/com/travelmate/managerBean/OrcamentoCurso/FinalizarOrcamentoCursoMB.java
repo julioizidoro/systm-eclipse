@@ -6,6 +6,7 @@ package br.com.travelmate.managerBean.OrcamentoCurso;
 
 import br.com.travelmate.bean.LeadSituacaoBean;
 import br.com.travelmate.bean.NumeroParcelasBean;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
@@ -14,7 +15,6 @@ import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
 import br.com.travelmate.dao.OcursoSeguroViagemDao;
-import br.com.travelmate.facade.CambioFacade;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 
@@ -78,6 +78,8 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
 	@Inject
@@ -642,8 +644,7 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 					produto = new Ocrusoprodutos();
 					produto.setNumerosemanas(0.0);
 					produto.setValorcoprodutos(valorcoprodutos);     
-					CambioFacade cambioFacade = new CambioFacade();
-					Cambio cambioSeguro = cambioFacade.consultarCambioMoeda(Formatacao.ConvercaoDataSql(ocurso.getCambio().getData()),
+					Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(ocurso.getCambio().getData()),
 							resultadoOrcamentoBean.getSeguroviagem().getValoresseguro().getMoedas().getIdmoedas()); 
 					float valorOriginl = resultadoOrcamentoBean.getSeguroviagem().getValoresseguro().getValorsegurocancelamento() * cambioSeguro.getValor();
 					valorOriginl = valorOriginl / resultadoOrcamentoBean.getOcurso().getValorcambio();

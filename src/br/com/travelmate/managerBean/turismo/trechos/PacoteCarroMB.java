@@ -14,7 +14,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.PacotesCarroFacade;
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -48,6 +48,8 @@ public class PacoteCarroMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
     private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -295,8 +297,7 @@ public class PacoteCarroMB implements Serializable{
     }
     
     public void consultarCambio() {
-    	CambioFacade cambioFacade = new CambioFacade();
-		listaCambio = cambioFacade.listarCambioPais(Formatacao.ConvercaoDataSql(new Date()), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+    	listaCambio = cambioDao.listarCambioPais(Formatacao.ConvercaoDataSql(new Date()), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		if (listaCambio == null) {
 			listaCambio = new ArrayList<>();
 		}

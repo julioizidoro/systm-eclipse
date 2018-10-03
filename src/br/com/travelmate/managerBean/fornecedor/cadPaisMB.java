@@ -1,6 +1,6 @@
 package br.com.travelmate.managerBean.fornecedor;
 
-import br.com.travelmate.facade.CambioFacade;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.PaisFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -39,6 +39,8 @@ public class cadPaisMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private List<Moedas> listaMoedas;
@@ -131,8 +133,8 @@ public class cadPaisMB implements Serializable {
 		if (moedas != null) {
 			pais.setMoedas(moedas);
 			PaisFacade paisFacade = new PaisFacade();
-			CambioFacade cambioFacade = new CambioFacade();
-			pais.setMoedasVolutariado(cambioFacade.consultarMoeda(8));
+			
+			pais.setMoedasVolutariado(cambioDao.consultarMoeda(8));
 			pais = paisFacade.salvar(pais);
 			FacesMessage mensagem = new FacesMessage("Salvo com Sucesso! ", "Pais cadastrado.");
 			FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -146,8 +148,8 @@ public class cadPaisMB implements Serializable {
 	}
 
 	public void gerarListaMoedas() {
-		CambioFacade cambioFacade = new CambioFacade();
-		listaMoedas = cambioFacade.listaMoedas();
+		
+		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
 		}

@@ -84,6 +84,7 @@ public class GerarOcamentoPDFBean {
 					produtoCurso = new Ocrusoprodutos();
 					produtoCurso = lista.get(i);
 					float totalme = lista.get(i).getValororiginal();
+					
 					totalCursoMe = totalCursoMe + totalme;
 					totalCursoRs = totalCursoRs + (totalme * ocurso.getValorcambio());
 					float valororiginal = lista.get(i).getValororiginal();
