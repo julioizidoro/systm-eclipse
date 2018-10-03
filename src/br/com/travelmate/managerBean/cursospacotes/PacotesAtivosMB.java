@@ -450,7 +450,7 @@ public class PacotesAtivosMB implements Serializable {
 		if (pacote.getValorcambio()==0) {
 			CambioFacade cambioFacade = new CambioFacade();
 			Cambio cambio = cambioFacade.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
-					 usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getIdmoedas(), 
+					 pacote.getMoeda(), 
 						usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambio!=null) {
 				float valor = pacote.getValormoedaestrangeira() * cambio.getValor();
