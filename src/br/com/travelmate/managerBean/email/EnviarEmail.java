@@ -38,7 +38,7 @@ public class EnviarEmail {
 	private float totalAdicionais;
 	private String corpoEmail;
 	private Usuario usuario;
-	private Ftpdados ftpDados;
+	//private Ftpdados ftpDados;
 	private String nomeCliente;
 	private String nomeConsultor;
 	private String textoRodape;
@@ -63,12 +63,7 @@ public class EnviarEmail {
 		this.listaDestinos = listaDestinos;
 		this.fatura = fatura;
 		this.pacotesfornecedor = pacotesfornecedor;
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		try {
-			ftpDados = ftpDadosFacade.getFTPDados();
-		} catch (SQLException e) {
-			  
-		}
+		
 		criarEmail();
 	}
 
@@ -167,13 +162,7 @@ public class EnviarEmail {
 		this.listaDadosEscolas = listaDadosEscolas;
 	}
 
-	public Ftpdados getFtpDados() {
-		return ftpDados;
-	}
-
-	public void setFtpDados(Ftpdados ftpDados) {
-		this.ftpDados = ftpDados;
-	}
+	
 
 	public String getNomeArquivo() {
 		return nomeArquivo;
@@ -287,14 +276,15 @@ public class EnviarEmail {
 	}
 
 	public void criarEmail() {
-		String urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost();
+		//String urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost();
+		String urlArquivo = "https://local.systm.com.br/elementosorcamento/";
 		String br = "";
 		corpoEmail = "<?xml version=\'1.0\' encoding=\'UTF-8\' ?> \n <html>\n" + "<head>\n"
 				+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\" />\n"
 				+ "    <STYLE type=\"text/css\">TD {margin: 0px;padding: 0px;}IMG {margin: 0px;padding: 0px;}A.headline {TEXT-DECORATION: none;margin:;}A.headline:link {TEXT-DECORATION: none;}A.headline:visited {TEXT-DECORATION: none}A.headline:hover {TEXT-DECORATION: underline;}a: {margin: 0px;padding: 0px;} .menu{float:left;}</STYLE>\n"
 				+ "</head>\n" + "<body style=\"font-family: arial;width:70%;\">\n"  
 				+ " <div align=\"center\" style=\"width:100%;\">\n";
-		corpoEmail = corpoEmail + " <img src=\""+ urlArquivo +":"+ ftpDados.getWww()+ "/systm/elementosOrcamento/logoRelatorio.jpg\" width=\"400\">\n"; 
+		corpoEmail = corpoEmail + " <img src=\""+ urlArquivo + "logoRelatorio.jpg\" width=\"400\">\n"; 
 		corpoEmail = corpoEmail + " <br></br>\n";
 		if (listaDadosEscolas != null && listaDadosEscolas.size() > 0) {
 			corpoEmail = corpoEmail + "	<label style=\"font-size:18px;\">Olá, "+ nomeCliente +"</label><br></br><br></br>";
@@ -363,7 +353,7 @@ public class EnviarEmail {
 					+ "</p>\n" + " <p style=\"font-size:13px;\">Duração do Curso: "
 					+ listaDadosEscolas.get(j).getDuracao() + " Semanas" + "</p>\n"
 					+ " <p style=\"font-size:13px;\">Turno do Curso: " + listaDadosEscolas.get(j).getTurno() + "</p/>\n"
-					+ " <a href=\\https://orcamentos.systm.com.br/"
+					+ " <a href=\"https://orcamentos.systm.com.br/"
 					+ listaDadosEscolas.get(j).getNomeArquivo()
 					+ "\" target=\"blanck\" style=\"text-decoration:none;\">\n"
 					+ " <img src=\""+  "https://local.systm.com.br/paisemail/btnorcamento.png\"></img></a> <br></br><br></br><br></br></div></td></tr></table>\n";
@@ -371,10 +361,10 @@ public class EnviarEmail {
 	}
 
 	public void gerarCorpoOrcamentoComparativo() {
-		String urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost();
+		String urlArquivo = "https://orcamento.systm.com.br/";
 		corpoEmail = corpoEmail + " 	</p>\n" + "	    <hr style=\"color:#A6CE39; \"/>\n" + "	<section>\n"
 				+ "	    <article>\n" + "	        <header>\n" + " <a href=\"" + urlArquivo
-				+ ":"+ ftpDados.getWww() +"/systm/orcamento/" + nomeArquivo
+			    + nomeArquivo
 				+ "\" target=\"blanck\" style=\"font-size:16px;color:#4C816D;\">Clique para visualizar orçamentos.</a>\n"
 				+ "	        </header>\n" + "	        <hr style=\"color:#A6CE39;\"/>\n" + "	      </article>\n"
 				+ "	    </section>\n"
@@ -383,13 +373,13 @@ public class EnviarEmail {
 	}
 
 	public void gerarCorpoDocumentos() {
-		String urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost();
+		String urlArquivo = "https://arquivos.systm.com.br/";
 		for (int j = 0; j < listaArquivos.size(); j++) {
 			corpoEmail = corpoEmail + "	            <h3 style=\"color: #1E8871;margin-left:2.5%;\"></h2>\n"
 					+ "</strong>\n" + "             <strong style=\"font-size:12px;\">"
 					+ "	        	<label style=\"font-size:15px;\">Documento: "
 					+ listaArquivos.get(j).getTipoarquivo().getDescricao() + "</a><br/>\n"
-					+ "	        	<a href=\"" + urlArquivo + ":"+ ftpDados.getWww() +"/systm/arquivos/"
+					+ "	        	<a href=\"" + urlArquivo 
 					+ listaArquivos.get(j).getNomesalvos()
 					+ "\" target=\"blanck\" style=\"font-size:12px;color:#424242;\">Clique para ver o documento </a>\n"
 					+ "	        </header>\n" + "	        <hr style=\"color:#424242;\"/>\n";
@@ -397,12 +387,12 @@ public class EnviarEmail {
 	} 
 	
 	public void gerarCorpoComprovanteTurismo() { 
-		String urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost();
+		String urlArquivo = "local.systm.com.br/turismo/comprovantes/";
 		corpoEmail = corpoEmail + "	            <h3 style=\"color: #1E8871;margin-left:2.5%;\"></h2>\n"
 				+ "</strong>\n" + "             <strong style=\"font-size:12px;\">"
 				+ "	        	<label style=\"font-size:15px;\">Comprovante: "
 				+ "</a><br/>\n"
-				+ "	        	<a href=\"" + urlArquivo + ":"+ ftpDados.getWww() +"/systm/turismo/comprovantes/"
+				+ "	        	<a href=\"" + urlArquivo 
 				+ pacotesfornecedor.getNomeftp()
 				+ "\" target=\"blanck\" style=\"font-size:12px;color:#424242;\">Clique para abrir o documento.</a>\n"
 				+ "	        </header>\n" + "	        <hr style=\"color:#424242;\"/>\n"; 
