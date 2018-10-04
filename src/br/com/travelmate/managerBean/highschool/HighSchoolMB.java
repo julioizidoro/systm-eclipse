@@ -1024,6 +1024,7 @@ public class HighSchoolMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("highschool", highschool);
 		session.setAttribute("listaHighSchool", listaHighSchool);
+		session.setAttribute("chamadaTela", "HighSchool");
 		return "fichaHighSchool";
 	}
 	
@@ -1033,6 +1034,7 @@ public class HighSchoolMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("highschool", highschool);
 		session.setAttribute("listaHighSchool", listaHighSchool);
+		session.setAttribute("chamadaTela", "HighSchool");
 		return "contratoHighSchool";
 	}
 	

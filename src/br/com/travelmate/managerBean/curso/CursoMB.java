@@ -1165,6 +1165,7 @@ public class CursoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("curso", curso);
 		session.setAttribute("listaVendasCurso", listaVendasCurso);
+		session.setAttribute("chamadaTela", "Cursos");
 		return "fichaCurso";
 	}
 	
@@ -1211,6 +1212,7 @@ public class CursoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("curso", curso);
 		session.setAttribute("listaVendasCurso", listaVendasCurso);
+		session.setAttribute("chamadaTela", "Cursos");
 		return "contratoCurso";
 	}
 	
