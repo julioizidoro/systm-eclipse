@@ -925,6 +925,7 @@ public class CursosTeensMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("programasteens", programasteens);
 		session.setAttribute("listaCursosTeens", listaCursosTeens);
+		session.setAttribute("chamadaTela", "Teens");
 		return "fichaCursosTeens";
 	}
 	
@@ -934,6 +935,7 @@ public class CursosTeensMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("programasteens", programasteens);
 		session.setAttribute("listaCursosTeens", listaCursosTeens);
+		session.setAttribute("chamadaTela", "Teens");
 		return "contratoTeens";
 	}
 	

@@ -932,6 +932,7 @@ public class AuPairMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("aupair", aupair);
 		session.setAttribute("listaAupair", listaAupair);
+		session.setAttribute("chamadaTela", "Aupair");
 		return "fichaAuPair";
 	}
 	
@@ -976,6 +977,7 @@ public class AuPairMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("aupair", aupair);
 		session.setAttribute("listaAupair", listaAupair);
+		session.setAttribute("chamadaTela", "Aupair");
 		return "contratoAuPair";
 	}
 	

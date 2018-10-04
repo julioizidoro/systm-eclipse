@@ -918,6 +918,7 @@ public class DemiPairMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("demipair", demipair);
 		session.setAttribute("listaDemipair", listaDemipair);
+		session.setAttribute("chamadaTela", "Demipair");
 		return "fichasDemiPair";
 	}
 	
@@ -926,6 +927,7 @@ public class DemiPairMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("demipair", demipair);
 		session.setAttribute("listaDemipair", listaDemipair);
+		session.setAttribute("chamadaTela", "Demipair");
 		return "contratoDemiPair";
 	}
 	

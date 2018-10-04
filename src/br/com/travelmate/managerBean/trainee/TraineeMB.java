@@ -969,6 +969,7 @@ public class TraineeMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("trainee", trainee);
 		session.setAttribute("listaTrainee", listaTrainee);
+		session.setAttribute("chamadaTela", "Trainee");
 		if (trainee.getTipotrainee().equalsIgnoreCase("Australia")) {
 			return "fichaTraineeAus";
 		}
@@ -981,6 +982,7 @@ public class TraineeMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("trainee", trainee);
 		session.setAttribute("listaTrainee", listaTrainee);
+		session.setAttribute("chamadaTela", "Trainee");
 		return "contratoTrainee";
 	}
 	
