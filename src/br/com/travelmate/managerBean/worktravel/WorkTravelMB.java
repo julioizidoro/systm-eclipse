@@ -955,6 +955,7 @@ public class WorkTravelMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("worktravel", worktravel);
 		session.setAttribute("listaWork", listaWork);
+		session.setAttribute("chamadaTela", "Work");
 		return "fichaWorkTravel";
 	}
 	
@@ -1006,6 +1007,7 @@ public class WorkTravelMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("worktravel", worktravel);
 		session.setAttribute("listaWork", listaWork);
+		session.setAttribute("chamadaTela", "Work");
 		return "contratoWorkTravelPremium";
 	}
 	
