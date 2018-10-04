@@ -504,7 +504,7 @@ public class CadArquivoMB implements Serializable {
 		UploadAWSS3 s3 = new UploadAWSS3("arquivos", caminho);
 		File arquivoFile = s3.getFile(file, nomeArquivoFile);
 		if (s3.uploadFile(arquivoFile, "")) {
-			msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
+			msg = "Arquivo: " + nomeArquivo + " enviado com sucesso";
 			arquivoEnviado = true;
 		} else {
 			msg = " Erro no nome do arquivo";
