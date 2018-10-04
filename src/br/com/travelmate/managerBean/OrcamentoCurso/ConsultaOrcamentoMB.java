@@ -480,7 +480,15 @@ public class ConsultaOrcamentoMB implements Serializable {
 		}
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("/reports/orcamentopdf/"));
-		File f = new File(servletContext.getRealPath("/reports/orcamentopdf/mascote.png"));
+		File f = new File(servletContext.getRealPath("/resources/img/vistos/13.jpg"));
+		BufferedImage visto = null;
+		try {
+			visto = ImageIO.read(f);
+		} catch (IOException e) {
+			  
+		}
+		parameters.put("visto", visto);
+		f = new File(servletContext.getRealPath("/reports/orcamentopdf/mascote.png"));
 		BufferedImage mascote = null;
 		try {
 			mascote = ImageIO.read(f);
@@ -785,7 +793,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 		} catch (IOException e) {
 			  
 		}
-		String text = "orcamentos.systm.com.br/TM-" + ocurso.getIdocurso() + ".pdf";
+		String text = "https://orcamentos.systm.com.br/TM-" + ocurso.getIdocurso() + ".pdf";
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 400);
 		FacesContext fc = FacesContext.getCurrentInstance();
