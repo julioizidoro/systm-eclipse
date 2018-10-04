@@ -141,7 +141,7 @@ public class SalvarOrcamentoOcurso {
 		dataconsulta = retornarDataConsultaOrcamento();
 		salvarProdutosCurso();
 		salvarTaxasCurso();
-		salvarProdutosObrigatorios();
+		//salvarProdutosObrigatorios();
 		if (cursospacote.getValorcoprodutos_acomodacao() != null) {
 			salvarAcomodacao();
 			salvarTaxasAcomodacao();
@@ -397,6 +397,31 @@ public class SalvarOrcamentoOcurso {
 		}
 		return null;
 	}
+	
+	public ProdutosOrcamentoBean consultarValoresTaxas(String tipoData, int idCoProdutos, Date dataConsulta, String tipo) {
+		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
+
+		int ano = cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getAnotarifario();
+		String sqlSuplemento = "Select v from  Valorcoprodutos v where v.datainicial>='" + ano
+				+ "-01-01' and v.numerosemanainicial<=" + cursospacote.getNumerosemanacurso()
+				+ " and v.numerosemanafinal>=" + cursospacote.getNumerosemanacurso() + " and v.tipodata='" + tipoData
+				+ "' and v.coprodutos.idcoprodutos=" + idCoProdutos;
+		List<Valorcoprodutos> listaValorcoprodutosSuplemento = valorCoProdutosFacade.listar(sqlSuplemento);
+		if (listaValorcoprodutosSuplemento != null) {
+			for (int n = 0; n < listaValorcoprodutosSuplemento.size(); n++) {
+				if (listaValorcoprodutosSuplemento.get(n).getProdutosuplemento().equalsIgnoreCase("Curso")) {
+					listaValorcoprodutosSuplemento.get(n).getCoprodutos().getProdutosorcamento().setDescricao(
+							listaValorcoprodutosSuplemento.get(n).getCoprodutos().getProdutosorcamento().getDescricao()
+									+ " - Curso");
+					Valorcoprodutos valorSuplemente = new Valorcoprodutos();
+					valorSuplemente = listaValorcoprodutosSuplemento.get(n);
+					listarValores(valorSuplemente, tipo);
+				}
+			}
+		}
+		
+		return null;
+	}
 
 	public Date retornarDataConsultaOrcamento() {
 		int anoFornecedor = 0;
@@ -628,7 +653,8 @@ public class SalvarOrcamentoOcurso {
 			}
 		} 
 		String sql = "Select g from Grupoobrigatorio g where g.coprodutos.idcoprodutos="
-				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos();
+				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos() 
+				+ " and g.produto.idcoprodutos<>"+cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos();;
 		GrupoObrigatorioFacade grupoObrigatorioFacade = new GrupoObrigatorioFacade();
 		List<Grupoobrigatorio> listaGrupoObrigatorio;
 		listaGrupoObrigatorio = grupoObrigatorioFacade.listar(sql); 
