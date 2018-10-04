@@ -380,23 +380,26 @@ public class CadArquivoMB implements Serializable {
 						}
 					}
 				}
-				if (vendas.getUnidadenegocio().getIdunidadeNegocio() == 2) {
-					if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null) {
-						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) {
-							Avisos avisos = new Avisos();
-							avisos.setData(new Date());
-							avisos.setUsuario(usuarioLogadoMB.getUsuario());
-							avisos.setImagem("Upload");
-							avisos.setLiberar(true);
-							avisos.setIdvenda(vendas.getIdvendas());
-							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
-									+ cliente.getNome() + " - " + vendas.getProdutos().getDescricao() + " | " + obs);
-							avisos.setIdunidade(0);
-							avisos = avisosDao.salvar(avisos);
-							salvarAvisoUsuarioVinculado(avisos);
-							if (arquivos.getTipoarquivo().isPertencefinanceiro()
-									&& !vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
-								notificarFinanceiro(avisos);
+				if (vendas.getIdvendas() != 3723) {
+					if (vendas.getUnidadenegocio().getIdunidadeNegocio() == 2) {
+						if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null) {
+							if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) {
+								Avisos avisos = new Avisos();
+								avisos.setData(new Date());
+								avisos.setUsuario(usuarioLogadoMB.getUsuario());
+								avisos.setImagem("Upload");
+								avisos.setLiberar(true);
+								avisos.setIdvenda(vendas.getIdvendas());
+								avisos.setTexto(
+										"Upload " + arquivos.getTipoarquivo().getDescricao() + " " + cliente.getNome()
+												+ " - " + vendas.getProdutos().getDescricao() + " | " + obs);
+								avisos.setIdunidade(0);
+								avisos = avisosDao.salvar(avisos);
+								salvarAvisoUsuarioVinculado(avisos);
+								if (arquivos.getTipoarquivo().isPertencefinanceiro()
+										&& !vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
+									notificarFinanceiro(avisos);
+								}
 							}
 						}
 					}
