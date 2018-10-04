@@ -336,8 +336,12 @@ public class EncaminharLeadMB implements Serializable {
 			lead.setUsuario(usuario); 
 			lead.setPais(pais);
 			lead.setProdutos(produto);
-			if (lead.getDataenvio() == null) {
-				lead.setDataenvio(new Date());
+			int idunidadepossui = usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			int iduniadeenviar = lead.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			if (iduniadeenviar==idunidadepossui) {
+				if (lead.getDataenvio() == null) {
+					lead.setDataenvio(new Date());
+				}
 			}
 			leadDao.salvar(lead);
 			lead.getCliente().setUnidadenegocio(unidadenegocio);
