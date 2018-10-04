@@ -25,6 +25,7 @@ import org.primefaces.model.UploadedFile;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.GerarBoletosBean;
 import br.com.travelmate.dao.AvisosDao;
+import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
@@ -88,6 +89,8 @@ public class CadArquivoMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private CambioDao cambioDao;
 	@Inject
 	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
@@ -704,7 +707,7 @@ public class CadArquivoMB implements Serializable {
 		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
 		Highschool highschool = highSchoolFacade.consultarHighschool(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-		vendas = finalizarMB.finalizarHighSchool(highschool);
+		vendas = finalizarMB.finalizarHighSchool(highschool, cambioDao);
 		if (Formatacao.validarDataVenda(highschool.getVendas().getDataVenda())) {
 			new ContasReceberBean(highschool.getVendas(),
 					highschool.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null,

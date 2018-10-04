@@ -55,11 +55,7 @@ public class FinalizarMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	private CambioDao cambioDao;
-	@Inject
 	private VendasDao vendasDao;
-	@Inject
 	private AplicacaoMB aplicacaoMB;
 	
 	private String nome = "";
@@ -435,9 +431,7 @@ public class FinalizarMB implements Serializable {
 	}
 	
 	
-	public Vendas finalizarHighSchool(Highschool highschool) {
-		
-
+	public Vendas finalizarHighSchool(Highschool highschool, CambioDao cambioDao) {
 		float valorPrevisto = 0.0f;
 		Vendascomissao vendasComissao = highschool.getVendas().getVendascomissao();
 		if (vendasComissao == null) {
