@@ -11,8 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ParametrosProdutosFacade;
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.facade.UsuarioPontosFacade;
@@ -35,6 +36,8 @@ public class AplicacaoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -358,8 +361,8 @@ public class AplicacaoMB implements Serializable {
 	}
 	
 	public void listarPais(){
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("Select p from Pais p where p.possuifranquia=1");
+		
+		listaPais = paisDao.listarModelo("Select p from Pais p where p.possuifranquia=1");
 		if (listaPais==null) {
 			listaPais = new ArrayList<Pais>();
 		}

@@ -15,7 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.PaisFacade;
+
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.ValoresHighSchoolFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cidade;
@@ -33,6 +34,9 @@ public class valoresHighSchoolMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private List<Valoreshighschool> listaValores;
@@ -49,8 +53,8 @@ public class valoresHighSchoolMB implements Serializable {
 	
 	@PostConstruct()
 	public void init() {
-		PaisFacade paisFacade = new PaisFacade();
-        listaPais = paisFacade.listar();
+		
+        listaPais = paisDao.listar();
 		sql = "select v from Valoreshighschool v where (v.situacao='Ativo' or v.situacao='Temporário') and v.datavalidade>='"
 				+Formatacao.ConvercaoDataSql(new Date())+"'";
 		carregarValores();

@@ -11,7 +11,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.travelmate.bean.PromocoesBean;
-import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.dao.PaisDao;
+
 import br.com.travelmate.facade.PromocaoAcomodacaoCidadeFacade;
 import br.com.travelmate.facade.PromocaoBrindeCursoCidadeFacade;
 import br.com.travelmate.facade.PromocaoCursoFornecedorCidadeFacade;
@@ -40,6 +41,9 @@ public class ConsPromocoesAtivasMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private List<Pais> listaTabelaPais; 
 	private List<Cidade> listaTabelaCidade;
 	private List<Fornecedorcidade> listaFornecedorCidade;
@@ -460,8 +464,8 @@ public class ConsPromocoesAtivasMB implements Serializable {
 		if (pais != null) { 
 			gerarListaEscolas();
 		} else {
-			PaisFacade paisFacade = new PaisFacade();
-			listaTabelaPais = paisFacade.listar();
+			
+			listaTabelaPais = paisDao.listar();
 		}
 	}
 

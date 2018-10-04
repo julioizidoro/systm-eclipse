@@ -7,12 +7,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.dao.PaisDao;
+
 import br.com.travelmate.facade.TmStarFacade;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Tmstar;
@@ -26,6 +28,9 @@ public class EditarPaisTmStarMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private Pais pais;
 	private List<Pais> listaPais;
 	private Tmstar tmstar;
@@ -95,8 +100,8 @@ public class EditarPaisTmStarMB implements Serializable{
 	
 	
 	public void gerarListaPais(){
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		if (listaPais == null || listaPais.isEmpty()) {
 			listaPais = new ArrayList<Pais>();
 		}

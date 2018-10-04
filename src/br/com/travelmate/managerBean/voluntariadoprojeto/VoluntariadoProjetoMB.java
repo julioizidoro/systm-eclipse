@@ -1,10 +1,10 @@
 package br.com.travelmate.managerBean.voluntariadoprojeto;
 
 import br.com.travelmate.dao.AvisosDao;
-
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.FornecedorCidadeFacade; 
 import br.com.travelmate.facade.FornecedorFacade; 
-import br.com.travelmate.facade.PaisFacade; 
+
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VoluntariadoProjetoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -45,6 +45,9 @@ public class VoluntariadoProjetoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private AvisosDao avisosDao;
 	@Inject
@@ -71,8 +74,8 @@ public class VoluntariadoProjetoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		fornecedorcidade = (Fornecedorcidade) session.getAttribute("fornecedorcidade");
 		session.removeAttribute("fornecedorcidade");
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();  
+		
+		listaPais = paisDao.listar();  
 		habilitarorcamento = false;
 		if (fornecedorcidade == null) {
 			fornecedorcidade = new Fornecedorcidade();

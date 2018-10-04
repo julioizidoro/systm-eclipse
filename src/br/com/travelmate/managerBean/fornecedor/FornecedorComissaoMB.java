@@ -1,11 +1,12 @@
 package br.com.travelmate.managerBean.fornecedor;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoProdutoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Filtroorcamentoproduto;
 import br.com.travelmate.model.Fornecedor;
@@ -35,6 +36,9 @@ public class FornecedorComissaoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
     private AplicacaoMB aplicacaoMB;
     private Pais pais;
@@ -147,8 +151,8 @@ public class FornecedorComissaoMB implements Serializable{
 
 	public void gerarListaPais(){
 		pais = null;
-        PaisFacade paisFacade = new PaisFacade();
-        listaPais = paisFacade.listar("");
+        
+        listaPais = paisDao.listar("");
         if(listaPais==null){
             listaPais = new ArrayList<Pais>();
         } 

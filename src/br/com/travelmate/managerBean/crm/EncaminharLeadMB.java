@@ -18,9 +18,9 @@ import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadEncaminhadoDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
-
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.ClienteFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -46,6 +46,9 @@ public class EncaminharLeadMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private AvisosDao avisosDao;
 	@Inject
@@ -333,8 +336,12 @@ public class EncaminharLeadMB implements Serializable {
 			lead.setUsuario(usuario); 
 			lead.setPais(pais);
 			lead.setProdutos(produto);
-			if (lead.getDataenvio() == null) {
-				lead.setDataenvio(new Date());
+			int idunidadepossui = usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			int iduniadeenviar = lead.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			if (iduniadeenviar==idunidadepossui) {
+				if (lead.getDataenvio() == null) {
+					lead.setDataenvio(new Date());
+				}
 			}
 			leadDao.salvar(lead);
 			lead.getCliente().setUnidadenegocio(unidadenegocio);
@@ -460,8 +467,8 @@ public class EncaminharLeadMB implements Serializable {
 	   
 	
 	public void gerarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar("");
+		
+		listaPais = paisDao.listar("");
 		if (listaPais==null) {
 			listaPais = new ArrayList<Pais>();
 		}

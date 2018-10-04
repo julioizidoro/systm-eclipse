@@ -1,9 +1,10 @@
 package br.com.travelmate.managerBean.cursospacotes;
  
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.CursosPacotesFormaPagamentoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.facade.VoluntariadoPacoteFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 public class CadCursosPacotesMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -581,8 +584,8 @@ public class CadCursosPacotesMB implements Serializable {
 	
 	
 	public void gerarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.possuifranquia=true");
+		
+		listaPais = paisDao.listarModelo("SELECT p FROM Pais p WHERE p.possuifranquia=true");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

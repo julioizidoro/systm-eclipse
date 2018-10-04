@@ -17,12 +17,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.ValoresHighSchoolFacade;
 import br.com.travelmate.facade.ValoresProgramasTeensFacade;
 import br.com.travelmate.managerBean.aupair.controle.RelatorioMediaMatchMB;
@@ -44,6 +45,9 @@ public class GerarRelatorioTeensMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private Valoreshighschool valoreshighschool;
 	private Valoresprogramasteens valoresprogramasteens;
 	private List<RelatorioComissaoTeensBean> listaComissaoTeens;
@@ -53,8 +57,8 @@ public class GerarRelatorioTeensMB implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 	}
 
 

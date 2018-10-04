@@ -31,6 +31,7 @@ import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
@@ -38,7 +39,7 @@ import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.HeParceirosFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
@@ -78,6 +79,9 @@ public class CadHeInscricaoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -161,8 +165,8 @@ public class CadHeInscricaoMB implements Serializable {
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("he");
 		session.removeAttribute("cliente");
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();    
+		
+		listaPais = paisDao.listar();    
 		carregarComboMoedas();
 		gerarListaProdutos();
 		if (he != null) {
@@ -1426,8 +1430,8 @@ public class CadHeInscricaoMB implements Serializable {
 			venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
 			Cambio cambioBrasil = null;
 			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
-				PaisFacade paisFacade = new PaisFacade();
-				Pais pais = paisFacade.consultar(5);
+				
+				Pais pais = paisDao.consultar(5);
 				
 				cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
@@ -1704,16 +1708,16 @@ public class CadHeInscricaoMB implements Serializable {
 	public void gerarHeParceiro2() {
 		if (camposHe2) {
 			heparceiros2 = new Heparceiros();
-			PaisFacade paisFacade = new PaisFacade();
-			listaPais2 = paisFacade.listar();    
+			
+			listaPais2 = paisDao.listar();    
 		}
 	}
 	
 	public void gerarHeParceiro3() {
 		if (camposHe3) {
 			heparceiros3 = new Heparceiros();
-			PaisFacade paisFacade = new PaisFacade();
-			listaPais3 = paisFacade.listar();    
+			
+			listaPais3 = paisDao.listar();    
 		}
 	}
 	
@@ -1735,8 +1739,8 @@ public class CadHeInscricaoMB implements Serializable {
 				heparceiros2 = listaHeParceiros.get(1);
 				camposHe2 = true;
 				camposPathway2 = true;
-				PaisFacade paisFacade = new PaisFacade();
-				listaPais2 = paisFacade.listar();    
+				
+				listaPais2 = paisDao.listar();    
 				pais2 = heparceiros2.getFornecedorcidade().getCidade().getPais();
 				cidade2 = heparceiros2.getFornecedorcidade().getCidade();
 				listarFornecedorCidade2();
@@ -1748,8 +1752,8 @@ public class CadHeInscricaoMB implements Serializable {
 				heparceiros2 = listaHeParceiros.get(1);
 				camposHe2 = true;
 				camposPathway2 = heparceiros2.isPathway();
-				PaisFacade paisFacade = new PaisFacade();
-				listaPais2 = paisFacade.listar();    
+				
+				listaPais2 = paisDao.listar();    
 				pais2 = heparceiros2.getFornecedorcidade().getCidade().getPais();
 				cidade2 = heparceiros2.getFornecedorcidade().getCidade();
 				listarFornecedorCidade2();
@@ -1757,7 +1761,7 @@ public class CadHeInscricaoMB implements Serializable {
 				heparceiros3 = listaHeParceiros.get(2);
 				camposHe3 = true;
 				camposPathway3 = heparceiros3.isPathway();
-				listaPais3 = paisFacade.listar();    
+				listaPais3 = paisDao.listar();    
 				pais3 = heparceiros3.getFornecedorcidade().getCidade().getPais();
 				cidade3 = heparceiros3.getFornecedorcidade().getCidade();
 				listarFornecedorCidade3();

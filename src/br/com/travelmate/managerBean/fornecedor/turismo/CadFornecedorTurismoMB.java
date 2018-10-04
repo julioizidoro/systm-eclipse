@@ -6,14 +6,16 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CidadeFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorFacade;
 import br.com.travelmate.facade.FornecedorFinanceiroFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ProdutoFacade; 
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Fornecedor;
@@ -31,6 +33,9 @@ public class CadFornecedorTurismoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private Fornecedor fornecedor;
 	private Fornecedorfinanceiro fornecedorfinanceiro;
 	private Pais pais;
@@ -44,8 +49,8 @@ public class CadFornecedorTurismoMB implements Serializable{
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         fornecedorfinanceiro = (Fornecedorfinanceiro) session.getAttribute("fornecedorfinanceiro");
         session.removeAttribute("fornecedorfinanceiro");
-        PaisFacade paisFacade = new PaisFacade();
-        listaPais = paisFacade.listar();
+        
+        listaPais = paisDao.listar();
         if(fornecedorfinanceiro==null){
         	fornecedorfinanceiro = new Fornecedorfinanceiro();
         	fornecedor = new Fornecedor();

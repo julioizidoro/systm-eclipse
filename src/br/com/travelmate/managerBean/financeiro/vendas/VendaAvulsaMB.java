@@ -13,10 +13,11 @@ import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.DashBoardBean;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 
@@ -43,6 +44,9 @@ public class VendaAvulsaMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L; 
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -76,8 +80,8 @@ public class VendaAvulsaMB implements Serializable{
 		pais = new Pais();
 		fornecedorCidade =  new Fornecedorcidade();
 		cidade  =new Cidade();
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		listaUnidadeNegocio = GerarListas.listarUnidade();
 		listaProdutos = GerarListas.listarProdutos("");
 		carregarListaUsuario();

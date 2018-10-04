@@ -18,7 +18,8 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.dao.CambioDao;
-import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.dao.PaisDao;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Moedas;
@@ -34,6 +35,9 @@ public class CambioMB  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -168,9 +172,9 @@ public class CambioMB  implements Serializable{
 				cambio.setPais(pais);
 				cambio = cambioDao.salvar(cambio);
 			}
-			PaisFacade paisFacade = new PaisFacade();
+			
 			pais.setDatacambio(data);
-			pais = paisFacade.salvar(pais);
+			pais = paisDao.salvar(pais);
 			FacesContext fc = FacesContext.getCurrentInstance();
 		    HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		    session.setAttribute("data", data);
@@ -193,8 +197,8 @@ public class CambioMB  implements Serializable{
 	}
 	
 	public void gerarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.possuifranquia=true");
+		
+		listaPais = paisDao.listarModelo("SELECT p FROM Pais p WHERE p.possuifranquia=true");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

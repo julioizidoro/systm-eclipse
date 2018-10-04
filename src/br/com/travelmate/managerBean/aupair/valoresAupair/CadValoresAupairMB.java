@@ -14,8 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ValorAupairFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cidade;
@@ -35,6 +36,9 @@ public class CadValoresAupairMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -58,8 +62,8 @@ public class CadValoresAupairMB implements Serializable {
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		valoresAupair = (Valoresaupair) session.getAttribute("valor");
 		session.removeAttribute("valor");
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		carregarComboMoedas();
 		carregarListaProdutos();
 		if (valoresAupair==null){

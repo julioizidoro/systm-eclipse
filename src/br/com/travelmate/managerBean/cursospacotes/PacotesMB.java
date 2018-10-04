@@ -24,7 +24,7 @@ import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
 import br.com.travelmate.dao.OcursoSeguroViagemDao;
-import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.OrcamentoCurso.EditarOrcamentoOcursoBean;
@@ -45,6 +45,9 @@ import br.com.travelmate.util.Mensagem;
 public class PacotesMB implements Serializable{
 	
 	private static final long serialVersionUID = 1L;  
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CoProdutosDao coProdutosDao;
 	private List<Ocurso> listaOCursos; 
@@ -355,8 +358,8 @@ public class PacotesMB implements Serializable{
 	
 	
 	public void gerarListaPais(){
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.modelo>0");
+		
+		listaPais = paisDao.listarModelo("SELECT p FROM Pais p WHERE p.modelo>0");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

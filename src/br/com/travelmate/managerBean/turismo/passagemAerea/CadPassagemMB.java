@@ -26,12 +26,13 @@ import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoPassagemBean;
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.PassagemFacade;
@@ -70,6 +71,8 @@ public class CadPassagemMB implements Serializable {
 	* 
 	*/
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -802,8 +805,8 @@ public class CadPassagemMB implements Serializable {
 				vendas.setValorpais(totalMoedaEstrangeira * cambio.getValor());
 				Cambio cambioBrasil = null;
 				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
-					PaisFacade paisFacade = new PaisFacade();
-					Pais pais = paisFacade.consultar(5);
+					
+					Pais pais = paisDao.consultar(5);
 					
 					cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();

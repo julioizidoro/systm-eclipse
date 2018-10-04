@@ -14,8 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ValoresWorkFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cidade;
@@ -35,6 +36,9 @@ public class CadValoresWorkMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -59,8 +63,8 @@ public class CadValoresWorkMB implements Serializable {
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         valoresWork = (Valoreswork) session.getAttribute("valor");
 		session.removeAttribute("valor");
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		carregarComboMoedas();
 		carregarListaProdutos();
 		if (valoresWork==null){

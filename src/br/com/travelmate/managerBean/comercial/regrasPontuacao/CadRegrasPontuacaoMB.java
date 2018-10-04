@@ -7,15 +7,17 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CidadeFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.FornecedorFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.RegraVendaFacade;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Fornecedor;
@@ -34,6 +36,9 @@ public class CadRegrasPontuacaoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private Produtos produtos;
 	private Pais pais;
 	private Cidade cidade;
@@ -54,8 +59,8 @@ public class CadRegrasPontuacaoMB implements Serializable{
 		regraVenda = (Regravenda) session.getAttribute("regraVenda");
 		session.removeAttribute("regraVenda");
 	    listaProdutos = GerarListas.listarProdutos("");
-	    PaisFacade paisFacade = new PaisFacade();
-        listaPais = paisFacade.listar();
+	    
+        listaPais = paisDao.listar();
         gerarListaFornecedor();
         pais = new Pais();
         cidade = new Cidade();
@@ -208,8 +213,8 @@ public class CadRegrasPontuacaoMB implements Serializable{
 	public void iniciarAlteracao(){
 		produtos = regraVenda.getProdutos();
 		if(regraVenda.getPais()>0){
-			PaisFacade paisFacade = new PaisFacade();
-			pais = paisFacade.consultar(regraVenda.getPais());
+			
+			pais = paisDao.consultar(regraVenda.getPais());
 			if(regraVenda.getCidade()>0){
 				CidadeFacade cidadeFacade = new CidadeFacade();
 				cidade = cidadeFacade.consultar(regraVenda.getCidade());

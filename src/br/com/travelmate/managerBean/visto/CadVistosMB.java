@@ -30,11 +30,12 @@ import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
@@ -68,7 +69,11 @@ public class CadVistosMB implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;@Inject
+	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
+	@Inject
 	private CambioDao cambioDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
@@ -166,8 +171,8 @@ public class CadVistosMB implements Serializable {
 			calcularParcelamentoPagamento();
 			cliente = vendas.getCliente();
 			cambio = vendas.getCambio();
-			PaisFacade paisFacade = new PaisFacade();
-			pais = paisFacade.consultarNome(vistos.getPaisDestino());
+			
+			pais = paisDao.consultarNome(vistos.getPaisDestino());
 			unidadenegocio = vendas.getUnidadenegocio();
 			listaUsuario = new ArrayList<Usuario>();
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
@@ -422,8 +427,8 @@ public class CadVistosMB implements Serializable {
 	}
 
 	public void carregarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 	}
 
 	public void adicionarFormaPagamento() {
@@ -690,8 +695,8 @@ public class CadVistosMB implements Serializable {
 			vendas.setValorpais(totalMoedaEstrangeira);
 			Cambio cambioBrasil = null;
 			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
-				PaisFacade paisFacade = new PaisFacade();
-				Pais pais = paisFacade.consultar(5);
+				
+				Pais pais = paisDao.consultar(5);
 				
 				cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
