@@ -800,22 +800,11 @@ public class CadPassagemMB implements Serializable {
 				OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 				Orcamento orcamento = orcamentoFacade.consultar(vendas.getIdvendas());
 				ProgramasBean programasBean = new ProgramasBean();
-				float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
-				float totalMoedaReal = orcamento.getTotalMoedaNacional();
-				vendas.setValorpais(totalMoedaEstrangeira * cambio.getValor());
-				Cambio cambioBrasil = null;
-				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
-					
-					Pais pais = paisDao.consultar(5);
-					
-					cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
-					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
-				}
-				vendas.setValor(totalMoedaReal);
+				float totalMoedaEstrangeira = 0.0f;
+				float totalMoedaReal = 0.0f;
+				vendas.setValorpais(0.0f);
+				vendas.setValor(valorParcelar);
 				float valorCambioBrasil = 0.0f;
-				if (cambioBrasil != null) {
-					valorCambioBrasil = cambioBrasil.getValor();
-				}
 				programasBean.salvarOrcamento(orcamento, cambio, vendas.getValorpais(), totalMoedaEstrangeira, valorCambio, vendas, "Não", totalMoedaReal, valorCambioBrasil);
 				calcularComissao();
 				if (novaFicha) { 
