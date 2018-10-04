@@ -16,9 +16,10 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.NotificacaoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -40,6 +41,9 @@ public class CadQuestionarioHeMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private UsuarioLogadoMB UsuarioLogadoMB;
 	@Inject
@@ -64,8 +68,8 @@ public class CadQuestionarioHeMB implements Serializable {
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("lead");
 		session.removeAttribute("questionariohe");
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		if (questionarioHe == null) {
 			questionarioHe = new Questionariohe();
 			cliente = new Cliente();

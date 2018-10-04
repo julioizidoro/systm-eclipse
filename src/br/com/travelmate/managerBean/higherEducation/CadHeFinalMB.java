@@ -31,13 +31,14 @@ import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
@@ -74,6 +75,9 @@ public class CadHeFinalMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -140,8 +144,8 @@ public class CadHeFinalMB implements Serializable {
 		session.removeAttribute("cliente");
 		carregarComboMoedas();
 		gerarListaProdutos();
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar(); 
+		
+		listaPais = paisDao.listar(); 
 		if (he != null && he.getIdhe() != null) {
 			iniciarAlteracao();
 		} else {
@@ -1171,8 +1175,8 @@ public class CadHeFinalMB implements Serializable {
 			venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
 			Cambio cambioBrasil = null;
 			if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
-				PaisFacade paisFacade = new PaisFacade();
-				Pais pais = paisFacade.consultar(5);
+				
+				Pais pais = paisDao.consultar(5);
 				
 				cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
 				totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();

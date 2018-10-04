@@ -17,13 +17,15 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -41,6 +43,9 @@ public class RelatorioEmbarqueMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private Pais pais;
 	private List<Pais> listaPais;
 	private Cidade cidade;
@@ -58,8 +63,8 @@ public class RelatorioEmbarqueMB implements Serializable {
 
 	@PostConstruct()
 	public void init() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		pais = new Pais();
 		gerarListaUnidadeNegocio();
 	}

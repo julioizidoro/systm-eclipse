@@ -11,8 +11,9 @@ import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Fornecedor;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -27,6 +28,9 @@ public class EscolasLiberadasMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Fornecedorcidadeidiomaproduto> listaFornecedorCidadeIdiomaProduto;
@@ -96,8 +100,8 @@ public class EscolasLiberadasMB implements Serializable {
 	}
 
 	public void gerarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar("");
+		
+		listaPais = paisDao.listar("");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

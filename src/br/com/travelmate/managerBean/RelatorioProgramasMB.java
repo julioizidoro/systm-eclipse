@@ -10,15 +10,17 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Curso;
@@ -39,6 +41,9 @@ public class RelatorioProgramasMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private Pais pais;
 	private Cidade cidade;
 	private Produtos programas;
@@ -311,8 +316,8 @@ public class RelatorioProgramasMB implements Serializable{
 
 	
 	public void gerarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p");
+		
+		listaPais = paisDao.listarModelo("SELECT p FROM Pais p");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

@@ -1,9 +1,10 @@
 package br.com.travelmate.managerBean.cursospacotes;
  
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CursosPacotesFacade;
 import br.com.travelmate.facade.PacoteInicialFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
@@ -35,6 +36,8 @@ import org.primefaces.context.RequestContext;
 public class PacotesAtivosMB implements Serializable {
  
 	private static final long serialVersionUID = 1L;  
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -429,8 +432,8 @@ public class PacotesAtivosMB implements Serializable {
 	
 	
 	public void gerarListaPais(){
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p WHERE p.modelo>0");
+		
+		listaPais = paisDao.listarModelo("SELECT p FROM Pais p WHERE p.modelo>0");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

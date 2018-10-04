@@ -21,9 +21,10 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadEncaminhadoDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -52,6 +53,9 @@ public class FollowUpMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private LeadEncaminhadoDao leadEncaminhadoDao;
 	@Inject
@@ -195,8 +199,8 @@ public class FollowUpMB implements Serializable {
 			listaTipoContato = GerarListas.listarTipoContato("select t from Tipocontato t order by t.tipo");
 		}
 		if (listaPais==null) {
-			PaisFacade paisFacade = new PaisFacade();
-			listaPais = paisFacade.listar("");
+			
+			listaPais = paisDao.listar("");
 			listaPaisConsulta = listaPais;
 		}
 		if (sql!=null) {

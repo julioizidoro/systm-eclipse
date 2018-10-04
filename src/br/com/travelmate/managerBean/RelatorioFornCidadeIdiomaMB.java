@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
 import br.com.travelmate.facade.IdiomaFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Fornecedorcidadeidioma;
 import br.com.travelmate.model.Idioma;
@@ -25,6 +27,9 @@ public class RelatorioFornCidadeIdiomaMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private Fornecedorcidadeidioma fornecedorcidadeidioma;
 	private List<Fornecedorcidadeidioma> listaFornecedorCidadeIdioma;
 	private Pais pais;
@@ -180,8 +185,8 @@ public class RelatorioFornCidadeIdiomaMB implements Serializable{
 	
 	
 	public void listarPaises() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

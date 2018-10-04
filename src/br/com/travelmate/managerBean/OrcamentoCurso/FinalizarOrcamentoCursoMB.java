@@ -15,11 +15,12 @@ import br.com.travelmate.dao.OCursoDescontoDao;
 import br.com.travelmate.dao.OCursoFormaPagamentoDao;
 import br.com.travelmate.dao.OCursoProdutoDao;
 import br.com.travelmate.dao.OcursoSeguroViagemDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CoeficienteJurosFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 
 
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.ValorCoProdutosFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -78,6 +79,9 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -550,10 +554,10 @@ public class FinalizarOrcamentoCursoMB implements Serializable {
 			ocurso.setModelo(modelo);
 			ocurso =OCursoDao.salvar(ocurso);
 			if (ocurso.isModelo()) {
-				PaisFacade paisFacade = new PaisFacade();
+				
 				Pais pais = ocurso.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais();
 				pais.setModelo(pais.getModelo()+1);
-				paisFacade.salvar(pais);
+				paisDao.salvar(pais);
 			}
 			salvarFormaPagamento();
 			if (resultadoOrcamentoBean.getListaOutrosProdutos() != null) {

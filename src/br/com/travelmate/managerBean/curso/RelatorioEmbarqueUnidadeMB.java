@@ -22,8 +22,9 @@ import javax.servlet.ServletContext;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.PaisFacade; 
+
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -41,6 +42,9 @@ public class RelatorioEmbarqueUnidadeMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Pais pais;
@@ -59,8 +63,8 @@ public class RelatorioEmbarqueUnidadeMB implements Serializable {
 
 	@PostConstruct()
 	public void init() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 	}
 

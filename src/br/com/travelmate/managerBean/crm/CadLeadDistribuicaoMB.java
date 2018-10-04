@@ -16,9 +16,10 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadResponsavelDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ProdutoFacade;
 import br.com.travelmate.facade.PublicidadeFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
@@ -43,6 +44,10 @@ import br.com.travelmate.util.Mensagem;
 public class CadLeadDistribuicaoMB implements Serializable{
 		
 	private static final long serialVersionUID = 1L;
+	
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private LeadDao leadDao;
 	@Inject
@@ -335,8 +340,8 @@ public class CadLeadDistribuicaoMB implements Serializable{
 			if (listaResponsavel != null && listaResponsavel.size() > 0) {
 				lead.setUsuario(listaResponsavel.get(0).getUsuario());
 			}
-			PaisFacade paisFacade = new PaisFacade();
-			lead.setPais(paisFacade.consultar(5));
+			
+			lead.setPais(paisDao.consultar(5));
 			ProdutoFacade produtoFacade = new ProdutoFacade();
 			lead.setProdutos(produtoFacade.consultar(21));
 			lead.setPublicidade(publicidade);

@@ -1,9 +1,10 @@
 package br.com.travelmate.managerBean.fornecedor;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CidadeFacade;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.PaisProdutoFacade;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Cidadepaisproduto;
@@ -23,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
@@ -36,6 +38,9 @@ public class paisMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private List<Pais> listaPais;
 	private Pais pais;
 	private Cidade cidade;
@@ -113,8 +118,8 @@ public class paisMB implements Serializable {
 	}
 
 	public void gerarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar("");
+		
+		listaPais = paisDao.listar("");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

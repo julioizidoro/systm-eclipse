@@ -13,10 +13,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.MateFaturamentoAnualFacade;
 import br.com.travelmate.facade.MetaFaturamentoMensalFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
@@ -36,6 +37,9 @@ public class CadUnidadeNegocioMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject 
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -343,8 +347,8 @@ public class CadUnidadeNegocioMB implements Serializable {
 	
 	
 	public void gerarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar("");
+		
+		listaPais = paisDao.listar("");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

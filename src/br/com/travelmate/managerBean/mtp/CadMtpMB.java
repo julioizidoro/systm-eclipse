@@ -25,10 +25,11 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.dao.AvisosDao;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.MtpFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Avisos;
@@ -50,6 +51,9 @@ public class CadMtpMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private AvisosDao avisosDao;
 	private Departamento departamento;
@@ -253,8 +257,8 @@ public class CadMtpMB implements Serializable {
 	}
 
 	public void listarPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

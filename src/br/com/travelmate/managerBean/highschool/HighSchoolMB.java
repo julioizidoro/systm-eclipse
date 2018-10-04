@@ -3,13 +3,14 @@ package br.com.travelmate.managerBean.highschool;
 import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -65,6 +66,9 @@ public class HighSchoolMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private VendasDao vendasDao;
 	private List<Highschool> listaHighSchool;
@@ -856,8 +860,8 @@ public class HighSchoolMB implements Serializable {
 	}
 
 	public void gerarlistaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listar();
+		
+		listaPais = paisDao.listar();
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

@@ -7,12 +7,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CidadeFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Fornecedor;
@@ -29,6 +31,9 @@ public class VendasCursoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private List<Curso> listaCurso;
 	private List<Unidadenegocio> listaUnidadeNegocio;
 	private List<Pais> listaPais;
@@ -50,9 +55,9 @@ public class VendasCursoMB implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		PaisFacade paisFacade = new PaisFacade();
+		
 		listaCurso = new ArrayList<>();
-		listaPais = paisFacade.listar();
+		listaPais = paisDao.listar();
 		listaUnidadeNegocio = GerarListas.listarUnidade();
 		gerarListaFornecedor();
 	}  

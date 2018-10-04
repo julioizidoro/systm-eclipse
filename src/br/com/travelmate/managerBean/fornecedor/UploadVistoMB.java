@@ -1,6 +1,7 @@
 package br.com.travelmate.managerBean.fornecedor;
  
-import br.com.travelmate.facade.PaisFacade;
+
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.util.Mensagem;
@@ -32,6 +33,9 @@ public class UploadVistoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB; 
     private Pais pais; 
@@ -104,8 +108,8 @@ public class UploadVistoMB implements Serializable{
 
 	public String salvar(){ 
         pais.setDocumentovisto(nomeArquivoFTP);
-        PaisFacade paisFacade = new PaisFacade();
-        pais = paisFacade.salvar(pais);
+        
+        pais = paisDao.salvar(pais);
         FacesMessage mensagem = new FacesMessage("Salvo com Sucesso! ", "Upload efetuado.");
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
         RequestContext.getCurrentInstance().closeDialog(pais); 
@@ -162,9 +166,9 @@ public class UploadVistoMB implements Serializable{
 			objectSummary.setKey("documentovisto/" + pais.getDocumentovisto());
 			if(s3.delete(objectSummary)) {
 				Mensagem.lancarMensagemInfo("Excluido com sucesso", "");
-				PaisFacade paisFacade = new PaisFacade();
+				
 	        	pais.setDocumentovisto(null);
-	        	pais=paisFacade.salvar(pais);
+	        	pais=paisDao.salvar(pais);
 				return true;
 			}else {
 				Mensagem.lancarMensagemInfo("Falha ao excluir", "");

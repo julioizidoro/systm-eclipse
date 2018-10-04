@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -19,11 +20,12 @@ import org.primefaces.event.SelectEvent;
 
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FornecedorApplicationFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaFacade;
 import br.com.travelmate.facade.FornecedorCidadeIdiomaProdutoFacade;
-import br.com.travelmate.facade.PaisFacade;
+
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Fornecedorapplication;
@@ -42,6 +44,9 @@ public class ApplicationCursoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	private Fornecedorcidadeidioma fornecedorcidadeidioma;
 	private List<Fornecedorcidadeidioma> listaFornecedorCidadeIdioma;
 	private Fornecedorcidadeidiomaproduto fornecedorcidadeidiomaproduto;
@@ -276,8 +281,8 @@ public class ApplicationCursoMB implements Serializable{
 	
 	
 	public void gerarListaPais() {
-		PaisFacade paisFacade = new PaisFacade();
-		listaPais = paisFacade.listarModelo("SELECT p FROM Pais p");
+		
+		listaPais = paisDao.listarModelo("SELECT p FROM Pais p");
 		if (listaPais == null) {
 			listaPais = new ArrayList<Pais>();
 		}

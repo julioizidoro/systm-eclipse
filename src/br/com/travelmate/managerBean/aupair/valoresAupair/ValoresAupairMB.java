@@ -14,7 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.travelmate.facade.PaisFacade;
+import br.com.travelmate.dao.PaisDao;
+
 import br.com.travelmate.facade.ValorAupairFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Cidade;
@@ -31,6 +32,9 @@ public class ValoresAupairMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private PaisDao paisDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	private List<Valoresaupair> listaValores;
@@ -46,8 +50,8 @@ public class ValoresAupairMB implements Serializable {
 	
 	@PostConstruct()
 	public void init() {
-		PaisFacade paisFacade = new PaisFacade();
-        listaPais = paisFacade.listar();
+		
+        listaPais = paisDao.listar();
 		sql = "select v from Valoresaupair v where v.situacao='Ativo'";
 		carregarValores();
 	}
