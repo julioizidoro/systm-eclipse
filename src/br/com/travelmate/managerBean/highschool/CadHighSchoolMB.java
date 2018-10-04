@@ -1246,7 +1246,10 @@ public class CadHighSchoolMB implements Serializable {
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 							String programa;
-							if (valoreshighschool.getProdutosorcamento().getIdprodutosOrcamento() == 12) {
+							if (valoreshighschool.getDuracao().equalsIgnoreCase("01 Semestre")
+									|| valoreshighschool.getDuracao().equalsIgnoreCase("1 Semestre")
+									|| valoreshighschool.getDuracao().equalsIgnoreCase("1 Semetre")
+									|| valoreshighschool.getDuracao().equalsIgnoreCase("01 Semetre")) {
 								programa = "Semestre";
 							} else {
 								programa = "Ano";
