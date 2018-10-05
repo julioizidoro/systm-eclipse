@@ -6,7 +6,7 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
+
 import javax.inject.Named;
 
 import br.com.travelmate.bean.ControlerBean;

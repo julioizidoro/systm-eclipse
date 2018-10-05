@@ -3,9 +3,7 @@ package br.com.travelmate.managerBean.financeiro.boleto;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,7 +27,6 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.GerarArquivoRemessaItau;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.facade.BancoFacade;
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.RemessaArquivoFacade;
 import br.com.travelmate.facade.RemessaContasFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
@@ -38,12 +35,10 @@ import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoM
 import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Remessaarquivo;
 import br.com.travelmate.model.Remessacontas;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.GerarRelatorio;
 import br.com.travelmate.util.UploadAWSS3;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -64,8 +59,6 @@ public class BoletoMB implements Serializable {
 	private String nomearquivo;
 	private String nomeFTP;
 	private File file;
-	private Ftp ftp;
-	private Ftpdados ftpdados;
 	private boolean enviarRemessa = true;
 	private boolean downloadRemessa = false;
 	private String nomeBotao;
@@ -221,25 +214,7 @@ public class BoletoMB implements Serializable {
 	
 	
 	
-	public InputStream procurarArquivo(){
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		InputStream is = null;
-		try {
-			ftpdados = ftpDadosFacade.getFTPDados();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		ftp = new Ftp(ftpdados.getHostupload(), ftpdados.getUser(), ftpdados.getPassword());
-		try {
-			ftp.conectar();
-			is = ftp.receberArquivo("", nomeFTP, "/systm/remessa/");
-			ftp.desconectar();  
-		} catch (IOException e) {
-			System.out.println("Problema no recebimento");
-			  
-		}
-		return is;
-	}
+	
 	
 	public String imprimirListaBoletosItau(){
 		if(listaEnviada!=null && listaEnviada.size()>0){

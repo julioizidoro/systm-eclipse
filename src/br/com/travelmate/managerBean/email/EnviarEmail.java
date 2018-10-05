@@ -1,17 +1,6 @@
 package br.com.travelmate.managerBean.email;
 
-import br.com.travelmate.facade.FtpDadosFacade;
-import br.com.travelmate.managerBean.OrcamentoCurso.DadosEscolaEmailBean;
-import br.com.travelmate.managerBean.controleEmail.ControleEmailBean;
-import br.com.travelmate.model.Arquivos;
-import br.com.travelmate.model.Fatura;
-import br.com.travelmate.model.Fornecedorpacotearquivopagamento;
-import br.com.travelmate.model.Ftpdados; 
-import br.com.travelmate.model.Usuario;
-import br.com.travelmate.util.Formatacao;
-
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,6 +9,14 @@ import java.util.logging.Logger;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+
+import br.com.travelmate.managerBean.OrcamentoCurso.DadosEscolaEmailBean;
+import br.com.travelmate.managerBean.controleEmail.ControleEmailBean;
+import br.com.travelmate.model.Arquivos;
+import br.com.travelmate.model.Fatura;
+import br.com.travelmate.model.Fornecedorpacotearquivopagamento;
+import br.com.travelmate.model.Usuario;
+import br.com.travelmate.util.Formatacao;
 
 public class EnviarEmail {
 

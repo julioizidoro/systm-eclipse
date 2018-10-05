@@ -12,9 +12,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.facade.ArquivosFacade;
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.model.Arquivos;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Vendas;
 
 @Named
@@ -29,7 +27,6 @@ public class DocumentosRFMB implements Serializable{
 	private Vendas venda;
 	private List<Vendas> listaVendaPendente;
 	private List<Vendas> listaVendaNova;
-	private Ftpdados ftpdados;
 	private String urlArquivo = "";
 	
 	
@@ -42,16 +39,7 @@ public class DocumentosRFMB implements Serializable{
 		venda = (Vendas) session.getAttribute("venda");
 		session.removeAttribute("venda");
 		gerarListaDocumentos();
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		ftpdados = new Ftpdados();
-		if (ftpdados != null) {
-			urlArquivo = "https://arquivos.systm.com.br";
-		}
-		try {
-			ftpdados = ftpDadosFacade.getFTPDados();
-		} catch (SQLException e) {
-			  
-		}
+	
 	}
 
 
@@ -110,22 +98,6 @@ public class DocumentosRFMB implements Serializable{
 		this.listaVendaNova = listaVendaNova;
 	}
 	
-	
-	
-	
-	public Ftpdados getFtpdados() {
-		return ftpdados;
-	}
-
-
-
-
-	public void setFtpdados(Ftpdados ftpdados) {
-		this.ftpdados = ftpdados;
-	}
-
-
-
 
 	public String getUrlArquivo() {
 		return urlArquivo;

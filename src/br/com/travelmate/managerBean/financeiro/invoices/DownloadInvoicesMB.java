@@ -10,7 +10,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.travelmate.model.Arquivos;
-import br.com.travelmate.model.Ftpdados;
+
 
 @Named
 @ViewScoped
@@ -21,7 +21,7 @@ public class DownloadInvoicesMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Arquivos> listarArquivos;
-	private Ftpdados ftpdados;
+	
 	private String urlArquivo = "";
 	
 	
@@ -45,13 +45,7 @@ public class DownloadInvoicesMB implements Serializable{
 		this.listarArquivos = listarArquivos;
 	}
 
-	public Ftpdados getFtpdados() {
-		return ftpdados;
-	}
-
-	public void setFtpdados(Ftpdados ftpdados) {
-		this.ftpdados = ftpdados;
-	}
+	
 
 	public String getUrlArquivo() {
 		return urlArquivo;
