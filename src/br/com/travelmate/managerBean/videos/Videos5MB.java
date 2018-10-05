@@ -30,7 +30,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.fornecedordocs.ArquivoBean;
 import br.com.travelmate.model.Arquivo1;
 import br.com.travelmate.model.Departamento;
-import br.com.travelmate.model.Ftpdados;
+
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Video5;
 import br.com.travelmate.model.Videopasta1;
@@ -52,7 +52,6 @@ public class Videos5MB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Departamento departamento;
 	private Videopasta1 videopasta1;
-	private Ftpdados ftpDados;
 	private boolean semPastaArquivo = false;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
@@ -88,18 +87,7 @@ public class Videos5MB implements Serializable{
 				videopasta4 = videopasta5.getVideopasta4();
 				departamento = videopasta1.getDepartamento();
 				gerarVideos5();
-				ftpDados = new Ftpdados();
-				FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-				try {
-					ftpDados = ftpDadosFacade.getFTPDados();
-				} catch (SQLException e) {
-					  
-				}
-
-				if (ftpDados != null) {
-					urlArquivo = ftpDados.getProtocolo() + "://" + ftpDados.getHost() +  ":"+ ftpDados.getWww() +"/videos";
-				}
-				// Verificar se existe pastas ou arquivos na tela
+			// Verificar se existe pastas ou arquivos na tela
 				semConteudo();
 				verificarExibicao();
 			}else{
@@ -165,20 +153,7 @@ public class Videos5MB implements Serializable{
 
 
 
-	public Ftpdados getFtpDados() {
-		return ftpDados;
-	}
-
-
-
-
-	public void setFtpDados(Ftpdados ftpDados) {
-		this.ftpDados = ftpDados;
-	}
-
-
-
-
+	
 	public boolean isSemPastaArquivo() {
 		return semPastaArquivo;
 	}

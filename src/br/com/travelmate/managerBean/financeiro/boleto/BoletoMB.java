@@ -38,7 +38,6 @@ import br.com.travelmate.managerBean.financeiro.relatorios.RelatorioConciliacaoM
 import br.com.travelmate.managerBean.financeiro.relatorios.RetornoBean;
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Remessaarquivo;
 import br.com.travelmate.model.Remessacontas;
 import br.com.travelmate.model.Unidadenegocio;
@@ -65,7 +64,6 @@ public class BoletoMB implements Serializable {
 	private String nomeFTP;
 	private File file;
 	private Ftp ftp;
-	private Ftpdados ftpdados;
 	private boolean enviarRemessa = true;
 	private boolean downloadRemessa = false;
 	private String nomeBotao;
@@ -221,25 +219,7 @@ public class BoletoMB implements Serializable {
 	
 	
 	
-	public InputStream procurarArquivo(){
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		InputStream is = null;
-		try {
-			ftpdados = ftpDadosFacade.getFTPDados();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		ftp = new Ftp(ftpdados.getHostupload(), ftpdados.getUser(), ftpdados.getPassword());
-		try {
-			ftp.conectar();
-			is = ftp.receberArquivo("", nomeFTP, "/systm/remessa/");
-			ftp.desconectar();  
-		} catch (IOException e) {
-			System.out.println("Problema no recebimento");
-			  
-		}
-		return is;
-	}
+	
 	
 	public String imprimirListaBoletosItau(){
 		if(listaEnviada!=null && listaEnviada.size()>0){
