@@ -425,9 +425,9 @@ public class GerarOcamentoPDFBean {
 		boolean transferin = false;
 		if (produtoCurso.getValorcoprodutos().getCoprodutos().isTransfer()) {
 			o = carregarDados();
-			String titulo = "Transfer Partida ";
+			String titulo = "Transfer Chegada ";
 			if (produtoCurso.getValorcoprodutos().getCoprodutos().isTransferout()) {
-				titulo = titulo + " | Transfer Chegada";
+				titulo = titulo + " | Transfer Partida";
 			}
 			o.setTituloLista(titulo);
 			o.setDescricaolista("INCLUSO NO PACOTE");
@@ -444,7 +444,7 @@ public class GerarOcamentoPDFBean {
 		if (!transferin) {
 			if (produtoCurso.getValorcoprodutos().getCoprodutos().isTransferout()) {
 				o = carregarDados();
-				o.setTituloLista("Transfer Chegada");
+				o.setTituloLista("Transfer Partida");
 				o.setDescricaolista("INCLUSO NO PACOTE");
 				o.setSubDescricaoLista("");
 				o.setValorme("");
