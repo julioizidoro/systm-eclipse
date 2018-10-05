@@ -162,10 +162,6 @@ public class Pastas5Videos4MB implements Serializable{
 
 
 
-	public Ftpdados getFtpDados() {
-		return ftpDados;
-	}
-
 
 	public void setSemPastaArquivo(boolean semPastaArquivo) {
 		this.semPastaArquivo = semPastaArquivo;

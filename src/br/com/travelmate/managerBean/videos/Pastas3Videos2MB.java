@@ -2,7 +2,6 @@ package br.com.travelmate.managerBean.videos;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,7 +22,6 @@ import org.primefaces.event.SelectEvent;
 
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.facade.Video2Facade;
 import br.com.travelmate.facade.Video3Facade;
