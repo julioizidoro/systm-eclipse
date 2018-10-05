@@ -660,30 +660,32 @@ public class SalvarOrcamentoOcurso {
 		listaGrupoObrigatorio = grupoObrigatorioFacade.listar(sql); 
 		if (listaGrupoObrigatorio != null) {
 			if (listaGrupoObrigatorio.size() > 0) {  
-				ProdutosOrcamentoBean po = consultarValores("DI", listaGrupoObrigatorio.get(0).getProduto().getIdcoprodutos(),
-						dataconsulta, "Obrigatorio");
-				if (po != null) {
-					salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-							po.getValorcoprodutos(), po.getValorOrigianl(),
-							po.getValorcoprodutos().getCoprodutos().getNome(),
-							po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
-				} else {
-					po = consultarValores("DM", listaGrupoObrigatorio.get(0).getProduto().getIdcoprodutos(),  
-							new Date(), "Obrigatorio");
+				for (int i = 0; i < listaGrupoObrigatorio.size(); i++) { 
+					ProdutosOrcamentoBean po = consultarValores("DI", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
+							dataconsulta, "Obrigatorio");
 					if (po != null) {
 						salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
 								po.getValorcoprodutos(), po.getValorOrigianl(),
 								po.getValorcoprodutos().getCoprodutos().getNome(),
 								po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
 					} else {
-						po = consultarValores("DS", listaGrupoObrigatorio.get(0).getProduto().getIdcoprodutos(),  
-								dataconsulta, "Obrigatorio");
+						po = consultarValores("DM", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),  
+								new Date(), "Obrigatorio");
 						if (po != null) {
 							salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
 									po.getValorcoprodutos(), po.getValorOrigianl(),
 									po.getValorcoprodutos().getCoprodutos().getNome(),
 									po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
-						} 
+						} else {
+							po = consultarValores("DS", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),  
+									dataconsulta, "Obrigatorio");
+							if (po != null) {
+								salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
+										po.getValorcoprodutos(), po.getValorOrigianl(),
+										po.getValorcoprodutos().getCoprodutos().getNome(),
+										po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
+							} 
+						}
 					}
 				}
 			}

@@ -240,14 +240,8 @@ public class DashBoardBean {
 			if (usuariopontos.getPontoescola() == null) {
 				usuariopontos.setPontoescola(0);
 			}
-			if(usuario.getIdusuario()==16) {
-				usuariopontos.setTotalpontos(usuariopontos.getTotalpontos() + ponto - venda.getPonto()); 
-				ponto = ponto/2;
-				usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto());  
-			}else {
-				usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
-				usuariopontos.setTotalpontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
-			}
+			usuariopontos.setPontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
+			usuariopontos.setTotalpontos(usuariopontos.getPontos() + ponto - venda.getPonto()); 
 		} else {
 			usuariopontos.setPontos(usuariopontos.getPontos() - venda.getPonto());
 			usuariopontos.setPontoescola(usuariopontos.getPontoescola() - venda.getPontoescola());
