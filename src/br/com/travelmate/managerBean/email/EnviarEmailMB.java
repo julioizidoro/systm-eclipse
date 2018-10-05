@@ -257,7 +257,7 @@ public class EnviarEmailMB implements Serializable {
 			session.setAttribute("listaOcurso", listaOcurso);
 			session.setAttribute("listaOrcamentoCurso", listaOrcamentoCurso);
 			session.setAttribute("listaOrcamentoVoluntariado", listaOrcamentoVoluntariado);
-			RequestContext.getCurrentInstance().closeDialog(null);
+			RequestContext.getCurrentInstance().closeDialog(null);   
 			return "";
 		}
 		return "";
