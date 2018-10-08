@@ -347,7 +347,7 @@ public class CadArquivoMB implements Serializable {
 					cliente = vendas.getCliente();
 				}
 				if (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
-					if (aplicacaoMB.getParametrosprodutos().getCursos() != idproduto) {
+					if (aplicacaoMB.getParametrosprodutos().getCursos() != idproduto || aplicacaoMB.getParametrosprodutos().getHighereducation() != idproduto) {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) {
 							Avisos avisos = new Avisos();
 							avisos.setData(new Date());
