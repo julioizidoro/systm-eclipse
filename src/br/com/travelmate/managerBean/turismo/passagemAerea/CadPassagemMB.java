@@ -802,7 +802,6 @@ public class CadPassagemMB implements Serializable {
 				float totalMoedaEstrangeira = 0.0f;
 				float totalMoedaReal = 0.0f;
 				vendas.setValorpais(0.0f);
-				vendas.setValor(valorParcelar);
 				float valorCambioBrasil = 0.0f;
 				programasBean.salvarOrcamento(orcamento, cambio, vendas.getValorpais(), totalMoedaEstrangeira, valorCambio, vendas, "Não", totalMoedaReal, valorCambioBrasil);
 				calcularComissao();
