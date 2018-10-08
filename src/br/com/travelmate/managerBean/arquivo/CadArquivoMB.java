@@ -34,6 +34,7 @@ import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
+import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.InvoiceFacade;
 
@@ -62,6 +63,7 @@ import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
+import br.com.travelmate.model.He;
 import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Leadposvenda;
@@ -563,6 +565,8 @@ public class CadArquivoMB implements Serializable {
 				finalizarTeens();
 			} else if (idProduto == 1) {
 				finalizarCurso();
+			}else if(idProduto == 22) {
+				finalizarHE();
 			}
 			vendas.setSituacaogerencia("F");
 			if (vendas.getPontoescola() == 0) {
@@ -734,6 +738,16 @@ public class CadArquivoMB implements Serializable {
 		vendas = finalizarMB.finalizarCurso(curso, vendasDao);
 		new ContasReceberBean(curso.getVendas(), curso.getVendas().getFormapagamento().getParcelamentopagamentoList(),
 				usuarioLogadoMB, null, true, curso.getDataInicio());
+		new GerarBoletosBean(vendas, false);
+	}
+	
+	public void finalizarHE() {
+		HeFacade heFacade = new HeFacade();
+		He he = heFacade.consultarVenda(vendas.getIdvendas());
+		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
+		vendas = finalizarMB.finalizarHe(he, vendasDao);
+		new ContasReceberBean(he.getVendas(), he.getVendas().getFormapagamento().getParcelamentopagamentoList(),
+				usuarioLogadoMB, null, true, he.getDatainicio());
 		new GerarBoletosBean(vendas, false);
 	}
 

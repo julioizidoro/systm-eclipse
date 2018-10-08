@@ -101,7 +101,7 @@ public class ArquivoMB implements Serializable {
 			voltar = (String) session.getAttribute("voltar");
 			cliente = (Cliente) session.getAttribute("cliente");
 			if (vendas != null && vendas.getProdutos().getIdprodutos() == 22) {
-				listaHe = (List<ListaHeBean>) session.getAttribute("listaHe");
+				//listaHe = (List<ListaHeBean>) session.getAttribute("listaHe");
 				listaQuestionario = (List<Questionariohe>) session.getAttribute("listaQuestionario");
 				session.removeAttribute("listaHe");
 				session.removeAttribute("listaQuestionario");
@@ -436,6 +436,9 @@ public class ArquivoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("vendas", vendas);
+		if (vendas.getProdutos().getIdprodutos() == 22) {
+			session.setAttribute("cliente", cliente);
+		}
 		session.setAttribute("listaArquivos", listarArquivos);
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 500);

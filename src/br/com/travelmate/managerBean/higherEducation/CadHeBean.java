@@ -38,7 +38,7 @@ public class CadHeBean {
 	public He salvarHe(He he, AplicacaoMB aplicacaoMB, String tipo) { 
 		HeFacade heFacade = new HeFacade();
 		he = heFacade.salvar(he);
-		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
+		if (Formatacao.validarDataVenda(venda.getDataVenda()) && !he.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 			new ContasReceberBean(venda,
 					formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null, true, he.getDatainicio());
 		}

@@ -1126,8 +1126,8 @@ public class CadHeFinalMB implements Serializable {
 		if (venda.getIdvendas()==null) {
 			novaFicha =true;
 		}
-		if (!venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
-			venda.setSituacao("ANDAMENTO");
+		if (!venda.getSituacao().equalsIgnoreCase("FINALIZADA") || !venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+			venda.setSituacao("PROCESSO");
 		}
 		if (confirmarFicha()) {
 			if (voltarControleVendas != null) {
@@ -1197,63 +1197,7 @@ public class CadHeFinalMB implements Serializable {
 			orcamento = cadHeBean.salvarOrcamento(cambio, venda.getValorpais(), totalMoedaEstrangeira,
 					cambio.getValor(), venda, "", totalMoedaReal, valorCambioBrasil);
 			formaPagamento = cadHeBean.salvarFormaPagamento(cancelamento); 
-			if (novaFicha) {
-				ComissaoHEInscricaoBean cc = new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
-						orcamento.getOrcamentoprodutosorcamentoList(),
-						formaPagamento.getParcelamentopagamentoList(),  new Vendascomissao(),
-						 0.0f, true);
-				he.getVendas().setVendascomissao(cc.getVendasComissao());
-				if (enviarFicha) {
-					
-
-					DashBoardBean dashBoardBean = new DashBoardBean();
-					dashBoardBean.calcularMetaMensal(venda, 0, false);
-					dashBoardBean.calcularMetaAnual(venda, 0, false);
-					int[] pontos;
-					if(he.getNumerosemanas()!=null && he.getNumerosemanas()>0){
-						pontos = dashBoardBean.calcularPontuacao(venda, he.getNumerosemanas(), "Final", false, venda.getUsuario());
-					}else{
-						pontos = dashBoardBean.calcularPontuacao(venda, 0, "Final", false,venda.getUsuario() );
-					}
-					int pontoremover = 0;
-					if (vendaAlterada!=null) {
-						pontoremover = vendaAlterada.getPonto();
-					}
-					ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-					productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
-					venda.setPonto(pontos[0]);
-					venda.setPontoescola(pontos[1]);
-					
-					venda = vendasDao.salvar(venda);
-					
-
-					
-					String titulo = "Nova ficha Final de Higher Education";
-					String operacao = "A";
-					String imagemNotificacao = "inserido"; 
-					String vm = "Venda pela Matriz";
-					if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-						vm = "Venda pela Loja";
-					}
-					DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-					List<Departamento> departamento = departamentoFacade.listar("select d From Departamento d where d.usuario.idusuario="+venda.getProdutos().getIdgerente());
-					if(departamento!=null && departamento.size()>0){
-						if (he.getDatainicio() != null) {
-							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(),
-									venda.getCliente().getNome(), venda.getFornecedorcidade().getFornecedor().getNome(),
-									Formatacao.ConvercaoDataPadrao(he.getDatainicio()), venda.getUsuario().getNome(), vm,
-									venda.getValor(), venda.getValorcambio(), venda.getCambio().getMoedas().getSigla(),
-									operacao, departamento.get(0), imagemNotificacao, "I");
-						} else {
-							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(),
-									venda.getCliente().getNome(), venda.getFornecedorcidade().getFornecedor().getNome(),
-									he.getMesano1(), venda.getUsuario().getNome(), vm, venda.getValor(),
-									venda.getValorcambio(), venda.getCambio().getMoedas().getSigla(), operacao,
-									departamento.get(0), imagemNotificacao, "I");
-						}
-					}
-				}
-			} else {
+			if (venda.getSituacao().equalsIgnoreCase("FINALIZADA") || venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 				int mes = Formatacao.getMesData(new Date()) + 1;
 				int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 					if (enviarFicha) {

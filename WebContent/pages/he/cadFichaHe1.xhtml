@@ -1191,25 +1191,13 @@
 				</p:accordionPanel>
 				<br></br>
 				<div align="center" style="width: 85%;">
-					<p:commandButton onclick="PF('cd').show();" icon="ui-icon-check" 
-						value="Confirmar" style="font-size:13px;" update="growl" />
+					<p:commandButton  icon="ui-icon-check" 
+						value="Confirmar" style="font-size:13px;" action="#{cadHeInscricaoMB.enviarficha()}" update="growl" />
 					<p:commandButton action="#{cadHeInscricaoMB.cancelar()}"
 						style="margin-left:2%;font-size:13px;" icon="ui-icon-close"
 						value="Cancelar" />
 				</div>
-				<p:confirmDialog
-					message="FINALIZAR FICHA? Ficha será enviada para Gerência."
-					showEffect="fade" hideEffect="fade" header="Confirmação"
-					icon="ui-icon-alert" widgetVar="cd">
-					<p:commandButton value="Sim"
-						action="#{cadHeInscricaoMB.enviarficha()}"
-						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-yes"
-						icon="ui-icon-check" style="margin-left:30%" update="cadHe:growl" />
-					<p:commandButton value="Não"
-						action="#{cadHeInscricaoMB.naoEnviarficha()}"
-						oncomplete="PF('cd').hide();" styleClass="ui-confirmdialog-no"
-						icon="ui-icon-close" update="cadHe:growl" />
-				</p:confirmDialog>
+				
 				<br></br> <br></br>
 			</div>
 		</h:form>
