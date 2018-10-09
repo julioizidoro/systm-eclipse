@@ -20,6 +20,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import com.mchange.v2.cfg.PropertiesConfigSource.Parse;
+
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
@@ -27,6 +29,7 @@ import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
+import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
 import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
@@ -34,6 +37,7 @@ import br.com.travelmate.dao.LeadSituacaoDao;
 import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.DepartamentoFacade;
+import br.com.travelmate.facade.DepartamentoProdutoFacade;
 import br.com.travelmate.facade.FiltroOrcamentoProdutoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
@@ -50,7 +54,9 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Cliente;
+import br.com.travelmate.model.Controlealteracoes;
 import br.com.travelmate.model.Departamento;
+import br.com.travelmate.model.Departamentoproduto;
 import br.com.travelmate.model.Filtroorcamentoproduto;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcidade;
@@ -66,6 +72,7 @@ import br.com.travelmate.model.Produtoremessa;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Produtosorcamento;
 import br.com.travelmate.model.Questionariohe;
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
@@ -154,6 +161,8 @@ public class CadHeInscricaoMB implements Serializable {
 	private float valorMoedaReal = 0;
 	private boolean mascara;
 	private boolean semmascara;
+	private He heAlteracao;
+	private Controlealteracoes controlealteracoes;
 
 	@PostConstruct
 	public void init() {
@@ -758,6 +767,7 @@ public class CadHeInscricaoMB implements Serializable {
 			vendaAlterada = venda;
 			valorVendaAlterada = venda.getValor();
 		}
+		popularDadosAntigos();
 		he.setTipoFicha("Formulario");
 		this.cliente = venda.getCliente();
 		fornecedorCidade = venda.getFornecedorcidade();
@@ -1344,7 +1354,7 @@ public class CadHeInscricaoMB implements Serializable {
 
 	public String enviarficha() throws SQLException {
 		enviarFicha = true;
-		if (!venda.getSituacao().equalsIgnoreCase("FINALIZADA") || !venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+		if (!venda.getSituacao().equalsIgnoreCase("FINALIZADA") && !venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 			venda.setSituacao("PROCESSO");
 		}
 		if (confirmarFicha()) {
@@ -1459,6 +1469,7 @@ public class CadHeInscricaoMB implements Serializable {
 
 			if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
 					|| venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+				verificarDadosAlterado();
 				int mes = Formatacao.getMesData(new Date()) + 1;
 				int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 				if (enviarFicha) {
@@ -1843,6 +1854,479 @@ public class CadHeInscricaoMB implements Serializable {
 			mascara = true;
 			semmascara = false;
 		}
+	}
+
+	public void verificarDadosAlterado() {
+		DepartamentoProdutoFacade departamentoProdutoFacade = new DepartamentoProdutoFacade();
+		Departamentoproduto depPrograma = departamentoProdutoFacade.consultar(venda.getProdutos().getIdprodutos());
+		if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
+			ControleAlteracaoCursoBean controleAlteracaoCursoBean = new ControleAlteracaoCursoBean();
+			if (he.getNomeContatoEmergencia() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getNomeContatoEmergencia().equalsIgnoreCase(heAlteracao.getNomeContatoEmergencia())) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Nome Contato de Emergência", he.getNomeContatoEmergencia(),
+							heAlteracao.getNomeContatoEmergencia());
+				}
+			}
+
+			if (he.getEmailContatoEmergencia() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getEmailContatoEmergencia().equalsIgnoreCase(heAlteracao.getEmailContatoEmergencia())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Email Contato Emergência", he.getEmailContatoEmergencia(),
+							heAlteracao.getEmailContatoEmergencia());
+				}
+			}
+
+			if (he.getFoneContatoEmergencia() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getFoneContatoEmergencia().equalsIgnoreCase(heAlteracao.getFoneContatoEmergencia())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Telefone Contato Emergência", he.getFoneContatoEmergencia(),
+							heAlteracao.getFoneContatoEmergencia());
+				}
+			}
+
+			if (he.getRelacaoContatoEmergencia() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getRelacaoContatoEmergencia().equalsIgnoreCase(heAlteracao.getRelacaoContatoEmergencia())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Relação Contato Emergência",
+							he.getRelacaoContatoEmergencia(), heAlteracao.getRelacaoContatoEmergencia());
+				}
+			}
+
+			if (he.getPrimeiralingua() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getPrimeiralingua().equalsIgnoreCase(heAlteracao.getPrimeiralingua())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Primeira Língua", he.getPrimeiralingua(),
+							heAlteracao.getPrimeiralingua());
+				}
+			}
+
+			if (he.getSegundalingua() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getSegundalingua().equalsIgnoreCase(heAlteracao.getSegundalingua())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Segunda Língua", he.getSegundalingua(),
+							heAlteracao.getSegundalingua());
+				}
+			}
+
+			if (he.getInstituicaoensinomedio() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getInstituicaoensinomedio().equalsIgnoreCase(heAlteracao.getInstituicaoensinomedio())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Instituição e conclusão do Ensino Médio",
+							he.getInstituicaoensinomedio(), heAlteracao.getInstituicaoensinomedio());
+				}
+			}
+
+			if (he.getAnoconclusao() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getAnoconclusao().equalsIgnoreCase(heAlteracao.getAnoconclusao())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Ano de conclusão do Ensino Médio", he.getAnoconclusao(),
+							heAlteracao.getAnoconclusao());
+				}
+			}
+
+			if (he.getLocalconclusaoensinomedo() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getLocalconclusaoensinomedo().equalsIgnoreCase(heAlteracao.getLocalconclusaoensinomedo())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Local de conclusão do Ensino Médio",
+							he.getLocalconclusaoensinomedo(), heAlteracao.getLocalconclusaoensinomedo());
+				}
+			}
+
+			if (he.getPossuiexame() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getPossuiexame().equalsIgnoreCase(heAlteracao.getPossuiexame())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Você possui algum exame de proficiência?",
+							he.getPossuiexame(), heAlteracao.getPossuiexame());
+				}
+			}
+
+			if (he.getCursarparhaway() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getCursarparhaway().equalsIgnoreCase(heAlteracao.getCursarparhaway())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Pretende cursar um programa de Pathway?",
+							he.getCursarparhaway(), heAlteracao.getCursarparhaway());
+				}
+			}
+
+			if (he.getNomeexame() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getNomeexame().equalsIgnoreCase(heAlteracao.getNomeexame())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Nome do exame?", he.getNomeexame(),
+							heAlteracao.getNomeexame());
+				}
+			}
+
+			if (he.getNotaexame() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getNotaexame().equalsIgnoreCase(heAlteracao.getNotaexame())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Nota do exame?", he.getNotaexame(),
+							heAlteracao.getNotaexame());
+				}
+			}
+
+			if (he.getDataexame() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getDataexame().equals(heAlteracao.getDataexame())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data do exame?",
+							Formatacao.ConvercaoDataPadrao(he.getDataexame()),
+							Formatacao.ConvercaoDataPadrao(heAlteracao.getDataexame()));
+				}
+			}
+
+			if (he.getNomeinstituicaoestudou() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getNomeinstituicaoestudou().equalsIgnoreCase(heAlteracao.getNomeinstituicaoestudou())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Nome da última instituição em que estudou", he.getNomeinstituicaoestudou(),
+							heAlteracao.getNomeinstituicaoestudou());
+				}
+			}
+
+			if (he.getMaiorgrauformacao() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getMaiorgrauformacao().equalsIgnoreCase(heAlteracao.getMaiorgrauformacao())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Maior grau de formação adquirido",
+							he.getMaiorgrauformacao(), heAlteracao.getMaiorgrauformacao());
+				}
+			}
+
+			if (he.getNotacienciahumanas() != heAlteracao.getNotacienciahumanas()) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				  controleAlteracaoCursoBean.salvar(controlealteracoes,
+						depPrograma.getDepartamento(), "Nota Enem: Ciências da Natureza",
+						Formatacao.formatarFloatString(he.getNotacienciahumanas()), Formatacao.formatarFloatString(heAlteracao.getNotacienciahumanas()));
+			}
+
+			if (he.getNotaciencianatureza() != heAlteracao.getNotaciencianatureza()) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				  controleAlteracaoCursoBean.salvar(controlealteracoes,
+						depPrograma.getDepartamento(), "Nota Enem: Ciências da Natureza",
+						Formatacao.formatarFloatString(he.getNotaciencianatureza()), Formatacao.formatarFloatString(heAlteracao.getNotaciencianatureza()));
+			}
+
+			if (he.getNotalinguagem() != heAlteracao.getNotalinguagem()) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				  controleAlteracaoCursoBean.salvar(controlealteracoes,
+						depPrograma.getDepartamento(), "Nota Enem: Linguagem",
+						Formatacao.formatarFloatString(he.getNotalinguagem()), Formatacao.formatarFloatString(heAlteracao.getNotalinguagem()));
+			}
+
+			if (he.getNotamatematica() != heAlteracao.getNotamatematica()) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setVendas(he.getVendas());
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				  controleAlteracaoCursoBean.salvar(controlealteracoes,
+						depPrograma.getDepartamento(), "Nota Enem: Matemática",
+						Formatacao.formatarFloatString(he.getNotamatematica()), Formatacao.formatarFloatString(heAlteracao.getNotamatematica()));
+			}
+
+			if (he.getNotaredacao() != heAlteracao.getNotaredacao()) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				  controleAlteracaoCursoBean.salvar(controlealteracoes,
+						depPrograma.getDepartamento(), "Nota Enem: Redação",
+						Formatacao.formatarFloatString(he.getNotaredacao()), Formatacao.formatarFloatString(heAlteracao.getNotaredacao()));
+			}
+
+			if (he.getTipoAcomodacao() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getTipoAcomodacao().equalsIgnoreCase(heAlteracao.getTipoAcomodacao())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Tipo de Acomodação",
+							he.getTipoAcomodacao(), heAlteracao.getTipoAcomodacao());
+				}
+			}
+
+			if (he.getTipoQuarto() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getTipoQuarto().equalsIgnoreCase(heAlteracao.getTipoQuarto())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Quarto Acomodação",
+							he.getTipoQuarto(), heAlteracao.getTipoQuarto());
+				}
+			}
+
+			if (he.getRefeicoes() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getRefeicoes().equalsIgnoreCase(heAlteracao.getRefeicoes())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Refeição Acomodação",
+							he.getRefeicoes(), heAlteracao.getRefeicoes());
+				}
+			}
+
+			if (he.getBanheiroprivativo() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getBanheiroprivativo().equalsIgnoreCase(heAlteracao.getBanheiroprivativo())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Banheiro Privado Acomodação",
+							he.getBanheiroprivativo(), heAlteracao.getBanheiroprivativo());
+				}
+			}
+
+			if (he.getDataChegada() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getDataChegada().equals(heAlteracao.getDataChegada())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data de Chegada Acomodação",
+							Formatacao.ConvercaoDataPadrao(he.getDataChegada()),
+							Formatacao.ConvercaoDataPadrao(heAlteracao.getDataChegada()));
+				}
+			}
+
+			if (he.getDataSaida() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getDataSaida().equals(heAlteracao.getDataSaida())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data de Partida Acomodação",
+							Formatacao.ConvercaoDataPadrao(he.getDataSaida()),
+							Formatacao.ConvercaoDataPadrao(heAlteracao.getDataSaida()));
+				}
+			}
+
+			if (he.getNumeroSemanasAcomodacao() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (he.getNumeroSemanasAcomodacao() != heAlteracao.getNumeroSemanasAcomodacao()) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Número Semanas Acomodação",
+							"" + he.getNumeroSemanasAcomodacao(), "" +  heAlteracao.getNumeroSemanasAcomodacao());
+				}
+			}
+
+			if (he.getAdicionais() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getAdicionais().equalsIgnoreCase(heAlteracao.getAdicionais())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Adicionais",
+							he.getAdicionais(), heAlteracao.getAdicionais());
+				}
+			}
+
+			if (he.getFamiliacomAnimais() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getFamiliacomAnimais().equalsIgnoreCase(heAlteracao.getFamiliacomAnimais())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Animais de estimação",
+							he.getFamiliacomAnimais(), heAlteracao.getFamiliacomAnimais());
+				}
+			}
+
+			if (he.getFamiliacomCrianca() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getFamiliacomCrianca().equalsIgnoreCase(heAlteracao.getFamiliacomCrianca())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Família com criança",
+							he.getFamiliacomCrianca(), heAlteracao.getFamiliacomCrianca());
+				}
+			}
+
+			if (he.getFumante() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getFumante().equalsIgnoreCase(heAlteracao.getFumante())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Você é fumante",
+							he.getFumante(), heAlteracao.getFumante());
+				}
+			}
+
+			if (he.getVegetariano() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getVegetariano().equalsIgnoreCase(heAlteracao.getVegetariano())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Você é vegetariano",
+							he.getVegetariano(), heAlteracao.getVegetariano());
+				}
+			}
+
+			if (he.getPossuiAlergia() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getPossuiAlergia().equalsIgnoreCase(heAlteracao.getPossuiAlergia())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Tem alergia a algum medicamento ou alimento?",
+							he.getPossuiAlergia(), heAlteracao.getPossuiAlergia());
+				}
+			}
+
+			if (he.getSolicitacoesEspeciais() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getSolicitacoesEspeciais().equalsIgnoreCase(heAlteracao.getSolicitacoesEspeciais())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Solicitações Especiais:",
+							he.getSolicitacoesEspeciais(), heAlteracao.getSolicitacoesEspeciais());
+				}
+			}
+
+			if (he.getHobbies() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getHobbies().equalsIgnoreCase(heAlteracao.getHobbies())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Quais seus interesses e hobbies:",
+							he.getHobbies(), heAlteracao.getHobbies());
+				}
+			}
+		}
+	}
+	
+	
+	public void popularDadosAntigos() {
+		heAlteracao = new He();
+		heAlteracao.setNomeContatoEmergencia(he.getNomeContatoEmergencia());
+		heAlteracao.setEmailContatoEmergencia(he.getEmailContatoEmergencia());
+		heAlteracao.setFoneContatoEmergencia(he.getFoneContatoEmergencia());
+		heAlteracao.setRelacaoContatoEmergencia(he.getRelacaoContatoEmergencia());
+		heAlteracao.setPrimeiralingua(he.getPrimeiralingua());
+		heAlteracao.setSegundalingua(he.getSegundalingua());
+		heAlteracao.setInstituicaoensinomedio(he.getInstituicaoensinomedio());
+		heAlteracao.setAnoconclusao(he.getAnoconclusao());
+		heAlteracao.setLocalconclusaoensinomedo(he.getLocalconclusaoensinomedo());
+		heAlteracao.setPossuiexame(he.getPossuiexame());
+		heAlteracao.setCursarparhaway(he.getCursarparhaway());
+		heAlteracao.setNomeexame(he.getNomeexame());
+		heAlteracao.setNotaexame(he.getNotaexame());
+		heAlteracao.setDataexame(he.getDataexame());
+		heAlteracao.setNomeinstituicaoestudou(he.getNomeinstituicaoestudou());
+		heAlteracao.setMaiorgrauformacao(he.getMaiorgrauformacao());
+		heAlteracao.setNotacienciahumanas(he.getNotacienciahumanas());
+		heAlteracao.setNotaciencianatureza(he.getNotaciencianatureza());
+		heAlteracao.setNotalinguagem(he.getNotalinguagem());
+		heAlteracao.setNotamatematica(he.getNotamatematica());
+		heAlteracao.setNotaredacao(he.getNotaredacao());
+		heAlteracao.setTipoAcomodacao(he.getTipoAcomodacao());
+		heAlteracao.setTipoQuarto(he.getTipoQuarto());
+		heAlteracao.setRefeicoes(he.getRefeicoes());
+		heAlteracao.setBanheiroprivativo(he.getBanheiroprivativo());
+		heAlteracao.setDataChegada(he.getDataChegada());
+		heAlteracao.setDataSaida(he.getDataSaida());
+		heAlteracao.setNumeroSemanasAcomodacao(he.getNumeroSemanasAcomodacao());
+		heAlteracao.setAdicionais(he.getAdicionais());
+		heAlteracao.setFamiliacomAnimais(he.getFamiliacomAnimais());
+		heAlteracao.setFamiliacomCrianca(he.getFamiliacomCrianca());
+		heAlteracao.setFumante(he.getFumante());
+		heAlteracao.setVegetariano(he.getVegetariano());
+		heAlteracao.setPossuiAlergia(he.getPossuiAlergia());
+		heAlteracao.setSolicitacoesEspeciais(he.getSolicitacoesEspeciais());
+		heAlteracao.setHobbies(he.getHobbies());
 	}
 
 }

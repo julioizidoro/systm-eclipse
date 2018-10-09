@@ -14,7 +14,7 @@
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
 						title="Pesquisar">
 											<br></br>
-						<h:panelGrid columns="3" style="margin-left:7.5%;width:62%;">
+						<h:panelGrid columns="3" style="margin-left:2%;width:83%;">
 							<p:outputLabel value="ID Venda" for="idVenda" class="fontebranca"
 								 />
 							<p:outputLabel value="Cliente" for="cliente" class="fontebranca"
@@ -23,7 +23,7 @@
 								 />	
 							<p:inputText id="idVenda" value="#{controleAlteracoesMB.idVenda}" style="width:85px;" />
 							<p:inputText id="cliente" value="#{controleAlteracoesMB.nomeCliente}" style="width:280px;" />
-							<h:panelGrid columns="2" style="width:100%;">
+							<h:panelGrid columns="2" style="width:79%;">
 								<p:calendar id="dataIni" value="#{controleAlteracoesMB.dataInicio}" size="12"
 									 locale="pt" pattern="dd/MM/yyyy"
 									mask="true" maxlength="15">
@@ -41,7 +41,7 @@
 							</h:panelGrid>
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="4" style="margin-left:7.5%;width:83%;">
+						<h:panelGrid columns="4" style="margin-left:2%;width:96%;">
 						
 							<p:outputLabel value="Unidade" for="unidade" class="fontebranca"
 								 />
@@ -69,9 +69,9 @@
 								<f:selectItem itemLabel="Verificado" itemValue="Verificado" />
 							</p:selectOneMenu>
 							<h:panelGrid columns="2" style="width:100%;">
-								<p:commandButton value="Pesquisar" style="margin-left:39%"
+								<p:commandButton value="Pesquisar" 
 									icon=" ui-icon-search " action="#{controleAlteracoesMB.listarAlteracoes()}"  update="historicoAlteracao:tabelaAlteracaoVenda"/>
-								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w" style="margin-left:24%" action="#{controleAlteracoesMB.limpar()}" update="historicoAlteracao:tabelaAlteracaoVenda, cliente, dataIni, dataFinal, unidade, consultor,idVenda"/>
+								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  action="#{controleAlteracoesMB.limpar()}" update="historicoAlteracao:tabelaAlteracaoVenda, cliente, dataIni, dataFinal, unidade, consultor,idVenda"/>
 							</h:panelGrid>
 						</h:panelGrid>
 						<br/><br/>

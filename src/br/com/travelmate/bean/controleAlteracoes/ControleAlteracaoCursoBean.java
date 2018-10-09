@@ -11,7 +11,7 @@ import br.com.travelmate.model.Departamento;
 public class ControleAlteracaoCursoBean {
 	
 	public Controlealteracoes salvar(Controlealteracoes controleAlteracoes, Departamento departamento, String campo, String dadosAtual, String dadosAnterior){
-		if (controleAlteracoes.getIdcontrolealteracoes()==null){
+		if (controleAlteracoes == null || controleAlteracoes.getIdcontrolealteracoes()==null){
 			controleAlteracoes.setDataalteracao(new Date());
 			controleAlteracoes.setVerificado(false);
 			ControleAlteracoesFacade controleAlteracoesFacade = new ControleAlteracoesFacade();
