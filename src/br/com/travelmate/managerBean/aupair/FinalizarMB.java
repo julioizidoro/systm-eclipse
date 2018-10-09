@@ -740,35 +740,7 @@ public class FinalizarMB implements Serializable {
 		he.getVendas().setPonto(pontos[0]);
 		he.getVendas().setPontoescola(pontos[1]);
 		he.setVendas(vendasDao.salvar(he.getVendas()));
-		String titulo = "Nova ficha de inscrição Higher Education";
-		String operacao = "A";
-		String imagemNotificacao = "inserido";
-		String vm = "Venda pela Matriz";
-		if (he.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
-			vm = "Venda pela Loja";
-		}
-		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-		List<Departamento> departamento = departamentoFacade
-				.listar("select d From Departamento d where d.usuario.idusuario="
-						+ he.getVendas().getProdutos().getIdgerente());
-		if (departamento != null && departamento.size() > 0) {
-			if (he.getDatainicio() != null) {
-				Formatacao.gravarNotificacaoVendas(titulo, he.getVendas().getUnidadenegocio(),
-						he.getVendas().getCliente().getNome(),
-						he.getVendas().getFornecedorcidade().getFornecedor().getNome(),
-						Formatacao.ConvercaoDataPadrao(he.getDatainicio()), he.getVendas().getUsuario().getNome(), vm,
-						he.getVendas().getValor(), he.getVendas().getValorcambio(),
-						he.getVendas().getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-						imagemNotificacao, "I");
-			} else {
-				Formatacao.gravarNotificacaoVendas(titulo, he.getVendas().getUnidadenegocio(),
-						he.getVendas().getCliente().getNome(),
-						he.getVendas().getFornecedorcidade().getFornecedor().getNome(), he.getMesano1(),
-						he.getVendas().getUsuario().getNome(), vm, he.getVendas().getValor(),
-						he.getVendas().getValorcambio(), he.getVendas().getCambio().getMoedas().getSigla(), operacao,
-						departamento.get(0), imagemNotificacao, "I");
-			}
-		}
+		
 		return he.getVendas();
 	}
 
