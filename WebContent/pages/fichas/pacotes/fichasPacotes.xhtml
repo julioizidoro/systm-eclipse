@@ -187,25 +187,6 @@
 		<br/>
 		<h:panelGrid style="width:100%;">
 			
-			<h:panelGrid style="width:100%;background-color:#CFCFCF;font-size:12px;" columns="2">
-					<h:panelGroup>VALOR TOTAL DO PACOTE</h:panelGroup>
-					
-					<h:panelGrid style="width:94%;float:right;float: right;" columns="2">
-						<h:panelGroup style="text-align:right;float: right;">
-							#{fichaPacotesMB.vendas.cambio.moedas.sigla}: <h:outputText
-								value="#{fichaPacotesMB.totalPagamento}">  
-								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-							</h:outputText>
-						</h:panelGroup>
-						<h:panelGroup style="text-align:right;float: right;">
-							#{fichaPacotesMB.moedaNacional}: <h:outputText
-								value="#{fichaPacotesMB.vendas.formapagamento.valorOrcamento}">
-								<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-							</h:outputText>
-						</h:panelGroup>
-					</h:panelGrid>
-				</h:panelGrid>
-
 			<h:panelGrid style="width:100%;" columns="1">
 				<h:panelGroup>Moeda: #{fichaPacotesMB.vendas.cambio.moedas.sigla} | Câmbio do dia: 
 					 <h:outputText value="#{fichaPacotesMB.vendas.valorcambio}">
