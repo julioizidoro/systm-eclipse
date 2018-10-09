@@ -469,8 +469,7 @@ public class EditarOrcamentoOcursoBean {
 		List<ProdutosExtrasBean> lista = new ArrayList<>(); 
 		if (listaProdutos != null) {
 			for (int i = 0; i < listaProdutos.size(); i++) {
-				if(listaProdutos.get(i).getNomegrupo().equalsIgnoreCase("Adicionais")
-					&& listaProdutos.get(i).getValorcoprodutos().getIdvalorcoprodutos()==aplicacaoMB.getParametrosprodutos().getProdutoextra()){
+				if(listaProdutos.get(i).getValorcoprodutos().getIdvalorcoprodutos()==aplicacaoMB.getParametrosprodutos().getProdutoextra()){
 					Ocrusoprodutos produto = listaProdutos.get(i);
 					ProdutosExtrasBean po = new ProdutosExtrasBean();
 					po.setProdutosorcamento(produto.getValorcoprodutos().getCoprodutos().getProdutosorcamento());
