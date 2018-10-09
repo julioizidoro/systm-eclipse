@@ -658,8 +658,8 @@ public class OrcamentoCursoMB implements Serializable {
 		for (int i = 0; i < resultadoOrcamentoBean.getListaAcOpcional().size(); i++) {
 			if (resultadoOrcamentoBean.getListaAcOpcional().get(i).isSelecionado()
 					&& resultadoOrcamentoBean.getListaAcOpcional().get(i).isSomarvalortotal()) {
-				valorTotal = valorTotal + resultadoOrcamentoBean.getListaAcOpcional().get(i).getValorOrigianl();
-				valorTotalRS = valorTotalRS + resultadoOrcamentoBean.getListaAcOpcional().get(i).getValorOriginalRS();
+				valorTotal = valorTotal + resultadoOrcamentoBean.getListaAcOpcional().get(i).getValorOriginalAcOpcional();
+				valorTotalRS = valorTotalRS + resultadoOrcamentoBean.getListaAcOpcional().get(i).getValorRSacOpcional();
 			} else if (resultadoOrcamentoBean.getListaAcOpcional().get(i).isSelecionado()
 					&& !resultadoOrcamentoBean.getListaAcOpcional().get(i).isSomarvalortotal()) {
 				valorTotalAdicionais = valorTotalAdicionais + resultadoOrcamentoBean.getListaAcOpcional().get(i).getValorOriginalAcOpcional();
