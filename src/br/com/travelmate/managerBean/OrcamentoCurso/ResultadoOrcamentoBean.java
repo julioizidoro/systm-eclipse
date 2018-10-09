@@ -37,6 +37,7 @@ public class ResultadoOrcamentoBean {
 	private boolean clientelead;
 	private String codigo;
 	private Lead lead;
+	private List<ProdutosOrcamentoBean> listaOpcionaisSelecionado;
 
 	public boolean isSeguroSelecionado() {
 		return seguroSelecionado;
@@ -220,6 +221,14 @@ public class ResultadoOrcamentoBean {
 
 	public void setLead(Lead lead) {
 		this.lead = lead;
+	}
+
+	public List<ProdutosOrcamentoBean> getListaOpcionaisSelecionado() {
+		return listaOpcionaisSelecionado;
+	}
+
+	public void setListaOpcionaisSelecionado(List<ProdutosOrcamentoBean> listaOpcionaisSelecionado) {
+		this.listaOpcionaisSelecionado = listaOpcionaisSelecionado;
 	}
 
 }
