@@ -573,7 +573,7 @@ public class OrcamentoCursoMB implements Serializable {
 		valorTotalAdicionais = 0.0f;
 		valorTotalAdicionaisRS = 0.0f;
 		if (seguroviagem != null && seguroviagem.getValorSeguro()!=null) {
-			if (seguroviagem.getValorSeguro() != null && !seguroviagem.isSomarvalortotal()) {;;
+			if (seguroviagem.getValorSeguro() != null && !seguroviagem.isSomarvalortotal()) {
 				valorTotalAdicionaisRS = valorTotalAdicionaisRS + seguroviagem.getValorSeguro();
 				if(seguroviagem.isSegurocancelamento()) {
 					float rsSeguro = seguroviagem.getValoresseguro().getValorsegurocancelamento()*cambioSeguro.getValor();
@@ -1748,12 +1748,12 @@ public class OrcamentoCursoMB implements Serializable {
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino))) {
 
 			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(),
-					po.getValorcoprodutos().getDatafinal());
+					po.getValorcoprodutos().getDatafinal())  + 1;
 		} else if ((po.getValorcoprodutos().getDatainicial().after(dataInical))
 				&& (po.getValorcoprodutos().getDatafinal().after(dataTermino)
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino);
+			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino) + 1;
 
 		} else if ((po.getValorcoprodutos().getDatainicial().before(dataInical))
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
@@ -1763,7 +1763,7 @@ public class OrcamentoCursoMB implements Serializable {
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataInical))) {
 				numeroDias = 1;
 			}else {
-				numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal());
+				numeroDias = Formatacao.subtrairDatas(dataInical, po.getValorcoprodutos().getDatafinal()) + 1;
 			}
 		} else if ((po.getValorcoprodutos().getDatainicial().before(dataInical)
 				|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
@@ -1771,7 +1771,7 @@ public class OrcamentoCursoMB implements Serializable {
 				&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
 						|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
 								.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
-			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino);
+			numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino) + 1;
 
 		}else {
 			valorSuplemento = -1;
