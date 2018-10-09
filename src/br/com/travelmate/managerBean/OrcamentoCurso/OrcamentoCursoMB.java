@@ -203,8 +203,11 @@ public class OrcamentoCursoMB implements Serializable {
 		verificarNumeroSemanas();  
 		listaOpcionais = resultadoOrcamentoBean.getListaOpcionais();
 		resultadoOrcamentoBean.setListaOpcionais(new ArrayList<ProdutosOrcamentoBean>());
+		resultadoOrcamentoBean.setListaOpcionais(resultadoOrcamentoBean.getListaOpcionaisSelecionado());
 		if (listaOpcionais == null || listaOpcionais.size() <= 0) {
 			desabilitarbtnOpcional = true;
+		}else {
+			calcularTotais();
 		}
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();
 	}

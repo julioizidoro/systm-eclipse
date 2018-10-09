@@ -369,23 +369,23 @@ public class ConsultaOrcamentoMB implements Serializable {
 			resultadoOrcamentoBean.setProdutoFornecedorBean(editarOrcamentoOcurso.retornarFornecedorProdutosBean());
 			resultadoOrcamentoBean.setListaOpcionais(editarOrcamentoOcurso.gerarListaValorCoProdutos("Opcional"));
 			// opcional selecionado
+			resultadoOrcamentoBean.setListaOpcionaisSelecionado(new ArrayList<ProdutosOrcamentoBean>());
 			for (int i = 0; i < editarOrcamentoOcurso.getListaProdutos().size(); i++) {
-				if (editarOrcamentoOcurso.getListaProdutos().get(i).getNomegrupo().equalsIgnoreCase("CustosExtras")) {
-					int id = editarOrcamentoOcurso.getListaProdutos().get(i).getValorcoprodutos()
-							.getIdvalorcoprodutos();
-					if (resultadoOrcamentoBean.getListaOpcionais() != null) {
-						for (int j = 0; j < resultadoOrcamentoBean.getListaOpcionais().size(); j++) {
-							if (resultadoOrcamentoBean.getListaOpcionais().get(j).getValorcoprodutos()
-									.getIdvalorcoprodutos() == id) {
-								resultadoOrcamentoBean.getListaOpcionais().get(j).setSelecionadoOpcional(true);
-								resultadoOrcamentoBean.getListaOpcionais().get(j).setValorOrigianl(
-										editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal());
-								resultadoOrcamentoBean.getListaOpcionais().get(j).setValorOriginalRS(
-										editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal()
-												* ocurso.getValorcambio());
-								resultadoOrcamentoBean.getListaOpcionais().get(j).setSomarvalortotal(
-										editarOrcamentoOcurso.getListaProdutos().get(i).isSomavalortotal());
-							}
+				int id = editarOrcamentoOcurso.getListaProdutos().get(i).getValorcoprodutos().getIdvalorcoprodutos();
+				if (resultadoOrcamentoBean.getListaOpcionais() != null) {
+					for (int j = 0; j < resultadoOrcamentoBean.getListaOpcionais().size(); j++) {
+						if (resultadoOrcamentoBean.getListaOpcionais().get(j).getValorcoprodutos()
+								.getIdvalorcoprodutos() == id) {
+							ProdutosOrcamentoBean po = new ProdutosOrcamentoBean();
+							po.setSelecionadoOpcional(true);
+							po.setValorOrigianl(editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal());
+							po.setValorOriginalRS(
+									editarOrcamentoOcurso.getListaProdutos().get(i).getValororiginal()
+											* ocurso.getValorcambio());
+							po.setSomarvalortotal(
+									editarOrcamentoOcurso.getListaProdutos().get(i).isSomavalortotal());
+							po.setValorcoprodutos(editarOrcamentoOcurso.getListaProdutos().get(i).getValorcoprodutos());
+							resultadoOrcamentoBean.getListaOpcionaisSelecionado().add(po);
 						}
 					}
 				}
@@ -420,6 +420,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 					po.setSelecionado(true);
 					po.setValorcoprodutos(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos());
 					po.setNumeroSemanas(editarOrcamentoOcurso.getListaAcOpcional().get(i).getNumerosemanas());
+					po.setNumeroSemanasAcOpcional(editarOrcamentoOcurso.getListaAcOpcional().get(i).getNumerosemanas());
 					po.setValorOrigianl(
 							editarOrcamentoOcurso.getListaAcOpcional().get(i).getValorcoprodutos().getValororiginal());
 					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());

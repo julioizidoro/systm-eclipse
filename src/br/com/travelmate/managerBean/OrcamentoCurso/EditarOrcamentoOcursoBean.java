@@ -251,7 +251,7 @@ public class EditarOrcamentoOcursoBean {
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos valorcoprodutos = null;
 		String sql = "Select v from  Valorcoprodutos v where v.produtosuplemento='valor' and v.datainicial<='"
-				+ Formatacao.ConvercaoDataSql(datainicio) + "' and v.datafinal>='" + Formatacao.ConvercaoDataSql(datainicio);
+				+ Formatacao.ConvercaoDataSql(dataConsulta) + "' and v.datafinal>='" + Formatacao.ConvercaoDataSql(dataConsulta);
 		if (ocurso.getNumerosemanastotal() > 0) {
 			sql = sql + "' and v.numerosemanainicial<=" + ocurso.getNumerosemanastotal() + " and v.numerosemanafinal>="
 					+ ocurso.getNumerosemanastotal();
@@ -428,12 +428,9 @@ public class EditarOrcamentoOcursoBean {
 	public void consultarAcOpcional() {
 		listaAcOpcional = new ArrayList<>();
 		for (int i = 0; i < listaProdutos.size(); i++) {
-			if (listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getComplementoacomodacao() != null) {
-				if (listaProdutos.get(i).getNomegrupo().equalsIgnoreCase("Adicionais")
-						&& listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getTipo()
+			if (listaProdutos.get(i).getValorcoprodutos().getCoprodutos().getTipo()
 						.equalsIgnoreCase("AcOpcional")) {
 					listaAcOpcional.add(listaProdutos.get(i));
-				}
 			}
 		}
 	}
