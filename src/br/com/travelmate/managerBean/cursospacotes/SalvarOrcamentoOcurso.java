@@ -640,18 +640,6 @@ public class SalvarOrcamentoOcurso {
 	}
 	
 	public void salvarTaxasCurso() {
-		if (ocurso.getCliente().getDataNascimento() != null) {
-			if (cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().isSuplementemenoridade()) {
-				int idadeVinculados = 18;
-				if (cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getIdade() > 0) {
-					idadeVinculados = cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getIdade();
-				}
-				int idade = Formatacao.calcularIdade(ocurso.getCliente().getDataNascimento());
-				if (idade < idadeVinculados) {
-					suplementoMenorIdadeAcomodacao();
-				}
-			}
-		} 
 		String sql = "Select g from Grupoobrigatorio g where g.coprodutos.idcoprodutos="
 				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos() 
 				+ " and g.produto.idcoprodutos<>"+cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos();;
