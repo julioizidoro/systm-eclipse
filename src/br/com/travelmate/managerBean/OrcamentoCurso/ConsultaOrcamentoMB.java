@@ -412,6 +412,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 				po.setOcrusoprodutos(editarOrcamentoOcurso.getValorAcomodacao());
 				resultadoOrcamentoBean.getListaAcomodacoes().add(po);
 			}
+			editarOrcamentoOcurso.consultarAcOpcional();
 			if (editarOrcamentoOcurso.getListaAcOpcional() != null) {
 				resultadoOrcamentoBean.setListaAcOpcional(new ArrayList<ProdutosOrcamentoBean>());
 				for (int i = 0; i < editarOrcamentoOcurso.getListaAcOpcional().size(); i++) {
@@ -425,9 +426,11 @@ public class ConsultaOrcamentoMB implements Serializable {
 					po.setValorOriginalAcOpcional(editarOrcamentoOcurso.getListaAcOpcional().get(i).getValororiginal());
 					po.setValorRSacOpcional(po.getValorOriginalAcOpcional() * ocurso.getValorcambio());
 					po.setOcrusoprodutos(editarOrcamentoOcurso.getListaAcOpcional().get(i));
+					po.setSomarvalortotal(editarOrcamentoOcurso.getListaAcOpcional().get(i).isSomavalortotal());
 					resultadoOrcamentoBean.getListaAcOpcional().add(po);
 				}
 			}
+			editarOrcamentoOcurso.consultarTransfer();
 			if (editarOrcamentoOcurso.getListaTransfer() != null) {
 				resultadoOrcamentoBean.setListaTransfer(new ArrayList<ProdutosOrcamentoBean>());
 				for (int i = 0; i < editarOrcamentoOcurso.getListaTransfer().size(); i++) {
@@ -439,6 +442,7 @@ public class ConsultaOrcamentoMB implements Serializable {
 							editarOrcamentoOcurso.getListaTransfer().get(i).getValorcoprodutos().getValororiginal());
 					po.setValorOriginalRS(po.getValorOrigianl() * ocurso.getValorcambio());
 					po.setOcrusoprodutos(editarOrcamentoOcurso.getListaTransfer().get(i));
+					po.setSomarvalortotal(editarOrcamentoOcurso.getListaTransfer().get(i).isSomavalortotal());
 					resultadoOrcamentoBean.getListaTransfer().add(po);
 				}
 			}

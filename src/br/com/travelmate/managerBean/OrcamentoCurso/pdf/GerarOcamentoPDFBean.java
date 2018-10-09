@@ -229,7 +229,9 @@ public class GerarOcamentoPDFBean {
 					listaCustosExtras.add(lista.get(i));
 				} else if (lista.get(i).getNomegrupo().equalsIgnoreCase("Opcional")) {
 					listaCustosExtras.add(lista.get(i));
-				} else if (lista.get(i).getNomegrupo().equalsIgnoreCase("Transfer")) {
+				} else if (lista.get(i).getNomegrupo().equalsIgnoreCase("Transfer") && lista.get(i).isSomavalortotal()) {
+					listaAdicionais.add(lista.get(i));
+				}else if (lista.get(i).getNomegrupo().equalsIgnoreCase("Transfer")) {
 					listaCustosExtras.add(lista.get(i));
 				}
 			}

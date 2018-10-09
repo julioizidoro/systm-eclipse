@@ -1481,11 +1481,7 @@ public class OrcamentoCursoMB implements Serializable {
 				}
 				produto.setTipo(5);
 				produto.setSomavalortotal(listaTransfer.get(i).isSomarvalortotal());
-				if (resultadoOrcamentoBean.getListaTransfer().get(i).isSomarvalortotal()) {
-					produto.setNomegrupo("Adicionais");
-				} else {
-					produto.setNomegrupo("Transfer");
-				}
+				produto.setNomegrupo("Transfer");
 				if (listaTransfer.get(i).isPromocao()) {
 					produto.setPossuipromocao(true);
 				} else
