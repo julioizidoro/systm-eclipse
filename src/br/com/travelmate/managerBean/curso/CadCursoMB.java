@@ -1744,7 +1744,9 @@ public class CadCursoMB implements Serializable {
 					}
 					acomodacao.setVendas(vendasAcomodacao);
 					acomodacao.setProdutos(venda.getProdutos());
-
+					if (acomodacao.getTipobanheiro().equalsIgnoreCase("Compartilhado")) {
+						acomodacao.setTipobanheiro("Não");
+					}
 					AcomodacaoFacade acomodacaoFacade = new AcomodacaoFacade();
 					acomodacao = acomodacaoFacade.salvar(acomodacao);
 					Acomodacaocurso acomodacaocurso = new Acomodacaocurso();
