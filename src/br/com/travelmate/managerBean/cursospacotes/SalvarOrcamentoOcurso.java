@@ -694,7 +694,7 @@ public class SalvarOrcamentoOcurso {
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos valorcoprodutos = null;
 		String sql = "Select v from  Valorcoprodutos v where v.datainicial>='"
-				+ cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getFornecedorcidadeidioma()
+				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getFornecedorcidadeidioma()
 						.getFornecedorcidade().getFornecedor().getAnotarifario()
 				+ "-01-01' and v.numerosemanainicial<=" + cursospacote.getNumerosemanacurso()
 				+ " and v.numerosemanafinal>=" + cursospacote.getNumerosemanacurso()
