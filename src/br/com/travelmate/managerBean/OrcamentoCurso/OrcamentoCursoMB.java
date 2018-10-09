@@ -204,6 +204,9 @@ public class OrcamentoCursoMB implements Serializable {
 		listaOpcionais = resultadoOrcamentoBean.getListaOpcionais();
 		resultadoOrcamentoBean.setListaOpcionais(new ArrayList<ProdutosOrcamentoBean>());
 		resultadoOrcamentoBean.setListaOpcionais(resultadoOrcamentoBean.getListaOpcionaisSelecionado());
+		if (resultadoOrcamentoBean.getListaOpcionais() == null) {
+			resultadoOrcamentoBean.setListaOpcionais(new ArrayList<ProdutosOrcamentoBean>());
+		}
 		if (listaOpcionais == null || listaOpcionais.size() <= 0) {
 			desabilitarbtnOpcional = true;
 		}else {
