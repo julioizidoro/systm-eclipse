@@ -33,6 +33,7 @@ import br.com.travelmate.dao.OCursoDao;
 import br.com.travelmate.dao.OrcamentoCursoDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AupairFacade;
+import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DemipairFacade;
@@ -134,6 +135,7 @@ public class HistoricoClienteMB implements Serializable {
 	private boolean habilitarVisualizacao = true;
 	private Produtos programas;
 	private List<Produtos> listaProgramas;
+	private String corQuestionario;
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -183,6 +185,11 @@ public class HistoricoClienteMB implements Serializable {
 			}else {
 				mostrarLeads = false;
 				mostrarPosVenda = true;
+			}
+			if (lead.getCliente().isOnline()) {
+				corQuestionario = "color:green";
+			}else {
+				corQuestionario = "color:red";
 			}
 		}
 	}
@@ -387,6 +394,14 @@ public class HistoricoClienteMB implements Serializable {
 
 	public void setListaProgramas(List<Produtos> listaProgramas) {
 		this.listaProgramas = listaProgramas;
+	}
+
+	public String getCorQuestionario() {
+		return corQuestionario;
+	}
+
+	public void setCorQuestionario(String corQuestionario) {
+		this.corQuestionario = corQuestionario;
 	}
 
 	public String followUp() {
@@ -1534,6 +1549,22 @@ public class HistoricoClienteMB implements Serializable {
 		listaProgramas = GerarListas.listarProdutos("");
 		if (listaProgramas==null) {
 			listaProgramas =new ArrayList<Produtos>();
+		}
+	}
+	
+	public void questionarioOnline() {
+		if (lead.getCliente().isOnline()) {
+			lead.getCliente().setOnline(false);
+			ClienteFacade clienteFacade = new ClienteFacade();
+			clienteFacade.salvar(lead.getCliente());
+			corQuestionario = "color:red;";
+			Mensagem.lancarMensagemInfo("Questionário Desabilitado para o cliente", "");
+		}else {
+			lead.getCliente().setOnline(true);
+			ClienteFacade clienteFacade = new ClienteFacade();
+			clienteFacade.salvar(lead.getCliente());
+			corQuestionario = "color:green;";
+			Mensagem.lancarMensagemInfo("Questionário Liberado para o cliente", "");
 		}
 	}
 	
