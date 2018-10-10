@@ -18,10 +18,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.ClienteDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadEncaminhadoDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.PaisDao;
+import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 
@@ -1498,5 +1500,30 @@ public class FollowUpMB implements Serializable {
 		session.setAttribute("lead", lead);
 		return "fichaSeguroViagem";
 	}
+	
+	public void questionarioOnline(Lead lead) {
+		if (lead.getCliente().isOnline()) {
+			lead.getCliente().setOnline(false);
+			ClienteFacade clienteFacade = new ClienteFacade();
+			clienteFacade.salvar(lead.getCliente());
+			Mensagem.lancarMensagemInfo("Questionário Desabilitado para o cliente", "");
+		}else {
+			lead.getCliente().setOnline(true);
+			ClienteFacade clienteFacade = new ClienteFacade();
+			clienteFacade.salvar(lead.getCliente());
+			Mensagem.lancarMensagemInfo("Questionário Liberado para o cliente", "");
+		}
+	}
+	
+	
+	public String corQuestionario(Lead lead) {
+		if (lead.getCliente().isOnline()) {
+			return "color:green;";
+		}else {
+			return "color:red;";
+		}
+	}
+	
+	
 
 }

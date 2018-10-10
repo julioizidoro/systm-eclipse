@@ -184,9 +184,12 @@ public class Cliente implements Serializable {
 	private Lead lead;
 	@Column(name = "idioma")
 	private int idioma;
+	@Column(name = "online")
+	private boolean online;
 
 	public Cliente() {
 		setIdioma(0);
+		setOnline(false);
 	}
 
 	public Cliente(Integer idcliente) {
@@ -599,6 +602,14 @@ public class Cliente implements Serializable {
 
 	public void setIdioma(int idioma) {
 		this.idioma = idioma;
+	}
+
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 
 	@Override
