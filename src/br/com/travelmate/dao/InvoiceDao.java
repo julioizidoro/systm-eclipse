@@ -82,7 +82,7 @@ public class InvoiceDao {
         return lista;
     }
     
-    @SuppressWarnings("deprecation")
+ 
 	public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, int idUnidade) throws IOException {
         try {
             ResultSet rs;

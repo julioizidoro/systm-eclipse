@@ -3,11 +3,9 @@ package br.com.travelmate.managerBean.aupair;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
-
 import javax.inject.Named;
 
 import br.com.travelmate.bean.ControlerBean;
@@ -26,7 +24,6 @@ import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.DepartamentoFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -36,7 +33,6 @@ import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Controleseguro;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.Demipair;
-import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedorcomissaocurso;
 import br.com.travelmate.model.He;

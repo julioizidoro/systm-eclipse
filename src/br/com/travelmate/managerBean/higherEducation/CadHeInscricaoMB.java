@@ -20,15 +20,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import com.mchange.v2.cfg.PropertiesConfigSource.Parse;
-
 import br.com.travelmate.bean.ConsultaBean;
 import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.DashBoardBean;
 import br.com.travelmate.bean.DataVencimentoBean;
 import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
-import br.com.travelmate.bean.comissao.ComissaoHEInscricaoBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
 import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadDao;
@@ -43,11 +40,9 @@ import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorCidadeFacade;
 import br.com.travelmate.facade.HeParceirosFacade;
 import br.com.travelmate.facade.OrcamentoFacade;
-
 import br.com.travelmate.facade.ParcelamentoPagamentoFacade;
 import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
-
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cambio;
@@ -72,9 +67,7 @@ import br.com.travelmate.model.Produtoremessa;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Produtosorcamento;
 import br.com.travelmate.model.Questionariohe;
-import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.model.Vendascomissao;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
 
