@@ -501,13 +501,23 @@
 									style="width:100%;border-color:transparent;border:transparent;"
 									columns="4">
 									
+									<p:commandLink id="btnQuestionarioSystn" 
+										action="#{followUpMB.emitirVendaQuestionario(lead)}" 
+										style="margin-left:8%;border:transparent;">
+										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
+											<img src="../../resources/img/questionarioPhoto.png" width="48" />
+											<p:outputLabel value="QUESTIONÁRIO" style="font-size:11px;" />
+											<p:outputLabel value="SYSTM" style="font-size:11px;" />
+										</h:panelGrid>
+									</p:commandLink>
+									
 									<p:commandLink id="btnQuestionario" 
 										action="#{followUpMB.emitirVendaQuestionario(lead)}" 
 										style="margin-left:8%;border:transparent;">
 										<h:panelGrid columns="1" style="text-align:center;border:transparent;">
 											<img src="../../resources/img/questionarioPhoto.png" width="48" />
 											<p:outputLabel value="QUESTIONÁRIO" style="font-size:11px;" />
-											<p:outputLabel value=" " style="font-size:11px;" />
+											<p:outputLabel value="ONLINE" style="font-size:11px;" />
 										</h:panelGrid>
 									</p:commandLink>
 

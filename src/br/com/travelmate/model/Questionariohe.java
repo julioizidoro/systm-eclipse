@@ -111,6 +111,8 @@ public class Questionariohe implements Serializable {
 	private float notaredacao;
     @Column(name = "outranacionalidade")
 	private String outranacionalidade;
+    @Column(name = "tipoquestionario")
+	private String tipoquestionario;
 
     public Questionariohe() {
     	setSituacao("Pendente");
@@ -359,6 +361,14 @@ public class Questionariohe implements Serializable {
 
 	public void setNotaredacao(float notaredacao) {
 		this.notaredacao = notaredacao;
+	}
+
+	public String getTipoquestionario() {
+		return tipoquestionario;
+	}
+
+	public void setTipoquestionario(String tipoquestionario) {
+		this.tipoquestionario = tipoquestionario;
 	}
 
 	@Override
