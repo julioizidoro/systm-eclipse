@@ -58,6 +58,8 @@ public class PacotesAtivosMB implements Serializable {
 	private boolean habilitarPacotes = false;
 	private List<Pais> listaPais;
 	private String moedaNacional;
+	private boolean he;
+	private List<Pacotesinicial> listaHePacotes;
 
 	@PostConstruct
 	public void init() {
@@ -188,6 +190,22 @@ public class PacotesAtivosMB implements Serializable {
 		this.moedaNacional = moedaNacional;
 	}
 
+	public boolean isHe() {
+		return he;
+	}
+
+	public void setHe(boolean he) {
+		this.he = he;
+	}
+
+	public List<Pacotesinicial> getListaHePacotes() {
+		return listaHePacotes;
+	}
+
+	public void setListaHePacotes(List<Pacotesinicial> listaHePacotes) {
+		this.listaHePacotes = listaHePacotes;
+	}
+
 	public void consultarListarCursosPacotes(Pais pais){ 
 		String sql = "SELECT c FROM Pacotesinicial c WHERE c.especial=FALSE and c.idpais="+ pais.getIdpais() +" ORDER BY c.idproduto, c.pais";
 		PacoteInicialFacade pacoteInicialFacade = new PacoteInicialFacade();
@@ -195,7 +213,8 @@ public class PacotesAtivosMB implements Serializable {
 		listaTrabalhoPacotes = new ArrayList<Pacotesinicial>();
 		listaCursosPacotes =  new ArrayList<Pacotesinicial>();
 		listaTeensPacotes =  new ArrayList<Pacotesinicial>(); 
-		listaTurismoPacotes =  new ArrayList<Pacotesinicial>(); 
+		listaTurismoPacotes =  new ArrayList<Pacotesinicial>();
+		listaHePacotes = new ArrayList<Pacotesinicial>(); 
 		if(lista!=null && lista.size()>0) {
 			for (int i = 0; i < lista.size(); i++) {
 				int idproduto = lista.get(i).getIdproduto();
@@ -227,6 +246,10 @@ public class PacotesAtivosMB implements Serializable {
 					lista.get(i).setTurismo(true);
 					listaTurismoPacotes.add(lista.get(i));
 					turismo = true;  
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighereducation()) {
+					lista.get(i).setHe(true);
+					listaHePacotes.add(lista.get(i));
+					he = true;
 				}
 			}
 			habilitarPacotes = true;
@@ -244,6 +267,7 @@ public class PacotesAtivosMB implements Serializable {
 		listaCursosPacotes =  new ArrayList<Pacotesinicial>();
 		listaTeensPacotes =  new ArrayList<Pacotesinicial>(); 
 		listaTurismoPacotes =  new ArrayList<Pacotesinicial>(); 
+		listaHePacotes = new ArrayList<Pacotesinicial>();
 		if(lista!=null && lista.size()>0) {
 			for (int i = 0; i < lista.size(); i++) {
 				int idproduto = lista.get(i).getIdproduto();
@@ -275,6 +299,10 @@ public class PacotesAtivosMB implements Serializable {
 					lista.get(i).setTurismo(true);
 					listaTurismoPacotes.add(lista.get(i));
 					turismo = true;  
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighereducation()) {
+					lista.get(i).setHe(true);
+					listaHePacotes.add(lista.get(i));
+					he = true;
 				}
 			}
 			habilitarPacotes = true;
@@ -319,6 +347,10 @@ public class PacotesAtivosMB implements Serializable {
 					lista.get(i).setTurismo(true);
 					listaPacotesEspeciais.add(lista.get(i));
 					especial = true;  
+				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighereducation()) {
+					lista.get(i).setHe(true);
+					listaPacotesEspeciais.add(lista.get(i));
+					especial = true;
 				}
 			}
 		}
