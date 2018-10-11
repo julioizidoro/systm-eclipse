@@ -29,6 +29,8 @@ public class FichaQuestionarioMB implements Serializable{
 	private Questionariohe questionariohe;
 	private boolean habilitarTesteEnem = false;
 	private boolean habilitarCidade = false;
+	private boolean sepaparCertificacao = false;
+	private boolean separarDestino = false;
 	
 
 	
@@ -43,6 +45,15 @@ public class FichaQuestionarioMB implements Serializable{
 		}
 		if (questionariohe.getPais1() != null && questionariohe.getPais1().equalsIgnoreCase("Portugal")) {
 			habilitarCidade = true;
+		}
+		if ((questionariohe.getNivelcertificadointeresse() != null && questionariohe.getNivelcertificadointeresse().length() > 0) 
+				&& (questionariohe.getNivelcertificadointeresse2() != null && questionariohe.getNivelcertificadointeresse2().length() > 0)) {
+			sepaparCertificacao = true;
+		}
+		
+		if ((questionariohe.getPais1() != null && questionariohe.getPais1().length() > 0) && (questionariohe.getPais2() != null && 
+				questionariohe.getPais2().length() > 0)) {
+			separarDestino = true;
 		}
 	}
 
@@ -163,6 +174,30 @@ public class FichaQuestionarioMB implements Serializable{
 
 	public void setHabilitarCidade(boolean habilitarCidade) {
 		this.habilitarCidade = habilitarCidade;
+	}
+
+
+
+	public boolean isSepaparCertificacao() {
+		return sepaparCertificacao;
+	}
+
+
+
+	public void setSepaparCertificacao(boolean sepaparCertificacao) {
+		this.sepaparCertificacao = sepaparCertificacao;
+	}
+
+
+
+	public boolean isSepararDestino() {
+		return separarDestino;
+	}
+
+
+
+	public void setSepararDestino(boolean separarDestino) {
+		this.separarDestino = separarDestino;
 	}
 
 
