@@ -1750,6 +1750,46 @@ public class CadHeFinalMB implements Serializable {
 							he.getHobbies(), heAlteracao.getHobbies());
 				}
 			}
+			
+
+
+			if (he.getCurso1() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getCurso1().equalsIgnoreCase(heAlteracao.getCurso1())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Curso:",
+							he.getCurso1(), heAlteracao.getCurso1());
+				}
+			}
+
+
+			if (he.getMesano1() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getMesano1().equalsIgnoreCase(heAlteracao.getMesano1())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Mês/Ano:",
+							he.getMesano1(), heAlteracao.getMesano1());
+				}
+			}
+
+
+			if (he.getCodigo1() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getCodigo1().equalsIgnoreCase(heAlteracao.getCodigo1())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Código:",
+							he.getCodigo1(), heAlteracao.getCodigo1());
+				}
+			}
 		}
 	}
 	
@@ -1792,5 +1832,8 @@ public class CadHeFinalMB implements Serializable {
 		heAlteracao.setPossuiAlergia(he.getPossuiAlergia());
 		heAlteracao.setSolicitacoesEspeciais(he.getSolicitacoesEspeciais());
 		heAlteracao.setHobbies(he.getHobbies());
+		heAlteracao.setCurso1(he.getCurso1());
+		heAlteracao.setCodigo1(he.getCodigo1());
+		heAlteracao.setMesano1(he.getMesano1());
 	}
 }

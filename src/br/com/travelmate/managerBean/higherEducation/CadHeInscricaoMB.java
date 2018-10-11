@@ -156,6 +156,9 @@ public class CadHeInscricaoMB implements Serializable {
 	private boolean semmascara;
 	private He heAlteracao;
 	private Controlealteracoes controlealteracoes;
+	private Heparceiros heParAlteracao1;
+	private Heparceiros heParAlteracao2;
+	private Heparceiros heParAlteracao3;
 
 	@PostConstruct
 	public void init() {
@@ -760,7 +763,6 @@ public class CadHeInscricaoMB implements Serializable {
 			vendaAlterada = venda;
 			valorVendaAlterada = venda.getValor();
 		}
-		popularDadosAntigos();
 		he.setTipoFicha("Formulario");
 		this.cliente = venda.getCliente();
 		fornecedorCidade = venda.getFornecedorcidade();
@@ -776,6 +778,7 @@ public class CadHeInscricaoMB implements Serializable {
 			carregarCamposFormaPagamento();
 		}
 		buscarHeParceiros();
+		popularDadosAntigos();
 		OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 		orcamento = orcamentoFacade.consultar(venda.getIdvendas());
 		if (orcamento != null) {
@@ -2055,7 +2058,7 @@ public class CadHeInscricaoMB implements Serializable {
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
 				  controleAlteracaoCursoBean.salvar(controlealteracoes,
-						depPrograma.getDepartamento(), "Nota Enem: Ciências da Natureza",
+						depPrograma.getDepartamento(), "Nota Enem: Ciências Humanas",
 						Formatacao.formatarFloatString(he.getNotacienciahumanas()), Formatacao.formatarFloatString(heAlteracao.getNotacienciahumanas()));
 			}
 
@@ -2280,6 +2283,114 @@ public class CadHeInscricaoMB implements Serializable {
 							he.getHobbies(), heAlteracao.getHobbies());
 				}
 			}
+
+			if (heparceiros1 != null && heParAlteracao1.getHecurso() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros1.getHecurso().equalsIgnoreCase(heParAlteracao1.getHecurso())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Curso 1:",
+							heparceiros1.getHecurso(), heParAlteracao1.getHecurso());
+				}
+			}
+			
+			if (heparceiros1 != null && heParAlteracao1.getMesano() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros1.getMesano().equalsIgnoreCase(heParAlteracao1.getMesano())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Mes/Ano 1:",
+							heparceiros1.getMesano(), heParAlteracao1.getMesano());
+				}
+			}
+			
+			if (heparceiros1 != null && heParAlteracao1.getHecodigo() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros1.getHecodigo().equalsIgnoreCase(heParAlteracao1.getHecodigo())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Código 1:",
+							heparceiros1.getHecodigo(), heParAlteracao1.getHecodigo());
+				}
+			}
+			
+			if (heparceiros2 != null && heParAlteracao2.getHecurso() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros2.getHecurso().equalsIgnoreCase(heParAlteracao2.getHecurso())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Curso 2:",
+							heparceiros2.getHecurso(), heParAlteracao2.getHecurso());
+				}
+			}
+			
+			if (heparceiros2 != null && heParAlteracao2.getMesano() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros2.getMesano().equalsIgnoreCase(heParAlteracao2.getMesano())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Mês/Ano 2:",
+							heparceiros2.getMesano(), heParAlteracao2.getMesano());
+				}
+			}
+			
+			if (heparceiros2 != null && heParAlteracao2.getHecodigo() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros2.getHecodigo().equalsIgnoreCase(heParAlteracao2.getHecodigo())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Código 2:",
+							heparceiros2.getHecodigo(), heParAlteracao2.getHecodigo());
+				}
+			}
+			
+			if (heparceiros3 != null && heParAlteracao3.getHecodigo() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros3.getHecodigo().equalsIgnoreCase(heParAlteracao3.getHecodigo())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Código 3:",
+							heparceiros3.getHecodigo(), heParAlteracao3.getHecodigo());
+				}
+			}
+			
+			if (heparceiros3 != null && heParAlteracao3.getHecurso() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros3.getHecurso().equalsIgnoreCase(heParAlteracao3.getHecurso())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Curso 3:",
+							heparceiros3.getHecurso(), heParAlteracao3.getHecurso());
+				}
+			}
+			
+			if (heparceiros3 != null && heParAlteracao3.getMesano() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros3.getMesano().equalsIgnoreCase(heParAlteracao3.getMesano())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Mês/Ano 3:",
+							heparceiros3.getMesano(), heParAlteracao3.getMesano());
+				}
+			}
 		}
 	}
 	
@@ -2322,6 +2433,47 @@ public class CadHeInscricaoMB implements Serializable {
 		heAlteracao.setPossuiAlergia(he.getPossuiAlergia());
 		heAlteracao.setSolicitacoesEspeciais(he.getSolicitacoesEspeciais());
 		heAlteracao.setHobbies(he.getHobbies());
+		heParAlteracao1 = new Heparceiros();
+		if (heparceiros1 != null) {
+			heParAlteracao1.setDatainicio(heparceiros1.getDatainicio());
+			heParAlteracao1.setDatatermino(heparceiros1.getDatatermino());
+			heParAlteracao1.setFornecedorcidade(heparceiros1.getFornecedorcidade());
+			heParAlteracao1.setHe(heparceiros1.getHe());
+			heParAlteracao1.setHecodigo(heparceiros1.getHecodigo());
+			heParAlteracao1.setHecurso(heparceiros1.getHecurso());
+			heParAlteracao1.setMesano(heparceiros1.getMesano());
+			heParAlteracao1.setNumerosemanas(heparceiros1.getNumerosemanas());
+			heParAlteracao1.setPathwaycurso(heparceiros1.getPathwaycurso());
+			heParAlteracao1.setPathway(heparceiros1.isPathway());
+		}
+
+		heParAlteracao2 = new Heparceiros();
+		if (heparceiros2 != null) {
+			heParAlteracao2.setDatainicio(heparceiros2.getDatainicio());
+			heParAlteracao2.setDatatermino(heparceiros2.getDatatermino());
+			heParAlteracao2.setFornecedorcidade(heparceiros2.getFornecedorcidade());
+			heParAlteracao2.setHe(heparceiros2.getHe());
+			heParAlteracao2.setHecodigo(heparceiros2.getHecodigo());
+			heParAlteracao2.setHecurso(heparceiros2.getHecurso());
+			heParAlteracao2.setMesano(heparceiros2.getMesano());
+			heParAlteracao2.setNumerosemanas(heparceiros2.getNumerosemanas());
+			heParAlteracao2.setPathwaycurso(heparceiros2.getPathwaycurso());
+			heParAlteracao2.setPathway(heparceiros2.isPathway());
+		}
+
+		heParAlteracao3 = new Heparceiros();
+		if (heparceiros3 != null) {
+			heParAlteracao3.setDatainicio(heparceiros3.getDatainicio());
+			heParAlteracao3.setDatatermino(heparceiros3.getDatatermino());
+			heParAlteracao3.setFornecedorcidade(heparceiros3.getFornecedorcidade());
+			heParAlteracao3.setHe(heparceiros3.getHe());
+			heParAlteracao3.setHecodigo(heparceiros3.getHecodigo());
+			heParAlteracao3.setHecurso(heparceiros3.getHecurso());
+			heParAlteracao3.setMesano(heparceiros3.getMesano());
+			heParAlteracao3.setNumerosemanas(heparceiros3.getNumerosemanas());
+			heParAlteracao3.setPathwaycurso(heparceiros3.getPathwaycurso());
+			heParAlteracao3.setPathway(heparceiros3.isPathway());
+		}
 	}
 
 }
