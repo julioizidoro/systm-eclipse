@@ -1491,33 +1491,35 @@ public class CadHeInscricaoMB implements Serializable {
 								venda.getUsuario());
 
 					}
-					String titulo = "Ficha de Higher Education Alterada";
-					String operacao = "I";
-					String imagemNotificacao = "alterado";
-					new ContasReceberBean(venda, formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null,
-							true, he.getDatainicio());
-					String vm = "Venda pela Matriz";
-					if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
-						vm = "Venda pela Loja";
-					}
-					DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-					List<Departamento> departamento = departamentoFacade
-							.listar("select d From Departamento d where d.usuario.idusuario="
-									+ venda.getProdutos().getIdgerente());
-					if (departamento != null && departamento.size() > 0) {
-						if (he.getDatainicio() != null) {
-							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-									venda.getFornecedorcidade().getFornecedor().getNome(),
-									Formatacao.ConvercaoDataPadrao(he.getDatainicio()), venda.getUsuario().getNome(),
-									vm, venda.getValor(), venda.getValorcambio(),
-									venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-									imagemNotificacao, "A");
-						} else {
-							Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
-									venda.getFornecedorcidade().getFornecedor().getNome(), he.getMesano1(),
-									venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
-									venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
-									imagemNotificacao, "A");
+					if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")) {
+						String titulo = "Ficha de Higher Education Alterada";
+						String operacao = "I";
+						String imagemNotificacao = "alterado";
+						new ContasReceberBean(venda, formaPagamento.getParcelamentopagamentoList(), usuarioLogadoMB, null,
+								true, he.getDatainicio());
+						String vm = "Venda pela Matriz";
+						if (venda.getVendasMatriz().equalsIgnoreCase("N")) {
+							vm = "Venda pela Loja";
+						}
+						DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+						List<Departamento> departamento = departamentoFacade
+								.listar("select d From Departamento d where d.usuario.idusuario="
+										+ venda.getProdutos().getIdgerente());
+						if (departamento != null && departamento.size() > 0) {
+							if (he.getDatainicio() != null) {
+								Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
+										venda.getFornecedorcidade().getFornecedor().getNome(),
+										Formatacao.ConvercaoDataPadrao(he.getDatainicio()), venda.getUsuario().getNome(),
+										vm, venda.getValor(), venda.getValorcambio(),
+										venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+										imagemNotificacao, "A");
+							} else {
+								Formatacao.gravarNotificacaoVendas(titulo, venda.getUnidadenegocio(), cliente.getNome(),
+										venda.getFornecedorcidade().getFornecedor().getNome(), he.getMesano1(),
+										venda.getUsuario().getNome(), vm, venda.getValor(), venda.getValorcambio(),
+										venda.getCambio().getMoedas().getSigla(), operacao, departamento.get(0),
+										imagemNotificacao, "A");
+							}
 						}
 					}
 				}

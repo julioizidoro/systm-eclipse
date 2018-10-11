@@ -286,7 +286,7 @@
 							<p:inputText id="nsemanas2" style="width:60%;" maxlength="100"
 								value="#{cadHeInscricaoMB.heparceiros2.numerosemanas}" disabled="#{cadHeInscricaoMB.habilitarCamposPathway2()}">
 								<p:ajax event="blur"
-									listener="#{cadHeInscricaoMB.calcularDataTermino()}"
+									listener="#{cadHeInscricaoMB.calcularDataTermino2()}"
 									update="datatermino2" />
 							</p:inputText>
 							<p:calendar id="datatermino2" disabled="#{cadHeInscricaoMB.habilitarCamposPathway2()}"
