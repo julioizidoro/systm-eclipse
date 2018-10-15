@@ -1792,6 +1792,45 @@ public class CadHeFinalMB implements Serializable {
 							he.getCodigo1(), heAlteracao.getCodigo1());
 				}
 			}
+
+
+			if (he.getNumerosemanas() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (he.getNumerosemanas() != heAlteracao.getNumerosemanas()) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Número Semanas Pathway:",
+							he.getNumerosemanas().toString(), heAlteracao.getNumerosemanas().toString());
+				}
+			}
+
+			if (he.getDatainicio() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getDatainicio().equals(heAlteracao.getDatainicio())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data de Inicio Pathway",
+							Formatacao.ConvercaoDataPadrao(he.getDatainicio()),
+							Formatacao.ConvercaoDataPadrao(heAlteracao.getDatainicio()));
+				}
+			}
+
+			if (he.getDatatermino() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!he.getDatatermino().equals(heAlteracao.getDatatermino())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data de Término Pathway",
+							Formatacao.ConvercaoDataPadrao(he.getDatatermino()),
+							Formatacao.ConvercaoDataPadrao(heAlteracao.getDatatermino()));
+				}
+			}
 		}
 	}
 	
@@ -1837,5 +1876,7 @@ public class CadHeFinalMB implements Serializable {
 		heAlteracao.setCurso1(he.getCurso1());
 		heAlteracao.setCodigo1(he.getCodigo1());
 		heAlteracao.setMesano1(he.getMesano1());
+		heAlteracao.setDatainicio(he.getDatainicio());
+		heAlteracao.setDatatermino(he.getDatatermino());
 	}
 }

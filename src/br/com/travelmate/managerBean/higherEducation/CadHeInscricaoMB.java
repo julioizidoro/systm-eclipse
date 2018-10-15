@@ -2320,6 +2320,45 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 			
+
+			if (heparceiros1 != null && heParAlteracao1.getNumerosemanas() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (heparceiros1.getNumerosemanas() != heParAlteracao1.getNumerosemanas()) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Número Semana (Pathway) 1:",
+							heparceiros1.getNumerosemanas().toString(), heParAlteracao1.getNumerosemanas().toString());
+				}
+			}
+
+			if (heparceiros1 != null && heParAlteracao1.getDatainicio() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros1.getDatainicio().equals(heParAlteracao1.getDatainicio())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway)1:",
+							Formatacao.ConvercaoDataPadrao(heparceiros1.getDatainicio()),
+							Formatacao.ConvercaoDataPadrao(heParAlteracao1.getDatainicio()));
+				}
+			}
+
+			if (heparceiros1 != null && heParAlteracao1.getDatatermino() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros1.getDatatermino().equals(heParAlteracao1.getDatatermino())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 1:",
+							Formatacao.ConvercaoDataPadrao(heparceiros1.getDatatermino()),
+							Formatacao.ConvercaoDataPadrao(heParAlteracao1.getDatatermino()));
+				}
+			}
+			
 			if (heparceiros2 != null && heParAlteracao2.getHecurso() != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
@@ -2353,6 +2392,44 @@ public class CadHeInscricaoMB implements Serializable {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Código 2:",
 							heparceiros2.getHecodigo(), heParAlteracao2.getHecodigo());
+				}
+			}
+
+			if (heparceiros2 != null && heParAlteracao2.getNumerosemanas() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (heparceiros2.getNumerosemanas() != heParAlteracao2.getNumerosemanas()) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Número Semana (Pathway) 2:",
+							heparceiros2.getNumerosemanas().toString(), heParAlteracao2.getNumerosemanas().toString());
+				}
+			}
+
+			if (heparceiros2 != null && heParAlteracao2.getDatainicio() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros2.getDatainicio().equals(heParAlteracao2.getDatainicio())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 2:",
+							Formatacao.ConvercaoDataPadrao(heparceiros2.getDatainicio()),
+							Formatacao.ConvercaoDataPadrao(heParAlteracao2.getDatainicio()));
+				}
+			}
+
+			if (heparceiros2 != null && heParAlteracao2.getDatatermino() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros2.getDatatermino().equals(heParAlteracao2.getDatatermino())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 2:",
+							Formatacao.ConvercaoDataPadrao(heparceiros2.getDatatermino()),
+							Formatacao.ConvercaoDataPadrao(heParAlteracao2.getDatatermino()));
 				}
 			}
 			
@@ -2389,6 +2466,44 @@ public class CadHeInscricaoMB implements Serializable {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Mês/Ano 3:",
 							heparceiros3.getMesano(), heParAlteracao3.getMesano());
+				}
+			}
+
+			if (heparceiros3 != null && heParAlteracao3.getNumerosemanas() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (heparceiros3.getNumerosemanas() != heParAlteracao3.getNumerosemanas()) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Número Semana (Pathway) 2:",
+							heparceiros3.getNumerosemanas().toString(), heParAlteracao3.getNumerosemanas().toString());
+				}
+			}
+
+			if (heparceiros3 != null && heParAlteracao3.getDatainicio() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros3.getDatainicio().equals(heParAlteracao3.getDatainicio())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 3:",
+							Formatacao.ConvercaoDataPadrao(heparceiros3.getDatainicio()),
+							Formatacao.ConvercaoDataPadrao(heParAlteracao3.getDatainicio()));
+				}
+			}
+
+			if (heparceiros3 != null && heParAlteracao3.getDatatermino() != null) {
+				controlealteracoes = new Controlealteracoes();
+				controlealteracoes.setDepartamentoproduto(depPrograma);
+				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
+				controlealteracoes.setVendas(he.getVendas());
+				if (!heparceiros3.getDatatermino().equals(heParAlteracao3.getDatatermino())) {
+					  controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 3:",
+							Formatacao.ConvercaoDataPadrao(heparceiros3.getDatatermino()),
+							Formatacao.ConvercaoDataPadrao(heParAlteracao3.getDatatermino()));
 				}
 			}
 		}
