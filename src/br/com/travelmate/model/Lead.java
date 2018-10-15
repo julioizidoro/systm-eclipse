@@ -99,11 +99,14 @@ public class Lead implements Serializable {
 	private Integer idcontrole;
 	@Column(name = "nomeunidade")
 	private String nomeunidade;
+	@Column(name = "captacao")
+	private String captacao;
 	@Transient
 	private Integer numeroPublicidade;
 
 	public Lead() {
 		setNomeunidade("");
+		setCaptacao("Usuário");
 		idcontrole = 0;
 	}
 
@@ -317,6 +320,14 @@ public class Lead implements Serializable {
 
 	public void setNumeroPublicidade(Integer numeroPublicidade) {
 		this.numeroPublicidade = numeroPublicidade;
+	}
+
+	public String getCaptacao() {
+		return captacao;
+	}
+
+	public void setCaptacao(String captacao) {
+		this.captacao = captacao;
 	}
 
 	@Override
