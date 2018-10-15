@@ -77,7 +77,7 @@ public class CadHighSchoolMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private PaisDao paisDao;
 	@Inject
@@ -142,7 +142,6 @@ public class CadHighSchoolMB implements Serializable {
 	private String nomeEstado;
 	private boolean mascara;
 	private boolean semmascara;
-	
 
 	@PostConstruct()
 	public void init() {
@@ -156,7 +155,7 @@ public class CadHighSchoolMB implements Serializable {
 		session.removeAttribute("cliente");
 		session.removeAttribute("lead");
 		session.removeAttribute("highschool");
-		
+
 		listaPais = paisDao.listar();
 		carregarComboMoedas();
 		gerarListaProdutos();
@@ -491,7 +490,6 @@ public class CadHighSchoolMB implements Serializable {
 		this.cancelamento = cancelamento;
 	}
 
-
 	public List<Parcelamentopagamento> getListaParcelamentoPagamentoOriginal() {
 		return listaParcelamentoPagamentoOriginal;
 	}
@@ -589,7 +587,8 @@ public class CadHighSchoolMB implements Serializable {
 		orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 		orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 		orcamentoprodutosorcamento.setValorMoedaEstrangeira(0.0f);
-		orcamentoprodutosorcamento.setValorMoedaNacional(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
+		orcamentoprodutosorcamento
+				.setValorMoedaNacional(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm());
 		orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 		parcelamentopagamento = new Parcelamentopagamento();
 		orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
@@ -679,14 +678,16 @@ public class CadHighSchoolMB implements Serializable {
 				}
 				parcelamentopagamento.setValorParcelamento(parcelamentopagamento.getValorParcelamento());
 				if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
-					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(parcelamentopagamento.getDiaVencimento());
+					DataVencimentoBean dataVencimentoBean = new DataVencimentoBean(
+							parcelamentopagamento.getDiaVencimento());
 					parcelamentopagamento.setDiaVencimento(dataVencimentoBean.validarDataVencimento());
 				}
 				if (venda.getIdvendas() != null) {
 					if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 						ContasReceberBean contasReceberBean = new ContasReceberBean();
 						parcelamentopagamento = contasReceberBean.gerarParcelasIndividuais(parcelamentopagamento,
-								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB, highschool.getValoreshighschool().getDatainicio());
+								formaPagamento.getParcelamentopagamentoList().size(), venda, usuarioLogadoMB,
+								highschool.getValoreshighschool().getDatainicio());
 					}
 				}
 				formaPagamento.getParcelamentopagamentoList().add(parcelamentopagamento);
@@ -726,7 +727,7 @@ public class CadHighSchoolMB implements Serializable {
 		}
 		if (parcelamentopagamento.getDiaVencimento() == null) {
 			msg = msg + "Data do 1º Vencimento Obrigatório";
-		}else {
+		} else {
 			if (parcelamentopagamento.getFormaPagamento().equalsIgnoreCase("Boleto")) {
 				String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
 				Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
@@ -772,7 +773,8 @@ public class CadHighSchoolMB implements Serializable {
 			if (venda.getIdvendas() != null) {
 				if (!venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
 					contasReceberBean.apagarContasReceber(formaPagamento.getParcelamentopagamentoList().get(linha),
-							venda.getIdvendas(), usuarioLogadoMB, formaPagamento.getParcelamentopagamentoList().get(linha).getIdparcemlamentoPagamento());
+							venda.getIdvendas(), usuarioLogadoMB,
+							formaPagamento.getParcelamentopagamentoList().get(linha).getIdparcemlamentoPagamento());
 				}
 			}
 			if (contasReceberBean.getValorJaRecebido() > 0) {
@@ -796,7 +798,7 @@ public class CadHighSchoolMB implements Serializable {
 			formaPagamento.getParcelamentopagamentoList().remove(linha);
 			calcularParcelamentoPagamento();
 			parcelamentopagamento.setValorParcelamento(valorSaldoParcelar);
-			parcelamentopagamento.setValorParcela(0.0f); 
+			parcelamentopagamento.setValorParcela(0.0f);
 		}
 	}
 
@@ -818,7 +820,7 @@ public class CadHighSchoolMB implements Serializable {
 	}
 
 	public void carregarComboMoedas() {
-		
+
 		listaMoedas = cambioDao.listaMoedas();
 		if (listaMoedas == null) {
 			listaMoedas = new ArrayList<Moedas>();
@@ -831,7 +833,8 @@ public class CadHighSchoolMB implements Serializable {
 			if (dias > 3) {
 				Mensagem.lancarMensagemInfo("", "Cambio alterado para o dia atual");
 			}
-			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+			cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), moeda,
+					usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			orcamento.setValorCambio(cambio.getValor());
 			atualizarValoresProduto();
 		} else {
@@ -848,13 +851,15 @@ public class CadHighSchoolMB implements Serializable {
 				int idSeguro = produto.getIdprodutosOrcamento();
 				if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getProdutosorcamento()
 						.getIdprodutosOrcamento() != idSeguro) {
-						if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaEstrangeira() > 0) {
-							orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaNacional(
-									orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaEstrangeira()
-											* orcamento.getValorCambio());
-						}else if(orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() > 0) {
-							orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaEstrangeira(orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() / orcamento.getValorCambio());
-						}
+					if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaEstrangeira() > 0) {
+						orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaNacional(
+								orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaEstrangeira()
+										* orcamento.getValorCambio());
+					} else if (orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional() > 0) {
+						orcamento.getOrcamentoprodutosorcamentoList().get(i).setValorMoedaEstrangeira(
+								orcamento.getOrcamentoprodutosorcamentoList().get(i).getValorMoedaNacional()
+										/ orcamento.getValorCambio());
+					}
 				}
 				calcularValorTotalOrcamento();
 			}
@@ -920,7 +925,7 @@ public class CadHighSchoolMB implements Serializable {
 		try {
 			listaProdutoRemessa = produtoRemessaFacade.listar(aplicacaoMB.getParametrosprodutos().getHighSchool());
 		} catch (Exception e) {
-			  
+
 		}
 		float valorremessa = 0.0f;
 		if (listaProdutoRemessa != null) {
@@ -999,7 +1004,7 @@ public class CadHighSchoolMB implements Serializable {
 					if (produtosorcamento.getIdprodutosOrcamento() != idProduto) {
 						orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 						orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
-						
+
 //						if ((orcamentoprodutosorcamento.getValorMoedaEstrangeira() > 0)
 //								&& (orcamento.getValorCambio() > 0)) {
 //							orcamentoprodutosorcamento.setValorMoedaNacional(
@@ -1020,35 +1025,38 @@ public class CadHighSchoolMB implements Serializable {
 							}
 						}
 						boolean excluirDescontoTM = true;
-						if (produtosorcamento.getValormaximo()==0) {
-							orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
-							orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
+						if (produtosorcamento.getValormaximo() == 0) {
+							orcamentoprodutosorcamento.setValorMoedaEstrangeira(valorMoedaEstrangeira);
+							orcamentoprodutosorcamento.setValorMoedaNacional(valorMoedaReal);
 							orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 							calcularValorTotalOrcamento();
 							orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-						}else if (produtosorcamento.getValormaximo()>=valorMoedaReal){
-							orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
-							orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
+						} else if (produtosorcamento.getValormaximo() >= valorMoedaReal) {
+							orcamentoprodutosorcamento.setValorMoedaEstrangeira(valorMoedaEstrangeira);
+							orcamentoprodutosorcamento.setValorMoedaNacional(valorMoedaReal);
 							orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 							calcularValorTotalOrcamento();
 							orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
-						}else {
+						} else {
 							FacesContext fc = FacesContext.getCurrentInstance();
-					        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-					        Map<String, Object> options = new HashMap<String, Object>();
+							HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+							Map<String, Object> options = new HashMap<String, Object>();
 							options.put("contentWidth", 230);
-					        session.setAttribute("valorOriginal", 0f);
-					        session.setAttribute("novoValor", 0f);
+							session.setAttribute("valorOriginal", 0f);
+							session.setAttribute("novoValor", 0f);
 							RequestContext.getCurrentInstance().openDialog("validarTrocaCambioPIN", options, null);
-							//Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+ Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
+							// Mensagem.lancarMensagemErro("", "Valor máximo permitudo R$ "+
+							// Formatacao.formatarFloatString(produtosorcamento.getValormaximo()));
 							excluirDescontoTM = false;
 						}
 						if (excluirDescontoTM) {
 							if (produtosorcamento.getIdprodutosOrcamento() == 33) {
 								Filtroorcamentoproduto filtro = null;
 								for (int i = 0; i < listaProdutosOrcamento.size(); i++) {
-									if (listaProdutosOrcamento.get(i).getProdutos().getIdprodutos()==aplicacaoMB.getParametrosprodutos().getCursos()) {
-										if (listaProdutosOrcamento.get(i).getProdutosorcamento().getIdprodutosOrcamento() == 33) {
+									if (listaProdutosOrcamento.get(i).getProdutos().getIdprodutos() == aplicacaoMB
+											.getParametrosprodutos().getCursos()) {
+										if (listaProdutosOrcamento.get(i).getProdutosorcamento()
+												.getIdprodutosOrcamento() == 33) {
 											filtro = listaProdutosOrcamento.get(i);
 										}
 									}
@@ -1070,16 +1078,17 @@ public class CadHighSchoolMB implements Serializable {
 			context.addMessage(null, new FacesMessage("Produto não selecionado.", ""));
 		}
 	}
-	
+
 	public void retornoDialogProdutoOrcamento() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        String adicionar = (String) session.getAttribute("adicionar");
-        session.removeAttribute("adicionar");
-        if (adicionar != null) {
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		String adicionar = (String) session.getAttribute("adicionar");
+		session.removeAttribute("adicionar");
+		if (adicionar != null) {
 			if (adicionar.equalsIgnoreCase("sim")) {
 				FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
-				Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade.pesquisar(aplicacaoMB.getParametrosprodutos().getCursos(), 33);
+				Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade
+						.pesquisar(aplicacaoMB.getParametrosprodutos().getCursos(), 33);
 				Orcamentoprodutosorcamento orcamentoprodutosorcamento = new Orcamentoprodutosorcamento();
 				orcamentoprodutosorcamento.setDescricao(filtroorcamentoproduto.getProdutosorcamento().getDescricao());
 				orcamentoprodutosorcamento.setProdutosorcamento(filtroorcamentoproduto.getProdutosorcamento());
@@ -1090,14 +1099,15 @@ public class CadHighSchoolMB implements Serializable {
 						valorMoedaEstrangeira = valorMoedaReal / orcamento.getValorCambio();
 					}
 				}
-				orcamentoprodutosorcamento . setValorMoedaEstrangeira (valorMoedaEstrangeira);
-				orcamentoprodutosorcamento . setValorMoedaNacional (valorMoedaReal);
+				orcamentoprodutosorcamento.setValorMoedaEstrangeira(valorMoedaEstrangeira);
+				orcamentoprodutosorcamento.setValorMoedaNacional(valorMoedaReal);
 				orcamento.getOrcamentoprodutosorcamentoList().add(orcamentoprodutosorcamento);
 				calcularValorTotalOrcamento();
 				if (filtroorcamentoproduto.getProdutosorcamento().getIdprodutosOrcamento() == 33) {
 					Filtroorcamentoproduto filtro = null;
 					for (int i = 0; i < listaProdutosOrcamento.size(); i++) {
-						if (listaProdutosOrcamento.get(i).getProdutos().getIdprodutos()==aplicacaoMB.getParametrosprodutos().getCursos()) {
+						if (listaProdutosOrcamento.get(i).getProdutos().getIdprodutos() == aplicacaoMB
+								.getParametrosprodutos().getCursos()) {
 							if (listaProdutosOrcamento.get(i).getProdutosorcamento().getIdprodutosOrcamento() == 33) {
 								filtro = listaProdutosOrcamento.get(i);
 							}
@@ -1130,7 +1140,8 @@ public class CadHighSchoolMB implements Serializable {
 					int idproduto = orcamento.getOrcamentoprodutosorcamentoList().get(ilinha).getProdutosorcamento()
 							.getIdprodutosOrcamento();
 					if (idproduto == 33) {
-						Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade.pesquisar(aplicacaoMB.getParametrosprodutos().getCursos(), 33);
+						Filtroorcamentoproduto filtroorcamentoproduto = filtroOrcamentoProdutoFacade
+								.pesquisar(aplicacaoMB.getParametrosprodutos().getCursos(), 33);
 						if (listaProdutosOrcamento != null) {
 							listaProdutosOrcamento.add(filtroorcamentoproduto);
 						}
@@ -1194,7 +1205,7 @@ public class CadHighSchoolMB implements Serializable {
 				} else {
 					enviarFicha = true;
 				}
-				
+
 				if (venda.getIdvendas() == null) {
 					nsituacao = "PROCESSO";
 				}
@@ -1205,16 +1216,18 @@ public class CadHighSchoolMB implements Serializable {
 				venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());
 				Cambio cambioBrasil = null;
 				if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais() != 5) {
-					
+
 					Pais pais = paisDao.consultar(5);
-					
-					cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()), cambio.getMoedas().getIdmoedas(), pais);
+
+					cambioBrasil = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(pais.getDatacambio()),
+							cambio.getMoedas().getIdmoedas(), pais);
 					totalMoedaReal = totalMoedaEstrangeira * cambioBrasil.getValor();
 				}
 				venda.setValor(totalMoedaReal);
 				venda = programasBean.salvarVendas(venda, usuarioLogadoMB, nsituacao, cliente,
 						formaPagamento.getValorTotal(), produto, fornecedorCidade, cambio, orcamento.getValorCambio(),
-						lead, highschool.getValoreshighschool().getDatainicio(), null, vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
+						lead, highschool.getValoreshighschool().getDatainicio(), null, vendasDao, leadPosVendaDao,
+						leadDao, leadSituacaoDao);
 				highschool.setControle("Processo");
 				highschool.setVendas(venda);
 				highschool.setValoreshighschool(valoreshighschool);
@@ -1232,37 +1245,45 @@ public class CadHighSchoolMB implements Serializable {
 				if (cambioBrasil != null) {
 					valorCambioBrasil = cambioBrasil.getValor();
 				}
-				orcamento = cadHighSchoolBean.salvarOrcamento(cambio, venda.getValorpais(),
-						totalMoedaEstrangeira, orcamento.getValorCambio(), venda, cambioAlterado, totalMoedaReal, valorCambioBrasil);
+				orcamento = cadHighSchoolBean.salvarOrcamento(cambio, venda.getValorpais(), totalMoedaEstrangeira,
+						orcamento.getValorCambio(), venda, cambioAlterado, totalMoedaReal, valorCambioBrasil);
 				formaPagamento = cadHighSchoolBean.salvarFormaPagamento(cancelamento);
 				cliente = cadHighSchoolBean.salvarCliente(cliente);
-				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")  || venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+				if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")
+						|| venda.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 					int mes = Formatacao.getMesData(new Date()) + 1;
 					int mesVenda = Formatacao.getMesData(venda.getDataVenda()) + 1;
 					if (enviarFicha) {
 						if (mes == mesVenda) {
-							
+
 							DashBoardBean dashBoardBean = new DashBoardBean();
 							dashBoardBean.calcularMetaMensal(venda, valorVendaAlterar, false);
 							dashBoardBean.calcularMetaAnual(venda, valorVendaAlterar, false);
 							String programa;
-							if (valoreshighschool.getDuracao().equalsIgnoreCase("01 Semestre")
-									|| valoreshighschool.getDuracao().equalsIgnoreCase("1 Semestre")
-									|| valoreshighschool.getDuracao().equalsIgnoreCase("1 Semetre")
-									|| valoreshighschool.getDuracao().equalsIgnoreCase("01 Semetre")) {
-								programa = "Semestre";
+							if (highschool.getVendas().getValor() <= 100000.00) {
+								if (highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semestre")
+										|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("1 Semestre")
+										|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("1 Semetre")
+										|| highschool.getValoreshighschool().getDuracao()
+												.equalsIgnoreCase("01 Semetre")) {
+									programa = "Semestre";
+								} else {
+									programa = "Ano";
+								}
 							} else {
-								programa = "Ano";
+								programa = "";
 							}
-							int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, programa, false, venda.getUsuario());
+							int[] pontos = dashBoardBean.calcularPontuacao(venda, 0, programa, false,
+									venda.getUsuario());
 							int pontoremover = vendaAlterada.getPonto();
 							ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
-							productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false, venda.getUsuario());
+							productRunnersCalculosBean.calcularPontuacao(venda, pontos[0], pontoremover, false,
+									venda.getUsuario());
 							venda.setPonto(pontos[0]);
 							venda.setPontoescola(pontos[1]);
-							
+
 							venda = vendasDao.salvar(venda);
-							
+
 						}
 						String titulo = "Nova Ficha de High School. " + venda.getIdvendas();
 						String operacao = "A";
@@ -1438,10 +1459,11 @@ public class CadHighSchoolMB implements Serializable {
 			orcamentoprodutosorcamento.setProdutosorcamento(produto.getProdutosorcamento());
 			orcamentoprodutosorcamento.setDescricao(produto.getProdutosorcamento().getDescricao());
 			if (valoreshighschool.getValorgross() > 0) {
-				
+
 				Cambio cambioValor = new Cambio();
 				cambioValor = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio),
-						valoreshighschool.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+						valoreshighschool.getMoedas().getIdmoedas(),
+						usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				orcamentoprodutosorcamento
 						.setValorMoedaNacional(valoreshighschool.getValorgross() * cambioValor.getValor());
 				orcamentoprodutosorcamento.setValorMoedaEstrangeira(valoreshighschool.getValorgross());
@@ -1495,7 +1517,6 @@ public class CadHighSchoolMB implements Serializable {
 			if (saldoParcelar > 0.01f) {
 				msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 			}
-			
 
 			if (saldoParcelar < -1f) {
 				msg = msg + "Saldo a parcelar negativo";
@@ -1740,23 +1761,22 @@ public class CadHighSchoolMB implements Serializable {
 			atualizarValoresProduto();
 		}
 	}
-	
-	public String juncaoInicio(Valoreshighschool valores){
+
+	public String juncaoInicio(Valoreshighschool valores) {
 		return valores.getInicio() + " " + valores.getAnoinicio() + " - " + valores.getDuracao();
 	}
-	
+
 	public boolean habilitarTrocaCliente() {
-		if(novaFicha) {
+		if (novaFicha) {
 			return false;
-		}else return true;
+		} else
+			return true;
 	}
-	
-	
+
 	public void fecharNotificacao() {
 		habilitarAvisoCambio = false;
 	}
-	
-	
+
 	public void verificarPaisUnidade() {
 		if (usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getNome().equalsIgnoreCase("Paraguai")) {
 			nomeCpf = "RUC";
@@ -1764,7 +1784,7 @@ public class CadHighSchoolMB implements Serializable {
 			nomeRg = "Cédula";
 			mascara = false;
 			semmascara = true;
-		}else {
+		} else {
 			nomeCpf = "CPF";
 			nomeEstado = "Estado";
 			nomeRg = "RG";
