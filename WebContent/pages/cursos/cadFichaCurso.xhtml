@@ -180,82 +180,83 @@
 						<legend id="iUsu3">
 							<b>Curso Principal</b>
 						</legend>
-						<p:outputLabel value="Curso" for="curso"
-							style="margin-left: 11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
-						<br></br>
-						<p:inputText id="curso" style="width:76.8%;margin-left: 11.5%"
-							maxlength="62" value="#{cadCursoMB.curso.nomeCurso}" />
-						<br></br>
-						<br></br>
-
-						<p:outputLabel value="Data de Início" for="datainicio3"
-							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
-						<p:outputLabel value="No. Semanas" for="nsemanas"
-							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 12.2%" />
-						<p:outputLabel value="Data Término" for="datatermino2"
-							style="margin-left: 13.5%" />
-						<br></br>
-
-						<p:calendar id="datainicio3"
-							value="#{cadCursoMB.curso.dataInicio}" size="20"
-							style="margin-left:11.5%;" locale="pt" pattern="dd/MM/yyyy" mask="true">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-							<p:ajax event="change" />
-							<p:ajax event="dateSelect" />
-						</p:calendar>
-
-						<p:inputText id="nsemanas" style="width:12%;margin-left: 7%"
-							maxlength="100" value="#{cadCursoMB.curso.numeroSenamas}">
-							<p:ajax event="blur"
-								listener="#{cadCursoMB.calcularDataTerminoCurso()}"
-								update="datatermino2" />
-						</p:inputText>
-
-						<p:calendar id="datatermino2"
-							value="#{cadCursoMB.curso.dataTermino}" size="20"
-							style="margin-left:7%;" locale="pt" pattern="dd/MM/yyyy" mask="true">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</p:calendar>
-						<br></br>
-						<br></br>
-
-
-						<p:outputLabel value="Carga Horária" for="cargahoraria2"
-							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
+						<h:panelGrid columns="1" style="width:90%;margin-left: 11.6%;">
 							
-						<p:outputLabel value="Turno" for="turno"
-							style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:36.5%" />
-						<br></br>
-						<h:panelGrid columns="3" style="margin-left: 11.6%"> 
-							<p:inputText id="cargahoraria2" style="width:95%;"
-								maxlength="100" value="#{cadCursoMB.curso.aulassemana}"
-								converterMessage="Digite somente número">
-								<f:convertNumber integerOnly="true" minIntegerDigits="1"  
-									pattern="#######" />
-							</p:inputText>
-							<p:selectOneRadio id="porSemana"
-								value="#{cadCursoMB.curso.tipoDuracao}" style="width:150%;">
-								<f:selectItem itemLabel="Horas por Semana"
-									itemValue="Horas por semana" />
-								<f:selectItem itemLabel="Aulas por Semana"
-									itemValue="Aulas por semana" />
-							</p:selectOneRadio>
-							
-							<p:selectOneMenu id="turno" value="#{cadCursoMB.curso.turno1}" style="width:100px;margin-left:96%;">
-								<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
-								<f:selectItem itemLabel="Matutino" itemValue="Matutino" /> 
-								<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
-								<f:selectItem itemLabel="Noturno" itemValue="Noturno" /> 
-								<f:selectItem itemLabel="Integral" itemValue="Integral" />
-								<f:selectItem itemLabel="Sábado e Domingo" itemValue="Sábado e Domingo" />
-							</p:selectOneMenu>
+							<p:outputLabel value="Curso" for="curso"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+							<p:inputText id="curso" style="width:85.8%;"
+								maxlength="62" value="#{cadCursoMB.curso.nomeCurso}" />
 						</h:panelGrid>
 						<br></br>
 						<br></br>
+						<h:panelGrid columns="3" style="width:43%;margin-left: 11.6%;">
+							<p:outputLabel value="Data de Início" for="datainicio3"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+							<p:outputLabel value="No. Semanas" for="nsemanas"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+							<p:outputLabel value="Data Término" for="datatermino2"
+								 />
+							
+							<p:calendar id="datainicio3"
+								value="#{cadCursoMB.curso.dataInicio}" size="20"
+								 locale="pt" pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
+	
+							<p:inputText id="nsemanas" 
+								maxlength="100" value="#{cadCursoMB.curso.numeroSenamas}">
+								<p:ajax event="blur"
+									listener="#{cadCursoMB.calcularDataTerminoCurso()}"
+									update="datatermino2" />
+							</p:inputText>
+	
+							<p:calendar id="datatermino2"
+								value="#{cadCursoMB.curso.dataTermino}" size="20"
+								 locale="pt" pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:calendar>
+						</h:panelGrid>
+						
 						<br></br>
-
+						<br></br>
+						<h:panelGrid columns="2" style="width:44%;margin-left: 11.6%;">
+							<h:panelGrid columns="2" style="width:100%;"> 
+							
+								<p:outputLabel value="Carga Horária" for="cargahoraria2"
+								style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+								<p:outputLabel value="Turno" for="turno"
+									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+								<p:inputText id="cargahoraria2" style="width:95%;"
+									maxlength="100" value="#{cadCursoMB.curso.aulassemana}"
+									converterMessage="Digite somente número">
+									<f:convertNumber integerOnly="true" minIntegerDigits="1"  
+										pattern="#######" />
+								</p:inputText>
+								<p:selectOneRadio id="porSemana"
+									value="#{cadCursoMB.curso.tipoDuracao}" style="width:150%;">
+									<f:selectItem itemLabel="Horas por Semana"
+										itemValue="Horas por semana" />
+									<f:selectItem itemLabel="Aulas por Semana"
+										itemValue="Aulas por semana" />
+								</p:selectOneRadio>
+							</h:panelGrid>
+							<h:panelGrid columns="1" style="width:100%;">
+								<p:selectOneMenu id="turno" value="#{cadCursoMB.curso.turno1}" style="width:100px;margin-left:96%;">
+									<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
+									<f:selectItem itemLabel="Matutino" itemValue="Matutino" /> 
+									<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
+									<f:selectItem itemLabel="Noturno" itemValue="Noturno" /> 
+									<f:selectItem itemLabel="Integral" itemValue="Integral" />
+									<f:selectItem itemLabel="Sábado e Domingo" itemValue="Sábado e Domingo" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+						</h:panelGrid>
+						<br></br>
+						<br></br>
 
 						<legend id="iUsu3">
 							<b>Segundo Curso <p:selectBooleanCheckbox
@@ -270,83 +271,82 @@
 						</legend>
 						<h:panelGroup id="formularioSegundoCurso">
 							<h:panelGroup rendered="#{cadCursoMB.habiltarSegundoCurso}">
-								<p:outputLabel value="Curso:" for="curso2"
-									style="margin-left: 11.6%;-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
-								<br></br>
-								<p:inputText id="curso2" style="width:76.8%;margin-left: 11.6%"
-									maxlength="62" value="#{cadCursoMB.curso.SCurso}"
-									disabled="#{cadCursoMB.camposSegundoCurso}" />
-								<br></br>
-								<br></br>
-
-								<p:outputLabel value="Data de Início" for="datainicio2"
-									style="margin-left: 11.6%" />
-								<p:outputLabel value="No. Semanas" for="nsemanas2"
-									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 12.2%" />
-								<p:outputLabel value="Data Término" for="datatermino3"
-									style="margin-left: 13.5%" />
-								<br></br>
-
-								<p:calendar id="datainicio2"
-									value="#{cadCursoMB.curso.SDataInicio}" maxlength="20"
-									locale="pt" style="margin-left:11.5%"
-									disabled="#{cadCursoMB.camposSegundoCurso}"
-									pattern="dd/MM/yyyy" mask="true">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-									<p:ajax event="change" />
-									<p:ajax event="dateSelect" />
-								</p:calendar>
-
-								<p:inputText id="nsemanas2" style="width:12%;margin-left:7%"
-									maxlength="100" value="#{cadCursoMB.curso.SNumeroSemanas}"
-									disabled="#{cadCursoMB.camposSegundoCurso}">
-									<p:ajax event="blur"
-										listener="#{cadCursoMB.calcularDataTerminoCurso2()}"
-										update="datatermino3" />
-								</p:inputText>
-
-								<p:calendar id="datatermino3"
-									value="#{cadCursoMB.curso.SDataTermino}" style="margin-left:7%"
-									maxlength="20" locale="pt"
-									disabled="#{cadCursoMB.camposSegundoCurso}"
-									pattern="dd/MM/yyyy" mask="true">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</p:calendar>
+								<h:panelGrid columns="1" style="width:90%;margin-left: 11.6%;">
+							
+									<p:outputLabel value="Curso" for="curso2"
+										style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+									<p:inputText id="curso2" style="width:85.8%;"
+										maxlength="62" value="#{cadCursoMB.curso.SCurso}" />
+								</h:panelGrid>
 								<br></br>
 								<br></br>
-
-
-								<p:outputLabel value="Carga Horária" for="cargahoraria"
-									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 11.6%" />
-								<p:outputLabel value="Turno" for="turno2"
-									style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:36.5%" />
-								<br></br>
-								<h:panelGrid columns="3" style="margin-left: 11.6%"> 
-									<p:inputText id="cargahoraria"
-										style="width:95%;" maxlength="100"
-										value="#{cadCursoMB.curso.SCargaHoraria}"   
-										disabled="#{cadCursoMB.camposSegundoCurso}">
+								<h:panelGrid columns="3" style="width:43%;margin-left: 11.6%;">
+									<p:outputLabel value="Data de Início" for="datainicio3"
+										style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+									<p:outputLabel value="No. Semanas" for="nsemanas"
+										style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+									<p:outputLabel value="Data Término" for="datatermino2"
+										 />
+									
+									<p:calendar id="datainicio2" disabled="#{cadCursoMB.camposSegundoCurso}"
+										value="#{cadCursoMB.curso.SDataInicio}" size="20"
+										 locale="pt" pattern="dd/MM/yyyy" mask="true">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+										<p:ajax event="change" />
+										<p:ajax event="dateSelect" />
+									</p:calendar>
+			
+									<p:inputText id="nsemanas2" disabled="#{cadCursoMB.camposSegundoCurso}"
+										maxlength="100" value="#{cadCursoMB.curso.SNumeroSemanas}">
+										<p:ajax event="blur"
+											listener="#{cadCursoMB.calcularDataTerminoCurso2()}"
+											update="datatermino3" />
 									</p:inputText>
-									<p:selectOneRadio id="porSemana2"
-										value="#{cadCursoMB.curso.STipoCargaHoraria}"
-										style="width:150%;"
-										disabled="#{cadCursoMB.camposSegundoCurso}">
-										<f:selectItem itemLabel="Horas por Semana"
-											itemValue="Horas por Semana" />
-										<f:selectItem itemLabel="Aulas por Semana"
-											itemValue="Aulas por Semana" />
-									</p:selectOneRadio>
-									   
-									<p:selectOneMenu id="turno2" value="#{cadCursoMB.curso.turno2}" style="width:100px;margin-left:50%;">
-										<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
-										<f:selectItem itemLabel="Matutino" itemValue="Matutino" /> 
-										<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
-										<f:selectItem itemLabel="Noturno" itemValue="Noturno" /> 
-										<f:selectItem itemLabel="Integral" itemValue="Integral" />
-										<f:selectItem itemLabel="Sábado e Domingo" itemValue="Sábado e Domingo" />
-									</p:selectOneMenu>
+			
+									<p:calendar id="datatermino3" disabled="#{cadCursoMB.camposSegundoCurso}"
+										value="#{cadCursoMB.curso.SDataTermino}" size="20"
+										 locale="pt" pattern="dd/MM/yyyy" mask="true">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</p:calendar>
+								</h:panelGrid>
+								
+								<br></br>
+								<br></br>
+
+								<h:panelGrid columns="2" style="width:53%;margin-left: 11.6%">
+									<h:panelGrid columns="2" > 
+										<p:outputLabel value="Carga Horária" for="cargahoraria"
+											style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+										<p:outputLabel value="Turno" for="turno2"
+											style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+										<p:inputText id="cargahoraria"
+											style="width:95%;" maxlength="100"
+											value="#{cadCursoMB.curso.SCargaHoraria}"   
+											disabled="#{cadCursoMB.camposSegundoCurso}">
+										</p:inputText>
+										<p:selectOneRadio id="porSemana2"
+											value="#{cadCursoMB.curso.STipoCargaHoraria}"
+											style="width:150%;"
+											disabled="#{cadCursoMB.camposSegundoCurso}">
+											<f:selectItem itemLabel="Horas por Semana"
+												itemValue="Horas por Semana" />
+											<f:selectItem itemLabel="Aulas por Semana"
+												itemValue="Aulas por Semana" />
+										</p:selectOneRadio>
+									</h:panelGrid>
+									<h:panelGrid style="width:100%;" columns="1">
+										   
+										<p:selectOneMenu id="turno2" value="#{cadCursoMB.curso.turno2}" style="width:100px;">
+											<f:selectItem itemLabel="Indefinido" itemValue="Indefinido" />
+											<f:selectItem itemLabel="Matutino" itemValue="Matutino" /> 
+											<f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
+											<f:selectItem itemLabel="Noturno" itemValue="Noturno" /> 
+											<f:selectItem itemLabel="Integral" itemValue="Integral" />
+											<f:selectItem itemLabel="Sábado e Domingo" itemValue="Sábado e Domingo" />
+										</p:selectOneMenu>
+									</h:panelGrid>
 								</h:panelGrid>
 							</h:panelGroup>
 						</h:panelGroup>
@@ -1041,25 +1041,27 @@
 						<legend id="iUsu3">
 							<b>Chegada ao Destino (Transfer Aeroporto)</b>
 						</legend>
-						<p:outputLabel value="Transfer In(Chegada)" for="chegada"
-							style="margin-left:11.5%" />
-						<p:outputLabel value="Transfer Out(Partida)" for="partida"
-							style="margin-left:13%" />
-						<br></br>
-						<p:selectOneMenu id="chegada"
-							value="#{cadCursoMB.curso.transferin}"
-							style="width:14%;margin-left:11.6%">
-							<f:selectItem itemLabel="Não" itemValue="Não" />
-							<f:selectItem itemLabel="Sim" itemValue="Sim" />
-							<p:ajax event="change"/>
-						</p:selectOneMenu>
-						<p:selectOneMenu id="partida"
-							value="#{cadCursoMB.curso.transferouto}"
-							style="width:13%;margin-left:7.5%">
-							<f:selectItem itemLabel="Não" itemValue="Não" />
-							<f:selectItem itemLabel="Sim" itemValue="Sim" />
-							<p:ajax event="change"/>
-						</p:selectOneMenu>
+						<h:panelGrid columns="2" style="width:26%;margin-left:11.5%">
+							
+							<p:outputLabel value="Transfer In(Chegada)" for="chegada"
+								/>
+							<p:outputLabel value="Transfer Out(Partida)" for="partida"
+								/>
+							<p:selectOneMenu id="chegada"
+								value="#{cadCursoMB.curso.transferin}"
+								style="width:100px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"/>
+							</p:selectOneMenu>
+							<p:selectOneMenu id="partida"
+								value="#{cadCursoMB.curso.transferouto}"
+								style="width:100px;">
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<p:ajax event="change"/>
+							</p:selectOneMenu>
+						</h:panelGrid>
 						<br></br>
 						<br></br>
 						<br></br>
