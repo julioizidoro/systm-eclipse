@@ -468,13 +468,17 @@ public class FinalizarMB implements Serializable {
 		dashBoardBean.calcularMetaMensal(highschool.getVendas(), 0, false);
 		dashBoardBean.calcularMetaAnual(highschool.getVendas(), 0, false);
 		String programa = "";
-		if (highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semestre")
-				|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("1 Semestre")
-				|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("1 Semetre")
-				|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semetre")) {
-			programa = "Semestre";
+		if (highschool.getVendas().getValor() <= 100000.00) {
+			if (highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semestre")
+					|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("1 Semestre")
+					|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("1 Semetre")
+					|| highschool.getValoreshighschool().getDuracao().equalsIgnoreCase("01 Semetre")) {
+				programa = "Semestre";
+			} else {
+				programa = "Ano";
+			}
 		} else {
-			programa = "Ano";
+			programa = "";
 		}
 		int[] pontos = dashBoardBean.calcularPontuacao(highschool.getVendas(), 0, programa, false,
 				highschool.getVendas().getUsuario());
@@ -709,7 +713,6 @@ public class FinalizarMB implements Serializable {
 		productRunnersCalculosBean.calcularPontuacao(vendaSeguro, pontos[0], 0, false, vendaSeguro.getUsuario());
 	}
 
-	
 	public Vendas finalizarHe(He he, VendasDao vendasDao) {
 		new ComissaoHEInscricaoBean(aplicacaoMB, he.getVendas(),
 				he.getVendas().getOrcamento().getOrcamentoprodutosorcamentoList(),
@@ -721,22 +724,21 @@ public class FinalizarMB implements Serializable {
 		String tipoHE = "";
 		if (he.isFichafinal()) {
 			tipoHE = "Final";
-		}else {
+		} else {
 			tipoHE = "Inscrição";
 		}
 		if (he.getNumerosemanas() != null && he.getNumerosemanas() > 0) {
-			pontos = dashBoardBean.calcularPontuacao(he.getVendas(), he.getNumerosemanas(), tipoHE , false,
+			pontos = dashBoardBean.calcularPontuacao(he.getVendas(), he.getNumerosemanas(), tipoHE, false,
 					he.getVendas().getUsuario());
 		} else {
-			pontos = dashBoardBean.calcularPontuacao(he.getVendas(), 0, tipoHE, false,
-					he.getVendas().getUsuario());
+			pontos = dashBoardBean.calcularPontuacao(he.getVendas(), 0, tipoHE, false, he.getVendas().getUsuario());
 		}
 		ProductRunnersCalculosBean productRunnersCalculosBean = new ProductRunnersCalculosBean();
 		productRunnersCalculosBean.calcularPontuacao(he.getVendas(), pontos[0], 0, false, he.getVendas().getUsuario());
 		he.getVendas().setPonto(pontos[0]);
 		he.getVendas().setPontoescola(pontos[1]);
 		he.setVendas(vendasDao.salvar(he.getVendas()));
-		
+
 		return he.getVendas();
 	}
 
