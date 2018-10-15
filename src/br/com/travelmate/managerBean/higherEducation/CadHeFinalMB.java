@@ -1799,10 +1799,18 @@ public class CadHeFinalMB implements Serializable {
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
+				String nsemanaalteracao = "";
+				String nsemana = "";
+				if (heAlteracao.getNumerosemanas() != null) {
+					nsemanaalteracao = heAlteracao.getNumerosemanas().toString();
+				}
+				if (he.getNumerosemanas() != null) {
+					nsemana = he.getNumerosemanas().toString();
+				}
 				if (he.getNumerosemanas() != heAlteracao.getNumerosemanas()) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Número Semanas Pathway:",
-							he.getNumerosemanas().toString(), heAlteracao.getNumerosemanas().toString());
+							nsemana, nsemanaalteracao);
 				}
 			}
 
