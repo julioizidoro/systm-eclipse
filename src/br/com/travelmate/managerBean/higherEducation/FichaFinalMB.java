@@ -120,7 +120,7 @@ public class FichaFinalMB implements Serializable{
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 			}
 			if ((pesquisar == null || pesquisar.equalsIgnoreCase("Nao")) || (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu"))) {
-				gerarListaHe();
+				gerarListaHe(true);
 			}else {
 				gerarQuantidadesFichas();
 			}
@@ -337,7 +337,7 @@ public class FichaFinalMB implements Serializable{
 			return "";
 	}
 
-	public void gerarListaHe() {
+	public void gerarListaHe(boolean gerarNFichas) {
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 90, "yyyy-MM-dd");
 		
 		
@@ -358,7 +358,9 @@ public class FichaFinalMB implements Serializable{
 		if (listaHe == null) {
 			listaHe = new ArrayList<He>();
 		}
-		gerarQuantidadesFichas();
+		if (gerarNFichas) {
+			gerarQuantidadesFichas();
+		}
 	}
 
 	public String corNome(He he) {
@@ -400,7 +402,7 @@ public class FichaFinalMB implements Serializable{
 		idvenda = 0;
 		situacao = "sn";
 		pesquisar = "Nao";
-		gerarListaHe();
+		gerarListaHe(true);
 	}
 
 	public void pesquisar() {
@@ -717,7 +719,7 @@ public class FichaFinalMB implements Serializable{
 		listaCancelada = new ArrayList<He>();
 		if (listaHe == null) {
 			listaHe = new ArrayList<He>();
-			gerarListaHe();
+			gerarListaHe(false);
 		}
 		for (int i = 0; i < listaHe.size(); i++) {
 			listaHe.get(i).setSituacao("Ficha Final");
