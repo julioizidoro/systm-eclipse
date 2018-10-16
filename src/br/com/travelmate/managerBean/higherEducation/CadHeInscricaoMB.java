@@ -2334,36 +2334,62 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 
-			if (heparceiros1 != null && heParAlteracao1.getHecurso() != null) {
+			if (heparceiros1 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros1.getHecurso().equalsIgnoreCase(heParAlteracao1.getHecurso())) {
+				
+				if (heparceiros1.getHecurso() == null && heParAlteracao1.getHecurso() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Curso 1:",
+							"", heParAlteracao1.getHecurso());
+				}else if (heparceiros1.getHecurso() != null && heParAlteracao1.getHecurso() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Curso 1:",
+								heparceiros1.getHecurso(), "");
+				} else if ((heparceiros1.getHecurso() != null && heParAlteracao1.getHecurso() != null) && (!heparceiros1.getHecurso().equalsIgnoreCase(heParAlteracao1.getHecurso()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Curso 1:",
 							heparceiros1.getHecurso(), heParAlteracao1.getHecurso());
 				}
 			}
 			
-			if (heparceiros1 != null && heParAlteracao1.getMesano() != null) {
+			if (heparceiros1 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros1.getMesano().equalsIgnoreCase(heParAlteracao1.getMesano())) {
+				if (heparceiros1.getMesano() == null && heParAlteracao1.getMesano() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Mes/Ano 1:",
+							"", heParAlteracao1.getMesano());
+				}else if (heparceiros1.getMesano() != null && heParAlteracao1.getMesano() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Mes/Ano 1:",
+								heparceiros1.getMesano(), "");
+				} else if ((heparceiros1.getMesano() != null && heParAlteracao1.getMesano() != null) && (!heparceiros1.getMesano().equalsIgnoreCase(heParAlteracao1.getMesano()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Mes/Ano 1:",
 							heparceiros1.getMesano(), heParAlteracao1.getMesano());
 				}
 			}
 			
-			if (heparceiros1 != null && heParAlteracao1.getHecodigo() != null) {
+			if (heparceiros1 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros1.getHecodigo().equalsIgnoreCase(heParAlteracao1.getHecodigo())) {
+				
+				if (heparceiros1.getHecodigo() == null && heParAlteracao1.getHecodigo() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Código 1:",
+							"", heParAlteracao1.getHecodigo());
+				}else if (heparceiros1.getHecodigo() != null && heParAlteracao1.getHecodigo() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Código 1:",
+								heparceiros1.getHecodigo(), "");
+				} else if ((heparceiros1.getHecodigo() != null && heParAlteracao1.getHecodigo() != null) && (!heparceiros1.getHecodigo().equalsIgnoreCase(heParAlteracao1.getHecodigo()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Código 1:",
 							heparceiros1.getHecodigo(), heParAlteracao1.getHecodigo());
@@ -2391,25 +2417,46 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 
-			if (heparceiros1 != null && heParAlteracao1.getDatainicio() != null) {
+			if (heparceiros1 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros1.getDatainicio().equals(heParAlteracao1.getDatainicio())) {
+
+				if (heparceiros1.getDatainicio() == null && heParAlteracao1.getDatainicio() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 1:",
+							"",
+							Formatacao.ConvercaoDataPadrao(heParAlteracao1.getDatainicio()));
+				}else if(heparceiros1.getDatainicio() != null && heParAlteracao1.getDatainicio() == null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 1:",
+							Formatacao.ConvercaoDataPadrao(heparceiros1.getDatainicio()),
+							"");
+				}else if ((heparceiros1.getDatainicio() != null && heParAlteracao1.getDatainicio() != null) && (!heparceiros1.getDatainicio().equals(heParAlteracao1.getDatainicio()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
-							depPrograma.getDepartamento(), "Data Inicio (Pathway)1:",
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 1:",
 							Formatacao.ConvercaoDataPadrao(heparceiros1.getDatainicio()),
 							Formatacao.ConvercaoDataPadrao(heParAlteracao1.getDatainicio()));
 				}
 			}
 
-			if (heparceiros1 != null && heParAlteracao1.getDatatermino() != null) {
+			if (heparceiros1 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros1.getDatatermino().equals(heParAlteracao1.getDatatermino())) {
+				if (heparceiros1.getDatatermino() == null && heParAlteracao1.getDatatermino() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 1:",
+							"",
+							Formatacao.ConvercaoDataPadrao(heParAlteracao1.getDatatermino()));
+				}else if(heparceiros1.getDatatermino() != null && heParAlteracao1.getDatatermino() == null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 1:",
+							Formatacao.ConvercaoDataPadrao(heparceiros1.getDatatermino()),
+							"");
+				}else if ((heparceiros1.getDatatermino() != null && heParAlteracao1.getDatatermino() != null) && (!heparceiros1.getDatatermino().equals(heParAlteracao1.getDatatermino()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Data Término (Pathway) 1:",
 							Formatacao.ConvercaoDataPadrao(heparceiros1.getDatatermino()),
@@ -2417,43 +2464,69 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 			
-			if (heparceiros2 != null && heParAlteracao2.getHecurso() != null) {
+			if (heparceiros2 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros2.getHecurso().equalsIgnoreCase(heParAlteracao2.getHecurso())) {
+				if (heparceiros2.getHecurso() == null && heParAlteracao2.getHecurso() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Curso 2:",
+							"", heParAlteracao2.getHecurso());
+				}else if (heparceiros2.getHecurso() != null && heParAlteracao2.getHecurso() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Curso 2:",
+								heparceiros2.getHecurso(), "");
+				} else if ((heparceiros2.getHecurso() != null && heParAlteracao2.getHecurso() != null) && (!heparceiros2.getHecurso().equalsIgnoreCase(heParAlteracao2.getHecurso()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Curso 2:",
 							heparceiros2.getHecurso(), heParAlteracao2.getHecurso());
 				}
 			}
 			
-			if (heparceiros2 != null && heParAlteracao2.getMesano() != null) {
+			if (heparceiros2 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros2.getMesano().equalsIgnoreCase(heParAlteracao2.getMesano())) {
+				
+				if (heparceiros2.getMesano() == null && heParAlteracao2.getMesano() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Mês/Ano 2:",
+							"", heParAlteracao2.getMesano());
+				}else if (heparceiros2.getMesano() != null && heParAlteracao2.getMesano() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Mês/Ano 2:",
+								heparceiros2.getMesano(), "");
+				} else if ((heparceiros2.getMesano() != null && heParAlteracao2.getMesano() != null) && (!heparceiros2.getMesano().equalsIgnoreCase(heParAlteracao2.getMesano()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Mês/Ano 2:",
 							heparceiros2.getMesano(), heParAlteracao2.getMesano());
 				}
 			}
 			
-			if (heparceiros2 != null && heParAlteracao2.getHecodigo() != null) {
+			if (heparceiros2 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros2.getHecodigo().equalsIgnoreCase(heParAlteracao2.getHecodigo())) {
+				
+				if (heparceiros2.getHecodigo() == null && heParAlteracao2.getHecodigo() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Código 2:",
+							"", heParAlteracao2.getHecodigo());
+				}else if (heparceiros2.getHecodigo() != null && heParAlteracao2.getHecodigo() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Código 2:",
+								heparceiros2.getHecodigo(), "");
+				} else if ((heparceiros2.getHecodigo() != null && heParAlteracao2.getHecodigo() != null) && (!heparceiros2.getHecodigo().equalsIgnoreCase(heParAlteracao2.getHecodigo()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Código 2:",
 							heparceiros2.getHecodigo(), heParAlteracao2.getHecodigo());
 				}
 			}
 
-			if (heparceiros2 != null && heParAlteracao2.getNumerosemanas() != null) {
+			if (heparceiros2 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
@@ -2473,12 +2546,22 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 
-			if (heparceiros2 != null && heParAlteracao2.getDatainicio() != null) {
+			if (heparceiros2 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros2.getDatainicio().equals(heParAlteracao2.getDatainicio())) {
+				if (heparceiros2.getDatainicio() == null && heParAlteracao2.getDatainicio() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 2:",
+							"",
+							Formatacao.ConvercaoDataPadrao(heParAlteracao2.getDatainicio()));
+				}else if(heparceiros2.getDatainicio() != null && heParAlteracao2.getDatainicio() == null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 2:",
+							Formatacao.ConvercaoDataPadrao(heparceiros2.getDatainicio()),
+							"");
+				}else if ((heparceiros2.getDatainicio() != null && heParAlteracao2.getDatainicio() != null) && (!heparceiros2.getDatainicio().equals(heParAlteracao2.getDatainicio()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Data Inicio (Pathway) 2:",
 							Formatacao.ConvercaoDataPadrao(heparceiros2.getDatainicio()),
@@ -2486,12 +2569,22 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 
-			if (heparceiros2 != null && heParAlteracao2.getDatatermino() != null) {
+			if (heparceiros2 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros2.getDatatermino().equals(heParAlteracao2.getDatatermino())) {
+				if (heparceiros2.getDatatermino() == null && heParAlteracao2.getDatatermino() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 2:",
+							"",
+							Formatacao.ConvercaoDataPadrao(heParAlteracao2.getDatatermino()));
+				}else if(heparceiros2.getDatatermino() != null && heParAlteracao2.getDatatermino() == null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 2:",
+							Formatacao.ConvercaoDataPadrao(heparceiros2.getDatatermino()),
+							"");
+				}else if ((heparceiros2.getDatatermino() != null && heParAlteracao2.getDatatermino() != null) && (!heparceiros2.getDatatermino().equals(heParAlteracao2.getDatatermino()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Data Término (Pathway) 2:",
 							Formatacao.ConvercaoDataPadrao(heparceiros2.getDatatermino()),
@@ -2499,43 +2592,70 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 			
-			if (heparceiros3 != null && heParAlteracao3.getHecodigo() != null) {
+			if (heparceiros3 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros3.getHecodigo().equalsIgnoreCase(heParAlteracao3.getHecodigo())) {
+				
+				if (heparceiros3.getHecodigo() == null && heParAlteracao3.getHecodigo() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Código 3:",
+							"", heParAlteracao3.getHecodigo());
+				}else if (heparceiros3.getHecodigo() != null && heParAlteracao2.getHecodigo() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Código 3:",
+								heparceiros3.getHecodigo(), "");
+				} else if ((heparceiros3.getHecodigo() != null && heParAlteracao3.getHecodigo() != null) && (!heparceiros3.getHecodigo().equalsIgnoreCase(heParAlteracao3.getHecodigo()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Código 3:",
 							heparceiros3.getHecodigo(), heParAlteracao3.getHecodigo());
 				}
 			}
 			
-			if (heparceiros3 != null && heParAlteracao3.getHecurso() != null) {
+			if (heparceiros3 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros3.getHecurso().equalsIgnoreCase(heParAlteracao3.getHecurso())) {
+				
+				if (heparceiros3.getHecurso() == null && heParAlteracao3.getHecurso() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Curso 3:",
+							"", heParAlteracao3.getHecurso());
+				}else if (heparceiros3.getHecurso() != null && heParAlteracao2.getHecurso() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Curso 3:",
+								heparceiros3.getHecurso(), "");
+				} else if ((heparceiros3.getHecurso() != null && heParAlteracao3.getHecurso() != null) && (!heparceiros3.getHecurso().equalsIgnoreCase(heParAlteracao3.getHecurso()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Curso 3:",
 							heparceiros3.getHecurso(), heParAlteracao3.getHecurso());
 				}
 			}
 			
-			if (heparceiros3 != null && heParAlteracao3.getMesano() != null) {
+			if (heparceiros3 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros3.getMesano().equalsIgnoreCase(heParAlteracao3.getMesano())) {
+
+				if (heparceiros3.getMesano() == null && heParAlteracao3.getMesano() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Mês/Ano 3:",
+							"", heParAlteracao3.getMesano());
+				}else if (heparceiros3.getMesano() != null && heParAlteracao2.getMesano() == null) {
+					 controleAlteracaoCursoBean.salvar(controlealteracoes,
+								depPrograma.getDepartamento(), "Mês/Ano 3:",
+								heparceiros3.getMesano(), "");
+				} else if ((heparceiros3.getMesano() != null && heParAlteracao3.getMesano() != null) && (!heparceiros3.getMesano().equalsIgnoreCase(heParAlteracao3.getMesano()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Mês/Ano 3:",
 							heparceiros3.getMesano(), heParAlteracao3.getMesano());
 				}
 			}
 
-			if (heparceiros3 != null && heParAlteracao3.getNumerosemanas() != null) {
+			if (heparceiros3 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
@@ -2555,12 +2675,23 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 
-			if (heparceiros3 != null && heParAlteracao3.getDatainicio() != null) {
+			if (heparceiros3 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros3.getDatainicio().equals(heParAlteracao3.getDatainicio())) {
+				
+				if (heparceiros3.getDatainicio() == null && heParAlteracao3.getDatainicio() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 3:",
+							"",
+							Formatacao.ConvercaoDataPadrao(heParAlteracao3.getDatainicio()));
+				}else if(heparceiros3.getDatainicio() != null && heParAlteracao3.getDatainicio() == null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Inicio (Pathway) 3:",
+							Formatacao.ConvercaoDataPadrao(heparceiros3.getDatainicio()),
+							"");
+				}else if ((heparceiros3.getDatainicio() != null && heParAlteracao3.getDatainicio() != null) && (!heparceiros3.getDatainicio().equals(heParAlteracao3.getDatainicio()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Data Inicio (Pathway) 3:",
 							Formatacao.ConvercaoDataPadrao(heparceiros3.getDatainicio()),
@@ -2568,12 +2699,22 @@ public class CadHeInscricaoMB implements Serializable {
 				}
 			}
 
-			if (heparceiros3 != null && heParAlteracao3.getDatatermino() != null) {
+			if (heparceiros3 != null) {
 				controlealteracoes = new Controlealteracoes();
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (!heparceiros3.getDatatermino().equals(heParAlteracao3.getDatatermino())) {
+				if (heparceiros3.getDatatermino() == null && heParAlteracao3.getDatatermino() != null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 3:",
+							"",
+							Formatacao.ConvercaoDataPadrao(heParAlteracao3.getDatatermino()));
+				}else if(heparceiros3.getDatatermino() != null && heParAlteracao3.getDatatermino() == null) {
+					controleAlteracaoCursoBean.salvar(controlealteracoes,
+							depPrograma.getDepartamento(), "Data Término (Pathway) 3:",
+							Formatacao.ConvercaoDataPadrao(heparceiros3.getDatatermino()),
+							"");
+				}else if ((heparceiros3.getDatatermino() != null && heParAlteracao3.getDatatermino() != null) && (!heparceiros3.getDatatermino().equals(heParAlteracao3.getDatatermino()))) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Data Término (Pathway) 3:",
 							Formatacao.ConvercaoDataPadrao(heparceiros3.getDatatermino()),
