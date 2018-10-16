@@ -1,6 +1,8 @@
 package br.com.travelmate.managerBean.higherEducation;
 
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.dao.PaisDao;
+import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.NotificacaoFacade;
 
@@ -24,6 +27,8 @@ import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Cidade;
+import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Notificacao;
@@ -41,7 +46,7 @@ public class CadQuestionarioHeMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private PaisDao paisDao;
 	@Inject
@@ -57,6 +62,12 @@ public class CadQuestionarioHeMB implements Serializable {
 	private boolean habilitarNivel3 = false;
 	private boolean habilitarNotas = true;
 	private boolean novaficha;
+	private boolean habilitarNivel3pais = true;
+	private List<Cidade> listaCidade;
+	private List<Cidade> listaCidade2;
+	private Cidade cidade;
+	private Cidade cidade2;
+	private Cidadepaisproduto cidadepaisproduto;
 
 	@PostConstruct
 	public void init() {
@@ -68,7 +79,7 @@ public class CadQuestionarioHeMB implements Serializable {
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("lead");
 		session.removeAttribute("questionariohe");
-		
+
 		listaPais = paisDao.listar();
 		if (questionarioHe == null) {
 			questionarioHe = new Questionariohe();
@@ -83,15 +94,19 @@ public class CadQuestionarioHeMB implements Serializable {
 			if (questionarioHe.getPais1() != null) {
 				verificarNivel();
 			}
-			if (questionarioHe.getResultadotesteonline() != null && questionarioHe.getResultadotesteonline().equalsIgnoreCase("Sim")) {
+			if (questionarioHe.getResultadotesteonline() != null
+					&& questionarioHe.getResultadotesteonline().equalsIgnoreCase("Sim")) {
 				habilitarNotas = false;
 			}
 			novaficha = false;
+			verificarCidade();
 		}
 
 		if (cliente == null && lead != null) {
 			cliente = lead.getCliente();
 		}
+		verificarNivel();
+		verificarNivel2();
 	}
 
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
@@ -166,6 +181,54 @@ public class CadQuestionarioHeMB implements Serializable {
 		this.habilitarNotas = habilitarNotas;
 	}
 
+	public boolean isHabilitarNivel3pais() {
+		return habilitarNivel3pais;
+	}
+
+	public void setHabilitarNivel3pais(boolean habilitarNivel3pais) {
+		this.habilitarNivel3pais = habilitarNivel3pais;
+	}
+
+	public List<Cidade> getListaCidade() {
+		return listaCidade;
+	}
+
+	public void setListaCidade(List<Cidade> listaCidade) {
+		this.listaCidade = listaCidade;
+	}
+
+	public List<Cidade> getListaCidade2() {
+		return listaCidade2;
+	}
+
+	public void setListaCidade2(List<Cidade> listaCidade2) {
+		this.listaCidade2 = listaCidade2;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public Cidade getCidade2() {
+		return cidade2;
+	}
+
+	public void setCidade2(Cidade cidade2) {
+		this.cidade2 = cidade2;
+	}
+
+	public Cidadepaisproduto getCidadepaisproduto() {
+		return cidadepaisproduto;
+	}
+
+	public void setCidadepaisproduto(Cidadepaisproduto cidadepaisproduto) {
+		this.cidadepaisproduto = cidadepaisproduto;
+	}
+
 	public String pesquisarCliente() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 650);
@@ -191,6 +254,13 @@ public class CadQuestionarioHeMB implements Serializable {
 			ClienteFacade clienteFacade = new ClienteFacade();
 			cliente = clienteFacade.salvar(cliente);
 			questionarioHe.setCliente(cliente);
+			if (cidade != null) {
+				questionarioHe.setCidade(cidade.getNome());
+			}
+			if (cidade2 != null) {
+				questionarioHe.setCidade2(cidade2.getNome());
+			}
+				
 			if (questionarioHe.getIdquestionariohe() == null) {
 				questionarioHe.setUsuario(UsuarioLogadoMB.getUsuario());
 				questionarioHe.setDataenvio(new Date());
@@ -205,27 +275,35 @@ public class CadQuestionarioHeMB implements Serializable {
 					return voltarControleVendas;
 				}
 			}
-			if (!novaficha && (UsuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 7 || 
-					UsuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) && !questionarioHe.getSituacao().equalsIgnoreCase("Processo")) {
+			if (!novaficha
+					&& (UsuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 7
+							|| UsuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1)
+					&& !questionarioHe.getSituacao().equalsIgnoreCase("Processo")) {
 				notificarDepartamento();
 			}
 			return "consquestionarioHe";
-		} 
+		}
 		return "";
 	}
-	
-	
+
 	public void verificarNivel() {
-		if (questionarioHe.getPais1().equalsIgnoreCase("Portugal")) {
-			habilitarNivel3  = true;
-			habilitarNivel12 = false;
-		}else {
-			habilitarNivel12 = true;
+		if (questionarioHe.getPais1() != null && !questionarioHe.getPais1().equalsIgnoreCase("")) {
 			habilitarNivel3 = false;
+			listarCidade();
+		} else {
+			habilitarNivel3 = true;
 		}
 	}
 	
-	
+	public void verificarNivel2() {
+		if (questionarioHe.getPais2() != null && !questionarioHe.getPais2().equalsIgnoreCase("")) {
+			habilitarNivel3pais = false;
+			listarCidade2();
+		} else {
+			habilitarNivel3pais = true;
+		}
+	}
+
 	public boolean validarDados() {
 		if (cliente == null || cliente.getIdcliente() == null) {
 			Mensagem.lancarMensagemInfo("Cliente não informado", "");
@@ -233,23 +311,22 @@ public class CadQuestionarioHeMB implements Serializable {
 		}
 		return true;
 	}
-	
-	
-	
+
 	public void verificarEnem() {
-		if (questionarioHe.getResultadotesteonline() != null && questionarioHe.getResultadotesteonline().equalsIgnoreCase("Sim")) {
+		if (questionarioHe.getResultadotesteonline() != null
+				&& questionarioHe.getResultadotesteonline().equalsIgnoreCase("Sim")) {
 			habilitarNotas = false;
 		} else {
 			habilitarNotas = true;
 		}
 	}
-	
-	
-	
+
 	public void notificarDepartamento() {
 		UsuarioDepartamentoUnidadeFacade usuarioDepartamentoUnidadeFacade = new UsuarioDepartamentoUnidadeFacade();
-		List<Usuariodepartamentounidade> listaResponsaveis = usuarioDepartamentoUnidadeFacade.listar("SELECT u FROM Usuariodepartamentounidade u WHERE "
-				+ " u.departamento.iddepartamento=7 and u.unidadenegocio.idunidadeNegocio=" + UsuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
+		List<Usuariodepartamentounidade> listaResponsaveis = usuarioDepartamentoUnidadeFacade
+				.listar("SELECT u FROM Usuariodepartamentounidade u WHERE "
+						+ " u.departamento.iddepartamento=7 and u.unidadenegocio.idunidadeNegocio="
+						+ UsuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio());
 		for (int i = 0; i < listaResponsaveis.size(); i++) {
 			Notificacao notificacao = new Notificacao();
 			NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
@@ -272,7 +349,58 @@ public class CadQuestionarioHeMB implements Serializable {
 			notificacaoFacade.salvar(notificacao);
 		}
 	}
+
+	public void listarCidade() {
+		if (questionarioHe.getPais1() != null) {
+			CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
+			List<Cidadepaisproduto> listaCidadeProduto = cidadePaisProdutosFacade.listar(
+					"SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=22 and c.paisproduto.pais.nome like '%"
+							+ questionarioHe.getPais1() + "%'" + " order by c.cidade.nome");
+			listaCidade = new ArrayList<Cidade>();
+			if (listaCidadeProduto == null) {
+				listaCidadeProduto = new ArrayList<Cidadepaisproduto>();
+			}
+			for (int i = 0; i < listaCidadeProduto.size(); i++) {
+				listaCidade.add(listaCidadeProduto.get(i).getCidade());
+			}
+		}
+	}
+
+	public void listarCidade2() {
+		if (questionarioHe.getPais2() != null) {
+			CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
+			List<Cidadepaisproduto> listaCidadeProduto = cidadePaisProdutosFacade.listar(
+					"SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=22 and c.paisproduto.pais.nome like '%"
+							+ questionarioHe.getPais2() + "%'" + " order by c.cidade.nome");
+			listaCidade2 = new ArrayList<Cidade>();
+			if (listaCidadeProduto == null) {
+				listaCidadeProduto = new ArrayList<Cidadepaisproduto>();
+			}
+			for (int i = 0; i < listaCidadeProduto.size(); i++) {
+				listaCidade2.add(listaCidadeProduto.get(i).getCidade());
+			}
+		}
+	}
 	
-	
+	public void verificarCidade() {
+		CidadePaisProdutosFacade cidadePaisProdutosFacade = new CidadePaisProdutosFacade();
+		if (questionarioHe.getCidade() != null && questionarioHe.getCidade().length() > 0) {
+			cidadepaisproduto = cidadePaisProdutosFacade
+					.consultar("Select c FROM Cidadepaisproduto c WHERE c.cidade.nome like '%"
+							+ questionarioHe.getCidade() + "%' and c.paisproduto.produtos.idprodutos=22");
+			if (cidadepaisproduto != null) {
+				cidade = cidadepaisproduto.getCidade();
+			}
+		}
+
+		if (questionarioHe.getCidade2() != null && questionarioHe.getCidade2().length() > 0) {
+			cidadepaisproduto = cidadePaisProdutosFacade
+					.consultar("Select c FROM Cidadepaisproduto c WHERE c.cidade.nome like '%"
+							+ questionarioHe.getCidade2() + "%' and c.paisproduto.produtos.idprodutos=22");
+			if (cidadepaisproduto != null) {
+				cidade2 = cidadepaisproduto.getCidade();
+			}
+		}
+	}
 
 }

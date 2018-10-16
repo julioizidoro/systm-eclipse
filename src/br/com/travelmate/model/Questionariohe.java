@@ -118,6 +118,7 @@ public class Questionariohe implements Serializable {
 
     public Questionariohe() {
     	setSituacao("Pendente");
+    	setTipoquestionario("SysTM");
     }
 
     public Questionariohe(Integer idquestionariohe) {
