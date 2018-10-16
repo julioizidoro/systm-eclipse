@@ -694,6 +694,7 @@ public class FichaFinalMB implements Serializable{
 		listaFinanceiro = new ArrayList<He>();
 		listaCancelada = new ArrayList<He>();
 		if (listaHe == null) {
+			listaHe = new ArrayList<He>();
 			gerarListaHe();
 		}
 		for (int i = 0; i < listaHe.size(); i++) {
