@@ -38,22 +38,23 @@
                                 <f:attribute name="listaFornecedorCidade" value="#{valoresHighSchoolMB.listaFornecedorCidade}"/>
                             </p:selectOneMenu>
                              <br></br> <br></br>
-                           <p:outputLabel value="Duração" for="duracao" class="fontebranca" style="margin-left:7%"/> 
-                           <p:outputLabel value="Status" for="status" style="margin-left:26.7%" /> 
-                            <p:outputLabel value="Início" for="inicio" style="margin-left:12.3%" /> 
-                           <br></br>
-                           <h:panelGrid columns="5">
-                       	       <p:inputText id="duracao" value="#{valoresHighSchoolMB.periodo}" style="width:250px;margin-left:21%" />
-	                           <p:selectOneMenu  id="status"  value="#{valoresHighSchoolMB.status}" style="width:95px;margin-left:28%">
+                           <h:panelGrid columns="5" style="width:91%;margin-left:7%;">
+                           <p:outputLabel value="Duração" for="duracao" class="fontebranca"/> 
+                           <p:outputLabel value="Status" for="status"  /> 
+                            <p:outputLabel value="Início" for="inicio" /> 
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                       	       <p:inputText id="duracao" value="#{valoresHighSchoolMB.periodo}" style="width:250px;" />
+	                           <p:selectOneMenu  id="status"  value="#{valoresHighSchoolMB.status}" style="width:95px;">
 	                              <f:selectItem itemLabel="Todos" itemValue="Todos"  />
 	                              <f:selectItem itemLabel="Ativo" itemValue="Ativo"  />
 	                              <f:selectItem itemLabel="Inativo" itemValue="Inativo"/> 
 	                              <p:ajax event="change"/>   
 	                          </p:selectOneMenu>     
-	                          <p:inputText id="inicio" value="#{valoresHighSchoolMB.inicio}" style="width:250px;margin-left:16%" />
+	                          <p:inputText id="inicio" value="#{valoresHighSchoolMB.inicio}" style="width:250px;" />
 	                           
-	                          <p:commandButton value="Pesquisar" style="margin-left:20%" icon=" ui-icon-search " update=":idValoresHigh:tabelaValores"  action="#{valoresHighSchoolMB.pesquisar()}"/>
-                         <p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  class="imgadd" update="idValoresHigh:tabelaValores, inicio, duracao, status, fornecedor, cidade, pais "  action="#{valoresHighSchoolMB.limpar()}"/>
+	                          <p:commandButton value="Pesquisar"  icon=" ui-icon-search " update=":idValoresHigh:tabelaValores"  action="#{valoresHighSchoolMB.pesquisar()}"/>
+                         	  <p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  class="imgadd" update="idValoresHigh:tabelaValores, inicio, duracao, status, fornecedor, cidade, pais "  action="#{valoresHighSchoolMB.limpar()}"/>
 	                     </h:panelGrid>
                          
                      </p:tab>
