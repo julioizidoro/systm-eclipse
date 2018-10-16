@@ -1572,6 +1572,10 @@ public class MenuMB implements Serializable {
 		return "relatorioLeadsDetalhado";
 	}
 	
+	public String relatorioLeadsCaptacao() {
+		return "relatorioLeadsCaptacao";
+	}
+	
 	
 	public String orcamentoHE() {
 		FacesContext fc = FacesContext.getCurrentInstance();

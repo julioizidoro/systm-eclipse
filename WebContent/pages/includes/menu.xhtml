@@ -549,9 +549,17 @@
 												</h:panelGroup>
 											<li><p:commandLink 
 													action="#{menuMB.consClienteLead()}">
-													<span class="subsubmenu-label">Relatório Cliente</span>
+													<span class="subsubmenu-label">Cliente</span>
 												</p:commandLink></li>
+												<h:panelGroup
+													rendered="#{usuarioLogadoMB.usuario.grupoacesso.acesso.relatorioleadscaptacao}">
+													<li><p:commandLink
+															action="#{menuMB.relatorioLeadsCaptacao()}">
+															<span class="subsubmenu-label">Captação</span>
+														</p:commandLink></li>
+												</h:panelGroup>
 										</ul></li>
+										
 								</h:panelGroup>
 								</ul></li>
 						</h:panelGroup>

@@ -215,7 +215,9 @@ public class Acesso implements Serializable {
 	@Column(name = "excluirdocsvideos")
 	private boolean excluirdocsvideos;   
 	@Column(name = "eventoscontasreceber")
-	private boolean eventoscontasreceber;   
+	private boolean eventoscontasreceber;  
+	@Column(name = "relatorioleadscaptacao")
+	private boolean relatorioleadscaptacao;
 	
 	
 	
@@ -980,6 +982,16 @@ public class Acesso implements Serializable {
 
 	public void setEventoscontasreceber(boolean eventoscontasreceber) {
 		this.eventoscontasreceber = eventoscontasreceber;
+	}
+
+	
+
+	public boolean isRelatorioleadscaptacao() {
+		return relatorioleadscaptacao;
+	}
+
+	public void setRelatorioleadscaptacao(boolean relatorioleadscaptacao) {
+		this.relatorioleadscaptacao = relatorioleadscaptacao;
 	}
 
 	@Override
