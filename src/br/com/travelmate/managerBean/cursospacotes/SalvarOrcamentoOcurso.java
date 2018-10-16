@@ -50,14 +50,14 @@ import br.com.travelmate.model.Valorcoprodutos;
 import br.com.travelmate.util.Formatacao;
 
 public class SalvarOrcamentoOcurso {
-	
+
 	private CoProdutosDao coProdutosDao;
 	private Ocurso ocurso;
 	private List<ProdutosOrcamentoBean> listaSuplemento;
 	private Date dataconsulta;
 	private Cliente cliente;
 	private Date datainicio;
-	private Cursospacote cursospacote; 
+	private Cursospacote cursospacote;
 	private AplicacaoMB aplicacaoMB;
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Float valortotal;
@@ -65,16 +65,16 @@ public class SalvarOrcamentoOcurso {
 	private Ocrusoprodutos ocrusoprodutos;
 	private OCursoProdutosBean oCursoProdutosBean;
 	private List<OCursoProdutosBean> listaOcursoProdutosBean;
-	
+
 	@Inject
 	private LeadHistoricoDao leadHistoricoDao;
 	@Inject
 	private LeadDao leadDao;
 	@Inject
 	private OCursoDao oCursoDao;
-	@Inject 
+	@Inject
 	private OCursoFormaPagamentoDao oCursoFormaPagamentoDao;
-	@Inject 
+	@Inject
 	private OCursoProdutoDao oCursoProdutoDao;
 	@Inject
 	private OCursoDescontoDao oCursoDescontoDao;
@@ -82,18 +82,19 @@ public class SalvarOrcamentoOcurso {
 	private OcursoPacoteDao oCursoPacoteDao;
 	@Inject
 	private LeadSituacaoDao leadSituacaoDao;
-	
-	public SalvarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote,
-			AplicacaoMB aplicacaoMB,UsuarioLogadoMB usuarioLogadoMB,Cursopacoteformapagamento formapagamento, OCursoDao oCursoDao, OCursoProdutoDao oCursoProdutoDao,
-			LeadHistoricoDao leadHistoricoDao, LeadDao leadDao, OCursoFormaPagamentoDao oCursoFormaPagamentoDao, OCursoDescontoDao oCursoDescontoDao, OcursoPacoteDao ocursoPacoteDao,
-			LeadSituacaoDao leadSituacaoDao, CoProdutosDao coProdutosDao) {
-		this.cliente=cliente;
+
+	public SalvarOrcamentoOcurso(Cliente cliente, Date datainicio, Cursospacote cursospacote, AplicacaoMB aplicacaoMB,
+			UsuarioLogadoMB usuarioLogadoMB, Cursopacoteformapagamento formapagamento, OCursoDao oCursoDao,
+			OCursoProdutoDao oCursoProdutoDao, LeadHistoricoDao leadHistoricoDao, LeadDao leadDao,
+			OCursoFormaPagamentoDao oCursoFormaPagamentoDao, OCursoDescontoDao oCursoDescontoDao,
+			OcursoPacoteDao ocursoPacoteDao, LeadSituacaoDao leadSituacaoDao, CoProdutosDao coProdutosDao) {
+		this.cliente = cliente;
 		this.coProdutosDao = coProdutosDao;
-		this.datainicio=datainicio;
-		this.cursospacote=cursospacote;
-		this.aplicacaoMB=aplicacaoMB;
-		this.usuarioLogadoMB=usuarioLogadoMB; 
-		this.formapagamento=formapagamento;
+		this.datainicio = datainicio;
+		this.cursospacote = cursospacote;
+		this.aplicacaoMB = aplicacaoMB;
+		this.usuarioLogadoMB = usuarioLogadoMB;
+		this.formapagamento = formapagamento;
 		this.oCursoDao = oCursoDao;
 		this.oCursoProdutoDao = oCursoProdutoDao;
 		this.leadHistoricoDao = leadHistoricoDao;
@@ -109,15 +110,15 @@ public class SalvarOrcamentoOcurso {
 		ocurso = new Ocurso();
 		ocurso.setCambio(consultarCambio());
 		ocurso.setValorcambio(ocurso.getCambio().getValor());
-		if(cursospacote.getValorcambio()!=null && cursospacote.getValorcambio()>0){
-			ocurso.setValorcambio(cursospacote.getValorcambio()); 
+		if (cursospacote.getValorcambio() != null && cursospacote.getValorcambio() > 0) {
+			ocurso.setValorcambio(cursospacote.getValorcambio());
 			ocurso.setCambiocongelado(true);
 		}
 		ocurso.setVitrine(true);
 		ocurso.setCargahoraria(cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso()
 				.getCargahoraria() + " "
 				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso().getTipocargahoraria());
-		ocurso.setCliente(cliente); 
+		ocurso.setCliente(cliente);
 		ocurso.setDataorcamento(new Date());
 		ocurso.setDatavalidade(cursospacote.getDataterminovenda());
 		ocurso.setDatainicio(datainicio);
@@ -131,17 +132,17 @@ public class SalvarOrcamentoOcurso {
 		ocurso.setTotalmoedaestrangeira(0.0f);
 		ocurso.setTotalmoedanacional(0.0f);
 		ocurso.setTurno(cursospacote.getValorcoprodutos_curso().getCoprodutos().getComplementocurso().getTurno());
-		ocurso.setUsuario(usuarioLogadoMB.getUsuario()); 
-		if(cursospacote.getValoravista()!=null && cursospacote.getValoravista()>0){
+		ocurso.setUsuario(usuarioLogadoMB.getUsuario());
+		if (cursospacote.getValoravista() != null && cursospacote.getValoravista() > 0) {
 			ocurso.setValoravista(cursospacote.getValoravista());
-		}else{
+		} else {
 			ocurso.setValoravista(ocurso.getTotalmoedaestrangeira());
 		}
 		ocurso = oCursoDao.salvar(ocurso);
 		dataconsulta = retornarDataConsultaOrcamento();
 		salvarProdutosCurso();
 		salvarTaxasCurso();
-		//salvarProdutosObrigatorios();
+		// salvarProdutosObrigatorios();
 		if (cursospacote.getValorcoprodutos_acomodacao() != null) {
 			salvarAcomodacao();
 			salvarTaxasAcomodacao();
@@ -162,20 +163,20 @@ public class SalvarOrcamentoOcurso {
 		for (int i = 0; i < listaOcursoProdutosBean.size(); i++) {
 			if (listaOcursoProdutosBean.get(i).getTipoSoma().equalsIgnoreCase("adicao")) {
 				valorAvista = valorAvista + listaOcursoProdutosBean.get(i).getValor();
-			}else {
+			} else {
 				valorAvista = valorAvista - listaOcursoProdutosBean.get(i).getValor();
 			}
-			
+
 		}
-		ocurso.setValoravista(valorAvista* ocurso.getValorcambio());
+		ocurso.setValoravista(valorAvista * ocurso.getValorcambio());
 		salvarFormaPagamento();
 		ocurso.setTotalmoedaestrangeira(valorAvista);
 		ocurso.setTotalmoedanacional(valorAvista * ocurso.getValorcambio());
-			ocurso = oCursoDao.salvar(ocurso);
-			Ocursopacote ocursopacote = new Ocursopacote();
-			ocursopacote.setOcurso(ocurso);
-			ocursopacote.setCursospacote(cursospacote);
-			ocursopacote = oCursoPacoteDao.salvar(ocursopacote); 
+		ocurso = oCursoDao.salvar(ocurso);
+		Ocursopacote ocursopacote = new Ocursopacote();
+		ocursopacote.setOcurso(ocurso);
+		ocursopacote.setCursospacote(cursospacote);
+		ocursopacote = oCursoPacoteDao.salvar(ocursopacote);
 		Lead lead = leadDao.consultar("SELECT l From Lead l where l.cliente.idcliente=" + cliente.getIdcliente());
 		if (lead != null) {
 			if (lead.getSituacao() < 3) {
@@ -186,7 +187,7 @@ public class SalvarOrcamentoOcurso {
 		}
 		return ocurso;
 	}
-	
+
 	public void salvarHistoricoLead(Ocrusoprodutos ocrusoprodutos) {
 		Leadhistorico leadhistorico = new Leadhistorico();
 		leadhistorico.setCliente(ocurso.getCliente());
@@ -211,43 +212,45 @@ public class SalvarOrcamentoOcurso {
 	public void salvarProdutosCurso() {
 		salvarOcursoproduto(cursospacote.getNumerosemanacurso().doubleValue(), cursospacote.getValorcoprodutos_curso(),
 				cursospacote.getValortotalcurso(), cursospacote.getValorcoprodutos_curso().getCoprodutos().getNome(),
-				cursospacote.getValorcoprodutos_curso().getCoprodutos().getDescricao(), 1, "Curso", "adicao"); 
-		//taxaTM
+				cursospacote.getValorcoprodutos_curso().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
+		// taxaTM
 		float valor = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getTaxatm() / ocurso.getValorcambio();
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos taxatm = valorCoProdutosFacade
 				.consultar(aplicacaoMB.getParametrosprodutos().getTaxatmorcamento());
-		salvarOcursoproduto(cursospacote.getNumerosemanacurso().doubleValue(),taxatm,
-				valor, "Taxa TM", "Taxa TM", 1, "Curso", "adicao"); 
+		salvarOcursoproduto(cursospacote.getNumerosemanacurso().doubleValue(), taxatm, valor, "Taxa TM", "Taxa TM", 1,
+				"Curso", "adicao");
 	}
 
 	public void salvarAcomodacao() {
 		String descricao = cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getComplementoacomodacao()
 				.getTipoacomodacao()
 				+ ", "
-				+ cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getComplementoacomodacao()
-						.getTipoquarto()
+				+ cursospacote
+						.getValorcoprodutos_acomodacao().getCoprodutos().getComplementoacomodacao().getTipoquarto()
 				+ ", "
 				+ cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getComplementoacomodacao()
 						.getTiporefeicao()
 				+ ", " + cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getComplementoacomodacao()
 						.getTipobanheiro();
-		salvarOcursoproduto(cursospacote.getNumerosemanaacomodacao().doubleValue(), cursospacote.getValorcoprodutos_acomodacao(),
-				cursospacote.getValortotalacomodacao(), cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getNome(),
-				descricao,3, "Acomodação", "adicao");  
+		salvarOcursoproduto(cursospacote.getNumerosemanaacomodacao().doubleValue(),
+				cursospacote.getValorcoprodutos_acomodacao(), cursospacote.getValortotalacomodacao(),
+				cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getNome(), descricao, 3, "Acomodação",
+				"adicao");
 	}
 
 	public void salvarProdutosObrigatorios() {
 		String sql = "Select g from Grupoobrigatorio g where g.coprodutos.idcoprodutos="
 				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos()
-				+ " and g.produto.idcoprodutos<>"+cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos();
+				+ " and g.produto.idcoprodutos<>"
+				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos();
 		GrupoObrigatorioFacade grupoObrigatorioFacade = new GrupoObrigatorioFacade();
 		List<Grupoobrigatorio> listaGrupoObrigatorio = grupoObrigatorioFacade.listar(sql);
 		List<Coprodutos> listaCoProdutos = new ArrayList<Coprodutos>();
 		int suplementoMenorDeIdade = 0;
 		if (listaGrupoObrigatorio != null) {
-			
-			for (int i = 0; i < listaGrupoObrigatorio.size(); i++) {   
+
+			for (int i = 0; i < listaGrupoObrigatorio.size(); i++) {
 				int idadeVinculados = 18;
 				int idadeestudante = 0;
 				if (listaGrupoObrigatorio.get(i).getCoprodutos().getIdade() > 0) {
@@ -302,30 +305,29 @@ public class SalvarOrcamentoOcurso {
 						}
 					}
 				}
-			} 
+			}
 			if (listaCoProdutos != null) {
-				for (int i = 0; i < listaCoProdutos.size(); i++) { 
-					ProdutosOrcamentoBean po = consultarValores("DI", listaCoProdutos.get(i).getIdcoprodutos(), dataconsulta,
-							"Obrigatorio");
+				for (int i = 0; i < listaCoProdutos.size(); i++) {
+					ProdutosOrcamentoBean po = consultarValores("DI", listaCoProdutos.get(i).getIdcoprodutos(),
+							dataconsulta, "Obrigatorio");
 					if (po != null) {
-						salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-								po.getValorcoprodutos(), po.getValorOrigianl(),
-								po.getValorcoprodutos().getCoprodutos().getNome(),
-								po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");  
+						salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+								po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+								po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 					} else {
-						po = consultarValores("DM", listaCoProdutos.get(i).getIdcoprodutos(), new Date(), "Obrigatorio");
+						po = consultarValores("DM", listaCoProdutos.get(i).getIdcoprodutos(), new Date(),
+								"Obrigatorio");
 						if (po != null) {
-							salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-									po.getValorcoprodutos(), po.getValorOrigianl(),
-									po.getValorcoprodutos().getCoprodutos().getNome(),
-									po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");  
+							salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+									po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+									po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 						} else {
-							po = consultarValores("DS", listaCoProdutos.get(i).getIdcoprodutos(), dataconsulta, "Obrigatorio");
+							po = consultarValores("DS", listaCoProdutos.get(i).getIdcoprodutos(), dataconsulta,
+									"Obrigatorio");
 							if (po != null) {
-								salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-										po.getValorcoprodutos(), po.getValorOrigianl(),
-										po.getValorcoprodutos().getCoprodutos().getNome(),
-										po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");  
+								salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+										po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+										po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 							}
 						}
 					}
@@ -335,8 +337,9 @@ public class SalvarOrcamentoOcurso {
 	}
 
 	public Cambio consultarCambio() {
-		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(), 
-				cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
+		Cambio cambio = Formatacao.carregarCambioDia(aplicacaoMB.getListaCambio(),
+				cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getCidade().getPais().getMoedas(),
+				usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		return cambio;
 	}
 
@@ -397,8 +400,9 @@ public class SalvarOrcamentoOcurso {
 		}
 		return null;
 	}
-	
-	public ProdutosOrcamentoBean consultarValoresTaxas(String tipoData, int idCoProdutos, Date dataConsulta, String tipo) {
+
+	public ProdutosOrcamentoBean consultarValoresTaxas(String tipoData, int idCoProdutos, Date dataConsulta,
+			String tipo) {
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 
 		int ano = cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor().getAnotarifario();
@@ -419,13 +423,13 @@ public class SalvarOrcamentoOcurso {
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
 	public Date retornarDataConsultaOrcamento() {
 		int anoFornecedor = 0;
-		if(cursospacote.getAnotarifario()>0) {
+		if (cursospacote.getAnotarifario() > 0) {
 			anoFornecedor = cursospacote.getAnotarifario();
 			Calendar c = new GregorianCalendar();
 			c.setTime(datainicio);
@@ -438,10 +442,10 @@ public class SalvarOrcamentoOcurso {
 				String mes = sData.substring(3, 5);
 				sData = dia + "/" + mes + "/" + String.valueOf(anoFornecedor);
 				return Formatacao.ConvercaoStringDataBrasil(sData);
-			} 
-		}else {
+			}
+		} else {
 			anoFornecedor = cursospacote.getFornecedorcidadeidioma().getFornecedorcidade().getFornecedor()
-				.getAnotarifario();
+					.getAnotarifario();
 			Calendar c = new GregorianCalendar();
 			c.setTime(datainicio);
 			int ano = Formatacao.getAnoData(datainicio);
@@ -455,7 +459,7 @@ public class SalvarOrcamentoOcurso {
 				return Formatacao.ConvercaoStringDataBrasil(sData);
 			}
 			return datainicio;
-		} 
+		}
 	}
 
 	public void listarValores(Valorcoprodutos valorcoprodutos, String tipo) {
@@ -488,12 +492,14 @@ public class SalvarOrcamentoOcurso {
 	}
 
 	public float calcularValorFracionadoSuplemento(int multiplicador, ProdutosOrcamentoBean po) {
-		float valorSuplemento = 0.0f; 
+		float valorSuplemento = 0.0f;
 		Date dataTermino = calcularDataTerminoCurso(dataconsulta, cursospacote.getNumerosemanaacomodacao().intValue());
 		int numeroDias = 0;
 		boolean calcular = true;
-		if (po.getValorcoprodutos().getDatainicial().after(dataconsulta) && po.getValorcoprodutos().getDatainicial().after(dataTermino)  ||
-				(po.getValorcoprodutos().getDatafinal().before(dataconsulta) && po.getValorcoprodutos().getDatafinal().before(dataTermino))){
+		if (po.getValorcoprodutos().getDatainicial().after(dataconsulta)
+				&& po.getValorcoprodutos().getDatainicial().after(dataTermino)
+				|| (po.getValorcoprodutos().getDatafinal().before(dataconsulta)
+						&& po.getValorcoprodutos().getDatafinal().before(dataTermino))) {
 			calcular = false;
 		}
 		if (calcular) {
@@ -504,15 +510,15 @@ public class SalvarOrcamentoOcurso {
 							|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
 									.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
 				valorSuplemento = po.getValorcoprodutos().getValororiginal() * multiplicador;
-	
+
 			} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
 					&& (Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatafinal())
 							.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
 				valorSuplemento = po.getValorcoprodutos().getValororiginal() * multiplicador;
-	
+
 			} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
 					&& (po.getValorcoprodutos().getDatafinal().before(dataTermino))) {
-	
+
 				numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(),
 						po.getValorcoprodutos().getDatafinal());
 			} else if ((po.getValorcoprodutos().getDatainicial().after(dataconsulta))
@@ -520,7 +526,7 @@ public class SalvarOrcamentoOcurso {
 							|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
 									.equalsIgnoreCase(Formatacao.ConvercaoDataSql(dataTermino)))) {
 				numeroDias = Formatacao.subtrairDatas(po.getValorcoprodutos().getDatainicial(), dataTermino);
-	
+
 			} else if ((po.getValorcoprodutos().getDatainicial().before(dataconsulta))
 					&& (po.getValorcoprodutos().getDatafinal().before(dataTermino)
 							|| Formatacao.ConvercaoDataSql(po.getValorcoprodutos().getDatainicial())
@@ -541,7 +547,7 @@ public class SalvarOrcamentoOcurso {
 		}
 		return valorSuplemento;
 	}
-	
+
 	public Date calcularDataTerminoCurso(Date dataInical, int numeroSemanas) {
 		if ((dataInical != null) && (numeroSemanas > 0)) {
 			if (numeroSemanas > 0) {
@@ -591,39 +597,36 @@ public class SalvarOrcamentoOcurso {
 					suplementoMenorIdadeAcomodacao();
 				}
 			}
-		} 
+		}
 		String sql = "Select g from Grupoobrigatorio g where g.coprodutos.idcoprodutos="
 				+ cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getIdcoprodutos();
 		GrupoObrigatorioFacade grupoObrigatorioFacade = new GrupoObrigatorioFacade();
 		List<Grupoobrigatorio> listaGrupoObrigatorio;
-		listaGrupoObrigatorio = grupoObrigatorioFacade.listar(sql); 
+		listaGrupoObrigatorio = grupoObrigatorioFacade.listar(sql);
 		if (listaGrupoObrigatorio != null) {
-			if (listaGrupoObrigatorio.size() > 0) {  
-				for (int i = 0; i < listaGrupoObrigatorio.size(); i++) { 
-					ProdutosOrcamentoBean po = consultarValores("DI", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
-							dataconsulta, "Obrigatorio");
+			if (listaGrupoObrigatorio.size() > 0) {
+				for (int i = 0; i < listaGrupoObrigatorio.size(); i++) {
+					ProdutosOrcamentoBean po = consultarValores("DI",
+							listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(), dataconsulta, "Obrigatorio");
 					if (po != null) {
-						salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-								po.getValorcoprodutos(), po.getValorOrigianl(),
-								po.getValorcoprodutos().getCoprodutos().getNome(),
-								po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
+						salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+								po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+								po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 					} else {
-						po = consultarValores("DM", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),  
+						po = consultarValores("DM", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
 								new Date(), "Obrigatorio");
 						if (po != null) {
-							salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-									po.getValorcoprodutos(), po.getValorOrigianl(),
-									po.getValorcoprodutos().getCoprodutos().getNome(),
-									po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
+							salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+									po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+									po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 						} else {
-							po = consultarValores("DS", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),  
+							po = consultarValores("DS", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
 									dataconsulta, "Obrigatorio");
 							if (po != null) {
-								salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-										po.getValorcoprodutos(), po.getValorOrigianl(),
-										po.getValorcoprodutos().getCoprodutos().getNome(),
-										po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
-							} 
+								salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+										po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+										po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
+							}
 						}
 					}
 				}
@@ -634,47 +637,108 @@ public class SalvarOrcamentoOcurso {
 		if (po != null) {
 			po.getValorcoprodutos().getCoprodutos()
 					.setDescricao("Suplemento de " + po.getValorcoprodutos().getTiposuplemento() + " - Acomodação");
-			salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-					po.getValorcoprodutos(), po.getValorOrigianl(),
+			salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(), po.getValorOrigianl(),
 					po.getValorcoprodutos().getCoprodutos().getNome(),
-					po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
+					po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 		}
 	}
-	
+
 	public void salvarTaxasCurso() {
 		String sql = "Select g from Grupoobrigatorio g where g.coprodutos.idcoprodutos="
-				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos() 
-				+ " and g.produto.idcoprodutos<>"+cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos();;
+				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos()
+				+ " and g.produto.idcoprodutos<>"
+				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos();
+		;
 		GrupoObrigatorioFacade grupoObrigatorioFacade = new GrupoObrigatorioFacade();
 		List<Grupoobrigatorio> listaGrupoObrigatorio;
-		listaGrupoObrigatorio = grupoObrigatorioFacade.listar(sql); 
+		listaGrupoObrigatorio = grupoObrigatorioFacade.listar(sql);
+		List<Coprodutos> listaCoProdutos = new ArrayList<Coprodutos>();
+		int suplementoMenorDeIdade = 0;
 		if (listaGrupoObrigatorio != null) {
-			if (listaGrupoObrigatorio.size() > 0) {  
-				for (int i = 0; i < listaGrupoObrigatorio.size(); i++) { 
-					ProdutosOrcamentoBean po = consultarValores("DI", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
-							dataconsulta, "Obrigatorio");
-					if (po != null) {
-						salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-								po.getValorcoprodutos(), po.getValorOrigianl(),
-								po.getValorcoprodutos().getCoprodutos().getNome(),
-								po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
-					} else {
-						po = consultarValores("DM", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),  
-								new Date(), "Obrigatorio");
-						if (po != null) {
-							salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-									po.getValorcoprodutos(), po.getValorOrigianl(),
-									po.getValorcoprodutos().getCoprodutos().getNome(),
-									po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
+			if (listaGrupoObrigatorio.size() > 0) {
+				for (int i = 0; i < listaGrupoObrigatorio.size(); i++) {
+					int idadeVinculados = 18;
+					int idadeestudante = 0;
+					if (listaGrupoObrigatorio.get(i).getCoprodutos().getIdade() > 0) {
+						idadeVinculados = listaGrupoObrigatorio.get(i).getCoprodutos().getIdade();
+					}
+					if (ocurso.getCliente().getDataNascimento() != null) {
+						idadeestudante = Formatacao.calcularIdade(ocurso.getCliente().getDataNascimento());
+					}
+					if (idadeestudante >= idadeVinculados) {
+						if (listaGrupoObrigatorio.get(i).isMenorobrigatorio()) {
+							listaGrupoObrigatorio.remove(i);
 						} else {
-							po = consultarValores("DS", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),  
-									dataconsulta, "Obrigatorio");
+							listaCoProdutos.add(listaGrupoObrigatorio.get(i).getProduto());
+							if (ocurso.getCliente().getDataNascimento() != null) {
+								if (suplementoMenorDeIdade == 0) {
+									if (listaGrupoObrigatorio.get(i).getProduto().isSuplementemenoridade()) {
+										if (idadeestudante <= idadeVinculados) {
+											String sqlSuplementoIdade = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
+													+ ocurso.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
+													+ " and c.produtosorcamento.idprodutosOrcamento="
+													+ aplicacaoMB.getParametrosprodutos().getSuplementoidade();
+											Coprodutos coprodutos = new Coprodutos();
+											coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
+
+											if (coprodutos != null) {
+												listaCoProdutos.add(coprodutos);
+												suplementoMenorDeIdade = 1;
+											}
+										}
+									}
+								}
+							}
+						}
+					} else {
+						listaCoProdutos.add(listaGrupoObrigatorio.get(i).getProduto());
+						if (ocurso.getCliente().getDataNascimento() != null) {
+							if (suplementoMenorDeIdade == 0) {
+								if (listaGrupoObrigatorio.get(i).getProduto().isSuplementemenoridade()) {
+									if (idadeestudante <= idadeVinculados) {
+										String sqlSuplementoIdade = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
+												+ ocurso.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
+												+ " and c.produtosorcamento.idprodutosOrcamento="
+												+ aplicacaoMB.getParametrosprodutos().getSuplementoidade();
+										Coprodutos coprodutos = new Coprodutos();
+										coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
+										if (coprodutos != null) {
+											listaCoProdutos.add(coprodutos);
+											suplementoMenorDeIdade = 1;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				if (listaCoProdutos != null) {
+					for (int i = 0; i < listaGrupoObrigatorio.size(); i++) {
+						ProdutosOrcamentoBean po = consultarValores("DI",
+								listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(), dataconsulta,
+								"Obrigatorio");
+						if (po != null) {
+							salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+									po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+									po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
+						} else {
+							po = consultarValores("DM", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
+									new Date(), "Obrigatorio");
 							if (po != null) {
-								salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-										po.getValorcoprodutos(), po.getValorOrigianl(),
-										po.getValorcoprodutos().getCoprodutos().getNome(),
-										po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
-							} 
+								salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+										po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+										po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
+							} else {
+								po = consultarValores("DS", listaGrupoObrigatorio.get(i).getProduto().getIdcoprodutos(),
+										dataconsulta, "Obrigatorio");
+								if (po != null) {
+									salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(),
+											po.getValorcoprodutos(), po.getValorOrigianl(),
+											po.getValorcoprodutos().getCoprodutos().getNome(),
+											po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso",
+											"adicao");
+								}
+							}
 						}
 					}
 				}
@@ -685,13 +749,12 @@ public class SalvarOrcamentoOcurso {
 		if (po != null) {
 			po.getValorcoprodutos().getCoprodutos()
 					.setDescricao("Suplemento de " + po.getValorcoprodutos().getTiposuplemento() + " - Curso");
-			salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-					po.getValorcoprodutos(), po.getValorOrigianl(),
+			salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(), po.getValorOrigianl(),
 					po.getValorcoprodutos().getCoprodutos().getNome(),
-					po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
+					po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 		}
 	}
-	
+
 	public ProdutosOrcamentoBean consultarValoresSuplementoCurso() {
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos valorcoprodutos = null;
@@ -699,8 +762,8 @@ public class SalvarOrcamentoOcurso {
 				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getFornecedorcidadeidioma()
 						.getFornecedorcidade().getFornecedor().getAnotarifario()
 				+ "-01-01' and v.numerosemanainicial<=" + cursospacote.getNumerosemanacurso()
-				+ " and v.numerosemanafinal>=" + cursospacote.getNumerosemanacurso()
-				+ " and v.coprodutos.idcoprodutos=" + cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos()
+				+ " and v.numerosemanafinal>=" + cursospacote.getNumerosemanacurso() + " and v.coprodutos.idcoprodutos="
+				+ cursospacote.getValorcoprodutos_curso().getCoprodutos().getIdcoprodutos()
 				+ " and v.produtosuplemento='Curso'";
 
 		List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
@@ -709,7 +772,7 @@ public class SalvarOrcamentoOcurso {
 				if (valorcoprodutos == null) {
 					valorcoprodutos = new Valorcoprodutos();
 					valorcoprodutos = listaValorcoprodutoses.get(n);
-				}  
+				}
 			}
 		}
 		if (valorcoprodutos != null) {
@@ -723,9 +786,9 @@ public class SalvarOrcamentoOcurso {
 				multiplicador = (int) (cursospacote.getNumerosemanaacomodacao() * 7);
 			}
 			float valorSuplemento = calcularValorFracionadoSuplemento(multiplicador, po);
-			if(valorSuplemento==0){
-				po=null;
-			}else{
+			if (valorSuplemento == 0) {
+				po = null;
+			} else {
 				po.setValorOrigianl(valorSuplemento);
 				po.setValorOriginalRS(valorSuplemento * ocurso.getValorcambio());
 			}
@@ -733,7 +796,7 @@ public class SalvarOrcamentoOcurso {
 		}
 		return null;
 	}
-	
+
 	public void suplementoMenorIdadeAcomodacao() {
 		String sqlSuplementoIdade = "Select c from Coprodutos c where c.fornecedorcidadeidioma.idfornecedorcidadeidioma="
 				+ cursospacote.getFornecedorcidadeidioma().getIdfornecedorcidadeidioma()
@@ -741,36 +804,31 @@ public class SalvarOrcamentoOcurso {
 				+ aplicacaoMB.getParametrosprodutos().getSuplementomenoridadeacomodacao();
 		Coprodutos coprodutos = new Coprodutos();
 		coprodutos = coProdutosDao.consultar(sqlSuplementoIdade);
-		if (coprodutos != null) { 
-			ProdutosOrcamentoBean po = consultarValores("DI", coprodutos.getIdcoprodutos(),
-					dataconsulta, "Obrigatorio");
+		if (coprodutos != null) {
+			ProdutosOrcamentoBean po = consultarValores("DI", coprodutos.getIdcoprodutos(), dataconsulta,
+					"Obrigatorio");
 			if (po != null) {
-				salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-						po.getValorcoprodutos(), po.getValorOrigianl(),
-						po.getValorcoprodutos().getCoprodutos().getNome(),
-						po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
+				salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+						po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+						po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 			} else {
-				po = consultarValores("DM", coprodutos.getIdcoprodutos(),  
-						ocurso.getDatainicio(), "Obrigatorio");
+				po = consultarValores("DM", coprodutos.getIdcoprodutos(), ocurso.getDatainicio(), "Obrigatorio");
 				if (po != null) {
-					salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-							po.getValorcoprodutos(), po.getValorOrigianl(),
-							po.getValorcoprodutos().getCoprodutos().getNome(),
-							po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
+					salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+							po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+							po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
 				} else {
-					po = consultarValores("DS", coprodutos.getIdcoprodutos(),  
-							ocurso.getDatainicio(), "Obrigatorio");
+					po = consultarValores("DS", coprodutos.getIdcoprodutos(), ocurso.getDatainicio(), "Obrigatorio");
 					if (po != null) {
-						salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), 
-								po.getValorcoprodutos(), po.getValorOrigianl(),
-								po.getValorcoprodutos().getCoprodutos().getNome(),
-								po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");   
-					} 
+						salvarOcursoproduto(ocurso.getNumerosemanas().doubleValue(), po.getValorcoprodutos(),
+								po.getValorOrigianl(), po.getValorcoprodutos().getCoprodutos().getNome(),
+								po.getValorcoprodutos().getCoprodutos().getDescricao(), 1, "Curso", "adicao");
+					}
 				}
 			}
 		}
 	}
-	
+
 	public ProdutosOrcamentoBean consultarValoresSuplementoAcomodacqo() {
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
 		Valorcoprodutos valorcoprodutos = null;
@@ -779,7 +837,8 @@ public class SalvarOrcamentoOcurso {
 						.getFornecedorcidade().getFornecedor().getAnotarifario()
 				+ "-01-01' and v.numerosemanainicial<=" + cursospacote.getNumerosemanaacomodacao()
 				+ " and v.numerosemanafinal>=" + cursospacote.getNumerosemanaacomodacao()
-				+ " and v.coprodutos.idcoprodutos=" + cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getIdcoprodutos()
+				+ " and v.coprodutos.idcoprodutos="
+				+ cursospacote.getValorcoprodutos_acomodacao().getCoprodutos().getIdcoprodutos()
 				+ " and v.produtosuplemento='Acomodação'";
 
 		List<Valorcoprodutos> listaValorcoprodutoses = valorCoProdutosFacade.listar(sql);
@@ -788,7 +847,7 @@ public class SalvarOrcamentoOcurso {
 				if (valorcoprodutos == null) {
 					valorcoprodutos = new Valorcoprodutos();
 					valorcoprodutos = listaValorcoprodutoses.get(n);
-				}  
+				}
 			}
 		}
 		if (valorcoprodutos != null) {
@@ -802,9 +861,9 @@ public class SalvarOrcamentoOcurso {
 				multiplicador = (int) (cursospacote.getNumerosemanaacomodacao() * 7);
 			}
 			float valorSuplemento = calcularValorFracionadoSuplemento(multiplicador, po);
-			if(valorSuplemento==0){
-				po=null;
-			}else{
+			if (valorSuplemento == 0) {
+				po = null;
+			} else {
 				po.setValorOrigianl(valorSuplemento);
 				po.setValorOriginalRS(valorSuplemento * ocurso.getValorcambio());
 			}
@@ -812,10 +871,9 @@ public class SalvarOrcamentoOcurso {
 		}
 		return null;
 	}
-	
-	
+
 	public void salvarOcursoproduto(double numerosemana, Valorcoprodutos valorcoprodutos, float valororiginal,
-			String nome, String descricao, int tipo, String nomegrupo, String tiposoma){
+			String nome, String descricao, int tipo, String nomegrupo, String tiposoma) {
 		Ocrusoprodutos produto = new Ocrusoprodutos();
 		produto.setNumerosemanas(numerosemana);
 		produto.setValorcoprodutos(valorcoprodutos);
@@ -826,12 +884,12 @@ public class SalvarOrcamentoOcurso {
 		produto.setTipo(tipo);
 		produto.setNomegrupo(nomegrupo);
 		produto.setOcurso(ocurso);
-			produto = oCursoProdutoDao.salvar(produto);
-			if(tiposoma.equalsIgnoreCase("adicao")){
-				valortotal = valortotal + valororiginal;
-			}else{
-				valortotal = valortotal - valororiginal;
-			}
+		produto = oCursoProdutoDao.salvar(produto);
+		if (tiposoma.equalsIgnoreCase("adicao")) {
+			valortotal = valortotal + valororiginal;
+		} else {
+			valortotal = valortotal - valororiginal;
+		}
 		if (ocrusoprodutos == null) {
 			ocrusoprodutos = produto;
 		}
@@ -843,64 +901,65 @@ public class SalvarOrcamentoOcurso {
 		oCursoProdutosBean.setValor(valororiginal);
 		listaOcursoProdutosBean.add(oCursoProdutosBean);
 	}
-	
-	public void salvarFormaPagamento(){
+
+	public void salvarFormaPagamento() {
 		Ocursoformapagamento ocursoformapagamento;
-			if(formapagamento!=null){  
-				ocursoformapagamento = new Ocursoformapagamento();
-				if(formapagamento.getValorparcelaboleto()!=null && formapagamento.getValorparcelaboleto()>0){ 
-					ocursoformapagamento.setValorEntrada(formapagamento.getValorentradaboleto());
-					ocursoformapagamento.setNumeroparcela(formapagamento.getNumeroparcelasboleto());
-					ocursoformapagamento.setValorparcela(formapagamento.getValorparcelaboleto());
-					ocursoformapagamento.setOcurso(ocurso);
-					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
-				}else{
-					ocursoformapagamento.setValorEntrada(0.0f);
-					ocursoformapagamento.setNumeroparcela(0);
-					ocursoformapagamento.setValorparcela(0.0f);
-					ocursoformapagamento.setOcurso(ocurso);
-					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
-				}
-				ocursoformapagamento = new Ocursoformapagamento();
-				if(formapagamento.getValorparcelacartao()!=null && formapagamento.getValorparcelacartao()>0){ 
-					ocursoformapagamento.setValorEntrada(formapagamento.getValorentradacartao());
-					ocursoformapagamento.setNumeroparcela(formapagamento.getNumeroparcelascartao());
-					ocursoformapagamento.setValorparcela(formapagamento.getValorparcelacartao());
-					ocursoformapagamento.setOcurso(ocurso); 
-					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento); 
-				} else{
-					ocursoformapagamento.setValorEntrada(0.0f);
-					ocursoformapagamento.setNumeroparcela(0);
-					ocursoformapagamento.setValorparcela(0.0f);
-					ocursoformapagamento.setOcurso(ocurso);
-					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
-				}
-				ocursoformapagamento = new Ocursoformapagamento();
-				if(formapagamento.getValorparcelafinanciamento()!=null && formapagamento.getValorparcelafinanciamento()>0){ 
-					ocursoformapagamento.setValorEntrada(formapagamento.getValorentradafinanciamento());
-					ocursoformapagamento.setNumeroparcela(formapagamento.getNparcelasfinanciamento().intValue());
-					ocursoformapagamento.setValorparcela(formapagamento.getValorparcelafinanciamento());
-					ocursoformapagamento.setOcurso(ocurso); 
-					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento); 
-				} else{
-					ocursoformapagamento.setValorEntrada(0.0f);
-					ocursoformapagamento.setNumeroparcela(0);
-					ocursoformapagamento.setValorparcela(0.0f);
-					ocursoformapagamento.setOcurso(ocurso);
-					ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
-				}
-			}else{
-				ocursoformapagamento = new Ocursoformapagamento();
+		if (formapagamento != null) {
+			ocursoformapagamento = new Ocursoformapagamento();
+			if (formapagamento.getValorparcelaboleto() != null && formapagamento.getValorparcelaboleto() > 0) {
+				ocursoformapagamento.setValorEntrada(formapagamento.getValorentradaboleto());
+				ocursoformapagamento.setNumeroparcela(formapagamento.getNumeroparcelasboleto());
+				ocursoformapagamento.setValorparcela(formapagamento.getValorparcelaboleto());
+				ocursoformapagamento.setOcurso(ocurso);
+				ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
+			} else {
 				ocursoformapagamento.setValorEntrada(0.0f);
 				ocursoformapagamento.setNumeroparcela(0);
 				ocursoformapagamento.setValorparcela(0.0f);
 				ocursoformapagamento.setOcurso(ocurso);
 				ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
-			}  
-	
+			}
+			ocursoformapagamento = new Ocursoformapagamento();
+			if (formapagamento.getValorparcelacartao() != null && formapagamento.getValorparcelacartao() > 0) {
+				ocursoformapagamento.setValorEntrada(formapagamento.getValorentradacartao());
+				ocursoformapagamento.setNumeroparcela(formapagamento.getNumeroparcelascartao());
+				ocursoformapagamento.setValorparcela(formapagamento.getValorparcelacartao());
+				ocursoformapagamento.setOcurso(ocurso);
+				ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
+			} else {
+				ocursoformapagamento.setValorEntrada(0.0f);
+				ocursoformapagamento.setNumeroparcela(0);
+				ocursoformapagamento.setValorparcela(0.0f);
+				ocursoformapagamento.setOcurso(ocurso);
+				ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
+			}
+			ocursoformapagamento = new Ocursoformapagamento();
+			if (formapagamento.getValorparcelafinanciamento() != null
+					&& formapagamento.getValorparcelafinanciamento() > 0) {
+				ocursoformapagamento.setValorEntrada(formapagamento.getValorentradafinanciamento());
+				ocursoformapagamento.setNumeroparcela(formapagamento.getNparcelasfinanciamento().intValue());
+				ocursoformapagamento.setValorparcela(formapagamento.getValorparcelafinanciamento());
+				ocursoformapagamento.setOcurso(ocurso);
+				ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
+			} else {
+				ocursoformapagamento.setValorEntrada(0.0f);
+				ocursoformapagamento.setNumeroparcela(0);
+				ocursoformapagamento.setValorparcela(0.0f);
+				ocursoformapagamento.setOcurso(ocurso);
+				ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
+			}
+		} else {
+			ocursoformapagamento = new Ocursoformapagamento();
+			ocursoformapagamento.setValorEntrada(0.0f);
+			ocursoformapagamento.setNumeroparcela(0);
+			ocursoformapagamento.setValorparcela(0.0f);
+			ocursoformapagamento.setOcurso(ocurso);
+			ocursoformapagamento = oCursoFormaPagamentoDao.salvar(ocursoformapagamento);
+		}
+
 	}
-	
-	public void salvarOcursoDesconto(){
+
+	public void salvarOcursoDesconto() {
 		Ocursodesconto ocursodesconto = new Ocursodesconto();
 		ProdutoOrcamentoFacade produtoOrcamentoFacade = new ProdutoOrcamentoFacade();
 		Produtosorcamento produtosorcamento = new Produtosorcamento();
@@ -911,36 +970,43 @@ public class SalvarOrcamentoOcurso {
 		ocursodesconto.setValormoedanacional(0.0f);
 		oCursoDescontoDao.salvar(ocursodesconto);
 		ValorCoProdutosFacade valorCoProdutosFacade = new ValorCoProdutosFacade();
-    	Valorcoprodutos valorcoprodutos = valorCoProdutosFacade.consultar(aplicacaoMB.getParametrosprodutos().getCoseguroprivado());
-    	ocursodesconto = new Ocursodesconto();
+		Valorcoprodutos valorcoprodutos = valorCoProdutosFacade
+				.consultar(aplicacaoMB.getParametrosprodutos().getCoseguroprivado());
+		ocursodesconto = new Ocursodesconto();
 		produtosorcamento = produtoOrcamentoFacade.consultar(33);
 		ocursodesconto.setOcurso(ocurso);
 		ocursodesconto.setProdutosorcamento(produtosorcamento);
-		int anoinicio=Formatacao.getAnoData(datainicio);
-		if(cursospacote.getAno1()>0 || cursospacote.getAno2()>0) { 
-			if(anoinicio==cursospacote.getAno1()) {
+		int anoinicio = Formatacao.getAnoData(datainicio);
+		if (cursospacote.getAno1() > 0 || cursospacote.getAno2() > 0) {
+			if (anoinicio == cursospacote.getAno1()) {
 				if (cursospacote.getDescontotmreal1() > 0) {
-					 valorcoprodutos = valorCoProdutosFacade.consultar(aplicacaoMB.getParametrosprodutos().getCodescontomatriz());
-					 float descontoTMEstrangeira = cursospacote.getDescontotm1() + (cursospacote.getDescontotmreal1() / ocurso.getValorcambio());
-					 ocursodesconto.setValormoedaestrangeira(descontoTMEstrangeira);
-					 ocursodesconto.setValormoedanacional(descontoTMEstrangeira * ocurso.getValorcambio());
-					 valortotal = valortotal - ocursodesconto.getValormoedaestrangeira();
-					 ocursodesconto.setSelecionado(true);
-					 salvarOcursoproduto(0.0, valorcoprodutos, ocursodesconto.getValormoedaestrangeira(),
-					 				produtosorcamento.getDescricao(), produtosorcamento.getDescricao(), 8, "Desconto", "subtracao"); 
+					valorcoprodutos = valorCoProdutosFacade
+							.consultar(aplicacaoMB.getParametrosprodutos().getCodescontomatriz());
+					float descontoTMEstrangeira = cursospacote.getDescontotm1()
+							+ (cursospacote.getDescontotmreal1() / ocurso.getValorcambio());
+					ocursodesconto.setValormoedaestrangeira(descontoTMEstrangeira);
+					ocursodesconto.setValormoedanacional(descontoTMEstrangeira * ocurso.getValorcambio());
+					valortotal = valortotal - ocursodesconto.getValormoedaestrangeira();
+					ocursodesconto.setSelecionado(true);
+					salvarOcursoproduto(0.0, valorcoprodutos, ocursodesconto.getValormoedaestrangeira(),
+							produtosorcamento.getDescricao(), produtosorcamento.getDescricao(), 8, "Desconto",
+							"subtracao");
 				}
-			} else if(anoinicio==cursospacote.getAno2()) {
+			} else if (anoinicio == cursospacote.getAno2()) {
 				if (cursospacote.getDescontotmreal2() > 0) {
-					 valorcoprodutos = valorCoProdutosFacade.consultar(aplicacaoMB.getParametrosprodutos().getCodescontomatriz());
-					 float descontoTMEstrangeira = cursospacote.getDescontotm2() + (cursospacote.getDescontotmreal2() / ocurso.getValorcambio());
-					 ocursodesconto.setValormoedaestrangeira(descontoTMEstrangeira);
-					 ocursodesconto.setValormoedanacional(descontoTMEstrangeira * ocurso.getValorcambio());
-					 valortotal = valortotal - ocursodesconto.getValormoedaestrangeira();
-					 ocursodesconto.setSelecionado(true);
-					 salvarOcursoproduto(0.0, valorcoprodutos, ocursodesconto.getValormoedaestrangeira(),
-					 				produtosorcamento.getDescricao(), produtosorcamento.getDescricao(), 8, "Desconto", "subtracao"); 
+					valorcoprodutos = valorCoProdutosFacade
+							.consultar(aplicacaoMB.getParametrosprodutos().getCodescontomatriz());
+					float descontoTMEstrangeira = cursospacote.getDescontotm2()
+							+ (cursospacote.getDescontotmreal2() / ocurso.getValorcambio());
+					ocursodesconto.setValormoedaestrangeira(descontoTMEstrangeira);
+					ocursodesconto.setValormoedanacional(descontoTMEstrangeira * ocurso.getValorcambio());
+					valortotal = valortotal - ocursodesconto.getValormoedaestrangeira();
+					ocursodesconto.setSelecionado(true);
+					salvarOcursoproduto(0.0, valorcoprodutos, ocursodesconto.getValormoedaestrangeira(),
+							produtosorcamento.getDescricao(), produtosorcamento.getDescricao(), 8, "Desconto",
+							"subtracao");
 				}
-			}  else {
+			} else {
 				ocursodesconto.setValormoedaestrangeira(0.0f);
 				ocursodesconto.setValormoedanacional(0.0f);
 			}
@@ -948,26 +1014,26 @@ public class SalvarOrcamentoOcurso {
 			ocursodesconto.setValormoedaestrangeira(0.0f);
 			ocursodesconto.setValormoedanacional(0.0f);
 		}
-		oCursoDescontoDao.salvar(ocursodesconto); 
-		
-		
+		oCursoDescontoDao.salvar(ocursodesconto);
+
 		ocursodesconto = new Ocursodesconto();
 		produtosorcamento = produtoOrcamentoFacade.consultar(267);
 		ocursodesconto.setOcurso(ocurso);
-		ocursodesconto.setProdutosorcamento(produtosorcamento);  
-		if(cursospacote.getPromocaoescola()>0){
-			valorcoprodutos = valorCoProdutosFacade.consultar(aplicacaoMB.getParametrosprodutos().getCopromocaoescola());
+		ocursodesconto.setProdutosorcamento(produtosorcamento);
+		if (cursospacote.getPromocaoescola() > 0) {
+			valorcoprodutos = valorCoProdutosFacade
+					.consultar(aplicacaoMB.getParametrosprodutos().getCopromocaoescola());
 			ocursodesconto.setValormoedaestrangeira(cursospacote.getPromocaoescola());
-			ocursodesconto.setValormoedanacional(cursospacote.getPromocaoescola()*ocurso.getValorcambio());
+			ocursodesconto.setValormoedanacional(cursospacote.getPromocaoescola() * ocurso.getValorcambio());
 			ocursodesconto.setSelecionado(true);
 			valortotal = valortotal - ocursodesconto.getValormoedaestrangeira();
 			salvarOcursoproduto(0.0, valorcoprodutos, ocursodesconto.getValormoedaestrangeira(),
 					produtosorcamento.getDescricao(), produtosorcamento.getDescricao(), 8, "Desconto", "subtracao");
-		}else{
+		} else {
 			ocursodesconto.setValormoedaestrangeira(0.0f);
 			ocursodesconto.setValormoedanacional(0.0f);
 		}
 		oCursoDescontoDao.salvar(ocursodesconto);
-		
+
 	}
 }
