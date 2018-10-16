@@ -2326,10 +2326,18 @@ public class CadHeInscricaoMB implements Serializable {
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
+				String numerosemanasalteracao = "";
+				String numerosemanas = "";
+				if (heParAlteracao1.getNumerosemanas() != null) {
+					numerosemanasalteracao = heParAlteracao1.getNumerosemanas().toString();
+				}
+				if (heparceiros1.getNumerosemanas() != null) {
+					numerosemanas = heparceiros1.getNumerosemanas().toString();
+				}
 				if (heparceiros1.getNumerosemanas() != heParAlteracao1.getNumerosemanas()) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Número Semana (Pathway) 1:",
-							heparceiros1.getNumerosemanas().toString(), heParAlteracao1.getNumerosemanas().toString());
+							numerosemanas, numerosemanasalteracao);
 				}
 			}
 
@@ -2400,10 +2408,18 @@ public class CadHeInscricaoMB implements Serializable {
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
+				String numerosemanasalteracao = "";
+				String numerosemanas = "";
+				if (heParAlteracao2.getNumerosemanas() != null) {
+					numerosemanasalteracao = heParAlteracao2.getNumerosemanas().toString();
+				}
+				if (heparceiros2.getNumerosemanas() != null) {
+					numerosemanas = heparceiros2.getNumerosemanas().toString();
+				}
 				if (heparceiros2.getNumerosemanas() != heParAlteracao2.getNumerosemanas()) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Número Semana (Pathway) 2:",
-							heparceiros2.getNumerosemanas().toString(), heParAlteracao2.getNumerosemanas().toString());
+							numerosemanas, numerosemanasalteracao);
 				}
 			}
 
@@ -2474,10 +2490,18 @@ public class CadHeInscricaoMB implements Serializable {
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
+				String numerosemanasalteracao = "";
+				String numerosemanas = "";
+				if (heParAlteracao3.getNumerosemanas() != null) {
+					numerosemanasalteracao = heParAlteracao3.getNumerosemanas().toString();
+				}
+				if (heparceiros3.getNumerosemanas() != null) {
+					numerosemanas = heparceiros3.getNumerosemanas().toString();
+				}
 				if (heparceiros3.getNumerosemanas() != heParAlteracao3.getNumerosemanas()) {
 					  controleAlteracaoCursoBean.salvar(controlealteracoes,
 							depPrograma.getDepartamento(), "Número Semana (Pathway) 2:",
-							heparceiros3.getNumerosemanas().toString(), heParAlteracao3.getNumerosemanas().toString());
+							numerosemanas, numerosemanasalteracao);
 				}
 			}
 
