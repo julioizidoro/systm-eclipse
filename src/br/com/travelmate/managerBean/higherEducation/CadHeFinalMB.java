@@ -134,6 +134,9 @@ public class CadHeFinalMB implements Serializable {
 	private boolean semmascara;
 	private He heAlteracao;
 	private Controlealteracoes controlealteracoes;
+	private boolean habilitarAvisoCambio = false;
+	private float valorCambio;
+	private String cambioAlterado;
 
 	@PostConstruct
 	public void init() {
@@ -481,6 +484,30 @@ public class CadHeFinalMB implements Serializable {
 		this.semmascara = semmascara;
 	}
 
+	public boolean isHabilitarAvisoCambio() {
+		return habilitarAvisoCambio;
+	}
+
+	public void setHabilitarAvisoCambio(boolean habilitarAvisoCambio) {
+		this.habilitarAvisoCambio = habilitarAvisoCambio;
+	}
+
+	public float getValorCambio() {
+		return valorCambio;
+	}
+
+	public void setValorCambio(float valorCambio) {
+		this.valorCambio = valorCambio;
+	}
+
+	public String getCambioAlterado() {
+		return cambioAlterado;
+	}
+
+	public void setCambioAlterado(String cambioAlterado) {
+		this.cambioAlterado = cambioAlterado;
+	}
+
 	public void excluirFormaPagamento(String ilinha) {
 		gerarListaParcelamentoOriginal();
 		int linha = Integer.parseInt(ilinha);
@@ -646,19 +673,43 @@ public class CadHeFinalMB implements Serializable {
 		parcelamentopagamento.setValorParcelamento(valorSaldoParcelar);
 	}
 
+	
 	public void carregarCambio() {
-		
 		if (venda.getSituacao().equalsIgnoreCase("PROCESSO")) {
-			int dias = Formatacao.subtrairDatas(new Date(), venda.getDataVenda());
-			if (dias > 3) {
-				Mensagem.lancarMensagemErro("Cambio alterado para o dia atual", "");
-				cambio = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),
-						cambio.getMoedas().getIdmoedas());
+			// int dias = Formatacao.subtrairDatas(venda.getDatavalidade(), new Date());
+			String dataAtualString = Formatacao.ConvercaoDataPadrao(new Date());
+			Date dataAtual = Formatacao.ConvercaoStringData(dataAtualString);
+			String dataValidadeString = Formatacao.ConvercaoDataPadrao(venda.getDatavalidade());
+			Date dataValidade = Formatacao.ConvercaoStringData(dataValidadeString);
+			if (dataValidade.before(dataAtual)) {
+				int idMoedaVenda = venda.getCambio().getMoedas().getIdmoedas();
+				for (int i = 0; i < aplicacaoMB.getListaCambio().size(); i++) {
+					int idUltimaMoeda = aplicacaoMB.getListaCambio().get(i).getMoedas().getIdmoedas();
+					int idPaisUsuario = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais();
+					int idPaisCambio = aplicacaoMB.getListaCambio().get(i).getPais().getIdpais();
+					if ((idMoedaVenda == idUltimaMoeda) && (idPaisCambio == idPaisUsuario)) {
+						cambio = aplicacaoMB.getListaCambio().get(i);
+						i = 1000000;
+					}
+				}
 				if (cambio != null) {
+					habilitarAvisoCambio = true;
+					valorCambio = cambio.getValor();
+					cambioAlterado = "Não";
+					dataCambio = cambio.getData();
 					orcamento.setValorCambio(cambio.getValor());
+					moeda = cambio.getMoedas();
 					atualizarValoresProduto();
 				}
+			} else {
+				valorCambio = venda.getValorcambio();
+				cambio.setValor(valorCambio);
+				cambioAlterado = orcamento.getCambioAlterado();
 			}
+		} else {
+			valorCambio = venda.getValorcambio();
+			cambio.setValor(valorCambio);
+			cambioAlterado = orcamento.getCambioAlterado();
 		}
 	}
 
@@ -1886,5 +1937,10 @@ public class CadHeFinalMB implements Serializable {
 		heAlteracao.setMesano1(he.getMesano1());
 		heAlteracao.setDatainicio(he.getDatainicio());
 		heAlteracao.setDatatermino(he.getDatatermino());
+	}
+	
+
+	public void fecharNotificacao() {
+		habilitarAvisoCambio = false;
 	}
 }

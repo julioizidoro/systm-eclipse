@@ -23,6 +23,22 @@
 				<p:growl id="growl" showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}"/>
 				<p:outputLabel value="Ficha Final de Higher Education"
 					style="font-size: 22px;color: #1F8871; margin-left:30%" />
+					<p:dialog visible="#{cadHeFinalMB.habilitarAvisoCambio}" header="ATENÇÃO" id="panelInformacaoData" width="300px;" style="font-size:14px;">
+						<h:panelGrid columns="1" style="width:100%;margin-left:1%;">
+							<p:outputLabel
+								value="O Câmbio foi atualizado!!"
+								style="color:red;font-size:16px;" />
+							<p:outputLabel />
+		
+							<h:panelGrid columns="2" style="width:72%;margin-left: 31%;">
+								
+								<p:commandButton value="Fechar"
+									action="#{cadHeFinalMB.fecharNotificacao()}"
+									style="font-size:12px;" update="panelInformacaoData" icon="ui-icon-close"
+									title="Fechar Notificação" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:dialog>
 				<br/><br/>   
 				<p:accordionPanel> 
 				<p:tab title="Informações Higher Education">
