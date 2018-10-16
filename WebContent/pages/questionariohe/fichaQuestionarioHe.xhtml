@@ -89,7 +89,11 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</h:panelGroup>
-				<h:panelGroup><h:panelGrid rendered="#{fichaQuestionarioMB.habilitarCidade}"> <b>Cidade:</b> #{fichaQuestionarioMB.questionariohe.cidade} </h:panelGrid></h:panelGroup>
+				<h:panelGroup><h:panelGrid rendered="#{fichaQuestionarioMB.habilitarCidade}"> <b>Cidade:</b> #{fichaQuestionarioMB.questionariohe.cidade} 
+								<p:outputLabel value=" - " rendered="#{fichaQuestionarioMB.separarCidade}"/>
+					 			#{fichaQuestionarioMB.questionariohe.cidade2}
+							</h:panelGrid>
+				</h:panelGroup>
 				<h:panelGroup><b>Tenho interesse em imigrar?:</b> #{fichaQuestionarioMB.questionariohe.interesseemimigrar}</h:panelGroup>
 				<h:panelGroup><b>Trabalhar durante meu curso?:</b> #{fichaQuestionarioMB.questionariohe.precisatrabalahar}</h:panelGroup>
 				<h:panelGroup><b>Visto de trabalho após o curso?:</b> #{fichaQuestionarioMB.questionariohe.vistotrabalho}</h:panelGroup>

@@ -31,6 +31,7 @@ public class FichaQuestionarioMB implements Serializable{
 	private boolean habilitarCidade = false;
 	private boolean sepaparCertificacao = false;
 	private boolean separarDestino = false;
+	private boolean separarCidade = false;
 	
 
 	
@@ -54,6 +55,11 @@ public class FichaQuestionarioMB implements Serializable{
 		if ((questionariohe.getPais1() != null && questionariohe.getPais1().length() > 0) && (questionariohe.getPais2() != null && 
 				questionariohe.getPais2().length() > 0)) {
 			separarDestino = true;
+		}
+		
+		if ((questionariohe.getCidade() != null && questionariohe.getCidade().length() > 0) && (questionariohe.getCidade2() != null && 
+				questionariohe.getCidade2().length() > 0)) {
+			separarCidade = true;
 		}
 	}
 
@@ -198,6 +204,18 @@ public class FichaQuestionarioMB implements Serializable{
 
 	public void setSepararDestino(boolean separarDestino) {
 		this.separarDestino = separarDestino;
+	}
+
+
+
+	public boolean isSepararCidade() {
+		return separarCidade;
+	}
+
+
+
+	public void setSepararCidade(boolean separarCidade) {
+		this.separarCidade = separarCidade;
 	}
 
 
