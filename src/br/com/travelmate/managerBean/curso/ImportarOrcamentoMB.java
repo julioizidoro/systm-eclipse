@@ -121,5 +121,23 @@ public class ImportarOrcamentoMB implements Serializable{
 			}else return ""; 
 		}return "";
 	}
+	
+	
+	public boolean promocaoAtrasada(Ocurso ocurso){
+		if(ocurso!=null){
+			Date hoje = new Date();
+			Date ontem = new Date();
+			try {
+				ontem = Formatacao.SomarDiasDatas(hoje, -1);
+			} catch (Exception e) { 
+				  
+			}
+			if(ocurso.getDatavalidade()!=null && ocurso.getDatavalidade().before(hoje) && ocurso.getDatavalidade().after(ontem)){
+				return false;
+			}else if(ocurso.getDatavalidade()!=null && ocurso.getDatavalidade().before(hoje)){
+				return true;
+			}else return false; 
+		}return true;
+	}
 
 }
