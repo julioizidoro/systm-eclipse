@@ -13,26 +13,28 @@
 				<br></br>
 				 <p:accordionPanel class="painel" activeIndex="-1" >
 					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;" title="Pesquisar" >
-                           <p:outputLabel value="Periodo" for="periodo" class="fontebranca" style="margin-left:7.6%"/> 
-                           <p:outputLabel value="Status" for="status" style="margin-left:28.8%" /> 
-                            <p:outputLabel value="Tipo" for="tipo" style="margin-left:13%" /> 
-                           <br></br>
-                           <h:panelGrid columns="5">
-                       	       <p:inputText id="periodo" value="#{valoresSeguroMB.periodo}" style="width:250px;margin-left:22%" />
-	                           <p:selectOneMenu  id="status"  value="#{valoresSeguroMB.status}" style="width:95px;margin-left:36%">
+                           <h:panelGrid columns="4" style="margin-left:7.6%;width:81%;">
+                           		<p:outputLabel value="Periodo" for="periodo" class="fontebranca" /> 
+                           		<p:outputLabel value="Status" for="status" /> 
+                            	<p:outputLabel value="Tipo" for="tipo"  /> 
+                            	<p:outputLabel/>
+                       	       <p:inputText id="periodo" value="#{valoresSeguroMB.periodo}" style="width:250px;" />
+	                           <p:selectOneMenu  id="status"  value="#{valoresSeguroMB.status}" style="width:95px;">
 	                              <f:selectItem itemLabel="Todos" itemValue="Todos"  />
 	                              <f:selectItem itemLabel="Ativo" itemValue="Ativo"  />
 	                              <f:selectItem itemLabel="Inativo" itemValue="Inativo"/> 
 	                              <p:ajax event="change"/>   
 	                          </p:selectOneMenu>
-	                          <p:selectOneMenu  id="tipo"  value="#{valoresSeguroMB.tipo}" style="width:95px;margin-left:36%">
+	                          <p:selectOneMenu  id="tipo"  value="#{valoresSeguroMB.tipo}" style="width:95px;">
 	                           	  <f:selectItem itemLabel="Todos" itemValue="Todos"  />
 	                              <f:selectItem itemLabel="EUA" itemValue="EUA"  />
 	                              <f:selectItem itemLabel="Australia" itemValue="Australia"/> 
 	                              <p:ajax event="change"/>
 	                          </p:selectOneMenu>
-	                          <p:commandButton value="Pesquisar" style="margin-left:45%" icon=" ui-icon-search " update=":idValoresSeguro:tabelaValoresSeguro"  action="#{valoresSeguroMB.pesquisar()}"/>
-                         <p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  class="imgadd" update="idValoresSeguro:tabelaValoresSeguro,tipo, periodo, status"  action="#{valoresSeguroMB.limpar()}"/>
+	                          <h:panelGrid columns="2" style="width:85%;">
+	                          	<p:commandButton value="Pesquisar"  icon=" ui-icon-search " update=":idValoresSeguro:tabelaValoresSeguro"  action="#{valoresSeguroMB.pesquisar()}"/>
+                         	 	 <p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"  class="imgadd" update="idValoresSeguro:tabelaValoresSeguro,tipo, periodo, status"  action="#{valoresSeguroMB.limpar()}"/>
+	                     	 </h:panelGrid>
 	                     </h:panelGrid>
                          
                      </p:tab>
