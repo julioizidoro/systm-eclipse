@@ -40,8 +40,6 @@ public class Hecontrole implements Serializable {
     @Basic(optional = false)
     @Column(name = "idhecontrole")
     private Integer idhecontrole;
-    @Column(name = "tipovenda")
-    private String tipovenda;
     @Column(name = "situacaoaplicacao")
     private String situacaoaplicacao;
     @Column(name = "datafichafinalizada")
@@ -50,21 +48,6 @@ public class Hecontrole implements Serializable {
     @Column(name = "dataaplicacaoenviada")
     @Temporal(TemporalType.DATE)
     private Date dataaplicacaoenviada;
-    @Size(max = 7)
-    @Column(name = "iniciocurso")
-    private String iniciocurso;
-    @Size(max = 100)
-    @Column(name = "parceiro01")
-    private String parceiro01;
-    @Size(max = 100)
-    @Column(name = "parceiro02")
-    private String parceiro02;
-    @Size(max = 100)
-    @Column(name = "parceiro03")
-    private String parceiro03;
-    @Size(max = 3)
-    @Column(name = "pathway")
-    private String pathway;
     @Column(name = "impresso")
     private boolean impresso;
     @Column(name = "valorcomissao")
@@ -84,9 +67,9 @@ public class Hecontrole implements Serializable {
     @Size(max = 16777215)
     @Column(name = "observacao")
     private String observacao;
-    @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
+    @JoinColumn(name = "he_idhe", referencedColumnName = "idhe")
     @ManyToOne(optional = false)
-    private Vendas vendas;
+    private He he;
     
     public Hecontrole() {
     	
@@ -99,15 +82,7 @@ public class Hecontrole implements Serializable {
 	public void setIdhecontrole(Integer idhecontrole) {
 		this.idhecontrole = idhecontrole;
 	}
-
-	public String getTipovenda() {
-		return tipovenda;
-	}
-
-	public void setTipovenda(String tipovenda) {
-		this.tipovenda = tipovenda;
-	}
-
+	
 	public String getSituacaoaplicacao() {
 		return situacaoaplicacao;
 	}
@@ -132,46 +107,7 @@ public class Hecontrole implements Serializable {
 		this.dataaplicacaoenviada = dataaplicacaoenviada;
 	}
 
-	public String getIniciocurso() {
-		return iniciocurso;
-	}
-
-	public void setIniciocurso(String iniciocurso) {
-		this.iniciocurso = iniciocurso;
-	}
-
-	public String getParceiro01() {
-		return parceiro01;
-	}
-
-	public void setParceiro01(String parceiro01) {
-		this.parceiro01 = parceiro01;
-	}
-
-	public String getParceiro02() {
-		return parceiro02;
-	}
-
-	public void setParceiro02(String parceiro02) {
-		this.parceiro02 = parceiro02;
-	}
-
-	public String getParceiro03() {
-		return parceiro03;
-	}
-
-	public void setParceiro03(String parceiro03) {
-		this.parceiro03 = parceiro03;
-	}
-
-	public String getPathway() {
-		return pathway;
-	}
-
-	public void setPathway(String pathway) {
-		this.pathway = pathway;
-	}
-
+	
 	public boolean isImpresso() {
 		return impresso;
 	}
@@ -228,12 +164,12 @@ public class Hecontrole implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public Vendas getVendas() {
-		return vendas;
+	public He getHe() {
+		return he;
 	}
 
-	public void setVendas(Vendas vendas) {
-		this.vendas = vendas;
+	public void setHe(He he) {
+		this.he = he;
 	}
 
 	@Override
