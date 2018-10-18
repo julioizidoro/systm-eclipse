@@ -41,11 +41,11 @@ import br.com.travelmate.util.UploadAWSS3;
 @ViewScoped
 public class ApplicationCursoMB implements Serializable{
 
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	@Inject
 	private PaisDao paisDao;
 	private Fornecedorcidadeidioma fornecedorcidadeidioma;
@@ -355,13 +355,14 @@ public class ApplicationCursoMB implements Serializable{
 		}
 		
 		if (listaProdutosSelecionados != null && listaProdutosSelecionados.size() > 0) {
-			sql = sql + " AND ";
+			sql = sql + " AND (";
 			for (int i = 0; i < listaProdutosSelecionados.size(); i++) {
 				sql = sql + " f.produtosorcamento.idprodutosOrcamento=" + listaProdutosSelecionados.get(i).getIdprodutosOrcamento();
 				if ((i + 1) < listaProdutosSelecionados.size()) {
 					sql = sql + " OR ";
 				}
 			}
+			sql = sql + ") ";
 		}
 		
 		if ((pais != null && pais.getIdpais() != null) && (fornecedorcidadeidioma != null && fornecedorcidadeidioma.getIdfornecedorcidadeidioma() != null)

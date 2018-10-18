@@ -181,7 +181,8 @@ public class UploadApplicationMB implements Serializable{
 					fornecedorapplication = new Fornecedorapplication();
 				}
 				if (upload) {
-					fornecedorapplication.setNomearquivo(nomeArquivoFTP);
+					String nomeArquivo = nomeArquivoSalvo(listaProdutosSelecionados.get(i).getIdprodutosOrcamento()) + "_" + new String(file.getFileName());
+					fornecedorapplication.setNomearquivo(nomeArquivo);
 				}else {
 
 					fornecedorapplication.setNomearquivo("");
@@ -229,30 +230,32 @@ public class UploadApplicationMB implements Serializable{
 		String msg = "";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
-		String nomeArquivo = nomeArquivoSalvo();
-			nomeArquivo = nomeArquivo + "_" + new String(file.getFileName());
-		nomeArquivoFTP = nomeArquivo;
-		String arquivo = servletContext.getRealPath("/arquivos/");
-		String nomeArquivoFile = arquivo + nomeArquivo;
-		String caminho = servletContext.getRealPath("/resources/aws.properties");
-		UploadAWSS3 s3 = new UploadAWSS3("local", caminho);
-		File arquivoFile = s3.getFile(file, nomeArquivoFile);
-		if (s3.uploadFile(arquivoFile, "application")) {
-			msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
-			upload = true;
-		} else {
-			msg = " Erro no nome do arquivo";
-			upload = false;
+		for (int i = 0; i < listaProdutosSelecionados.size(); i++) {
+			String nomeArquivo = nomeArquivoSalvo(listaProdutosSelecionados.get(i).getIdprodutosOrcamento());
+				nomeArquivo = nomeArquivo + "_" + new String(file.getFileName());
+			nomeArquivoFTP = nomeArquivo;
+			String arquivo = servletContext.getRealPath("/arquivos/");
+			String nomeArquivoFile = arquivo + nomeArquivo;
+			String caminho = servletContext.getRealPath("/resources/aws.properties");
+			UploadAWSS3 s3 = new UploadAWSS3("local", caminho);
+			File arquivoFile = s3.getFile(file, nomeArquivoFile);
+			if (s3.uploadFile(arquivoFile, "application")) {
+				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
+				upload = true;
+			} else {
+				msg = " Erro no nome do arquivo";
+				upload = false;
+			}
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(msg, ""));
+			arquivoFile.delete();
 		}
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(msg, ""));
-		arquivoFile.delete();
 		return true;
 	}
 	
 	
-	public String nomeArquivoSalvo() {
-		nomeArquivoFTP = pais.getIdpais() + "_" + fornecedor.getIdfornecedor() + "_";
+	public String nomeArquivoSalvo(int idProdutoOrcamento) {
+		nomeArquivoFTP = pais.getIdpais() + "_" + fornecedor.getIdfornecedor() + "_" + idProdutoOrcamento;
 		return nomeArquivoFTP;
 	}
 	
