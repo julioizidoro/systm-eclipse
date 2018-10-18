@@ -355,7 +355,11 @@ public class CadArquivoMB implements Serializable {
 							avisos.setData(new Date());
 							avisos.setUsuario(usuarioLogadoMB.getUsuario());
 							avisos.setImagem("Upload");
-							avisos.setIdvenda(vendas.getIdvendas());
+							if (vendas.getIdvendas() == 3723) {
+								avisos.setIdvenda(0);
+							}else {
+								avisos.setIdvenda(vendas.getIdvendas());
+							}
 							avisos.setLiberar(true);
 							avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " "
 									+ cliente.getNome() + " - " + vendas.getProdutos().getDescricao() + " | " + obs);
@@ -374,7 +378,11 @@ public class CadArquivoMB implements Serializable {
 						avisos.setUsuario(usuarioLogadoMB.getUsuario());
 						avisos.setImagem("Upload");
 						avisos.setLiberar(true);
-						avisos.setIdvenda(vendas.getIdvendas());
+						if (vendas.getIdvendas() == 3723) {
+							avisos.setIdvenda(0);
+						}else {
+							avisos.setIdvenda(vendas.getIdvendas());
+						}
 						avisos.setTexto("Upload " + arquivos.getTipoarquivo().getDescricao() + " " + cliente.getNome()
 								+ " - " + vendas.getProdutos().getDescricao() + " | " + obs);
 						avisos.setIdunidade(0);
@@ -394,7 +402,11 @@ public class CadArquivoMB implements Serializable {
 								avisos.setUsuario(usuarioLogadoMB.getUsuario());
 								avisos.setImagem("Upload");
 								avisos.setLiberar(true);
-								avisos.setIdvenda(vendas.getIdvendas());
+								if (vendas.getIdvendas() == 3723) {
+									avisos.setIdvenda(0);
+								}else {
+									avisos.setIdvenda(vendas.getIdvendas());
+								}
 								avisos.setTexto(
 										"Upload " + arquivos.getTipoarquivo().getDescricao() + " " + cliente.getNome()
 												+ " - " + vendas.getProdutos().getDescricao() + " | " + obs);
