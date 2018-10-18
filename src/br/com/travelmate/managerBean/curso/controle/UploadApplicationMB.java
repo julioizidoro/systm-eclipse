@@ -36,6 +36,7 @@ public class UploadApplicationMB implements Serializable{
 	private Fornecedor fornecedor;
 	private Pais pais;
 	private Produtosorcamento produtosorcamento;
+	private List<Produtosorcamento> listaProdutosSelecionados;
 	private String nomeArquivoFTP;
 	private UploadedFile file;
 	private FileUploadEvent ex;
@@ -45,16 +46,17 @@ public class UploadApplicationMB implements Serializable{
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		fornecedor = (Fornecedor) session.getAttribute("fornecedor");
 		pais = (Pais) session.getAttribute("pais");
-		produtosorcamento = (Produtosorcamento) session.getAttribute("produtosorcamento");
+		listaProdutosSelecionados = (List<Produtosorcamento>) session.getAttribute("listaProdutosSelecionados");
 		session.removeAttribute("fornecedor");
 		session.removeAttribute("pais");
-		session.removeAttribute("produtosorcamento");
+		session.removeAttribute("listaProdutosSelecionados");
 		fornecedorapplication  = new Fornecedorapplication();
 	}
 
@@ -159,19 +161,36 @@ public class UploadApplicationMB implements Serializable{
 	}
 
 
+	public List<Produtosorcamento> getListaProdutosSelecionados() {
+		return listaProdutosSelecionados;
+	}
+
+
+	public void setListaProdutosSelecionados(List<Produtosorcamento> listaProdutosSelecionados) {
+		this.listaProdutosSelecionados = listaProdutosSelecionados;
+	}
+
+
 	public void salvar() {
 		if (validarDados()) {
-			if (upload) {
-				fornecedorapplication.setNomearquivo(nomeArquivoFTP);
-			}else {
+			for (int i = 0; i < listaProdutosSelecionados.size(); i++) {
+				FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
+				fornecedorapplication = fornecedorApplicationFacade.consultar("SELECT f FROM Fornecedorapplication f WHERE f.fornecedor.idfornecedor=" + fornecedor.getIdfornecedor() 
+						+ " AND f.produtosorcamento.idprodutosOrcamento=" + listaProdutosSelecionados.get(i).getIdprodutosOrcamento() + " AND f.pais.idpais=" + pais.getIdpais());
+				if (fornecedorapplication == null) {
+					fornecedorapplication = new Fornecedorapplication();
+				}
+				if (upload) {
+					fornecedorapplication.setNomearquivo(nomeArquivoFTP);
+				}else {
 
-				fornecedorapplication.setNomearquivo("");
+					fornecedorapplication.setNomearquivo("");
+				}
+				fornecedorapplication.setFornecedor(fornecedor);
+				fornecedorapplication.setPais(pais);
+				fornecedorapplication.setProdutosorcamento(listaProdutosSelecionados.get(i));
+				fornecedorapplication = fornecedorApplicationFacade.salvar(fornecedorapplication);
 			}
-			fornecedorapplication.setFornecedor(fornecedor);
-			fornecedorapplication.setPais(pais);
-			fornecedorapplication.setProdutosorcamento(produtosorcamento);
-			FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
-			fornecedorapplication = fornecedorApplicationFacade.salvar(fornecedorapplication);
 			RequestContext.getCurrentInstance().closeDialog(fornecedorapplication);
 		}
 	}
@@ -188,16 +207,9 @@ public class UploadApplicationMB implements Serializable{
 			
 		}
 		
-		if (produtosorcamento == null || produtosorcamento.getIdprodutosOrcamento() == null ) {
+		if (listaProdutosSelecionados == null || listaProdutosSelecionados.size() == 0) {
 			Mensagem.lancarMensagemInfo("Programa não informado", "");
 			return false;
-		}
-		
-		FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
-		fornecedorapplication = fornecedorApplicationFacade.consultar("SELECT f FROM Fornecedorapplication f WHERE f.fornecedor.idfornecedor=" + fornecedor.getIdfornecedor() 
-				+ " AND f.produtosorcamento.idprodutosOrcamento=" + produtosorcamento.getIdprodutosOrcamento() + " AND f.pais.idpais=" + pais.getIdpais());
-		if (fornecedorapplication == null) {
-			fornecedorapplication = new Fornecedorapplication();
 		}
 		return true;
 	}
@@ -240,7 +252,7 @@ public class UploadApplicationMB implements Serializable{
 	
 	
 	public String nomeArquivoSalvo() {
-		nomeArquivoFTP = pais.getIdpais() + "_" + fornecedor.getIdfornecedor() + "_" + produtosorcamento.getIdprodutosOrcamento();
+		nomeArquivoFTP = pais.getIdpais() + "_" + fornecedor.getIdfornecedor() + "_";
 		return nomeArquivoFTP;
 	}
 	

@@ -54,10 +54,11 @@
 							update="tipodecurso" />
 						<p:ajax event="change" listener="#{applicationCursoMB.gerarFornecedorApplication()}" update="tabelaVendasCurso, btnUploadApplication"/>
 					</p:selectOneMenu>
-					<p:selectOneMenu id="tipodecurso"
-						value="#{applicationCursoMB.produtosorcamento}"
-						style="width:190px;" converter="OrcamentoProdutoConverter"
-						filter="true" filterMatchMode="startsWith">
+					<p:selectCheckboxMenu id="tipodecurso" 
+						value="#{applicationCursoMB.listaProdutosSelecionados}"
+						label="Selecione" style="width:250px;" converter="OrcamentoProdutoConverter"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width:250px">
 						<f:selectItem itemLabel="Selecione Curso" itemValue="0"
 							noSelectionOption="true" />
 						<f:selectItems id="idtipocurso"
@@ -67,7 +68,7 @@
 						<f:attribute name="listaProdutosOrcamento"
 							value="#{applicationCursoMB.listaProdutosOrcamento}" />
 						<p:ajax event="change" listener="#{applicationCursoMB.gerarFornecedorApplication()}" update="tabelaVendasCurso, btnUploadApplication"/>
-					</p:selectOneMenu>
+					</p:selectCheckboxMenu>
 					<p:commandButton id="btnUploadApplication" disabled="#{applicationCursoMB.desabilitarUpload}"
 						icon="ui-icon-arrowthickstop-1-s"
 						title="Upload Arquivo" style="font-size:12px;"

@@ -20,6 +20,7 @@ import org.primefaces.event.SelectEvent;
 
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import antlr.collections.impl.LList;
 import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.FornecedorApplicationFacade;
@@ -55,6 +56,7 @@ public class ApplicationCursoMB implements Serializable{
 	private List<Pais> listaPais;
 	private Produtosorcamento produtosorcamento;
 	private List<Produtosorcamento> listaProdutosOrcamento;
+	private List<Produtosorcamento> listaProdutosSelecionados;
 	private Fornecedorapplication fornecedorapplication;
 	private List<Fornecedorapplication> listaFornecedor;
 	private boolean desabilitarUpload = true;
@@ -224,6 +226,20 @@ public class ApplicationCursoMB implements Serializable{
 
 
 
+	public List<Produtosorcamento> getListaProdutosSelecionados() {
+		return listaProdutosSelecionados;
+	}
+
+
+
+
+	public void setListaProdutosSelecionados(List<Produtosorcamento> listaProdutosSelecionados) {
+		this.listaProdutosSelecionados = listaProdutosSelecionados;
+	}
+
+
+
+
 	public void gerarListaFornecedorCidade() {
 			String sql = null;
 			sql = "select f from Fornecedorcidadeidioma f where f.fornecedorcidade.cidade.pais.idpais="
@@ -312,14 +328,18 @@ public class ApplicationCursoMB implements Serializable{
 	}
 	
 	public String novaApplication() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("fornecedor", fornecedorcidadeidioma.getFornecedorcidade().getFornecedor());
-		session.setAttribute("pais", pais);
-		session.setAttribute("produtosorcamento", produtosorcamento);
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("contentWidth", 500);
-		RequestContext.getCurrentInstance().openDialog("uploadApplication", options, null);
+		if (listaProdutosSelecionados != null && listaProdutosSelecionados.size() > 0) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("fornecedor", fornecedorcidadeidioma.getFornecedorcidade().getFornecedor());
+			session.setAttribute("pais", pais);
+			session.setAttribute("listaProdutosSelecionados", listaProdutosSelecionados);
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("contentWidth", 500);
+			RequestContext.getCurrentInstance().openDialog("uploadApplication", options, null);
+		}else {
+			Mensagem.lancarMensagemInfo("Selecione um Programa", "");
+		}
 		return "";
 	}
 	
@@ -334,12 +354,18 @@ public class ApplicationCursoMB implements Serializable{
 			sql = sql + " AND f.fornecedor.idfornecedor=" + fornecedorcidadeidioma.getFornecedorcidade().getFornecedor().getIdfornecedor();
 		}
 		
-		if (produtosorcamento != null && produtosorcamento.getIdprodutosOrcamento() != null) {
-			sql = sql + " AND f.produtosorcamento.idprodutosOrcamento=" + produtosorcamento.getIdprodutosOrcamento();
+		if (listaProdutosSelecionados != null && listaProdutosSelecionados.size() > 0) {
+			sql = sql + " AND ";
+			for (int i = 0; i < listaProdutosSelecionados.size(); i++) {
+				sql = sql + " f.produtosorcamento.idprodutosOrcamento=" + listaProdutosSelecionados.get(i).getIdprodutosOrcamento();
+				if ((i + 1) < listaProdutosSelecionados.size()) {
+					sql = sql + " OR ";
+				}
+			}
 		}
 		
 		if ((pais != null && pais.getIdpais() != null) && (fornecedorcidadeidioma != null && fornecedorcidadeidioma.getIdfornecedorcidadeidioma() != null)
-				&& (produtosorcamento != null && produtosorcamento.getIdprodutosOrcamento() != null)) {
+				&& (listaProdutosSelecionados != null && listaProdutosSelecionados.size() > 0)) {
 			desabilitarUpload = false;
 		}else {
 			desabilitarUpload = true;
