@@ -1570,4 +1570,14 @@ public class HistoricoClienteMB implements Serializable {
 	
 	
 
+	public boolean retornarQuestionario() {
+		if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1 || usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 7) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
+
 }

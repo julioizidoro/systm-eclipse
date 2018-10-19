@@ -396,7 +396,7 @@
 											
 											<p:commandLink id="btnQuestionario" update=":historicoCliente:growl, @form"
 												action="#{historicoClienteMB.questionarioOnline()}" 
-												style="margin-left:8%;border:transparent;">
+												style="margin-left:8%;border:transparent;" rendered="#{historicoClienteMB.retornarQuestionario()}">
 												<h:panelGrid columns="1" style="text-align:center;border:transparent;#{historicoClienteMB.corQuestionario}">
 													<img src="../../resources/img/questionarioPhoto.png" width="48" />
 													<p:outputLabel value="QUESTIONÁRIO" style="font-size:11px;" />
