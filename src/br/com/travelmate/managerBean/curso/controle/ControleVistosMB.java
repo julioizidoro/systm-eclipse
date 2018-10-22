@@ -113,6 +113,9 @@ public class ControleVistosMB implements Serializable{
 			controleVistosBean.setSituacao(listaAustralia.get(i).getSituacao());
 			controleVistosBean.setPais(listaAustralia.get(i).getVendas().getFornecedorcidade().getCidade().getPais());
 			controleVistosBean.setUnidade(listaAustralia.get(i).getVendas().getUnidadenegocio());
+			if (listaAustralia.get(i).isUrgenciavisto()) {
+				controleVistosBean.setCor("color:#FF0000;");
+			}
 			listaControleVistoBean.add(controleVistosBean);
 		}
 		
@@ -144,6 +147,10 @@ public class ControleVistosMB implements Serializable{
 			controleVistosBean.setSituacao(listaNovazelandia.get(i).getSituacao());
 			controleVistosBean.setPais(listaNovazelandia.get(i).getVendas().getFornecedorcidade().getCidade().getPais());
 			controleVistosBean.setUnidade(listaNovazelandia.get(i).getVendas().getUnidadenegocio());
+
+			if (listaNovazelandia.get(i).isUrgenciavisto()) {
+				controleVistosBean.setCor("color:#FF0000;");
+			}
 			listaControleVistoBean.add(controleVistosBean);
 		}
 		
@@ -174,6 +181,9 @@ public class ControleVistosMB implements Serializable{
 			controleVistosBean.setSituacao(listaInglaterra.get(i).getSituacao());
 			controleVistosBean.setPais(listaInglaterra.get(i).getVendas().getFornecedorcidade().getCidade().getPais());
 			controleVistosBean.setUnidade(listaInglaterra.get(i).getVendas().getUnidadenegocio());
+			if (listaInglaterra.get(i).isUrgenciavisto()) {
+				controleVistosBean.setCor("color:#FF0000;");
+			}
 			listaControleVistoBean.add(controleVistosBean);
 		}
 		
@@ -203,6 +213,9 @@ public class ControleVistosMB implements Serializable{
 			controleVistosBean.setSituacao(listaEmirado.get(i).getSituacao());
 			controleVistosBean.setPais(listaEmirado.get(i).getVendas().getFornecedorcidade().getCidade().getPais());
 			controleVistosBean.setUnidade(listaEmirado.get(i).getVendas().getUnidadenegocio());
+			if (listaEmirado.get(i).isUrgenciavisto()) {
+				controleVistosBean.setCor("color:#FF0000;");
+			}
 			listaControleVistoBean.add(controleVistosBean);
 		}
 		
@@ -236,6 +249,9 @@ public class ControleVistosMB implements Serializable{
 			controleVistosBean.setSituacao(listaCanada.get(i).getSituacao());
 			controleVistosBean.setPais(listaCanada.get(i).getVendas().getFornecedorcidade().getCidade().getPais());
 			controleVistosBean.setUnidade(listaCanada.get(i).getVendas().getUnidadenegocio());
+			if (listaCanada.get(i).isUrgenciavisto()) {
+				controleVistosBean.setCor("color:#FF0000;");
+			}
 			listaControleVistoBean.add(controleVistosBean);
 		}
 		
@@ -258,6 +274,9 @@ public class ControleVistosMB implements Serializable{
 		}
 		
 		for (int i = 0; i < listaEUA.size(); i++) {
+			if (listaEUA.get(i).isUrgenciavisto()) {
+				controleVistosBean.setCor("color:#FF0000;");
+			}
 			if (listaEUA.get(i).getCurso().getTipoDuracao().equalsIgnoreCase("Horas por Semana")) {
 				controleVistosBean = new ControleVistosBean();
 				controleVistosBean.setDataEmbarque(listaEUA.get(i).getDataEmbarque());

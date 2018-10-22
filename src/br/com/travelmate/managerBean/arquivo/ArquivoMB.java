@@ -89,6 +89,7 @@ public class ArquivoMB implements Serializable {
 	private String dadosCliente;
 	private List<Questionariohe> listaQuestionario;
 	private String urlArquivo;
+	private boolean habilitarStatus = false;
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -105,6 +106,7 @@ public class ArquivoMB implements Serializable {
 				listaQuestionario = (List<Questionariohe>) session.getAttribute("listaQuestionario");
 				session.removeAttribute("listaHe");
 				session.removeAttribute("listaQuestionario");
+				habilitarStatus = true;
 			}
 			gerarListaTipoArquivo();
 			desabilitarEdicao();
@@ -316,6 +318,22 @@ public class ArquivoMB implements Serializable {
 
 	public void setUrlArquivo(String urlArquivo) {
 		this.urlArquivo = urlArquivo;
+	}
+
+	public String getChamadaTela() {
+		return chamadaTela;
+	}
+
+	public void setChamadaTela(String chamadaTela) {
+		this.chamadaTela = chamadaTela;
+	}
+
+	public boolean isHabilitarStatus() {
+		return habilitarStatus;
+	}
+
+	public void setHabilitarStatus(boolean habilitarStatus) {
+		this.habilitarStatus = habilitarStatus;
 	}
 
 	public void gerarListaArquivos() {
@@ -624,6 +642,7 @@ public class ArquivoMB implements Serializable {
 		if (arquivos != null) {
 			ArquivosFacade arquivosFacade = new ArquivosFacade();
 			arquivosFacade.salvar(arquivos);
+			gerarListaArquivos();
 			Mensagem.lancarMensagemInfo("Editado com sucesso!", "");
 		}
 	}

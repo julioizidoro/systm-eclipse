@@ -315,8 +315,7 @@
 							</p:column>
 							<p:column headerText="ID" sortBy="#{financeiro.vendas.idvendas}"
 								style="width:50px;" styleClass="alinharCenter">
-								<h:outputText value="#{financeiro.vendas.idvendas}"
-									style="#{formAssessoriaMB.cor(financeiro)}" />
+								<p:commandLink value="#{financeiro.vendas.idvendas}" update=":consHe:growl" action="#{formAssessoriaMB.salvarControle(financeiro)}"/>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{financeiro.vendas.cliente.nome}"
 								style="width:150px; ">
@@ -500,8 +499,7 @@
 							</p:column>
 							<p:column headerText="ID" sortBy="#{finalizado.vendas.idvendas}"
 								style="width:50px;" styleClass="alinharCenter">
-								<h:outputText value="#{finalizado.vendas.idvendas}"
-									style="#{formAssessoriaMB.cor(finalizado)}" />
+								<p:commandLink value="#{finalizado.vendas.idvendas}" update=":consHe:growl" action="#{formAssessoriaMB.salvarControle(finalizado)}"/>
 							</p:column>
 							<p:column headerText="Cliente" sortBy="#{finalizado.vendas.cliente.nome}"
 								style="width:150px; ">

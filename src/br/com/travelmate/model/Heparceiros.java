@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -54,6 +55,8 @@ public class Heparceiros implements Serializable {
     @JoinColumn(name = "he_idhe", referencedColumnName = "idhe")
     @ManyToOne(optional = false)
     private He he;
+    @Transient
+    private String temPathWay;
     
     
 	public Heparceiros() {
@@ -168,6 +171,16 @@ public class Heparceiros implements Serializable {
 
 	public void setHe(He he) {
 		this.he = he;
+	}
+
+
+	public String getTemPathWay() {
+		return temPathWay;
+	}
+
+
+	public void setTemPathWay(String temPathWay) {
+		this.temPathWay = temPathWay;
 	}
 
 

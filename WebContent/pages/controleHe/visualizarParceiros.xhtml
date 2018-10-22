@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+		<link href="../../resources/css/font-awesome.min.css" rel="stylesheet"/>
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body>
+	<h:form id="autalizarControleCurso"
+		style="text-align:left;font-size:11px;">
+		<title>Programas de Higher Education</title>
+		
+		<ui:repeat var="heparceiros" value="#{visualizarParceirosMB.listaHeParceiros}">
+			<h:panelGrid style="margin-left:1.2%;width:97.8%;" columns="1">
+				<p:outputLabel value="Pathway: #{heparceiros.temPathWay}"  />
+			</h:panelGrid>
+			<h:panelGrid style="margin-left:1.2%;width:97.8%;" columns="3">
+				<p:outputLabel value="Pais"  />
+				<p:outputLabel value="Cidade"  />
+				<p:outputLabel value="Parceiro" 
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+				
+				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
+					value="#{heparceiros.fornecedorcidade.cidade.pais.nome}">
+				</p:inputText>
+				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
+					value="#{heparceiros.fornecedorcidade.cidade.nome}">
+				</p:inputText>
+				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
+					value="#{heparceiros.fornecedorcidade.fornecedor.nome}">
+				</p:inputText>
+				
+				<p:outputLabel value="Curso"  />
+				<p:outputLabel value="Código"  />
+				<p:outputLabel value="Mês/Ano" 
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+				
+				
+				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
+					value="#{heparceiros.hecurso}">
+				</p:inputText>
+				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
+					value="#{heparceiros.hecodigo}">
+				</p:inputText>
+				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
+					value="#{heparceiros.mesano}">
+				</p:inputText>
+				
+				<p:outputLabel value="Data Início"  />
+				<p:outputLabel value="Nº Semanas"  />
+				<p:outputLabel value="Data Término" 
+					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+				
+				
+				<p:inputMask mask="99/99/9999" readonly="true" style="width: 80%;"
+					value="#{heparceiros.datainicio}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
+					value="#{heparceiros.numerosemanas}">
+				</p:inputText>
+				<p:inputMask mask="99/99/9999" readonly="true"
+					value="#{heparceiros.datatermino}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+	
+			</h:panelGrid>
+			<br />
+			<hr/>
+		</ui:repeat>
+			<p:commandButton class="imagemm" icon="ui-icon-close" style="margin-left:40%;"
+				value="Fechar" action="#{visualizarParceirosMB.fechar()}"></p:commandButton>
+			
+	</h:form>
+</h:body>
+</html>

@@ -2,7 +2,10 @@ package br.com.travelmate.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -201,6 +205,8 @@ public class He implements Serializable {
 	private float notamatematica;
     @Column(name = "notaredacao")
 	private float notaredacao;
+	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "he")
+	private List<Heparceiros> listaHeParceirosList;
     
 
     public He() {
@@ -765,6 +771,14 @@ public class He implements Serializable {
 
 	public void setNotaredacao(float notaredacao) {
 		this.notaredacao = notaredacao;
+	}
+
+	public List<Heparceiros> getListaHeParceirosList() {
+		return listaHeParceirosList;
+	}
+
+	public void setListaHeParceirosList(List<Heparceiros> listaHeParceirosList) {
+		this.listaHeParceirosList = listaHeParceirosList;
 	}
 
 	@Override

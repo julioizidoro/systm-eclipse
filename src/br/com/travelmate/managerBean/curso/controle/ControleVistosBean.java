@@ -18,6 +18,7 @@ public class ControleVistosBean {
 	private String escola;
 	private Date dataInicio;
 	private Controlecurso controlecurso;
+	private String cor;
 	
 	
 	public ControleVistosBean() {
@@ -114,6 +115,18 @@ public class ControleVistosBean {
 
 	public void setControlecurso(Controlecurso controlecurso) {
 		this.controlecurso = controlecurso;
+	}
+
+
+
+	public String getCor() {
+		return cor;
+	}
+
+
+
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 
 

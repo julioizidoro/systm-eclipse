@@ -28,6 +28,7 @@ import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
@@ -45,6 +46,7 @@ import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.higherEducation.controle.HeControleBean;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cidade;
@@ -92,6 +94,8 @@ public class CadHeInscricaoMB implements Serializable {
 	private LeadPosVendaDao leadPosVendaDao;
 	@Inject
 	private VendasDao vendasDao;
+	@Inject
+	private HeControleDao heControleDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -1510,7 +1514,15 @@ public class CadHeInscricaoMB implements Serializable {
 			venda.setOrcamento(orcamento);
 			venda.setFormapagamento(formaPagamento);
 			he.setVendas(venda);
+			boolean salvarControle = false;
+			if (he.getIdhe() == null) {
+				salvarControle = true;
+			}
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "I");
+			if (salvarControle) {
+				HeControleBean heControleBean = new HeControleBean();
+				heControleBean.salvar(heControleDao, he);
+			}
 			salvarHeParceiros();
 
 			if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")

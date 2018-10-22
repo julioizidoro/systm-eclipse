@@ -28,6 +28,7 @@ import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
@@ -44,6 +45,7 @@ import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.managerBean.higherEducation.controle.HeControleBean;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cidade;
@@ -89,6 +91,8 @@ public class CadHeFinalMB implements Serializable {
 	private VendasDao vendasDao;
 	@Inject
 	private LeadDao leadDao;
+	@Inject
+	private HeControleDao heControleDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
@@ -1244,7 +1248,15 @@ public class CadHeFinalMB implements Serializable {
 			he.setVendas(venda);
 			CadHeBean cadHeBean = new CadHeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 			he.setFichafinal(true);
+			boolean salvarControle = false;
+			if (he.getIdhe() == null) {
+				salvarControle = true;
+			}
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "F");
+			if (salvarControle) {
+				HeControleBean heControleBean = new HeControleBean();
+				heControleBean.salvar(heControleDao, he);
+			}
 			float valorCambioBrasil = 0.0f;
 			if (cambioBrasil != null) {
 				valorCambioBrasil = cambioBrasil.getValor();

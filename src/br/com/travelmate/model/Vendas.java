@@ -147,6 +147,8 @@ public class Vendas implements Serializable {
 	private Date datavalidade;
 	@Column(name = "valorpais")
 	private Float valorpais;
+	@Transient
+	private int idControle;
 
 	public Vendas() {
 		setStatuscobranca("p");
@@ -523,6 +525,14 @@ public class Vendas implements Serializable {
 
 	public void setValorpais(Float valorpais) {
 		this.valorpais = valorpais;
+	}
+
+	public int getIdControle() {
+		return idControle;
+	}
+
+	public void setIdControle(int idControle) {
+		this.idControle = idControle;
 	}
 
 	@Override

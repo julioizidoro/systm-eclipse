@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<link href="../../resources/css/css.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript" src="../../resources/js/calendario.js"></script>
+</h:head>
+<h:body>
+	<h:form id="autalizarControleCurso"
+		style="text-align:left;font-size:11px;">
+		<title>Atualizar Controle Higher Education</title>
+		<br></br>
+		<p:accordionPanel class="painelControleCursos"
+			style="background:#1F8871;">
+			<p:tab title="Dados de Controle" class="tab"
+				titleStyle="font-size: 11px">
+				<br></br>
+				<h:panelGrid style="margin-left:1.2%;width:100%;" columns="3">
+					<p:outputLabel value="Data Aplicação" for="dataaplicacao" />
+					<p:outputLabel value="Data Embarque" for="dataembarque" />
+					<p:outputLabel value="Visto Emitido" for="vistoemitido"
+						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;" />
+					<p:calendar id="dataaplicacao"
+						value="#{atualizarControleHeMB.hecontrole.dataaplicacaoenviada}"
+						maxlength="20" locale="pt" style="margin-left:1%" disabled=""
+						pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+					</p:calendar>
+
+					<p:calendar id="dataembarque"
+						value="#{atualizarControleHeMB.hecontrole.dataembarque}"
+						 maxlength="20" disabled="">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:calendar>
+
+
+
+					<p:selectOneRadio id="vistoemitido"
+						value="#{atualizarControleHeMB.hecontrole.vistoemitido}"
+						style="width:18%;margin-left: 1%">
+						<f:selectItem itemLabel="Sim" itemValue="true" class="espacologin" />
+						<f:selectItem itemLabel="Não" itemValue="false" class="espacologin" />
+					</p:selectOneRadio>
+
+				</h:panelGrid>
+				<br />
+				<h:panelGrid style="margin-left:1.2%;width:100%;" columns="3">
+					<p:outputLabel value="Valor Comissão" for="valorcomissao" />
+					<p:outputLabel value="Comissão Solicitada" for="comissaosolicitada" />
+					<p:outputLabel value="Comissão Recebida" for="comissaorecebida" />
+					
+					<p:inputText id="valorcomissao"  class="fontebranca"
+							value="#{atualizarControleHeMB.hecontrole.valorcomissao}" >
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+							
+					<p:calendar id="comissaosolicitada"
+						value="#{atualizarControleHeMB.hecontrole.comissaosolicitada}"
+						maxlength="20" locale="pt" style="margin-left:1%" disabled=""
+						pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="change" />
+						<p:ajax event="dateSelect" />
+					</p:calendar>
+
+					<p:calendar id="comissaorecebida"
+						value="#{atualizarControleHeMB.hecontrole.comissaorecebida}"
+						 maxlength="20" disabled="">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:calendar>
+				</h:panelGrid>
+				<br/>
+					<p:outputLabel value="Observações:" for="obs"
+						style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 1%" />
+					<br />
+					<h:panelGrid columns="1" cellpadding="3" style="margin-left:0.5%">
+						<p:inputTextarea id="obs" cols="115" rows="10" class="fontebranca"
+							value="#{atualizarControleHeMB.hecontrole.observacoes}" />
+					</h:panelGrid>
+			</p:tab>
+
+		</p:accordionPanel>
+		<p class="botaocadpacote">
+			<br></br>
+			<p:commandButton class="imagemm" icon="ui-icon-check"
+				value="Confirmar" action="#{atualizarControleHeMB.salvar()}"></p:commandButton>
+			<p:commandButton class="espacocampos" icon="ui-icon-close"
+				value="Cancelar" action="#{atualizarControleHeMB.cancelar()}"></p:commandButton>
+			<br></br> <br></br>
+		</p>
+	</h:form>
+</h:body>
+</html>

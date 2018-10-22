@@ -420,11 +420,13 @@ public class ControleCursoMB implements Serializable {
 		if (controle != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("controle", controle);
+			controle.getVendas().setIdControle(controle.getIdcontroleCursos());
+			session.setAttribute("vendas", controle.getVendas());
 			session.setAttribute("listaControle", listaControle);
 			session.setAttribute("pesquisar", pesquisar);
 			session.setAttribute("nomePrograma", "ControleCurso");
 			session.setAttribute("chamadaTela", "ControleCurso");
+			session.setAttribute("voltar", "consControleCursos");
 			return "consultaInvoice";
 		}
 		return "";

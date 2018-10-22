@@ -21,6 +21,7 @@ import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Pagamentoinvoice;
+import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -36,16 +37,17 @@ public class ConsultaInvoiceCursoMB implements Serializable{
 	private List<Invoice> listaInvoices;
 	private String corValorNet;
 	private Invoice invoice;
-	private int idVendas;
-	private Controlecurso controle;
+	private Vendas vendas;
+	private String voltar;
 	
 	@PostConstruct
 	public void init(){
 		FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        controle = (Controlecurso) session.getAttribute("controle");
-        session.removeAttribute("controle");
-        idVendas = controle.getVendas().getIdvendas();
+        vendas = (Vendas) session.getAttribute("vendas");
+        voltar = (String) session.getAttribute("voltar");
+        session.removeAttribute("vendas");
+        session.removeAttribute("voltar");
 		gerarListaInvoices();
 	}
 
@@ -74,15 +76,15 @@ public class ConsultaInvoiceCursoMB implements Serializable{
 	public void setCorValorNet(String corValorNet) {
 		this.corValorNet = corValorNet;
 	}
-	
-	
 
-	public int getIdVendas() {
-		return idVendas;
+
+	public Vendas getVendas() {
+		return vendas;
 	}
 
-	public void setIdVendas(int idVendas) {
-		this.idVendas = idVendas;
+
+	public void setVendas(Vendas vendas) {
+		this.vendas = vendas;
 	}
 
 
@@ -97,7 +99,7 @@ public class ConsultaInvoiceCursoMB implements Serializable{
 	
 	public void gerarListaInvoices(){
 		InvoiceFacade invoiceFacade = new InvoiceFacade();
-		String sql = "Select i from Invoice i where i.vendas.idvendas="+ idVendas;
+		String sql = "Select i from Invoice i where i.vendas.idvendas="+ vendas.getIdvendas();
 		listaInvoices = invoiceFacade.listar(sql);
 		if (listaInvoices==null){
 			listaInvoices = new ArrayList<Invoice>();
@@ -121,9 +123,9 @@ public class ConsultaInvoiceCursoMB implements Serializable{
 	public String novo() {
 		Invoice invoice = new Invoice();
 		invoice = new Invoice();
-		invoice.setControle(controle.getIdcontroleCursos());
-		invoice.setProdutos(controle.getVendas().getProdutos());
-		invoice.setVendas(controle.getVendas());
+		invoice.setControle(vendas.getIdControle());
+		invoice.setProdutos(vendas.getProdutos());
+		invoice.setVendas(vendas);
 		FacesContext fc = FacesContext.getCurrentInstance();
 	    HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 	    session.setAttribute("invoice", invoice);
@@ -146,7 +148,7 @@ public class ConsultaInvoiceCursoMB implements Serializable{
 	 
 	 
 	public String voltar(){
-		return "consControleCursos";
+		return voltar;
 	}
 	
 	

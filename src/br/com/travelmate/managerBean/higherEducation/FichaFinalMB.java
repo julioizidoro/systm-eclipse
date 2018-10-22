@@ -27,15 +27,18 @@ import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
+import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
+import br.com.travelmate.managerBean.higherEducation.controle.HeControleBean;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.He;
+import br.com.travelmate.model.Hecontrole;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
@@ -53,6 +56,8 @@ public class FichaFinalMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private HeControleDao hecontroleDao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB; 
 	private List<He> listaHe;
@@ -824,6 +829,26 @@ public class FichaFinalMB implements Serializable{
 				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
 			}else {
 				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
+			}
+		}
+	}
+	
+	
+
+	
+	public void salvarControle(He he) {
+		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
+			if (he.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
+				Mensagem.lancarMensagemInfo("Venda ainda em processo", "");
+			}else {
+				Hecontrole hecontrole = hecontroleDao.consultar("SELECT h FROM Hecontrole h WHERE h.he.idhe=" + he.getIdhe());
+				if (hecontrole == null) {
+					HeControleBean heControleBean = new HeControleBean();
+					heControleBean.salvar(hecontroleDao, he);
+					Mensagem.lancarMensagemInfo("Salvo no controle de HE com sucesso", "");
+				}else {
+					Mensagem.lancarMensagemInfo("Esta venda já consta no controle de HE", "");
+				}
 			}
 		}
 	}

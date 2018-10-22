@@ -1547,6 +1547,15 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultaInvoice</from-outcome>
+			<to-view-id>/pages/controleCursos/consultaInvoice.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
@@ -2903,6 +2912,34 @@
 		<navigation-case>
 			<from-outcome>dadosCancelamento</from-outcome>
 			<to-view-id>/pages/filtroRelatorios/dadosCancelamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consControleHe</from-outcome>
+			<to-view-id>/pages/controleHe/consControleHe.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>visualizarParceiros</from-outcome>
+			<to-view-id>/pages/controleHe/visualizarParceiros.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioHE</from-outcome>
+			<to-view-id>/pages/controleHe/relatorioHE.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

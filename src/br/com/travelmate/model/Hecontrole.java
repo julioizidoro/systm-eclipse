@@ -8,7 +8,10 @@ package br.com.travelmate.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,9 +20,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -65,11 +70,19 @@ public class Hecontrole implements Serializable {
     private boolean vistoemitido;
     @Lob
     @Size(max = 16777215)
-    @Column(name = "observacao")
-    private String observacao;
+    @Column(name = "observacoes")
+    private String observacoes;
     @JoinColumn(name = "he_idhe", referencedColumnName = "idhe")
     @ManyToOne(optional = false)
     private He he;
+    @Transient
+    private String parceiro;
+    @Transient
+    private String pathway;
+    @Transient
+    private String tipo;
+    @Transient
+    private String iconeFormImpresso;
     
     public Hecontrole() {
     	
@@ -156,12 +169,12 @@ public class Hecontrole implements Serializable {
 		this.vistoemitido = vistoemitido;
 	}
 
-	public String getObservacao() {
-		return observacao;
+	public String getObservacoes() {
+		return observacoes;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
 	}
 
 	public He getHe() {
@@ -170,6 +183,38 @@ public class Hecontrole implements Serializable {
 
 	public void setHe(He he) {
 		this.he = he;
+	}
+
+	public String getParceiro() {
+		return parceiro;
+	}
+
+	public void setParceiro(String parceiro) {
+		this.parceiro = parceiro;
+	}
+
+	public String getPathway() {
+		return pathway;
+	}
+
+	public void setPathway(String pathway) {
+		this.pathway = pathway;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getIconeFormImpresso() {
+		return iconeFormImpresso;
+	}
+
+	public void setIconeFormImpresso(String iconeFormImpresso) {
+		this.iconeFormImpresso = iconeFormImpresso;
 	}
 
 	@Override

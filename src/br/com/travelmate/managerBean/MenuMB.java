@@ -1627,5 +1627,17 @@ public class MenuMB implements Serializable {
 	}
 	
 	
+	public String consControleHe() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("chamadaTela", "Menu");
+		return "consControleHe";
+	}
+	
+	
+	public String relatorioHE() {
+		return "relatorioHE";
+	}
+	
 	
 }

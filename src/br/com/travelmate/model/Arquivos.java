@@ -58,6 +58,8 @@ public class Arquivos implements Serializable {
 	private Cliente cliente;
     @Column(name = "situacao")
     private boolean sitaucao;
+    @Column(name = "statusarquivo")
+    private String statusarquivo;
     
     
     public Cliente getCliente() {
@@ -169,6 +171,14 @@ public class Arquivos implements Serializable {
 
 	public void setSelecionado(boolean selecionado) {
 		this.selecionado = selecionado;
+	}
+
+	public String getStatusarquivo() {
+		return statusarquivo;
+	}
+
+	public void setStatusarquivo(String statusarquivo) {
+		this.statusarquivo = statusarquivo;
 	}
 
 	@Override

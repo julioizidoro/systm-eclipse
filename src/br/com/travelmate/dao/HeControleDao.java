@@ -17,7 +17,7 @@ public class HeControleDao implements Serializable {
 	private EntityManager manager;
 	
 	@Transactional
-	public Hecontrole salvat(Hecontrole controle) {
+	public Hecontrole salvar(Hecontrole controle) {
 		controle = manager.merge(controle);
         return controle; 
 	}

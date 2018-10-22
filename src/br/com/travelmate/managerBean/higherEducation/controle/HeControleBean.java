@@ -20,7 +20,7 @@ public class HeControleBean {
 		controle.setVistoemitido(false);
 		controle.setValorcomissao(0.0f);
 		controle.setHe(he);
-		heControleDao.salvat(controle);
+		heControleDao.salvar(controle);
 	}
 	
 	public void cancelar(HeControleDao heControleDao, He he) {
@@ -28,7 +28,7 @@ public class HeControleBean {
 		Hecontrole controle = heControleDao.consultar(sql);
 		if (controle!=null) {
 			controle.setSituacaoaplicacao("Cancelado");
-			heControleDao.salvat(controle);
+			heControleDao.salvar(controle);
 		}
 	}
 
