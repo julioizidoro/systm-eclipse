@@ -2372,19 +2372,7 @@ public class CadHeInscricaoMB implements Serializable {
 				controlealteracoes.setDepartamentoproduto(depPrograma);
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
-				if (heparceiros1.getMesano() == null && heParAlteracao1.getMesano() != null) {
-					controleAlteracaoCursoBean.salvar(controlealteracoes,
-							depPrograma.getDepartamento(), "Mes/Ano 1:",
-							"", heParAlteracao1.getMesano());
-				}else if (heparceiros1.getMesano() != null && heParAlteracao1.getMesano() == null) {
-					 controleAlteracaoCursoBean.salvar(controlealteracoes,
-								depPrograma.getDepartamento(), "Mes/Ano 1:",
-								heparceiros1.getMesano(), "");
-				} else if ((heparceiros1.getMesano() != null && heParAlteracao1.getMesano() != null) && (!heparceiros1.getMesano().equalsIgnoreCase(heParAlteracao1.getMesano()))) {
-					  controleAlteracaoCursoBean.salvar(controlealteracoes,
-							depPrograma.getDepartamento(), "Mes/Ano 1:",
-							heparceiros1.getMesano(), heParAlteracao1.getMesano());
-				}
+				
 			}
 			
 			if (heparceiros1 != null) {
@@ -2502,19 +2490,7 @@ public class CadHeInscricaoMB implements Serializable {
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
 				
-				if (heparceiros2.getMesano() == null && heParAlteracao2.getMesano() != null) {
-					controleAlteracaoCursoBean.salvar(controlealteracoes,
-							depPrograma.getDepartamento(), "Mês/Ano 2:",
-							"", heParAlteracao2.getMesano());
-				}else if (heparceiros2.getMesano() != null && heParAlteracao2.getMesano() == null) {
-					 controleAlteracaoCursoBean.salvar(controlealteracoes,
-								depPrograma.getDepartamento(), "Mês/Ano 2:",
-								heparceiros2.getMesano(), "");
-				} else if ((heparceiros2.getMesano() != null && heParAlteracao2.getMesano() != null) && (!heparceiros2.getMesano().equalsIgnoreCase(heParAlteracao2.getMesano()))) {
-					  controleAlteracaoCursoBean.salvar(controlealteracoes,
-							depPrograma.getDepartamento(), "Mês/Ano 2:",
-							heparceiros2.getMesano(), heParAlteracao2.getMesano());
-				}
+				
 			}
 			
 			if (heparceiros2 != null) {
@@ -2652,19 +2628,7 @@ public class CadHeInscricaoMB implements Serializable {
 				controlealteracoes.setUsuario(usuarioLogadoMB.getUsuario());
 				controlealteracoes.setVendas(he.getVendas());
 
-				if (heparceiros3.getMesano() == null && heParAlteracao3.getMesano() != null) {
-					controleAlteracaoCursoBean.salvar(controlealteracoes,
-							depPrograma.getDepartamento(), "Mês/Ano 3:",
-							"", heParAlteracao3.getMesano());
-				}else if (heparceiros3.getMesano() != null && heParAlteracao2.getMesano() == null) {
-					 controleAlteracaoCursoBean.salvar(controlealteracoes,
-								depPrograma.getDepartamento(), "Mês/Ano 3:",
-								heparceiros3.getMesano(), "");
-				} else if ((heparceiros3.getMesano() != null && heParAlteracao3.getMesano() != null) && (!heparceiros3.getMesano().equalsIgnoreCase(heParAlteracao3.getMesano()))) {
-					  controleAlteracaoCursoBean.salvar(controlealteracoes,
-							depPrograma.getDepartamento(), "Mês/Ano 3:",
-							heparceiros3.getMesano(), heParAlteracao3.getMesano());
-				}
+				
 			}
 
 			if (heparceiros3 != null) {
@@ -2783,7 +2747,6 @@ public class CadHeInscricaoMB implements Serializable {
 			heParAlteracao1.setHe(heparceiros1.getHe());
 			heParAlteracao1.setHecodigo(heparceiros1.getHecodigo());
 			heParAlteracao1.setHecurso(heparceiros1.getHecurso());
-			heParAlteracao1.setMesano(heparceiros1.getMesano());
 			heParAlteracao1.setNumerosemanas(heparceiros1.getNumerosemanas());
 			heParAlteracao1.setPathwaycurso(heparceiros1.getPathwaycurso());
 			heParAlteracao1.setPathway(heparceiros1.isPathway());
@@ -2797,7 +2760,6 @@ public class CadHeInscricaoMB implements Serializable {
 			heParAlteracao2.setHe(heparceiros2.getHe());
 			heParAlteracao2.setHecodigo(heparceiros2.getHecodigo());
 			heParAlteracao2.setHecurso(heparceiros2.getHecurso());
-			heParAlteracao2.setMesano(heparceiros2.getMesano());
 			heParAlteracao2.setNumerosemanas(heparceiros2.getNumerosemanas());
 			heParAlteracao2.setPathwaycurso(heparceiros2.getPathwaycurso());
 			heParAlteracao2.setPathway(heparceiros2.isPathway());
@@ -2811,7 +2773,6 @@ public class CadHeInscricaoMB implements Serializable {
 			heParAlteracao3.setHe(heparceiros3.getHe());
 			heParAlteracao3.setHecodigo(heparceiros3.getHecodigo());
 			heParAlteracao3.setHecurso(heparceiros3.getHecurso());
-			heParAlteracao3.setMesano(heparceiros3.getMesano());
 			heParAlteracao3.setNumerosemanas(heparceiros3.getNumerosemanas());
 			heParAlteracao3.setPathwaycurso(heparceiros3.getPathwaycurso());
 			heParAlteracao3.setPathway(heparceiros3.isPathway());

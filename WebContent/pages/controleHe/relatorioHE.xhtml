@@ -70,7 +70,7 @@
 								<f:selectItem itemLabel="Selecione" itemValue="Selecione"
 									noSelectionOption="true" />
 								<f:selectItem itemLabel="Sim" itemValue="Sim" />
-								<f:selectItem itemLabel="Não" itemValue="Standby" />
+								<f:selectItem itemLabel="Não" itemValue="Não" />
 							</p:selectOneMenu>
 
 
@@ -78,8 +78,8 @@
 							<p:outputLabel />
 							<p:outputLabel />
 							<p:outputLabel />
-							
-							
+
+
 							<p:outputLabel value="Unidade" />
 							<p:outputLabel value="Consultor" />
 							<p:outputLabel value="Tipo de Venda" />
@@ -128,8 +128,7 @@
 							</p:selectOneMenu>
 						</h:panelGrid>
 						<br></br>
-						<h:panelGrid columns="3"
-							style="width:78%;margin-left:2%;">
+						<h:panelGrid columns="3" style="width:78%;margin-left:2%;">
 							<p:outputLabel value="Periodo da Venda" for="dataIni" />
 							<p:outputLabel value="Data de Embarque" />
 							<p:outputLabel value="Envio da Aplicação" />
@@ -141,9 +140,9 @@
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-								<p:calendar id="dataFinal" value="#{relatorioHeMB.datafinalvenda}"
-									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
-									maxlength="15">
+								<p:calendar id="dataFinal" style="margin-left: 3%;"
+									value="#{relatorioHeMB.datafinalvenda}" size="12" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
@@ -157,9 +156,9 @@
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-								<p:calendar id="dataFinalEmbarque"
-									value="#{relatorioHeMB.datafinalembarque}" size="12" locale="pt"
-									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<p:calendar id="dataFinalEmbarque" style="margin-left: 3%;"
+									value="#{relatorioHeMB.datafinalembarque}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
@@ -173,33 +172,33 @@
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-								<p:calendar id="dataFinalEnvio"
-									value="#{relatorioHeMB.datafinalaplicacao}" size="12" locale="pt"
-									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<p:calendar id="dataFinalEnvio" style="margin-left: 3%;"
+									value="#{relatorioHeMB.datafinalaplicacao}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
 							</h:panelGroup>
-							
+
 							<p:outputLabel />
 							<p:outputLabel />
 							<p:outputLabel />
-							
+
 							<p:outputLabel value="Previsão de pagamento" />
 							<p:outputLabel value="Data Pagamento" />
 							<p:outputLabel value="Início de programa" />
 							<h:panelGroup>
-								<p:calendar id="dataIniprevisao" value="#{relatorioHeMB.datainiprevisao}"
-									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
-									maxlength="15">
+								<p:calendar id="dataIniprevisao"
+									value="#{relatorioHeMB.datainiprevisao}" size="12" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-								<p:calendar id="dataFinalprevisao" value="#{relatorioHeMB.datafinalprevisao}"
-									size="12" locale="pt" pattern="dd/MM/yyyy" mask="true"
-									maxlength="15">
+								<p:calendar id="dataFinalprevisao" style="margin-left: 3%;"
+									value="#{relatorioHeMB.datafinalprevisao}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
@@ -213,9 +212,9 @@
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-								<p:calendar id="dataFinalpagamento"
-									value="#{relatorioHeMB.datafinalpagamento}" size="12" locale="pt"
-									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<p:calendar id="dataFinalpagamento" style="margin-left: 3%;"
+									value="#{relatorioHeMB.datafinalpagamento}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
@@ -229,212 +228,259 @@
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
-								<p:calendar id="dataFinalprograma"
-									value="#{relatorioHeMB.datafinalprograma}" size="12" locale="pt"
-									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+								<p:calendar id="dataFinalprograma" style="margin-left: 3%;"
+									value="#{relatorioHeMB.datafinalprograma}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										timeZone="America/Sao_Paulo" />
 									<p:ajax event="blur" />
 								</p:calendar>
 							</h:panelGroup>
 						</h:panelGrid>
-						<br/>
+						<br />
 						<h:panelGrid columns="1" style="width:100%;margin-left: 2%">
-							<p:outputLabel value="Ordenar por"/>
+							<p:outputLabel value="Ordenar por" />
 							<p:selectOneRadio id="vistoemitido"
-								value="#{relatorioHeMB.ordenar}"
-								style="width:63%;">
-								<f:selectItem itemLabel="Data de Início" itemValue="datainicio" class="espacologin" />
-								<f:selectItem itemLabel="Data de Embarque" itemValue="h.dataembarque" class="espacologin" />
-								<f:selectItem itemLabel="Previsão Pagamento" itemValue="true" class="espacologin" />
-								<f:selectItem itemLabel="Parceiro" itemValue="h.he.vendas.fornecedorcidade.fornecedor" class="espacologin" />
+								value="#{relatorioHeMB.ordenar}" style="width:63%;">
+								<f:selectItem itemLabel="Data de Início" itemValue="h.he.datainicio"
+									class="espacologin" />
+								<f:selectItem itemLabel="Data de Embarque"
+									itemValue="h.dataembarque" class="espacologin" />
+								<f:selectItem itemLabel="Previsão Pagamento" itemValue="h.he.vendas.invoice.dataPrevistaPagamento"
+									class="espacologin" />
+								<f:selectItem itemLabel="Parceiro"
+									itemValue="h.he.vendas.fornecedorcidade.fornecedor"
+									class="espacologin" />
 							</p:selectOneRadio>
 						</h:panelGrid>
-						<br/>
-							<h:panelGrid columns="2" style="width:20%;float:right;">
-								<p:commandButton value="Pesquisar" icon=" ui-icon-search "
-									action="#{relatorioHeMB.pesquisar()}" update=":consultaControleHe:tabelaControleHe" />
-								<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
-									action="#" />
-							</h:panelGrid>
+						<br />
+						<h:panelGrid columns="2" style="width:20%;float:right;">
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								action="#{relatorioHeMB.pesquisar()}"
+								update=":consultaControleHe:tabelaControleHe" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								action="#{relatorioHeMB.limpar()}"  update="@form"/>
+						</h:panelGrid>
 						<br></br>
 					</p:tab>
 				</p:accordionPanel>
 				<br /> <br />
 				<h:panelGrid columns="5" style="width:98%;margin-left:2%;">
 					<h:panelGroup>
-						<p:selectBooleanCheckbox id="idkitviagem" value="#{relatorioHeMB.selecionartodos}" >
-        			    		 
-        			    	<p:ajax event="change" listener="#{relatorioHeMB.selecionartodos()}" update="tabelaControleHe, idvenda, idunidade, consultor, tipovenda, 
+						<p:selectBooleanCheckbox id="idkitviagem"
+							value="#{relatorioHeMB.selecionartodos}">
+
+							<p:ajax event="change"
+								listener="#{relatorioHeMB.selecionartodos()}"
+								update="tabelaControleHe, idvenda, idunidade, consultor, tipovenda, 
         			    		nomecliente, datavenda, pais, cidade, parceiro, inicioprograma, dataaplicacao, previsaopagamento, datapagamento, pathway, situacaovenda, 
-        			    		situacaogerencia, tipoinvoice, valornet, credito"/>
-        				</p:selectBooleanCheckbox> 
-        				<p:outputLabel value="Selecionar Todos"/>
-        			</h:panelGroup>
-        				<p:outputLabel/> 
-        				<p:outputLabel/> 
-        				<p:outputLabel/> 
-        				<p:outputLabel/>
-        				<p:outputLabel/> 
-        				<p:outputLabel/> 
-        				<p:outputLabel/> 
-        				<p:outputLabel/>
-        				<p:outputLabel/> 
-        			<h:panelGroup>
-						<p:selectBooleanCheckbox id="idvenda" value="#{relatorioHeMB.idvenda}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Id da venda"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-	        			<p:selectBooleanCheckbox id="idunidade" value="#{relatorioHeMB.unidade}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-	        			    	
-	        				</p:selectBooleanCheckbox> 
-	        					<p:outputLabel value="Unidade"/>
-	        		</h:panelGroup>
-	        		<h:panelGroup>
-        				<p:selectBooleanCheckbox id="consultor" value="#{relatorioHeMB.consultor}">
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        			    	
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Consultor"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="tipovenda" value="#{relatorioHeMB.tipo}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        			    	
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Tipo"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="nomecliente" value="#{relatorioHeMB.nomecliente}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        			    	
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Nome"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="datavenda" value="#{relatorioHeMB.datavenda}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        			    	
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Data Venda"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="pais" value="#{relatorioHeMB.paisVisu}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox>
-        					<p:outputLabel value="Pais"/> 
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="cidade" value="#{relatorioHeMB.cidadeVisu}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox>
-        					<p:outputLabel value="Cidade"/>
-        			</h:panelGroup> 
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="parceiro" value="#{relatorioHeMB.parceiro}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Parceiro"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="inicioprograma" value="#{relatorioHeMB.inicioprograma}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        				<p:outputLabel value="Início do programa"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="acomodacao" value="#{relatorioHeMB.acomodacaoVisu}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Acomodação"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="dataaplicacao" value="#{relatorioHeMB.dataaplicacao}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Data Aplicação"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="previsaopagamento" value="#{relatorioHeMB.previsaopagamento}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Previsão Pagamento"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="datapagamento" value="#{relatorioHeMB.datapagamento}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        					<p:outputLabel value="Data Pagamento"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="pathway" value="#{relatorioHeMB.pathwayVisu}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        			    	<p:outputLabel value="Pathway"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="situacaovenda" value="#{relatorioHeMB.situacaovenda}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox>
-        			    	<p:outputLabel value="Situação Venda"/>
-        			</h:panelGroup> 
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="situacaogerencia" value="#{relatorioHeMB.situacaogerencia}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        			    	<p:outputLabel value="Situação Gerência"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="tipoinvoice" value="#{relatorioHeMB.tipoinvoice}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        			    	<p:outputLabel value="Tipo Invoice"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="valornet" value="#{relatorioHeMB.valornet}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        			    	<p:outputLabel value="Valor Net"/>
-        			</h:panelGroup>
-        			<h:panelGroup>
-        				<p:selectBooleanCheckbox id="credito" value="#{relatorioHeMB.credito}" >
-        			    	<p:ajax event="change" update="tabelaControleHe"/>
-        				</p:selectBooleanCheckbox> 
-        			    	<p:outputLabel value="Crédito"/>
-        			</h:panelGroup>
+        			    		situacaogerencia, tipoinvoice, valornet, credito, acomodacao" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Selecionar Todos" />
+					</h:panelGroup>
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="idvenda"
+							value="#{relatorioHeMB.idvenda}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Id da venda" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="idunidade"
+							value="#{relatorioHeMB.unidade}">
+							<p:ajax event="change" update="tabelaControleHe" />
+
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Unidade" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="consultor"
+							value="#{relatorioHeMB.consultor}">
+							<p:ajax event="change" update="tabelaControleHe" />
+
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Consultor" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="tipovenda"
+							value="#{relatorioHeMB.tipo}">
+							<p:ajax event="change" update="tabelaControleHe" />
+
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Tipo" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="nomecliente"
+							value="#{relatorioHeMB.nomecliente}">
+							<p:ajax event="change" update="tabelaControleHe" />
+
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Nome" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="datavenda"
+							value="#{relatorioHeMB.datavenda}">
+							<p:ajax event="change" update="tabelaControleHe" />
+
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Data Venda" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="pais"
+							value="#{relatorioHeMB.paisVisu}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Pais" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="cidade"
+							value="#{relatorioHeMB.cidadeVisu}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Cidade" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="parceiro"
+							value="#{relatorioHeMB.parceiro}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Parceiro" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="inicioprograma"
+							value="#{relatorioHeMB.inicioprograma}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Início do programa" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="acomodacao"
+							value="#{relatorioHeMB.acomodacaoVisu}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Acomodação" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="dataaplicacao"
+							value="#{relatorioHeMB.dataaplicacao}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Data Aplicação" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="previsaopagamento"
+							value="#{relatorioHeMB.previsaopagamento}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Previsão Pagamento" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="datapagamento"
+							value="#{relatorioHeMB.datapagamento}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Data Pagamento" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="pathway"
+							value="#{relatorioHeMB.pathwayVisu}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Pathway" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="situacaovenda"
+							value="#{relatorioHeMB.situacaovenda}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Situação Venda" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="situacaogerencia"
+							value="#{relatorioHeMB.situacaogerencia}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Situação Gerência" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="tipoinvoice"
+							value="#{relatorioHeMB.tipoinvoice}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Tipo Invoice" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="valornet"
+							value="#{relatorioHeMB.valornet}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Valor Net" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox id="credito"
+							value="#{relatorioHeMB.credito}">
+							<p:ajax event="change" update="tabelaControleHe" />
+						</p:selectBooleanCheckbox>
+						<p:outputLabel value="Crédito" />
+					</h:panelGroup>
 				</h:panelGrid>
-				<br/><br/>
-				<p:dataTable id="tabelaControleHe" var="controlehe" 
+
+				<br />
+				<br />
+				<h:panelGrid columns="2" style="margin-left:2%">
+					<h:commandLink>
+						<img src="../../resources/img/icone_xls.png" width="36" />
+						<p:dataExporter type="xls" target="tabelaControleHe"
+							fileName="relatorioControleHe" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<img src="../../resources/img/icone_pdf.png" width="32" />
+						<p:dataExporter type="pdf" target="tabelaControleHe"
+							fileName="relatorioControleHe" />
+					</h:commandLink>
+				</h:panelGrid>
+				<p:dataTable id="tabelaControleHe" var="controlehe"
 					style="width:98%;margin-left:1%;"
 					value="#{relatorioHeMB.listaHeControle}" scrollable="true"
-					scrollHeight="300" 
-					rowIndexVar="rowIx">
-					<p:column headerText="ID" style="width:60px;text-align:center;" rendered="#{relatorioHeMB.idvenda}"
+					scrollHeight="300" rowIndexVar="rowIx">
+					<p:column headerText="ID" style="width:60px;text-align:center;"
+						rendered="#{relatorioHeMB.idvenda}"
 						sortBy="#{controlehe.he.vendas.idvendas}">
 						<h:outputText value="#{controlehe.he.vendas.idvendas}" />
 					</p:column>
-					<p:column headerText="Unidade" styleClass="alinharCenter" rendered="#{relatorioHeMB.unidade}"
+					<p:column headerText="Unidade" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.unidade}"
 						sortBy="#{controlehe.he.vendas.unidadenegocio.nomerelatorio}"
 						style="width:92px;">
 						<h:outputText
 							value="#{controlehe.he.vendas.unidadenegocio.nomerelatorio}" />
 					</p:column>
-					<p:column headerText="Consultor" styleClass="alinharCenter"  rendered="#{relatorioHeMB.consultor}"
+					<p:column headerText="Consultor" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.consultor}"
 						sortBy="#{controlehe.he.vendas.usuario.nome}" style="width:110px;">
 						<h:outputText value="#{controlehe.he.vendas.usuario.nome}" />
 					</p:column>
-					<p:column headerText="Tipo" style="width:70px;text-align:center;"  rendered="#{relatorioHeMB.tipo}"
-						sortBy="#{controlehe.tipo}">
+					<p:column headerText="Tipo" style="width:70px;text-align:center;"
+						rendered="#{relatorioHeMB.tipo}" sortBy="#{controlehe.tipo}">
 						<h:outputText value="#{controlehe.tipo}" />
 					</p:column>
-					<p:column headerText="Nome" styleClass="alinharCenter"  rendered="#{relatorioHeMB.nomecliente}"
+					<p:column headerText="Nome" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.nomecliente}"
 						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
-						<h:outputText value="#{controlehe.he.vendas.cliente.nome}"/>
+						<h:outputText value="#{controlehe.he.vendas.cliente.nome}" />
 					</p:column>
-					<p:column headerText="Data Venda"  rendered="#{relatorioHeMB.datavenda}"
+					<p:column headerText="Data Venda"
+						rendered="#{relatorioHeMB.datavenda}"
 						sortBy="#{controlehe.he.vendas.dataVenda}"
 						style="text-align:left;width:70px;">
 						<h:outputText value="#{controlehe.he.vendas.dataVenda}">
@@ -442,40 +488,50 @@
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					
-					
-					<p:column headerText="Pais" styleClass="alinharCenter"  rendered="#{relatorioHeMB.paisVisu}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
-						<h:outputText value="#{controlehe.he.vendas.cliente.nome}"/>
-					</p:column> 
-					
-					<p:column headerText="Cidade" styleClass="alinharCenter" rendered="#{relatorioHeMB.cidadeVisu}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
-						<h:outputText value="#{controlehe.he.vendas.cliente.nome}"/>
+
+
+					<p:column headerText="Pais" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.paisVisu}"
+						sortBy="#{controlehe.pais}" style="width:110px;">
+						<h:outputText value="#{controlehe.pais}" />
 					</p:column>
-					
-					<p:column headerText="Parceiro" style="width:100px;"  rendered="#{relatorioHeMB.parceiro}"
-						styleClass="alinharCenter">
+
+					<p:column headerText="Cidade" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.cidadeVisu}"
+						sortBy="#{controlehe.cidade}" style="width:110px;">
+						<h:outputText value="#{controlehe.cidade}" />
+					</p:column>
+
+					<p:column headerText="Parceiro" style="width:120px;" sortBy="#{controlehe.parceiro}"
+						rendered="#{relatorioHeMB.parceiro}" styleClass="alinharCenter">
 						<p:commandLink value="#{controlehe.parceiro}"
 							action="#{relatorioHeMB.visualizarParceiros(controlehe)}"
 							title="Visualizar Programas de Higher Education"
 							style="border-bottom: 0.1px solid;">
 						</p:commandLink>
 					</p:column>
-					
-					<p:column headerText="Início do programa" styleClass="alinharCenter" rendered="#{relatorioHeMB.inicioprograma}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;text-align:left;">
-						<h:outputText value="#"/>
+
+					<p:column headerText="Início do programa"
+						styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.inicioprograma}"
+						sortBy="#{controlehe.inicioPrograma}"
+						style="width:110px;text-align:left;">
+						<h:outputText value="#{controlehe.inicioPrograma}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
 					</p:column>
-					
-					
-					<p:column headerText="Acomodação" styleClass="alinharCenter"  rendered="#{relatorioHeMB.acomodacao}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
-						<h:outputText value="#"/>
+
+
+					<p:column headerText="Acomodação" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.acomodacaoVisu}"
+						sortBy="#{controlehe.acomodacao}" style="width:110px;">
+						<h:outputText value="#{controlehe.acomodacao}" />
 					</p:column>
-					
-					
-					<p:column headerText="Data Aplicação" rendered="#{relatorioHeMB.dataaplicacao}"
+
+
+					<p:column headerText="Data Aplicação"
+						rendered="#{relatorioHeMB.dataaplicacao}"
 						sortBy="#{controlehe.dataaplicacaoenviada}"
 						style="text-align:left;width:82px;">
 						<h:outputText value="#{controlehe.dataaplicacaoenviada}">
@@ -483,80 +539,95 @@
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					
-					<p:column headerText="Previsão Pagamento" rendered="#{relatorioHeMB.previsaopagamento}"
-						sortBy="#{controlehe.dataaplicacaoenviada}"
+
+					<p:column headerText="Previsão Pagamento"
+						rendered="#{relatorioHeMB.previsaopagamento}"
+						sortBy="#{controlehe.he.vendas.invoice.dataPrevistaPagamento}"
 						style="text-align:left;width:92px;">
-						<h:outputText value="#{controlehe.dataaplicacaoenviada}">
+						<h:outputText
+							value="#{controlehe.he.vendas.invoice.dataPrevistaPagamento}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					
-					<p:column headerText="Data Pagamento" rendered="#{relatorioHeMB.datapagamento}"
-						sortBy="#{controlehe.dataaplicacaoenviada}"
+
+					<p:column headerText="Data Pagamento"
+						rendered="#{relatorioHeMB.datapagamento}"
+						sortBy="#{controlehe.he.vendas.invoice.dataPagamentoInvoice}"
 						style="text-align:left;width:92px;">
-						<h:outputText value="#{controlehe.dataaplicacaoenviada}">
+						<h:outputText
+							value="#{controlehe.he.vendas.invoice.dataPagamentoInvoice}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					
-					
-					<p:column headerText="Pathway" styleClass="alinharCenter" rendered="#{relatorioHeMB.pathwayVisu}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
-						<h:outputText value="#"/>
+
+
+					<p:column headerText="Pathway" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.pathwayVisu}"
+						sortBy="#{controlehe.pathway}" style="width:90px;">
+						<h:outputText value="#{controlehe.pathway}" />
 					</p:column>
-					
-					
+
+
 					<p:column headerText="Data Embarque"
-						sortBy="#{controlehe.dataaplicacaoenviada}"
+						rendered="#{relatorioHeMB.dataembarque}"
+						sortBy="#{controlehe.dataembarque}"
 						style="text-align:left;width:87px;">
-						<h:outputText value="#{controlehe.dataaplicacaoenviada}">
+						<h:outputText value="#{controlehe.dataembarque}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					
-					
-					<p:column headerText="Situação Venda" styleClass="alinharCenter" rendered="#{relatorioHeMB.situacaovenda}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:90px;text-align:left;">
-						<h:outputText value="#"/>
+
+
+					<p:column headerText="Situação Venda" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.situacaovenda}"
+						sortBy="#{controlehe.he.vendas.situacao}"
+						style="width:90px;text-align:left;">
+						<h:outputText value="#{controlehe.he.vendas.situacao}" />
 					</p:column>
-					
-					<p:column headerText="Situação Gerência" styleClass="alinharCenter" rendered="#{relatorioHeMB.situacaogerencia}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:130px;text-align:left;">
-						<h:outputText value="#"/>
+
+					<p:column headerText="Situação Gerência" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.situacaogerencia}"
+						sortBy="#{controlehe.situacaoaplicacao}"
+						style="width:100px;text-align:left;">
+						<h:outputText value="#{controlehe.situacaoaplicacao}" />
 					</p:column>
-					
-					
-					<p:column headerText="Tipo Invoice" styleClass="alinharCenter" rendered="#{relatorioHeMB.tipoinvoice}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
-						<h:outputText value="#"/>
+
+
+					<p:column headerText="Tipo Invoice" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.tipoinvoice}"
+						sortBy="#{controlehe.he.vendas.invoice.tipo}" style="width:110px;">
+						<h:outputText value="#{controlehe.he.vendas.invoice.tipo}" />
 					</p:column>
-					
-					<p:column headerText="Valor Net" styleClass="alinharCenter" rendered="#{relatorioHeMB.valornet}"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
-						<h:outputText value="#"/>
+
+					<p:column headerText="Valor Net" styleClass="alinharCenter"
+						rendered="#{relatorioHeMB.valornet}"
+						sortBy="#{controlehe.he.vendas.invoice.valorPago}"
+						style="width:110px;">
+						<h:outputText value="#{controlehe.he.vendas.invoice.valorPago}" />
 					</p:column>
-					
-					
+
+
 					<p:column headerText="Crédito" styleClass="alinharCenter"
-						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
-						<h:outputText value="#"/>
+						rendered="#{relatorioHeMB.credito}"
+						sortBy="#{controlehe.he.vendas.invoice.valorcredito}"
+						style="width:110px;">
+						<h:outputText value="#{controlehe.he.vendas.invoice.valorcredito}" />
 					</p:column>
-					
+
 				</p:dataTable>
 				<br /> <br />
 				<style>
-					.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
-						.ui-datatable tfoot th {
-						padding: 2px 2px;
-						overflow: hidden;
-						border-width: 0px;
-						border-style: solid;
-					}
-				</style>
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+	.ui-datatable tfoot th {
+	padding: 2px 2px;
+	overflow: hidden;
+	border-width: 0px;
+	border-style: solid;
+}
+</style>
 			</div>
 		</h:form>
 	</ui:define>

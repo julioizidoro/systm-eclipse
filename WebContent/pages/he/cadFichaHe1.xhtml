@@ -121,7 +121,7 @@
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
-								<p:outputLabel value="Mês/Ano" style="margin-left: 35%;" />
+								<p:outputLabel value="" style="margin-left: 35%;" />
 							</h:panelGroup>
 
 							<p:inputText id="curso1" style="width:85%;"
@@ -131,10 +131,7 @@
 								<p:inputText id="codigo1" style="width:40%;"
 									value="#{cadHeInscricaoMB.heparceiros1.hecodigo}"
 									 />
-								<p:inputMask mask="99/9999" id="mesano1"
-									style="width:40%;margin-left:4%;"
-									value="#{cadHeInscricaoMB.heparceiros1.mesano}"
-									 />
+								<p:outputLabel/>
 							</h:panelGroup>
 							
 							<p:outputLabel />
@@ -188,7 +185,7 @@
 							style="width:80%;margin-left:8%;">
 							<h:panelGroup>
 								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposHe2}">
-									<p:ajax event="change" update="curso2, codigo2, mesano2, pais2, cidade2, fornecedor2" listener="#{cadHeInscricaoMB.gerarHeParceiro2()}"/>
+									<p:ajax event="change" update="curso2, codigo2, pais2, cidade2, fornecedor2" listener="#{cadHeInscricaoMB.gerarHeParceiro2()}"/>
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="2º Opção" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:1%;"/>    
 							</h:panelGroup>    
@@ -253,7 +250,7 @@
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
-								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
+								<p:outputLabel value="" style="margin-left: 31%;" />
 							</h:panelGroup>
 
 							<p:inputText id="curso2" style="width:85%;"
@@ -263,10 +260,7 @@
 								<p:inputText id="codigo2" style="width:40%;"
 									value="#{cadHeInscricaoMB.heparceiros2.hecodigo}"
 									disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}" />
-								<p:inputMask mask="99/9999" id="mesano2"
-									style="width:40%;margin-left:4%;"
-									value="#{cadHeInscricaoMB.heparceiros2.mesano}"
-									disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}" />
+								<p:outputLabel/>
 							</h:panelGroup>
 							
 							<p:outputLabel />
@@ -321,7 +315,7 @@
 							style="width:80%;margin-left:8%;">
 							<h:panelGroup>
 								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposHe3}">
-									<p:ajax event="change" update="curso3, codigo3, mesano3, pais3, cidade3, fornecedor3" listener="#{cadHeInscricaoMB.gerarHeParceiro3()}"/>
+									<p:ajax event="change" update="curso3, codigo3, pais3, cidade3, fornecedor3" listener="#{cadHeInscricaoMB.gerarHeParceiro3()}"/>
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="3º Opção" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:1%;"/>    
 							</h:panelGroup>    
@@ -386,7 +380,7 @@
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
-								<p:outputLabel value="Mês/Ano" style="margin-left: 31%;" />
+								<p:outputLabel value="" style="margin-left: 31%;" />
 							</h:panelGroup>
 
 							<p:inputText id="curso3" style="width:85%;" disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}"
@@ -396,10 +390,7 @@
 								<p:inputText id="codigo3" style="width:40%;"
 									value="#{cadHeInscricaoMB.heparceiros3.hecodigo}"
 									disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}" />
-								<p:inputMask mask="99/9999" id="mesano3"
-									style="width:40%;margin-left:4%;"
-									value="#{cadHeInscricaoMB.heparceiros3.mesano}"
-									disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}" />
+								<p:outputLabel/>
 							</h:panelGroup>
 							
 							<p:outputLabel />

@@ -149,6 +149,8 @@ public class Vendas implements Serializable {
 	private Float valorpais;
 	@Transient
 	private int idControle;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "vendas")
+	private Invoice invoice;
 
 	public Vendas() {
 		setStatuscobranca("p");
@@ -533,6 +535,14 @@ public class Vendas implements Serializable {
 
 	public void setIdControle(int idControle) {
 		this.idControle = idControle;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 
 	@Override

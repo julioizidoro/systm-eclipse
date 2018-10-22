@@ -47,8 +47,6 @@ public class Heparceiros implements Serializable {
     @Column(name = "hecodigo")
     private String hecodigo;
     @Size(max = 7)
-    @Column(name = "mesano")
-    private String mesano;
     @JoinColumn(name = "fornecedorcidade_idfornecedorcidade", referencedColumnName = "idfornecedorcidade")
     @ManyToOne(optional = false)
     private Fornecedorcidade fornecedorcidade;
@@ -141,16 +139,6 @@ public class Heparceiros implements Serializable {
 
 	public void setHecodigo(String hecodigo) {
 		this.hecodigo = hecodigo;
-	}
-
-
-	public String getMesano() {
-		return mesano;
-	}
-
-
-	public void setMesano(String mesano) {
-		this.mesano = mesano;
 	}
 
 

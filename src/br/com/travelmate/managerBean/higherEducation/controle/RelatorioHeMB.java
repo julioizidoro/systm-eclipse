@@ -6,9 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+
+import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.PaisDao;
@@ -21,6 +25,7 @@ import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -82,6 +87,7 @@ public class RelatorioHeMB implements Serializable{
 	private boolean valornet = true;
 	private boolean credito = true;
 	private boolean nomecliente = true;
+	private boolean dataembarque = true;
 	
 	
 	
@@ -90,6 +96,7 @@ public class RelatorioHeMB implements Serializable{
 	@PostConstruct
 	public void init() {
 		listaPais = paisDao.listar();
+		gerarListaFornecedor();
 		listaUnidadeNegocio = GerarListas.listarUnidade();
 	}
 
@@ -572,9 +579,22 @@ public class RelatorioHeMB implements Serializable{
 	}
 
 
+	public boolean isDataembarque() {
+		return dataembarque;
+	}
+
+
+	public void setDataembarque(boolean dataembarque) {
+		this.dataembarque = dataembarque;
+	}
+
+
 	public void gerarListaFornecedor() {
-		String sql = "select f from Fornecedorcidade f where f.cidade.idcidade=" + cidade.getIdcidade()
-				+ " and f.ativo=1 order by f.fornecedor.nome";
+		String sql = "select distinct f from Fornecedorcidade f where f.produtos.idprodutos=22 ";
+		if (cidade != null && cidade.getIdcidade() != null) {
+			sql = sql + " and f.cidade.idcidade=" + cidade.getIdcidade();
+		}
+		sql = sql + " and f.ativo=1 group by f.fornecedor order by f.fornecedor.nome";
 		FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
 		listaFornecedorCidade = fornecedorCidadeFacade.listar(sql);
 	}
@@ -606,7 +626,7 @@ public class RelatorioHeMB implements Serializable{
 		}
 		
 		if (fornecedorcidade != null && fornecedorcidade.getIdfornecedorcidade() != null) {
-			sql = sql + " AND h.he.vendas.fornecedorcidade.idfornecedorcidade=" + fornecedorcidade.getIdfornecedorcidade();
+			sql = sql + " AND h.he.vendas.fornecedorcidade.fornecedor.idfornecedor=" + fornecedorcidade.getFornecedor().getIdfornecedor();
 		}
 		
 		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
@@ -643,6 +663,26 @@ public class RelatorioHeMB implements Serializable{
 		}
 		
 		
+		if (datainiprevisao != null && datafinalprevisao != null) {
+			sql = sql+ " AND h.he.invoice.dataPrevistaPagamento>='" + Formatacao.ConvercaoDataSql(datainiprevisao) + "' AND h.dataPrevistaPagamento<='" 
+					+ Formatacao.ConvercaoDataSql(datafinalprevisao) + "'"; 
+		}
+		
+
+		if (datainipagamento != null && datafinalpagamento != null) {
+			sql = sql+ " AND h.he.invoice.dataPagamentoInvoice>='" + Formatacao.ConvercaoDataSql(datainipagamento) + "' AND h.dataPagamentoInvoice<='" 
+					+ Formatacao.ConvercaoDataSql(datafinalpagamento) + "'"; 
+		}
+		
+		if (acomodacao != null && !acomodacao.equalsIgnoreCase("Selecione")) {
+			if (acomodacao.equalsIgnoreCase("Sim")) {
+				sql = sql + " AND h.he.tipoAcomodacao<>'Sem acomodação'";
+			}else if(acomodacao.equalsIgnoreCase("Não")) {
+				sql = sql + " AND h.he.tipoAcomodacao='Sem acomodação'";
+			}
+		}
+		
+		//DEIXAR SEMPRE ESTE IF POR ÚLTIMO ANTES DE CONSULTAR NA BASE
 		if (ordenar != null && ordenar.length() > 0) {
 			sql = sql + " order by " + ordenar;
 		}
@@ -653,14 +693,75 @@ public class RelatorioHeMB implements Serializable{
 		if (listaHeControle == null) {
 			listaHeControle = new ArrayList<Hecontrole>();
 		}
-		
+		List<Hecontrole> listaControle = new ArrayList<Hecontrole>();
+		boolean inicioPrograma = false;
 		for (int i = 0; i < listaHeControle.size(); i++) {
+			if (listaHeControle.get(i).getHe().getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
+				listaHeControle.get(i).setAcomodacao("Não");
+			}else {
+				listaHeControle.get(i).setAcomodacao("Sim");
+			}
 			if (listaHeControle.get(i).getHe().isFichafinal()) {
 				listaHeControle.get(i).setTipo("Final");
 			} else {
 				listaHeControle.get(i).setTipo("Formulário");
 			}
+			if (listaHeControle.get(i).getHe().getListaHeParceirosList() != null && listaHeControle.get(i).getHe().getListaHeParceirosList().size() > 0) {
+				listaHeControle.get(i)
+					.setParceiro(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
+						.getFornecedorcidade().getFornecedor().getNome() + " - "
+						+ listaHeControle.get(i).getHe().getListaHeParceirosList().size());
+				listaHeControle.get(i).setPais(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getFornecedorcidade().getCidade().getPais().getNome());
+				listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getFornecedorcidade().getCidade().getNome());
+				listaHeControle.get(i).setInicioPrograma(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio());
+				if (listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).isPathway()) {
+					listaHeControle.get(i).setPathway("Sim");
+				}else {
+					listaHeControle.get(i).setPathway("Não");
+				}
+				if (datainiprograma != null && datafinalprograma != null) {
+					inicioPrograma = true;
+					if ((listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().after(datainiprograma) && 
+							listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().before(datafinalprograma)) ||
+							listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().equals(datainiprograma) ||
+									listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().equals(datafinalprograma)) {
+						listaControle.add(listaHeControle.get(i));
+					}
+				}
+			}else {
+				listaHeControle.get(i).setPathway("Não");
+			}
 		}
+		if (inicioPrograma) {
+			listaHeControle = listaControle;
+		}
+	}
+	
+	public void limpar() {
+		datainiaplicacao = null;
+		datafinalaplicacao = null;
+		datainiembarque = null;
+		datafinalembarque = null;
+		datainipagamento = null;
+		datafinalpagamento = null;
+		datainiprevisao = null;
+		datafinalprevisao = null;
+		datainiprograma = null;
+		datafinalprograma = null;
+		datainivenda = null;
+		datafinalvenda = null;
+		unidadenegocio = null;
+		usuario = null;
+		pais = null;
+		cidade = null;
+		fornecedorcidade = null;
+		acomodacao = "";
+		pathway = "";
+		tipovenda = "";
+		ordenar = "";
+		acomodacao = "";
+		listaHeControle = new ArrayList<Hecontrole>();
+		
 	}
 	
 	
@@ -687,7 +788,7 @@ public class RelatorioHeMB implements Serializable{
 			valornet = false;
 			credito = false;
 			nomecliente = false;
-			
+			dataembarque = false;
 		}else {
 			selecionartodos = true;
 			idvenda = true;
@@ -710,10 +811,24 @@ public class RelatorioHeMB implements Serializable{
 			valornet = true;
 			credito = true;
 			nomecliente = true;
-			
+			dataembarque = true;
 		}
 	}
 	
+	
+
+	public void visualizarParceiros(Hecontrole hecontrole) {
+		if (hecontrole.getHe().getListaHeParceirosList() != null
+				&& hecontrole.getHe().getListaHeParceirosList().size() > 0) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			session.setAttribute("listaHeParceiros", hecontrole.getHe().getListaHeParceirosList());
+			session.setAttribute("voltar", "consControleHe");
+			RequestContext.getCurrentInstance().openDialog("visualizarParceiros");
+		} else {
+			Mensagem.lancarMensagemInfo("Nenhum parceiro encontrado", "");
+		}
+	}
 	
 
 }

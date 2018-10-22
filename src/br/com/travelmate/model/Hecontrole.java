@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -83,6 +84,14 @@ public class Hecontrole implements Serializable {
     private String tipo;
     @Transient
     private String iconeFormImpresso;
+    @Transient
+    private String acomodacao;
+    @Transient
+    private String pais;
+    @Transient
+    private String cidade;
+    @Transient
+    private Date inicioPrograma;
     
     public Hecontrole() {
     	
@@ -215,6 +224,38 @@ public class Hecontrole implements Serializable {
 
 	public void setIconeFormImpresso(String iconeFormImpresso) {
 		this.iconeFormImpresso = iconeFormImpresso;
+	}
+
+	public String getAcomodacao() {
+		return acomodacao;
+	}
+
+	public void setAcomodacao(String acomodacao) {
+		this.acomodacao = acomodacao;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public Date getInicioPrograma() {
+		return inicioPrograma;
+	}
+
+	public void setInicioPrograma(Date inicioPrograma) {
+		this.inicioPrograma = inicioPrograma;
 	}
 
 	@Override
