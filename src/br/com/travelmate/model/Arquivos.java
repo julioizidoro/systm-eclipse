@@ -74,7 +74,7 @@ public class Arquivos implements Serializable {
     private boolean selecionado;
 
     public Arquivos() {
-    	setSitaucao(false);
+    	setSitaucao(false);setStatusarquivo("enviado");
     }
     
     
