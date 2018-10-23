@@ -664,13 +664,13 @@ public class RelatorioHeMB implements Serializable{
 		
 		
 		if (datainiprevisao != null && datafinalprevisao != null) {
-			sql = sql+ " AND h.he.invoice.dataPrevistaPagamento>='" + Formatacao.ConvercaoDataSql(datainiprevisao) + "' AND h.dataPrevistaPagamento<='" 
+			sql = sql+ " AND h.he.vendas.invoice.dataPrevistaPagamento>='" + Formatacao.ConvercaoDataSql(datainiprevisao) + "' AND h.he.vendas.invoice.dataPrevistaPagamento<='" 
 					+ Formatacao.ConvercaoDataSql(datafinalprevisao) + "'"; 
 		}
 		
 
 		if (datainipagamento != null && datafinalpagamento != null) {
-			sql = sql+ " AND h.he.invoice.dataPagamentoInvoice>='" + Formatacao.ConvercaoDataSql(datainipagamento) + "' AND h.dataPagamentoInvoice<='" 
+			sql = sql+ " AND h.he.invoice.dataPagamentoInvoice>='" + Formatacao.ConvercaoDataSql(datainipagamento) + "' AND h.he.invoice.dataPagamentoInvoice<='" 
 					+ Formatacao.ConvercaoDataSql(datafinalpagamento) + "'"; 
 		}
 		
