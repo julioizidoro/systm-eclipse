@@ -670,7 +670,7 @@ public class RelatorioHeMB implements Serializable{
 		
 
 		if (datainipagamento != null && datafinalpagamento != null) {
-			sql = sql+ " AND h.he.invoice.dataPagamentoInvoice>='" + Formatacao.ConvercaoDataSql(datainipagamento) + "' AND h.he.invoice.dataPagamentoInvoice<='" 
+			sql = sql+ " AND h.he.vendas.invoice.dataPagamentoInvoice>='" + Formatacao.ConvercaoDataSql(datainipagamento) + "' AND h.he.vendas.invoice.dataPagamentoInvoice<='" 
 					+ Formatacao.ConvercaoDataSql(datafinalpagamento) + "'"; 
 		}
 		
