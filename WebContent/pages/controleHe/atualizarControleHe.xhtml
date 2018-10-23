@@ -69,7 +69,7 @@
 
 					<p:calendar id="dataembarque"
 						value="#{atualizarControleHeMB.hecontrole.dataembarque}"
-						 maxlength="20" disabled="">
+						 maxlength="20" disabled="" pattern="dd/MM/yyyy">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</p:calendar>
@@ -107,7 +107,7 @@
 
 					<p:calendar id="comissaorecebida"
 						value="#{atualizarControleHeMB.hecontrole.comissaorecebida}"
-						 maxlength="20" disabled="" locale="pt">
+						 maxlength="20" disabled="" locale="pt" pattern="dd/MM/yyyy">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</p:calendar>
