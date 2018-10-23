@@ -96,6 +96,7 @@
 									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
 								<f:attribute name="listaUnidade"
 									value="#{relatorioHeMB.listaUnidadeNegocio}" />
+									<p:ajax event="change" listener="#{relatorioHeMB.gerarListaConsultor()}" update="consultor"/>
 							</p:selectOneMenu>
 
 							<p:selectOneMenu id="consultor" value="#{relatorioHeMB.usuario}"

@@ -695,6 +695,7 @@ public class RelatorioHeMB implements Serializable{
 		}
 		List<Hecontrole> listaControle = new ArrayList<Hecontrole>();
 		boolean inicioPrograma = false;
+		boolean path = false;
 		for (int i = 0; i < listaHeControle.size(); i++) {
 			if (listaHeControle.get(i).getHe().getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
 				listaHeControle.get(i).setAcomodacao("Não");
@@ -727,15 +728,38 @@ public class RelatorioHeMB implements Serializable{
 									listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().equals(datafinalprograma)) {
 						listaControle.add(listaHeControle.get(i));
 					}
+				}else if(pathway != null && !pathway.equalsIgnoreCase("Selecione")) {
+					if (pathway.equalsIgnoreCase("Sim")) {
+						path = true;
+						if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Sim")) {
+							listaControle.add(listaHeControle.get(i));
+						}
+					}else if(pathway.equalsIgnoreCase("Não")) {
+						path = true;
+						if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Não")) {
+							listaControle.add(listaHeControle.get(i));
+						}
+					}
 				}
 			}else {
 				listaHeControle.get(i).setPathway("Não");
+				if (pathway.equalsIgnoreCase("Sim")) {
+					path = true;
+					if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Sim")) {
+						listaControle.add(listaHeControle.get(i));
+					}
+				}else if(pathway.equalsIgnoreCase("Não")) {
+					path = true;
+					if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Não")) {
+						listaControle.add(listaHeControle.get(i));
+					}
+				}
 			}
 		}
-		if (inicioPrograma) {
+		if (inicioPrograma || path) {
 			listaHeControle = listaControle;
 		}
-	}
+	}   
 	
 	public void limpar() {
 		datainiaplicacao = null;
