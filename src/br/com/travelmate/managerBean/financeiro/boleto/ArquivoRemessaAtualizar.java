@@ -9,7 +9,9 @@ import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -20,9 +22,15 @@ public class ArquivoRemessaAtualizar {
     private String branco = "                                        ";
     private String zeros = "000000000000000000000";
     
+    public String deAccent(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
+    }
+    
     public String gerarHeader(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade, String agencia, String contaBanco, String digitoConta) throws IOException{
-        String linha="";
-        linha = linha  + ("0");
+        
+        String linha  = ("0");
         linha = linha  + ("1");
         linha = linha  + ("REMESSA");
         linha = linha  + ("01");
@@ -32,7 +40,7 @@ public class ArquivoRemessaAtualizar {
         linha = linha  + (contaBanco);
         linha = linha  + (digitoConta);
         linha = linha  + (branco.substring(0, 8));
-        String nomeEmpresa = unidade.getRazaoSocial();
+        String nomeEmpresa = deAccent(unidade.getRazaoSocial());
         if (nomeEmpresa == null) {
 			nomeEmpresa = "Sem Empresa";
 		}
@@ -51,7 +59,7 @@ public class ArquivoRemessaAtualizar {
         }else if (numeroSequencial<100){
             ns = "0000" + String.valueOf(numeroSequencial);
         }else ns = "000" + String.valueOf(numeroSequencial);
-        linha = linha  + (ns + "\r\n");
+        linha = linha  + (ns + "\n");
         return linha;
     }
     
@@ -108,7 +116,7 @@ public class ArquivoRemessaAtualizar {
         }else if (numeroSequencial<100){
             ns = "0000" + String.valueOf(numeroSequencial);
         }else ns = "000" + String.valueOf(numeroSequencial);
-        linha = linha  + (ns + "\r\n");
+        linha = linha  + (ns + "\n");
         return linha;
     }
     
@@ -126,7 +134,7 @@ public class ArquivoRemessaAtualizar {
         }else if (numeroSequencial<100){
             ns = "0000" + String.valueOf(numeroSequencial);
         }else ns = "000" + String.valueOf(numeroSequencial);
-        linha = linha  + (ns + "\r\n");
+        linha = linha  + (ns + "\n");
         return linha;
     }
 }

@@ -10,7 +10,12 @@ import br.com.travelmate.model.Contasreceber;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;
 import java.io.IOException;
+	import java.text.Normalizer;
 import java.util.Date;
+import java.util.regex.Pattern;
+
+import org.hibernate.type.AdaptedImmutableType;
+
 
 /**
  *
@@ -21,6 +26,12 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
     
     private String branco = "                                        ";
     private String zeros = "000000000000000000000";
+    
+    public String deAccent(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
+    }
     
     public String gerarHeader(Contasreceber conta, int numeroSequencial, Unidadenegocio unidade, String agencia, String contaBanco, String digitoConta) throws IOException{
         String linha="";
@@ -34,7 +45,7 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
         linha = linha  + (contaBanco);
         linha = linha  + (digitoConta);
         linha = linha  + (branco.substring(0, 8));
-        String nomeEmpresa = unidade.getRazaoSocial();
+        String nomeEmpresa = deAccent(unidade.getRazaoSocial());
         if (nomeEmpresa == null) {
 			nomeEmpresa = "Sem Empresa";
 		}
@@ -97,7 +108,7 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
         linha = linha  + (zeros.substring(0, 13));
         linha = linha  + ("01");
         linha = linha  + (Formatacao.retirarPontos(conta.getVendas().getCliente().getCpf())+ "   ");
-        String nomeCliente = conta.getVendas().getCliente().getNome();
+        String nomeCliente = deAccent(conta.getVendas().getCliente().getNome());
         if (nomeCliente == null) {
 			nomeCliente = "Sem Cliente";
 		}
@@ -108,8 +119,8 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
         linha = linha  + (nomeCliente);
         linha = linha  + (branco.substring(0, 10));
         String endereco = "";
-        String tipoLogradouro = conta.getVendas().getCliente().getTipologradouro();
-        String logra = conta.getVendas().getCliente().getLogradouro();
+        String tipoLogradouro = deAccent(conta.getVendas().getCliente().getTipologradouro());
+        String logra = deAccent(conta.getVendas().getCliente().getLogradouro());
         String numero = conta.getVendas().getCliente().getNumero();
         if (tipoLogradouro == null) {
 			tipoLogradouro = "";
@@ -132,7 +143,7 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
             logradouro = logradouro + branco.substring(0, 40 - logradouro.length());
         }else logradouro = logradouro.substring(0, 40);
         linha = linha  + (logradouro);
-        String bairro = conta.getVendas().getCliente().getBairro();
+        String bairro = deAccent(conta.getVendas().getCliente().getBairro());
         if (bairro == null) {
 			bairro = "Sem Bairro";
 		}
@@ -142,7 +153,7 @@ public class ArquivoRemessaEnviar implements ArquivoRemessaItau{
         }else bairro = bairro.substring(0,12);
         linha = linha  + (bairro);
         linha = linha  + (Formatacao.retirarPontos(conta.getVendas().getCliente().getCep()));
-        String cidade = conta.getVendas().getCliente().getCidade();
+        String cidade = deAccent(conta.getVendas().getCliente().getCidade());
         if (cidade == null) {
 			cidade = "Sem Cidade";
 		}
