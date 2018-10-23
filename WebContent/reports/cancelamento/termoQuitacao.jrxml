@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Termo de Ciência do Visto " pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="666abdab-7fed-446b-9feb-6a84b646f03c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="182"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Dropbox\\Desenvolvimento\\TravelMate\\SysTM\\Relatorios\\Contratos\\"]]></defaultValueExpression>
 	</parameter>
@@ -83,7 +83,7 @@
 				<textElement textAlignment="Justified">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Ademais, declaro por fim, que com o recebimento da importância acima referida, nada mais tenho a reclamar sobre a referida viagem/programa de intercâmbio, dando a mais ampla, geral e irrestrita quitação de todos os valores devidos pela empresa, inexistindo mais qualquer problema a reclamar sobre o intercâmbio realizado, seja na esfera administrativa, cível ou criminal.   ]]></text>
+				<text><![CDATA[Ademais, declaro por fim, após o recebimento da importância acima referida, nada mais tenho a reclamar sobre a referida viagem/programa de intercâmbio, dando a mais ampla, geral e irrestrita quitação de todos os valores devidos pela empresa, inexistindo mais qualquer problema a reclamar sobre o intercâmbio realizado, seja na esfera administrativa, cível ou criminal.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="83" y="398" width="459" height="15" uuid="6dab0766-d71e-4561-8742-32063cb1fb7f"/>
