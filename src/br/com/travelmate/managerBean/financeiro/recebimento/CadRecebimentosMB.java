@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.FornecedorFacade;
@@ -24,6 +25,7 @@ import br.com.travelmate.facade.UsuarioFacade;
 
 import br.com.travelmate.model.Banco;
 import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.Hecontrole;
 import br.com.travelmate.model.Moedas;
 import br.com.travelmate.model.Motivorecinternacional;
 import br.com.travelmate.model.Recinternacional;
@@ -43,6 +45,8 @@ public class CadRecebimentosMB implements Serializable{
 	private CambioDao cambioDao;
 	@Inject
 	private VendasDao vendasDao;
+	@Inject
+	private HeControleDao heControleDao;
 	private Vendas vendas;
 	private int nVenda;
 	private Usuario usuario;
@@ -315,6 +319,7 @@ public class CadRecebimentosMB implements Serializable{
 		recInternacional.setVendas(vendas);
 		if (validarDados()) {
 			recInternacional = recinternacionalFacade.salvar(recInternacional);
+			gerarDadosControleHe();
 			RequestContext.getCurrentInstance().closeDialog(recInternacional);
 		}
 	}
@@ -338,6 +343,18 @@ public class CadRecebimentosMB implements Serializable{
 		listaMotivoRecInternacional = motivoRecInternacionalFacade.listar("Select m From Motivorecinternacional m");
 		if (listaMotivoRecInternacional == null) {
 			listaMotivoRecInternacional = new ArrayList<>();
+		}
+	}
+	
+	
+	public void gerarDadosControleHe() {
+		if (vendas != null) {
+			Hecontrole hecontrole = heControleDao.consultar("SELECT h FROM Hecontrole h WHERE h.he.vendas.idvendas=" + vendas.getIdvendas());
+			if (hecontrole != null) {
+				hecontrole.setValorcomissao(recInternacional.getValor());
+				hecontrole.setComissaosolicitada(new Date());
+				heControleDao.salvar(hecontrole);
+			}
 		}
 	}
 	

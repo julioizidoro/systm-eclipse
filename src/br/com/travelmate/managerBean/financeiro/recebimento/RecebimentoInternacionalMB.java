@@ -2,19 +2,23 @@ package br.com.travelmate.managerBean.financeiro.recebimento;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.facade.BancoFacade;
 import br.com.travelmate.facade.RecinternacionalFacade;
 import br.com.travelmate.model.Banco;
+import br.com.travelmate.model.Hecontrole;
 import br.com.travelmate.model.Recinternacional;
 import br.com.travelmate.util.Mensagem;
 
@@ -27,6 +31,8 @@ public class RecebimentoInternacionalMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private HeControleDao heControleDao;
 	private Recinternacional recinternacional;
 	private Banco banco;
 	private List<Banco> listaBanco;
@@ -128,8 +134,18 @@ public class RecebimentoInternacionalMB implements Serializable{
 		recinternacional.setBanco(banco);
 		if (validarDados()) {
 			recinternacional = recinternacionalFacade.salvar(recinternacional);
+			gerarDadosControleHe();
 			RequestContext.getCurrentInstance().closeDialog(recinternacional);
 		}
+	}
+	
+	
+	public void gerarDadosControleHe() {
+			Hecontrole hecontrole = heControleDao.consultar("SELECT h FROM Hecontrole h WHERE h.he.vendas.idvendas=" + recinternacional.getVendas().getIdvendas());
+			if (hecontrole != null) {
+				hecontrole.setComissaorecebida(new Date());
+				heControleDao.salvar(hecontrole);
+			}
 	}
 	
 	

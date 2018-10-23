@@ -72,7 +72,7 @@ public class ControleHeMB implements Serializable {
 		if (chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) {
 			sql = null;
 		}
-		listarControle();
+		listarControle();   
 		gerarListaUnidadeNegocio();
 	}
 
@@ -234,6 +234,7 @@ public class ControleHeMB implements Serializable {
 						.setParceiro(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
 								.getFornecedorcidade().getFornecedor().getNome() + " - "
 								+ listaHeControle.get(i).getHe().getListaHeParceirosList().size());
+				listaHeControle.get(i).setInicioPrograma(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio());
 				if (listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).isPathway()) {
 					listaHeControle.get(i).setPathway("Sim");
 				} else {
@@ -340,7 +341,7 @@ public class ControleHeMB implements Serializable {
 		return "consArquivos";
 	}
 
-	public void pesquisar() {
+	public void pesquisar() {  
 		sql = "select h from Hecontrole h where  h.he.vendas.cliente.nome like '%" + nomeCliente + "%'";
 
 		if (datainivenda != null && datafimvenda != null) {
@@ -352,7 +353,7 @@ public class ControleHeMB implements Serializable {
 			sql = sql + " AND h.situacaoaplicacao='" + situacao + "' ";
 		}
 
-		if (idvenda != null) {
+		if (idvenda != null && idvenda.length() > 0) {
 			sql = sql + " AND h.he.vendas.idvendas=" + idvenda + " ";
 		}
 
@@ -424,6 +425,8 @@ public class ControleHeMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("he", he);
 		session.setAttribute("sql", sql);
+		chamadaTela = "ControleHe";
+		session.setAttribute("chamadaTela", chamadaTela);
 		if (he.isFichafinal()) {
 			return "fichaHE";
 		}else {
@@ -436,11 +439,12 @@ public class ControleHeMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("he", he);
 		session.setAttribute("sql", sql);
+		session.setAttribute("chamadaTela", "ControleHe");
 		if (he.isFichafinal()) {
 			return "contratoHeFinal";
 		}else {
 			return "contratoHE";
-		}
+		}      
 	}
 	
 	
