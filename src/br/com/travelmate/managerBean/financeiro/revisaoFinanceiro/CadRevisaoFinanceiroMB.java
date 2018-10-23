@@ -20,6 +20,7 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.bean.BolinhasBean;
 import br.com.travelmate.dao.AvisosDao;
+import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.AupairFacade;
@@ -28,6 +29,7 @@ import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DemipairFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
+import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.LogVendaFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
@@ -39,6 +41,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.financeiro.contasReceber.EventoContasReceberBean;
 import br.com.travelmate.managerBean.financeiro.crmcobranca.CrmCobrancaBean;
+import br.com.travelmate.managerBean.higherEducation.controle.HeControleBean;
 import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Aupair;
 import br.com.travelmate.model.Avisos;
@@ -51,6 +54,7 @@ import br.com.travelmate.model.Demipair;
 import br.com.travelmate.model.Departamento;
 import br.com.travelmate.model.Formapagamento;
 import br.com.travelmate.model.Fornecedor;
+import br.com.travelmate.model.He;
 import br.com.travelmate.model.Highschool;
 import br.com.travelmate.model.Logvenda;
 import br.com.travelmate.model.Moedas;
@@ -83,6 +87,8 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
+	@Inject
+	private HeControleDao heControleDao;
 	private List<Contasreceber> listaContasReceber;
 	private Vendas venda;
 	private Formapagamento formapagamento;
@@ -560,6 +566,15 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 				avisos.setIdunidade(0);
 				avisos = avisosDao.salvar(avisos);
 				salvarAvisoUsuario(avisos);
+			}
+
+			if (venda.getProdutos().getIdprodutos() == 22) {
+				HeFacade heFacade = new HeFacade();
+				He he = heFacade.consultarVenda(venda.getIdvendas());
+				if (he != null && he.getIdhe() != null) {
+					HeControleBean heControleBean = new HeControleBean();
+					heControleBean.salvar(heControleDao, he);
+				}
 			}
 			String titulo = "";
 			if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {

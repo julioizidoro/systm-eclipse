@@ -105,7 +105,7 @@
 						sortBy="#{controlehe.he.vendas.idvendas}">
 						<h:outputText value="#{controlehe.he.vendas.idvendas}" />
 					</p:column>
-					<p:column headerText="Tipo" style="width:50px;text-align:center;"
+					<p:column headerText="Tipo" style="width:55px;text-align:center;"
 						sortBy="#{controlehe.tipo}">
 						<h:outputText value="#{controlehe.tipo}" />
 					</p:column>
@@ -127,7 +127,7 @@
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					<p:column style="width:65px;text-align:center;"
+					<p:column style="width:70px;text-align:center;"
 						headerText="Situação" sortBy="#{controlehe.situacaoaplicacao}">
 						<p:cellEditor>
 							<f:facet name="output">
@@ -168,7 +168,15 @@
 					</p:column>
 					<p:column headerText="Data Aplicação"
 						sortBy="#{controlehe.dataaplicacaoenviada}"
-						style="text-align:left;width:72px;">
+						style="text-align:left;width:75px;">
+						<h:outputText value="#{controlehe.dataaplicacaoenviada}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Início Curso"
+						sortBy="#{controlehe.inicioPrograma}"
+						style="text-align:left;width:62px;">
 						<h:outputText value="#{controlehe.dataaplicacaoenviada}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
@@ -294,7 +302,7 @@
 				<p:dialog id="dialog_obsTM" header="Obs TM" widgetVar="obstm"
 					style="background:#d0e9c6;text-align: left">
 					<br></br>
-					<p:inputTextarea id="idObstm" value="#{controlecontroleHeMB.obsTM}"
+					<p:inputTextarea id="idObstm" value="#{controleHeMB.obsTM}"
 						rows="10" cols="50" queryDelay="750" minQueryLength="4"
 						readonly="true" />
 					<br></br>

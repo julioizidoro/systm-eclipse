@@ -1514,15 +1514,7 @@ public class CadHeInscricaoMB implements Serializable {
 			venda.setOrcamento(orcamento);
 			venda.setFormapagamento(formaPagamento);
 			he.setVendas(venda);
-			boolean salvarControle = false;
-			if (he.getIdhe() == null) {
-				salvarControle = true;
-			}
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "I");
-			if (salvarControle) {
-				HeControleBean heControleBean = new HeControleBean();
-				heControleBean.salvar(heControleDao, he);
-			}
 			salvarHeParceiros();
 
 			if (venda.getSituacao().equalsIgnoreCase("FINALIZADA")

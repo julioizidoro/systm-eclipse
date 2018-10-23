@@ -501,6 +501,11 @@ public class FormAssessoriaMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("he", he);
 		session.setAttribute("listaHe", listaHe);
+		Hecontrole hecontrole = heControleDao.consultar("SELECT h FROM Hecontrole h WHERE h.he.idhe=" + he.getIdhe());
+		if (hecontrole != null  && !hecontrole.isImpresso()) {
+			hecontrole.setImpresso(true);
+			heControleDao.salvar(hecontrole);
+		}
 		return "fichaFormAssessoria";
 	}
 	

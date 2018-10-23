@@ -638,13 +638,13 @@ public class RelatorioHeMB implements Serializable{
 		}
 		
 		if (tipovenda != null && tipovenda.length() > 0 && !tipovenda.equalsIgnoreCase("Selecione")) {
-			if (tipovenda.equalsIgnoreCase("formulario")) {
+			if (tipovenda.equalsIgnoreCase("Formulário")) {
 				sql = sql + " AND h.he.fichafinal=false ";
 			}else {
 				sql = sql + " AND h.he.fichafinal=true ";
 			}
 		}
-		
+
 		if (datainivenda != null && datafinalvenda != null) {
 			sql = sql+ " AND h.he.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(datainivenda) + "' AND h.he.vendas.dataVenda<='" 
 					+ Formatacao.ConvercaoDataSql(datafinalvenda) + "'"; 
