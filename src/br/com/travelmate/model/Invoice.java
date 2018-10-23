@@ -95,7 +95,7 @@ public class Invoice implements Serializable {
     @ManyToOne(optional = false)
     private Produtos produtos;
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Vendas vendas;
     @Transient
     private boolean clientedevedor;
