@@ -20,6 +20,7 @@ import br.com.travelmate.facade.PagamentoInvoiceFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Pagamentoinvoice;
+import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Mensagem;
 
@@ -94,8 +95,8 @@ public class ConsultaInvoiceCursoMB implements Serializable{
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
 	}
-	
-	
+
+
 	public void gerarListaInvoices(){
 		InvoiceFacade invoiceFacade = new InvoiceFacade();
 		String sql = "Select i from Invoice i where i.vendas.idvendas="+ vendas.getIdvendas();
@@ -168,5 +169,19 @@ public class ConsultaInvoiceCursoMB implements Serializable{
 			Mensagem.lancarMensagemInfo("Operação negada", "");
 		}
 	}
+	
+	
+
+	public String novoArquivo(Invoice invoice) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendas", invoice.getVendas());
+		session.setAttribute("invoice", invoice);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 500);
+		RequestContext.getCurrentInstance().openDialog("cadArquivo", options, null);
+		return "";
+	}
+	
 	
 }

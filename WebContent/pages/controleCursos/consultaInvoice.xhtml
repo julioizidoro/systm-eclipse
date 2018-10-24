@@ -9,16 +9,19 @@
 		<h:form id="idtelaconsultainvoices">
 			<div id="centro">
 				<br></br>
-				<p:growl id="growl"  showDetail="true" sticky="false" life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
-				<legend id="iUsu2" style="font-size:15px">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+				<legend id="iUsu2" style="font-size: 15px">
 					<b>Invoice</b>
 				</legend>
-				 <p:commandButton value="Novo" icon="ui-icon-plus" action="#{consultaInvoiceCursoMB.novo()}" class="botaoConsulta" style="font-size:12px;margin-left:80%">
-				 	<p:ajax event="dialogReturn" listener="#{consultaInvoiceCursoMB.gerarListaInvoices()}" update="idtabelaInvoices"/>
-				 </p:commandButton>
-				<br></br>
-				<br></br>
-				<br></br>
+				<p:commandButton value="Novo" icon="ui-icon-plus"
+					action="#{consultaInvoiceCursoMB.novo()}" class="botaoConsulta"
+					style="font-size:12px;margin-left:80%">
+					<p:ajax event="dialogReturn"
+						listener="#{consultaInvoiceCursoMB.gerarListaInvoices()}"
+						update="idtabelaInvoices" />
+				</p:commandButton>
+				<br></br> <br></br> <br></br>
 				<p:dataTable id="idtabelaInvoices" var="invoices"
 					value="#{consultaInvoiceCursoMB.listaInvoices}" class="tabela"
 					scrollable="true" scrollHeight="250"
@@ -38,17 +41,15 @@
 					</p:column>
 					<p:column headerText="Data Previsão"
 						style="text-align:center;width:82px;">
-						<h:outputText
-							value="#{invoices.dataPrevistaPagamento}">
+						<h:outputText value="#{invoices.dataPrevistaPagamento}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					
+
 					<p:column headerText="Recebimento"
 						style="text-align:center;width:82px;">
-						<h:outputText
-							value="#{invoices.datarecebimentocomprovante}">
+						<h:outputText value="#{invoices.datarecebimentocomprovante}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
@@ -72,21 +73,40 @@
 								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					 <p:column  style="width:38px;" styleClass="alinharCenter" >
-                        <p:commandLink action="#{consultaInvoiceCursoMB.editar(invoices)}" style="text-decoration: none" >
-                             <img src="../../resources/img/editaricon.png"/>
-                             <p:ajax event="dialogReturn" listener="#{consultaInvoiceCursoMB.gerarListaInvoices()}" process="@this" update=":idtelaconsultainvoices:idtabelaInvoices"/>
-                         </p:commandLink>
-                     </p:column>
-                     <p:column  style="width:40px;" styleClass="alinharCenter" >
-                          <p:commandLink  action="#{consultaInvoiceCursoMB.excluirInvoice(invoices)}" title="excluir"  update=":idtelaconsultainvoices:idtabelaInvoices, :idtelaconsultainvoices:growl"> 
-                          	<img src="../../resources/img/excluir.png"  />
-                          </p:commandLink>
-                        </p:column>
+					<p:column style="width:38px;" styleClass="alinharCenter">
+						<p:commandLink action="#{consultaInvoiceCursoMB.editar(invoices)}"
+							style="text-decoration: none">
+							<img src="../../resources/img/editaricon.png" />
+							<p:ajax event="dialogReturn"
+								listener="#{consultaInvoiceCursoMB.gerarListaInvoices()}"
+								process="@this"
+								update=":idtelaconsultainvoices:idtabelaInvoices" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:38px;" styleClass="alinharCenter">
+						<p:commandLink action="#{consultaInvoiceCursoMB.novoArquivo(invoices)}"
+							style="text-decoration: none">
+							<img src="../../resources/img/arquivosUpload.png" />
+							<p:ajax event="dialogReturn"
+								listener="#{consultaInvoiceCursoMB.gerarListaInvoices()}"
+								process="@this"
+								update=":idtelaconsultainvoices:idtabelaInvoices" />
+						</p:commandLink>
+					</p:column>
+					<p:column style="width:40px;" styleClass="alinharCenter">
+						<p:commandLink
+							action="#{consultaInvoiceCursoMB.excluirInvoice(invoices)}"
+							title="excluir"
+							update=":idtelaconsultainvoices:idtabelaInvoices, :idtelaconsultainvoices:growl">
+							<img src="../../resources/img/excluir.png" />
+						</p:commandLink>
+					</p:column>
 				</p:dataTable>
-				<p:commandButton value="Voltar" icon="ui-icon-arrowreturnthick-1-w" action="#{consultaInvoiceCursoMB.voltar()}" class="botaoConsulta" style="font-size:12px;margin-left:81%"/>
+				<p:commandButton value="Voltar" icon="ui-icon-arrowreturnthick-1-w"
+					action="#{consultaInvoiceCursoMB.voltar()}" class="botaoConsulta"
+					style="font-size:12px;margin-left:81%" /> 
 				<br></br> <br></br>
-			</div>  
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

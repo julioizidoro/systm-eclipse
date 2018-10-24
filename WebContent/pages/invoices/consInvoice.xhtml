@@ -256,6 +256,12 @@
 							<img src="../../resources/img/deposito.png" width="22" /> 
 						</p:commandLink>
 					</p:column>   
+					<p:column style="width:38px;" styleClass="alinharCenter">
+						<p:commandLink action="#{consultaInvoiceMB.novoArquivo(invoices)}"
+							style="text-decoration: none">
+							<img src="../../resources/img/arquivosUpload.png" />
+						</p:commandLink>
+					</p:column>
 					<p:column style="width:41px;text-align: center;">
 						<p:commandLink
 							action="#{consultaInvoiceMB.abrirObsInvoices(invoices)}"
