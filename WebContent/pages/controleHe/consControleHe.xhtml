@@ -107,7 +107,7 @@
 					</p:column>
 					<p:column headerText="Tipo" style="width:55px;text-align:center;"
 						sortBy="#{controlehe.tipo}">
-						<h:outputText value="#{controlehe.tipo}" />
+						<h:outputText value="#{controlehe.tipo}" />   
 					</p:column>
 					<p:column headerText="Nome" styleClass="alinharCenter"
 						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
@@ -205,9 +205,11 @@
 					</p:column>
 					<p:column headerText="Form. Impresso"
 						style="width:55px;text-align:center;">
-						<img
-							src="#{controlehe.iconeFormImpresso}"
-							width="24" />
+						<p:commandLink action="#{controleHeMB.confirmarImpressao(controlehe)}" update="tabelaControleHe">
+							<img
+								src="#{controlehe.iconeFormImpresso}"
+								width="24" />
+						</p:commandLink>
 					</p:column>
 					<p:column headerText="Opções" style="width:60px;text-align:center;">
 						<p:commandLink id="btnInformacoes" title="Visualizar opções.">

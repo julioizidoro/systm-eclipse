@@ -240,6 +240,15 @@ public class ControleHeMB implements Serializable {
 				} else {
 					listaHeControle.get(i).setPathway("Não");
 				}
+			}else {
+				if (listaHeControle.get(i).getHe().isFichafinal()) {
+					listaHeControle.get(i)
+							.setParceiro(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getFornecedor().getNome());
+					listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getNome());
+					listaHeControle.get(i).setInicioPrograma(
+							listaHeControle.get(i).getHe().getDatainicio());
+					listaHeControle.get(i).setPathway(listaHeControle.get(i).getHe().getCursarparhaway());
+				}
 			}
 		}
 	}
@@ -383,6 +392,15 @@ public class ControleHeMB implements Serializable {
 						.setParceiro(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
 								.getFornecedorcidade().getFornecedor().getNome() + " - "
 								+ listaHeControle.get(i).getHe().getListaHeParceirosList().size());
+			}else {
+				if (listaHeControle.get(i).getHe().isFichafinal()) {
+					listaHeControle.get(i)
+							.setParceiro(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getFornecedor().getNome());
+					listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getNome());
+					listaHeControle.get(i).setInicioPrograma(
+							listaHeControle.get(i).getHe().getDatainicio());
+					listaHeControle.get(i).setPathway(listaHeControle.get(i).getHe().getCursarparhaway());
+				}
 			}
 		}
 	}
@@ -460,6 +478,17 @@ public class ControleHeMB implements Serializable {
 			return "consultaInvoice";
 		}
 		return "";
+	}
+	
+	
+	public void confirmarImpressao(Hecontrole hecontrole) {
+		if (hecontrole.isImpresso()) {
+			hecontrole.setImpresso(false);
+		}else {
+			hecontrole.setImpresso(true);
+		}
+		heControleDao.salvar(hecontrole);
+		listarControle();
 	}
 
 }
