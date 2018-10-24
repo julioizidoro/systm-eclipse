@@ -29,7 +29,7 @@ import br.com.travelmate.util.Mensagem;
 
 @Named
 @ViewScoped
-public class RelatorioHeMB implements Serializable{
+public class RelatorioHeMB implements Serializable {
 
 	/**
 	 * 
@@ -88,11 +88,7 @@ public class RelatorioHeMB implements Serializable{
 	private boolean credito = true;
 	private boolean nomecliente = true;
 	private boolean dataembarque = true;
-	
-	
-	
-	
-	
+
 	@PostConstruct
 	public void init() {
 		listaPais = paisDao.listar();
@@ -100,17 +96,13 @@ public class RelatorioHeMB implements Serializable{
 		listaUnidadeNegocio = GerarListas.listarUnidade();
 	}
 
-
 	public String getAcomodacao() {
 		return acomodacao;
 	}
 
-
-
 	public void setAcomodacao(String acomodacao) {
 		this.acomodacao = acomodacao;
 	}
-
 
 	public Unidadenegocio getUnidadenegocio() {
 		return unidadenegocio;
@@ -120,64 +112,49 @@ public class RelatorioHeMB implements Serializable{
 		this.unidadenegocio = unidadenegocio;
 	}
 
-
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
-
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-
 	public String getPathway() {
 		return pathway;
 	}
-
 
 	public void setPathway(String pathway) {
 		this.pathway = pathway;
 	}
 
-
 	public String getTipovenda() {
 		return tipovenda;
 	}
-
 
 	public void setTipovenda(String tipovenda) {
 		this.tipovenda = tipovenda;
 	}
 
-
 	public List<Usuario> getListaConsultor() {
 		return listaConsultor;
 	}
 
-
-
 	public void setListaConsultor(List<Usuario> listaConsultor) {
 		this.listaConsultor = listaConsultor;
 	}
-	
 
 	public List<Unidadenegocio> getListaUnidadeNegocio() {
 		return listaUnidadeNegocio;
 	}
 
-
 	public void setListaUnidadeNegocio(List<Unidadenegocio> listaUnidadeNegocio) {
 		this.listaUnidadeNegocio = listaUnidadeNegocio;
 	}
 
-
-
 	public Date getDatainivenda() {
 		return datainivenda;
 	}
-
 
 	public void setDatainivenda(Date datainivenda) {
 		this.datainivenda = datainivenda;
@@ -187,36 +164,29 @@ public class RelatorioHeMB implements Serializable{
 		return datafinalvenda;
 	}
 
-
 	public void setDatafinalvenda(Date datafinalvenda) {
 		this.datafinalvenda = datafinalvenda;
 	}
 
-
 	public Date getDatainiembarque() {
 		return datainiembarque;
 	}
-	
-	
+
 	public void setDatainiembarque(Date datainiembarque) {
 		this.datainiembarque = datainiembarque;
 	}
-
 
 	public Date getDatafinalembarque() {
 		return datafinalembarque;
 	}
 
-
 	public void setDatafinalembarque(Date datafinalembarque) {
 		this.datafinalembarque = datafinalembarque;
 	}
 
-
 	public Date getDatainiaplicacao() {
 		return datainiaplicacao;
 	}
-
 
 	public void setDatainiaplicacao(Date datainiaplicacao) {
 		this.datainiaplicacao = datainiaplicacao;
@@ -230,38 +200,30 @@ public class RelatorioHeMB implements Serializable{
 		this.datafinalaplicacao = datafinalaplicacao;
 	}
 
-
 	public String getSql() {
 		return sql;
 	}
-
 
 	public void setSql(String sql) {
 		this.sql = sql;
 	}
 
-
-
 	public Pais getPais() {
 		return pais;
 	}
-
 
 	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
 
-
 	public List<Pais> getListaPais() {
 		return listaPais;
 	}
-
 
 	public void setListaPais(List<Pais> listaPais) {
 		this.listaPais = listaPais;
 	}
 
-	
 	public Cidade getCidade() {
 		return cidade;
 	}
@@ -270,114 +232,89 @@ public class RelatorioHeMB implements Serializable{
 		this.cidade = cidade;
 	}
 
-
 	public Fornecedorcidade getFornecedorcidade() {
 		return fornecedorcidade;
 	}
-
 
 	public void setFornecedorcidade(Fornecedorcidade fornecedorcidade) {
 		this.fornecedorcidade = fornecedorcidade;
 	}
 
-
 	public List<Fornecedorcidade> getListaFornecedorCidade() {
 		return listaFornecedorCidade;
 	}
 
-
 	public void setListaFornecedorCidade(List<Fornecedorcidade> listaFornecedorCidade) {
 		this.listaFornecedorCidade = listaFornecedorCidade;
 	}
-	
 
 	public Date getDatainiprevisao() {
 		return datainiprevisao;
 	}
 
-
 	public void setDatainiprevisao(Date datainiprevisao) {
 		this.datainiprevisao = datainiprevisao;
 	}
-
 
 	public Date getDatafinalprevisao() {
 		return datafinalprevisao;
 	}
 
-
 	public void setDatafinalprevisao(Date datafinalprevisao) {
 		this.datafinalprevisao = datafinalprevisao;
 	}
-
 
 	public Date getDatainipagamento() {
 		return datainipagamento;
 	}
 
-
 	public void setDatainipagamento(Date datainipagamento) {
 		this.datainipagamento = datainipagamento;
 	}
-
 
 	public Date getDatafinalpagamento() {
 		return datafinalpagamento;
 	}
 
-
 	public void setDatafinalpagamento(Date datafinalpagamento) {
 		this.datafinalpagamento = datafinalpagamento;
 	}
-
 
 	public Date getDatainiprograma() {
 		return datainiprograma;
 	}
 
-
 	public void setDatainiprograma(Date datainiprograma) {
 		this.datainiprograma = datainiprograma;
 	}
-
 
 	public Date getDatafinalprograma() {
 		return datafinalprograma;
 	}
 
-
 	public void setDatafinalprograma(Date datafinalprograma) {
 		this.datafinalprograma = datafinalprograma;
 	}
 
-	
 	public String getOrdenar() {
 		return ordenar;
 	}
-
 
 	public void setOrdenar(String ordenar) {
 		this.ordenar = ordenar;
 	}
 
-
-
 	public List<Hecontrole> getListaHeControle() {
 		return listaHeControle;
 	}
-
-
 
 	public void setListaHeControle(List<Hecontrole> listaHeControle) {
 		this.listaHeControle = listaHeControle;
 	}
 
-
-
 	public boolean isSelecionartodos() {
 		return selecionartodos;
 	}
-
 
 	public void setSelecionartodos(boolean selecionartodos) {
 		this.selecionartodos = selecionartodos;
@@ -387,59 +324,45 @@ public class RelatorioHeMB implements Serializable{
 		return idvenda;
 	}
 
-
-
 	public void setIdvenda(boolean idvenda) {
 		this.idvenda = idvenda;
 	}
-
-
 
 	public boolean isUnidade() {
 		return unidade;
 	}
 
-
-
 	public void setUnidade(boolean unidade) {
 		this.unidade = unidade;
 	}
-
 
 	public boolean isConsultor() {
 		return consultor;
 	}
 
-
 	public void setConsultor(boolean consultor) {
 		this.consultor = consultor;
 	}
-
 
 	public boolean isTipo() {
 		return tipo;
 	}
 
-
 	public void setTipo(boolean tipo) {
 		this.tipo = tipo;
 	}
-
 
 	public boolean isDatavenda() {
 		return datavenda;
 	}
 
-
 	public void setDatavenda(boolean datavenda) {
 		this.datavenda = datavenda;
 	}
 
-
 	public boolean isPaisVisu() {
 		return paisVisu;
 	}
-
 
 	public void setPaisVisu(boolean paisVisu) {
 		this.paisVisu = paisVisu;
@@ -449,11 +372,9 @@ public class RelatorioHeMB implements Serializable{
 		return cidadeVisu;
 	}
 
-
 	public void setCidadeVisu(boolean cidadeVisu) {
 		this.cidadeVisu = cidadeVisu;
 	}
-
 
 	public boolean isParceiro() {
 		return parceiro;
@@ -463,7 +384,6 @@ public class RelatorioHeMB implements Serializable{
 		this.parceiro = parceiro;
 	}
 
-
 	public boolean isInicioprograma() {
 		return inicioprograma;
 	}
@@ -472,11 +392,9 @@ public class RelatorioHeMB implements Serializable{
 		this.inicioprograma = inicioprograma;
 	}
 
-
 	public boolean isAcomodacaoVisu() {
 		return acomodacaoVisu;
 	}
-
 
 	public void setAcomodacaoVisu(boolean acomodacaoVisu) {
 		this.acomodacaoVisu = acomodacaoVisu;
@@ -486,11 +404,9 @@ public class RelatorioHeMB implements Serializable{
 		return dataaplicacao;
 	}
 
-
 	public void setDataaplicacao(boolean dataaplicacao) {
 		this.dataaplicacao = dataaplicacao;
 	}
-
 
 	public boolean isPrevisaopagamento() {
 		return previsaopagamento;
@@ -500,7 +416,6 @@ public class RelatorioHeMB implements Serializable{
 		this.previsaopagamento = previsaopagamento;
 	}
 
-
 	public boolean isDatapagamento() {
 		return datapagamento;
 	}
@@ -509,26 +424,21 @@ public class RelatorioHeMB implements Serializable{
 		this.datapagamento = datapagamento;
 	}
 
-
 	public boolean isPathwayVisu() {
 		return pathwayVisu;
 	}
-
 
 	public void setPathwayVisu(boolean pathwayVisu) {
 		this.pathwayVisu = pathwayVisu;
 	}
 
-
 	public boolean isSituacaovenda() {
 		return situacaovenda;
 	}
 
-
 	public void setSituacaovenda(boolean situacaovenda) {
 		this.situacaovenda = situacaovenda;
 	}
-
 
 	public boolean isSituacaogerencia() {
 		return situacaogerencia;
@@ -542,52 +452,41 @@ public class RelatorioHeMB implements Serializable{
 		return tipoinvoice;
 	}
 
-
 	public void setTipoinvoice(boolean tipoinvoice) {
 		this.tipoinvoice = tipoinvoice;
 	}
-
 
 	public boolean isValornet() {
 		return valornet;
 	}
 
-
 	public void setValornet(boolean valornet) {
 		this.valornet = valornet;
 	}
-
 
 	public boolean isCredito() {
 		return credito;
 	}
 
-
 	public void setCredito(boolean credito) {
 		this.credito = credito;
 	}
 
-
-	
 	public boolean isNomecliente() {
 		return nomecliente;
 	}
-
 
 	public void setNomecliente(boolean nomecliente) {
 		this.nomecliente = nomecliente;
 	}
 
-
 	public boolean isDataembarque() {
 		return dataembarque;
 	}
 
-
 	public void setDataembarque(boolean dataembarque) {
 		this.dataembarque = dataembarque;
 	}
-
 
 	public void gerarListaFornecedor() {
 		String sql = "select distinct f from Fornecedorcidade f where f.produtos.idprodutos=22 ";
@@ -598,98 +497,95 @@ public class RelatorioHeMB implements Serializable{
 		FornecedorCidadeFacade fornecedorCidadeFacade = new FornecedorCidadeFacade();
 		listaFornecedorCidade = fornecedorCidadeFacade.listar(sql);
 	}
-	
-	
+
 	public void gerarListaConsultor() {
 		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 			listaConsultor = GerarListas.listarUsuarios(
 					"Select u FROM Usuario u where u.situacao='Ativo'" + " and u.unidadenegocio.idunidadeNegocio="
 							+ unidadenegocio.getIdunidadeNegocio() + " order by u.nome");
-		}else {
-			listaConsultor = GerarListas.listarUsuarios(
-					"Select u FROM Usuario u where u.situacao='Ativo' order by u.nome");
+		} else {
+			listaConsultor = GerarListas
+					.listarUsuarios("Select u FROM Usuario u where u.situacao='Ativo' order by u.nome");
 		}
 		usuario = null;
 	}
-	
-	
-	
+
 	public void pesquisar() {
 		String sql = "SELECT h FROM Hecontrole h WHERE h.he.vendas.cliente.nome like '%%' ";
-		
+
 		if (pais != null && pais.getIdpais() != null) {
 			sql = sql + " AND h.he.vendas.fornecedorcidade.cidade.pais.idpais=" + pais.getIdpais();
 		}
-		
+
 		if (cidade != null && cidade.getIdcidade() != null) {
 			sql = sql + " AND h.he.vendas.fornecedorcidade.cidade.idcidade=" + cidade.getIdcidade();
 		}
-		
+
 		if (fornecedorcidade != null && fornecedorcidade.getIdfornecedorcidade() != null) {
-			sql = sql + " AND h.he.vendas.fornecedorcidade.fornecedor.idfornecedor=" + fornecedorcidade.getFornecedor().getIdfornecedor();
+			sql = sql + " AND h.he.vendas.fornecedorcidade.fornecedor.idfornecedor="
+					+ fornecedorcidade.getFornecedor().getIdfornecedor();
 		}
-		
+
 		if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 			sql = sql + " AND h.he.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
 		}
-		
+
 		if (usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " AND h.he.vendas.usuario.idusuario=" + usuario.getIdusuario();
 		}
-		
+
 		if (tipovenda != null && tipovenda.length() > 0 && !tipovenda.equalsIgnoreCase("Selecione")) {
 			if (tipovenda.equalsIgnoreCase("Formulário")) {
 				sql = sql + " AND h.he.fichafinal=false ";
-			}else {
+			} else {
 				sql = sql + " AND h.he.fichafinal=true ";
 			}
 		}
 
 		if (datainivenda != null && datafinalvenda != null) {
-			sql = sql+ " AND h.he.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(datainivenda) + "' AND h.he.vendas.dataVenda<='" 
-					+ Formatacao.ConvercaoDataSql(datafinalvenda) + "'"; 
+			sql = sql + " AND h.he.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(datainivenda)
+					+ "' AND h.he.vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(datafinalvenda) + "'";
 		}
-		
 
 		if (datainiaplicacao != null && datafinalaplicacao != null) {
-			sql = sql+ " AND h.dataaplicacaoenviada>='" + Formatacao.ConvercaoDataSql(datainiaplicacao) + "' AND h.dataaplicacaoenviada<='" 
-					+ Formatacao.ConvercaoDataSql(datafinalaplicacao) + "'"; 
+			sql = sql + " AND h.dataaplicacaoenviada>='" + Formatacao.ConvercaoDataSql(datainiaplicacao)
+					+ "' AND h.dataaplicacaoenviada<='" + Formatacao.ConvercaoDataSql(datafinalaplicacao) + "'";
 		}
-		
 
 		if (datainiembarque != null && datafinalembarque != null) {
-			sql = sql+ " AND h.dataembarque>='" + Formatacao.ConvercaoDataSql(datainiembarque) + "' AND h.dataembarque<='" 
-					+ Formatacao.ConvercaoDataSql(datafinalembarque) + "'"; 
+			sql = sql + " AND h.dataembarque>='" + Formatacao.ConvercaoDataSql(datainiembarque)
+					+ "' AND h.dataembarque<='" + Formatacao.ConvercaoDataSql(datafinalembarque) + "'";
 		}
-		
-		
+
 		if (datainiprevisao != null && datafinalprevisao != null) {
-			sql = sql+ " AND h.he.vendas.invoice.dataPrevistaPagamento>='" + Formatacao.ConvercaoDataSql(datainiprevisao) + "' AND h.he.vendas.invoice.dataPrevistaPagamento<='" 
-					+ Formatacao.ConvercaoDataSql(datafinalprevisao) + "'"; 
+			sql = sql + " AND h.he.vendas.invoice.dataPrevistaPagamento>='"
+					+ Formatacao.ConvercaoDataSql(datainiprevisao)
+					+ "' AND h.he.vendas.invoice.dataPrevistaPagamento<='"
+					+ Formatacao.ConvercaoDataSql(datafinalprevisao) + "'";
 		}
-		
 
 		if (datainipagamento != null && datafinalpagamento != null) {
-			sql = sql+ " AND h.he.invoice.dataPagamentoInvoice>='" + Formatacao.ConvercaoDataSql(datainipagamento) + "' AND h.he.invoice.dataPagamentoInvoice<='" 
-					+ Formatacao.ConvercaoDataSql(datafinalpagamento) + "'"; 
+			sql = sql + " AND h.he.vendas.invoice.dataPagamentoInvoice>='"
+					+ Formatacao.ConvercaoDataSql(datainipagamento)
+					+ "' AND h.he.vendas.invoice.dataPagamentoInvoice<='"
+					+ Formatacao.ConvercaoDataSql(datafinalpagamento) + "'";
 		}
-		
+
 		if (acomodacao != null && !acomodacao.equalsIgnoreCase("Selecione")) {
 			if (acomodacao.equalsIgnoreCase("Sim")) {
 				sql = sql + " AND h.he.tipoAcomodacao<>'Sem acomodação'";
-			}else if(acomodacao.equalsIgnoreCase("Não")) {
+			} else if (acomodacao.equalsIgnoreCase("Não")) {
 				sql = sql + " AND h.he.tipoAcomodacao='Sem acomodação'";
 			}
 		}
-		
-		//DEIXAR SEMPRE ESTE IF POR ÚLTIMO ANTES DE CONSULTAR NA BASE
+
+		// DEIXAR SEMPRE ESTE IF POR ÚLTIMO ANTES DE CONSULTAR NA BASE
 		if (ordenar != null && ordenar.length() > 0) {
 			sql = sql + " order by " + ordenar;
 		}
-		
-		
+
 		listaHeControle = heControleDao.listar(sql);
-		
+
 		if (listaHeControle == null) {
 			listaHeControle = new ArrayList<Hecontrole>();
 		}
@@ -699,7 +595,7 @@ public class RelatorioHeMB implements Serializable{
 		for (int i = 0; i < listaHeControle.size(); i++) {
 			if (listaHeControle.get(i).getHe().getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
 				listaHeControle.get(i).setAcomodacao("Não");
-			}else {
+			} else {
 				listaHeControle.get(i).setAcomodacao("Sim");
 			}
 			if (listaHeControle.get(i).getHe().isFichafinal()) {
@@ -707,51 +603,69 @@ public class RelatorioHeMB implements Serializable{
 			} else {
 				listaHeControle.get(i).setTipo("Formulário");
 			}
-			if (listaHeControle.get(i).getHe().getListaHeParceirosList() != null && listaHeControle.get(i).getHe().getListaHeParceirosList().size() > 0) {
+			if (listaHeControle.get(i).getHe().getListaHeParceirosList() != null
+					&& listaHeControle.get(i).getHe().getListaHeParceirosList().size() > 0) {
 				listaHeControle.get(i)
-					.setParceiro(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
-						.getFornecedorcidade().getFornecedor().getNome() + " - "
-						+ listaHeControle.get(i).getHe().getListaHeParceirosList().size());
-				listaHeControle.get(i).setPais(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getFornecedorcidade().getCidade().getPais().getNome());
-				listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getFornecedorcidade().getCidade().getNome());
-				listaHeControle.get(i).setInicioPrograma(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio());
+						.setParceiro(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
+								.getFornecedorcidade().getFornecedor().getNome() + " - "
+								+ listaHeControle.get(i).getHe().getListaHeParceirosList().size());
+				listaHeControle.get(i).setPais(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
+						.getFornecedorcidade().getCidade().getPais().getNome());
+				listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
+						.getFornecedorcidade().getCidade().getNome());
+				listaHeControle.get(i).setInicioPrograma(
+						listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio());
 				if (listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).isPathway()) {
 					listaHeControle.get(i).setPathway("Sim");
-				}else {
+				} else {
 					listaHeControle.get(i).setPathway("Não");
 				}
 				if (datainiprograma != null && datafinalprograma != null) {
 					inicioPrograma = true;
-					if ((listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().after(datainiprograma) && 
-							listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().before(datafinalprograma)) ||
-							listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().equals(datainiprograma) ||
-									listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio().equals(datafinalprograma)) {
+					if ((listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio()
+							.after(datainiprograma)
+							&& listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio()
+									.before(datafinalprograma))
+							|| listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio()
+									.equals(datainiprograma)
+							|| listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio()
+									.equals(datafinalprograma)) {
 						listaControle.add(listaHeControle.get(i));
 					}
-				}else if(pathway != null && !pathway.equalsIgnoreCase("Selecione")) {
+				} else if (pathway != null && !pathway.equalsIgnoreCase("Selecione")) {
 					if (pathway.equalsIgnoreCase("Sim")) {
 						path = true;
 						if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Sim")) {
 							listaControle.add(listaHeControle.get(i));
 						}
-					}else if(pathway.equalsIgnoreCase("Não")) {
+					} else if (pathway.equalsIgnoreCase("Não")) {
 						path = true;
 						if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Não")) {
 							listaControle.add(listaHeControle.get(i));
 						}
 					}
 				}
-			}else {
-				listaHeControle.get(i).setPathway("Não");
-				if (pathway.equalsIgnoreCase("Sim")) {
-					path = true;
-					if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Sim")) {
-						listaControle.add(listaHeControle.get(i));
-					}
-				}else if(pathway.equalsIgnoreCase("Não")) {
-					path = true;
-					if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Não")) {
-						listaControle.add(listaHeControle.get(i));
+			} else {
+				if (listaHeControle.get(i).getHe().isFichafinal()) {
+					listaHeControle.get(i)
+							.setParceiro(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getFornecedor().getNome());
+					listaHeControle.get(i).setPais(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getPais().getNome());
+					listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getNome());
+					listaHeControle.get(i).setInicioPrograma(
+							listaHeControle.get(i).getHe().getDatainicio());
+					listaHeControle.get(i).setPathway(listaHeControle.get(i).getHe().getCursarparhaway());
+				}else {
+					listaHeControle.get(i).setPathway("Não");
+					if (pathway.equalsIgnoreCase("Sim")) {
+						path = true;
+						if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Sim")) {
+							listaControle.add(listaHeControle.get(i));
+						}
+					} else if (pathway.equalsIgnoreCase("Não")) {
+						path = true;
+						if (listaHeControle.get(i).getPathway().equalsIgnoreCase("Não")) {
+							listaControle.add(listaHeControle.get(i));
+						}
 					}
 				}
 			}
@@ -759,8 +673,8 @@ public class RelatorioHeMB implements Serializable{
 		if (inicioPrograma || path) {
 			listaHeControle = listaControle;
 		}
-	}   
-	
+	}
+
 	public void limpar() {
 		datainiaplicacao = null;
 		datafinalaplicacao = null;
@@ -785,10 +699,9 @@ public class RelatorioHeMB implements Serializable{
 		ordenar = "";
 		acomodacao = "";
 		listaHeControle = new ArrayList<Hecontrole>();
-		
+
 	}
-	
-	
+
 	public void selecionartodos() {
 		if (!selecionartodos) {
 			selecionartodos = false;
@@ -813,7 +726,7 @@ public class RelatorioHeMB implements Serializable{
 			credito = false;
 			nomecliente = false;
 			dataembarque = false;
-		}else {
+		} else {
 			selecionartodos = true;
 			idvenda = true;
 			unidade = true;
@@ -838,21 +751,20 @@ public class RelatorioHeMB implements Serializable{
 			dataembarque = true;
 		}
 	}
-	
-	
 
 	public void visualizarParceiros(Hecontrole hecontrole) {
 		if (hecontrole.getHe().getListaHeParceirosList() != null
 				&& hecontrole.getHe().getListaHeParceirosList().size() > 0) {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("listaHeParceiros", hecontrole.getHe().getListaHeParceirosList());
-			session.setAttribute("voltar", "consControleHe");
-			RequestContext.getCurrentInstance().openDialog("visualizarParceiros");
+			if (hecontrole.getHe().getListaHeParceirosList().size() > 1) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("listaHeParceiros", hecontrole.getHe().getListaHeParceirosList());
+				session.setAttribute("voltar", "consControleHe");
+				RequestContext.getCurrentInstance().openDialog("visualizarParceiros");
+			}
 		} else {
 			Mensagem.lancarMensagemInfo("Nenhum parceiro encontrado", "");
 		}
 	}
-	
 
 }

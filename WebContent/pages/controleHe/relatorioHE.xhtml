@@ -607,16 +607,20 @@
 					<p:column headerText="Valor Net" styleClass="alinharCenter"
 						rendered="#{relatorioHeMB.valornet}"
 						sortBy="#{controlehe.he.vendas.invoice.valorPago}"
-						style="width:110px;">
-						<h:outputText value="#{controlehe.he.vendas.invoice.valorPago}" />
+						style="width:90px;text-align:right;">
+						<h:outputText value="#{controlehe.he.vendas.invoice.valorPago}" >
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText>
 					</p:column>
 
 
 					<p:column headerText="Crédito" styleClass="alinharCenter"
 						rendered="#{relatorioHeMB.credito}"
 						sortBy="#{controlehe.he.vendas.invoice.valorcredito}"
-						style="width:110px;">
-						<h:outputText value="#{controlehe.he.vendas.invoice.valorcredito}" />
+						style="width:90px;text-align:right;">
+						<h:outputText value="#{controlehe.he.vendas.invoice.valorcredito}" >
+							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						</h:outputText>
 					</p:column>
 
 				</p:dataTable>

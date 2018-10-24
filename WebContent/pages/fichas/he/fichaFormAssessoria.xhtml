@@ -223,6 +223,11 @@
 						<h:panelGroup>
 							<b>Código: </b> #{heparceiros.hecodigo}</h:panelGroup>
 						<h:panelGroup>
+							<b>Data Início Curso: </b>
+									<h:outputText value="#{heparceiros.datainiciohe}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
 						</h:panelGroup>
 							
 							<h:panelGroup/>

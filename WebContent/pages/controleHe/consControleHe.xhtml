@@ -105,9 +105,9 @@
 						sortBy="#{controlehe.he.vendas.idvendas}">
 						<h:outputText value="#{controlehe.he.vendas.idvendas}" />
 					</p:column>
-					<p:column headerText="Tipo" style="width:55px;text-align:center;"
+					<p:column headerText="Tipo" style="width:60px;text-align:left;"
 						sortBy="#{controlehe.tipo}">
-						<h:outputText value="#{controlehe.tipo}" />
+						<h:outputText value="#{controlehe.tipo}" />   
 					</p:column>
 					<p:column headerText="Nome" styleClass="alinharCenter"
 						sortBy="#{controlehe.he.vendas.cliente.nome}" style="width:110px;">
@@ -121,7 +121,7 @@
 					</p:column>
 					<p:column headerText="Data Venda"
 						sortBy="#{controlehe.he.vendas.dataVenda}"
-						style="text-align:left;width:55px;">
+						style="text-align:left;width:65px;">
 						<h:outputText value="#{controlehe.he.vendas.dataVenda}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
@@ -160,7 +160,7 @@
 					</p:column>
 					<p:column headerText="Data Finalizada"
 						sortBy="#{controlehe.datafichafinalizada}"
-						style="text-align:left;width:77px;">
+						style="text-align:left;width:80px;">
 						<h:outputText value="#{controlehe.datafichafinalizada}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
@@ -168,7 +168,7 @@
 					</p:column>
 					<p:column headerText="Data Aplicação"
 						sortBy="#{controlehe.dataaplicacaoenviada}"
-						style="text-align:left;width:75px;">
+						style="text-align:left;width:80px;">
 						<h:outputText value="#{controlehe.dataaplicacaoenviada}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
@@ -193,9 +193,16 @@
 						styleClass="alinharCenter">
 						<h:outputText value="#{controlehe.pathway}" />
 					</p:column>
+					<p:column headerText="Início Pathway"
+						style="text-align:left;width:62px;">
+						<h:outputText value="#{controlehe.inicioPathway}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
 					<p:column headerText="Unidade" styleClass="alinharCenter"
 						sortBy="#{controlehe.he.vendas.unidadenegocio.nomerelatorio}"
-						style="width:92px;">
+						style="width:82px;">
 						<h:outputText
 							value="#{controlehe.he.vendas.unidadenegocio.nomerelatorio}" />
 					</p:column>
@@ -205,9 +212,11 @@
 					</p:column>
 					<p:column headerText="Form. Impresso"
 						style="width:55px;text-align:center;">
-						<img
-							src="#{controlehe.iconeFormImpresso}"
-							width="24" />
+						<p:commandLink action="#{controleHeMB.confirmarImpressao(controlehe)}" update="tabelaControleHe">
+							<img
+								src="#{controlehe.iconeFormImpresso}"
+								width="24" />
+						</p:commandLink>
 					</p:column>
 					<p:column headerText="Opções" style="width:60px;text-align:center;">
 						<p:commandLink id="btnInformacoes" title="Visualizar opções.">

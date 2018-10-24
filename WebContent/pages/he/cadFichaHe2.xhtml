@@ -104,26 +104,34 @@
 							
 						</h:panelGrid>
 						<br />
-						<h:panelGrid columns="2"
+						<h:panelGrid columns="3"
 							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
 							style="width:80%;margin-left:8%;">
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
-								<p:outputLabel value="" style="margin-left: 35%;" />
 							</h:panelGroup>
+							
+							<p:outputLabel value="Data Início"/>
 
 							<p:inputText id="curso1" style="width:85%;"
 								value="#{cadHeFinalMB.he.curso1}"
 								 />
 							<h:panelGroup>
-								<p:inputText id="codigo1" style="width:40%;"
+								<p:inputText id="codigo1" style="width:86%;"
 									value="#{cadHeFinalMB.he.codigo1}"
 									 />
 								<p:outputLabel/>
 							</h:panelGroup>
 							
-							<p:outputLabel />
+							<p:calendar id="datainiciohe1"
+								value="#{cadHeFinalMB.he.datainiciohe}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
 						</h:panelGrid>
 						<br /><br />
 						<h:panelGrid columns="2"

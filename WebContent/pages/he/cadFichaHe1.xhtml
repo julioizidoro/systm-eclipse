@@ -115,26 +115,33 @@
 							
 						</h:panelGrid>
 						<br />
-						<h:panelGrid columns="2"
+						<h:panelGrid columns="3"
 							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
 							style="width:80%;margin-left:8%;">
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
-								<p:outputLabel value="" style="margin-left: 35%;" />
 							</h:panelGroup>
+							
+							<p:outputLabel value="Data Início"  />
 
 							<p:inputText id="curso1" style="width:85%;"
 								value="#{cadHeInscricaoMB.heparceiros1.hecurso}"
 								 />
 							<h:panelGroup>
-								<p:inputText id="codigo1" style="width:40%;"
+								<p:inputText id="codigo1" style="width:86%;"
 									value="#{cadHeInscricaoMB.heparceiros1.hecodigo}"
 									 />
-								<p:outputLabel/>
 							</h:panelGroup>
 							
-							<p:outputLabel />
+							<p:calendar id="datainiciohe1"
+								value="#{cadHeInscricaoMB.heparceiros1.datainiciohe}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
 						</h:panelGrid>
 						<br /><br />
 						<h:panelGrid columns="2"
@@ -185,7 +192,7 @@
 							style="width:80%;margin-left:8%;">
 							<h:panelGroup>
 								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposHe2}">
-									<p:ajax event="change" update="curso2, codigo2, pais2, cidade2, fornecedor2" listener="#{cadHeInscricaoMB.gerarHeParceiro2()}"/>
+									<p:ajax event="change" update="curso2, codigo2, pais2, cidade2, fornecedor2, datainiciohe2" listener="#{cadHeInscricaoMB.gerarHeParceiro2()}"/>
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="2º Opção" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:1%;"/>    
 							</h:panelGroup>    
@@ -244,26 +251,34 @@
 							
 						</h:panelGrid>
 						<br />
-						<h:panelGrid columns="2"
+						<h:panelGrid columns="3"
 							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
 							style="width:80%;margin-left:8%;">
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
-								<p:outputLabel value="" style="margin-left: 31%;" />
 							</h:panelGroup>
+							
+							<p:outputLabel value="Data Início"/>
 
 							<p:inputText id="curso2" style="width:85%;"
 								value="#{cadHeInscricaoMB.heparceiros2.hecurso}"
 								disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}" />
 							<h:panelGroup>
-								<p:inputText id="codigo2" style="width:40%;"
+								<p:inputText id="codigo2" style="width:86%;"
 									value="#{cadHeInscricaoMB.heparceiros2.hecodigo}"
 									disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}" />
 								<p:outputLabel/>
 							</h:panelGroup>
 							
-							<p:outputLabel />
+							<p:calendar id="datainiciohe2" disabled="#{cadHeInscricaoMB.habilitarCamposHe2()}"
+								value="#{cadHeInscricaoMB.heparceiros2.datainiciohe}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
 						</h:panelGrid>
 						<br /><br />
 						<h:panelGrid columns="2"
@@ -315,7 +330,7 @@
 							style="width:80%;margin-left:8%;">
 							<h:panelGroup>
 								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposHe3}">
-									<p:ajax event="change" update="curso3, codigo3, pais3, cidade3, fornecedor3" listener="#{cadHeInscricaoMB.gerarHeParceiro3()}"/>
+									<p:ajax event="change" update="curso3, codigo3, pais3, cidade3, fornecedor3, datainiciohe3" listener="#{cadHeInscricaoMB.gerarHeParceiro3()}"/>
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="3º Opção" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:1%;"/>    
 							</h:panelGroup>    
@@ -374,26 +389,34 @@
 							
 						</h:panelGrid>
 						<br />
-						<h:panelGrid columns="2"
+						<h:panelGrid columns="3"
 							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"
 							style="width:80%;margin-left:8%;">
 							<p:outputLabel value="Curso" />
 							<h:panelGroup>
 								<p:outputLabel value="Código" />
-								<p:outputLabel value="" style="margin-left: 31%;" />
 							</h:panelGroup>
+							
+							<p:outputLabel value="Data Início"/>
 
 							<p:inputText id="curso3" style="width:85%;" disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}"
 								value="#{cadHeInscricaoMB.heparceiros3.hecurso}"
 								 />
 							<h:panelGroup>
-								<p:inputText id="codigo3" style="width:40%;"
+								<p:inputText id="codigo3" style="width:86%;"
 									value="#{cadHeInscricaoMB.heparceiros3.hecodigo}"
 									disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}" />
 								<p:outputLabel/>
 							</h:panelGroup>
 							
-							<p:outputLabel />
+							<p:calendar id="datainiciohe3" disabled="#{cadHeInscricaoMB.habilitarCamposHe3()}"
+								value="#{cadHeInscricaoMB.heparceiros3.datainiciohe}" size="14" locale="pt"
+								pattern="dd/MM/yyyy" mask="true">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="change" />
+								<p:ajax event="dateSelect" />
+							</p:calendar>
 						</h:panelGrid>
 						<br /><br />
 						<h:panelGrid columns="2"

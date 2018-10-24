@@ -50,17 +50,17 @@
 	               </p:inputText>	
 	              </h:panelGrid>
                <br></br> 
-         	   <h:panelGrid columns="2" style="margin-left:5%;width:52%;">
+         	   <h:panelGrid columns="2" style="margin-left:5%;width:63%;">
                		<p:outputLabel value="Tipo" for="tipo" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"   />
          	   		<p:outputLabel value="Valor Crédito" for="valorCredito" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"   />
          	   		
 	         	   <p:selectOneMenu id="tipo" value="#{invoicesControllerMB.invoice.tipo}"
-						style="width:113px;">
+						style="width:160px;">
 						<f:selectItem itemLabel="Programa" itemValue="Programa" />
 						<f:selectItem itemLabel="Acomodação" itemValue="Acomodação" />
 						<f:selectItem itemLabel="Outros" itemValue="Outros" />
 				   </p:selectOneMenu>
-				   <p:inputText id="valorCredito" value="#{invoicesControllerMB.invoice.valorcredito}" style="width:60%;text-align:right" >
+				   <p:inputText id="valorCredito" value="#{invoicesControllerMB.invoice.valorcredito}" style="width:50%;text-align:right" >
 	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 	               </p:inputText>
 	           </h:panelGrid>

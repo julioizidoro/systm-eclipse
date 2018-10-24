@@ -1248,15 +1248,7 @@ public class CadHeFinalMB implements Serializable {
 			he.setVendas(venda);
 			CadHeBean cadHeBean = new CadHeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 			he.setFichafinal(true);
-			boolean salvarControle = false;
-			if (he.getIdhe() == null) {
-				salvarControle = true;
-			}
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "F");
-			if (salvarControle) {
-				HeControleBean heControleBean = new HeControleBean();
-				heControleBean.salvar(heControleDao, he);
-			}
 			float valorCambioBrasil = 0.0f;
 			if (cambioBrasil != null) {
 				valorCambioBrasil = cambioBrasil.getValor();

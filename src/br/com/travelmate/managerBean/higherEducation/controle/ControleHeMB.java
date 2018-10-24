@@ -234,11 +234,23 @@ public class ControleHeMB implements Serializable {
 						.setParceiro(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
 								.getFornecedorcidade().getFornecedor().getNome() + " - "
 								+ listaHeControle.get(i).getHe().getListaHeParceirosList().size());
-				listaHeControle.get(i).setInicioPrograma(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio());
+				listaHeControle.get(i).setInicioPrograma(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainiciohe());
+				listaHeControle.get(i).setInicioPathway(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio());
 				if (listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).isPathway()) {
 					listaHeControle.get(i).setPathway("Sim");
 				} else {
 					listaHeControle.get(i).setPathway("Não");
+				}
+			}else {
+				if (listaHeControle.get(i).getHe().isFichafinal()) {
+					listaHeControle.get(i)
+							.setParceiro(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getFornecedor().getNome());
+					listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getNome());
+					listaHeControle.get(i).setInicioPrograma(
+							listaHeControle.get(i).getHe().getDatainiciohe());
+					listaHeControle.get(i).setPathway(listaHeControle.get(i).getHe().getCursarparhaway());
+					listaHeControle.get(i).setInicioPathway(
+							listaHeControle.get(i).getHe().getDatainicio());
 				}
 			}
 		}
@@ -383,6 +395,15 @@ public class ControleHeMB implements Serializable {
 						.setParceiro(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
 								.getFornecedorcidade().getFornecedor().getNome() + " - "
 								+ listaHeControle.get(i).getHe().getListaHeParceirosList().size());
+			}else {
+				if (listaHeControle.get(i).getHe().isFichafinal()) {
+					listaHeControle.get(i)
+							.setParceiro(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getFornecedor().getNome());
+					listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getNome());
+					listaHeControle.get(i).setInicioPrograma(
+							listaHeControle.get(i).getHe().getDatainicio());
+					listaHeControle.get(i).setPathway(listaHeControle.get(i).getHe().getCursarparhaway());
+				}
 			}
 		}
 	}
@@ -409,11 +430,13 @@ public class ControleHeMB implements Serializable {
 	public void visualizarParceiros(Hecontrole hecontrole) {
 		if (hecontrole.getHe().getListaHeParceirosList() != null
 				&& hecontrole.getHe().getListaHeParceirosList().size() > 0) {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("listaHeParceiros", hecontrole.getHe().getListaHeParceirosList());
-			session.setAttribute("voltar", "consControleHe");
-			RequestContext.getCurrentInstance().openDialog("visualizarParceiros");
+			if (hecontrole.getHe().getListaHeParceirosList().size() > 1) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+				session.setAttribute("listaHeParceiros", hecontrole.getHe().getListaHeParceirosList());
+				session.setAttribute("voltar", "consControleHe");
+				RequestContext.getCurrentInstance().openDialog("visualizarParceiros");
+			}
 		} else {
 			Mensagem.lancarMensagemInfo("Nenhum parceiro encontrado", "");
 		}
@@ -460,6 +483,17 @@ public class ControleHeMB implements Serializable {
 			return "consultaInvoice";
 		}
 		return "";
+	}
+	
+	
+	public void confirmarImpressao(Hecontrole hecontrole) {
+		if (hecontrole.isImpresso()) {
+			hecontrole.setImpresso(false);
+		}else {
+			hecontrole.setImpresso(true);
+		}
+		heControleDao.salvar(hecontrole);
+		listarControle();
 	}
 
 }

@@ -207,6 +207,9 @@ public class He implements Serializable {
 	private float notaredacao;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "he")
 	private List<Heparceiros> listaHeParceirosList;
+    @Column(name = "datainiciohe")
+    @Temporal(TemporalType.DATE)
+    private Date datainiciohe; 
     
 
     public He() {
@@ -779,6 +782,14 @@ public class He implements Serializable {
 
 	public void setListaHeParceirosList(List<Heparceiros> listaHeParceirosList) {
 		this.listaHeParceirosList = listaHeParceirosList;
+	}
+
+	public Date getDatainiciohe() {
+		return datainiciohe;
+	}
+
+	public void setDatainiciohe(Date datainiciohe) {
+		this.datainiciohe = datainiciohe;
 	}
 
 	@Override

@@ -55,6 +55,9 @@ public class Heparceiros implements Serializable {
     private He he;
     @Transient
     private String temPathWay;
+    @Column(name = "datainiciohe")
+    @Temporal(TemporalType.DATE)
+    private Date datainiciohe; 
     
     
 	public Heparceiros() {
@@ -169,6 +172,16 @@ public class Heparceiros implements Serializable {
 
 	public void setTemPathWay(String temPathWay) {
 		this.temPathWay = temPathWay;
+	}
+
+
+	public Date getDatainiciohe() {
+		return datainiciohe;
+	}
+
+
+	public void setDatainiciohe(Date datainiciohe) {
+		this.datainiciohe = datainiciohe;
 	}
 
 

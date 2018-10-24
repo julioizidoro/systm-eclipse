@@ -197,6 +197,11 @@
 						<h:panelGroup>
 							<b>Código: </b> #{fichaHEMB.he.codigo1}</h:panelGroup>
 						<h:panelGroup>
+								<b>Data Início Curso: </b>
+									<h:outputText value="#{fichaHEMB.he.datainiciohe}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="America/Sao_Paulo" />
+									</h:outputText>
 							</h:panelGroup>
 							
 							<h:panelGroup/>
