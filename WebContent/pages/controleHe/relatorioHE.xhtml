@@ -574,9 +574,9 @@
 
 					<p:column headerText="Data Embarque"
 						rendered="#{relatorioHeMB.dataembarque}"
-						sortBy="#{controlehe.dataembarque}"
+						sortBy="#{controlehe.he.vendas.vendasembarque.dataida}"
 						style="text-align:left;width:87px;">
-						<h:outputText value="#{controlehe.dataembarque}">
+						<h:outputText value="#{controlehe.he.vendas.vendasembarque.dataida}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
