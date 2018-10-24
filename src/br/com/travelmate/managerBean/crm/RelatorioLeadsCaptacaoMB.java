@@ -13,7 +13,6 @@ import javax.inject.Named;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.cancelamento.RelatorioCancelamentoBean;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.util.Formatacao;

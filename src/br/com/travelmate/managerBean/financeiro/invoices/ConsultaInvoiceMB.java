@@ -842,4 +842,15 @@ public class ConsultaInvoiceMB implements Serializable {
 		}
 		return "";
 	}
+	
+	public String novoArquivo(Invoice invoice) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("vendas", invoice.getVendas());
+		session.setAttribute("invoice", invoice);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("contentWidth", 500);
+		RequestContext.getCurrentInstance().openDialog("cadArquivo", options, null);
+		return "";
+	}
 }

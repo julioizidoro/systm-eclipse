@@ -1,13 +1,9 @@
 package br.com.travelmate.managerBean.turismo.pacotefornecedor;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.sql.SQLException;  
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -17,21 +13,17 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.travelmate.facade.FornecedorPacoteArquivoInvoiceFacade;
-import br.com.travelmate.facade.FtpDadosFacade; 
-import br.com.travelmate.facade.PacotesFornecedorFacade;  
-import br.com.travelmate.managerBean.AplicacaoMB; 
+import br.com.travelmate.facade.PacotesFornecedorFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Fornecedorpacotearquivoinvoice;
-import br.com.travelmate.model.Ftpdados; 
-import br.com.travelmate.model.Pacotesfornecedor; 
-import br.com.travelmate.util.Ftp;
+import br.com.travelmate.model.Pacotesfornecedor;
 import br.com.travelmate.util.Mensagem;
 import br.com.travelmate.util.UploadAWSS3;
 

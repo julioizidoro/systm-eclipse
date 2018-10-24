@@ -46,7 +46,6 @@ import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Vendas;
-import br.com.travelmate.util.Ftp;
 import br.com.travelmate.util.Mensagem;
 
 @Named
@@ -67,7 +66,7 @@ public class ArquivosMB implements Serializable {
 	private List<Arquivos> listarArquivos;
 	private Arquivos arquivos; 
 	private Vendas vendas;
-	private Ftpdados ftpdados;
+	
 	private boolean habilitadoExclusao = false;
 	private String voltar;
 	private Tipoarquivoproduto tipoarquivo;
@@ -97,13 +96,7 @@ public class ArquivosMB implements Serializable {
 			desabilitarEdicao();
 			if (vendas != null) {
 				gerarListaArquivos();
-				FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-				ftpdados = new Ftpdados();
-				try {
-					ftpdados = ftpDadosFacade.getFTPDados();
-				} catch (SQLException e) {
-					  
-				}
+				
 				if (vendas.getArquivoskitviagem()==null){
 					Arquivoskitviagem kitViagem = new Arquivoskitviagem();
 					kitViagem.setCompleto(false);
@@ -170,14 +163,7 @@ public class ArquivosMB implements Serializable {
 		this.vendas = vendas;
 	}
 
-	public Ftpdados getFtpdados() {
-		return ftpdados;
-	}
-
-	public void setFtpdados(Ftpdados ftpdados) {
-		this.ftpdados = ftpdados;
-	}
-
+	
 	public String getVoltar() {
 		return voltar;
 	}
@@ -314,7 +300,6 @@ public class ArquivosMB implements Serializable {
 	public String excluir(Arquivos arquivos) {
 		ArquivosFacade arquivosFacade = new ArquivosFacade();
 		if (habilitarExclusaoArquivo()) {
-			excluirArquivoFTP(arquivos);
 			arquivosFacade.excluir(arquivos.getIdarquivos());
 			listarArquivos.remove(arquivos);
 		} else {
@@ -419,48 +404,7 @@ public class ArquivosMB implements Serializable {
 		}
 	}
 
-	public boolean excluirArquivoFTP(Arquivos arquivos) {
-		String msg = "";
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		Ftpdados dadosFTP = null;
-		try {
-			dadosFTP = ftpDadosFacade.getFTPDados();
-		} catch (SQLException ex) {
-			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro", "");
-		}
-		if (dadosFTP == null) {
-			return false;
-		}
-		Ftp ftp = new Ftp(dadosFTP.getHostupload(), dadosFTP.getUser(), dadosFTP.getPassword());
-		try {
-			if (!ftp.conectar()) {
-				mostrarMensagem(null, "Erro conectar FTP", "");
-				return false;
-			}
-		} catch (IOException ex) {
-			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro conectar FTP", "Erro");
-		}
-		try {
-			String nomeArquivoFTP = arquivos.getNomesalvos();
-			msg = ftp.excluirArquivo(nomeArquivoFTP, "/systm/arquivos/");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(msg, ""));
-			ftp.desconectar();
-			return true;
-		} catch (IOException ex) {
-			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
-		}
-		try {
-			ftp.desconectar();
-		} catch (IOException ex) {
-			Logger.getLogger(CadArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
-			mostrarMensagem(ex, "Erro desconectar FTP", "Erro");
-		}
-		return false;
-	}
+	
 
 	public void mostrarMensagem(Exception ex, String erro, String titulo) {
 		FacesContext context = FacesContext.getCurrentInstance();

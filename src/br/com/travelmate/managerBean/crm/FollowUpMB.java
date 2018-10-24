@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import br.com.travelmate.dao.ClienteDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadEncaminhadoDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
@@ -26,7 +25,6 @@ import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
-
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;

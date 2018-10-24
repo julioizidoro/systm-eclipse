@@ -97,7 +97,19 @@ public class Invoice implements Serializable {
     @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
     @OneToOne(optional = false)
     private Vendas vendas;
-    @Transient
+    
+    @JoinColumn(name = "tipoarquivoproduto_idtipoarquivoproduto", referencedColumnName = "idtipoarquivoproduto")
+    @ManyToOne(optional = false)
+    private Tipoarquivoproduto tipoarquivoproduto;
+    public Tipoarquivoproduto getTipoarquivoproduto() {
+		return tipoarquivoproduto;
+	}
+
+	public void setTipoarquivoproduto(Tipoarquivoproduto tipoarquivoproduto) {
+		this.tipoarquivoproduto = tipoarquivoproduto;
+	}
+
+	@Transient
     private boolean clientedevedor;
     @Transient
     private Date dataEmbarque;

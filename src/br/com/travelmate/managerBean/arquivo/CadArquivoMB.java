@@ -121,6 +121,7 @@ public class CadArquivoMB implements Serializable {
 	private boolean arquivoEnviado = false;
 	private FinalizarMB finalizar;
 	private Cliente cliente;
+	private Invoice invoice;
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -130,6 +131,7 @@ public class CadArquivoMB implements Serializable {
 		vendas = (Vendas) session.getAttribute("vendas");
 		listaArquivos = (List<Arquivos>) session.getAttribute("listaArquivos");
 		cliente = (Cliente) session.getAttribute("cliente");
+		invoice = (Invoice) session.getAttribute("invoice");
 		session.removeAttribute("vendas");
 		session.removeAttribute("cliente");
 		session.removeAttribute("listaArquivos");
@@ -140,6 +142,9 @@ public class CadArquivoMB implements Serializable {
 		}
 		if (listaArquivos == null) {
 			listaArquivos = new ArrayList<Arquivos>();
+		}
+		if (invoice!=null) {
+			this.tipoarquivo = invoice.getTipoarquivoproduto();
 		}
 	}
 
@@ -430,11 +435,10 @@ public class CadArquivoMB implements Serializable {
 					}
 				}
 			}
-			if ((tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 58)
-					|| (tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 59)) {
+			if (this.invoice!=null) {
 				dataRecebimentoInvoice();
 			}
-
+			
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			//session.setAttribute("cliente", cliente);
@@ -880,24 +884,11 @@ public class CadArquivoMB implements Serializable {
 
 	public void dataRecebimentoInvoice() {
 		InvoiceFacade invoiceFacade = new InvoiceFacade();
-		String sql = "SELECT i FROM Invoice i where i.vendas.idvendas=" + arquivos.getVendas().getIdvendas();
-		if (tipoarquivo.getTipoarquivo().getIdtipoArquivo() == 58) {
-			sql = sql + " and i.tipo='Programa'";
-		} else
-			sql = sql + " and i.tipo='Acomodação'";
-		List<Invoice> lista = invoiceFacade.listar(sql);
-		if (lista != null) {
-			if (lista.size() == 1) {
-				Invoice invoice = lista.get(0);
-				invoice.setDatarecebimentocomprovante(new Date());
-				invoiceFacade.salvar(invoice);
-			} else {
-				Mensagem.lancarMensagemWarn("Warn", "Cliente possui mais de uma invoice para baixar");
-			}
-		} else {
-			Mensagem.lancarMensagemWarn("Warn", "Nenhuma invoice localizada");
-		}
+		invoice.setDatarecebimentocomprovante(new Date());
+		invoiceFacade.salvar(invoice);
 	}
+	
+	
 
 	public void gerarNotificacaoUsuarioVinculado(String programa) {
 		if (usuarioLogadoMB.getUsuario().getNotificacaoUploadNotificarList() != null

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import org.hibernate.type.AdaptedImmutableType;
+
 
 
 /**

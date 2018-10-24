@@ -10,15 +10,19 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.travelmate.bean.comissao.CalcularComissaoBean;
+import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.CursoFacade;
+import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.model.Controlecurso;
+import br.com.travelmate.model.He;
+import br.com.travelmate.model.Hecontrole;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Motivocancelamento;
@@ -37,6 +41,8 @@ public class UtilMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private HeControleDao heControleDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -136,5 +142,26 @@ public class UtilMB implements Serializable{
 		}
 		Mensagem.lancarMensagemInfo("Recalcular","Terminou");
 	}
-	 
+	
+	public void gerarControleHE() {
+		HeFacade heFacade = new HeFacade();
+		List<He> lista = heFacade.listar("SELECT h FROM He h ");
+		for (int i = 0; i < lista.size(); i++) {
+			Hecontrole controle = new Hecontrole();
+			if (lista.get(i).getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
+				controle.setSituacaoaplicacao("Cancelado");
+			}else {
+				controle.setSituacaoaplicacao("Processo");
+			}
+			
+			controle.setDatafichafinalizada(new Date());
+			controle.setImpresso(false);
+			controle.setVistoemitido(false);
+			controle.setValorcomissao(0.0f);
+			controle.setHe(lista.get(i));
+			heControleDao.salvar(controle);
+		}
+		Mensagem.lancarMensagemInfo("He Controler","Terminou");
+	}
+
 }

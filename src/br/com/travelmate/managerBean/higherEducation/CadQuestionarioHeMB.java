@@ -1,7 +1,6 @@
 package br.com.travelmate.managerBean.higherEducation;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +21,6 @@ import br.com.travelmate.dao.PaisDao;
 import br.com.travelmate.facade.CidadePaisProdutosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.NotificacaoFacade;
-
 import br.com.travelmate.facade.QuestionarioHeFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;

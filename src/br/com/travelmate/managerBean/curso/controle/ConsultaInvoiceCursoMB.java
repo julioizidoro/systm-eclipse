@@ -18,7 +18,6 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.PagamentoInvoiceFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Pagamentoinvoice;
 import br.com.travelmate.model.Vendas;
