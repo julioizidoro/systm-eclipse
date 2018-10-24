@@ -1445,9 +1445,6 @@ public class CadHeInscricaoMB implements Serializable {
 		if (he.getPrimeiralingua() == null || he.getPrimeiralingua().length() == 0) {
 			msg = msg + "Informe sua primeira lingua.\r\n";
 		}
-		if (he.getPrimeiralingua() == null || he.getPrimeiralingua().length() == 0) {
-			msg = msg + "Informe sua primeira lingua.\r\n";
-		}
 		if (he.getPossuiexame() == null || he.getPossuiexame().length() == 0) {
 			msg = msg + "Informe se possui algum exame de proficiência.\r\n";
 		}
@@ -1581,11 +1578,12 @@ public class CadHeInscricaoMB implements Serializable {
 					}
 				}
 			}
+			Mensagem.lancarMensagemInfo("Ficha de Inscrição salva com sucesso!", "");
+			salvarOK = true;
+	
+			return salvarOK;
 		}
-		Mensagem.lancarMensagemInfo("Ficha de Inscrição salva com sucesso!", "");
-		salvarOK = true;
-
-		return salvarOK;
+		return false;
 	}
 
 	public boolean habilitarCamposExame() {

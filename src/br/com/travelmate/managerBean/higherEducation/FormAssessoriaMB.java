@@ -28,6 +28,7 @@ import org.primefaces.context.RequestContext;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.dao.HeControleDao;
+import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.ContasReceberFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
@@ -47,7 +48,7 @@ import net.sf.jasperreports.engine.JRException;
 
 @Named
 @ViewScoped
-public class FormAssessoriaMB implements Serializable{
+public class FormAssessoriaMB implements Serializable {
 
 	/**
 	 * 
@@ -56,9 +57,11 @@ public class FormAssessoriaMB implements Serializable{
 	@Inject
 	private HeControleDao heControleDao;
 	@Inject
+	private VendasDao vendasDao;
+	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB; 
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<He> listaHe;
 	private int idvenda;
 	private String nomeCliente = "";
@@ -69,7 +72,7 @@ public class FormAssessoriaMB implements Serializable{
 	private List<Unidadenegocio> listaUnidade;
 	private boolean habilitarUnidade = true;
 	private boolean expandirOpcoes;
-	private boolean esconderFicha=true;
+	private boolean esconderFicha = true;
 	private List<He> listaProcesso;
 	private List<He> listaFinanceiro;
 	private List<He> listaAndamento;
@@ -101,9 +104,10 @@ public class FormAssessoriaMB implements Serializable{
 				habilitarUnidade = true;
 				unidadenegocio = usuarioLogadoMB.getUsuario().getUnidadenegocio();
 			}
-			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaHe == null || listaHe.size() == 0) {
+			if ((chamadaTela == null || chamadaTela.equalsIgnoreCase("Menu")) || listaHe == null
+					|| listaHe.size() == 0) {
 				gerarListaHe();
-			}else {
+			} else {
 				gerarQuantidadesFichas();
 			}
 		}
@@ -124,8 +128,6 @@ public class FormAssessoriaMB implements Serializable{
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
-
-
 
 	public Integer getnFichasFinalizada() {
 		return nFichasFinalizada;
@@ -326,25 +328,25 @@ public class FormAssessoriaMB implements Serializable{
 				session.setAttribute("cliente", he.getVendas().getCliente());
 				return "cadFichaHe1";
 			}
-		}  else
+		} else
 			return "";
 	}
 
 	public void gerarListaHe() {
 		String dataConsulta = Formatacao.SubtarirDatas(new Date(), 90, "yyyy-MM-dd");
-		
 
 		// ficha inscricao
 		String sqlFicha1 = "Select h From He h where h.vendas.dataVenda>='" + dataConsulta + "' and h.fichafinal=FALSE";
 		if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			sqlFicha1 = sqlFicha1 + " and h.vendas.unidadenegocio.idunidadeNegocio="
-					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
-			if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
-				if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
-					sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+					+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+			if (usuarioLogadoMB.getUsuario().getAcessounidade() != null) {
+				if (!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
+					sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="
+							+ usuarioLogadoMB.getUsuario().getIdusuario();
 				}
 			}
-		} 
+		}
 		sqlFicha1 = sqlFicha1 + " order by h.vendas.dataVenda desc";
 		HeFacade heFacade = new HeFacade();
 		listaHe = heFacade.listar(sqlFicha1);
@@ -402,13 +404,14 @@ public class FormAssessoriaMB implements Serializable{
 			String sqlFicha1 = "Select h From He h where h.vendas.cliente.nome like '" + nomeCliente + "%'";
 			if (!usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 				sqlFicha1 = sqlFicha1 + " and h.vendas.unidadenegocio.idunidadeNegocio="
-						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio(); 
-				if(usuarioLogadoMB.getUsuario().getAcessounidade()!=null) {
-					if(!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
-						sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="+usuarioLogadoMB.getUsuario().getIdusuario();
+						+ usuarioLogadoMB.getUsuario().getUnidadenegocio().getIdunidadeNegocio();
+				if (usuarioLogadoMB.getUsuario().getAcessounidade() != null) {
+					if (!usuarioLogadoMB.getUsuario().getAcessounidade().isEmissaoconsulta()) {
+						sqlFicha1 = sqlFicha1 + " and h.vendas.usuario.idusuario="
+								+ usuarioLogadoMB.getUsuario().getIdusuario();
 					}
 				}
-			}else if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
+			} else if (unidadenegocio != null && unidadenegocio.getIdunidadeNegocio() != null) {
 				sqlFicha1 = sqlFicha1 + " and h.vendas.unidadenegocio.idunidadeNegocio="
 						+ unidadenegocio.getIdunidadeNegocio();
 			}
@@ -434,40 +437,37 @@ public class FormAssessoriaMB implements Serializable{
 		gerarQuantidadesFichas();
 	}
 
-
 	public String retornarimagem(String status) {
 		if (status.equalsIgnoreCase("FINALIZADO")) {
 			return "../../resources/img/finalizadoFicha.png";
-		}else if (status.equalsIgnoreCase("FINALIZADA")) {
+		} else if (status.equalsIgnoreCase("FINALIZADA")) {
 			return "../../resources/img/finalizadoFicha.png";
 		} else if (status.equalsIgnoreCase("ANDAMENTO")) {
 			return "../../resources/img/amarelaFicha.png";
 		} else if (status.equalsIgnoreCase("CANCELADA")) {
 			return "../../resources/img/fichaCancelada.png";
-		} else if(status.equalsIgnoreCase("FINANCEIRO")) {
+		} else if (status.equalsIgnoreCase("FINANCEIRO")) {
 			return "../../resources/img/ficharestricao.png";
 		} else {
-			return "../../resources/img/processoFicha.png";   
+			return "../../resources/img/processoFicha.png";
 		}
 	}
-	
+
 	public String retornarTituloFicha(String status) {
 		if (status.equalsIgnoreCase("FINALIZADO")) {
 			return "FICHA FINALIZADA";
-		}else if (status.equalsIgnoreCase("FINALIZADA")) {
+		} else if (status.equalsIgnoreCase("FINALIZADA")) {
 			return "FICHA FINALIZADA";
 		} else if (status.equalsIgnoreCase("ANDAMENTO")) {
 			return "ANDAMENTO (FICHA AGUARDANDO UPLOAD DOS DOCUMENTOS)";
 		} else if (status.equalsIgnoreCase("CANCELADA")) {
 			return "FICHA CANCELADA";
-		} else if(status.equalsIgnoreCase("FINANCEIRO")) {
+		} else if (status.equalsIgnoreCase("FINANCEIRO")) {
 			return "FINANCEIRO (FICHA EM ANÁLISE FINANCEIRA)";
 		} else {
-			return "PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)";   
+			return "PROCESSO (FICHA NÃO ENVIADA PARA GERÊNCIA)";
 		}
 	}
-
-	
 
 	public String gerarRelatorioFicha(He he) throws IOException {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
@@ -476,7 +476,7 @@ public class FormAssessoriaMB implements Serializable{
 		caminhoRelatorio = "/reports/higherEducation/FichaInscricaoHe1.jasper";
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("SUBREPORT_DIR", servletContext.getRealPath("//reports//higherEducation//"));
-		parameters.put("idvendas", he.getVendas().getIdvendas()); 
+		parameters.put("idvendas", he.getVendas().getIdvendas());
 		File f = new File(servletContext.getRealPath("/resources/img/logoRelatorio.jpg"));
 		BufferedImage logo = ImageIO.read(f);
 		parameters.put("logo", logo);
@@ -486,7 +486,7 @@ public class FormAssessoriaMB implements Serializable{
 				gerarRelatorio.gerarRelatorioSqlPDF(caminhoRelatorio, parameters,
 						"Ficha de Inscrição-" + he.getVendas().getCliente().getNome() + ".pdf", null);
 			} catch (SQLException e) {
-				  
+
 			}
 		} catch (JRException ex1) {
 			Logger.getLogger(HigherEducationMB.class.getName()).log(Level.SEVERE, null, ex1);
@@ -495,28 +495,27 @@ public class FormAssessoriaMB implements Serializable{
 		}
 		return "";
 	}
-	
-	public String fichaHE(He he){
+
+	public String fichaHE(He he) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("he", he);
 		session.setAttribute("listaHe", listaHe);
 		return "fichaFormAssessoria";
 	}
-	
-	public String contrato(He he){
+
+	public String contrato(He he) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("he", he);
 		session.setAttribute("listaHe", listaHe);
 		return "contratoHE";
 	}
-	
 
-	
-	public String documentacao(He he) { 
+	public String documentacao(He he) {
 		boolean validar = true;
-		if (he.getVendas().getSituacao().equalsIgnoreCase("PROCESSO") && usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
+		if (he.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")
+				&& usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 1) {
 			String dataStringValidade = Formatacao.ConvercaoDataPadrao(new Date());
 			Date dataAtual = Formatacao.ConvercaoStringData(dataStringValidade);
 			Date dataValidade = he.getVendas().getDatavalidade();
@@ -534,7 +533,7 @@ public class FormAssessoriaMB implements Serializable{
 			return "";
 		} else {
 			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false); 
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("vendas", he.getVendas());
 			session.setAttribute("cliente", he.getVendas().getCliente());
 			session.setAttribute("pesquisar", "Sim");
@@ -549,18 +548,18 @@ public class FormAssessoriaMB implements Serializable{
 			String voltar = "consFormAssessoria";
 			session.setAttribute("voltar", voltar);
 		}
-		return "consArquivos"; 
+		return "consArquivos";
 	}
-	
-	public String informacoes(He he) { 
+
+	public String informacoes(He he) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("vendas", he.getVendas());
 		String voltar = "consFormAssessoria";
 		session.setAttribute("voltar", voltar);
-		return "consLogVenda"; 
+		return "consLogVenda";
 	}
-	
+
 	public String boletos(He he) {
 		ValidarClienteBean validarCliente = new ValidarClienteBean(he.getVendas().getCliente());
 		if (validarCliente.getMsg().length() < 5) {
@@ -572,8 +571,8 @@ public class FormAssessoriaMB implements Serializable{
 			if (listaContas != null) {
 				if (listaContas.size() > 0) {
 					GerarBoletoConsultorBean gerarBoletoConsultorBean = new GerarBoletoConsultorBean();
-						gerarBoletoConsultorBean.gerarBoleto(listaContas,
-								String.valueOf(he.getVendas().getIdvendas()), true);
+					gerarBoletoConsultorBean.gerarBoleto(listaContas, String.valueOf(he.getVendas().getIdvendas()),
+							true);
 				} else {
 					FacesMessage msg = new FacesMessage("Venda não possui forma de pagamento Boleto. ", " ");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -595,31 +594,31 @@ public class FormAssessoriaMB implements Serializable{
 
 		return "";
 	}
-	 
-	
-	public void expandirOpcoes(){
-		if(expandirOpcoes){
-			expandirOpcoes=false;
-			esconderFicha=true;
-		}else {
-			expandirOpcoes=true;
-			esconderFicha=false;
+
+	public void expandirOpcoes() {
+		if (expandirOpcoes) {
+			expandirOpcoes = false;
+			esconderFicha = true;
+		} else {
+			expandirOpcoes = true;
+			esconderFicha = false;
 		}
 	}
-	
-	public String retornarImgOpcoes(){
-		if(expandirOpcoes){ 
+
+	public String retornarImgOpcoes() {
+		if (expandirOpcoes) {
 			return "../../resources/img/esconderOpcoes.png";
-		}else return "../../resources/img/expandirOpcoes.png";
-	} 
-	
-	public String retornarTitleOpcoes(){
-		if(expandirOpcoes){ 
-			return "Esconder Opções";     
-		}else return "Expandir Opções";
-	} 
-	
-	
+		} else
+			return "../../resources/img/expandirOpcoes.png";
+	}
+
+	public String retornarTitleOpcoes() {
+		if (expandirOpcoes) {
+			return "Esconder Opções";
+		} else
+			return "Expandir Opções";
+	}
+
 	public String visualizarContasReceber(He he) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -629,20 +628,20 @@ public class FormAssessoriaMB implements Serializable{
 		RequestContext.getCurrentInstance().openDialog("visualizarContasReceber", options, null);
 		return "";
 	}
-	
-	public String notificarEfetuarFichaCrm(){
+
+	public String notificarEfetuarFichaCrm() {
 		return "followUp";
 	}
-	
-	public void gerarQuantidadesFichas(){
+
+	public void gerarQuantidadesFichas() {
 		nFichaCancelada = 0;
 		nFichasAndamento = 0;
-		nFichasFinalizada = 0; 
+		nFichasFinalizada = 0;
 		nFichaFinanceiro = 0;
 		nFichasProcesso = 0;
 		listaFinalizar = new ArrayList<He>();
 		listaAndamento = new ArrayList<He>();
-		listaProcesso = new ArrayList<He>(); 
+		listaProcesso = new ArrayList<He>();
 		listaFinanceiro = new ArrayList<He>();
 		listaCancelada = new ArrayList<He>();
 		for (int i = 0; i < listaHe.size(); i++) {
@@ -678,16 +677,16 @@ public class FormAssessoriaMB implements Serializable{
 			}
 		}
 	}
-	
+
 	public void desistenciaHE(He he) {
 		if (he != null) {
 			he.setDesistencia(true);
 			HeFacade heFacade = new HeFacade();
 			heFacade.salvar(he);
 			Mensagem.lancarMensagemInfo("Ficha de Inscrição Cancelada!", "");
-		} 
+		}
 	}
-	
+
 	public boolean desabilitarBtnDesistencia(He he) {
 		if (he != null) {
 			if (he.isDesistencia()) {
@@ -695,13 +694,12 @@ public class FormAssessoriaMB implements Serializable{
 			} else {
 				return false;
 			}
-		} else return true;
+		} else
+			return true;
 	}
-	
-	
+
 	public String cancelarVenda(He he) {
-	//	if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")
-	//			|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+		if (!he.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 400);
 			FacesContext fc = FacesContext.getCurrentInstance();
@@ -709,47 +707,39 @@ public class FormAssessoriaMB implements Serializable{
 			session.setAttribute("vendas", he.getVendas());
 			session.setAttribute("voltar", "consFormAssessoria");
 			return "emissaocancelamento";
-	//	}  else if (listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("PROCESSO") 
-		//		|| listaHeBean.getQuestionariohe().getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
-	//		VendasFacade vendasFacade = new VendasFacade();
-	//		listaHeBean.getQuestionariohe().getVendas().setSituacao("CANCELADA");
-		//	vendasFacade.salvar(listaHeBean.getQuestionariohe().getVendas());
-	//		QuestionarioHeFacade questionarioHeFacade = new QuestionarioHeFacade();
-		//	listaHeBean.getQuestionariohe().setSituacao("CANCELADA");
-		//	listaHeBean.setQuestionariohe(questionarioHeFacade.salvar(listaHeBean.getQuestionariohe()));
-		//	gerarListaHe();
-	//	}
-	//	return "";
-	}  
-	
-	
+		} else {
+			he.getVendas().setSituacao("CANCELADA");
+			vendasDao.salvar(he.getVendas());
+			gerarListaHe();
+		}
+		return "";
+	}
+
 	public void atualizarLista(He he) {
 		if (he != null) {
 			HeFacade heFacade = new HeFacade();
 			if ((situacaoLista != null) && (situacaoLista.equalsIgnoreCase("Ficha de Inscrição"))) {
 				he.setAprovado(false);
 				heFacade.salvar(he);
-			}else {
+			} else {
 				he.setAprovado(true);
 				heFacade.salvar(he);
 			}
 		}
 	}
-	
+
 	public String obsTM(He he) {
 		obsTM = he.getVendas().getObstm();
 		return obsTM;
 	}
-	
-	
-	public String retornarIconeObsTM(He he){
+
+	public String retornarIconeObsTM(He he) {
 		if (he.getVendas().getObstm() != null && he.getVendas().getObstm().length() > 0) {
 			return "../../resources/img/obsVermelha.png";
 		}
 		return "../../resources/img/obsFicha.png";
 	}
-	
-	
+
 	public void dadosCancelamento(He he) {
 		if (he.getVendas().getSituacao().equalsIgnoreCase("CANCELADA") && he.getVendas().getCancelamento() != null) {
 			Cancelamento cancelamento = he.getVendas().getCancelamento();
@@ -760,25 +750,24 @@ public class FormAssessoriaMB implements Serializable{
 				Map<String, Object> options = new HashMap<String, Object>();
 				options.put("contentWidth", 400);
 				RequestContext.getCurrentInstance().openDialog("dadosCancelamento", options, null);
-			}else {
+			} else {
 				Mensagem.lancarMensagemInfo("Venda sem informações do cancelamento", "");
 			}
 		}
 	}
-	
-	
-	
+
 	public void salvarControle(He he) {
 		if (usuarioLogadoMB.getUsuario().getTipo().equalsIgnoreCase("Gerencial")) {
 			if (he.getVendas().getSituacao().equalsIgnoreCase("PROCESSO")) {
 				Mensagem.lancarMensagemInfo("Venda ainda em processo", "");
-			}else {
-				Hecontrole hecontrole = heControleDao.consultar("SELECT h FROM Hecontrole h WHERE h.he.idhe=" + he.getIdhe());
+			} else {
+				Hecontrole hecontrole = heControleDao
+						.consultar("SELECT h FROM Hecontrole h WHERE h.he.idhe=" + he.getIdhe());
 				if (hecontrole == null) {
 					HeControleBean heControleBean = new HeControleBean();
 					heControleBean.salvar(heControleDao, he);
 					Mensagem.lancarMensagemInfo("Salvo no controle de HE com sucesso", "");
-				}else {
+				} else {
 					Mensagem.lancarMensagemInfo("Esta venda já consta no controle de HE", "");
 				}
 			}

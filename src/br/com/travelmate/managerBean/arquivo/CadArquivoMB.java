@@ -970,6 +970,7 @@ public class CadArquivoMB implements Serializable {
 					if (controle != null) {
 						if (controle.getCurso().getVendas().getVendasembarque() == null) {
 							controle.getCurso().getVendas().setVendasembarque(new Vendasembarque());
+							controle.getCurso().getVendas().getVendasembarque().setVendas(controle.getCurso().getVendas());
 						}
 						controle.getVendas().getVendasembarque().setDatavolta(datachegadabrasil);
 						controle.getVendas().getVendasembarque().setDataida(dataembarque);
