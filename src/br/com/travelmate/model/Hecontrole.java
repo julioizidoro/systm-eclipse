@@ -92,6 +92,8 @@ public class Hecontrole implements Serializable {
     private String cidade;
     @Transient
     private Date inicioPrograma;
+    @Transient
+    private Date inicioPathway;
     
     public Hecontrole() {
     	
@@ -256,6 +258,14 @@ public class Hecontrole implements Serializable {
 
 	public void setInicioPrograma(Date inicioPrograma) {
 		this.inicioPrograma = inicioPrograma;
+	}
+
+	public Date getInicioPathway() {
+		return inicioPathway;
+	}
+
+	public void setInicioPathway(Date inicioPathway) {
+		this.inicioPathway = inicioPathway;
 	}
 
 	@Override

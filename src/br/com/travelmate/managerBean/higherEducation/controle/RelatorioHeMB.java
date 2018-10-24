@@ -649,6 +649,7 @@ public class RelatorioHeMB implements Serializable {
 				if (listaHeControle.get(i).getHe().isFichafinal()) {
 					listaHeControle.get(i)
 							.setParceiro(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getFornecedor().getNome());
+					listaHeControle.get(i).setPais(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getPais().getNome());
 					listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getNome());
 					listaHeControle.get(i).setInicioPrograma(
 							listaHeControle.get(i).getHe().getDatainicio());

@@ -17,9 +17,6 @@
 		<title>Programas de Higher Education</title>
 		
 		<ui:repeat var="heparceiros" value="#{visualizarParceirosMB.listaHeParceiros}">
-			<h:panelGrid style="margin-left:1.2%;width:97.8%;" columns="1">
-				<p:outputLabel value="Pathway: #{heparceiros.temPathWay}"  />
-			</h:panelGrid>
 			<h:panelGrid style="margin-left:1.2%;width:97.8%;" columns="3">
 				<p:outputLabel value="Pais"  />
 				<p:outputLabel value="Cidade"  />
@@ -38,7 +35,7 @@
 				
 				<p:outputLabel value="Curso"  /> 
 				<p:outputLabel value="Código"  />
-				<p:outputLabel value="" />
+				<p:outputLabel value="Data Início Curso" />
 				
 				
 				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
@@ -47,7 +44,16 @@
 				<p:inputText  class="fontebranca" readonly="true" style="width: 80%;"
 					value="#{heparceiros.hecodigo}">
 				</p:inputText>
-				<p:outputLabel value="" />  
+				<p:inputMask mask="99/99/9999" readonly="true" 
+					value="#{heparceiros.datainiciohe}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+				</p:inputMask>
+				
+				
+				<b style="font-size:12px;">PATHWAY: #{heparceiros.temPathWay}</b>
+				<p:outputLabel/>
+				<p:outputLabel/>
 				
 				<p:outputLabel value="Data Início"  />
 				<p:outputLabel value="Nº Semanas"  />
