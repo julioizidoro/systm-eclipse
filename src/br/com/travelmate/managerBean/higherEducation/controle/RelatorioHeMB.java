@@ -553,8 +553,8 @@ public class RelatorioHeMB implements Serializable {
 		}
 
 		if (datainiembarque != null && datafinalembarque != null) {
-			sql = sql + " AND h.dataembarque>='" + Formatacao.ConvercaoDataSql(datainiembarque)
-					+ "' AND h.dataembarque<='" + Formatacao.ConvercaoDataSql(datafinalembarque) + "'";
+			sql = sql + " AND h.he.vendas.vendsaembarque.dataida>='" + Formatacao.ConvercaoDataSql(datainiembarque)
+					+ "' AND h.he.vendas.vendsaembarque.dataida<='" + Formatacao.ConvercaoDataSql(datafinalembarque) + "'";
 		}
 
 		if (datainiprevisao != null && datafinalprevisao != null) {
