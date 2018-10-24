@@ -79,6 +79,7 @@ import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Usuariopontos;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendasembarque;
 import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
@@ -967,6 +968,9 @@ public class CadArquivoMB implements Serializable {
 					CursoFacade cursoFacade = new CursoFacade();
 					Controlecurso controle = cursoFacade.consultarControleCursos(vendas.getIdvendas());
 					if (controle != null) {
+						if (controle.getCurso().getVendas().getVendasembarque() == null) {
+							controle.getCurso().getVendas().setVendasembarque(new Vendasembarque());
+						}
 						controle.getVendas().getVendasembarque().setDatavolta(datachegadabrasil);
 						controle.getVendas().getVendasembarque().setDataida(dataembarque);
 						venndasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());

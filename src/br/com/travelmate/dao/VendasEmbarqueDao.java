@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Vendasembarque;
 
 public class VendasEmbarqueDao implements Serializable{
@@ -13,6 +14,7 @@ public class VendasEmbarqueDao implements Serializable{
 	@Inject
 	private EntityManager manager;
 	
+	@Transactional
 	public Vendasembarque salvar(Vendasembarque vendasEmbarque) {
 		vendasEmbarque = manager.merge(vendasEmbarque);
 		return vendasEmbarque;

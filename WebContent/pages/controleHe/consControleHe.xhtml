@@ -324,7 +324,7 @@
 					</p:tab>
 					<p:tab title="Finalizada (#{controleHeMB.nFinalizada})" class="tab"
 						titleStyle="font-size: 11px">
-						<p:dataTable id="tabelaControleHeFinanceiro" var="controlehe"
+						<p:dataTable id="tabelaControleHeFinalizada" var="controlehe"
 							style="width:98%;margin-left:1%;"
 							value="#{controleHeMB.listaHeControleFinalizado}" scrollable="true"
 							scrollHeight="300" editable="true" editMode="cell"
@@ -346,7 +346,7 @@
 									style="border-bottom: 0.1px solid;">
 									<p:ajax event="dialogReturn"
 										listener="#{controleHeMB.retornoAtualizacaoHe}"
-										update="tabelaControleHe, :consultaControleHe:growl " />
+										update="tabelaControleHeFinalizada, :consultaControleHe:growl " />
 								</p:commandLink>
 							</p:column>
 							<p:column headerText="Data Venda"
@@ -446,7 +446,7 @@
 								style="width:55px;text-align:center;">
 								<p:commandLink
 									action="#{controleHeMB.confirmarImpressao(controlehe)}"
-									update="tabelaControleHe">
+									update="tabelaControleHeFinalizada">
 									<img src="#{controlehe.iconeFormImpresso}" width="24" />
 								</p:commandLink>
 							</p:column>

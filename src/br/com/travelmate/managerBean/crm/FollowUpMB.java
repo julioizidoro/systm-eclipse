@@ -41,6 +41,7 @@ import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
+import br.com.travelmate.model.Vendasembarque;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
@@ -1189,6 +1190,10 @@ public class FollowUpMB implements Serializable {
 			CursoFacade cursoFacade = new CursoFacade();
 			Controlecurso controle = cursoFacade.consultarControleCursos(leadposvenda.getVendas().getIdvendas());
 			if (controle != null) {
+				if (controle.getVendas().getVendasembarque() == null) {
+					controle.getVendas().setVendasembarque(new Vendasembarque());
+					controle.getVendas().getVendasembarque().setVendas(controle.getVendas());
+				}
 				controle.getVendas().getVendasembarque().setDatavolta(leadposvenda.getDatachegada());
 				controle.getVendas().getVendasembarque().setDataida(leadposvenda.getDataembarque());
 				vendasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());

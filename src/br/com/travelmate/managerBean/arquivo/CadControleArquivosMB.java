@@ -78,6 +78,7 @@ import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Usuariodepartamentounidade;
 import br.com.travelmate.model.Usuariopontos;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendasembarque;
 import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
@@ -1438,6 +1439,10 @@ public class CadControleArquivosMB implements Serializable{
 					CursoFacade cursoFacade = new CursoFacade();
 					Controlecurso controle = cursoFacade.consultarControleCursos(vendas.getIdvendas());
 					if (controle != null) {
+						if (controle.getCurso().getVendas().getVendasembarque() == null) {
+							controle.getCurso().getVendas().setVendasembarque(new Vendasembarque());
+							controle.getCurso().getVendas().getVendasembarque().setVendas(controle.getCurso().getVendas());
+						}
 						controle.getVendas().getVendasembarque().setDatavolta(datachegadabrasil);
 						controle.getVendas().getVendasembarque().setDataida(dataembarque);
 						vendasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());
@@ -1447,6 +1452,10 @@ public class CadControleArquivosMB implements Serializable{
 					VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
 					Controlevoluntariado controle = voluntariadoFacade.consultarControle(vendas.getIdvendas());
 					if (controle != null) {
+						if (controle.getVendas().getVendasembarque() == null) {
+							controle.getVendas().setVendasembarque(new Vendasembarque());
+							controle.getVendas().getVendasembarque().setVendas(controle.getVendas());
+						}
 						controle.getVendas().getVendasembarque().setDatavolta(datachegadabrasil);
 						controle.getVendas().getVendasembarque().setDataida(dataembarque);
 						vendasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());;

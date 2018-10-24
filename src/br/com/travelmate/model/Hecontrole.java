@@ -54,9 +54,6 @@ public class Hecontrole implements Serializable {
     private boolean impresso;
     @Column(name = "valorcomissao")
     private Float valorcomissao;  
-    @Column(name = "dataembarque")
-    @Temporal(TemporalType.DATE)
-    private Date dataembarque;
     @Column(name = "comissaosolicitada")
     @Temporal(TemporalType.DATE)
     private Date comissaosolicitada;
@@ -142,14 +139,6 @@ public class Hecontrole implements Serializable {
 
 	public void setValorcomissao(Float valorcomissao) {
 		this.valorcomissao = valorcomissao;
-	}
-
-	public Date getDataembarque() {
-		return dataembarque;
-	}
-
-	public void setDataembarque(Date dataembarque) {
-		this.dataembarque = dataembarque;
 	}
 
 	public Date getComissaosolicitada() {
