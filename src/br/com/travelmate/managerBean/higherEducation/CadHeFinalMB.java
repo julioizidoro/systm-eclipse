@@ -1246,6 +1246,11 @@ public class CadHeFinalMB implements Serializable {
 					vendasDao, leadPosVendaDao, leadDao, leadSituacaoDao);
 			
 			he.setVendas(venda);
+			if (camposPathway) {
+				he.setCursarparhaway("Sim");
+			}else {
+				he.setCursarparhaway("Não");
+			}
 			CadHeBean cadHeBean = new CadHeBean(venda, formaPagamento, orcamento, usuarioLogadoMB);
 			he.setFichafinal(true);
 			he = cadHeBean.salvarHe(he, aplicacaoMB, "F");
