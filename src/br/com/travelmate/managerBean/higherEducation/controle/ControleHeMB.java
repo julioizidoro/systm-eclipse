@@ -60,6 +60,10 @@ public class ControleHeMB implements Serializable {
 	private String pesquisar = "Nao";
 	private String situacaoTabela;
 	private String chamadaTela = "";
+	private List<Hecontrole> listaHeControleFinanceiro;
+	private List<Hecontrole> listaHeControleFinalizado;
+	private int nFinanceiro;
+	private int nFinalizada;
 
 	@PostConstruct
 	public void init() {
@@ -204,6 +208,38 @@ public class ControleHeMB implements Serializable {
 		this.situacaoTabela = situacaoTabela;
 	}
 
+	public List<Hecontrole> getListaHeControleFinanceiro() {
+		return listaHeControleFinanceiro;
+	}
+
+	public void setListaHeControleFinanceiro(List<Hecontrole> listaHeControleFinanceiro) {
+		this.listaHeControleFinanceiro = listaHeControleFinanceiro;
+	}
+
+	public List<Hecontrole> getListaHeControleFinalizado() {
+		return listaHeControleFinalizado;
+	}
+
+	public void setListaHeControleFinalizado(List<Hecontrole> listaHeControleFinalizado) {
+		this.listaHeControleFinalizado = listaHeControleFinalizado;
+	}
+
+	public int getnFinanceiro() {
+		return nFinanceiro;
+	}
+
+	public void setnFinanceiro(int nFinanceiro) {
+		this.nFinanceiro = nFinanceiro;
+	}
+
+	public int getnFinalizada() {
+		return nFinalizada;
+	}
+
+	public void setnFinalizada(int nFinalizada) {
+		this.nFinalizada = nFinalizada;
+	}
+
 	public void listarControle() {
 		if (sql != null && sql.length() > 0) {
 			listaHeControle = heControleDao.listar(sql);
@@ -216,6 +252,8 @@ public class ControleHeMB implements Serializable {
 		if (listaHeControle == null) {
 			listaHeControle = new ArrayList<Hecontrole>();
 		}
+		listaHeControleFinalizado = new ArrayList<Hecontrole>();
+		listaHeControleFinanceiro = new ArrayList<Hecontrole>();
 		for (int i = 0; i < listaHeControle.size(); i++) {
 			if (listaHeControle.get(i).getHe().isFichafinal()) {
 				listaHeControle.get(i).setTipo("Final");
@@ -253,7 +291,14 @@ public class ControleHeMB implements Serializable {
 							listaHeControle.get(i).getHe().getDatainicio());
 				}
 			}
+			if (listaHeControle.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+				listaHeControleFinanceiro.add(listaHeControle.get(i));
+			}else if (listaHeControle.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+				listaHeControleFinalizado.add(listaHeControle.get(i));
+			}
 		}
+		nFinalizada = listaHeControleFinalizado.size();
+		nFinanceiro = listaHeControleFinanceiro.size();
 	}
 
 	public void gerarListaUnidadeNegocio() {
@@ -270,7 +315,7 @@ public class ControleHeMB implements Serializable {
 	}
 
 	public String retornarIconeObsTM(Hecontrole hecontrole) {
-		if (hecontrole.getHe() != null) {
+		if (hecontrole != null && hecontrole.getHe() != null) {
 			if (hecontrole.getHe().getVendas().getObstm() != null
 					&& hecontrole.getHe().getVendas().getObstm().length() > 0) {
 				return "../../resources/img/obsVermelha.png";
@@ -378,6 +423,8 @@ public class ControleHeMB implements Serializable {
 		if (listaHeControle == null) {
 			listaHeControle = new ArrayList<Hecontrole>();
 		}
+		listaHeControleFinalizado = new ArrayList<Hecontrole>();
+		listaHeControleFinanceiro = new ArrayList<Hecontrole>();
 		for (int i = 0; i < listaHeControle.size(); i++) {
 			if (listaHeControle.get(i).getHe().isFichafinal()) {
 				listaHeControle.get(i).setTipo("Final");
@@ -405,7 +452,14 @@ public class ControleHeMB implements Serializable {
 					listaHeControle.get(i).setPathway(listaHeControle.get(i).getHe().getCursarparhaway());
 				}
 			}
+			if (listaHeControle.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")) {
+				listaHeControleFinanceiro.add(listaHeControle.get(i));
+			}else if (listaHeControle.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
+				listaHeControleFinalizado.add(listaHeControle.get(i));
+			}
 		}
+		nFinalizada = listaHeControleFinalizado.size();
+		nFinanceiro = listaHeControleFinanceiro.size();
 	}
 
 	public void limpar() {

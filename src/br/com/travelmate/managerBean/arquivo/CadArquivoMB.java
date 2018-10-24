@@ -26,6 +26,7 @@ import br.com.travelmate.bean.ContasReceberBean;
 import br.com.travelmate.bean.GerarBoletosBean;
 import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.CambioDao;
+import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
@@ -52,6 +53,7 @@ import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.MateRunnersMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.managerBean.aupair.FinalizarMB;
+import br.com.travelmate.managerBean.higherEducation.controle.HeControleBean;
 import br.com.travelmate.model.Acomodacaocurso;
 import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Aupair;
@@ -99,6 +101,8 @@ public class CadArquivoMB implements Serializable {
 	private AvisosDao avisosDao;
 	@Inject
 	private VendasDao vendasDao;
+	@Inject
+	private HeControleDao heControleDao;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
 	@Inject
@@ -353,6 +357,7 @@ public class CadArquivoMB implements Serializable {
 				if (cliente == null) {
 					cliente = vendas.getCliente();
 				}
+
 				if (vendas.getSituacao().equalsIgnoreCase("ANDAMENTO")) {
 					if (aplicacaoMB.getParametrosprodutos().getCursos() != idproduto && aplicacaoMB.getParametrosprodutos().getHighereducation() != idproduto) {
 						if (arquivos.getTipoarquivo().getUnidade().equalsIgnoreCase("Sim")) {
@@ -429,6 +434,15 @@ public class CadArquivoMB implements Serializable {
 			}
 			if (vendas.getSituacao().equalsIgnoreCase("PROCESSO")) {
 				verificarDocumentosCursos();
+
+				if (vendas.getProdutos().getIdprodutos() == 22) {
+					HeFacade heFacade = new HeFacade();
+					He he = heFacade.consultarVenda(vendas.getIdvendas());
+					if (he != null && he.getIdhe() != null) {
+						HeControleBean heControleBean = new HeControleBean();
+						heControleBean.salvar(heControleDao, he);
+					}
+				}
 				if (aplicacaoMB.getParametrosprodutos().getCursos() == idproduto) {
 					if (validarBilheteAereo()) {
 						validarSeguroViagem();

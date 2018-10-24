@@ -614,7 +614,7 @@ public class RelatorioHeMB implements Serializable {
 				listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getListaHeParceirosList().get(0)
 						.getFornecedorcidade().getCidade().getNome());
 				listaHeControle.get(i).setInicioPrograma(
-						listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainicio());
+						listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).getDatainiciohe());
 				if (listaHeControle.get(i).getHe().getListaHeParceirosList().get(0).isPathway()) {
 					listaHeControle.get(i).setPathway("Sim");
 				} else {
@@ -652,7 +652,7 @@ public class RelatorioHeMB implements Serializable {
 					listaHeControle.get(i).setPais(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getPais().getNome());
 					listaHeControle.get(i).setCidade(listaHeControle.get(i).getHe().getVendas().getFornecedorcidade().getCidade().getNome());
 					listaHeControle.get(i).setInicioPrograma(
-							listaHeControle.get(i).getHe().getDatainicio());
+							listaHeControle.get(i).getHe().getDatainiciohe());
 					listaHeControle.get(i).setPathway(listaHeControle.get(i).getHe().getCursarparhaway());
 				}else {
 					listaHeControle.get(i).setPathway("Não");

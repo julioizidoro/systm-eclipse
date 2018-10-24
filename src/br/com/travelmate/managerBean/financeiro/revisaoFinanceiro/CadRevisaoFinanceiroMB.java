@@ -87,8 +87,6 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
 	private AplicacaoMB aplicacaoMB;
-	@Inject
-	private HeControleDao heControleDao;
 	private List<Contasreceber> listaContasReceber;
 	private Vendas venda;
 	private Formapagamento formapagamento;
@@ -568,14 +566,6 @@ public class CadRevisaoFinanceiroMB implements Serializable{
 				salvarAvisoUsuario(avisos);
 			}
 
-			if (venda.getProdutos().getIdprodutos() == 22) {
-				HeFacade heFacade = new HeFacade();
-				He he = heFacade.consultarVenda(venda.getIdvendas());
-				if (he != null && he.getIdhe() != null) {
-					HeControleBean heControleBean = new HeControleBean();
-					heControleBean.salvar(heControleDao, he);
-				}
-			}
 			String titulo = "";
 			if (venda.getSituacaogerencia().equalsIgnoreCase("F")) {
 				titulo = "Ficha de " + venda.getProdutos().getDescricao() + " Está Finalizada. " + venda.getIdvendas();
