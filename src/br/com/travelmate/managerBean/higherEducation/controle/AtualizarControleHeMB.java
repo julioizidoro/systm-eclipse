@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 import br.com.travelmate.dao.HeControleDao;
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.model.Hecontrole;
 
 @Named
@@ -22,6 +23,9 @@ public class AtualizarControleHeMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private VendasEmbarqueDao vendasEmbarqueDao;
 	@Inject
 	private HeControleDao heControleDao;
 	private Hecontrole hecontrole;
@@ -54,6 +58,7 @@ public class AtualizarControleHeMB implements Serializable{
 	
 	
 	public String salvar(){
+		vendasEmbarqueDao.salvar(hecontrole.getHe().getVendas().getVendasembarque());
 		hecontrole = heControleDao.salvar(hecontrole);
 		RequestContext.getCurrentInstance().closeDialog(sql);
 		return "";

@@ -9,6 +9,7 @@ import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoBean;
 import br.com.travelmate.bean.comissao.ComissaoCursoPacoteBean;
 import br.com.travelmate.bean.comissao.ComissaoSeguroBean;
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DadosPaisFacade;
 import br.com.travelmate.facade.FormaPagamentoFacade;
@@ -124,7 +125,7 @@ public class CadCursoBean {
 
 	}
 
-	public void salvarNovaFichha(AplicacaoMB aplicacaoMB, Seguroviagem seguroViagem, Formapagamento forma) {
+	public void salvarNovaFichha(AplicacaoMB aplicacaoMB, Seguroviagem seguroViagem, Formapagamento forma, VendasEmbarqueDao vendasEmbarqueDao) {
 //		if (Formatacao.validarDataVenda(venda.getDataVenda())) {
 //			ContasReceberBean contasReceberBean = new ContasReceberBean(venda,
 //					 forma.getParcelamentopagamentoList(), usuarioLogadoMB, null, true);
@@ -166,7 +167,7 @@ public class CadCursoBean {
 		}
 
 		ControlerBean controlerBean = new ControlerBean();
-		controlerBean.salvarControleCurso(venda, curso, valorPrevisto);
+		controlerBean.salvarControleCurso(venda, curso, valorPrevisto, vendasEmbarqueDao);
 		if (seguroViagem.getIdseguroViagem() != null) {
 			FormaPagamentoFacade formaPagamentoFacade = new FormaPagamentoFacade();
 			Formapagamento formapagamento = formaPagamentoFacade.consultar(venda.getIdvendas());

@@ -32,6 +32,7 @@ import br.com.travelmate.bean.ControlerBean;
 import br.com.travelmate.bean.GerarBoletoConsultorBean;
 import br.com.travelmate.bean.RelatorioErroBean;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.facade.CancelamentoFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.ContasReceberFacade;
@@ -77,6 +78,9 @@ public class CursoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private VendasEmbarqueDao vendasEmbarqueDao;
 	@Inject
 	private VendasDao vendasDao;
 	@Inject
@@ -857,7 +861,7 @@ public class CursoMB implements Serializable {
 			if (curso.getVendas().getVendascomissao() != null) {
 				valorPrevisto = curso.getVendas().getVendascomissao().getValorfornecedor();
 			}
-			controlerBean.salvarControleCurso(curso.getVendas(), curso, valorPrevisto);
+			controlerBean.salvarControleCurso(curso.getVendas(), curso, valorPrevisto, vendasEmbarqueDao);
 			Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
 		} else {
 			Mensagem.lancarMensagemErro("Atenção", "Controle já existente.");

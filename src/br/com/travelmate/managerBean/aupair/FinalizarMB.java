@@ -24,6 +24,7 @@ import br.com.travelmate.bean.comissao.ComissaoVoluntariadoBean;
 import br.com.travelmate.bean.comissao.ComissaoWorkBean;
 import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.facade.FormaPagamentoFacade;
 import br.com.travelmate.facade.FornecedorComissaoCursoFacade;
 import br.com.travelmate.facade.SeguroViagemFacade;
@@ -56,6 +57,8 @@ public class FinalizarMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	private VendasEmbarqueDao vendasEmbarqueDao;
 	private VendasDao vendasDao;
 	private AplicacaoMB aplicacaoMB;
 
@@ -79,8 +82,9 @@ public class FinalizarMB implements Serializable {
 		this.nome = nome;
 	}
 
-	public Vendas finalizar(Aupair aupair, VendasDao vendasDao) {
+	public Vendas finalizar(Aupair aupair, VendasDao vendasDao, VendasEmbarqueDao vendasEmbarqueDao) {
 		this.vendasDao = vendasDao;
+		this.vendasEmbarqueDao =vendasEmbarqueDao;
 		aupair.setControle("Processo");
 		float valorPrevisto = 0.0f;
 		Vendascomissao vendasComissao = aupair.getVendas().getVendascomissao();
@@ -611,7 +615,7 @@ public class FinalizarMB implements Serializable {
 		}
 
 		ControlerBean controlerBean = new ControlerBean();
-		controlerBean.salvarControleCurso(curso.getVendas(), curso, valorPrevisto);
+		controlerBean.salvarControleCurso(curso.getVendas(), curso, valorPrevisto, vendasEmbarqueDao);
 		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
 		Seguroviagem seguroViagem = seguroViagemFacade.consultarSeguroCurso(curso.getVendas().getIdvendas());
 		if (seguroViagem != null && seguroViagem.getIdseguroViagem() != null) {

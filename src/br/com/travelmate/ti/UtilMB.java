@@ -122,7 +122,7 @@ public class UtilMB implements Serializable{
 		} catch (Exception e) {
 			  
 		}
-		leadposvenda.setDataembarque(controle.getDataEmbarque());
+		leadposvenda.setDataembarque(controle.getVendas().getVendasembarque().getDataida());
 		leadposvenda.setLead(lead);
 		leadposvenda.setVendas(controle.getVendas());
 		leadposvenda = leadPosVendaDao.salvar(leadposvenda);

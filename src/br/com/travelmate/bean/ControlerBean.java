@@ -4,6 +4,7 @@ package br.com.travelmate.bean;
 
 import java.util.Date;
 
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.facade.AupairFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.DemipairFacade;
@@ -32,6 +33,7 @@ import br.com.travelmate.model.Programasteens;
 import br.com.travelmate.model.Seguroviagem;
 import br.com.travelmate.model.Trainee;
 import br.com.travelmate.model.Vendas;
+import br.com.travelmate.model.Vendasembarque;
 import br.com.travelmate.model.Voluntariado;
 import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
@@ -53,7 +55,7 @@ public class ControlerBean {
 		invoiceFacade.salvar(invoice);
 	}
 	
-	public void salvarControleCurso(Vendas venda, Curso curso, Float valorPrevisto) {
+	public void salvarControleCurso(Vendas venda, Curso curso, Float valorPrevisto, VendasEmbarqueDao vendasEmbarqueDao) {
 		Controlecurso controle= new Controlecurso();
     	CursoFacade cursoFacade = new CursoFacade();
     	controle = cursoFacade.consultarControleCursos(curso.getVendas().getIdvendas());
@@ -69,7 +71,6 @@ public class ControlerBean {
 			} catch (Exception ex) {
 	
 			}
-			controle.setDataEmbarque(Formatacao.ConvercaoStringData(data));
 			controle.setOrientacaoPreEmbarque("Não");
 			controle.setLoasObs(" ");
 			controle.setDocanexado("N");
@@ -79,9 +80,21 @@ public class ControlerBean {
 			controle.setSituacao("Processo");
 			controle.setVendas(curso.getVendas());
 			controle = cursoFacade.salvar(controle);
+			Vendasembarque vendasEmbarque = new Vendasembarque();
+			try {
+				vendasEmbarque.setDataida(Formatacao.SomarDiasDatas(curso.getDataInicio(), -2));
+				vendasEmbarque.setDatavolta(Formatacao.SomarDiasDatas(curso.getDataTermino(), 2));
+				vendasEmbarque.setVendas(curso.getVendas());
+				vendasEmbarqueDao.salvar(vendasEmbarque);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			salvarInvoice(controle.getIdcontroleCursos(), venda);
 		}
 	}
+	
+	
 	
 	public Date gerarDataPrevistaPagamentoInvoiceCurso(Date dataInicio){
 		try {

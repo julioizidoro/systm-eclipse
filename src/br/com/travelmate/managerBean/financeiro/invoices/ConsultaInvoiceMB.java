@@ -99,7 +99,6 @@ public class ConsultaInvoiceMB implements Serializable {
 			tituloCheck = "Selecionar tudo";
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() != 3) {
 				gerarListaInvoiceRemessa();
-				getDataEmbarque();
 			} else {
 				gerarListaInvoiceRemessa();
 				if (sql == null) {
@@ -573,7 +572,7 @@ public class ConsultaInvoiceMB implements Serializable {
 			}
 		}
 		listaInvoices = invoiceFacade.listar(sql);
-		getDataEmbarque();
+		
 	}
 
 	public void limpar() {
@@ -634,21 +633,7 @@ public class ConsultaInvoiceMB implements Serializable {
 		return "";
 	}
 
-	public void getDataEmbarque() {
-		if (listaInvoices != null) {
-			for (int i = 0; i < listaInvoices.size(); i++) {
-				if (listaInvoices.get(i).getVendas().getControlecursosList() != null) {
-					if (listaInvoices.get(i).getVendas().getControlecursosList().size() > 0) {
-						if (listaInvoices.get(i).getVendas().getControlecursosList().get(0).getDataEmbarque() != null) {
-							listaInvoices.get(i).setDataEmbarque(
-									listaInvoices.get(i).getVendas().getControlecursosList().get(0).getDataEmbarque());
-						}
-					}
-				}
-			}
-		}
-	}
-
+	
 	public void gerarListaInvoiceSelecionadasRemessa() {
 		if (listaInvoices != null) {
 			for (int i = 0; i < listaInvoices.size(); i++) {

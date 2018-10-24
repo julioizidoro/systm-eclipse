@@ -22,6 +22,7 @@ import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadEncaminhadoDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.PaisDao;
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HighSchoolFacade;
@@ -54,6 +55,8 @@ public class FollowUpMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private VendasEmbarqueDao vendasEmbarqueDao;
 	@Inject
 	private PaisDao paisDao;
 	@Inject
@@ -1186,8 +1189,9 @@ public class FollowUpMB implements Serializable {
 			CursoFacade cursoFacade = new CursoFacade();
 			Controlecurso controle = cursoFacade.consultarControleCursos(leadposvenda.getVendas().getIdvendas());
 			if (controle != null) {
-				controle.setDatachegadabrasil(leadposvenda.getDatachegada());
-				controle.setDataEmbarque(leadposvenda.getDataembarque());
+				controle.getVendas().getVendasembarque().setDatavolta(leadposvenda.getDatachegada());
+				controle.getVendas().getVendasembarque().setDataida(leadposvenda.getDataembarque());
+				vendasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());
 				cursoFacade.salvar(controle);
 			}
 		} else if (idproduto == aplicacaoMB.getParametrosprodutos().getVoluntariado()) {

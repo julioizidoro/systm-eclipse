@@ -151,6 +151,16 @@ public class Vendas implements Serializable {
 	private int idControle;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "vendas")
 	private Invoice invoice;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "vendas")
+	private Vendasembarque vendasembarque;
+
+	public Vendasembarque getVendasembarque() {
+		return vendasembarque;
+	}
+
+	public void setVendasembarque(Vendasembarque vendasembarque) {
+		this.vendasembarque = vendasembarque;
+	}
 
 	public Vendas() {
 		setStatuscobranca("p");

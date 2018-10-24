@@ -105,7 +105,7 @@ public class ControleVistosMB implements Serializable{
 		
 		for (int i = 0; i < listaAustralia.size(); i++) {
 			controleVistosBean = new ControleVistosBean();
-			controleVistosBean.setDataEmbarque(listaAustralia.get(i).getDataEmbarque());
+			controleVistosBean.setDataEmbarque(listaAustralia.get(i).getVendas().getVendasembarque().getDataida());
 			controleVistosBean.setDataInicio(listaAustralia.get(i).getCurso().getDataInicio());
 			controleVistosBean.setEscola(listaAustralia.get(i).getVendas().getFornecedor().getNome());
 			controleVistosBean.setNomeCliente(listaAustralia.get(i).getVendas().getCliente().getNome());
@@ -139,7 +139,7 @@ public class ControleVistosMB implements Serializable{
 		
 		for (int i = 0; i < listaNovazelandia.size(); i++) {
 			controleVistosBean = new ControleVistosBean();
-			controleVistosBean.setDataEmbarque(listaNovazelandia.get(i).getDataEmbarque());
+			controleVistosBean.setDataEmbarque(listaNovazelandia.get(i).getVendas().getVendasembarque().getDataida());
 			controleVistosBean.setDataInicio(listaNovazelandia.get(i).getCurso().getDataInicio());
 			controleVistosBean.setEscola(listaNovazelandia.get(i).getVendas().getFornecedor().getNome());
 			controleVistosBean.setNomeCliente(listaNovazelandia.get(i).getVendas().getCliente().getNome());
@@ -173,7 +173,7 @@ public class ControleVistosMB implements Serializable{
 		
 		for (int i = 0; i < listaInglaterra.size(); i++) {
 			controleVistosBean = new ControleVistosBean();
-			controleVistosBean.setDataEmbarque(listaInglaterra.get(i).getDataEmbarque());
+			controleVistosBean.setDataEmbarque(listaInglaterra.get(i).getVendas().getVendasembarque().getDataida());
 			controleVistosBean.setDataInicio(listaInglaterra.get(i).getCurso().getDataInicio());
 			controleVistosBean.setEscola(listaInglaterra.get(i).getVendas().getFornecedor().getNome());
 			controleVistosBean.setNomeCliente(listaInglaterra.get(i).getVendas().getCliente().getNome());
@@ -205,7 +205,7 @@ public class ControleVistosMB implements Serializable{
 		
 		for (int i = 0; i < listaEmirado.size(); i++) {
 			controleVistosBean = new ControleVistosBean();
-			controleVistosBean.setDataEmbarque(listaEmirado.get(i).getDataEmbarque());
+			controleVistosBean.setDataEmbarque(listaEmirado.get(i).getVendas().getVendasembarque().getDataida());
 			controleVistosBean.setDataInicio(listaEmirado.get(i).getCurso().getDataInicio());
 			controleVistosBean.setEscola(listaEmirado.get(i).getVendas().getFornecedor().getNome());
 			controleVistosBean.setNomeCliente(listaEmirado.get(i).getVendas().getCliente().getNome());
@@ -241,7 +241,7 @@ public class ControleVistosMB implements Serializable{
 		
 		for (int i = 0; i < listaCanada.size(); i++) {
 			controleVistosBean = new ControleVistosBean();
-			controleVistosBean.setDataEmbarque(listaCanada.get(i).getDataEmbarque());
+			controleVistosBean.setDataEmbarque(listaCanada.get(i).getVendas().getVendasembarque().getDataida());
 			controleVistosBean.setDataInicio(listaCanada.get(i).getCurso().getDataInicio());
 			controleVistosBean.setEscola(listaCanada.get(i).getVendas().getFornecedor().getNome());
 			controleVistosBean.setNomeCliente(listaCanada.get(i).getVendas().getCliente().getNome());
@@ -279,7 +279,7 @@ public class ControleVistosMB implements Serializable{
 			}
 			if (listaEUA.get(i).getCurso().getTipoDuracao().equalsIgnoreCase("Horas por Semana")) {
 				controleVistosBean = new ControleVistosBean();
-				controleVistosBean.setDataEmbarque(listaEUA.get(i).getDataEmbarque());
+				controleVistosBean.setDataEmbarque(listaEUA.get(i).getVendas().getVendasembarque().getDataida());
 				controleVistosBean.setDataInicio(listaEUA.get(i).getCurso().getDataInicio());
 				controleVistosBean.setEscola(listaEUA.get(i).getVendas().getFornecedor().getNome());
 				controleVistosBean.setNomeCliente(listaEUA.get(i).getVendas().getCliente().getNome());
@@ -290,7 +290,7 @@ public class ControleVistosMB implements Serializable{
 				listaControleVistoBean.add(controleVistosBean);
 			}else if ((listaEUA.get(i).getCurso().getTipoDuracao().equalsIgnoreCase("Aulas por Semana")) && (listaEUA.get(i).getCurso().getAulassemana() >= 23)) {
 				controleVistosBean = new ControleVistosBean();
-				controleVistosBean.setDataEmbarque(listaEUA.get(i).getDataEmbarque());
+				controleVistosBean.setDataEmbarque(listaEUA.get(i).getVendas().getVendasembarque().getDataida());
 				controleVistosBean.setDataInicio(listaEUA.get(i).getCurso().getDataInicio());
 				controleVistosBean.setEscola(listaEUA.get(i).getVendas().getFornecedor().getNome());
 				controleVistosBean.setNomeCliente(listaEUA.get(i).getVendas().getCliente().getNome());

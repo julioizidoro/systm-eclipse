@@ -29,6 +29,7 @@ import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.CambioDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.facade.AcomodacaoCursoFacade;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.AupairFacade;
@@ -94,6 +95,8 @@ public class CadControleArquivosMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasEmbarqueDao vendasEmbarqueDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -667,14 +670,14 @@ public class CadControleArquivosMB implements Serializable{
 		AupairFacade aupairFacade = new AupairFacade();
 		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-		vendas = finalizarMB.finalizar(aupair, vendasDao);
+		vendas = finalizarMB.finalizar(aupair, vendasDao, vendasEmbarqueDao);
 		new ContasReceberBean(aupair.getVendas(),
 				aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 				aupair.getDataInicioPretendida01());
 	}
 	
 	
-	public void finalizarTrainee() {
+	public void finalizarTrainee() { 
 		TraineeFacade traineeFacade = new TraineeFacade();
 		Trainee trainee = traineeFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
@@ -1435,16 +1438,18 @@ public class CadControleArquivosMB implements Serializable{
 					CursoFacade cursoFacade = new CursoFacade();
 					Controlecurso controle = cursoFacade.consultarControleCursos(vendas.getIdvendas());
 					if (controle != null) {
-						controle.setDatachegadabrasil(this.datachegadabrasil);
-						controle.setDataEmbarque(this.dataembarque);
+						controle.getVendas().getVendasembarque().setDatavolta(datachegadabrasil);
+						controle.getVendas().getVendasembarque().setDataida(dataembarque);
+						vendasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());
 						cursoFacade.salvar(controle);
 					}
 				} else if (seguroviagem.getControle().equalsIgnoreCase("Voluntariado")) {
 					VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
 					Controlevoluntariado controle = voluntariadoFacade.consultarControle(vendas.getIdvendas());
 					if (controle != null) {
-						controle.setDatachegadabrasil(this.datachegadabrasil);
-						controle.setDataembarque(this.dataembarque);
+						controle.getVendas().getVendasembarque().setDatavolta(datachegadabrasil);
+						controle.getVendas().getVendasembarque().setDataida(dataembarque);
+						vendasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());;
 						voluntariadoFacade.salvar(controle);
 					}
 				}

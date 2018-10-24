@@ -71,7 +71,6 @@ public class AtualizarControleCursoMB implements Serializable{
 	public void consultarCurso(){
 		CursoFacade cursoFacade = new CursoFacade();
 		curso = cursoFacade.consultarCursos(controle.getVendas().getIdvendas());
-		controle.setDataEmbarque(curso.getDataChegada());
 	}
 	
 	

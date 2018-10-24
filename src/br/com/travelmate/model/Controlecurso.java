@@ -38,9 +38,7 @@ public class Controlecurso implements Serializable {
     private Integer idcontroleCursos;
     @Column(name = "work")
     private Integer work;
-    @Column(name = "dataEmbarque")
-    @Temporal(TemporalType.DATE)
-    private Date dataEmbarque;
+   
     @Column(name = "dataEnvioInscricaoEscola")
     @Temporal(TemporalType.DATE)
     private Date dataEnvioInscricaoEscola;
@@ -84,9 +82,7 @@ public class Controlecurso implements Serializable {
     private String obsvisto;
     @Column(name = "urgenciavisto")
     private boolean urgenciavisto;
-    @Column(name = "datachegadabrasil")
-    @Temporal(TemporalType.DATE)
-    private Date datachegadabrasil;
+   
     @Transient
     private String tipoOrcamento;
     
@@ -121,14 +117,6 @@ public class Controlecurso implements Serializable {
 
     public void setWork(Integer work) {
         this.work = work;
-    }
-
-    public Date getDataEmbarque() {
-        return dataEmbarque;
-    }
-
-    public void setDataEmbarque(Date dataEmbarque) {
-        this.dataEmbarque = dataEmbarque;
     }
 
     public Date getDataEnvioInscricaoEscola() {
@@ -271,14 +259,7 @@ public class Controlecurso implements Serializable {
 		this.urgenciavisto = urgenciavisto;
 	} 
 	
-	public Date getDatachegadabrasil() {
-		return datachegadabrasil;
-	}
-
-	public void setDatachegadabrasil(Date datachegadabrasil) {
-		this.datachegadabrasil = datachegadabrasil;
-	}
-
+	
 	public String getTipoOrcamento() {
 		return tipoOrcamento;
 	}

@@ -111,8 +111,7 @@ public class Invoice implements Serializable {
 
 	@Transient
     private boolean clientedevedor;
-    @Transient
-    private Date dataEmbarque;
+    
     
     
     public Invoice() {
@@ -289,13 +288,7 @@ public class Invoice implements Serializable {
 		this.situacao = situacao;
 	}
 
-	public Date getDataEmbarque() {
-		return dataEmbarque;
-	}
-
-	public void setDataEmbarque(Date dataEmbarque) {
-		this.dataEmbarque = dataEmbarque;
-	}
+	
 
 	public String getObservacaofinanceiro() {
 		return observacaofinanceiro;
