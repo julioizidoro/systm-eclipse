@@ -41,6 +41,8 @@ public class CadRecebimentosMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -319,7 +321,9 @@ public class CadRecebimentosMB implements Serializable{
 		recInternacional.setVendas(vendas);
 		if (validarDados()) {
 			recInternacional = recinternacionalFacade.salvar(recInternacional);
-			gerarDadosControleHe();
+			if (recInternacional.getVendas().getProdutos().getIdprodutos()==22) {
+				gerarDadosControleHe();
+			}
 			RequestContext.getCurrentInstance().closeDialog(recInternacional);
 		}
 	}
@@ -352,11 +356,13 @@ public class CadRecebimentosMB implements Serializable{
 			Hecontrole hecontrole = heControleDao.consultar("SELECT h FROM Hecontrole h WHERE h.he.vendas.idvendas=" + vendas.getIdvendas());
 			if (hecontrole != null) {
 				hecontrole.setValorcomissao(recInternacional.getValor());
-				hecontrole.setComissaosolicitada(new Date());
+				hecontrole.setComissaosolicitada(recInternacional.getDataenvio());
 				heControleDao.salvar(hecontrole);
 			}
 		}
 	}
+	
+	
 	
 	
 	
