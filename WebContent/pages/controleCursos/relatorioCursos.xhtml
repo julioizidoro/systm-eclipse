@@ -1,0 +1,702 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/default.xhtml">
+	<ui:define name="corpo">
+		<h:form id="consultacontrolecurso" style="font-size:11px;">
+			<div id="centro">
+				<p:growl id="growl" showDetail="true" sticky="false"
+					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
+
+				<legend id="iUsu2">
+					<b>Relatório de Higher Education</b>
+				</legend>
+
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Pesquisar">
+						<h:panelGrid columns="4" style="margin-left:2%;width:98%;">
+							<p:outputLabel value="País" />
+							<p:outputLabel value="Cidade" />
+							<p:outputLabel value="Parceiro" />
+							<p:outputLabel value="Duraçao Semanas" />
+
+							<p:selectOneMenu id="pais" value="#{relatorioCursoMB.pais}"
+								style="width:180px;font-size:11px;"
+								converter="PaisFornecedorConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:210px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idpais" value="#{relatorioCursoMB.listaPais}"
+									var="pais" itemLabel="#{pais.nome}" itemValue="#{pais}" />
+								<f:attribute name="listaPaisFornecedor"
+									value="#{relatorioCursoMB.listaPais}" />
+								<p:ajax event="change" update="cidade" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="cidade" value="#{relatorioCursoMB.cidade}"
+								style="width:180px;font-size:11px;" class="espacocampos2"
+								converter="CidadeConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:210px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idcidade"
+									value="#{relatorioCursoMB.pais.cidadeList}" var="cidade"
+									itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+								<f:attribute name="listaCidade"
+									value="#{relatorioCursoMB.pais.cidadeList}" />
+								<p:ajax event="change"
+									listener="#{relatorioCursoMB.gerarListaFornecedor()}"
+									update="escolas" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="escolas"
+								value="#{relatorioCursoMB.fornecedorcidade}"
+								style="width:180px;font-size:11px;" class="espacocampos2"
+								converter="FornecedorCidadeConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:210px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idfornecedor"
+									value="#{relatorioCursoMB.listaFornecedorCidade}"
+									var="fornecedor" itemLabel="#{fornecedor.fornecedor.nome}"
+									itemValue="#{fornecedor}" />
+								<f:attribute name="listaFornecedorCidade"
+									value="#{relatorioCursoMB.listaFornecedorCidade}" />
+							</p:selectOneMenu>
+							<p:inputText id="duracaosemanas" value="#{cursoMB.idVenda}"
+								style="width:87px;" />
+
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+
+
+							<p:outputLabel value="Unidade" />
+							<p:outputLabel value="Programa" />
+							<p:outputLabel value="Tipo Acomodação" />
+							<p:outputLabel value="Início do Curso" for="dataIni" />
+
+							<p:selectOneMenu id="unidade"
+								value="#{relatorioCursoMB.unidadenegocio}" style="width:180px;"
+								converter="UnidadeNegocioConverter" filter="true"
+								filterMatchMode="startsWith" panelStyle="width:180px">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idunidade"
+									value="#{relatorioCursoMB.listaUnidadeNegocio}" var="sUnidade"
+									itemLabel="#{sUnidade.nomerelatorio}" itemValue="#{sUnidade}" />
+								<f:attribute name="listaUnidade"
+									value="#{relatorioCursoMB.listaUnidadeNegocio}" />
+							</p:selectOneMenu>
+
+
+							<p:selectOneMenu id="produtoorcamento"
+								value="#{relatorioCursoMB.produtosorcamento}"
+								style="width:190px;" converter="OrcamentoProdutoConverter"
+								filter="true" filterMatchMode="startsWith" panelStyle="width:190px;">
+								<f:selectItem itemLabel="Selecione Curso" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems id="idtipocurso"
+									value="#{relatorioCursoMB.listaProdutosOrcamentos}"
+									var="tipocurso" itemLabel="#{tipocurso.descricao}"
+									itemValue="#{tipocurso}" />
+								<f:attribute name="listaProdutosOrcamento"
+									value="#{relatorioCursoMB.listaProdutosOrcamentos}" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="tipoacomodacao"
+								value="#{relatorioCursoMB.tipoAcomodacao}" style="width:91%;">
+								<f:selectItem itemLabel="Selecione" itemValue="Selecione"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Sem acomodação"
+									itemValue="Sem acomodação" />
+								<f:selectItem itemLabel="Casa de família"
+									itemValue="Casa de família" />
+								<f:selectItem itemLabel="Alojamento" itemValue="Alojamento" />
+								<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+								<f:selectItem itemLabel="Flat" itemValue="Flat" />
+								<f:selectItem itemLabel="Hotel" itemValue="Hotel" />
+								<f:selectItem itemLabel="Hostel" itemValue="Hostel" />
+								<f:selectItem itemLabel="Residência" itemValue="Residência" />
+								<f:selectItem itemLabel="Studio" itemValue="Studio" />
+								<f:selectItem itemLabel="Dormitório" itemValue="Dormitório" />
+							</p:selectOneMenu>
+							<h:panelGroup>
+								<p:calendar id="dataIni"
+									value="#{relatorioCursoMB.datainicurso}" size="12" locale="pt"
+									pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinal" style="margin-left: 3%;"
+									value="#{relatorioCursoMB.datafinalcurso}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							
+							<p:outputLabel value="Término do Curso" />
+							<p:outputLabel value="Data de Embarque" />
+							<p:outputLabel value="Data Nascimento" />
+							<p:outputLabel value="Previsão de pagamento" />
+							<h:panelGroup>
+								<p:calendar id="dataIniTerminoCurso"
+									value="#{relatorioCursoMB.dataIniTerminoCurso}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinalCurso" style="margin-left: 3%;"
+									value="#{relatorioCursoMB.dataFinalTerminoCurso}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:calendar id="dataIniEmbarque"
+									value="#{relatorioCursoMB.datainiembarque}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinalEmbarque" style="margin-left: 3%;"
+									value="#{relatorioCursoMB.datafinalembarque}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							
+							<h:panelGroup>
+								<p:calendar id="dataIninascimento"
+									value="#{relatorioCursoMB.dataininascimento}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinalnascimento" style="margin-left: 3%;"
+									value="#{relatorioCursoMB.datafinalnascimento}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:calendar id="dataInipagamento"
+									value="#{relatorioCursoMB.datainiprevisao}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinalpagamento" style="margin-left: 3%;"
+									value="#{relatorioCursoMB.datafinalprevisao}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
+
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							
+							<p:outputLabel value="Situação Processo" />
+							<p:outputLabel value="Kit Viagem" />
+							<p:outputLabel value="Controle Docs Visto" />
+							<p:outputLabel/>
+							
+							
+							<h:panelGroup>
+								<p:selectOneMenu id="situacao"
+									value="#{relatorioCursoMB.situacaoPesquisa}" style="width:100px;">
+									<f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+									<f:selectItem itemLabel="Processo" itemValue="PROCESSO" />
+									<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+									<f:selectItem itemLabel="Embarcado" itemValue="EMBARCADO" />
+									<f:selectItem itemLabel="Standby" itemValue="STANDBY" />
+									<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+									<p:ajax event="change" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+							
+							<p:selectOneMenu id="idkitviagemPesquisa"
+								value="#{relatorioCursoMB.kitviagem}" style="width:100px;">
+								<f:selectItem itemLabel="Selecione" itemValue="Selecione" noSelectionOption="true" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+							</p:selectOneMenu>
+
+							<p:selectOneMenu id="idcontroleDocsVisto"
+								value="#{relatorioCursoMB.docsvistoPesquisa}" style="width:100px;">
+								<f:selectItem itemLabel="Selecione" itemValue="Selecione" noSelectionOption="true" />
+								<f:selectItem itemLabel="Sim" itemValue="Sim" />
+								<f:selectItem itemLabel="Não" itemValue="Não" />
+							</p:selectOneMenu>
+
+
+							
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idcreditosPesquisa"
+									value="#{relatorioCursoMB.creditoPesquisa}">
+
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Crédito" />
+							</h:panelGroup>
+						</h:panelGrid>
+						<br></br>
+						
+						<br />
+						<h:panelGrid columns="2" style="width:20%;float:right;">
+							<p:commandButton value="Pesquisar" icon=" ui-icon-search "
+								action="#{relatorioCursoMB.pesquisar()}"
+								update=":consultacontrolecurso:tabelaControleCurso" />
+							<p:commandButton value="Limpar" icon="ui-icon-arrowrefresh-1-w"
+								action="#{relatorioCursoMB.limpar()}" update="@form" />
+						</h:panelGrid>
+						<br></br>
+					</p:tab>
+				</p:accordionPanel>
+				<br /> <br />
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Exibir na Tabela">
+						<h:panelGrid columns="5" style="width:98%;margin-left:2%;">
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idselecionarotodos"
+									value="#{relatorioCursoMB.selecionartodos}">
+
+									<p:ajax event="change"
+										listener="#{relatorioCursoMB.selecionartodos()}"
+										update=":consultacontrolecurso:tabelaControleCurso, idunidade, idtelefone, idemail, ididade, idcurso, idsemanas, dataenvio, iddatainscricao, idiniciocurso, 
+										idterminocurso, iddataembarque, idrecebimentoproof, idsituacaoprocesso, idkitviagem, iddocvistos, 
+		        			    		nomecliente, pais, cidade, parceiro, inicioprograma, credito, consultor" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Selecionar Todos" />
+							</h:panelGroup>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idunidade"
+									value="#{relatorioCursoMB.unidade}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Unidade" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="consultor"
+									value="#{relatorioCursoMB.consultor}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Consultor" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="nomecliente"
+									value="#{relatorioCursoMB.nomecliente}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Cliente" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idtelefone"
+									value="#{relatorioCursoMB.telefone}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Telefone" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idemail"
+									value="#{relatorioCursoMB.email}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="E-mail" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="ididade"
+									value="#{relatorioCursoMB.idade}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Idade" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="pais"
+									value="#{relatorioCursoMB.paisVisu}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Pais" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="cidade"
+									value="#{relatorioCursoMB.cidadeVisu}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Cidade" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="parceiro"
+									value="#{relatorioCursoMB.parceiro}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Parceiro" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="inicioprograma"
+									value="#{relatorioCursoMB.inicioprograma}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Início do programa" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idcurso"
+									value="#{relatorioCursoMB.curso}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Curso" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idsemanas"
+									value="#{relatorioCursoMB.nsemanas}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="N Semanas" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="dataenvio"
+									value="#{relatorioCursoMB.dataenvio}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Data Envio" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="iddatainscricao"
+									value="#{relatorioCursoMB.datainscricao}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Data Inscrição" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idiniciocurso"
+									value="#{relatorioCursoMB.inicioprograma}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Início Curso" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idterminocurso"
+									value="#{relatorioCursoMB.terminocurso}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Término Curso" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="iddataembarque"
+									value="#{relatorioCursoMB.dataembarque}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Data Embarque" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idrecebimentoproof"
+									value="#{relatorioCursoMB.recebimentoproof}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Recebimento Proof" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idsituacaoprocesso"
+									value="#{relatorioCursoMB.situacaogerencia}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Situação Processo" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idkitviagem"
+									value="#{relatorioCursoMB.kitviagemVisu}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Kit Viagem" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="iddocvistos"
+									value="#{relatorioCursoMB.docvistos}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Doc. Visto" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="credito"
+									value="#{relatorioCursoMB.credito}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Crédito" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+
+				<br /> <br />
+				<h:panelGrid columns="2" style="margin-left:2%">
+					<h:commandLink>
+						<img src="../../resources/img/icone_xls.png" width="36" />
+						<p:dataExporter type="xls" target="tabelaControleCurso"
+							fileName="relatoriocontrolecurso" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<img src="../../resources/img/icone_pdf.png" width="32" />
+						<p:dataExporter type="pdf" target="tabelaControleCurso"
+							fileName="relatoriocontrolecurso" />
+					</h:commandLink>
+				</h:panelGrid>
+				<p:dataTable id="tabelaControleCurso" var="controlecurso"
+					style="width:98%;margin-left:1%;"
+					value="#{relatorioCursoMB.listaControlecurso}" scrollable="true"
+					scrollHeight="300" rowIndexVar="rowIx">
+					<p:column headerText="Unidade" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.unidade}"
+						sortBy="#{controlecurso.vendas.unidadenegocio.nomerelatorio}"
+						style="width:110px;">
+						<h:outputText
+							value="#{controlecurso.vendas.unidadenegocio.nomerelatorio}" />
+					</p:column>
+					<p:column headerText="Consultor" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.unidade}"
+						sortBy="#{controlecurso.vendas.usuario.nome}"
+						style="width:110px;">
+						<h:outputText
+							value="#{controlecurso.vendas.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Cliente" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.nomecliente}"
+						sortBy="#{controlecurso.vendas.cliente.nome}" style="width:180px;">
+						<h:outputText value="#{controlecurso.vendas.cliente.nome}" />
+					</p:column>
+
+
+					<p:column headerText="Telefone" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.telefone}"
+						sortBy="#{controlecurso.vendas.cliente.foneCelular}" style="width:110px;">
+						<h:outputText value="#{controlecurso.vendas.cliente.foneCelular}" />
+					</p:column>
+
+
+					<p:column headerText="E-mail" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.email}"
+						sortBy="#{controlecurso.vendas.cliente.email}" style="width:110px;">
+						<h:outputText value="#{controlecurso.vendas.cliente.email}" />
+					</p:column>
+
+
+					<p:column headerText="Idade" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.idade}"
+						sortBy="#{controlecurso.vendas.cliente.dataNascimento}" style="width:90px;text-align:center;">
+						<h:outputText value="#{controlecurso.vendas.cliente.dataNascimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Pais" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.paisVisu}"
+						sortBy="#{controlecurso.vendas.fornecedorcidade.cidade.pais.nome}"
+						style="width:110px;">
+						<h:outputText
+							value="#{controlecurso.vendas.fornecedorcidade.cidade.pais.nome}" />
+					</p:column>
+
+					<p:column headerText="Cidade" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.cidadeVisu}"
+						sortBy="#{controlecurso.vendas.fornecedorcidade.cidade.nome}"
+						style="width:110px;">
+						<h:outputText
+							value="#{controlecurso.vendas.fornecedorcidade.cidade.nome}" />
+					</p:column>
+
+
+					<p:column headerText="Parceiro" style="width:120px;"
+						sortBy="#{controlecurso.vendas.fornecedorcidade.fornecedor.nome}"
+						rendered="#{relatorioCursoMB.parceiro}" styleClass="alinharCenter">
+						<h:outputText
+							value="#{controlecurso.vendas.fornecedorcidade.fornecedor.nome}" />
+					</p:column>
+
+					<p:column headerText="Curso" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.curso}"
+						sortBy="#{controlecurso.curso.nomeCurso}" style="width:150px;">
+						<h:outputText value="#{controlecurso.curso.nomeCurso}" />
+					</p:column>
+
+
+
+					<p:column headerText="Número de Semanas" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.nsemanas}"
+						sortBy="#{controlecurso.curso.numeroSenamas}" style="width:90px;text-align:left;">
+						<h:outputText value="#{controlecurso.curso.numeroSenamas}" />
+					</p:column>
+
+					<p:column headerText="Data Envio" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.dataenvio}"
+						sortBy="#{controlecurso.dataEnvioInscricaoEscola}"
+						style="width:90px;text-align:left;">
+						<h:outputText value="#{controlecurso.dataEnvioInscricaoEscola}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Data Inscrição"
+						rendered="#{relatorioCursoMB.datainscricao}"
+						sortBy="#{controlecurso.vendas.dataVenda}"
+						style="text-align:left;width:82px;">
+						<h:outputText value="#{controlecurso.vendas.dataVenda}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Início do Curso"
+						rendered="#{relatorioCursoMB.inicioprograma}"
+						sortBy="#{controlecurso.curso.dataInicio}"
+						style="text-align:left;width:82px;">
+						<h:outputText value="#{controlecurso.curso.dataInicio}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Término do Curso"
+						rendered="#{relatorioCursoMB.terminocurso}"
+						sortBy="#{controlecurso.curso.dataTermino}"
+						style="text-align:left;width:92px;">
+						<h:outputText value="#{controlecurso.curso.dataTermino}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Data Embarque"
+						rendered="#{relatorioCursoMB.dataembarque}"
+						sortBy="#{controlecurso.dataEmbarque}"
+						style="text-align:left;width:87px;">
+						<h:outputText value="#{controlecurso.dataEmbarque}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Recebimento Proof"
+						rendered="#{relatorioCursoMB.recebimentoproof}"
+						sortBy="#{controlecurso.vendas.invoice.datarecebimentocomprovante}"
+						style="text-align:left;width:92px;">
+						<h:outputText
+							value="#{controlecurso.vendas.invoice.datarecebimentocomprovante}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Situação Processo" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.situacaogerencia}"
+						sortBy="#{controlecurso.situacao}"
+						style="width:100px;text-align:left;">
+						<h:outputText value="#{controlecurso.situacao}" />
+					</p:column>
+
+
+					<p:column headerText="Kit Viagem" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.kitviagemVisu}"
+						sortBy="#{controlecurso.kitViagem}" style="width:67px;text-align:left;">
+						<h:outputText value="#{controlecurso.kitViagem}" />
+					</p:column>
+
+					<p:column headerText="Doc. Vistos" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.docvistos}"
+						sortBy="#{controlecurso.visto}" style="width:70px;text-align:left;">
+						<h:outputText value="#{controlecurso.visto}" />
+					</p:column>
+
+
+					<p:column headerText="Crédito" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.credito}"
+						sortBy="#{controlecurso.vendas.invoice.valorcredito}"
+						style="width:90px;text-align:right;">
+						<h:outputText value="#{controlecurso.vendas.invoice.valorcredito}">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+				</p:dataTable>
+				<br /> <br />
+				<style>
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+	.ui-datatable tfoot th {
+	padding: 2px 2px;
+	overflow: hidden;
+	border-width: 0px;
+	border-style: solid;
+}
+</style>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

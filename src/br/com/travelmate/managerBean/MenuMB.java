@@ -1639,5 +1639,9 @@ public class MenuMB implements Serializable {
 		return "relatorioHE";
 	}
 	
+	public String relatorioCurso() {
+		return "relatorioCursos";
+	}
+	
 	
 }
