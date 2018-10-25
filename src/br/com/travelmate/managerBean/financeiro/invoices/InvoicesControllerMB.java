@@ -47,6 +47,7 @@ public class InvoicesControllerMB implements Serializable{
         	invoice = new Invoice();
         }else {
         	dataPrevista = Formatacao.ConvercaoDataPadrao(invoice.getDataPrevistaPagamento());
+        	tipoarquivo = invoice.getTipoarquivoproduto();
         }
 	}
 
@@ -75,7 +76,7 @@ public class InvoicesControllerMB implements Serializable{
 	}
 
 	public String salvar(){
-		if (tipoarquivo != null) {
+		if (tipoarquivo != null && tipoarquivo.getIdtipoarquivoproduto() != null) {
 			InvoiceFacade invoiceFacade = new InvoiceFacade();
 			invoice.setTipoarquivoproduto(tipoarquivo);
 			invoice = invoiceFacade.salvar(invoice);
@@ -88,10 +89,10 @@ public class InvoicesControllerMB implements Serializable{
 					vendasComissaoFacade.salvar(vendascomissao);
 				}
 			}
+			RequestContext.getCurrentInstance().closeDialog(null);
 		}else {
 			Mensagem.lancarMensagemInfo("Selecione o Tipode Arquivo", "");
 		}
-			RequestContext.getCurrentInstance().closeDialog(null);
 		return "";
 	}
 	

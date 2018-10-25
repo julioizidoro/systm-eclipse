@@ -1,7 +1,6 @@
 package br.com.travelmate.bean;
 
-
-
+import java.sql.SQLException;
 import java.util.Date;
 
 import br.com.travelmate.dao.VendasEmbarqueDao;
@@ -12,6 +11,7 @@ import br.com.travelmate.facade.HighSchoolFacade;
 import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.ProgramasTeensFacede;
 import br.com.travelmate.facade.SeguroViagemFacade;
+import br.com.travelmate.facade.TipoArquivoProdutoFacade;
 import br.com.travelmate.facade.TraineeFacade;
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.facade.WorkTravelFacade;
@@ -39,7 +39,7 @@ import br.com.travelmate.model.Worktravel;
 import br.com.travelmate.util.Formatacao;
 
 public class ControlerBean {
-	
+
 	public void salvarInvoice(int idControle, Vendas venda) {
 		Invoice invoice = new Invoice();
 		invoice.setValorPago(0.0f);
@@ -51,21 +51,37 @@ public class ControlerBean {
 		invoice.setPrioridade("Normal");
 		invoice.setObscredito("");
 		invoice.setTipo("Programa");
+		TipoArquivoProdutoFacade tipoArquivoProdutoFacade = new TipoArquivoProdutoFacade();
+		try {
+			if (venda.getProdutos().getIdprodutos() == 22) {
+				invoice.setTipoarquivoproduto(tipoArquivoProdutoFacade.consultar(187));
+
+			} else if (venda.getProdutos().getIdprodutos() == 1) {
+				invoice.setTipoarquivoproduto(tipoArquivoProdutoFacade.consultar(31));
+			} else {
+				invoice.setTipoarquivoproduto(tipoArquivoProdutoFacade.consultarArquivoProduto(
+						"SELECT t FROM Tipoarquivoproduto t WHERE t.tipoarquivo.idtipoarquivo=44 AND t.produtos.idprodutos="
+								+ venda.getProdutos().getIdprodutos()));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		InvoiceFacade invoiceFacade = new InvoiceFacade();
 		invoiceFacade.salvar(invoice);
 	}
-	
-	public void salvarControleCurso(Vendas venda, Curso curso, Float valorPrevisto, VendasEmbarqueDao vendasEmbarqueDao) {
-		Controlecurso controle= new Controlecurso();
-    	CursoFacade cursoFacade = new CursoFacade();
-    	controle = cursoFacade.consultarControleCursos(curso.getVendas().getIdvendas());
-    	if(controle==null){
+
+	public void salvarControleCurso(Vendas venda, Curso curso, Float valorPrevisto,
+			VendasEmbarqueDao vendasEmbarqueDao) {
+		Controlecurso controle = new Controlecurso();
+		CursoFacade cursoFacade = new CursoFacade();
+		controle = cursoFacade.consultarControleCursos(curso.getVendas().getIdvendas());
+		if (controle == null) {
 			controle = new Controlecurso();
 			controle.setCurso(curso);
 			controle.setKitViagem("Não");
 			controle.setVisto("Não");
 			controle.setDocs("VM");
-			
+
 			controle.setOrientacaoPreEmbarque("Não");
 			controle.setLoasObs(" ");
 			controle.setDocanexado("N");
@@ -82,47 +98,43 @@ public class ControlerBean {
 				vendasEmbarque.setVendas(curso.getVendas());
 				vendasEmbarqueDao.salvar(vendasEmbarque);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			salvarInvoice(controle.getIdcontroleCursos(), venda);
+			////salvarInvoice(controle.getIdcontroleCursos(), venda);
 		}
 	}
-	
-	
-	
-	public Date gerarDataPrevistaPagamentoInvoiceCurso(Date dataInicio){
+
+	public Date gerarDataPrevistaPagamentoInvoiceCurso(Date dataInicio) {
 		try {
 			Date dataPrevista = Formatacao.SomarDiasDatas(dataInicio, -30);
 			int diaSemana = Formatacao.diaSemana(dataPrevista);
-			if (diaSemana==1){
+			if (diaSemana == 1) {
 				dataPrevista = Formatacao.SomarDiasDatas(dataPrevista, 1);
-			}else if (diaSemana==7){
+			} else if (diaSemana == 7) {
 				dataPrevista = Formatacao.SomarDiasDatas(dataPrevista, 2);
 			}
 			return dataPrevista;
 		} catch (Exception e) {
-			  
+
 		}
 		return null;
 	}
-	
+
 	public void salvarControleSeguro(Seguroviagem seguroViagem) {
-        SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
-        Controleseguro controle = seguroViagem.getControleseguro();
-        if (controle == null) {
-        	 controle = new Controleseguro();
-             controle.setSeguroviagem(seguroViagem);
-             controle.setEnvioVoucher("Não");
-             controle.setObservacao(" ");
-             controle.setFinalizado("Processo");
-             controle.setSituacao("Processo");
-             controle = seguroViagemFacade.salvarControle(controle);
-             salvarInvoice(controle.getIdcontroleSeguro(), seguroViagem.getVendas());
-        }
-    }
-	
-	
+		SeguroViagemFacade seguroViagemFacade = new SeguroViagemFacade();
+		Controleseguro controle = seguroViagem.getControleseguro();
+		if (controle == null) {
+			controle = new Controleseguro();
+			controle.setSeguroviagem(seguroViagem);
+			controle.setEnvioVoucher("Não");
+			controle.setObservacao(" ");
+			controle.setFinalizado("Processo");
+			controle.setSituacao("Processo");
+			controle = seguroViagemFacade.salvarControle(controle);
+			////salvarInvoice(controle.getIdcontroleSeguro(), seguroViagem.getVendas());
+		}
+	}
+
 	public void salvarControlTrainee(Vendas venda, Trainee trainee, Float valorPrevisto) {
 		TraineeFacade traineeFacade = new TraineeFacade();
 		Controletrainee controle = new Controletrainee();
@@ -132,7 +144,7 @@ public class ControlerBean {
 			controle.setStatusprocesso("Processo");
 			controle.setVendas(trainee.getVendas());
 			controle.setApplication("Não");
-			controle.setAntecedentescriminais("Não"); 
+			controle.setAntecedentescriminais("Não");
 			controle.setAtestadomedico("Não");
 			controle.setBooking("Não");
 			controle.setCartaapresentacao("Não");
@@ -148,10 +160,10 @@ public class ControlerBean {
 			controle.setPassagem("Não");
 			controle.setVisto("Não");
 			controle = traineeFacade.salvar(controle);
-			salvarInvoice(controle.getIdcontroletrainee(), venda);
+			//salvarInvoice(controle.getIdcontroletrainee(), venda);
 		}
 	}
-	
+
 	public void salvarControlWork(Vendas venda, Worktravel work, Float valorPrevisto) {
 		WorkTravelFacade workTravelFacade = new WorkTravelFacade();
 		Controlework controle = new Controlework();
@@ -167,11 +179,10 @@ public class ControlerBean {
 			controle.setStatusprocesso("Processo");
 			controle.setVendas(work.getVendas());
 			controle = workTravelFacade.salvar(controle);
-			salvarInvoice(controle.getIdcontroleWork(), venda);
+			//salvarInvoice(controle.getIdcontroleWork(), venda);
 		}
 	}
-	
-	
+
 	public void salvarControleAupair(Vendas venda, Aupair aupair, Float valorPrevisto) {
 		AupairFacade aupairFacade = new AupairFacade();
 		Controleaupair controle = new Controleaupair();
@@ -180,10 +191,10 @@ public class ControlerBean {
 			controle = new Controleaupair();
 			controle.setStatusprocesso("Processo");
 			controle.setVendas(aupair.getVendas());
-			controle = aupairFacade.salvar(controle); 
+			controle = aupairFacade.salvar(controle);
 		}
 	}
-	
+
 	public void salvarControleDemipair(Vendas venda, Demipair demipair, Float valorPrevisto) {
 		DemipairFacade demipairFacade = new DemipairFacade();
 		Controledemipair controle = new Controledemipair();
@@ -194,10 +205,10 @@ public class ControlerBean {
 			controle.setStatusprocesso("Processo");
 			controle.setVendas(demipair.getVendas());
 			controle = demipairFacade.salvar(controle);
-			salvarInvoice(controle.getIdcontroledemipair(), venda);
+			//salvarInvoice(controle.getIdcontroledemipair(), venda);
 		}
 	}
-	
+
 	public void salvarControleVoluntariado(Vendas venda, Voluntariado voluntariado, Float valorPrevisto) {
 		VoluntariadoFacade voluntariadoFacade = new VoluntariadoFacade();
 		Controlevoluntariado controle = new Controlevoluntariado();
@@ -221,11 +232,10 @@ public class ControlerBean {
 			controle.setCopiapttcolorida("Não");
 			controle.setCurriculum("Não");
 			controle = voluntariadoFacade.salvar(controle);
-			salvarInvoice(controle.getIdcontrolevoluntariado(), venda);
+			//salvarInvoice(controle.getIdcontrolevoluntariado(), venda);
 		}
 	}
-	
-	
+
 	public void salvarControleHighSchool(Vendas venda, Highschool highSchool, Float valorPrevisto) {
 		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
 		Controlehighschool controle = new Controlehighschool();
@@ -233,15 +243,15 @@ public class ControlerBean {
 		if (controle == null) {
 			controle = new Controlehighschool();
 			controle.setVendas(venda);
-			controle.setVisto("Não"); 
-			controle.setFamilia("Não"); 
-			controle.setSituacao("Processo"); 
+			controle.setVisto("Não");
+			controle.setFamilia("Não");
+			controle.setSituacao("Processo");
 			controle.setHighschool(highSchool);
 			controle = highSchoolFacade.salvar(controle);
-			salvarInvoice(controle.getIdcontroleHighSchool(), venda);
+			//salvarInvoice(controle.getIdcontroleHighSchool(), venda);
 		}
 	}
-	
+
 	public void salvarControleProgramaTeens(Vendas venda, Programasteens programasteens, Float valorPrevisto) {
 		ProgramasTeensFacede programasTeensFacede = new ProgramasTeensFacede();
 		Controleprogramasteen controle = new Controleprogramasteen();
@@ -260,7 +270,7 @@ public class ControlerBean {
 			controle.setSituacao("Processo");
 			controle.setCidadeDestino(venda.getFornecedorcidade().getCidade().getNome());
 			controle = programasTeensFacede.salvar(controle);
-			salvarInvoice(controle.getIdcontroleProgramasTeens(), venda);
+			//salvarInvoice(controle.getIdcontroleProgramasTeens(), venda);
 		}
 	}
 }

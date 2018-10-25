@@ -41,6 +41,18 @@ public class TipoArquivoProdutoDao {
 		tx.commit();
 		manager.close();
 	}
+	
+
+    public Tipoarquivoproduto consultarArquivoProduto(String sql) throws SQLException{
+    	EntityManager manager;
+        manager = ConectionFactory.getInstance();
+        Query q = manager.createQuery(sql);
+        Tipoarquivoproduto tipoarquivoproduto = null;
+        if (q.getResultList().size()>0){
+        	tipoarquivoproduto = (Tipoarquivoproduto) q.getResultList().get(0);
+        }
+        return tipoarquivoproduto;
+    }
 
     @SuppressWarnings("unchecked")
 	public List<Tipoarquivoproduto> listar(String sql)throws SQLException{

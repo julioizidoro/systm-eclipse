@@ -4,7 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
- 
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import br.com.travelmate.connection.ConectionFactory;
 import br.com.travelmate.dao.TipoArquivoProdutoDao;
 import br.com.travelmate.model.Tipoarquivoproduto; 
 
@@ -31,6 +35,12 @@ public class TipoArquivoProdutoFacade {
     	tipoArquivoDao = new TipoArquivoProdutoDao();
         return tipoArquivoDao.consultar(idTipoArquivos);
     }
+    
+    public Tipoarquivoproduto consultarArquivoProduto(String sql) throws SQLException{
+    	tipoArquivoDao = new TipoArquivoProdutoDao();
+        return tipoArquivoDao.consultarArquivoProduto(sql);
+    }
+    
     
     public void excluir(int idTipoArquivos) {
     	tipoArquivoDao = new TipoArquivoProdutoDao();
