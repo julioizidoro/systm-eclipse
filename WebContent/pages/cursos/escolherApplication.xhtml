@@ -18,13 +18,13 @@
 			<title>Escolha o Programa</title>
 			
 			<p:outputLabel value="Tipo" for="tipocurso"
-				style="margin-left:3%">
+				>
 			</p:outputLabel>
 			<br />
 
 			<p:selectOneMenu id="tipocurso"
 						value="#{escolherApplicationMB.produtosorcamento}"
-						style="width:190px;font-size:12px;" converter="OrcamentoProdutoConverter"
+						style="width:300px;font-size:12px;" converter="OrcamentoProdutoConverter"
 						filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Selecione Curso" itemValue="0"
 							noSelectionOption="true" />
@@ -37,7 +37,7 @@
 							<p:ajax event="change" listener="#{escolherApplicationMB.verificarImpressao()}" update="idconfirmar"/>
 					</p:selectOneMenu>
 			<br />
-			<br /><br /><br /><br />
+			<br /><br /><br /><br /><br />
 			<div align="center">
 				<p:commandButton value="Imprimir" id="idconfirmar" disabled="#{escolherApplicationMB.desabilitarImpressao}"
 					onclick="this.form.target='_blank'" icon="ui-icon-check"
