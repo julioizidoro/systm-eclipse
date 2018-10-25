@@ -20,7 +20,6 @@ import br.com.travelmate.facade.PagamentoInvoiceFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Pagamentoinvoice;
-import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Mensagem;
 

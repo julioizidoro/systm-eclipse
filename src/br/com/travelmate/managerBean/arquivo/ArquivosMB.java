@@ -1,6 +1,5 @@
 package br.com.travelmate.managerBean.arquivo;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,8 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -18,7 +15,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
@@ -29,7 +25,6 @@ import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.ArquivosKitViagemFacade;
 import br.com.travelmate.facade.DepartamentoFacade;
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.facade.TipoArquivoProdutoFacade;
 import br.com.travelmate.facade.UsuarioDepartamentoUnidadeFacade;
 import br.com.travelmate.facade.UsuarioFacade;
@@ -40,7 +35,6 @@ import br.com.travelmate.model.Arquivoskitviagem;
 import br.com.travelmate.model.Avisos;
 import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Departamento;
-import br.com.travelmate.model.Ftpdados;
 import br.com.travelmate.model.Tipoarquivo;
 import br.com.travelmate.model.Tipoarquivoproduto;
 import br.com.travelmate.model.Usuario;

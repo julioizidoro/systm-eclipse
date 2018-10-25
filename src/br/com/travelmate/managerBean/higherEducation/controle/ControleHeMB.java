@@ -21,14 +21,12 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Hecontrole;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.util.Formatacao;
-import br.com.travelmate.util.GerarListas;
 import br.com.travelmate.util.Mensagem;
 
 @Named

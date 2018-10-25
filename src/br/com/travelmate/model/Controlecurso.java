@@ -39,6 +39,10 @@ public class Controlecurso implements Serializable {
     @Column(name = "work")
     private Integer work;
    
+    @Column(name = "dataEmbarque")
+    @Temporal(TemporalType.DATE)
+    private Date dataEmbarque;
+    
     @Column(name = "dataEnvioInscricaoEscola")
     @Temporal(TemporalType.DATE)
     private Date dataEnvioInscricaoEscola;
@@ -241,6 +245,14 @@ public class Controlecurso implements Serializable {
 	}
 	
 	
+
+	public Date getDataEmbarque() {
+		return dataEmbarque;
+	}
+
+	public void setDataEmbarque(Date dataEmbarque) {
+		this.dataEmbarque = dataEmbarque;
+	}
 
 	public String getObsvisto() {
 		return obsvisto;

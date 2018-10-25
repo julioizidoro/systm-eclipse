@@ -65,12 +65,7 @@ public class ControlerBean {
 			controle.setKitViagem("Não");
 			controle.setVisto("Não");
 			controle.setDocs("VM");
-			String data = null;
-			try {
-				data = Formatacao.SubtarirDatas(curso.getDataInicio(), 2, "dd/MM/yyyy");
-			} catch (Exception ex) {
-	
-			}
+			
 			controle.setOrientacaoPreEmbarque("Não");
 			controle.setLoasObs(" ");
 			controle.setDocanexado("N");

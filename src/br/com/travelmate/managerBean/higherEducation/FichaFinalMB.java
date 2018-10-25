@@ -36,7 +36,6 @@ import br.com.travelmate.managerBean.cliente.ValidarClienteBean;
 import br.com.travelmate.managerBean.higherEducation.controle.HeControleBean;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Contasreceber;
-import br.com.travelmate.model.Curso;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Hecontrole;
 import br.com.travelmate.model.Unidadenegocio;

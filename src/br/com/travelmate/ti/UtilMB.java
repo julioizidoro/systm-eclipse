@@ -14,6 +14,7 @@ import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.VendasDao;
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
@@ -29,6 +30,7 @@ import br.com.travelmate.model.Motivocancelamento;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
+import br.com.travelmate.model.Vendasembarque;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.Mensagem;
  
@@ -41,6 +43,8 @@ public class UtilMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasEmbarqueDao vendasEmbarqueDao;
 	@Inject
 	private HeControleDao heControleDao;
 	@Inject
@@ -154,7 +158,7 @@ public class UtilMB implements Serializable{
 				controle.setSituacaoaplicacao("Processo");
 			}
 			
-			controle.setDatafichafinalizada(new Date());
+			controle.setDatafichafinalizada(lista.get(i).getVendas().getDataVenda());
 			controle.setImpresso(false);
 			controle.setVistoemitido(false);
 			controle.setValorcomissao(0.0f);
@@ -162,6 +166,26 @@ public class UtilMB implements Serializable{
 			heControleDao.salvar(controle);
 		}
 		Mensagem.lancarMensagemInfo("He Controler","Terminou");
+	}
+	
+	public void gerarControleCursoAjustes() {
+		CursoFacade cursoFacade = new CursoFacade();
+		List<Controlecurso> lista = cursoFacade.listaControle("select c from Controlecurso c");
+		if (lista!=null) {
+			for (int i=0;i<lista.size();i++) {
+				Vendasembarque embarque = new Vendasembarque();
+				embarque.setDataida(lista.get(i).getDataEmbarque());
+				try {
+					embarque.setDatavolta(Formatacao.SomarDiasDatas(lista.get(i).getCurso().getDataTermino(), 2));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				embarque.setVendas(lista.get(i).getVendas());
+				vendasEmbarqueDao.salvar(embarque);
+			}
+		}
+		Mensagem.lancarMensagemInfo("Vendas Embarque","Terminou");
 	}
 
 }

@@ -45,7 +45,6 @@ import br.com.travelmate.facade.ProdutoOrcamentoFacade;
 import br.com.travelmate.facade.ProdutoRemessaFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.managerBean.higherEducation.controle.HeControleBean;
 import br.com.travelmate.model.Cambio;
 import br.com.travelmate.model.Cancelamento;
 import br.com.travelmate.model.Cidade;
@@ -91,8 +90,7 @@ public class CadHeFinalMB implements Serializable {
 	private VendasDao vendasDao;
 	@Inject
 	private LeadDao leadDao;
-	@Inject
-	private HeControleDao heControleDao;
+	
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	@Inject
