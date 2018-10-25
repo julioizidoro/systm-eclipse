@@ -267,174 +267,179 @@
 					</p:tab>
 				</p:accordionPanel>
 				<br /> <br />
-				<h:panelGrid columns="5" style="width:98%;margin-left:2%;">
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="idkitviagem"
-							value="#{relatorioHeMB.selecionartodos}">
-
-							<p:ajax event="change"
-								listener="#{relatorioHeMB.selecionartodos()}"
-								update="tabelaControleHe, idvenda, idunidade, consultor, tipovenda, 
-        			    		nomecliente, datavenda, pais, cidade, parceiro, inicioprograma, dataaplicacao, previsaopagamento, datapagamento, pathway, situacaovenda, 
-        			    		situacaogerencia, tipoinvoice, valornet, credito, acomodacao" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Selecionar Todos" />
-					</h:panelGroup>
-					<p:outputLabel />
-					<p:outputLabel />
-					<p:outputLabel />
-					<p:outputLabel />
-					<p:outputLabel />
-					<p:outputLabel />
-					<p:outputLabel />
-					<p:outputLabel />
-					<p:outputLabel />
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="idvenda"
-							value="#{relatorioHeMB.idvenda}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Id da venda" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="idunidade"
-							value="#{relatorioHeMB.unidade}">
-							<p:ajax event="change" update="tabelaControleHe" />
-
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Unidade" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="consultor"
-							value="#{relatorioHeMB.consultor}">
-							<p:ajax event="change" update="tabelaControleHe" />
-
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Consultor" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="tipovenda"
-							value="#{relatorioHeMB.tipo}">
-							<p:ajax event="change" update="tabelaControleHe" />
-
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Tipo" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="nomecliente"
-							value="#{relatorioHeMB.nomecliente}">
-							<p:ajax event="change" update="tabelaControleHe" />
-
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Nome" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="datavenda"
-							value="#{relatorioHeMB.datavenda}">
-							<p:ajax event="change" update="tabelaControleHe" />
-
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Data Venda" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="pais"
-							value="#{relatorioHeMB.paisVisu}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Pais" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="cidade"
-							value="#{relatorioHeMB.cidadeVisu}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Cidade" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="parceiro"
-							value="#{relatorioHeMB.parceiro}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Parceiro" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="inicioprograma"
-							value="#{relatorioHeMB.inicioprograma}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Início do programa" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="acomodacao"
-							value="#{relatorioHeMB.acomodacaoVisu}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Acomodação" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="dataaplicacao"
-							value="#{relatorioHeMB.dataaplicacao}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Data Aplicação" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="previsaopagamento"
-							value="#{relatorioHeMB.previsaopagamento}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Previsão Pagamento" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="datapagamento"
-							value="#{relatorioHeMB.datapagamento}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Data Pagamento" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="pathway"
-							value="#{relatorioHeMB.pathwayVisu}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Pathway" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="situacaovenda"
-							value="#{relatorioHeMB.situacaovenda}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Situação Venda" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="situacaogerencia"
-							value="#{relatorioHeMB.situacaogerencia}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Situação Gerência" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="tipoinvoice"
-							value="#{relatorioHeMB.tipoinvoice}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Tipo Invoice" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="valornet"
-							value="#{relatorioHeMB.valornet}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Valor Net" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:selectBooleanCheckbox id="credito"
-							value="#{relatorioHeMB.credito}">
-							<p:ajax event="change" update="tabelaControleHe" />
-						</p:selectBooleanCheckbox>
-						<p:outputLabel value="Crédito" />
-					</h:panelGroup>
-				</h:panelGrid>
+				<p:accordionPanel class="painel" activeIndex="-1">
+					<p:tab titleStyle="color:#000;font-size:11px;background:#c7d95f;"
+						title="Exibir na Tabela">
+						<h:panelGrid columns="5" style="width:98%;margin-left:2%;">
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idkitviagem"
+									value="#{relatorioHeMB.selecionartodos}">
+		
+									<p:ajax event="change"
+										listener="#{relatorioHeMB.selecionartodos()}"
+										update=":consultaControleHe:tabelaControleHe, idvenda, idunidade, consultor, tipovenda, 
+		        			    		nomecliente, datavenda, pais, cidade, parceiro, inicioprograma, dataaplicacao, previsaopagamento, datapagamento, pathway, situacaovenda, 
+		        			    		situacaogerencia, tipoinvoice, valornet, credito, acomodacao" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Selecionar Todos" />
+							</h:panelGroup>
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<p:outputLabel />
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idvenda"
+									value="#{relatorioHeMB.idvenda}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Id da venda" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="idunidade"
+									value="#{relatorioHeMB.unidade}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+		
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Unidade" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="consultor"
+									value="#{relatorioHeMB.consultor}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+		
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Consultor" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="tipovenda"
+									value="#{relatorioHeMB.tipo}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+		
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Tipo" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="nomecliente"
+									value="#{relatorioHeMB.nomecliente}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+		
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Nome" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="datavenda"
+									value="#{relatorioHeMB.datavenda}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+		
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Data Venda" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="pais"
+									value="#{relatorioHeMB.paisVisu}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Pais" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="cidade"
+									value="#{relatorioHeMB.cidadeVisu}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Cidade" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="parceiro"
+									value="#{relatorioHeMB.parceiro}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Parceiro" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="inicioprograma"
+									value="#{relatorioHeMB.inicioprograma}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Início do programa" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="acomodacao"
+									value="#{relatorioHeMB.acomodacaoVisu}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Acomodação" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="dataaplicacao"
+									value="#{relatorioHeMB.dataaplicacao}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Data Aplicação" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="previsaopagamento"
+									value="#{relatorioHeMB.previsaopagamento}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Previsão Pagamento" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="datapagamento"
+									value="#{relatorioHeMB.datapagamento}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Data Pagamento" />
+							</h:panelGroup>
+							<h:panelGroup>  
+								<p:selectBooleanCheckbox id="pathway"
+									value="#{relatorioHeMB.pathwayVisu}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Pathway" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="situacaovenda"
+									value="#{relatorioHeMB.situacaovenda}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Situação Venda" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="situacaogerencia"
+									value="#{relatorioHeMB.situacaogerencia}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Situação Gerência" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="tipoinvoice"
+									value="#{relatorioHeMB.tipoinvoice}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Tipo Invoice" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="valornet"
+									value="#{relatorioHeMB.valornet}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Valor Net" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="credito"
+									value="#{relatorioHeMB.credito}">
+									<p:ajax event="change" update=":consultaControleHe:tabelaControleHe" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Crédito" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
 
 				<br />
 				<br />
