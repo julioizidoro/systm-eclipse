@@ -1580,6 +1580,8 @@ public class CadHeInscricaoMB implements Serializable {
 			salvarOK = true;
 	
 			return salvarOK;
+		}else {
+			Mensagem.lancarMensagemInfo(msg, "");
 		}
 		return false;
 	}
@@ -1616,6 +1618,11 @@ public class CadHeInscricaoMB implements Serializable {
 		if (camposPathway) {
 			return false;
 		}
+		if (heparceiros1 != null) {
+			heparceiros1.setDatainicio(null);
+			heparceiros1.setNumerosemanas(null);
+			heparceiros1.setDatatermino(null);
+		}
 		return true;
 	}
 
@@ -1623,12 +1630,22 @@ public class CadHeInscricaoMB implements Serializable {
 		if (camposPathway2) {
 			return false;
 		}
+		if (heparceiros2 != null) {
+			heparceiros2.setDatainicio(null);
+			heparceiros2.setNumerosemanas(null);
+			heparceiros2.setDatatermino(null);
+		}
 		return true;
 	}
 
 	public boolean habilitarCamposPathway3() {
 		if (camposPathway3) {
 			return false;
+		}
+		if (heparceiros3 != null) {
+			heparceiros3.setDatainicio(null);
+			heparceiros3.setNumerosemanas(null);
+			heparceiros3.setDatatermino(null);
 		}
 		return true;
 	}
@@ -1739,13 +1756,14 @@ public class CadHeInscricaoMB implements Serializable {
 		if (listaHeParceiros.size() > 0) {
 			if (listaHeParceiros.size() == 1) {
 				heparceiros1 = listaHeParceiros.get(0);
+				camposPathway = heparceiros1.isPathway();
 			} else if (listaHeParceiros.size() == 2) {
 				heparceiros1 = listaHeParceiros.get(0);
 				camposHe = true;
 				camposPathway = true;
 				heparceiros2 = listaHeParceiros.get(1);
 				camposHe2 = true;
-				camposPathway2 = true;
+				camposPathway2 = heparceiros2.isPathway();
 
 				listaPais2 = paisDao.listar();
 				pais2 = heparceiros2.getFornecedorcidade().getCidade().getPais();
@@ -1790,6 +1808,10 @@ public class CadHeInscricaoMB implements Serializable {
 				heparceiros2.setFornecedorcidade(fornecedorCidade2);
 				heparceiros2 = heParceirosFacade.salvar(heparceiros2);
 			}
+		}else {
+			if (heparceiros2  != null && heparceiros2.getIdheparceiros() != null) {
+				heParceirosFacade.remover(heparceiros2);
+			}
 		}
 
 		if (camposHe3) {
@@ -1798,6 +1820,10 @@ public class CadHeInscricaoMB implements Serializable {
 				heparceiros3.setPathway(camposPathway3);
 				heparceiros3.setFornecedorcidade(fornecedorCidade3);
 				heparceiros3 = heParceirosFacade.salvar(heparceiros3);
+			}
+		}else {
+			if (heparceiros3  != null && heparceiros3.getIdheparceiros() != null) {
+				heParceirosFacade.remover(heparceiros3);
 			}
 		}
 	}

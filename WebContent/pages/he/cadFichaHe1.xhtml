@@ -149,7 +149,7 @@
 							style="width:64%;margin-left:8%;"> 
 							<h:panelGroup>
 								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway}">
-									<p:ajax event="change" update="datainicio, nsemanas, datatermino" />
+									<p:ajax event="change" update="datainicio, nsemanas, datatermino" listener="#{cadHeInscricaoMB.habilitarCamposPathway()}" />
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="Idioma para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
 							</h:panelGroup>
@@ -285,8 +285,8 @@
 							columnClasses="tamanhoavisos2, tamanhoavisos2"
 							style="width:64%;margin-left:8%;"> 
 							<h:panelGroup>
-								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway2}">
-									<p:ajax event="change" update="datainicio2, nsemanas2, datatermino2" />
+								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway2}" >
+									<p:ajax event="change" update="datainicio2, nsemanas2, datatermino2" listener="#{cadHeInscricaoMB.habilitarCamposPathway2()}" />
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="Idioma para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
 							</h:panelGroup>
@@ -423,13 +423,13 @@
 							columnClasses="tamanhoavisos2, tamanhoavisos2"
 							style="width:64%;margin-left:8%;"> 
 							<h:panelGroup>
-								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway3}">
-									<p:ajax event="change" update="datainicio3, nsemanas3, datatermino3" />
+								<p:selectBooleanCheckbox value="#{cadHeInscricaoMB.camposPathway3}" >
+									<p:ajax event="change" update="datainicio3, nsemanas3, datatermino3"  listener="#{cadHeInscricaoMB.habilitarCamposPathway3()}" />
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="Idioma para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
 							</h:panelGroup>
-						</h:panelGrid>  
-						<br/>
+						</h:panelGrid> 
+						<br/> 
 						<h:panelGrid columns="3"
 							columnClasses="tamanhoavisos2, tamanhoavisos2, tamanhoavisos2"  
 							style="width:37.5%;margin-left:8%;">
@@ -1222,7 +1222,7 @@
 				<br></br>
 				<div align="center" style="width: 85%;">
 					<p:commandButton  icon="ui-icon-check" 
-						value="Confirmar" style="font-size:13px;" action="#{cadHeInscricaoMB.enviarficha()}" update="growl" />
+						value="Confirmar" style="font-size:13px;" action="#{cadHeInscricaoMB.enviarficha()}" update=":cadHe:growl" />
 					<p:commandButton action="#{cadHeInscricaoMB.cancelar()}"
 						style="margin-left:2%;font-size:13px;" icon="ui-icon-close"
 						value="Cancelar" />

@@ -33,8 +33,11 @@ public class HeParceirosDao {
 	
 	public void remover(Heparceiros heParceiros) throws SQLException {
     	EntityManager manager = ConectionFactory.getConnection();
-        heParceiros = manager.find(Heparceiros.class, heParceiros);
+    	EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+        heParceiros = manager.find(Heparceiros.class, heParceiros.getIdheparceiros());
         manager.remove(heParceiros);
+        tx.commit();
         manager.close();
     } 
 
