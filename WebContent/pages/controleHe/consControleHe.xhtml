@@ -101,9 +101,9 @@
 						titleStyle="font-size: 11px">
 						<p:dataTable id="tabelaControleHe" var="controlehe"
 							style="width:98%;margin-left:1%;"
-							value="#{controleHeMB.listaHeControleFinanceiro}" scrollable="true"
-							scrollHeight="300" editable="true" editMode="cell"
-							rowIndexVar="rowIx">
+							value="#{controleHeMB.listaHeControleFinanceiro}"
+							scrollable="true" scrollHeight="300" editable="true"
+							editMode="cell" rowIndexVar="rowIx">
 							<p:column headerText="ID" style="width:40px;text-align:center;"
 								sortBy="#{controlehe.he.vendas.idvendas}">
 								<h:outputText value="#{controlehe.he.vendas.idvendas}" />
@@ -225,8 +225,7 @@
 									<img src="#{controlehe.iconeFormImpresso}" width="24" />
 								</p:commandLink>
 							</p:column>
-							<p:column headerText=""
-								style="width:40px;text-align:center;">
+							<p:column headerText="" style="width:40px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoesVendas.png" />
 								</p:commandLink>
@@ -326,9 +325,9 @@
 						titleStyle="font-size: 11px">
 						<p:dataTable id="tabelaControleHeFinalizada" var="controlehe"
 							style="width:98%;margin-left:1%;"
-							value="#{controleHeMB.listaHeControleFinalizado}" scrollable="true"
-							scrollHeight="300" editable="true" editMode="cell"
-							rowIndexVar="rowIx">
+							value="#{controleHeMB.listaHeControleFinalizado}"
+							scrollable="true" scrollHeight="300" editable="true"
+							editMode="cell" rowIndexVar="rowIx">
 							<p:column headerText="ID" style="width:40px;text-align:center;"
 								sortBy="#{controlehe.he.vendas.idvendas}">
 								<h:outputText value="#{controlehe.he.vendas.idvendas}" />
@@ -450,8 +449,7 @@
 									<img src="#{controlehe.iconeFormImpresso}" width="24" />
 								</p:commandLink>
 							</p:column>
-							<p:column headerText=""
-								style="width:40px;text-align:center;">
+							<p:column headerText="" style="width:40px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
 									<img src="../../resources/img/informacaoesVendas.png" />
 								</p:commandLink>
@@ -560,14 +558,14 @@
 					<br></br>
 				</p:dialog>
 				<style>
-.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
-	.ui-datatable tfoot th {
-	padding: 2px 2px;
-	overflow: hidden;
-	border-width: 0px;
-	border-style: solid;
-}
-</style>
+					.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+						.ui-datatable tfoot th {
+						padding: 2px 2px;
+						overflow: hidden;
+						border-width: 0px;
+						border-style: solid;
+					}
+				</style>
 			</div>
 		</h:form>
 	</ui:define>
