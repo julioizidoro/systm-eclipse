@@ -445,8 +445,8 @@ public class ControleCursoMB implements Serializable {
 			sql = sql + " and  c.vendas.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		if ((iniDataEmbarque != null) && (finalDataEmbarque != null)) {
-			sql = sql + " and c.dataEmbarque>='" + Formatacao.ConvercaoDataSql(iniDataEmbarque) + "'";
-			sql = sql + " and c.dataEmbarque<='" + Formatacao.ConvercaoDataSql(finalDataEmbarque) + "'";
+			sql = sql + " and c.vendas.vendasembarque.dataida>='" + Formatacao.ConvercaoDataSql(iniDataEmbarque) + "'";
+			sql = sql + " and c.vendas.vendasembarque.dataida<='" + Formatacao.ConvercaoDataSql(finalDataEmbarque) + "'";
 		}
 		if ((datainivenda != null) && (datafimvenda != null)) {
 			sql = sql + " and c.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(datainivenda) + "'";

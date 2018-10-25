@@ -58,8 +58,7 @@ public class FinalizarMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	
-	private VendasEmbarqueDao vendasEmbarqueDao;
-	private VendasDao vendasDao;
+	
 	private AplicacaoMB aplicacaoMB;
 
 	private String nome = "";
@@ -83,8 +82,7 @@ public class FinalizarMB implements Serializable {
 	}
 
 	public Vendas finalizar(Aupair aupair, VendasDao vendasDao, VendasEmbarqueDao vendasEmbarqueDao) {
-		this.vendasDao = vendasDao;
-		this.vendasEmbarqueDao =vendasEmbarqueDao;
+		
 		aupair.setControle("Processo");
 		float valorPrevisto = 0.0f;
 		Vendascomissao vendasComissao = aupair.getVendas().getVendascomissao();
@@ -274,7 +272,6 @@ public class FinalizarMB implements Serializable {
 	}
 
 	public Vendas finalizarVoluntariado(Voluntariado voluntariado, VendasDao vendasDao) {
-		this.vendasDao = vendasDao;
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
@@ -334,7 +331,7 @@ public class FinalizarMB implements Serializable {
 			if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
 				vm = "Venda pela Loja";
 			}
-			gerarPontuacaoSeguro(seguroViagem.getVendas());
+			gerarPontuacaoSeguro(seguroViagem.getVendas(), vendasDao);
 			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, seguroViagem.getVendas().getUnidadenegocio(),
 					seguroViagem.getVendas().getCliente().getNome(),
 					seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
@@ -573,8 +570,7 @@ public class FinalizarMB implements Serializable {
 		return programasteens.getVendas();
 	}
 
-	public Vendas finalizarCurso(Curso curso, VendasDao vendasDao) {
-		this.vendasDao = vendasDao;
+	public Vendas finalizarCurso(Curso curso, VendasDao vendasDao, VendasEmbarqueDao vendasEmbarqueDao) {
 		float valorPrevisto = 0.0f;
 		FornecedorComissaoCursoFacade fornecedorComissaoCursoFacade = new FornecedorComissaoCursoFacade();
 		Fornecedorcomissaocurso fornecedorComissao = fornecedorComissaoCursoFacade.consultar(
@@ -645,7 +641,7 @@ public class FinalizarMB implements Serializable {
 			if (seguroViagem.getVendas().getVendasMatriz().equalsIgnoreCase("N")) {
 				vm = "Venda pela Loja";
 			}
-			gerarPontuacaoSeguro(seguroViagem.getVendas());
+			gerarPontuacaoSeguro(seguroViagem.getVendas(), vendasDao);
 			Formatacao.gravarNotificacaoVendasFinanceiro(titulo, seguroViagem.getVendas().getUnidadenegocio(),
 					seguroViagem.getVendas().getCliente().getNome(),
 					seguroViagem.getVendas().getFornecedorcidade().getFornecedor().getNome(),
@@ -699,7 +695,7 @@ public class FinalizarMB implements Serializable {
 		}
 	}
 
-	public void gerarPontuacaoSeguro(Vendas vendaSeguro) {
+	public void gerarPontuacaoSeguro(Vendas vendaSeguro, VendasDao vendasDao) {
 
 		DashBoardBean dashBoardBean = new DashBoardBean();
 		dashBoardBean = new DashBoardBean();

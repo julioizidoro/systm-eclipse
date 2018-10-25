@@ -96,7 +96,7 @@ public class CadArquivoMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private VendasEmbarqueDao venndasEmbarqueDao;
+	private VendasEmbarqueDao vendasEmbarqueDao;
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
@@ -684,7 +684,7 @@ public class CadArquivoMB implements Serializable {
 		AupairFacade aupairFacade = new AupairFacade();
 		Aupair aupair = aupairFacade.consultar(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-		vendas = finalizarMB.finalizar(aupair, vendasDao, venndasEmbarqueDao);
+		vendas = finalizarMB.finalizar(aupair, vendasDao, vendasEmbarqueDao);
 		new ContasReceberBean(aupair.getVendas(), aupair.getVendas().getFormapagamento().getParcelamentopagamentoList(),
 				usuarioLogadoMB, null, true, aupair.getDataInicioPretendida01());
 		new GerarBoletosBean(vendas, false);
@@ -769,7 +769,7 @@ public class CadArquivoMB implements Serializable {
 		CursoFacade cursoFacade = new CursoFacade();
 		Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-		vendas = finalizarMB.finalizarCurso(curso, vendasDao);
+		vendas = finalizarMB.finalizarCurso(curso, vendasDao, vendasEmbarqueDao);
 		new ContasReceberBean(curso.getVendas(), curso.getVendas().getFormapagamento().getParcelamentopagamentoList(),
 				usuarioLogadoMB, null, true, curso.getDataInicio());
 		new GerarBoletosBean(vendas, false);
@@ -974,7 +974,7 @@ public class CadArquivoMB implements Serializable {
 						}
 						controle.getVendas().getVendasembarque().setDatavolta(datachegadabrasil);
 						controle.getVendas().getVendasembarque().setDataida(dataembarque);
-						venndasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());
+						vendasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());
 						cursoFacade.salvar(controle);
 					}
 				} else if (seguroviagem.getControle().equalsIgnoreCase("Voluntariado")) {

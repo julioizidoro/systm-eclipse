@@ -656,7 +656,7 @@ public class CadOutrosArquivosMB implements Serializable{
 		CursoFacade cursoFacade = new CursoFacade();
 		Curso curso = cursoFacade.consultarCursos(vendas.getIdvendas());
 		FinalizarMB finalizarMB = new FinalizarMB(aplicacaoMB);
-		vendas = finalizarMB.finalizarCurso(curso, vendasDao);
+		vendas = finalizarMB.finalizarCurso(curso, vendasDao, vendasEmbarqueDao);
 		new ContasReceberBean(curso.getVendas(),
 				curso.getVendas().getFormapagamento().getParcelamentopagamentoList(), usuarioLogadoMB, null, true,
 				curso.getDataInicio());
