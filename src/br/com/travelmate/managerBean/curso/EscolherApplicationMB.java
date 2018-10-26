@@ -36,6 +36,8 @@ public class EscolherApplicationMB implements Serializable{
 	private List<Produtosorcamento> listaProdutosOrcamento;
 	private List<Fornecedorapplication> listaApplication;
 	private boolean desabilitarImpressao = true;
+	private String descricao;
+	private List<Produtosorcamento> listaProdutosFiltro;
 	
 	
 	@PostConstruct
@@ -107,6 +109,26 @@ public class EscolherApplicationMB implements Serializable{
 	}
 
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+
+	public List<Produtosorcamento> getListaProdutosFiltro() {
+		return listaProdutosFiltro;
+	}
+
+
+	public void setListaProdutosFiltro(List<Produtosorcamento> listaProdutosFiltro) {
+		this.listaProdutosFiltro = listaProdutosFiltro;
+	}
+
+
 	public void gerarFornecedorApplication() {
 		FiltroOrcamentoProdutoFacade filtroOrcamentoProdutoFacade = new FiltroOrcamentoProdutoFacade();
 		String sql = "select f from Filtroorcamentoproduto f where f.produtos.idprodutos="
@@ -127,6 +149,9 @@ public class EscolherApplicationMB implements Serializable{
 			String sql = "SELECT f FROM Fornecedorapplication f where f.produtosorcamento.tipoproduto='C' and  f.fornecedor.idfornecedor="
 					+ fornecedorcidade.getFornecedor().getIdfornecedor() + " and f.pais.idpais=" + fornecedorcidade.getCidade().getPais().getIdpais();
 			sql = sql + " AND (f.nomearquivo is not null or f.nomearquivo='') order by f.produtosorcamento.descricao ";
+			if (descricao != null && descricao.length() > 0) {
+				sql = sql + " AND f.produtosorcamento.descricao like '%"+ descricao +"%' ";
+			}
 			FornecedorApplicationFacade fornecedorApplicationFacade = new FornecedorApplicationFacade();
 			listaApplication = fornecedorApplicationFacade.listar(sql);
 			if (listaApplication == null) {
@@ -156,7 +181,7 @@ public class EscolherApplicationMB implements Serializable{
 	
 	
 	
-	public String imprimirApplication() {
+	public String imprimirApplication(Produtosorcamento produtosorcamento) {
 		Fornecedorapplication fornecedorapplication = null;
 		if (produtosorcamento != null) {
 			for (int i = 0; i < listaApplication.size(); i++) {

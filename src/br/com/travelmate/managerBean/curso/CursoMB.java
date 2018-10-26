@@ -1226,9 +1226,8 @@ public class CursoMB implements Serializable {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("fornecedorcidade", cursos.getVendas().getFornecedorcidade());
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 350);
-			RequestContext.getCurrentInstance().openDialog("escolherApplication", options, null);
+			
+			RequestContext.getCurrentInstance().openDialog("escolherApplication");
 		}
 		return "";
 	}
