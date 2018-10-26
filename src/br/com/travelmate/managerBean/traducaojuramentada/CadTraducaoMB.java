@@ -697,7 +697,7 @@ public class CadTraducaoMB implements Serializable {
 							"As parcelas possuem data de vencimento após o inicio do programa. Entrar em contato com Financeiro");
 				}   
 			}
-			Date dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
+			Date dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 			
 			Cambio cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(dataCambio), 8, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			ProgramasBean programasBean = new ProgramasBean(); 

@@ -286,7 +286,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 		if ((orcamento.getSeguroviagem().getDataInicio() != null) && (orcamento.getSeguroviagem().getNumeroSemanas() > 0)) {
 			
 			Cambio cambioSeguro = cambioDao.consultarCambioMoedaPais(
-					Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+					Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
 					orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				if (orcamento.getSeguroviagem().getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
@@ -312,7 +312,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 		if ((orcamento.getSeguroviagem().getDataInicio() != null) && (orcamento.getSeguroviagem().getDataTermino() != null)) {
 			
 			Cambio cambioSeguro = cambioDao.consultarCambioMoedaPais(
-					Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+					Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
 					orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambioSeguro != null) {
 				orcamento.getSeguroviagem().setNumeroSemanas(Formatacao.subtrairDatas(orcamento.getSeguroviagem().getDataInicio(), orcamento.getSeguroviagem().getDataTermino()) + 1);
@@ -360,7 +360,7 @@ public class ResultadoOrcamentoVoluntariadoMB implements Serializable {
 		
 		Cambio cambioSeguro = null;
 		cambioSeguro = cambioDao.consultarCambioMoedaPais(
-				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+				Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
 				orcamento.getValorSeguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		float valorCambio;
 		if (cambioSeguro != null) {

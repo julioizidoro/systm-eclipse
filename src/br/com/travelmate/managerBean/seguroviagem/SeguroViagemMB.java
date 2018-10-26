@@ -81,7 +81,7 @@ public class SeguroViagemMB implements Serializable{
 	            valoresseguro = seguroviagem.getValoresseguro();
 	        }
 	        if (dataCambio==null){
-	        	dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
+	        	dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 	        }
     	}
     }

@@ -171,10 +171,12 @@ public class CadHeInscricaoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		cliente = (Cliente) session.getAttribute("cliente");
 		he = (He) session.getAttribute("he");
+		lead = (Lead) session.getAttribute("lead");
 		voltarControleVendas = (String) session.getAttribute("voltarControleVendas");
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("he");
 		session.removeAttribute("cliente");
+		session.removeAttribute("lead");
 
 		listaPais = paisDao.listar();
 		carregarComboMoedas();
@@ -182,7 +184,7 @@ public class CadHeInscricaoMB implements Serializable {
 		if (he != null) {
 			iniciarAlteracao();
 		} else {
-			dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 			iniciarNovo();
 		}
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();

@@ -179,7 +179,7 @@ public class CadOrcamentoManualMB implements Serializable {
 		}
 		if (orcamentocurso == null) {
 			iniciarNovoOrcamento();
-			dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 		} else {
 			iniciarAlteracaoOrcamento();
 		}
@@ -1868,7 +1868,7 @@ public class CadOrcamentoManualMB implements Serializable {
 		Cambio cambioSeguro = null;
 		if (seguroViagem.getValoresseguro()!=null){
 			cambioSeguro = cambioDao.consultarCambioMoedaPais(
-				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+					Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
 				seguroViagem.getValoresseguro().getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		}
 		float valorCambio;

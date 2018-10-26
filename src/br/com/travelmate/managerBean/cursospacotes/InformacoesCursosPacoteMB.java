@@ -133,7 +133,7 @@ public class InformacoesCursosPacoteMB implements Serializable {
 	public Float calcularValorCambioAtual() {
 		Float valorInicial = cursospacote.getValoravista();
 		if (cursospacote.getValorcambio()==0) {
-			Cambio cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+			Cambio cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
 					 usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getIdmoedas(), 
 						usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambio!=null) {

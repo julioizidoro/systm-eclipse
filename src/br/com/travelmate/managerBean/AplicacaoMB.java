@@ -266,7 +266,14 @@ public class AplicacaoMB implements Serializable {
 	}
 	
 	public String retornarDataCambio() {
-		return Formatacao.ConvercaoDataPadrao(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio());
+		int idpais = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais();
+		for (int i = 0; i < listaCambio.size(); i++) {
+			
+			if (listaCambio.get(i).getPais().getIdpais() == idpais) {
+				return Formatacao.ConvercaoDataPadrao(listaCambio.get(i).getData());
+			}
+		}
+		return "";
 	}
 	
 	public String retornarCambio(String moeda) {

@@ -550,7 +550,7 @@ public class FiltrarEscolaMB implements Serializable {
 			idMoeda = fornecedorPais.getMoedas().getIdmoedas();
 		}
 		cambio = cambioDao.consultarCambioMoedaPais(
-				Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+				Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
 				idMoeda, usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		return cambio;
 	}

@@ -217,7 +217,7 @@ public class FichaSeguroViagemMB implements Serializable {
 				orcamento = new Orcamento();
 			}
 			if (dataCambio == null) {
-				dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
+				dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 			}
 			valorSemDesconto = seguro.getValorSeguro() + seguro.getDescontoloja() + seguro.getDescontomatriz();
 			verificarSeguroCancelamento();

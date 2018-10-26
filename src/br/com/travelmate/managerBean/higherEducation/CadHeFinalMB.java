@@ -139,6 +139,7 @@ public class CadHeFinalMB implements Serializable {
 	private boolean habilitarAvisoCambio = false;
 	private float valorCambio;
 	private String cambioAlterado;
+	private Lead lead;
 
 	@PostConstruct
 	public void init() {
@@ -147,9 +148,11 @@ public class CadHeFinalMB implements Serializable {
 		he = (He) session.getAttribute("he");
 		voltarControleVendas = (String) session.getAttribute("voltarControleVendas");
 		cliente = (Cliente) session.getAttribute("cliente");
+		lead = (Lead) session.getAttribute("lead");
 		session.removeAttribute("voltarControleVendas");
 		session.removeAttribute("he");  
 		session.removeAttribute("cliente");
+		session.removeAttribute("lead");
 		carregarComboMoedas();
 		gerarListaProdutos();
 		
@@ -508,6 +511,14 @@ public class CadHeFinalMB implements Serializable {
 
 	public void setCambioAlterado(String cambioAlterado) {
 		this.cambioAlterado = cambioAlterado;
+	}
+
+	public Lead getLead() {
+		return lead;
+	}
+
+	public void setLead(Lead lead) {
+		this.lead = lead;
 	}
 
 	public void excluirFormaPagamento(String ilinha) {
@@ -1226,7 +1237,7 @@ public class CadHeFinalMB implements Serializable {
 		if (msg.length() < 5) { 
 			ProgramasBean programasBean = new ProgramasBean();
 			Produtos produto = ConsultaBean.getProdtuo(aplicacaoMB.getParametrosprodutos().getHighereducation()); 
-			Lead lead = leadDao.consultar("select l from Lead l where l.idlead="+venda.getIdlead());
+//			Lead lead = leadDao.consultar("select l from Lead l where l.idlead="+venda.getIdlead());
 			float totalMoedaEstrangeira = orcamento.getTotalMoedaEstrangeira();
 			float totalMoedaReal = orcamento.getTotalMoedaNacional();
 			venda.setValorpais(totalMoedaEstrangeira * cambio.getValor());

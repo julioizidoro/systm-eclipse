@@ -105,7 +105,7 @@ public class CadModeloOrcaManualMB implements Serializable {
 		carregarComboMoedas();
 		if (modeloOrcamentoCurso == null) {
 			iniciarNovoOrcamento();
-			dataCambio = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio();
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
 		} else {
 			iniciarAlteracaoOrcamento();
 		}
