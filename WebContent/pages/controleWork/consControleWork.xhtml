@@ -146,14 +146,7 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Cliente" style="width:200px;">
-								<p:commandLink value="#{workAndTravel.vendas.cliente.nome}"
-									action="#{controleWorkAndTravelMB.atualizarInformacoes(workAndTravel)}"
-									title="Atualizar informações"
-									style="text-decoration: underline">
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.retornoDialogAtualizar}"
-										update="tabelaControleWork" />
-								</p:commandLink>
+								<h:outputText value="#{workAndTravel.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;">
 								<h:outputText
@@ -220,14 +213,8 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Cliente" style="width:200px;">
-								<p:commandLink value="#{entrevista.vendas.cliente.nome}"
-									action="#{controleWorkAndTravelMB.atualizarInformacoes(entrevista)}"
-									title="Atualizar informações"
-									style="text-decoration: underline">
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.retornoDialogAtualizar}"
-										update="tabelaControleEntrevista" />
-								</p:commandLink>
+								
+								<h:outputText value="#{entrevista.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;">
 								<h:outputText
@@ -297,14 +284,8 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Cliente" style="width:200px;">
-								<p:commandLink value="#{contratado.vendas.cliente.nome}"
-									action="#{controleWorkAndTravelMB.atualizarInformacoes(contratado)}"
-									title="Atualizar informações"
-									style="text-decoration: underline">
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.retornoDialogAtualizar}"
-										update="tabelaControleContratado" />
-								</p:commandLink>
+								
+								<h:outputText value="#{contratado.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;">
 								<h:outputText
@@ -452,14 +433,8 @@
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Cliente" style="width:200px;">
-								<p:commandLink value="#{embarcado.vendas.cliente.nome}"
-									action="#{controleWorkAndTravelMB.atualizarInformacoes(embarcado)}"
-									title="Atualizar informações"
-									style="text-decoration: underline">
-									<p:ajax event="dialogReturn"
-										listener="#{controleWorkAndTravelMB.retornoDialogAtualizar}"
-										update="tabelaControleEmbarcado" />
-								</p:commandLink>
+								
+								<h:outputText value="#{embarcado.vendas.cliente.nome}" />
 							</p:column>
 							<p:column headerText="Unidade" style="width:120px;">
 								<h:outputText

@@ -433,29 +433,35 @@ public class ControleCursosTeensMB implements Serializable{
 	}
 	
 	public String documentosTeens(Controleprogramasteen controle){
-		if(controle.getVisto().equalsIgnoreCase("Não")){
-			return "../../resources/img/bolaVermelha.png";
-		}else if(controle.getFamilia().equalsIgnoreCase("Não")){
-			return "../../resources/img/bolaVermelha.png";
-		}else if(controle.getContrato().equalsIgnoreCase("Não")){
-			return "../../resources/img/bolaVermelha.png";
-		}else if(controle.getDocumentacao().equalsIgnoreCase("Não")){
-			return "../../resources/img/bolaVermelha.png";
-		}else{
-			return "../../resources/img/bolaVerde.png";
+		if (controle != null) {
+			if(controle.getVisto().equalsIgnoreCase("Não")){
+				return "../../resources/img/bolaVermelha.png";
+			}else if(controle.getFamilia().equalsIgnoreCase("Não")){
+				return "../../resources/img/bolaVermelha.png";
+			}else if(controle.getContrato().equalsIgnoreCase("Não")){
+				return "../../resources/img/bolaVermelha.png";
+			}else if(controle.getDocumentacao().equalsIgnoreCase("Não")){
+				return "../../resources/img/bolaVermelha.png";
+			}else{
+				return "../../resources/img/bolaVerde.png";
+			}
 		}
+		return "";
 	}
 	
 	public String imagemSituacao(Controleprogramasteen controle){
-		if(controle.getSituacao().equalsIgnoreCase("Processo")){
-			return "../../resources/img/bolaAzul.png";
-		}else if(controle.getSituacao().equalsIgnoreCase("Cancelado")){
-			return "../../resources/img/bolaVermelha.png";
-		}else if(controle.getSituacao().equalsIgnoreCase("Finalizado")){
-			return "../../resources/img/bolaVerde.png";
-		}else{
-			return null;
+		if (controle != null) {
+			if(controle.getSituacao().equalsIgnoreCase("Processo")){
+				return "../../resources/img/bolaAzul.png";
+			}else if(controle.getSituacao().equalsIgnoreCase("Cancelado")){
+				return "../../resources/img/bolaVermelha.png";
+			}else if(controle.getSituacao().equalsIgnoreCase("Finalizado")){
+				return "../../resources/img/bolaVerde.png";
+			}else{
+				return "";
+			}
 		}
+		return "";
 	}
 	
 	public String idadeCliente(Controleprogramasteen controle) {
@@ -486,13 +492,9 @@ public class ControleCursosTeensMB implements Serializable{
 			if (listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
 				listaVendasFinalizada.add(listaControle.get(i));
-			} else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
-					&& listaControle.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+			} else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
 				nFichasFinanceiro = nFichasFinanceiro + 1;
 				listaVendasFinanceiro.add(listaControle.get(i));
-			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
-				nFichasAndamento = nFichasAndamento + 1;
-				listaVendasAndamento.add(listaControle.get(i));
 			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("CANCELADA")){
 				nFichaCancelada = nFichaCancelada + 1;
 				listaVendasCancelada.add(listaControle.get(i));

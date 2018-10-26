@@ -772,6 +772,16 @@ public class ControleCursoMB implements Serializable {
 	}
 	
 	public void receberControle(Controlecurso controlecurso){
+		if (controlecurso.getCurso().getTipoAcomodacao() == null || controlecurso.getCurso().getTipoAcomodacao().length() == 0  || controlecurso.getCurso().getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
+			if (controlecurso.getCurso().getAcomodacaocurso() != null) {
+				controlecurso.getCurso().setTipoAcomodacao(controlecurso.getCurso().getAcomodacaocurso().getAcomodacao().getTipoacomodacao());
+				controlecurso.getCurso().setTipoQuarto(controlecurso.getCurso().getAcomodacaocurso().getAcomodacao().getTipoquarto());
+				controlecurso.getCurso().setRefeicoes(controlecurso.getCurso().getAcomodacaocurso().getAcomodacao().getTiporefeicao());
+				controlecurso.getCurso().setDataChegada(controlecurso.getCurso().getAcomodacaocurso().getAcomodacao().getDatainicial());
+				controlecurso.getCurso().setDataSaida(controlecurso.getCurso().getAcomodacaocurso().getAcomodacao().getDatatermino());
+				controlecurso.getCurso().setNumeroSemanasAcamodacao(controlecurso.getCurso().getAcomodacaocurso().getAcomodacao().getNumerosemana());
+			}
+		}
 		this.controlecurso=controlecurso;
 	}
 	

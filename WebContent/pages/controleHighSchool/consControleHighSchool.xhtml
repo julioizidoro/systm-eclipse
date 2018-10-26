@@ -134,7 +134,7 @@
 								scrollHeight="300" scrollWidth="650" frozenColumns="5">
 								<p:ajax event="rowEdit"
 									listener="#{controleHighSchoolMB.salvarMudancas(controleFinanceiro)}"
-									update=":consultaControleHighSchool: tabelaControleHighSchoolFinanceiro, :consultaControleHighSchool:growl" />
+									update=":consultaControleHighSchool:growl" />
 								<p:column style="text-align:left;" width="34">
 									<p:commandLink title="#{controleFinanceiro.vendas.situacao}"
 										style="cursor: initial;">
@@ -185,21 +185,10 @@
 									</p:cellEditor>
 								</p:column>
 								<p:column headerText="Embarque" width="75">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleFinanceiro.dataEmbarque}">
+											<h:outputText value="#{controleFinanceiro.vendas.vendasembarque.dataida}">
 												<f:convertDateTime pattern="dd/MM/yyyy"
 													timeZone="America/Sao_Paulo" />
 											</h:outputText>
-										</f:facet>
-										<f:facet name="input">
-											<p:calendar value="#{controleFinanceiro.dataEmbarque}"
-												size="8" locale="pt" pattern="dd/MM/yyyy">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</p:calendar>
-										</f:facet>
-									</p:cellEditor>
 								</p:column>
 								<p:column headerText="Retorno" width="75">
 									<p:cellEditor>
@@ -447,334 +436,13 @@
 								</p:column>
 							</p:dataTable>
 						</p:tab>
-						<p:tab
-							title="Andamento (#{controleHighSchoolMB.nFichasAndamento})"
-							titleStyle="font-size:11px;">
-							<p:dataTable id="tabelaControleHighSchoolAndamento"
-								var="controleAndamento"
-								value="#{controleHighSchoolMB.listaVendasAndamento}"
-								style="width:98%;" editable="true" scrollable="true"
-								scrollHeight="300" scrollWidth="650" frozenColumns="5">
-								<p:ajax event="rowEdit"
-									listener="#{controleHighSchoolMB.salvarMudancas(controleAndamento)}"
-									update=":consultaControleHighSchool: tabelaControleHighSchoolAndamento, :consultaControleHighSchool:growl" />
-								<p:column style="text-align:left;" width="34">
-									<p:commandLink title="#{controleAndamento.vendas.situacao}"
-										style="cursor: initial;">
-										<img
-											src="#{controleHighSchoolMB.imagemSituacaoFicha(controleAndamento)}"
-											width="25" />
-									</p:commandLink>
-								</p:column>
-								<p:column headerText="ID" width="32" style="text-align:left;">
-									<h:outputText value="#{controleAndamento.vendas.idvendas}" />
-								</p:column>
-								<p:column headerText="Data Ins." style="text-align:left;"
-									width="70">
-									<h:outputText value="#{controleAndamento.vendas.dataVenda}">
-										<f:convertDateTime pattern="dd/MM/yyyy"
-											timeZone="America/Sao_Paulo" />
-									</h:outputText>
-								</p:column>
-								<p:column headerText="Nome" width="160">
-									<p:commandLink value="#{controleAndamento.vendas.cliente.nome}"
-										action="#{controleHighSchoolMB.atualizarInformacoes(controleAndamento)}"
-										title="Atualizar informações"
-										style="text-decoration: underline">
-									</p:commandLink>
-								</p:column>
-								<p:column width="25">
-									<p:rowEditor />
-								</p:column>
-								<p:column headerText="Unidade" width="140">
-									<h:outputText
-										value="#{controleAndamento.vendas.unidadenegocio.nomerelatorio}" />
-								</p:column>
-								<p:column headerText="Agente" width="140">
-									<h:outputText value="#{controleAndamento.vendas.usuario.nome}" />
-								</p:column>
-								<p:column headerText="Duração" width="100">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText
-												value="#{controleAndamento.highschool.duracaoIntercambio}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText
-												value="#{controleAndamento.highschool.duracaoIntercambio}"
-												style="width:100%;" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Embarque" width="75">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.dataEmbarque}">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</h:outputText>
-										</f:facet>
-										<f:facet name="input">
-											<p:calendar value="#{controleAndamento.dataEmbarque}"
-												size="8" locale="pt" pattern="dd/MM/yyyy">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</p:calendar>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Retorno" width="75">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.dataRetorno}">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</h:outputText>
-										</f:facet>
-										<f:facet name="input">
-											<p:calendar value="#{controleAndamento.dataRetorno}" size="8"
-												locale="pt" pattern="dd/MM/yyyy">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</p:calendar>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Escola" width="220">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText
-												value="#{controleAndamento.highschool.escolaIntercambio}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText
-												value="#{controleAndamento.highschool.escolaIntercambio}"
-												style="width:100%;" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Data Nasc." width="93"
-									style="text-align:center;">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText
-												value="#{controleAndamento.vendas.cliente.dataNascimento}">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</h:outputText>
-										</f:facet>
-										<f:facet name="input">
-											<p:inputMask mask="99/99/9999"
-												value="#{controleAndamento.vendas.cliente.dataNascimento}"
-												style="width:100%;">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</p:inputMask>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Telefone" width="110">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText
-												value="#{controleAndamento.vendas.cliente.foneCelular}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText
-												value="#{controleAndamento.vendas.cliente.foneCelular}"
-												style="width:100%;" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Telefone Resp." width="110">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText
-												value="#{controleAndamento.highschool.foneContatoEmergencia}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText
-												value="#{controleAndamento.highschool.foneContatoEmergencia}"
-												style="width:100%;" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="E-mail" width="190">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText
-												value="#{controleAndamento.vendas.cliente.email}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText
-												value="#{controleAndamento.vendas.cliente.email}"
-												style="width:100%;" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="E-mail Resp." width="190">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText
-												value="#{controleAndamento.highschool.emailConatoEmergencia}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText
-												value="#{controleAndamento.highschool.emailConatoEmergencia}"
-												style="width:100%;" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Aeroporto Final" width="160">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.aeroportofinal}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{controleAndamento.aeroportofinal}"
-												style="width:100%;" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Envio App" width="100">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.dataEnvioApp}">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</h:outputText>
-										</f:facet>
-										<f:facet name="input">
-											<p:calendar value="#{controleAndamento.dataEnvioApp}"
-												size="8" locale="pt" pattern="dd/MM/yyyy">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</p:calendar>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Passagem" width="100">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.passagem}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu value="#{controleAndamento.passagem}"
-												style="width:95%;">
-												<f:selectItem itemLabel="Sim" itemValue="Sim" />
-												<f:selectItem itemLabel="Não" itemValue="Não" />
-												<p:ajax event="change" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Pagamento" width="90">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.pagamento}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu value="#{controleAndamento.pagamento}"
-												style="width:95%;">
-												<f:selectItem itemLabel="Sim" itemValue="Sim" />
-												<f:selectItem itemLabel="Não" itemValue="Não" />
-												<p:ajax event="change" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Visto" width="80">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.visto}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu value="#{controleAndamento.visto}"
-												style="width:95%;">
-												<f:selectItem itemLabel="Pendente" itemValue="Pendente" />
-												<f:selectItem itemLabel="Negado" itemValue="Negado" />
-												<f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
-												<p:ajax event="change" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Família" width="80">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.familia}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu value="#{controleAndamento.familia}"
-												style="width:95%;">
-												<f:selectItem itemLabel="Sim" itemValue="Sim" />
-												<f:selectItem itemLabel="Não" itemValue="Não" />
-												<p:ajax event="change" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Historico Chegou" width="140">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.historicochegou}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu value="#{controleAndamento.historicochegou}"
-												style="width:95%;">
-												<f:selectItem itemLabel="Sim" itemValue="Sim" />
-												<f:selectItem itemLabel="Não" itemValue="Não" />
-												<p:ajax event="change" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Historico Tradução" width="140">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.historicotraducao}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{controleAndamento.historicotraducao}"
-												style="width:95%;">
-												<f:selectItem itemLabel="Sim" itemValue="Sim" />
-												<f:selectItem itemLabel="Não Precisa"
-													itemValue="Não Precisa" />
-												<f:selectItem itemLabel="Não" itemValue="Não" />
-												<p:ajax event="change" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Historico Entrega" width="140">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controleAndamento.historicoentrega}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{controleAndamento.historicoentrega}"
-												style="width:100%;" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-								<p:column headerText="Arquivos" style="text-align:center"
-									width="70">
-									<p:commandLink
-										action="#{controleHighSchoolMB.documentacao(controleAndamento)}"
-										title="Arquivos">
-										<img src="../../resources/img/boletoFicha.png" width="22" />
-									</p:commandLink>
-								</p:column>
-							</p:dataTable>
-						</p:tab>    
 						<p:tab title="Finalizado (#{controleHighSchoolMB.nFichasFinalizadas})"
 							titleStyle="font-size:11px;">
 							<p:dataTable id="tabelaControleHighSchoolFinalizado" var="controleFinalizado"
 								value="#{controleHighSchoolMB.listaVendasFinalizada}" style="width:98%;" editable="true" 
 								scrollable="true" scrollHeight="300" scrollWidth="650" frozenColumns="5"> 
 								<p:ajax event="rowEdit" listener="#{controleHighSchoolMB.salvarMudancas(controleFinalizado)}" 
-									update=":consultaControleHighSchool: tabelaControleHighSchoolFinalizado, :consultaControleHighSchool:growl" /> 
+									update=":consultaControleHighSchool:growl" /> 
 								<p:column style="text-align:left;" width="34">
 									<p:commandLink title="#{controleFinalizado.vendas.situacao}" style="cursor: initial;">
 										<img src="#{controleHighSchoolMB.imagemSituacaoFicha(controleFinalizado)}" 
@@ -1000,7 +668,7 @@
 								value="#{controleHighSchoolMB.listaVendasCancelada}" style="width:98%;" editable="true" 
 								scrollable="true" scrollHeight="300" scrollWidth="650" frozenColumns="5"> 
 								<p:ajax event="rowEdit" listener="#{controleHighSchoolMB.salvarMudancas(controleCancelada)}" 
-									update=":consultaControleHighSchool: tabelaControleHighSchoolCancelada, :consultaControleHighSchool:growl" /> 
+									update=":consultaControleHighSchool:growl" /> 
 								<p:column style="text-align:left;" width="34">
 									<p:commandLink title="#{controleCancelada.vendas.situacao}" style="cursor: initial;">
 										<img src="#{controleHighSchoolMB.imagemSituacaoFicha(controleCancelada)}" 
@@ -1228,7 +896,7 @@
 								scrollWidth="650" frozenColumns="5">
 								<p:ajax event="rowEdit"
 									listener="#{controleHighSchoolMB.salvarMudancas(controle)}"
-									update="tabelaControleHighSchool, :consultaControleHighSchool:growl" />
+									update=":consultaControleHighSchool:growl" />
 								<p:column style="text-align:left;" width="34">
 									<p:commandLink title="#{controle.vendas.situacao}"
 										style="cursor: initial;">

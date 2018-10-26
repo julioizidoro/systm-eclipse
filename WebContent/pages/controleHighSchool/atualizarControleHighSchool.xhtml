@@ -60,16 +60,16 @@
 					<p:outputLabel value="Cidade de destino" for="cidadeDestino"  />
 					<p:outputLabel value="Data envio app" for="dataenvioapp" />  
 						
-					<p:calendar id="dataembarque"
-						value="#{atualizarControleHighSchoolMB.controlehighschool.dataEmbarque}"
-						maxlength="20" locale="pt" pattern="dd/MM/yyyy" readonly="true">
+					<p:calendar mask="true" id="dataembarque"
+						value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.vendasembarque.dataida}"
+						maxlength="20" locale="pt" pattern="dd/MM/yyyy" >
 						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
 					</p:calendar> 
 					<p:inputText id="cidadeDestino" style="width:90%;" maxlength="100" readonly="true"
 						value="#{atualizarControleHighSchoolMB.controlehighschool.vendas.fornecedorcidade.cidade.nome}" /> 
-					<p:calendar id="dataenvioapp" readonly="true"
+					<p:calendar mask="true" id="dataenvioapp"  locale="pt" pattern="dd/MM/yyyy"
 						value="#{atualizarControleHighSchoolMB.controlehighschool.dataEnvioApp}"  maxlength="20">
 						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 					</p:calendar>
@@ -82,7 +82,7 @@
 		
 					<p:inputText id="familia" readonly="true" style="width:70%;" maxlength="100"
 						value="#{atualizarControleHighSchoolMB.controlehighschool.familia}" /> 
-					<p:calendar id="dataretorno" readonly="true"
+					<p:calendar mask="true" id="dataretorno" 
 						value="#{atualizarControleHighSchoolMB.controlehighschool.dataRetorno}"
 						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
 						<f:convertDateTime pattern="dd/MM/yyyy"
@@ -133,7 +133,7 @@
 					<p:outputLabel value="Comprovante de Pagamento"/>
 					<p:outputLabel value="Envio Passagem"/>
 					
-					<p:calendar 
+					<p:calendar mask="true" 
 						value="#{atualizarControleHighSchoolMB.controlehighschool.datadocumentacaovisto}"
 						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
 						<f:convertDateTime pattern="dd/MM/yyyy"
@@ -141,7 +141,7 @@
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
 					</p:calendar>  
-					<p:calendar
+					<p:calendar mask="true"
 						value="#{atualizarControleHighSchoolMB.controlehighschool.dataaplicacaovisto}"
 						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
 						<f:convertDateTime pattern="dd/MM/yyyy"
@@ -149,7 +149,7 @@
 						<p:ajax event="change" />
 						<p:ajax event="dateSelect" />
 					</p:calendar>  
-					<p:calendar 
+					<p:calendar mask="true" 
 						value="#{atualizarControleHighSchoolMB.controlehighschool.datacomprovantepagamento}"
 						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
 						<f:convertDateTime pattern="dd/MM/yyyy"
@@ -157,7 +157,7 @@
 						<p:ajax event="change" />  
 						<p:ajax event="dateSelect" />     
 					</p:calendar>  
-					<p:calendar
+					<p:calendar mask="true"
 						value="#{atualizarControleHighSchoolMB.controlehighschool.dataenviopassagem}"
 						maxlength="20" locale="pt" pattern="dd/MM/yyyy">
 						<f:convertDateTime pattern="dd/MM/yyyy"

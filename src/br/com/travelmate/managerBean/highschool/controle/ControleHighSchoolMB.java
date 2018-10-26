@@ -406,7 +406,6 @@ public class ControleHighSchoolMB implements Serializable{
 		ClienteFacade clienteFacade = new ClienteFacade();
 		clienteFacade.salvar(controle.getVendas().getCliente());
 		Mensagem.lancarMensagemInfo("Alterado com sucesso!", "");
-		listarControle();
 	}
 	
 	public String documentacao(Controlehighschool controle) {
@@ -500,13 +499,9 @@ public class ControleHighSchoolMB implements Serializable{
 			if (listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				nFichasFinalizadas = nFichasFinalizadas + 1;
 				listaVendasFinalizada.add(listaControle.get(i));
-			} else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")
-					&& !listaControle.get(i).getVendas().getSituacaofinanceiro().equalsIgnoreCase("L")){
+			} else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
 				nFichasFinanceiro = nFichasFinanceiro + 1;
 				listaVendasFinanceiro.add(listaControle.get(i));
-			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("ANDAMENTO")){
-				nFichasAndamento = nFichasAndamento + 1;
-				listaVendasAndamento.add(listaControle.get(i));
 			}else if(listaControle.get(i).getVendas().getSituacao().equalsIgnoreCase("CANCELADA")){
 				nFichaCancelada = nFichaCancelada + 1;
 				listaVendasCancelada.add(listaControle.get(i));

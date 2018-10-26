@@ -5,14 +5,17 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.travelmate.dao.VendasEmbarqueDao;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Curso;
+import br.com.travelmate.model.Vendasembarque;
 import br.com.travelmate.util.Formatacao;
 
 @Named
@@ -23,9 +26,12 @@ public class AtualizarControleCursoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private VendasEmbarqueDao vendasEmbarqueDao;
 	private Controlecurso controle;
 	private Curso curso;
 	private int idade;
+	private String tipoacomodacao;
 	
 	@PostConstruct
 	public void init() {
@@ -35,6 +41,15 @@ public class AtualizarControleCursoMB implements Serializable{
         session.removeAttribute("controle");
         consultarCurso();
         idadeCliente();
+        if (curso.getTipoAcomodacao() != null && curso.getTipoAcomodacao().length() > 0) {
+			tipoacomodacao = curso.getTipoAcomodacao();
+		}else if(curso.getAcomodacaocurso() != null) {
+			tipoacomodacao = curso.getAcomodacaocurso().getAcomodacao().getTipoacomodacao();
+		}
+        if (controle.getVendas().getVendasembarque() == null) {
+			controle.getVendas().setVendasembarque(new Vendasembarque());
+			controle.getVendas().getVendasembarque().setVendas(controle.getVendas());
+		}
 	}
 
 	
@@ -68,6 +83,18 @@ public class AtualizarControleCursoMB implements Serializable{
 
 
 
+	public String getTipoacomodacao() {
+		return tipoacomodacao;
+	}
+
+
+
+	public void setTipoacomodacao(String tipoacomodacao) {
+		this.tipoacomodacao = tipoacomodacao;
+	}
+
+
+
 	public void consultarCurso(){
 		CursoFacade cursoFacade = new CursoFacade();
 		curso = cursoFacade.consultarCursos(controle.getVendas().getIdvendas());
@@ -78,6 +105,9 @@ public class AtualizarControleCursoMB implements Serializable{
 		CursoFacade cursoFacade = new CursoFacade();
 		controle = cursoFacade.salvar(controle);
 		curso = cursoFacade.salvar(curso);
+		if (controle.getVendas().getVendasembarque().getIdvendasembarque() != null) {
+			vendasEmbarqueDao.salvar(controle.getVendas().getVendasembarque());
+		}
 		RequestContext.getCurrentInstance().closeDialog(null);
 		return "";
 	}

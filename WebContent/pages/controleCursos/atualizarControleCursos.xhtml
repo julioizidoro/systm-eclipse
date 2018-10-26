@@ -15,29 +15,28 @@
                    <p:accordionPanel class="painelControleCursos" style="background:#1F8871;" >
                         <p:tab  title="Dados de Controle" class="tab" titleStyle="font-size: 11px" >
                             <br></br>
-                            <p:outputLabel value="Data Envio Inscrição" for="datainicio2" style="margin-left: 1.2%"  />
-                            <p:outputLabel value="Data Embarque" for="datatermino3" style="margin-left: 13.4%"    />
-                            <p:outputLabel value="Possui Acomodação" for="acomodacaoControle"  style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left: 15.6%"  />
-                            <p:outputLabel value="Código" for="codigo"  style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:6.6%"  />
-                            <br></br>   
-                            <h:panelGrid style="margin-left:0.5%;" columns="5">
-	                            <p:calendar id="datainicio2" value="#{atualizarControleCursoMB.controle.dataEnvioInscricaoEscola}"  maxlength="20" locale="pt" style="margin-left:1%" disabled="" pattern="dd/MM/yyyy" >
+                            <h:panelGrid style="margin-left: 1.2%%;width:100%;" columns="4">
+                            		<p:outputLabel value="Data Envio Inscrição" for="datainicio2" />
+                            		<p:outputLabel value="Data Embarque" for="datatermino3"  />
+                            		<p:outputLabel value="Possui Acomodação" for="acomodacaoControle"  style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"  />
+                            		<p:outputLabel value="Código" for="codigo"  style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"  />
+	                            <p:calendar mask="true" id="datainicio2" value="#{atualizarControleCursoMB.controle.dataEnvioInscricaoEscola}"  maxlength="20" locale="pt"  disabled="" pattern="dd/MM/yyyy" >
 	                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 	                                 <p:ajax event="change" />
 	                                <p:ajax event="dateSelect" />
 	                            </p:calendar>
 	                           
-	                            <p:calendar id="datatermino3" value="#{atualizarControleCursoMB.controle.vendas.vendasembarque.dataida}"  style="margin-left:46%"  maxlength="20" disabled="">
+	                            <p:calendar locale="pt" pattern="dd/MM/yyyy" mask="true" id="datatermino3" value="#{atualizarControleCursoMB.controle.vendas.vendasembarque.dataida}"  maxlength="20" disabled="">
 	                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 	                            </p:calendar>
                             
                             
-	                             <p:selectOneMenu id="acomodacaoControle" style="width:100px; margin-left:52%;" value="#{atualizarControleCursoMB.controle.possuiAcomidacao}"  >
+	                             <p:selectOneMenu id="acomodacaoControle" style="width:100px;" value="#{atualizarControleCursoMB.controle.possuiAcomidacao}"  >
 	                                <f:selectItem itemLabel="Não" itemValue="Nao"/>
 	                                <f:selectItem itemLabel="Sim" itemValue="Sim"/>   
 	                            </p:selectOneMenu> 
 	                              
-	                            <p:inputText id="codigo" value="#{atualizarControleCursoMB.curso.codigo}" style="width:55%;margin-left:25%;"/>
+	                            <p:inputText id="codigo" value="#{atualizarControleCursoMB.curso.codigo}" style="width:55%;"/>
 	                        </h:panelGrid>
 	                        <br /><br />
 	                        
@@ -123,7 +122,7 @@
 		                    <p:outputLabel value="Número do VTM" for="numerovtm" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:50.5%;"   />
 		                    <br></br> 
 		                   	 
-		                    <p:inputText id="tipoAcomodacaoFicha" value="#{atualizarControleCursoMB.curso.tipoAcomodacao}" style="width:35%;margin-left:1%;margin-top:1%;" readonly="true"/>     
+		                    <p:inputText id="tipoAcomodacaoFicha" value="#{atualizarControleCursoMB.tipoacomodacao}" style="width:35%;margin-left:1%;margin-top:1%;" readonly="true"/>     
 		                	<p:inputText id="numerovtm" value="#{atualizarControleCursoMB.curso.numeroCartaoVTM}" style="width:30%;margin-left:30.4%;" readonly="true"/>
 		                	<br /><br />
 		                </p:tab>

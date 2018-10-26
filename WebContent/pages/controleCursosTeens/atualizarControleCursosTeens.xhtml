@@ -83,7 +83,7 @@
 					style="margin-left: 32%" />
 				<br></br>
 
-				<p:calendar id="dataembarque"
+				<p:calendar mask="true" id="dataembarque"
 					value="#{atualizarControleCursosTeensMB.controleprogramasteen.dataEmbarque}"
 					maxlength="20" locale="pt" style="margin-left:1%;"
 					pattern="dd/MM/yyyy">
@@ -98,7 +98,7 @@
 					value="#{atualizarControleCursosTeensMB.controleprogramasteen.cidadeDestino}" />
 
 
-				<p:calendar id="dataenvioapp"
+				<p:calendar mask="true" id="dataenvioapp" locale="pt" pattern="dd/MM/yyyy"
 					value="#{atualizarControleCursosTeensMB.controleprogramasteen.dataEnvioApp}"
 					style="margin-left:14.9%" maxlength="20">
 					<f:convertDateTime pattern="dd/MM/yyyy"
@@ -120,7 +120,7 @@
 					style="width:30%;margin-left:1%;margin-top:1%;" maxlength="100"
 					value="#{atualizarControleCursosTeensMB.controleprogramasteen.bonus}" />
 
-				<p:calendar id="dataretorno"
+				<p:calendar mask="true" id="dataretorno"
 					value="#{atualizarControleCursosTeensMB.controleprogramasteen.dataRetorno}"
 					maxlength="20" locale="pt" style="margin-left:12.3%;"
 					pattern="dd/MM/yyyy">
@@ -130,7 +130,7 @@
 					<p:ajax event="dateSelect" />
 				</p:calendar>
 
-				<p:calendar id="dataaplicouvisto"
+				<p:calendar mask="true" id="dataaplicouvisto" locale="pt" pattern="dd/MM/yyyy"
 					value="#{atualizarControleCursosTeensMB.controleprogramasteen.dataAplicouVisto}"
 					style="margin-left:14.9%" maxlength="20">
 					<f:convertDateTime pattern="dd/MM/yyyy"

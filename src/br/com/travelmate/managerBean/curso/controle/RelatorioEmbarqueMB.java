@@ -223,9 +223,10 @@ public class RelatorioEmbarqueMB implements Serializable {
 	}
 
 	public String gerarSql() {
-		String sql = "select distinct vendas.idvendas,controlecursos.situacao, pais.nome,cidade.nome as cidade, cliente.nome as cliente,controlecursos.dataEmbarque,fornecedor.nome as fornecedor,"
+		String sql = "select distinct vendas.idvendas,controlecursos.situacao, pais.nome,cidade.nome as cidade, cliente.nome as cliente, vendasembarque.dataida as dataembarque ,fornecedor.nome as fornecedor,"
 				+ " unidadenegocio.nomerelatorio as unidade, controlecursos.LoasObs as obs,cursos.dataInicio, cursos.numeroSenamas from controlecursos "
 				+ " join vendas on controlecursos.vendas_idvendas=vendas.idvendas "
+				+ " join vendasembarque on vendasembarque.vendas_idvendas=vendas.idvendas "
 				+ " join cursos on cursos.vendas_idvendas = vendas.idvendas"
 				+ " join cliente on  vendas.cliente_idcliente=cliente.idcliente "
 				+ " join fornecedorcidade on vendas.fornecedorcidade_idfornecedorcidade=fornecedorcidade.idfornecedorcidade"
@@ -235,8 +236,8 @@ public class RelatorioEmbarqueMB implements Serializable {
 				+ " join unidadenegocio on vendas.unidadeNegocio_idunidadeNegocio=unidadenegocio.idunidadeNegocio"
 				+ " join produtos on vendas.produtos_idprodutos=produtos.idprodutos where produtos.idprodutos=1 and vendas.situacao<>'CANCELADA' ";
 		if ((dataInicioEmbarque != null) && (dataTerminoEmbarque != null)) {
-			sql = sql + " and controlecursos.dataEmbarque>='" + Formatacao.ConvercaoDataSql(dataInicioEmbarque)
-					+ "' and controlecursos.dataEmbarque<='" + Formatacao.ConvercaoDataSql(dataTerminoEmbarque) + "' ";
+			sql = sql + " and vendasembarque.dataida>='" + Formatacao.ConvercaoDataSql(dataInicioEmbarque)
+					+ "' and vendasembarque.dataida<='" + Formatacao.ConvercaoDataSql(dataTerminoEmbarque) + "' ";
 		}
 		if ((dataInicioCurso != null) && (dataTerminoCurso != null)) {
 			sql = sql + " and cursos.dataInicio>='" + Formatacao.ConvercaoDataSql(dataInicioCurso)

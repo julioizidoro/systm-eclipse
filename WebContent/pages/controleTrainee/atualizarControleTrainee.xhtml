@@ -14,12 +14,11 @@
 	<h:form id="autalizarControleVoluntariado"
 		style="text-align:left;font-size:11px;">
 		<title>Atualizar Controle Trainee</title>
-		<br></br>
 		<p:accordionPanel class="painelControleTrainee"
 			style="background:#1F8871;">
 			<p:tab title="Dados da Ficha" class="tab"
 				titleStyle="font-size: 11px"><br></br>
-				<br></br><br></br>
+				<br></br>
 				<p:outputLabel value="Nº Venda" for="nControle"
 					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:1%;" />
 				<p:outputLabel value="Data Inscrição" for="dataIncricao"
@@ -72,24 +71,17 @@
 
 				<p:outputLabel value="RG" for="rg"
 					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:1%;" />
-				<p:outputLabel value="Data Embarque"
-					for="dataInicioPretendida"
+				<p:outputLabel value=""
+					
 					style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;margin-left:30%;" />
 				
 				<br></br>
 				<p:inputText id="rg"
 					value="#{atualizarControleTraineeMB.controle.vendas.cliente.rg}"
 					style="width:25%;margin-left:1%;" readonly="true" />
-				<p:inputText id="dataInicioPretendida"
-					value=""
-					style="width:16.5%;margin-left:6%;" readonly="true">
-					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-				</p:inputText>
+				<p:outputLabel/>
 				<br></br><br></br>
 				<br></br>
-				<br></br>
-				<br></br><br></br>
 			</p:tab> 
 		</p:accordionPanel>
 		<p class="botaocadpacote">
