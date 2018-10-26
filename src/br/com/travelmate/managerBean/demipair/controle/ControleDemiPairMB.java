@@ -22,6 +22,7 @@ import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Controledemipair;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Unidadenegocio;
@@ -192,23 +193,16 @@ public class ControleDemiPairMB implements Serializable {
 		}
 	}
   
+	
+	
 	public String invoice(Controledemipair controle) {
 		if (controle != null) {
-			InvoiceFacade invoiceFacade = new InvoiceFacade();
-			Invoice invoice = invoiceFacade.consultarVenda(controle.getVendas().getIdvendas(),
-					controle.getVendas().getProdutos().getIdprodutos(), controle.getIdcontroledemipair());
-			if (invoice == null) {
-				invoice = new Invoice();
-				invoice.setControle(controle.getIdcontroledemipair());
-				invoice.setProdutos(controle.getVendas().getProdutos());
-				invoice.setVendas(controle.getVendas());
-			}
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("invoice", invoice);
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 600);
-			RequestContext.getCurrentInstance().openDialog("invoiceControle", options, null);
+			controle.getVendas().setIdControle(controle.getIdcontroledemipair());
+			session.setAttribute("vendas", controle.getVendas());
+			session.setAttribute("voltar", "controleDemipair");
+			return "consultaInvoice";
 		}
 		return "";
 	}

@@ -24,6 +24,7 @@ import br.com.travelmate.facade.UsuarioFacade;
 
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Controleprogramasteen;
 import br.com.travelmate.model.Controlevoluntariado;
 import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Unidadenegocio;
@@ -221,25 +222,18 @@ public class ControleVoluntariadoMB implements Serializable{
         }
 	}
 	
-	public String invoice(Controlevoluntariado controlevoluntariado){
-		if (controlevoluntariado!=null){
-			InvoiceFacade invoiceFacade = new InvoiceFacade();
-			Invoice invoice = invoiceFacade.consultarVenda(controlevoluntariado.getVendas().getIdvendas(), controlevoluntariado.getVendas().getProdutos().getIdprodutos(), controlevoluntariado.getIdcontrolevoluntariado());
-			if (invoice==null){
-				invoice = new Invoice();
-				invoice.setControle(controlevoluntariado.getIdcontrolevoluntariado());
-				invoice.setProdutos(controlevoluntariado.getVendas().getProdutos());
-				invoice.setVendas(controlevoluntariado.getVendas());
-			}
+
+	public String invoice(Controlevoluntariado controle) {
+		if (controle != null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
-		    HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		    session.setAttribute("invoice", invoice);
-			Map<String,Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 600);
-			RequestContext.getCurrentInstance().openDialog("invoiceControle", options, null);
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			controle.getVendas().setIdControle(controle.getIdcontrolevoluntariado());
+			session.setAttribute("vendas", controle.getVendas());
+			session.setAttribute("voltar", "controleVoluntariado");
+			return "consultaInvoice";
 		}
-    	return "";
-    }
+		return "";
+	}
 	
 	public void pesquisar(){
 		VoluntariadoFacade controleFacade =new VoluntariadoFacade();

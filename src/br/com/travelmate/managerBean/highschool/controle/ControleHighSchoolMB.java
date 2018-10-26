@@ -24,6 +24,7 @@ import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Controlehighschool;
+import br.com.travelmate.model.Controleprogramasteen;
 import br.com.travelmate.model.Invoice; 
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
@@ -337,23 +338,15 @@ public class ControleHighSchoolMB implements Serializable{
 	}
 	
 	
+
 	public String invoice(Controlehighschool controle) {
 		if (controle != null) {
-			InvoiceFacade invoiceFacade = new InvoiceFacade();
-			Invoice invoice = invoiceFacade.consultarVenda(controle.getVendas().getIdvendas(),
-					controle.getVendas().getProdutos().getIdprodutos(), controle.getIdcontroleHighSchool());
-			if (invoice == null) {
-				invoice = new Invoice();
-				invoice.setControle(controle.getIdcontroleHighSchool());
-				invoice.setProdutos(controle.getVendas().getProdutos());
-				invoice.setVendas(controle.getVendas());
-			}
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("invoice", invoice);
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("contentWidth", 600);
-			RequestContext.getCurrentInstance().openDialog("invoiceControle", options, null);
+			controle.getVendas().setIdControle(controle.getIdcontroleHighSchool());
+			session.setAttribute("vendas", controle.getVendas());
+			session.setAttribute("voltar", "controleHighSchool");
+			return "consultaInvoice";
 		}
 		return "";
 	}
