@@ -653,7 +653,7 @@ public class RelatorioCursoMB implements Serializable{
 		if (datainicurso != null && datafinalcurso != null) {
 			sql = sql + " AND c.curso.dataInicio>='"
 					+ Formatacao.ConvercaoDataSql(datainicurso)
-					+ "' AND c.curso.datainicurso<='"
+					+ "' AND c.curso.dataInicio<='"
 					+ Formatacao.ConvercaoDataSql(datafinalcurso) + "'";
 		}
 
@@ -680,7 +680,7 @@ public class RelatorioCursoMB implements Serializable{
 		}
 		
 		if (creditoPesquisa) {
-			sql = sql + " AND c.vendas.invoices.valorcredito>0 ";
+			sql = sql + " AND c.vendas.invoice.valorcredito>0 ";
 		}
 		
 		if (duracaoSemana != null) {
@@ -729,6 +729,7 @@ public class RelatorioCursoMB implements Serializable{
 		datafinalnascimento = null;
 		dataininascimento = null;
 		produtosorcamento = null;
+		duracaoSemana = null;
 		listaControlecurso = new ArrayList<Controlecurso>();
 
 	}

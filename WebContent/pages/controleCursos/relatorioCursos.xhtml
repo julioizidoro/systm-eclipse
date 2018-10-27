@@ -12,7 +12,7 @@
 					life="#{aplicacaoMB.parametrosprodutos.tempomensagens}" />
 
 				<legend id="iUsu2">
-					<b>Relatório de Higher Education</b>
+					<b>Relatório de Cursos</b>
 				</legend>
 
 				<p:accordionPanel class="painel" activeIndex="-1">
@@ -65,7 +65,7 @@
 								<f:attribute name="listaFornecedorCidade"
 									value="#{relatorioCursoMB.listaFornecedorCidade}" />
 							</p:selectOneMenu>
-							<p:inputText id="duracaosemanas" value="#{cursoMB.idVenda}"
+							<p:inputText id="duracaosemanas" value="#{relatorioCursoMB.duracaoSemana}"
 								style="width:87px;" />
 
 
@@ -291,7 +291,7 @@
 										listener="#{relatorioCursoMB.selecionartodos()}"
 										update=":consultacontrolecurso:tabelaControleCurso, idunidade, idtelefone, idemail, ididade, idcurso, idsemanas, dataenvio, iddatainscricao, idiniciocurso, 
 										idterminocurso, iddataembarque, idrecebimentoproof, idsituacaoprocesso, idkitviagem, iddocvistos, 
-		        			    		nomecliente, pais, cidade, parceiro, inicioprograma, credito, consultor" />
+		        			    		nomecliente, pais, cidade, parceiro,  credito, consultor" />
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="Selecionar Todos" />
 							</h:panelGroup>
@@ -380,14 +380,6 @@
 										update=":consultacontrolecurso:tabelaControleCurso" />
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="Parceiro" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<p:selectBooleanCheckbox id="inicioprograma"
-									value="#{relatorioCursoMB.inicioprograma}">
-									<p:ajax event="change"
-										update=":consultacontrolecurso:tabelaControleCurso" />
-								</p:selectBooleanCheckbox>
-								<p:outputLabel value="Início do programa" />
 							</h:panelGroup>
 							<h:panelGroup>
 								<p:selectBooleanCheckbox id="idcurso"
@@ -515,7 +507,7 @@
 							value="#{controlecurso.vendas.unidadenegocio.nomerelatorio}" />
 					</p:column>
 					<p:column headerText="Consultor" styleClass="alinharCenter"
-						rendered="#{relatorioCursoMB.unidade}"
+						rendered="#{relatorioCursoMB.consultor}"
 						sortBy="#{controlecurso.vendas.usuario.nome}"
 						style="width:110px;">
 						<h:outputText
