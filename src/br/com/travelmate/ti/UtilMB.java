@@ -178,7 +178,6 @@ public class UtilMB implements Serializable{
 				try {
 					embarque.setDatavolta(Formatacao.SomarDiasDatas(lista.get(i).getCurso().getDataTermino(), 2));
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				embarque.setVendas(lista.get(i).getVendas());

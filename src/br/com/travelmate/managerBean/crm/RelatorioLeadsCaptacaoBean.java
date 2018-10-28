@@ -9,7 +9,6 @@ public class RelatorioLeadsCaptacaoBean {
 	private Long total;
 
 	public RelatorioLeadsCaptacaoBean() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Unidadenegocio getUnidadenegocio() {

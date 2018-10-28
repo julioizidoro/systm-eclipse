@@ -9,7 +9,6 @@ import br.com.travelmate.model.Hecontrole;
 public class HeControleBean {
 
 	public HeControleBean() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void salvar(HeControleDao heControleDao, He he) {

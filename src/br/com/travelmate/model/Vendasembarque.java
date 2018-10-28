@@ -36,7 +36,7 @@ public class Vendasembarque implements Serializable{
     private Vendas vendas;
 
 	public Vendasembarque()  {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Integer getIdvendasembarque() {
