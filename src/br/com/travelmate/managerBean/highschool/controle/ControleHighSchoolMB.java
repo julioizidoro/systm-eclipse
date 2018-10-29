@@ -62,6 +62,7 @@ public class ControleHighSchoolMB implements Serializable{
 	private List<Controlehighschool> listaVendasFinanceiro;
 	private String ano;
 	private String semestre;
+	private String sql;
 	 
 	@PostConstruct
 	public void init() {
@@ -323,7 +324,6 @@ public class ControleHighSchoolMB implements Serializable{
 
 	public void listarControle() {
 		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
-		String sql;
 		String data = Formatacao.SubtarirDatas(new Date(), 30, "yyyy/MM/dd");
 		sql = "select c from Controlehighschool c where c.situacao<>'Finalizado' and c.situacao<>'Cancelado' and c.vendas.dataVenda>='" + data + "' order by c.vendas.dataVenda desc";
 		listaControle = highSchoolFacade.listaControle(sql);
@@ -332,6 +332,7 @@ public class ControleHighSchoolMB implements Serializable{
 		}
 		numeroFichas =  "" + String.valueOf(listaControle.size());
 		gerarQuantidadesFichas();
+		sql= "";
 	}
 	
 	
@@ -350,32 +351,33 @@ public class ControleHighSchoolMB implements Serializable{
   
 	public void pesquisar() {
 		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
-		String sql;
-		sql = "select c from Controlehighschool c where c.vendas.cliente.nome like '%" + nomeCliente
-				+ "%'  ";
-		if(idVenda>0){
-			sql= sql+ " and c.vendas.idvendas="+idVenda;
+		if (sql == null || sql.length() == 0) {
+			sql = "select c from Controlehighschool c where c.vendas.cliente.nome like '%" + nomeCliente
+					+ "%'  ";
+			if(idVenda>0){
+				sql= sql+ " and c.vendas.idvendas="+idVenda;
+			}
+			if (unidadenegocio!=null){ 
+				sql = sql + " and  c.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
+			}
+			if (usuario!=null && usuario.getIdusuario()!=null){ 
+				sql = sql + " and  c.vendas.usuario.idusuario=" + usuario.getIdusuario();
+			}
+			if ((iniDataEmbarque != null) && (finalDataEmbarque != null)) {
+				sql = sql + " and c.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(iniDataEmbarque) + "'";
+				sql = sql + " and c.vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(finalDataEmbarque) + "'";
+			}
+			if(!situacao.equalsIgnoreCase("TODOS")){
+				sql = sql + " and c.vendas.situacao='"+situacao+"'";
+			}
+			if(!ano.equalsIgnoreCase("sn")){
+				sql = sql + " and c.highschool.valoreshighschool.anoinicio='"+ano+"'";
+			}
+			if(!semestre.equalsIgnoreCase("sn")){
+				sql = sql + " and c.highschool.dataInicio='"+semestre+"'";
+			}
+			sql = sql + " order by c.idcontroleHighSchool";
 		}
-		if (unidadenegocio!=null){ 
-			sql = sql + " and  c.vendas.unidadenegocio.idunidadeNegocio=" + unidadenegocio.getIdunidadeNegocio();
-		}
-		if (usuario!=null && usuario.getIdusuario()!=null){ 
-			sql = sql + " and  c.vendas.usuario.idusuario=" + usuario.getIdusuario();
-		}
-		if ((iniDataEmbarque != null) && (finalDataEmbarque != null)) {
-			sql = sql + " and c.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(iniDataEmbarque) + "'";
-			sql = sql + " and c.vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(finalDataEmbarque) + "'";
-		}
-		if(!situacao.equalsIgnoreCase("TODOS")){
-			sql = sql + " and c.vendas.situacao='"+situacao+"'";
-		}
-		if(!ano.equalsIgnoreCase("sn")){
-			sql = sql + " and c.highschool.valoreshighschool.anoinicio='"+ano+"'";
-		}
-		if(!semestre.equalsIgnoreCase("sn")){
-			sql = sql + " and c.highschool.dataInicio='"+semestre+"'";
-		}
-		sql = sql + " order by c.idcontroleHighSchool";
 		listaControle = highSchoolFacade.listaControle(sql);
 		if (listaControle == null) {
 			listaControle = new ArrayList<Controlehighschool>();
@@ -392,6 +394,7 @@ public class ControleHighSchoolMB implements Serializable{
 		unidadenegocio=null;
 		usuario=null;
 		situacao="TODOS";
+		sql= "";
 		listarControle();
 	}
 	
@@ -439,6 +442,7 @@ public class ControleHighSchoolMB implements Serializable{
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 			session.setAttribute("controle", controle);
+			session.setAttribute("sql", sql);
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put("contentWidth", 700);
 			RequestContext.getCurrentInstance().openDialog("atualizarControleHighSchool", options, null);
@@ -518,6 +522,18 @@ public class ControleHighSchoolMB implements Serializable{
 			return "../../resources/img/fichaCancelada.png";
 		} 
 	}   
+	
+	
+	public void retornoDialog(SelectEvent event) {
+		sql = (String) event.getObject();
+		if (sql != null && sql.length() > 0) {
+			pesquisar();
+			Mensagem.lancarMensagemInfo("Atualizado com sucesso", "");
+		}
+	}
+	
+	
+	
 	
 	
 }
