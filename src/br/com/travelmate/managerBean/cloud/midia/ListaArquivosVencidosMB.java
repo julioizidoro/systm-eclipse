@@ -126,16 +126,7 @@ public class ListaArquivosVencidosMB implements Serializable{
 		if (arquivosNovos) {
 			visualizouArquivosNovos();
 		}
-		ftpDados = new Ftpdados();
-		FtpDadosFacade ftpDadosFacade = new FtpDadosFacade();
-		try {
-			ftpDados = ftpDadosFacade.getFTPDados();
-		} catch (SQLException e) {
-			  
-		}
-		if (ftpDados != null) {
-			urlArquivo = "https:docs.systm.com.br";
-		}
+		urlArquivo = "https://docs.systm.com.br";
 		verificacaoNiveisPastas();
 	}
 

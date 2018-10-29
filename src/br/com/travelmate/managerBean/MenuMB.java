@@ -1604,7 +1604,7 @@ public class MenuMB implements Serializable {
 	
 	
 	public boolean habilitarModeloContrato() {
-		if (usuarioLogadoMB != null && usuarioLogadoMB.getUsuario() != null) {
+		if (usuarioLogadoMB != null && usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getDepartamento() != null) {
 			if (usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento() == 1) {
 				return true;
 			}
