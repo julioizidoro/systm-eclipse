@@ -27,12 +27,15 @@ public class AtualizarControleHighSchoolMB implements Serializable{
 	@Inject
 	private VendasEmbarqueDao vendasEmbarqueDao;
 	private Controlehighschool controlehighschool;
+	private String sql;
 	
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         controlehighschool = (Controlehighschool) session.getAttribute("controle");
+        sql = (String) session.getAttribute("sql");
+        session.removeAttribute("sql");
         session.removeAttribute("controle");
         if (controlehighschool.getVendas().getVendasembarque() == null) {
 			controlehighschool.getVendas().setVendasembarque(new Vendasembarque());
@@ -51,16 +54,14 @@ public class AtualizarControleHighSchoolMB implements Serializable{
 	public String salvar(){
 		HighSchoolFacade highSchoolFacade = new HighSchoolFacade();
 		controlehighschool.setHighschool(highSchoolFacade.salvar(controlehighschool.getHighschool()));
-		if (controlehighschool.getVendas().getVendasembarque().getIdvendasembarque() == null) {
 			vendasEmbarqueDao.salvar(controlehighschool.getVendas().getVendasembarque());
-		}
 		controlehighschool = highSchoolFacade.salvar(controlehighschool); 
-		RequestContext.getCurrentInstance().closeDialog(controlehighschool);
+		RequestContext.getCurrentInstance().closeDialog(sql);
 		return "";
 	}
 	
 	public String cancelar(){
-		RequestContext.getCurrentInstance().closeDialog(null);
+		RequestContext.getCurrentInstance().closeDialog("");
 		return "";
 	}
 

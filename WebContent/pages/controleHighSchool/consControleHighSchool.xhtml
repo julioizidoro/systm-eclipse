@@ -159,6 +159,7 @@
 										action="#{controleHighSchoolMB.atualizarInformacoes(controleFinanceiro)}"
 										title="Atualizar informações"
 										style="text-decoration: underline">
+										<p:ajax event="dialogReturn" listener="#{controleHighSchoolMB.retornoDialog}" update="tabelaControleHighSchoolFinanceiro"/>
 									</p:commandLink>
 								</p:column>
 								<p:column width="25">
@@ -462,6 +463,7 @@
 									<p:commandLink value="#{controleFinalizado.vendas.cliente.nome}"
 										action="#{controleHighSchoolMB.atualizarInformacoes(controleFinalizado)}"
 										title="Atualizar informações" style="text-decoration: underline"> 
+										<p:ajax event="dialogReturn" listener="#{controleHighSchoolMB.retornoDialog}" update="tabelaControleHighSchoolFinalizado"/>
 									</p:commandLink>     
 								</p:column>     
 								<p:column width="25">
@@ -480,19 +482,9 @@
 		              				</p:cellEditor>  
 								</p:column> 
 								<p:column headerText="Embarque" width="75">     
-									<p:cellEditor>
-		              					<f:facet name="output">
-		              						<h:outputText value="#{controleFinalizado.dataEmbarque}" >
+		              						<h:outputText value="#{controleFinalizado.vendas.vendasembarque.dataida}" >
 		              							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 		              						</h:outputText>
-		              					</f:facet>
-		              					<f:facet name="input">
-		              						<p:calendar value="#{controleFinalizado.dataEmbarque}"
-												size="8" locale="pt" pattern="dd/MM/yyyy"> 
-		              							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-		              						</p:calendar> 
-		              					</f:facet>
-		              				</p:cellEditor>
 								</p:column>   
 								<p:column headerText="Retorno" width="75">     
 									<p:cellEditor>
@@ -920,6 +912,7 @@
 										action="#{controleHighSchoolMB.atualizarInformacoes(controle)}"
 										title="Atualizar informações"
 										style="text-decoration: underline">
+										<p:ajax event="dialogReturn" listener="#{controleHighSchoolMB.retornoDialog}" update="tabelaControleHighSchool"/>
 									</p:commandLink>
 								</p:column>
 								<p:column width="25">
@@ -946,21 +939,10 @@
 									</p:cellEditor>
 								</p:column>
 								<p:column headerText="Embarque" width="75">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{controle.dataEmbarque}">
+											<h:outputText value="#{controle.vendas.vendasembarque.dataida}">
 												<f:convertDateTime pattern="dd/MM/yyyy"
 													timeZone="America/Sao_Paulo" />
 											</h:outputText>
-										</f:facet>
-										<f:facet name="input">
-											<p:calendar value="#{controle.dataEmbarque}" size="8"
-												locale="pt" pattern="dd/MM/yyyy">
-												<f:convertDateTime pattern="dd/MM/yyyy"
-													timeZone="America/Sao_Paulo" />
-											</p:calendar>
-										</f:facet>
-									</p:cellEditor>
 								</p:column>
 								<p:column headerText="Retorno" width="75">
 									<p:cellEditor>

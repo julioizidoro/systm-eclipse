@@ -41,10 +41,12 @@ public class AtualizarControleCursoMB implements Serializable{
         session.removeAttribute("controle");
         consultarCurso();
         idadeCliente();
-        if (curso.getTipoAcomodacao() != null && curso.getTipoAcomodacao().length() > 0) {
+        if (curso.getTipoAcomodacao() != null && curso.getTipoAcomodacao().length() > 0 && !curso.getTipoAcomodacao().equalsIgnoreCase("Sem acomodação")) {
 			tipoacomodacao = curso.getTipoAcomodacao();
 		}else if(curso.getAcomodacaocurso() != null) {
 			tipoacomodacao = curso.getAcomodacaocurso().getAcomodacao().getTipoacomodacao();
+		}else {
+			tipoacomodacao = "Sem acomodação";
 		}
         if (controle.getVendas().getVendasembarque() == null) {
 			controle.getVendas().setVendasembarque(new Vendasembarque());
