@@ -73,7 +73,10 @@
 						<p:column style="width:32px;text-align: center">
 							<p:selectBooleanCheckbox value="#{orcamento.selecionado}" />
 						</p:column>
-						<p:column headerText="Data" style="width:70px;">    
+						<p:column headerText="ID" style="width:50px;">   
+							<h:outputText value="#{orcamento.idorcamentoCurso}" />
+						</p:column>
+						<p:column headerText="Data" style="width:75px;">    
                             <h:outputText value="#{orcamento.data}" >
                             	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
                             </h:outputText>
