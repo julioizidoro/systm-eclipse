@@ -205,9 +205,9 @@
 							value="#{invoices.vendas.fornecedorcidade.cidade.nome}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}"/>
 					</p:column>
 					<p:column headerText="Data Embarque"
-						sortBy="#{invoices.dataEmbarque}"
+						sortBy="#{invoices.vendas.vendasembarque.dataida}"
 						style="text-align:center;width:82px;">
-						<h:outputText value="#{invoices.dataEmbarque}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}">
+						<h:outputText value="#{invoices.vendas.vendasembarque.dataida}" style="#{consultaInvoiceMB.retornarCorClienteDevedor(invoices)}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
