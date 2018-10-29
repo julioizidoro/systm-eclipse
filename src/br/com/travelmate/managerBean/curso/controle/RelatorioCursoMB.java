@@ -683,7 +683,7 @@ public class RelatorioCursoMB implements Serializable{
 			sql = sql + " AND c.vendas.invoice.valorcredito>0 ";
 		}
 		
-		if (duracaoSemana != null) {
+		if (duracaoSemana != null && duracaoSemana.length() > 0) {
 			sql = sql + " AND c.curso.numeroSenamas=" + duracaoSemana;
 		}
 		
@@ -730,6 +730,7 @@ public class RelatorioCursoMB implements Serializable{
 		dataininascimento = null;
 		produtosorcamento = null;
 		duracaoSemana = null;
+		tipoAcomodacao = null;
 		listaControlecurso = new ArrayList<Controlecurso>();
 
 	}
