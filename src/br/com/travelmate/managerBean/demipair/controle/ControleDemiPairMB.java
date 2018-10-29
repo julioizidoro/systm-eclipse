@@ -18,13 +18,10 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.facade.DemipairFacade;
-import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.Controledemipair;
-import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;

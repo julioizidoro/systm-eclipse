@@ -35,7 +35,7 @@
 	         	   <p:outputLabel value="Data Recebimento Comp" for="dataRecebimento" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"   />
 	               <p:outputLabel value="Valor NET" for="valorNet" style="-webkit-border-radius: 1px;-moz-border-radius: 1px;border-radius: 1px;"   />
 	              
-	               <p:calendar id="dataPrevista" value="#{invoicesControllerMB.invoice.dataPrevistaPagamento}" size="17" locale="pt"  pattern="dd/MM/yyyy">
+	               <p:calendar id="dataPrevista" value="#{invoicesControllerMB.invoice.dataPrevistaPagamento}" size="17" locale="pt" mask="true" pattern="dd/MM/yyyy">
 	                   <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 	                    <p:ajax event="change" />
 	                    <p:ajax event="dateSelect" />
@@ -43,7 +43,7 @@
 	               <p:inputText id="valorPrevisto" value="#{invoicesControllerMB.invoice.valorPrevistoInvoice}" style="width:68%;text-align:right" >
 	               		<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 	               </p:inputText>
-				   <p:calendar id="dataRecebimento" value="#{invoicesControllerMB.invoice.datarecebimentocomprovante}" size="21"  locale="pt"  pattern="dd/MM/yyyy" >
+				   <p:calendar id="dataRecebimento" value="#{invoicesControllerMB.invoice.datarecebimentocomprovante}" size="21"  locale="pt" mask="true" pattern="dd/MM/yyyy" >
 	                   <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 	               </p:calendar>
 	               <p:inputText id="valorNet" value="#{invoicesControllerMB.invoice.valorPagamentoInvoice}" style="width:72.5%;text-align:right" >

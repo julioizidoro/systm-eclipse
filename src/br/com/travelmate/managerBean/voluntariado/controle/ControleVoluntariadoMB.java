@@ -18,15 +18,11 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.travelmate.dao.VendasDao;
-import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.UnidadeNegocioFacade;
 import br.com.travelmate.facade.UsuarioFacade;
-
 import br.com.travelmate.facade.VoluntariadoFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
-import br.com.travelmate.model.Controleprogramasteen;
 import br.com.travelmate.model.Controlevoluntariado;
-import br.com.travelmate.model.Invoice;
 import br.com.travelmate.model.Unidadenegocio;
 import br.com.travelmate.model.Usuario;
 import br.com.travelmate.model.Vendas;

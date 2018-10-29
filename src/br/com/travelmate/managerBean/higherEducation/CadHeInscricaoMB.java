@@ -28,7 +28,6 @@ import br.com.travelmate.bean.ProductRunnersCalculosBean;
 import br.com.travelmate.bean.ProgramasBean;
 import br.com.travelmate.bean.controleAlteracoes.ControleAlteracaoCursoBean;
 import br.com.travelmate.dao.CambioDao;
-import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.LeadSituacaoDao;
