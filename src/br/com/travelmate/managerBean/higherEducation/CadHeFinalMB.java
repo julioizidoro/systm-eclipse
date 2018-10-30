@@ -1960,4 +1960,16 @@ public class CadHeFinalMB implements Serializable {
 	public void fecharNotificacao() {
 		habilitarAvisoCambio = false;
 	}
+	
+	
+	public void verificarPathWay() {
+		if (!camposPathway) {
+			he.setDatainicio(null);
+			he.setNumerosemanas(null);
+			he.setDatatermino(null);
+		}
+	}
+	
+	
+	
 }

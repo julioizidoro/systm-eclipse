@@ -139,7 +139,7 @@
 							style="width:64%;margin-left:8%;"> 
 							<h:panelGroup>
 								<p:selectBooleanCheckbox value="#{cadHeFinalMB.camposPathway}">
-									<p:ajax event="change" update="datainicio, nsemanas, datatermino" />
+									<p:ajax event="change" update="datainicio, nsemanas, datatermino" listener="#{cadHeFinalMB.verificarPathWay()}"/>
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="Idioma para fins Acadêmicos (Pathway)" style="font-size: 15px;font-family: tahoma;text-align: center;color: #458871;margin-left:2%;"/>    
 							</h:panelGroup>
