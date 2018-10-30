@@ -301,6 +301,9 @@ public class PacotesAtivosMB implements Serializable {
 					turismo = true;  
 				}else if(idproduto == aplicacaoMB.getParametrosprodutos().getHighereducation()) {
 					lista.get(i).setHe(true);
+					if (lista.get(i).getIdpais() <= 0) {
+						lista.get(i).setPais("TODOS OS DESTINOS DE HE");
+					}
 					listaHePacotes.add(lista.get(i));
 					he = true;
 				}
@@ -359,6 +362,15 @@ public class PacotesAtivosMB implements Serializable {
 	public String retornarImagemPais(Pacotesinicial pacotesinicial){
 		return aplicacaoMB.getParametrosprodutos().getCaminhoimagens()+"/bandeirapais/"
 				+pacotesinicial.getIdpais()+".png"; 
+	}
+	
+
+	public boolean  retornarCondicaoPaisHe(Pacotesinicial pacotesinicial){
+		if (pacotesinicial.getIdpais() > 0) {
+			return true; 
+		}else {
+			return false;
+		}
 	}
 	
 	public String retornarImagemEscola(Pacotesinicial pacotesinicial){ 
@@ -485,7 +497,7 @@ public class PacotesAtivosMB implements Serializable {
 	public float calcularValorCambioAtual(Pacotesinicial pacote) {
 		float valorInicial = pacote.getValoravista();
 		if (pacote.getValorcambio()==0) {
-			Cambio cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getDatacambio()),
+			Cambio cambio = cambioDao.consultarCambioMoedaPais(Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
 					 pacote.getMoeda(), 
 						usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			if (cambio!=null) {

@@ -543,6 +543,230 @@
 									</h:panelGrid>
 								</p:overlayPanel>
 							</p:column>
+						</p:dataTable> 
+					</p:tab>
+					<p:tab title="Cancelado (#{controleHeMB.nCancelado})" class="tab"
+						titleStyle="font-size: 11px">
+						<p:dataTable id="tabelaControleHeCancelado" var="controlehe"
+							style="width:98%;margin-left:1%;"
+							value="#{controleHeMB.listaHeControleCancelado}"
+							scrollable="true" scrollHeight="300" editable="true"
+							editMode="cell" rowIndexVar="rowIx">
+							<p:column headerText="ID" style="width:40px;text-align:center;"
+								sortBy="#{controlehe.he.vendas.idvendas}">
+								<h:outputText value="#{controlehe.he.vendas.idvendas}" />
+							</p:column>
+							<p:column headerText="Tipo" style="width:60px;text-align:left;"
+								sortBy="#{controlehe.tipo}">
+								<h:outputText value="#{controlehe.tipo}" />
+							</p:column>
+							<p:column headerText="Nome" styleClass="alinharCenter"
+								sortBy="#{controlehe.he.vendas.cliente.nome}"
+								style="width:110px;">
+								<p:commandLink value="#{controlehe.he.vendas.cliente.nome}"
+									action="#{controleHeMB.atualizarInformacoes(controlehe)}"
+									title="Atualizar informações"
+									style="border-bottom: 0.1px solid;">
+									<p:ajax event="dialogReturn"
+										listener="#{controleHeMB.retornoAtualizacaoHe}"
+										update="tabelaControleHeCancelado, :consultaControleHe:growl " />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Data Venda"
+								sortBy="#{controlehe.he.vendas.dataVenda}"
+								style="text-align:left;width:65px;">
+								<h:outputText value="#{controlehe.he.vendas.dataVenda}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:70px;text-align:center;"
+								headerText="Situação" sortBy="#{controlehe.situacaoaplicacao}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{controlehe.situacaoaplicacao}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu id="situacaoFinalizada"
+											value="#{controleHeMB.situacaoTabela}" style="width:95%;">
+											<f:selectItem itemLabel="Selecione" itemValue="Selecione"
+												noSelectionOption="true" />
+											<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+											<f:selectItem itemLabel="Standby" itemValue="Standby" />
+											<f:selectItem itemLabel="Processo" itemValue="Processo" />
+											<f:selectItem itemLabel="Embarcado" itemValue="Embarcado" />
+											<f:selectItem itemLabel="Aguardando Aceitação"
+												itemValue="Aguardando Aceitação" />
+											<f:selectItem itemLabel="Aguardando Pagamento"
+												itemValue="Aguardando Pagamento" />
+											<f:selectItem itemLabel="Solicitar Comissão"
+												itemValue="Solicitar Comissão" />
+											<f:selectItem itemLabel="Comissão Solicitada"
+												itemValue="Comissão Solicitada" />
+											<f:selectItem itemLabel="Finalizado" itemValue="Finalizado" />
+											<p:ajax event="change"
+												listener="#{controleHeMB.atualizarSituacao(controlehe)}"
+												update="situacaoFinalizada" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data Finalizada"
+								sortBy="#{controlehe.datafichafinalizada}"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{controlehe.datafichafinalizada}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Data Aplicação"
+								sortBy="#{controlehe.dataaplicacaoenviada}"
+								style="text-align:left;width:80px;">
+								<h:outputText value="#{controlehe.dataaplicacaoenviada}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Início Curso"
+								sortBy="#{controlehe.inicioPrograma}"
+								style="text-align:left;width:62px;">
+								<h:outputText value="#{controlehe.inicioPrograma}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Parceiro" style="width:100px;"
+								styleClass="alinharCenter">
+								<p:commandLink value="#{controlehe.parceiro}"
+									action="#{controleHeMB.visualizarParceiros(controlehe)}"
+									title="Visualizar Programas de Higher Education"
+									style="border-bottom: 0.1px solid;">
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Pathway"
+								style="width:50px;text-align:center;" styleClass="alinharCenter">
+								<h:outputText value="#{controlehe.pathway}" />
+							</p:column>
+							<p:column headerText="Início Pathway"
+								style="text-align:left;width:62px;">
+								<h:outputText value="#{controlehe.inicioPathway}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Unidade" styleClass="alinharCenter"
+								sortBy="#{controlehe.he.vendas.unidadenegocio.nomerelatorio}"
+								style="width:82px;">
+								<h:outputText
+									value="#{controlehe.he.vendas.unidadenegocio.nomerelatorio}" />
+							</p:column>
+							<p:column headerText="Consultor" styleClass="alinharCenter"
+								sortBy="#{controlehe.he.vendas.usuario.nome}"
+								style="width:110px;">
+								<h:outputText value="#{controlehe.he.vendas.usuario.nome}" />
+							</p:column>
+							<p:column headerText="Form. Impresso"
+								style="width:55px;text-align:center;">
+								<p:commandLink
+									action="#{controleHeMB.confirmarImpressao(controlehe)}"
+									update="tabelaControleHeCancelado">
+									<img src="#{controlehe.iconeFormImpresso}" width="24" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="" style="width:40px;text-align:center;">
+								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
+									<img src="../../resources/img/informacaoesVendas.png" />
+								</p:commandLink>
+								<p:overlayPanel id="painelInformacoes" for="btnInformacoes"
+									hideEffect="fade" style="background:#F0F0F0;width:725px;">
+									<p:outputLabel
+										value="#{controlehe.he.vendas.idvendas} - #{controlehe.he.vendas.cliente.nome}"
+										style="text-align:center;font-size:15px;" />
+									<br />
+									<br />
+									<h:panelGrid style="width:100%;color:#3C4A58;" columns="8">
+
+										<p:commandLink action="#{controleHeMB.fichaHE(controlehe.he)}"
+											update=":consultaControleHe:growl" ajax="false"
+											target="_blank" title="Imprimir Ficha"
+											class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/imprimiFicha.png" width="36" />
+												<p:outputLabel value="IMPRIMIR" style="font-size:12px;" />
+												<p:outputLabel value="FICHA" style="font-size:12px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink
+											action="#{controleHeMB.contrato(controlehe.he)}"
+											update=":consultaControleHe:growl" ajax="false"
+											target="_blank" title="Imprimir Ficha"
+											class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/imprimiContrato.png"
+													width="36" />
+												<p:outputLabel value="IMPRIMIR" style="font-size:12px;" />
+												<p:outputLabel value="CONTRATO" style="font-size:12px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink
+											action="#{controleHeMB.informacoes(controlehe)}"
+											update=":consultaControleHe:growl"
+											title="INFORMAÇÕES DA VENDA">
+											<img src="../../resources/img/informacao.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="INFO" style="font-size:10px;" />
+												<p:outputLabel value=" " />
+											</h:panelGrid>
+										</p:commandLink>
+
+
+										<p:commandLink action="#{controleHeMB.invoice(controlehe)}"
+											title="Invoice" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/invoice.png" />
+												<p:outputLabel value="INVOICE" style="font-size:11px;" />
+												<p:outputLabel value="" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+
+										<p:commandLink
+											action="#{controleHeMB.visualizarContasReceber(controlehe.he.vendas)}"
+											title="VISUALIZAR CONTAS A RECEBER">
+											<img src="../../resources/img/invoice.png" width="36" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<p:outputLabel value="CONTAS A" style="font-size:10px;" />
+												<p:outputLabel value="RECEBER" style="font-size:10px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink
+											action="#{controleHeMB.documentacao(controlehe.he)}"
+											title="Arquivos" class="commandLinkControle">
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="../../resources/img/arquivosUpload.png" />
+												<p:outputLabel value="UPLOAD" style="font-size:11px;" />
+												<p:outputLabel value="DE ARQUIVOS" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+
+										<p:commandLink style="text-decoration: none"
+											title="OBSERVAÇÕES GERÊNCIAS TM"
+											update="consultaControleHe:dialog_obsTM"
+											oncomplete="PF('obstm').show()">
+											<p:ajax listener="#{controleHeMB.obsTM(controlehe)}" />
+											<h:panelGrid columns="1" style="text-align:center;">
+												<img src="#{controleHeMB.retornarIconeObsTM(controlehe)}"
+													width="36" />
+												<p:outputLabel value="OBS" style="font-size:11px;" />
+												<p:outputLabel value="TM" style="font-size:11px;" />
+											</h:panelGrid>
+										</p:commandLink>
+									</h:panelGrid>
+								</p:overlayPanel>
+							</p:column>
 						</p:dataTable>
 					</p:tab>
 				</p:tabView>

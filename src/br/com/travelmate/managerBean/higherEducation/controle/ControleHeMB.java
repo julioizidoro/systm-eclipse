@@ -60,8 +60,10 @@ public class ControleHeMB implements Serializable {
 	private String chamadaTela = "";
 	private List<Hecontrole> listaHeControleFinanceiro;
 	private List<Hecontrole> listaHeControleFinalizado;
+	private List<Hecontrole> listaHeControleCancelado;
 	private int nFinanceiro;
 	private int nFinalizada;
+	private int nCancelado;
 
 	@PostConstruct
 	public void init() {
@@ -238,6 +240,22 @@ public class ControleHeMB implements Serializable {
 		this.nFinalizada = nFinalizada;
 	}
 
+	public int getnCancelado() {
+		return nCancelado;
+	}
+
+	public void setnCancelado(int nCancelado) {
+		this.nCancelado = nCancelado;
+	}
+
+	public List<Hecontrole> getListaHeControleCancelado() {
+		return listaHeControleCancelado;
+	}
+
+	public void setListaHeControleCancelado(List<Hecontrole> listaHeControleCancelado) {
+		this.listaHeControleCancelado = listaHeControleCancelado;
+	}
+
 	public void listarControle() {
 		if (sql != null && sql.length() > 0) {
 			listaHeControle = heControleDao.listar(sql);
@@ -252,6 +270,7 @@ public class ControleHeMB implements Serializable {
 		}
 		listaHeControleFinalizado = new ArrayList<Hecontrole>();
 		listaHeControleFinanceiro = new ArrayList<Hecontrole>();
+		listaHeControleCancelado = new ArrayList<Hecontrole>();
 		for (int i = 0; i < listaHeControle.size(); i++) {
 			if (listaHeControle.get(i).getHe().isFichafinal()) {
 				listaHeControle.get(i).setTipo("Final");
@@ -293,10 +312,13 @@ public class ControleHeMB implements Serializable {
 				listaHeControleFinanceiro.add(listaHeControle.get(i));
 			}else if (listaHeControle.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("FINALIZADA")) {
 				listaHeControleFinalizado.add(listaHeControle.get(i));
+			}else if(listaHeControle.get(i).getHe().getVendas().getSituacao().equalsIgnoreCase("CANCELADA")) {
+				listaHeControleCancelado.add(listaHeControle.get(i));
 			}
 		}
 		nFinalizada = listaHeControleFinalizado.size();
 		nFinanceiro = listaHeControleFinanceiro.size();
+		nCancelado = listaHeControleCancelado.size();
 	}
 
 	public void gerarListaUnidadeNegocio() {

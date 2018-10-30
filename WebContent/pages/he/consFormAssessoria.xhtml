@@ -391,16 +391,6 @@
 								
 							</p:column>
 
-							<p:column headerText="Desistência"
-								style="width:85px;text-align:center;" styleClass="alinharCenter" >
-								<p:selectBooleanCheckbox value="#{financeiro.desistencia}"
-									disabled="#{formAssessoriaMB.desabilitarBtnDesistencia(financeiro)}">
-									<p:ajax event="change"
-										listener="#{formAssessoriaMB.desistenciaHE(financeiro)}"
-										update="@form" />
-								</p:selectBooleanCheckbox>
-							</p:column>   
-
 							<p:column headerText="Opções"
 								style="width:67px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -574,16 +564,7 @@
 									<img src="../../resources/img/imprimiContrato.png" width="27"/>
 								</p:commandLink>
 								
-							</p:column> 
-							<p:column headerText="Desistência"
-								style="width:80px;text-align:center;" styleClass="alinharCenter" >
-								<p:selectBooleanCheckbox value="#{finalizado.desistencia}"
-									disabled="#{formAssessoriaMB.desabilitarBtnDesistencia(finalizado)}">
-									<p:ajax event="change"
-										listener="#{formAssessoriaMB.desistenciaHE(finalizado)}"
-										update="@form" />
-								</p:selectBooleanCheckbox>    
-							</p:column> 
+							</p:column>  
 							<p:column headerText="Opções"      
 								style="width:75px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">
@@ -768,16 +749,6 @@
 								</p:commandLink>
 								
 							</p:column>
-
-							<p:column headerText="Desistência"
-								style="width:85px;text-align:center;" styleClass="alinharCenter" >
-								<p:selectBooleanCheckbox value="#{cancelado.desistencia}"
-									disabled="#{formAssessoriaMB.desabilitarBtnDesistencia(cancelado)}">
-									<p:ajax event="change"
-										listener="#{formAssessoriaMB.desistenciaHE(cancelado)}"
-										update="@form" />  
-								</p:selectBooleanCheckbox>    
-							</p:column> 
 							<p:column headerText="Opções"
 								style="width:75px;text-align:center;">
 								<p:commandLink id="btnInformacoes" title="Visualizar opções.">

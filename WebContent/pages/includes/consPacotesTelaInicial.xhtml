@@ -512,14 +512,14 @@
 									<div id="divImagem">
 										<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 										<p:outputLabel value="HIGHER EDUCATION"
-											style="font-size:43px;font-weight: initial;margin-left:2%;color:#A0C637;" />
+											style="font-size:43px;font-weight: initial;margin-left:2%;color:#4169E1;" />
 									</div>
 								</h:panelGroup>
 							</h:panelGrid> 
 							<hr
-								style="color: #A0C637; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px;" />
+								style="color: #4169E1;background:#4169E1; width: 100%; margin-left: 0%; height: 10px; margin-top: 0px;" />
 							<br />
-							<ui:repeat value="#{pacotesAtivosMB.listaHePacotes}"
+							<ui:repeat value="#{pacotesAtivosMB.listaHePacotes}" 
 								var="pacote">    
 								<div class="col-md-3">     
 									<h:panelGroup rendered="#{pacote.he}">
@@ -531,8 +531,10 @@
 														<h:panelGrid columns="2"
 															columnClasses="tamanho5,colunaBotao"
 															style="width:99%;margin-left:0.5%;">
-															<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
-																width="40" />
+															<h:panelGroup rendered="#{pacotesAtivosMB.retornarCondicaoPaisHe(pacote)}">
+																<img src="#{pacotesAtivosMB.retornarImagemPais(pacote)}"
+																	width="40" />
+															</h:panelGroup>
 															<p:outputLabel value="#{pacote.pais}"
 																	style="font-size:14px;margin-left:2%;" />
 																<p:outputLabel value=" "
@@ -548,32 +550,25 @@
 												</h:panelGrid>
 												<h:panelGrid columns="1" style="width:95%;margin-left:4%;"
 													columnClasses="tamanho98">
-													<h:panelGroup>
-												 	<p:outputLabel value="#{pacotesAtivosMB.moedaNacional}"
-															style="font-size:26px;color:#A0C637;margin-left:1%;"/>
-														<p:outputLabel value="#{pacotesAtivosMB.calcularValorCambioAtual(pacote)}"
-															style="font-size:26px;color:#A0C637;margin-left:1%;">
-															<f:convertNumber currencySymbol="" type="currency"/>
-														</p:outputLabel> 
-													</h:panelGroup>
-													<p:outputLabel value="#{pacote.numerosemanacurso} semana(s)"
-														style="font-size:13px;font-weight: initial;" />
-	
-													<p:outputLabel value="Curso: #{pacote.curso}"
-														style="font-size:12px;font-weight: initial;margin-top:4%;" />
-													<p:outputLabel value="Turno: #{pacote.turno}"
+													<p:outputLabel
+														value="Início do Programa: #{pacotesAtivosMB.retornarDataInicio(pacote)}"
 														style="font-size:12px;font-weight: initial;" />
+														
+													<p:outputLabel value="Outras Taxas: #{pacote.curso}"
+														style="font-size:12px;font-weight: initial;margin-top:4%;" />
+													
+													<p:outputLabel value="Hospedagem: #{pacote.curso}"
+														style="font-size:12px;font-weight: initial;margin-top:4%;" />
+													
+													<p:outputLabel
+														value="Periodo de venda: #{pacotesAtivosMB.retornarDataInicio(pacote)}"
+														style="font-size:12px;font-weight: initial;" />
+														
 													<p:outputLabel
 														value="Duração: #{pacote.numerosemanacurso} semana(s)"
 														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Início do Curso: #{pacotesAtivosMB.retornarDataInicio(pacote)}"
-														style="font-size:12px;font-weight: initial;" />
-													<p:outputLabel
-														value="Hospedagem: #{pacotesAtivosMB.acomodacaoInclusa(pacote)}"
-														style="font-size:13px;font-weight: initial;" />
-													<p:outputLabel value="Escola: #{pacote.escola}"
-														style="font-size:12px;font-weight: initial;" />
+														
+														
 												</h:panelGrid>
 											</div>
 											<br />
@@ -581,14 +576,12 @@
 												<p:commandButton value="Saiba Mais"
 													action="#{pacotesAtivosMB.saibaMais(pacote.idcursospacote)}"
 													title="Mais informações sobre este pacote"
-													style="font-size:12px;" icon="ui-icon-info" />
-												<p:commandButton value="Orçamento" icon="ui-icon-cart"
-													title="Gerar orçamento com este pacote"
-													action="#{pacotesAtivosMB.gerarOrçamento(pacote.idcursospacote)}"
-													style="margin-left:2%;font-size:12px;">
-													<p:ajax event="dialogReturn"
-														listener="#{pacotesAtivosMB.retornoDialog()}" />
-												</p:commandButton>
+													style="font-size:12px;background:#4169E1;border-color:#4169E1;" icon="ui-icon-info" />
+												<p:commandButton value="Informativo" icon="ui-icon-cart"
+													ajax="false" title="Informativo do programa"
+													onclick="this.form.target='_blank'"
+													action="#{pacotesAtivosMB.visualizarInformativo(pacote.idcursospacote)}"
+													style="margin-left:2%;font-size:12px;background:#4169E1;border-color:#4169E1;" />
 											</div>
 											<br />
 										</div>

@@ -588,6 +588,7 @@ public class RelatorioHeMB implements Serializable {
 
 		if (listaHeControle == null) {
 			listaHeControle = new ArrayList<Hecontrole>();
+			Mensagem.lancarMensagemInfo("Nenhuma informação encontrada", "");
 		}
 		List<Hecontrole> listaControle = new ArrayList<Hecontrole>();
 		boolean inicioPrograma = false;

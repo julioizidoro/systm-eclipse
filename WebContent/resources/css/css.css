@@ -1806,13 +1806,13 @@ body {
 	}
 }
 
-.tabelacambioSS {  
+.tabelacambio {  
 	    background: #D7D8DC;
 	    height:27px;
 	    width: 100%;
 }
 
-.tabelacambio {  
+.tabelacambioROSA {  
 	    background:#EED2EE;
 	    height:27px;
 	    width: 100%;
@@ -1827,12 +1827,12 @@ body {
 }
 	  
 .tabelasiglacambioSS {  
- 	background: #F0F0F0;height:27px;width: 100%;
+ 	background: #EDBEEE;height:27px;width: 100%;
  	
 }  
 
 .tabelasiglacambio {  
- 	background: #EDBEEE;height:27px;width: 100%;
+ 	background: #F0F0F0;height:27px;width: 100%;
  	
 } 
 
@@ -1913,21 +1913,21 @@ body {
 	   margin:-5000px 0% 0% 0%;   
 	}
 	
-	/* #chart #bars {
+	 #chart #bars {
 	  display: inline-block;
 	  background:#F0F0F0;
 	  width:0%; 
 	  height:0px; 
 	   margin:-5000px 0% 0% 0%;   
-	}   */ 
+	}    
 	
-	#chart #bars {
+	/* #chart #bars {
 	  display: inline-block;  
 	  background:#c64c85;
 	  width:0%; 
 	  height:0px; 
 	   margin:-5000px 0% 0% 0%;  
-	}
+	} */
 	
 	#chart #bars li {
 	   width:0%; 
@@ -1943,15 +1943,15 @@ body {
 	  
 	}
 	
-	/* #chart #bars li .bar:hover {
+	 #chart #bars li .bar:hover {
 	  background: #1F8871;
 	  cursor: pointer;
-	} */
+	} 
 	
-	#chart #bars li .bar:hover {
+	/* #chart #bars li .bar:hover {
 		background: #CD1076;
 		cursor: pointer;
-	}
+	} */
 	
 	#chart #bars li .bar:before {
 	  width:0%; 

@@ -1761,7 +1761,7 @@ public class CadHeInscricaoMB implements Serializable {
 			} else if (listaHeParceiros.size() == 2) {
 				heparceiros1 = listaHeParceiros.get(0);
 				camposHe = true;
-				camposPathway = true;
+				camposPathway = heparceiros1.isPathway();
 				heparceiros2 = listaHeParceiros.get(1);
 				camposHe2 = true;
 				camposPathway2 = heparceiros2.isPathway();
