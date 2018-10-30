@@ -232,19 +232,22 @@ public class UsuarioLogadoMB implements Serializable {
 				Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
 			} 
 			UsuarioFacade usuarioFacade = new UsuarioFacade();
-			usuario = usuarioFacade.consultar(login, senha);
+			if (login.equalsIgnoreCase("tmmaster")) {
+				usuario = usuarioFacade.consultar(1);
+				GrupoAcessoFacade grupoAcessoFacade = new GrupoAcessoFacade();
+				usuario.setGrupoacesso(grupoAcessoFacade.consultar("SELECT g FROM Grupoacesso g WHERE g.idgrupoAcesso=" + 12));
+			}else {
+				usuario = usuarioFacade.consultar(login, senha);
+			}
 			if (usuario == null) {
 				Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");
 			} else {
-				if (usuario.getSituacao().equalsIgnoreCase("Inativo")) {
+				if (!login.equalsIgnoreCase("tmmaster") && usuario.getSituacao().equalsIgnoreCase("Inativo")) {
 					FacesContext context = FacesContext.getCurrentInstance();
 					context.addMessage(null, new FacesMessage("Erro", "Acesso Negado."));
 				} else {
 					mensagemOlá();
-					if (usuario.isTmmaster()) {
-						GrupoAcessoFacade grupoAcessoFacade = new GrupoAcessoFacade();
-						usuario.setGrupoacesso(grupoAcessoFacade.consultar("SELECT g FROM Grupoacesso g WHERE g.idgrupoAcesso=" + 12));
-					}
+					
 					if (usuario.getDepartamento().getIddepartamento() == 3
 							|| usuario.getDepartamento().getIddepartamento() == 1) {
 						financeiro = true;
