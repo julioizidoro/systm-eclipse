@@ -27,6 +27,16 @@ public class GrupoAcessoFacade {
         }
     }
     
+    public Grupoacesso consultar(String sql){
+    	grupoAcessoDao = new GrupoAcessoDao();
+        try { 
+            return grupoAcessoDao.consultar(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(GrupoAcessoFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     
     public Grupoacesso salvar(Grupoacesso grupoacesso){
     	grupoAcessoDao = new GrupoAcessoDao();

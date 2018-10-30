@@ -120,6 +120,8 @@ public class Usuario implements Serializable {
     private String iconeTmtur;
     @Transient
     private String tituloTmtur;
+    @Column(name = "tmmaster")
+    private boolean tmmaster;
 
     public Usuario() {
     	setDashboard("I");
@@ -427,6 +429,14 @@ public class Usuario implements Serializable {
 
 	public void setTituloTmtur(String tituloTmtur) {
 		this.tituloTmtur = tituloTmtur;
+	}
+
+	public boolean isTmmaster() {
+		return tmmaster;
+	}
+
+	public void setTmmaster(boolean tmmaster) {
+		this.tmmaster = tmmaster;
 	}
  
     

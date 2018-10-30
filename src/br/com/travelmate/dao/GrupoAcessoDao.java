@@ -22,6 +22,17 @@ public class GrupoAcessoDao {
         return lista;
     }
     
+	public Grupoacesso consultar(String sql)throws SQLException{
+    	EntityManager manager = ConectionFactory.getConnection();
+        Query q = manager.createQuery(sql);
+        Grupoacesso grupoacesso = null;
+        if (q.getResultList() != null && q.getResultList().size() > 0) {
+			grupoacesso =  (Grupoacesso) q.getResultList().get(0);
+		}
+        manager.close();
+        return grupoacesso;
+    }
+    
     public Grupoacesso salvar(Grupoacesso grupoacesso) throws SQLException{
     	EntityManager manager;
         manager = ConectionFactory.getConnection();
