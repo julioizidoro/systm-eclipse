@@ -611,9 +611,9 @@
 
 					<p:column headerText="Valor Net" styleClass="alinharCenter"
 						rendered="#{relatorioHeMB.valornet}"
-						sortBy="#{controlehe.he.vendas.invoice.valorPago}"
+						sortBy="#{controlehe.he.vendas.invoice.valorPagamentoInvoice}"
 						style="width:90px;text-align:right;">
-						<h:outputText value="#{controlehe.he.vendas.invoice.valorPago}" >
+						<h:outputText value="#{controlehe.he.vendas.invoice.valorPagamentoInvoice}" >
 							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
