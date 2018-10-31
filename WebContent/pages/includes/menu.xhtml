@@ -1547,7 +1547,7 @@
 								<span class="menu-hover"></span>
 							</p:commandLink>
 							<ul class="submenu">
-								<h:panelGroup rendered="false">
+								<h:panelGroup rendered="true">
 									<li><p:commandLink action="#" style="color:white;"
 											onclick="PF('suporte').show();">
 											<span class="submenu-label">Contato</span>
@@ -1685,59 +1685,49 @@
 
 
 	<p:dialog header="Suporte" style="background:#D0E9C9;"
-		widgetVar="suporte" width="35%">
-		<div align="center">
-			<h:panelGrid columns="2" style="text-align:center;width:95%;">
-				<h:panelGroup>
-					<p:commandLink onclick="PF('contatojulio').show();">
-						<img src="../../resources/img/contatoti.png" width="24"
+			widgetVar="suporte" width="25%">
+			<div align="left">
+				<h:panelGrid columns="2" style="width:95%;">
+					<h:panelGroup>
+						<p:commandLink onclick="PF('contatojulio').show();">
+							<img src="../../resources/img/contatoti.png" width="24"
+								style="margin-top: -8px;" />
+						</p:commandLink>
+						<p:commandLink onclick="PF('contatojulio').show();"
+							value="Julio Izidoro"
+							style="font-size:20px;font-weight:600;margin-left:2px;" />
+					</h:panelGroup>
+					<p:outputLabel/>
+					<h:panelGroup>
+						<br></br>
+						<img src="../../resources/img/paginainicial/windows.png" width="45"
 							style="margin-top: -8px;" />
-					</p:commandLink>
-					<p:commandLink onclick="PF('contatojulio').show();"
-						value="Julio Izidoro"
-						style="font-size:20px;font-weight:600;margin-left:2px;" />
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:commandLink onclick="PF('contatoanderson').show();">
-						<img src="../../resources/img/contatoti.png" width="24"
+						<p:commandLink value="Windows"
+							style="font-size:20px;font-weight:600;" />
+						<br></br>
+						<a 
+							href="https://local.systm.com.br/remoto/TeamViewerQS.exe"
+							title="Download Team Viewer"> <img
+							src="../../resources/img/paginainicial/teamviewer.png" width="100" />
+						</a>
+						<br></br>
+					</h:panelGroup>
+					<h:panelGroup>
+						<br></br>
+						<img src="../../resources/img/paginainicial/ios.png" width="45"
 							style="margin-top: -8px;" />
-					</p:commandLink>
-					<p:commandLink onclick="PF('contatoanderson').show();"
-						value="Anderson Luiz"
-						style="font-size:20px;font-weight:600;margin-left:2px;" />
-				</h:panelGroup>
-
-
-				<h:panelGroup>
-					<br></br>
-					<img src="../../resources/img/paginainicial/windows.png" width="45"
-						style="margin-top: -8px;" />
-					<p:outputLabel value="Windows"
-						style="font-size:20px;font-weight:600;" />
-					<br></br>
-					<a
-						href="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/ti/TeamViewerQS.exe"
-						title="Download Team Viewer"> <img
-						src="../../resources/img/paginainicial/teamviewer.png" width="100" />
-					</a>
-					<br></br>
-				</h:panelGroup>
-				<h:panelGroup>
-					<br></br>
-					<img src="../../resources/img/paginainicial/ios.png" width="45"
-						style="margin-top: -8px;" />
-					<p:outputLabel value="IOS" style="font-size:20px;font-weight:600;" />
-					<br></br>
-					<a
-						href="#{aplicacaoMB.parametrosprodutos.caminhoimagens}/ti/TeamViewerQS.dmg"
-						title="Download Team Viewer"> <img
-						src="../../resources/img/paginainicial/teamviewer.png" width="100" />
-					</a>
-					<br></br>
-				</h:panelGroup>
-			</h:panelGrid>
-		</div>
-	</p:dialog>
+						<p:commandLink value="IOS" style="font-size:20px;font-weight:600;" />
+						<br></br>
+						<a
+							href="http://download.teamviewer.com/download/version_10x/TeamViewerQS.dmg"
+							title="Download Team Viewer"> <img
+							src="../../resources/img/paginainicial/teamviewer.png" width="100" />
+						</a>
+						<br></br>
+					</h:panelGroup>
+				</h:panelGrid>
+			</div>
+		</p:dialog>
 	<p:dialog style="background:#D0E9C9;" widgetVar="contatoanderson"
 		width="23%">
 		<div align="center">
