@@ -244,9 +244,7 @@ public class ApplicationCursoMB implements Serializable{
 			String sql = null;
 			sql = "select f from Fornecedorcidadeidioma f where f.fornecedorcidade.cidade.pais.idpais="
 					+ pais.getIdpais()
-					+ " and f.fornecedorcidade.fornecedor.habilitarorcamento=true"
-					+ " and f.acomodacaoindependente=FALSE"
-					+ " and f.habilitada=true and f.fornecedorcidade.produtos.idprodutos=1 group by f.fornecedorcidade.fornecedor.idfornecedor order by f.fornecedorcidade.fornecedor.nome";
+					+ " and f.fornecedorcidade.produtos.idprodutos=1 group by f.fornecedorcidade.fornecedor.idfornecedor order by f.fornecedorcidade.fornecedor.nome";
 			FornecedorCidadeIdiomaFacade fornecedorCidadeIdiomaFacade = new FornecedorCidadeIdiomaFacade();
 			listaFornecedorCidadeIdioma = fornecedorCidadeIdiomaFacade.listar(sql);
 			if (listaFornecedorCidadeIdioma == null) {
