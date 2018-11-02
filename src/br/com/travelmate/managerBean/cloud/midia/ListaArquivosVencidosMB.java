@@ -1,7 +1,6 @@
 package br.com.travelmate.managerBean.cloud.midia;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,23 +26,22 @@ import br.com.travelmate.facade.Arquivo2Facade;
 import br.com.travelmate.facade.Arquivo3Facade;
 import br.com.travelmate.facade.Arquivo4Facade;
 import br.com.travelmate.facade.AvisosDocsUsuarioFacade;
-import br.com.travelmate.facade.FtpDadosFacade;
 import br.com.travelmate.managerBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Arquivo1;
-import br.com.travelmate.model.Pasta1;
 import br.com.travelmate.model.Arquivo2;
-import br.com.travelmate.model.Pasta2;
 import br.com.travelmate.model.Arquivo3;
 import br.com.travelmate.model.Arquivo4;
 import br.com.travelmate.model.Arquivo5;
 import br.com.travelmate.model.Avisodocsusuario;
+import br.com.travelmate.model.Departamento;
+import br.com.travelmate.model.Ftpdados;
+import br.com.travelmate.model.Pasta1;
+import br.com.travelmate.model.Pasta2;
 import br.com.travelmate.model.Pasta3;
 import br.com.travelmate.model.Pasta4;
 import br.com.travelmate.model.Pasta5;
 import br.com.travelmate.util.Mensagem;
 import br.com.travelmate.util.UploadAWSS3;
-import br.com.travelmate.model.Departamento;
-import br.com.travelmate.model.Ftpdados;
 
 @Named
 @ViewScoped
