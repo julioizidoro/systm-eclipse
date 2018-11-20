@@ -1221,7 +1221,7 @@ public class CursoMB implements Serializable {
 	}
 	
 	
-	public String escolherApplication(Curso cursos) {
+	public String escolherApplication1(Curso cursos) {
 		if (cursos.isUploadapplication()) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);

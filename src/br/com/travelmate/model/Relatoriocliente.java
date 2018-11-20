@@ -46,6 +46,18 @@ public class Relatoriocliente implements Serializable {
 	private String pais;
 	@Column(name = "cidade")
 	private String cidade;
+	@Column(name = "profissao")
+	private String profissao;
+	@Column(name = "escolaridade")
+	private String escolaridade;
+	@Column(name = "idade")
+	private Integer idade;
+	@Column(name = "datainicio")
+	@Temporal(TemporalType.DATE)
+	private Date datainicio;
+	@Column(name = "datatermino")
+	@Temporal(TemporalType.DATE)
+	private Date datatermino;
 	
 	public Relatoriocliente() {
 		
@@ -135,6 +147,66 @@ public class Relatoriocliente implements Serializable {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+
+
+	public String getProfissao() {
+		return profissao;
+	}
+
+
+
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
+	}
+
+
+
+	public String getEscolaridade() {
+		return escolaridade;
+	}
+
+
+
+	public void setEscolaridade(String escolaridade) {
+		this.escolaridade = escolaridade;
+	}
+
+
+
+	public Integer getIdade() {
+		return idade;
+	}
+
+
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
+
+
+
+	public Date getDatainicio() {
+		return datainicio;
+	}
+
+
+
+	public void setDatainicio(Date datainicio) {
+		this.datainicio = datainicio;
+	}
+
+
+
+	public Date getDatatermino() {
+		return datatermino;
+	}
+
+
+
+	public void setDatatermino(Date datatermino) {
+		this.datatermino = datatermino;
 	}
 
 

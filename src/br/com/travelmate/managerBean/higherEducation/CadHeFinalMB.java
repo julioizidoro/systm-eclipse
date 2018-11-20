@@ -907,9 +907,7 @@ public class CadHeFinalMB implements Serializable {
 
 	public void adicionarProdutos() {
 		if (orcamento.getValorCambio() > 0) {
-			int idProdTx = aplicacaoMB.getParametrosprodutos().getPassagemTaxaTM();
 			if (produtosorcamento != null) {
-				if (produtosorcamento.getIdprodutosOrcamento() != idProdTx) {
 					orcamentoprodutosorcamento.setDescricao(produtosorcamento.getDescricao());
 					orcamentoprodutosorcamento.setProdutosorcamento(produtosorcamento);
 					if (orcamentoprodutosorcamento.getValorMoedaEstrangeira() == null) {
@@ -948,8 +946,6 @@ public class CadHeFinalMB implements Serializable {
 				        session.setAttribute("novoValor", 0f);
 						RequestContext.getCurrentInstance().openDialog("validarTrocaCambioPIN", options, null);
 					}
-				} else
-					Mensagem.lancarMensagemErro("Assessoria TM já inclusa.", "");
 			} else
 				Mensagem.lancarMensagemErro("Produto não selecionado", "");
 		} else
@@ -1220,7 +1216,7 @@ public class CadHeFinalMB implements Serializable {
 			}
 		} 
 		double saldoParcelar = this.valorSaldoParcelar;
-		if (saldoParcelar > 0.01f) {
+		if (saldoParcelar > 0.02f) {
 			msg = msg + "Forma de Pagamento possui saldo a parcelar em aberto\r\n";
 		}
 		

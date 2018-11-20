@@ -214,10 +214,19 @@ public class UtilMB implements Serializable{
 			relatorio.setFoneResidencial(listaClientes.get(i).getFoneResidencial());
 			relatorio.setFoneCelular(listaClientes.get(i).getFoneCelular());
 			relatorio.setUnidade(listaClientes.get(i).getUnidadenegocio().getNomerelatorio());
+			relatorio.setProfissao(listaClientes.get(i).getProfissao());
+			relatorio.setEscolaridade(listaClientes.get(i).getEscolaridade());
+			if (listaClientes.get(i).getDataNascimento()!=null) {
+				relatorio.setIdade(Formatacao.calcularIdade(listaClientes.get(i).getDataNascimento()));
+			}
 			if ((listaClientes.get(i).getListaVendas()!=null) && (listaClientes.get(i).getListaVendas().size()>0)) {
 				relatorio.setPrograma(listaClientes.get(i).getListaVendas().get(0).getProdutos().getDescricao());
 				relatorio.setPais(listaClientes.get(i).getListaVendas().get(0).getFornecedorcidade().getCidade().getPais().getNome());
 				relatorio.setCidade(listaClientes.get(i).getListaVendas().get(0).getFornecedorcidade().getCidade().getNome());
+				if (listaClientes.get(i).getListaVendas().get(0).getVendascomissao()!=null) {
+					relatorio.setDatainicio(listaClientes.get(i).getListaVendas().get(0).getVendascomissao().getDatainicioprograma());
+				}
+				
 			}else {
 				relatorio.setPrograma("");
 				relatorio.setPais("");
