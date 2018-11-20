@@ -178,6 +178,10 @@ public class Cliente implements Serializable {
 	private Unidadenegocio unidadenegocio;
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "cliente")
 	private List<Leadhistorico> leadhistoricoList;
+
+	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "cliente")
+	private List<Vendas> listaVendas;
+	
 	@Transient
 	private boolean clienteLead;
 	@Transient
@@ -610,6 +614,14 @@ public class Cliente implements Serializable {
 
 	public void setOnline(boolean online) {
 		this.online = online;
+	}
+
+	public List<Vendas> getListaVendas() {
+		return listaVendas;
+	}
+
+	public void setListaVendas(List<Vendas> listaVendas) {
+		this.listaVendas = listaVendas;
 	}
 
 	@Override

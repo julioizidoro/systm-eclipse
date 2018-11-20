@@ -13,20 +13,24 @@ import br.com.travelmate.bean.comissao.CalcularComissaoBean;
 import br.com.travelmate.dao.HeControleDao;
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.dao.LeadPosVendaDao;
+import br.com.travelmate.dao.RelatorioClienteDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.dao.VendasEmbarqueDao;
+import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HeFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.He;
 import br.com.travelmate.model.Hecontrole;
 import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadposvenda;
 import br.com.travelmate.model.Motivocancelamento;
+import br.com.travelmate.model.Relatoriocliente;
 import br.com.travelmate.model.Tipocontato;
 import br.com.travelmate.model.Vendas;
 import br.com.travelmate.model.Vendascomissao;
@@ -44,6 +48,8 @@ public class UtilMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
+	private RelatorioClienteDao relatorioClienteDao;
+	@Inject
 	private VendasEmbarqueDao vendasEmbarqueDao;
 	@Inject
 	private HeControleDao heControleDao;
@@ -57,10 +63,11 @@ public class UtilMB implements Serializable{
 	private AplicacaoMB aplicacaoMB;
 	private Tipocontato tipoContato;
 	private Motivocancelamento motivoCancelamento;
+	private List<Relatoriocliente> listaRelatorio;
 	 
 	@PostConstruct
 	public void init() {  
-		
+		listaRelatorio = relatorioClienteDao.listar();
 	}
 	
 	public AplicacaoMB getAplicacaoMB() {
@@ -69,6 +76,14 @@ public class UtilMB implements Serializable{
 
 	public void setAplicacaoMB(AplicacaoMB aplicacaoMB) {
 		this.aplicacaoMB = aplicacaoMB;
+	}
+
+	public List<Relatoriocliente> getListaRelatorio() {
+		return listaRelatorio;
+	}
+
+	public void setListaRelatorio(List<Relatoriocliente> listaRelatorio) {
+		this.listaRelatorio = listaRelatorio;
 	}
 
 	public void recalcularDashboard() {
@@ -185,6 +200,32 @@ public class UtilMB implements Serializable{
 			}
 		}
 		Mensagem.lancarMensagemInfo("Vendas Embarque","Terminou");
+	}
+	
+	public String gerarRelatorioCliente() {
+		//Gerar cliente sem vendas
+		ClienteFacade clienteFacade = new ClienteFacade();
+		List<Cliente> listaClientes = clienteFacade.consultarNome("");
+		for(int i=0;i<listaClientes.size();i++) {
+			Relatoriocliente relatorio = new Relatoriocliente();
+			relatorio.setNome(listaClientes.get(i).getNome());
+			relatorio.setDataNascimento(listaClientes.get(i).getDataNascimento());
+			relatorio.setEmail(listaClientes.get(i).getEmail());
+			relatorio.setFoneResidencial(listaClientes.get(i).getFoneResidencial());
+			relatorio.setFoneCelular(listaClientes.get(i).getFoneCelular());
+			relatorio.setUnidade(listaClientes.get(i).getUnidadenegocio().getNomerelatorio());
+			if ((listaClientes.get(i).getListaVendas()!=null) && (listaClientes.get(i).getListaVendas().size()>0)) {
+				relatorio.setPrograma(listaClientes.get(i).getListaVendas().get(0).getProdutos().getDescricao());
+				relatorio.setPais(listaClientes.get(i).getListaVendas().get(0).getFornecedorcidade().getCidade().getPais().getNome());
+				relatorio.setCidade(listaClientes.get(i).getListaVendas().get(0).getFornecedorcidade().getCidade().getNome());
+			}else {
+				relatorio.setPrograma("");
+				relatorio.setPais("");
+				relatorio.setCidade("");
+			}
+			relatorioClienteDao.salvar(relatorio);
+		}
+		return null;
 	}
 
 }
