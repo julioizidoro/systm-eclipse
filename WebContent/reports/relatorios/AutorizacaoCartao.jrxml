@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Autorização de Cartão" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="087ce22e-3b37-4a0e-8b3c-11ee76813030">
 	<property name="ireport.zoom" value="0.9982500000000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="78"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="cidade" class="java.lang.String"/>
 	<parameter name="unidade" class="java.lang.String"/>
 	<parameter name="logo" class="java.awt.Image"/>
@@ -151,11 +151,11 @@
 				<text><![CDATA[Data da Viagem: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="73" y="100" width="87" height="15" uuid="db89a1f3-8d5d-45f3-ac9f-c002ae90989a"/>
+				<reportElement x="79" y="100" width="87" height="15" uuid="db89a1f3-8d5d-45f3-ac9f-c002ae90989a"/>
 				<textFieldExpression><![CDATA[$F{numparcelas}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="266" y="100" width="90" height="15" uuid="bb71556d-2c39-41a9-99c4-90c37575adc7"/>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="272" y="100" width="90" height="15" uuid="bb71556d-2c39-41a9-99c4-90c37575adc7"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{valorparcelas}]]></textFieldExpression>
 			</textField>
@@ -175,16 +175,16 @@
 				<reportElement x="10" y="120" width="106" height="15" uuid="ade95167-2eeb-4562-8880-d78f2fb0df3c"/>
 				<text><![CDATA[Valor total parcelado: ]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="118" y="120" width="125" height="15" uuid="e94b8dd5-cddb-49e7-9772-6c3a686ef4d6"/>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="128" y="120" width="125" height="15" uuid="e94b8dd5-cddb-49e7-9772-6c3a686ef4d6"/>
 				<textFieldExpression><![CDATA[$F{valorparcelado}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="372" y="100" width="47" height="15" uuid="144aea46-6caa-4112-9f05-238c2eebc723"/>
 				<text><![CDATA[Câmbio:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="408" y="120" width="134" height="15" uuid="ce8efa36-57e6-4e9e-98ab-de64b6a400bb"/>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="419" y="120" width="123" height="15" uuid="ce8efa36-57e6-4e9e-98ab-de64b6a400bb"/>
 				<textFieldExpression><![CDATA[$F{valortotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -251,7 +251,7 @@
 				<reportElement x="419" y="100" width="59" height="15" uuid="487958ed-5777-4d5c-8c5d-e9499c7802d1"/>
 				<textFieldExpression><![CDATA[$F{moeda}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
 				<reportElement x="454" y="80" width="88" height="15" uuid="14bfce7c-24a4-49f2-bc6c-1c2722c64af3"/>
 				<textFieldExpression><![CDATA[$F{dataviagem}]]></textFieldExpression>
 			</textField>
