@@ -34,15 +34,15 @@ public class TiBean implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Inject
 	private VendasDao vendasDao;
 	@Inject 
 	private AcessoUnidadeDao acessoUnidadeDao;
 
 	private Parametrosprodutos parametros;
 
-	public TiBean(Parametrosprodutos parametros) {
+	public TiBean(Parametrosprodutos parametros, VendasDao vendasDao) {
 		this.parametros = parametros;
+		this.vendasDao = vendasDao;
 	}
 
 	
