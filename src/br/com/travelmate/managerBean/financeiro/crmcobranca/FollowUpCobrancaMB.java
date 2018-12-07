@@ -11,7 +11,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-  
+
+import br.com.travelmate.dao.CrmCobrancaDao;
 import br.com.travelmate.facade.CrmCobrancaFacade; 
 import br.com.travelmate.managerBean.AplicacaoMB; 
 import br.com.travelmate.model.Crmcobranca; 
@@ -660,6 +661,18 @@ public class FollowUpCobrancaMB implements Serializable{
 				}
 			}
 		}
+	}
+	
+	public String removerCobranca(Crmcobranca crmcobranca) {
+		if (crmcobranca!=null) {
+			crmcobranca.setSituacao("FINALIZADA");
+			crmcobranca.setDatafinalizada(new Date());
+			CrmCobrancaFacade crmCobrancaFacade = new CrmCobrancaFacade();
+			crmCobrancaFacade.salvar(crmcobranca);
+			gerarListaCrmCobranca();
+			gerarNumerosCrmCobranca();
+		}
+		return null;
 	}
 	
 

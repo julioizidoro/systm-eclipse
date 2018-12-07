@@ -245,6 +245,13 @@
 								<img src="../../resources/img/crm/historico.png" width="30" />
 							</p:commandLink>
 						</p:column> 
+						<p:column headerText="Remover" width="55"    
+							style="text-align:center;">
+							<p:commandLink id="btnRemover" title="Remover da cobrança"
+								action="#{followUpCobrancaMB.removerCobranca(cobranca)}">
+								<img src="../../resources/img/cancel.png" width="30" />
+							</p:commandLink>
+						</p:column> 
 					</p:dataTable>
 				</h:panelGrid>
 				<br></br>
