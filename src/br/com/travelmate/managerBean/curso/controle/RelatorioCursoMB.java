@@ -98,6 +98,7 @@ public class RelatorioCursoMB implements Serializable{
 	private boolean creditoPesquisa = false;
 	private String duracaoSemana;
 	private String situacaoPesquisa;
+	
 
 	@PostConstruct
 	public void init() {
@@ -641,6 +642,12 @@ public class RelatorioCursoMB implements Serializable{
 		if (datainiembarque != null && datafinalembarque != null) {
 			sql = sql + " AND c.dataEmbarque>='" + Formatacao.ConvercaoDataSql(datainiembarque)
 					+ "' AND c.dataEmbarque<='" + Formatacao.ConvercaoDataSql(datafinalembarque) + "'";
+		}
+		
+
+		if (datainivenda != null && datafinalvenda != null) {
+			sql = sql + " AND c.vendas.dataVenda>='" + Formatacao.ConvercaoDataSql(datainivenda)
+					+ "' AND c.vendas.dataVenda<='" + Formatacao.ConvercaoDataSql(datafinalvenda) + "'";
 		}
 
 		if (datainiprevisao != null && datafinalprevisao != null) {

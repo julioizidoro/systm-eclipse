@@ -47,6 +47,8 @@ public class UtilMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
 	@Inject
 	private RelatorioClienteDao relatorioClienteDao;
 	@Inject
@@ -87,7 +89,7 @@ public class UtilMB implements Serializable{
 	}
 
 	public void recalcularDashboard() {
-		TiBean tiBean = new TiBean(aplicacaoMB.getParametrosprodutos());
+		TiBean tiBean = new TiBean(aplicacaoMB.getParametrosprodutos(), vendasDao);
 		tiBean.listarVendas();
 	}
 	

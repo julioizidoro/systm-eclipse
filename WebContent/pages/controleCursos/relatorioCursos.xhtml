@@ -222,11 +222,28 @@
 							<p:outputLabel />
 							<p:outputLabel />
 							
+							<p:outputLabel value="Data da Venda" />
 							<p:outputLabel value="Situação Processo" />
 							<p:outputLabel value="Kit Viagem" />
 							<p:outputLabel value="Controle Docs Visto" />
-							<p:outputLabel/>
 							
+							
+							<h:panelGroup>
+								<p:calendar id="dataIniVenda"
+									value="#{relatorioCursoMB.datainivenda}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar id="dataFinalVenda" style="margin-left: 3%;"
+									value="#{relatorioCursoMB.datafinalvenda}" size="12"
+									locale="pt" pattern="dd/MM/yyyy" mask="true" maxlength="15">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGroup>
 							
 							<h:panelGroup>
 								<p:selectOneMenu id="situacao"
@@ -388,6 +405,14 @@
 										update=":consultacontrolecurso:tabelaControleCurso" />
 								</p:selectBooleanCheckbox>
 								<p:outputLabel value="Curso" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectBooleanCheckbox id="iddatavenda"
+									value="#{relatorioCursoMB.datavenda}">
+									<p:ajax event="change"
+										update=":consultacontrolecurso:tabelaControleCurso" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Data Venda" />
 							</h:panelGroup>
 							<h:panelGroup>
 								<p:selectBooleanCheckbox id="idsemanas"
@@ -574,7 +599,15 @@
 						<h:outputText value="#{controlecurso.curso.nomeCurso}" />
 					</p:column>
 
-
+					<p:column headerText="Data Venda" styleClass="alinharCenter"
+						rendered="#{relatorioCursoMB.datavenda}"
+						sortBy="#{controlecurso.vendas.dataVenda}"
+						style="width:90px;text-align:left;">
+						<h:outputText value="#{controlecurso.vendas.dataVenda}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
 
 					<p:column headerText="Número de Semanas" styleClass="alinharCenter"
 						rendered="#{relatorioCursoMB.nsemanas}"
