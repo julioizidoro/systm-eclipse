@@ -1644,7 +1644,7 @@ public class CadPacoteAgenciaMB implements Serializable {
 	}
 
 	public void calcularDataTermino() {
-		Date dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+		Date dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 		if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getNumeroSemanas() > 0)) {
 			
 			Cambio cambioSeguro = cambioDao.consultarCambioMoeda(Formatacao.ConvercaoDataSql(dataCambio),

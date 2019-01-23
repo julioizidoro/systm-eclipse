@@ -167,7 +167,7 @@ public class FichaSeguroViagemMB implements Serializable {
 			}else {
 				cliente = lead.getCliente();
 			}
-			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 			orcamento = new Orcamento();
 			vendas.setVendasMatriz(vendaMatriz);
 			
@@ -217,7 +217,7 @@ public class FichaSeguroViagemMB implements Serializable {
 				orcamento = new Orcamento();
 			}
 			if (dataCambio == null) {
-				dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+				dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 			}
 			valorSemDesconto = seguro.getValorSeguro() + seguro.getDescontoloja() + seguro.getDescontomatriz();
 			verificarSeguroCancelamento();

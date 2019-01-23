@@ -139,7 +139,7 @@ public class CadArquivoMB implements Serializable {
 		vendas = (Vendas) session.getAttribute("vendas");
 		listaArquivos = (List<Arquivos>) session.getAttribute("listaArquivos");
 		cliente = (Cliente) session.getAttribute("cliente");
-		invoice = (Invoice) session.getAttribute("invoice");
+		invoice = vendas.getInvoice();
 		session.removeAttribute("vendas");
 		session.removeAttribute("cliente");
 		session.removeAttribute("listaArquivos");

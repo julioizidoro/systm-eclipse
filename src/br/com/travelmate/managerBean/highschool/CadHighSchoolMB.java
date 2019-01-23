@@ -161,7 +161,7 @@ public class CadHighSchoolMB implements Serializable {
 		gerarListaProdutos();
 		if (highschool == null) {
 			iniciarNovo();
-			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 		} else {
 			iniciarAlteracao();
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {

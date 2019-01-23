@@ -1,6 +1,7 @@
 package br.com.travelmate.ti;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -16,13 +17,16 @@ import br.com.travelmate.dao.LeadPosVendaDao;
 import br.com.travelmate.dao.RelatorioClienteDao;
 import br.com.travelmate.dao.VendasDao;
 import br.com.travelmate.dao.VendasEmbarqueDao;
+import br.com.travelmate.facade.ArquivosFacade;
 import br.com.travelmate.facade.ClienteFacade;
 import br.com.travelmate.facade.CursoFacade;
 import br.com.travelmate.facade.HeFacade;
+import br.com.travelmate.facade.InvoiceFacade;
 import br.com.travelmate.facade.MotivoCancelamentoFacade;
 import br.com.travelmate.facade.TipoContatoFacade;
 import br.com.travelmate.facade.VendasComissaoFacade;
 import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Arquivos;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Controlecurso;
 import br.com.travelmate.model.He;
@@ -47,8 +51,6 @@ public class UtilMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
 	@Inject
 	private RelatorioClienteDao relatorioClienteDao;
 	@Inject
@@ -69,7 +71,7 @@ public class UtilMB implements Serializable{
 	 
 	@PostConstruct
 	public void init() {  
-		listaRelatorio = relatorioClienteDao.listar();
+		//listaRelatorio = relatorioClienteDao.listar();
 	}
 	
 	public AplicacaoMB getAplicacaoMB() {
@@ -236,6 +238,29 @@ public class UtilMB implements Serializable{
 			}
 			relatorioClienteDao.salvar(relatorio);
 		}
+		return null;
+	}
+	
+	public String gravarDataProof() {
+		ArquivosFacade arquivosFacade = new ArquivosFacade(); 
+		InvoiceFacade invoiceFacade = new InvoiceFacade();
+		List<Arquivos> lista = null;
+		String sql = "select a from Arquivos a where a.vendas.produtos.idprodutos=1 and (a.tipoarquivo.idtipoArquivo=58  or a.tipoarquivo.idtipoArquivo=59)";
+		try {
+			lista = arquivosFacade.listar(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (lista!=null) {
+			for (int i=0;i<lista.size();i++) {
+				if (lista.get(i).getVendas().getInvoice().getDatarecebimentocomprovante()==null) {
+					lista.get(i).getVendas().getInvoice().setDatarecebimentocomprovante(lista.get(i).getDataInclusao());
+					invoiceFacade.salvar(lista.get(i).getVendas().getInvoice());
+				}
+			}
+		}
+		
 		return null;
 	}
 

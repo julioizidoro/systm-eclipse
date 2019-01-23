@@ -159,7 +159,7 @@ public class CadWorkTravelMB implements Serializable {
 		gerarListaProdutos();
 		if (work == null) {
 			iniciarNovo();
-			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 			novaFicha = true;
 		} else {
 			iniciarAlteracao();

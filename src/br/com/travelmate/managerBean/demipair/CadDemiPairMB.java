@@ -159,7 +159,7 @@ public class CadDemiPairMB implements Serializable {
 		gerarListaProdutos();
 		if (demipair == null) {
 			iniciarNovo();
-			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 		} else {
 			iniciarAlteracao();
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {

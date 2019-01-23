@@ -159,7 +159,7 @@ public class CadHeFinalMB implements Serializable {
 		if (he != null && he.getIdhe() != null) {
 			iniciarAlteracao();
 		} else {
-			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 			iniciarNovo();
 		}
 		carregarCamposAcomodacao();

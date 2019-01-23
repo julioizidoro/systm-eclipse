@@ -167,7 +167,7 @@ public class CadCursosTeensMB implements Serializable {
 		gerarListaProdutos();
 		if (programasTeens == null) {
 			iniciarNovo();
-			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 		} else {
 			iniciarAlteracao();
 			if ((venda.getSituacao().equalsIgnoreCase("PROCESSO")) && (venda.isRestricaoparcelamento())) {

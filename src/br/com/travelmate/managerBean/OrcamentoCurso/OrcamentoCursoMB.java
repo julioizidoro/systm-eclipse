@@ -179,7 +179,7 @@ public class OrcamentoCursoMB implements Serializable {
 			if (cambioSeguro == null) {
 				
 				cambioSeguro = cambioDao.consultarCambioMoedaPais(
-						Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
+						Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB))),
 						valorSeguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 			}
 		}   
@@ -700,7 +700,7 @@ public class OrcamentoCursoMB implements Serializable {
 			if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getNumeroSemanas() > 0)) {
 				
 				cambioSeguro = cambioDao.consultarCambioMoedaPais(
-						Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
+						Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB))),
 						valorSeguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				if (cambioSeguro != null) {
 					if (seguroviagem.getValoresseguro().getCobranca().equalsIgnoreCase("semana")) {
@@ -726,7 +726,7 @@ public class OrcamentoCursoMB implements Serializable {
 			if ((seguroviagem.getDataInicio() != null) && (seguroviagem.getDataTermino() != null)) {
 				
 				cambioSeguro = cambioDao.consultarCambioMoedaPais(
-						Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
+						Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB))),
 						valorSeguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 				if (cambioSeguro != null) {
 					seguroviagem.setNumeroSemanas(Formatacao.subtrairDatas(seguroviagem.getDataInicio(), seguroviagem.getDataTermino()) + 1);
@@ -2909,7 +2909,7 @@ public class OrcamentoCursoMB implements Serializable {
 		
 		if (cambioSeguro == null || cambioSeguro.getIdcambio() == null) {
 			cambioSeguro = cambioDao.consultarCambioMoedaPais(
-					Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio())),
+					Formatacao.ConvercaoDataSql(Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB))),
 					valorSeguro.getMoedas().getIdmoedas(), usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais());
 		}
 		valorTotalSeguroDola = seguroviagem.getNumeroSemanas() * seguroviagem.getValoresseguro().getValorgross();

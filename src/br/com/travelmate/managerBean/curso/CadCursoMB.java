@@ -295,7 +295,7 @@ public class CadCursoMB implements Serializable {
 				editarEscola = "false";
 				iniciarNovoCurso();
 				dadosPais = new Dadospais();
-				dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+				dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 				if (cliente != null && cliente.getIdcliente() != null) {
 					verificarMenorIdade();
 				}

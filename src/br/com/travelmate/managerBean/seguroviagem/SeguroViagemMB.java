@@ -81,7 +81,7 @@ public class SeguroViagemMB implements Serializable{
 	            valoresseguro = seguroviagem.getValoresseguro();
 	        }
 	        if (dataCambio==null){
-	        	dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+	        	dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 	        }
     	}
     }

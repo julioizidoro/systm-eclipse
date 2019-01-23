@@ -12,15 +12,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.dao.CrmCobrancaDao;
-import br.com.travelmate.facade.CrmCobrancaFacade; 
-import br.com.travelmate.managerBean.AplicacaoMB; 
-import br.com.travelmate.model.Crmcobranca; 
+import br.com.travelmate.facade.CrmCobrancaFacade;
+import br.com.travelmate.managerBean.AplicacaoMB;
+import br.com.travelmate.model.Crmcobranca;
 import br.com.travelmate.model.Produtos;
 import br.com.travelmate.model.Unidadenegocio;
-import br.com.travelmate.model.Usuario; 
+import br.com.travelmate.model.Usuario;
 import br.com.travelmate.util.Formatacao;
 import br.com.travelmate.util.GerarListas;
+import br.com.travelmate.util.Mensagem;
 
 
 @Named
@@ -671,6 +671,7 @@ public class FollowUpCobrancaMB implements Serializable{
 			crmCobrancaFacade.salvar(crmcobranca);
 			gerarListaCrmCobranca();
 			gerarNumerosCrmCobranca();
+			Mensagem.lancarMensagemInfo("CrmCobrança", "Conta removida da cobrança");
 		}
 		return null;
 	}

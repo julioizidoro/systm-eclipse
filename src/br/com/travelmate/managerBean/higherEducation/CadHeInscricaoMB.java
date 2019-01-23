@@ -183,7 +183,7 @@ public class CadHeInscricaoMB implements Serializable {
 		if (he != null) {
 			iniciarAlteracao();
 		} else {
-			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 			iniciarNovo();
 		}
 		moedaNacional = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getMoedas().getSigla();

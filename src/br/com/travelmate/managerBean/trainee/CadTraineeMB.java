@@ -185,7 +185,7 @@ public class CadTraineeMB implements Serializable {
 		gerarListaProdutos();
 		if (trainee == null) {
 			iniciarNovoTrainee();
-			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio());
+			dataCambio = Formatacao.ConvercaoStringData(aplicacaoMB.retornarDataCambio(usuarioLogadoMB));
 
 			todosnumeros = true;
 			numero20 = true;

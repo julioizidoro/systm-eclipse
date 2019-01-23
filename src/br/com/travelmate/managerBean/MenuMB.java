@@ -44,10 +44,13 @@ public class MenuMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;  
+	@Inject
+	private AplicacaoMB aplicacaoMB;
 	private boolean logado;
 
 	@PostConstruct
 	public void init() {
+		getAplicacaoMB();
 		if (usuarioLogadoMB.getUsuario() != null && usuarioLogadoMB.getUsuario().getIdusuario() != null) {
 			logado = true;
 			getUsuarioLogadoMB();
@@ -96,6 +99,18 @@ public class MenuMB implements Serializable {
 		
 		return "conscancelamento";
 	}
+
+	public AplicacaoMB getAplicacaoMB() {
+		return aplicacaoMB;
+	}
+
+
+
+	public void setAplicacaoMB(AplicacaoMB aplicacaoMB) {
+		this.aplicacaoMB = aplicacaoMB;
+	}
+
+
 
 	public String contasRecebers() {
 		DadosBoletoBean dadosBoletoBean = new DadosBoletoBean();
@@ -1641,6 +1656,14 @@ public class MenuMB implements Serializable {
 	
 	public String relatorioCurso() {
 		return "relatorioCursos";
+	}
+	
+	public String retornaDataCambioMenu() {
+		return aplicacaoMB.retornarDataCambio(usuarioLogadoMB);
+	}
+	
+	public String retornarCambioMenu(String moeda) {
+		return aplicacaoMB.retornarCambio(moeda, usuarioLogadoMB);
 	}
 	
 	

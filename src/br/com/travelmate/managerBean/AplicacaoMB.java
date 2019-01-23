@@ -41,8 +41,6 @@ public class AplicacaoMB implements Serializable {
 	@Inject
 	private CambioDao cambioDao;
 	@Inject
-	private UsuarioLogadoMB usuarioLogadoMB;
-	@Inject
 	private VendasDao vendasDao;
 	private String mascara8;
 	private String mascara9;
@@ -265,7 +263,7 @@ public class AplicacaoMB implements Serializable {
 
 	}
 	
-	public String retornarDataCambio() {
+	public String retornarDataCambio(UsuarioLogadoMB usuarioLogadoMB) {
 		int idpais = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais();
 		for (int i = 0; i < listaCambio.size(); i++) {
 			
@@ -276,12 +274,16 @@ public class AplicacaoMB implements Serializable {
 		return "";
 	}
 	
-	public String retornarCambio(String moeda) {
+	public String retornarCambio(String moeda, UsuarioLogadoMB usuarioLogadoMB) {
 		if (listaCambio != null) {
 			for (int i = 0; i < listaCambio.size(); i++) {
 				String moedacambio = listaCambio.get(i).getMoedas().getSigla();
 				int idPaisCambio = listaCambio.get(i).getPais().getIdpais();
-				int idPaisUnidade = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais();
+				int idPaisUnidade = 5;
+				if (usuarioLogadoMB!=null) {
+					idPaisUnidade = usuarioLogadoMB.getUsuario().getUnidadenegocio().getPais().getIdpais();
+				}
+				 
 				if (moeda.equalsIgnoreCase(moedacambio) && (idPaisCambio == idPaisUnidade)) {
 					return Formatacao.formatarValorCambio(listaCambio.get(i).getValor());
 				}
